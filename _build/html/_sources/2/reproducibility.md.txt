@@ -1,4 +1,4 @@
-## Reproducibility
+# Reproducibility
 
 A fundamental principle of empirical (experimental) science is **reproducibility**. Scientific results should not be flukes, they should be based on documented and replicable processes. When we report the results of an experiment, we typically present a written description of the methods, as well as written and graphical reports of the results. In principle, these descriptions should be sufficient for a reader to reproduce your experiment, and hopefully get similar results. Of course, in neuroscience and psychology research, each experiment typically involves a new sample of participants, so even if the experiment is reproduced exactly, and the data analyzed identically, we can expect some variability in the results because we sampled a different set of individuals. However, if we take a copy of the original data, we should be able to produce the same results by following the documented procedures.
 
