@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Jupyter Book markdown syntax &#8212; NESC 3505 Neural Data Science</title>
+    <title>Limitations of Spreadsheets &#8212; NESC 3505 Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -27,10 +27,11 @@
     <script src="../_static/sphinx-book-theme.js"></script>
     <script >var togglebuttonSelector = '.toggle, .secondtoggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Reproducibility" href="reproducibility.html" />
+    <link rel="prev" title="Spreadsheets" href="spreadsheets.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -84,16 +85,39 @@
 <p class="margin-caption">Getting Started</p>
 </li>
   <li class="">
-    <a href="../2/learning_objectives.html">Learning Objectives</a>
+    <a href="learning_objectives.html">Learning Objectives</a>
   </li>
   <li class="">
-    <a href="../2/what_is_nds.html">What is data science?</a>
+    <a href="what_is_nds.html">What is data science?</a>
+  </li>
+  <li class="active">
+    <a href="tools_for_nds.html">Tools for Neural Data Science</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="spreadsheets.html">Spreadsheets</a>
+    </li>
+    <li class="active">
+      <a href="">Limitations of Spreadsheets</a>
+    </li>
+    <li class="">
+      <a href="reproducibility.html">Reproducibility</a>
+    </li>
+    <li class="">
+      <a href="sci_prog_lang.html">Scientific Programming Languages</a>
+    </li>
+    <li class="">
+      <a href="which_lang.html">Which language to use?</a>
+    </li>
+    <li class="">
+      <a href="libs.html">Libraries and packages</a>
+    </li>
+    <li class="">
+      <a href="why_python.html">Why Python for this Course?</a>
+    </li>
+  </ul>
   </li>
   <li class="">
-    <a href="../2/tools_for_nds.html">Tools for Neural Data Science</a>
-  </li>
-  <li class="">
-    <a href="../2/class_tech.html">Technologies Used in this Class</a>
+    <a href="class_tech.html">Technologies Used in this Class</a>
   </li>
 </ul>
 </nav>
@@ -125,7 +149,7 @@
                 <!-- ipynb file if we had a myst markdown file -->
                 
                 <!-- Download raw file -->
-                <a class="dropdown-buttons" href="../_sources/reference/syntax.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
+                <a class="dropdown-buttons" href="../_sources/2/spreadsheets_limits.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
                 <!-- Download PDF via print -->
                 <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
             </div>
@@ -159,85 +183,13 @@
         
               <div>
                 
-  <div class="section" id="jupyter-book-markdown-syntax">
-<h1>Jupyter Book markdown syntax<a class="headerlink" href="#jupyter-book-markdown-syntax" title="Permalink to this headline">¶</a></h1>
-<p>Whether you write your book’s content in Jupyter Notebooks (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>) or
-in regular markdown files (<code class="docutils literal notranslate"><span class="pre">.md</span></code>), you’ll write in the same flavor of markdown
-called <strong>MyST Markdown</strong>.</p>
-</div>
-<div class="section" id="what-is-myst">
-<h1>What is MyST?<a class="headerlink" href="#what-is-myst" title="Permalink to this headline">¶</a></h1>
-<p>MyST stands for “Markedly Structured Text”. It
-is a slight variation on a flavor of markdown called “CommonMark” markdown,
-with small syntax extensions to allow you to write <strong>roles</strong> and <strong>directives</strong>
-in the Sphinx ecosystem.</p>
-</div>
-<div class="section" id="what-are-roles-and-directives">
-<h1>What are roles and directives?<a class="headerlink" href="#what-are-roles-and-directives" title="Permalink to this headline">¶</a></h1>
-<p>Roles and directives are two of the most powerful tools in Jupyter Book. They
-are kind of like functions, but written in a markup language. They both
-serve a similar purpose, but <strong>roles are written in one line</strong>, whereas
-<strong>directives span many lines</strong>. They both accept different kinds of inputs,
-and what they do with those inputs depends on the specific role or directive
-that is being called.</p>
-<div class="section" id="using-a-directive">
-<h2>Using a directive<a class="headerlink" href="#using-a-directive" title="Permalink to this headline">¶</a></h2>
-<p>At its simplest, you can insert a directive into your book’s content like so:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```{mydirectivename}
-My directive content
-```
-</pre></div>
-</div>
-<p>This will only work if a directive with name <code class="docutils literal notranslate"><span class="pre">mydirectivename</span></code> already exists
-(which it doesn’t). There are many pre-defined directives associated with
-Jupyter Book. For example, to insert a note box into your content, you can
-use the following directive:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```{note}
-Here is a note
-```
-</pre></div>
-</div>
-<p>This results in:</p>
-<div class="alert alert-info">
-<p class="admonition-title">Note</p>
-<p>Here is a note</p>
-</div>
-<p>In your built book.</p>
-<p>For more information on writing directives, see the
-<a class="reference external" href="https://myst-parser.readthedocs.io/">MyST documentation</a>.</p>
-</div>
-<div class="section" id="using-a-role">
-<h2>Using a role<a class="headerlink" href="#using-a-role" title="Permalink to this headline">¶</a></h2>
-<p>Roles are very similar to directives, but they are less-complex and written
-entirely on one line. You can insert a role into your book’s content with
-this pattern:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Some content {rolename}`and here is my role&#39;s content!`
-</pre></div>
-</div>
-<p>Again, roles will only work if <code class="docutils literal notranslate"><span class="pre">rolename</span></code> is a valid role’s name. For example,
-the <code class="docutils literal notranslate"><span class="pre">doc</span></code> role can be used to refer to another page in your book. You can
-refer directly to another page by its relative path. For example, the
-role syntax <code class="docutils literal notranslate"><span class="pre">{doc}`intro`</span></code> will result in: <span class="xref std std-doc">intro</span>.</p>
-<p>For more information on writing roles, see the
-<a class="reference external" href="https://myst-parser.readthedocs.io/">MyST documentation</a>.</p>
-</div>
-<div class="section" id="adding-a-citation">
-<h2>Adding a citation<a class="headerlink" href="#adding-a-citation" title="Permalink to this headline">¶</a></h2>
-<p>You can also cite references that are stored in a <code class="docutils literal notranslate"><span class="pre">bibtex</span></code> file. For example,
-the following syntax: <code class="docutils literal notranslate"><span class="pre">{cite}`holdgraf_evidence_2014`</span></code> will render like
-this: <span class="bibtex" id="id1">[holdgraf_evidence_2014]</span>.</p>
-<p>Moreoever, you can insert a bibliography into your page with this syntax:
-The <code class="docutils literal notranslate"><span class="pre">{bibliography}</span></code> directive must be used for all the <code class="docutils literal notranslate"><span class="pre">{cite}</span></code> roles to
-render properly.
-For example, if the references for your book are stored in <code class="docutils literal notranslate"><span class="pre">references.bib</span></code>,
-then the bibliography is inserted with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```{bibliography} references.bib
-```
-</pre></div>
-</div>
-<p>Resulting in a rendered bibliography that looks like:</p>
-<p id="bibtex-bibliography-reference/syntax-0"></p>
-</div>
+  <div class="section" id="limitations-of-spreadsheets">
+<h1>Limitations of Spreadsheets<a class="headerlink" href="#limitations-of-spreadsheets" title="Permalink to this headline">¶</a></h1>
+<p>…OK, so here are some issues with this “manual” process of doing data science:</p>
+<p>Firstly, it’s tedious. You are doing the same thing — computing the average RT for each participant and condition — 100 times. While maybe you can get into a groove, with some chill music playing and a nice cup of coffee, it’s still tedious and probably not the best use of your time. On top of that, it’s <strong>error prone</strong>. You might make typos, you might accidentally miss including some rows for some subjects, you might forget to do one subject’s data file, you might accidentally swap the congruent and incongruent values for one participant during the copying process, etc.. Wouldn’t it be great if there was a machine that could do this automatically, and far more quickly and accurately than you? Then you would have more free time to just enjoy that coffee and music!</p>
+<p>Another issue is that the manual process is not readily <strong>scalable</strong>: if you ran another experiment with 100 participants, you would be bringing twice as much boredom, tedium, and risk of human error as in your first experiment.</p>
+<p>Finally, and perhaps most importantly, the manual process is not easily <strong>reproducible</strong>. That is to say, if you ran a new experiment, you would have to perform the same tedious process all over again, with the same risks of human error and terminal boredom. And if you wanted someone else to do the analysis for you, you would need to write out instructions and hope that they followed those instructions exactly. Furthermore, as often happens, if you were a student in the lab who graduates and moves on before the study is finished, someone else may be assigned to finish the data analysis, and they would have to figure out what you did, how you organized your files, etc.. In many cases when this happens, people have to start from scratch because the pervious person’s process was not clearly documented, and it’s very hard to check for errors except by going through a large number of files.</p>
+<p>There has to be a better way!</p>
 </div>
 
 
@@ -249,6 +201,8 @@ then the bibliography is inserted with:</p>
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="spreadsheets.html" title="previous page">Spreadsheets</a>
+    <a class='right-next' id="next-link" href="reproducibility.html" title="next page">Reproducibility</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
