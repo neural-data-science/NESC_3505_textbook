@@ -1,4 +1,4 @@
-## Scientific Programming Languages
+# Scientific Programming Languages
 
 According to [Wikipedia](https://en.wikipedia.org/wiki/Programming_language), a programming language is, “a formal language, which comprises a set of instructions that produce various kinds of output” — where “formal languages” are characterized by hierarchical organization in which letters are combined to form words, which are in turn combined into larger units according to rules called a **syntax** (or grammar). Most programming languages are instructors for computers to perform.  There are thousands of programming languages in existence, which [Wikipedia attempts to catalogue on this page](https://en.wikipedia.org/wiki/List_of_programming_languages).
 
