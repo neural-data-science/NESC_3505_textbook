@@ -11,7 +11,7 @@ Many students have never heard of it, but Slack is huge. The company, founded in
 
 In this class, **Slack will be the centre of our online community**. Class messages and announcements will be posted there, and all students are encouraged to post questions to a public channel for the teaching team to respond to, rather than sending an email or direct message. For team projects, teams can create closed groups for project-related communication, share files, and interface with GitHub.
 
-A number of add-on integrations have been added too. Besides mundane ones like OneDrive, various companies have created add-ons that support polling, friendly competitions, and opportunities to meet people for a virtual coffee (or doughnut) — a great way to get to get to know people before forming a team.
+A number of add-on integrations have been added too. Besides mundane ones like OneDrive, various companies have created add-ons that support polling, friendly competitions, and opportunities to meet people for a virtual coffee (or doughnut) — a great way to get to know people before forming a team.
 
 Here's a shot of a Slack window:
 
