@@ -1,5 +1,5 @@
-# Welcome to NESC 3505
+# Welcome
 
-Written by (Aaron J. Newman)[https://aaronjnewman.com/], Ph.D., (Department of Psychology & Neuroscience)[https://www.dal.ca/faculty/science/psychology_neuroscience], (Dalhousie University)[https://dal.ca].
+This online textbook is written to support the course NESC 3505 *Neural Data Science*, at [Dalhousie University](https://dal.ca). However, it is released as an open educational resource, under a [license](https://creativecommons.org/licenses/by-nc-sa/4.0/) that allows free re-use and re-mixing, except for commercial purposes.
 
-This online resource serves as your textbook for the course.
+Written by Prof. [Aaron J. Newman](https://aaronjnewman.com/), [Department of Psychology & Neuroscience](https://www.dal.ca/faculty/science/psychology_neuroscience),  [Dalhousie University](https://dal.ca).
