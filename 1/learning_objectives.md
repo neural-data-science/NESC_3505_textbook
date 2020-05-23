@@ -12,6 +12,8 @@ Upon successful completion of the course, you should be able to:
 
 - extend your Python skills using online resources
 
+- demonstrate a professional work ethic
+
 - work productively in a remote/online environment, using a range of information technology tools
 
 - work collaboratively, effectively, and productively in a distributed team
