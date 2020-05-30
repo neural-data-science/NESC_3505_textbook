@@ -28,7 +28,7 @@ Every person at Dalhousie has a right to be respected and safe. We believe inclu
 # Course Description
 An introduction to data management, manipulation, visualization, and analysis for neuroscience. Students will learn scientific programming in Python, and use this to work with example data from areas such as single-cell recording, EEG, structural and functional MRI, and confocal microscopy. Basic signal processing techniques including filtering will be covered.
 
-# Prerequisites
+## Prerequisites
 __PSYO 2000__, __PSYO 2501__, and __NESC 2470__, with a minimum grade of B in PSYO 2501. Grades of B+ or better in all three classes are recommended. __No prior programming experience is required__.
 
 # Background and Rationale
@@ -44,7 +44,7 @@ Another important facet of data science is that it is a __team endeavour__. On t
 
 The skills learned in this class will benefit students working in a wide variety of areas of neuroscience. As well, the class will provide an introductory foundation in data science that can be applied to a wide range of areas of research and application, in academia, industry, and government.
 
-## References:
+#### References:
 Davenport, T. H., & Patil, D. J. (2012). Data scientist. *Harvard business review*, 90(5), 70-76
 
 Irizarry, R. A. (2020). The Role of Academia in Data Science Education. *Harvard Data Science Review*, 2(1). https://doi.org/10.1162/99608f92.dd363929
@@ -83,7 +83,7 @@ This class consists of the following components:
 - Scheduled class time to work on assignments and get guidance from the teaching team
 
 ## Online lectures and tutorials
-This course employs a “flipped classroom” model, and is designed to be offered in an online format. Lectures and tutorials are pre-recorded and available online for viewing at any time. Many of these lessons involve quizzes and coding activities. You are expected to complete assigned lessons prior to scheduled class times. **Significant time outside of scheduled class times (2–4 hours/class) will be required to complete the lessons.**
+This course employs a “flipped classroom” model, and is designed to be offered in an online format. Lectures and tutorials are pre-recorded and available online for viewing at any time. Many of these lessons involve quizzes and coding activities. You are expected to complete assigned lessons prior to scheduled class times. **This course requires that you put in significant hours per week outside of class: at the outset, you should budget 16 h/week for a 7-week condense summer version of the course, or 8 h/week for the regular term version.** This is in addition to 2-3 h/week of class time.
 
 ## Scheduled Class Time
 Scheduled class times are devoted to working on assignments and projects, with the teaching team available for discussion and guidance. Students will be encouraged to present short tutorials explaining how they approached and solved different problems. In online delivery, these are held as group video sessions, with screen sharing. Classes involve assignments that build on the online lessons, so students who have not completed the online lessons prior to class time will not get much benefit from the class time. Participation in the scheduled classes is not mandatory, but strongly recommended. **Scheduled class times are the only times when the teaching team is available for live consultation on course work**. Questions submitted outside of class time may be addressed by the teaching team during class time.  
