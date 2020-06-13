@@ -17,7 +17,7 @@ Email: [Aaron.Newman@dal.ca](mailto:Aaron.Newman@dal.ca)
 TBD
 
 ## Recognition of Mi’kmaq Territory
-Dalhousie University would like to acknowledge that the University is on Traditional Mi’kmaq Territory. The Elders in Residence program provides students with access to First Nations elders for guidance, counsel and support. Visit the [Indigenous Student Centre](https://www.dal.ca/campus_life/communities/indigenous.html) or contact the programs at elders@dal.ca.
+Dalhousie University would like to acknowledge that the University is on Traditional Mi’kmaq Territory. The Elders in Residence program provides students with access to First Nations elders for guidance, counsel and support. Visit the [Indigenous Student Centre](https://www.dal.ca/campus_life/communities/indigenous.html) or contact the programs at [elders@dal.ca](mailto:elders@dal.ca).
 
 ## Diversity and Inclusion – Culture of Respect
 Every person at Dalhousie has a right to be respected and safe. We believe inclusiveness is fundamental to education. We stand for equality. Dalhousie is strengthened in our diversity. We are a respectful and inclusive community. We are committed to being a place where everyone feels welcome and supported, which is why our Strategic Direction prioritizes fostering a culture of diversity and inclusiveness. For more information please see [here](http://www.dal.ca/cultureofrespect.html).
@@ -31,28 +31,28 @@ __PSYO 2000__, __PSYO 2501__, and __NESC 2470__, with a minimum grade of B in PS
 # Background and Rationale
 Most areas of neuroscience research and development rely on increasingly large and complex data sets. Discovery and application in neuroscience thus relies on the ability to manage these large data sets, and extract meaning from them. In other words, neuroscience now relies heavily on **data science**, which has been variously defined as “…an umbrella term to describe the entire complex and multistep processes used to extract value from data.” (Wing, 2019) and the ability to “bring structure to large quantities of formless data and make analysis possible” (Davenport & Patil, 2012, p.73).
 
-__In neuroscience, data science is an increasingly necessary skill.__ Data from techniques like single-cell recordings, local field potentials, EEG, and fMRI is complex and multidimensional. Being able to understand, manipulate, and visualize the structure of these complex datasets is a necessary skill for performing the resaerch. On top of this, it is increasingly clear that very large data sets - often built collaboratively by many labs - are required to make reliable inferences about neuroscientific processes. Making inferences also depends on computational models - ways of identifying and representing patterns in the data. While some of these will be familiar from statistics class, a wide range of statistical and machine learning models are now widely used in neuroscience.
+__In neuroscience, data science is an increasingly necessary skill.__ Data from techniques like single-cell recordings, local field potentials, EEG, and fMRI is complex and multidimensional. Being able to understand, manipulate, and visualize the structure of these complex datasets is a necessary skill for performing the research. On top of this, it is increasingly clear that very large data sets - often built collaboratively by many labs - are required to make reliable inferences about neuroscientific processes. Making inferences also depends on computational models - ways of identifying and representing patterns in the data. While some of these will be familiar from statistics class, a wide range of statistical and machine learning models are now widely used in neuroscience.
 
-While data science and statistics are overlapping fields, statistics is generally focused on the specific task of testing hypotheses based on data. Data science more broadly includes the storage, manipulation, visualization, filtering, and preparation of data that is typically required prior to statistical analysis. Data Science does also encompass statistics, as well as machine learning; whereas statistics generally involves deriving conclusions from existing data, machine learning involves making predictions from a data set that will generalize to other data. Since statistics is covered in other courses in the neuroscience and psychology curricula, this course focuses instead on the other “front end” aspects of data science described above. Other areas of data science, including “back-end” data science (engineering, hardware, databases) and software development, will not be covered.
+While data science and statistics are overlapping fields, statistics is generally focused on the specific task of testing hypotheses based on data. Data science more broadly includes the storage, manipulation, visualization, filtering, and preparation of data that is typically required prior to statistical analysis. Data science does also encompass statistics, as well as machine learning; whereas statistics generally involves deriving conclusions from existing data, machine learning involves making predictions from a data set that will generalize to other data. Since statistics is covered in other courses in the neuroscience and psychology curricula, this course focuses instead on the other “front-end” aspects of data science described above. Other areas of data science, including “back-end” data science (engineering, hardware, databases) and software development, will not be covered.
 
-Central to data science is the ability to use scientific programming languages, such as Python, Matlab, and R. This ability includes a strong understanding of the fundamentals of at least one programming language, and the ability to extend one’s knowledge through continuous learning and problem-solving. This course teaches Python, a mature and widely-used language in neuroscience and data science more broadly. However, much of the fundamentals of scientific programming and data science are common to all many languages. Thus, having learned Python, you will be better-prepared to learn new languages in the future, as necessary.
+Central to data science is the ability to use scientific programming languages, such as Python, Matlab, and R. This ability includes a strong understanding of the fundamentals of at least one programming language, and the ability to extend one’s knowledge through continuous learning and problem-solving. This course teaches Python, a mature and widely-used language in neuroscience and data science more broadly. However, much of the fundamentals of scientific programming and data science are common to all languages. Thus, having learned Python, you will be better prepared to learn new languages in the future, as necessary.
 
 Another important facet of data science is that it is a __team endeavour__. On the one hand, it is founded on open, shared software developed by widely distributed teams of contributors. On the other hand, the practice of data science typically involves teams of individuals with complementary skillsets, both due to the size and complexity of many projects. In science, these teams often comprise students and faculty members in collaborating labs distributed around the world. This class prepares you for such collaboration by developing and coaching your teamwork skills, as well as teaching you how to use software platforms that support such collaboration.
 
 The skills learned in this class will benefit students working in a wide variety of areas of neuroscience. As well, the class will provide an introductory foundation in data science that can be applied to a wide range of areas of research and application, in academia, industry, and government.
 
 #### References:
-Davenport, T. H., & Patil, D. J. (2012). Data scientist. *Harvard business review*, 90(5), 70-76
+Davenport, T. H., & Patil, D. J. (2012). Data scientist. *Harvard Business Review*, 90(5), 70-76
 
-Irizarry, R. A. (2020). The Role of Academia in Data Science Education. *Harvard Data Science Review*, 2(1). https://doi.org/10.1162/99608f92.dd363929
+Irizarry, R. A. (2020). The role of academia in data science education. *Harvard Data Science Review*, 2(1). https://doi.org/10.1162/99608f92.dd363929
 
 Wing, J. M. (2019). The data life cycle. *Harvard Data Science Review*. https://doi.org/10.1162/99608f92.e26845b4
 
 # Learning Objectives
 ## Hard Skills
-- extract meaning from data, but also articulate the limitations of the conclusions you can draw from it
+- Extract meaning from data, but also articulate the limitations of the conclusions you can draw from it
 - Write functional and efficient code in Python to perform basic data science tasks
-- use GitHub for collaborative software development and project management
+- Use GitHub for collaborative software development and project management
 - Read and write data files in common formats such as CSV and Excel
 - Organize and manipulate data structures
 - Work with continuous, discrete, and factorial data
@@ -61,7 +61,7 @@ Wing, J. M. (2019). The data life cycle. *Harvard Data Science Review*. https://
 - Perform basic signal processing on data, such as filtering in temporal and spatial dimensions
 - Build and run data processing pipelines on various types of neuroscientific data, including single unit recordings, time series, and 2D/3D/4D images
 - Understand basic concepts and common tools used in machine learning, including deep neural networks
-- extend your Python skills using online resources
+- Extend your Python skills using online resources
 
 ## Soft Skills
 - demonstrate a professional work ethic
@@ -76,10 +76,10 @@ Wing, J. M. (2019). The data life cycle. *Harvard Data Science Review*. https://
 
 # Class Format and Schedule
 This class consists of the following components:
-- Online lectures, lessons and tutorials
+- Online lectures, lessons, and tutorials
 - Scheduled class time to work on assignments and get guidance from the teaching team
 
-## Online lectures and tutorials
+## Online Lectures and Tutorials
 This course employs a “flipped classroom” model, and is designed to be offered in an online format. Lectures and tutorials are pre-recorded and available online for viewing at any time. Many of these lessons involve quizzes and coding activities. You are expected to complete assigned lessons prior to scheduled class times. **This course requires that you put in significant hours per week outside of class: at the outset, you should budget 16 h/week for a 7-week condensed summer version of the course, or 8 h/week for the regular term version.** This is in addition to 2-3 h/week of class time.
 
 ## Scheduled Class Time
@@ -88,19 +88,18 @@ Scheduled class times are devoted to working on assignments and projects, with t
 # Course Materials
 All necessary materials will be provided online, either on or through Brightspace. **You must have access to a computer** running a recent version of the Mac, Windows, Chrome, or Linux operating systems. It is not possible to complete the course using only a mobile device (phone, tablet/iPad). **You must also have access to internet service** of sufficient quality to stream videos and maintain a live connection to remote servers. Provisions will be made if students cannot participate in live audio/video sessions due to internet constraints; please contact the instructor to discuss if this is an issue for you.
 
-Beyond these basic requirements, this course emphasizes (and will teach you about) openly accessible resources including the software that runs the course, open access to the course materials, and the use of external resources that are available for free. No textbook is required. This course will rely on *Open Educational Resources* — materials that are freely accessible and openly licensed—including online tutorials, videos, and books. A wide variety of educational materials (free and paid) for data science are available, and this course teaches an approach to lifelong learning and exploration by which you will be able to find critically evaluate the information necessary to perform desired tasks.
+Beyond these basic requirements, this course emphasizes (and will teach you about) openly accessible resources including the software that runs the course, open access to the course materials, and the use of external resources that are available for free. No textbook is required. This course will rely on *Open Educational Resources* — materials that are freely accessible and openly licensed — including online tutorials, videos, and books. A wide variety of educational materials (free and paid) for data science are available, and this course teaches an approach to lifelong learning and exploration by which you will be able to find and critically evaluate the information necessary to perform desired tasks.
 
 # Assessment and Evaluation
-
 Your final grade will be based on a combination of *formative assessments* (self and peer evaluations) and *summative evaluations* (presentations, assignments, projects). Each component is described below, followed by a table showing the number and point weighting of each.
 
 ## Formative Assessments
-Formative assessments are designed to support you in improving your performance in the class, through self-assessment, peer assessment, and instructor feedback. These are designed to require little time to complete. The contribute a smaller proportion of your grade than evaluations (approximately 20%), but collectively can make a significant difference in your grade.
+Formative assessments are designed to support you in improving your performance in the class, through self-assessment, peer assessment, and instructor feedback. These are designed to require little time to complete. They contribute a smaller proportion of your grade than evaluations (approximately 20%), but collectively can make a significant difference in your grade.
 
 ### Online Lessons
 Online lessons are to be completed prior to class time. Deadlines are provided online. Each lesson is graded on a pass/fail basis, based on whether you complete the lesson or not. Lessons can be completed later than the posted due date, up to the last day of class, with no penalty. However, not completing lessons by the posted due dates will leave you unprepared for future classes and assignments. No points for lessons will be granted after the last day of class.
 
-### Self Assessments
+### Self-Assessments
 You will submit regular written assessments of your own learning progress over the term. Each should be 300-500 words in length.
 
 ### Peer Assessments
@@ -110,7 +109,6 @@ You will be asked to submit structured peer reviews following various group acti
 These are group sessions in which each member demos something they learned/figured out in working on the assignments or projects.
 
 ### Meet 'n Greets
-
 You will earn bonus points by participating in short (5-10 min) online one-on-one meetings with other class members. These are scheduled by students at your mutual convenience, and can take the form of a text-based chat or a video chat. The purpose of these is to allow for the kinds of casual interactions you might normally have with others in a face-to-face class, and allow you to get to know people as potential team members for projects. To protect everyone's safety, all students have the ability to block others anonymously, and may discontinue a meeting at any time without penalty. All students are expected to abide by [Dalhousie University's Code of Student Conduct](https://www.dal.ca/dept/university_secretariat/policies/student-life/code-of-student-conduct.html), and violations will be addressed through the procedures described there. Please report any inappropriate behaviour to the instructor immediately. You will be heard, and you will be respected.
 
 ## Summative Evaluations
@@ -130,7 +128,7 @@ Late work will be penalized 1% per hour, with the clock starting the minute afte
 One of the outcomes of this class is that you will have a portfolio demonstrating your work, that you could show to a potential employer or graduate supervisor. Building this will mostly happen in the context of your completing the course work (demos, projects, and assignments); assembling your portfolio simply means selecting what you feel best represents your work, and putting a bit of "packaging" around it. You will submit a first version midway through the course for feedback, and then a final version at the end of term.
 
 ### Demos
-Demos are short demonstrations that you prepare to teach your fellow students. They can be videos (1-3 min) or written 500-1000 words). The goal is to share some insight or discovery with other students. This could be how you approached and solved some problem in an assignment, a review of a website or other resources you found helpful for the class, etc.. You will be rewarded for creativity in choice of topic and in delivery.
+Demos are short demonstrations that you prepare to teach your fellow students. They can be videos (1-3 min) or written (500-1000 words). The goal is to share some insight or discovery with other students. This could be how you approached and solved some problem in an assignment, a review of a website or other resources you found helpful for the class, etc.. You will be rewarded for creativity in choice of topic and in delivery.
 
 # Grading
 This course follows the Dalhousie grading scale, but in a different way than you are probably used to. Borrowing the model of role-playing games (RPGs), you accumulate experience points (XP) by completing the assessments and evaluations listed above. Formative assessments are pass/fail, so you get the full XP for completing them. Summative evaluations are graded, so the XP you receive will be in proportion to your grade (e.g., if you get 70% on an assignment, you get 70% of the XP that the assignment is worth). Like RPGs, your XP determine your level in the course, according to the table below. Your level at the end of the course determines your final grade.
@@ -162,7 +160,7 @@ While on the one hand this might sound a bit gimmicky, it's actually a really po
 
 The XP system is also built to be inclusive and adaptive to the need and life circumstances of individual students. While some assessments are not accepted after the due date, and some evaluations have late penalties, we recognize that missed or late assignments sometimes happen for excusable reasons. Rather than making a big deal about your proving to us that your reason is legitimate, we instead provide options for you to make up lost points in other ways. This also allows you to compensate for getting a lower grade on an assessment(s) than desired.
 
-Because there are a variety of bonus points on offer, there are actually more opportunities to earn XP than you need to get an A+ in the course. This means that you can, within reason, pick and choose how to achieve your desired grade.  All that said, XP (and your grade) are intended to reflect the degree to which you have met the learning objectives, so you do need to demonstrate competence with regard to all of the objectives.
+Because there are a variety of bonus points on offer, there are actually more opportunities to earn XP than you need to get an A+ in the course. This means that you can, within reason, pick and choose how to achieve your desired grade. All that said, XP (and your grade) are intended to reflect the degree to which you have met the learning objectives, so you do need to demonstrate competence with regard to all of the objectives.
 
 ## How to Earn XP
 The table below lists all the "core" and "bonus" opportunities to earn course XP.
@@ -191,7 +189,7 @@ The table below lists all the "core" and "bonus" opportunities to earn course XP
 | Demo 6                                |      | 500      |                            |
 | Demo 7                                |      | 500      |                            |
 | **Formative Assessments (Pass/Fail)** |      |          |                            |
-| *Datacamp lessons*                    | 5000 |          | (DataCamp XP/10; max 5000) |
+| *DataCamp lessons*                    | 5000 |          | (DataCamp XP/10; max 5000) |
 | *Peer Assessments*                    |      |          |                            |
 | Demos: 1st peer assessment            | 100  |          |                            |
 | Demos: 2nd peer assessment            | 100  |          |                            |
@@ -200,7 +198,7 @@ The table below lists all the "core" and "bonus" opportunities to earn course XP
 | Demos: 5th peer assessment            | 100  |          |                            |
 | Demos: 6th peer assessment            | 100  |          |                            |
 | Project 1 peer assessment             | 500  |          |                            |
-| Project 2 peer asessment              | 500  |          |                            |
+| Project 2 peer assessment             | 500  |          |                            |
 | Complete all Peer Assessments         |      | 400      |                            |
 | *Self-Assessments*                    |      |          |                            |
 | Self-assessment 1                     | 150  |          |                            |
@@ -237,14 +235,13 @@ That's a lot of ways to earn points! The table below summarizes how the points a
 | Bonus P/F total                      | 2150  | 5.4%          |
 
 # Schedule
-
 (Very much subject to change prior to start of term!)
 
 | Week | Class | Date       | Class topic                  | Lesson                                      | Summative Evaluations | Formative Assessments |
 |------|-------|------------|------------------------------|---------------------------------------------|-----------------------|-----------------------|
 | 0    | 0     | pre-course |                              | Online textbook, chapter 1                  |                       |                       |
 | 1    | 1     | July 06    | Live introductions           |                                             |                       |                       |
-|      | 2     | July 07    |                              | Online textbook, ch. 2                      | Assignment 1          |                       |
+|      | 2     | July 07    |                              | Online textbook, chapter 2                  | Assignment 1          |                       |
 |      | 3     | July 08    | check-in                     | Introduction to Python                      |                       | self-assessment 1     |
 |      | 4     | July 09    |                              |                                             |                       |                       |
 |      | 5     | July 10    | demo day                     | Intermediate Python                         | Demo                  |                       |
@@ -308,16 +305,16 @@ Everyone at Dalhousie is expected to treat others with dignity and respect. The 
 
 ## Missed or Late Academic Requirements due to Student Absence (policy)
 [https://www.dal.ca/dept/university\_secretariat/policies/academic/missed-or-late-academicrequirements-due-to-student-absence.html
-](https://www.dal.ca/dept/university\_secretariat/policies/academic/missed-or-late-academicrequirements-due-to-student-absence.html
-)
+](https://www.dal.ca/dept/university\_secretariat/policies/academic/missed-or-late-academicrequirements-due-to-student-absence.html)
+
 ## Learning and Support Resources
 
 ### Advising
-General Advising [https://www.dal.ca/campus\_life/academic-support/advising.html](https://www.dal.ca/campus\_life/academic-support/advising.html)
+General Advising: [https://www.dal.ca/campus\_life/academic-support/advising.html](https://www.dal.ca/campus\_life/academic-support/advising.html)
 
 Science Program Advisors: [https://www.dal.ca/faculty/science/current-students/academic-advising.html](https://www.dal.ca/faculty/science/current-students/academic-advising.html)
 
-Indigenous Student Centre: [https://www.dal.ca/campus\_life/communities/indigenous.html](https://www.dal.ca/campus\_life/communities/indigenous.html  )
+Indigenous Student Centre: [https://www.dal.ca/campus\_life/communities/indigenous.html](https://www.dal.ca/campus\_life/communities/indigenous.html)
 
 Black Students Advising Centre: [https://www.dal.ca/campus\_life/communities/black-student-advising.html](https://www.dal.ca/campus\_life/communities/black-student-advising.html)
 
@@ -332,7 +329,7 @@ Studying for Success: [https://www.dal.ca/campus\_life/academic-support/study-sk
 
 Copyright Office: [https://libraries.dal.ca/services/copyright-office.html](https://libraries.dal.ca/services/copyright-office.html)  
 
-Fair Dealing Guidelines [https://libraries.dal.ca/services/copyright-office/fair-dealing.html](https://libraries.dal.ca/services/copyright-office/fair-dealing.html)
+Fair Dealing Guidelines: [https://libraries.dal.ca/services/copyright-office/fair-dealing.html](https://libraries.dal.ca/services/copyright-office/fair-dealing.html)
 
 ### Other supports and services
 Student Health & Wellness Centre: [https://www.dal.ca/campus\_life/health-and-wellness/servicessupport/student-health-and-wellness.html](https://www.dal.ca/campus\_life/health-and-wellness/servicessupport/student-health-and-wellness.html)
@@ -342,7 +339,6 @@ Student Advocacy: [https://dsu.ca/dsas](https://dsu.ca/dsas)
 Ombudsperson: [https://www.dal.ca/campus\_life/safety-respect/student-rights-and-responsibilities/where-to-get-help/ombudsperson.html](https://www.dal.ca/campus\_life/safety-respect/student-rights-and-responsibilities/where-to-get-help/ombudsperson.html)
 
 ### Safety
-
 Biosafety: [https://www.dal.ca/dept/safety/programs-services/biosafety.html](https://www.dal.ca/dept/safety/programs-services/biosafety.html)
 
 Chemical Safety: [https://www.dal.ca/dept/safety/programs-services/chemical-safety.html](https://www.dal.ca/dept/safety/programs-services/chemical-safety.html)

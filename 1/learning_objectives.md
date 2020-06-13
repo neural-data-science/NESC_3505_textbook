@@ -3,9 +3,9 @@
 The learning outcomes for this class can be characterized as a mix of “hard” and “soft” skills; both are equally valuable to your intellectual and personal development. At the end of this class, you should be able to:
 
 ## Hard Skills
-- extract meaning from data, but also articulate the limitations of the conclusions you can draw from it
+- Extract meaning from data, but also articulate the limitations of the conclusions you can draw from it
 - Write functional and efficient code in Python to perform basic data science tasks
-- use GitHub for collaborative software development and project management
+- Use GitHub for collaborative software development and project management
 - Read and write data files in common formats such as CSV and Excel
 - Organize and manipulate data structures
 - Work with continuous, discrete, and factorial data
@@ -14,7 +14,7 @@ The learning outcomes for this class can be characterized as a mix of “hard”
 - Perform basic signal processing on data, such as filtering in temporal and spatial dimensions
 - Build and run data processing pipelines on various types of neuroscientific data, including single unit recordings, time series, and 2D/3D/4D images
 - Understand basic concepts and common tools used in machine learning, including deep neural networks
-- extend your Python skills using online resources
+- Extend your Python skills using online resources
 
 ## Soft Skills
 - demonstrate a professional work ethic
