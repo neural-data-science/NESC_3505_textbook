@@ -48,6 +48,14 @@ GitHub offers a number of other features and uses. While it was originally desig
 
 GitHub also supports education, with extensive online help, and video tutorials, on how to use its services, and a dedicated [GitHub Classroom](https://classroom.github.com/) service which allows educators to create sites for individual classes, where assignments can be distributed as repositories, with students creating branches of the assignment, working on their branch, and then submitting their work as pull requests.
 
+## GitHub in this class
+
+You will not need to work with GitHub directly in this class. However, behind the scenes, we use GitHub extensively. This textbook and its entire revision history is hosted on github, and there is a second class repo that hosts the syllabus, schedule, and other class files, as well as course materials such as all of the Jupyter notebooks used for examples, assignments, and projects.
+
+I've devoted a good-sized section to GitHub though, because as a budding data scientist it's a platform you absolutely need to know about — both that it exists, and the basics of how it works.
+
+There is also a git lesson on DataCamp that you can do as a "superpower" lesson. It teaches you to use git from the command line (which is really what you should learn before you start using desktop tools), and you should probably do the DataCamp Terminal lesson before the git one. 
+
 ## Fun Facts
 
 [Github](https://en.wikipedia.org/wiki/GitHub) was founded by three developers in 2008, and sold to Microsoft in 2018 for US$7.5 billion, making each of its founders billionaires before the age of 40. Beyond just being a bit mind-boggling, that should tell you something about the value (literally) of the GitHub service to the tech community. GitHub [reports](https://github.com/about) having over 50 million users and over 100 million repositories. While anyone can create a free account and host public or private repositories, GitHub derives income from premium plans oriented towards large companies.
