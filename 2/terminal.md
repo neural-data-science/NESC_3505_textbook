@@ -27,4 +27,4 @@ Likewise, we can type a set of Python commands into a file and then run that in 
 This is perhaps a good time to note as well that "text files" are a specific, simple type of file containing unformatted text (meaning they don't support boldface, italics, or anything fancy). On a Mac these would typically open in TextEdit, and on Windows in Notepad. These are different from other files that contain rich text, like Microsoft Word documents.
 ```
 
-The terminal is a useful tool in its own right, and we will use it in this class. It's also, as we saw, a REPL, which is a stepping-stone to understanding and writing code.
+The terminal is a useful tool in its own right, though you may use it little, or at all in this class. However, it is a basic and highly useful REPL, which is a stepping-stone to understanding and writing code. There is a Terminal lesson on BaseCamp which can be completed as one of the "superpower" assignments.
