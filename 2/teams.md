@@ -1,3 +1,8 @@
+```{figure} images/teams_logo.png
+---
+align: left
+width: 65px
+```
 # MS Teams
 
 We will use Dalhousie's Microsoft Teams service as the learning management system (LMS). This will be your central hub for completing the course. We will use some software tools within Teams, including text messaging, video calls for synchronous classes, submitting assignments, and viewing course videos. As well, the class Teams site has links to all external resources, including the syllabus, schedule, and DataCamp tutorials (see below).
