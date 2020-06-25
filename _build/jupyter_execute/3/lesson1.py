@@ -10,16 +10,16 @@ This chapter introduces the basics of Python - simple math and variable types
 
 | Operator |  Operation                                                   |
 |----------|--------------------------------------------------------------|
-| \#      |  add comment                                                 |
-| \+      |  addition                                                    |
-| \-      |  subtraction                                                 |
-| \*      |  multiplication                                              |
-| \/      |  division                                                    |
-| **       |  exponentiation                                              |
-| %        |  modulo; returns remainder of division (e.g., `18 % 7` equals `4`) |
-| =        |  variable assignment                                         |
-| ==       |  equal to                                                    |
-| !=       |  not equal to                                                |
+| `#`      |  add comment                                                 |
+| `+`      |  addition                                                    |
+| `-`      |  subtraction                                                 |
+| `*`      |  multiplication                                              |
+| `/`      |  division                                                    |
+| `**`       |  exponentiation                                              |
+| `%`        |  modulo; returns remainder of division (e.g., `18 % 7` equals `4`) |
+| `=`        |  variable assignment                                         |
+| `==`       |  equal to                                                    |
+| `!=`       |  not equal to                                                |
 
 
 
