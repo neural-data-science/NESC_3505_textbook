@@ -1,5 +1,6 @@
 # Lesson 1: Introduction to Python
 
+These notes are based on the sequence that concepts are introduced in the DataCamp lesson of the same name. They are most useful as a reference, after you've completed the DataCamp lesson. They are not intended to replace that lesson.
 
 [View this lesson on DataCamp](https://learn.datacamp.com/courses/intro-to-python-for-data-science )
 
