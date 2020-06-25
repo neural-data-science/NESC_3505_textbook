@@ -4,20 +4,20 @@ This is a bit of a buzzword in educational circles, and indeed those of us who r
 
 There are many definitions of 21st century skills. A very broad one, promoted by the Organization for Economic and Co-operation and Development (OECD) highlights a set of cognitive skills, intrapersonal skills, interpersonal skills, and technical skills (Ananiadou & Claro, 2009). More concretely, Binkley and colleagues {cite}`Binkley2012` articulate the **KSAVE model** (knowledge, skills, attitudes, values, and ethics), which they break down as follows:
 
-**Ways of Thinking**
+## Ways of Thinking
 - creativity and innovation
 - critical thinking, problem solving, decision making
 - learning to learn, metacognition
 
-**Ways of Working**
+## Ways of Working
 - communication
 - collaboration
 
-**Tools for Working**
+## Tools for Working
 - information literacy
 - information and communication technology literacy
 
-**Living in the World**
+## Living in the World
 - citizenship (local & global)
 - life & career
 - personal & social responsibility, cultural awareness & competence
