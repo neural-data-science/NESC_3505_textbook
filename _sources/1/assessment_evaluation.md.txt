@@ -8,7 +8,7 @@ Conversely, **evaluation** is **summative** — it is intended to "sum up" your
 
 This course includes a number of formative assessments and summative evaluations. Formative assessments include DataCamp lessons, quizzes, self-assessments, and peer assessments. Summative evaluations include assignments and projects. Notably, both contribute to your final grade, but the majority of your grade is based on evaluations, whereas a smaller proportion of your grade is based on assessments. This is because assessments are intended to support and prepare you for evaluations — assessments are "training camp", and evaluations are the "big games".
 
-# Everyone starts with an F
+## Everyone starts with an F
 
 One of the game-like elements this course employs is a cumulative approach to grading, based on the notion of **experience points** (**XP**). You likely have played games, like RPGs (role-playing games), in which your character starts at level 1, and over time levels up by completing tasks (like quests or battles), which reward you with XP. The more challenges you complete, the more XP you gain, and the higher your character's level becomes, usually up to some top level.
 
