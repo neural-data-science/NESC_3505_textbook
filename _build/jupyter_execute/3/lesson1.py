@@ -130,7 +130,7 @@ So when you nodify `all_numbers`, you also change `my_numbers_nono`
 del(all_numbers[8])
 my_numbers_nono
 
-## Chpater 3
+## Chapter 3
 
  This chapter introduces a variety of functions and methods, as well as Python packages
 
@@ -138,24 +138,26 @@ my_list = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 
 ### Functions
 
-Maximum-valued element in list
+#### Max/min values in list
 
 max(my_list)
 
 min(my_list)
 
-Rounding
+#### Rounding
 
 pi = 3.14159265359
 round(pi, 2)
 
-Length of list
+#### Length of list
 
 len(my_list)
 
-Get help using a function:
+#### Help
 
-?len
+?round
+
+#### Sorting
 
 going_up = sorted(my_list)
 going_up
@@ -163,40 +165,158 @@ going_up
 going_down = sorted(going_up, reverse=True)
 going_down
 
-# Finish from here down
-
 ### Methods
 
-.index() - gives index of the input
-.capitalize() - returns string with the first letter capitalized
-.upper() - capitalizes all letters in a string
-.count()
-counts how many of the input are in a string
-counts the number of times an element appears in a list
-.append() - adds an element to the list it is called on
-.remove() - removes the first element of a list that matches the input
-.reverse() - reverses the order of the elements in the list its called on
+Methods are functions that are applied to a variable by adding a dot then the method name (and parentheses) to the end of the variable name.
+
+| Method | What it does |
+|--------|--------------|
+|`.index()` | for a list, gives index of the input value |
+|`.capitalize()` | returns string with the first letter capitalized |
+|`.upper()` | capitalizes all letters in a string |
+|`.count()` | for `string`: counts how many of the input are in a string |
+|`.count()` | for `list`: counts the number of times an element appears in a list |
+|`.append()` | adds an element to the list it is called on |
+|`.remove()` | removes the first element of a list that matches the input |
+|`.reverse()` | reverses the order of the elements in the list its called on |
+|`.round()` | rounds a float to the number of decimal places specified in the parentheses |
+
+going_down.index(10)
+
+going_down.append(0)
+going_down
 
 ### Packages
-Import _ as _ - import a package
-From _ import _ - use if you only need a specific function from a package
+
+Import a package (sometimes called a library), including all its functions
+
+import matplotlib
+
+Import a package and give it a shorthand name:
+
+import numpy as np
 
 ## Chapter 4
-This chapter introduces the numpy package, focussing on the numpy array
-### Numpy arrays
-np.array() - create numpy array from a list
-Contain values of only 1 type (for booleans, True=1, False=0)
-Does operations element wise
-Can subset numpy arrays using [] or boolean arrays
-#### 2D arrays
-Can create from a regular python list of lists
-Subset using [rows, columns]
-.shape - gives shape (rows, cols) of 2D numpy array
-### Functions (statistics)
-np.mean()
-np.median()
-np.corrcoef() - correlation coefficient
-np.std() - standard deviation
 
+This chapter introduces the `numpy` package (by convention, imported as `np`), focusing on the numpy array data type.
 
+### NumPy arrays
 
+NumPy arrays are similar to lists: ordered sets of values. However, they behave differently, and can have multiple dimensons (see below), so NumPy arrays are often a better choice for structured data.
+
+You can **create** an np array manually by putting a list inside the `np.array()` function:
+
+np_odds = np.array([1, 3, 5, 7, 9])
+np_odds
+
+Or by specifying the name of a list you previously created:
+
+evens = [2, 4, 6, 8, 10]
+np_evens = np.array(evens)
+np_evens
+
+**Note**: If you just type the name of an array, you'll see the the contents of the array, embedded inside `array()`, as shown above. If you `print()` the array, you'll see only its contents:
+
+print(np_evens)
+
+Either way above is acceptable, but remember that in Jupyter, you need to use `print()` to see the output of anything other than the last returned value:
+
+np_evens
+np_odds
+
+print(np_evens)
+np_odds
+
+NumPy arrays can only contain values of one type. Values are converted to a different type to enforce this:
+
+np.array([1, 'two', False])
+
+Above, the int `1` and the Boolean `False` were converted to a string, because the string 'two' couldn't be converted to any other type.
+
+Below, we only have ints and Booleans. Booleans are converted to ints:
+
+np.array([1, 2, False, True])
+
+Unlike lists, operations are applied to np arrays element-wise (i.e., applies operation to each element in the array).
+
+So for a list, this is probably *not* your intended outcome:
+
+print(evens * 2)
+
+But for a NumPy array:
+
+print(np_evens * 2)
+
+### 2D arrays
+
+A NumPy array with two dimensions (rows and columns).
+
+Can create from a regular python list of lists (note the two lists are inside another list/set of square brackets):
+
+my_2d_array = np.array([[0, 1, 2], [3, 4, 5]])
+
+my_2d_array
+
+#### Indexing 2D Arrays:
+Specify in format [*rows*, *columns*]. As with lists, `:` selects entire row/column, and you can use negative indexing
+
+my_2d_array[0, :]
+
+my_2d_array[1, :]
+
+Column only:
+
+my_2d_array[:, 0]
+
+Last coumn:
+
+my_2d_array[:, -1]
+
+Select single value by specifying a particular row and column:
+
+my_2d_array[1, 1]
+
+`.shape` *attribute* gives shape (rows, cols) of 2D numpy array:
+
+my_2d_array.shape
+
+### NumPy Array Functions
+
+np.random.rand(10)
+
+# Some random numbers:
+my_data = np.random.rand(10)
+print(my_data)
+
+#### Mean
+
+np.mean(my_data)
+
+#### Median
+
+np.median(my_data)
+
+#### Standard Deviation
+
+np.std(my_data)
+
+If you don't like long numbers, you can apply the .round() method to the output:
+
+std_dev = np.std(my_data).round(3)
+print(std_dev)
+
+#### Correlation 
+
+Between two arrays:
+
+# Final grades
+grades = np.array([67, 74, 44, 92, 88])
+
+# hours per week spent working on course
+hours = np.array([5.2, 7, 2.0, 9.25, 7.5])
+
+Does more hours spent on the course translate into a better grade?
+
+np.corrcoef(grades, hours)
+
+Yes! The correlation is positive and strong (approximately .979)
