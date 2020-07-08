@@ -11,6 +11,10 @@ An added advantage of using Teams, from the perspective of course learning objec
 
 Once you are registered in the class, you will receive an email invitation to the class Teams site. You will use your Dal.ca netID with Teams. Assignment 1 will take you through onboarding on to the class Teams page.
 
+## Assessments and Evaluations
+All assessments and evaluations are listed on Teams, under the "Assignments" tab. You can also jump to your assignment listing from the "Assignments" icon on the left side bar of the Teams app. This shows the deadline (date and time) for each item. **A non-intuitive thing** is that you need to "submit" all assessment and evaluation items through their corresponding Assignments on Teams, even if you're not actually handing anything in. For example, after you complete a DataCamp assignment, you need to go on Teams and click "submit" for that assignment. I know it feels like make-work, but it's the only way we can track all of your XP on Teams. However, if your actual submission is done some other way, we won't assess a late penalty if you just forget to click "Submit" on Teams, but otherwise completed the assignment on time.
+
+
 ## Tips 'n Tricks
 Teams is relatively self-explanatory. But, a few tips:
 - Like a web browser, Teams has "back" and "forward" arrow buttons in the top left (ish) corner of the window. You can navigate a bit using those, but sometimes they take you back farther than expected.
