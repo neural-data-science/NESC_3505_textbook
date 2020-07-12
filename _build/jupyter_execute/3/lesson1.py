@@ -125,7 +125,7 @@ Be careful not to do this. This "points" the new list, `my_numbers_nono`, at the
 my_numbers_nono = all_numbers
 my_numbers_nono
 
-So when you nodify `all_numbers`, you also change `my_numbers_nono`
+So when you modify `all_numbers`, you also change `my_numbers_nono`
 
 del(all_numbers[8])
 my_numbers_nono
