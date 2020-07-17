@@ -85,7 +85,7 @@ Note above that the column labels and indices are by default just sequential num
 
 Often we'll be reading data from a file rather than creating DataFrames from scratch. To load the contents of a CSV file into a DataFrame, use `pd.to_csv()`. Here we'll load a small CSV file containing 10 reaction times (RTs):
 
-df = pd.read_csv('/Users/aaron//Documents/Teaching/3505/NESC_3505_textbook/3/rt_data.csv')
+df = pd.read_csv('/Users/aaron/Documents/Teaching/3505/NESC_3505_textbook/3/rt_data.csv')
 df
 
 ```
