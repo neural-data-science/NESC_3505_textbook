@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Errors and Debugging &#8212; NESC 3505 Neural Data Science</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/mystnb.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/1/errors_debugging.html" />
+    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Collaboration and Teamwork" href="teamwork.html" />
+    <link rel="prev" title="Mindset" href="mindset.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+<!-- Put requirejs at the end so it's always after bootstrap -->
+<!-- TODO: remove this once https://github.com/pandas-dev/pydata-sphinx-theme/pull/149 is merged -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/1/errors_debugging.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Errors and Debugging" />
+<meta property="og:description" content="Errors and Debugging  Writing code is not unlike writing papers, in that you first have to decide what you want to say, then figure out how to say it. With code" />
+<meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/NESC3505_icon.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">NESC 3505 Neural Data Science</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+  <li class="">
+    <a href="../intro.html">Welcome</a>
+  </li>
+  <li class="">
+    <a href="../syllabus.html">Syllabus</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">About This Course</p>
+</li>
+  <li class="">
+    <a href="why.html">Start with why</a>
+  </li>
+  <li class="">
+    <a href="teaching_approach.html">Teaching Approach</a>
+  </li>
+  <li class="active">
+    <a href="learning_approach.html">How To Rock This Course</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="mindset.html">Mindset</a>
+    </li>
+    <li class="active">
+      <a href="">Errors and Debugging</a>
+    </li>
+    <li class="">
+      <a href="teamwork.html">Collaboration and Teamwork</a>
+    </li>
+  </ul>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Getting Started</p>
+</li>
+  <li class="">
+    <a href="../2/introduction.html">Introduction</a>
+  </li>
+  <li class="">
+    <a href="../2/learning_objectives.html">Learning Objectives</a>
+  </li>
+  <li class="">
+    <a href="../2/what_is_nds.html">What is Data Science?</a>
+  </li>
+  <li class="">
+    <a href="../2/tools_for_nds.html">Tools for Neural Data Science</a>
+  </li>
+  <li class="">
+    <a href="../2/class_tech.html">Technologies Used in this Class</a>
+  </li>
+  <li class="">
+    <a href="../2/get_going.html">Get Going!</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Introducing Python</p>
+</li>
+  <li class="">
+    <a href="../3/learning_objectives.html">Learning Objectives</a>
+  </li>
+  <li class="">
+    <a href="../3/getting_help.html">Getting Help with Python</a>
+  </li>
+  <li class="">
+    <a href="../3/lesson1.html">Lesson 1: Introduction to Python</a>
+  </li>
+  <li class="">
+    <a href="../3/lesson2.html">Lesson 2: Intermediate Python</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">References</p>
+</li>
+  <li class="">
+    <a href="../zrefs.html">References</a>
+  </li>
+</ul>
+</nav>
+<p class="navbar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="../_sources/1/errors_debugging.md"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Edit this page -->
+        
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 col-xxl-7 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="errors-and-debugging">
+<h1>Errors and Debugging<a class="headerlink" href="#errors-and-debugging" title="Permalink to this headline">¶</a></h1>
+<p>Writing code is not unlike writing papers, in that you first have to decide what you want to say, then figure out how to say it. With code, however, you’re literally learning a new language in order to do this (albeit one that’s simpler and more logical than a natural human language). And unlike other classes, which might require only a handful of writing assignments over the term, in this course writing code is how you learn, so you will be writing and learning on an ongoing basis. The great thing about code, compared to learning a language, is that instead of another person, you’re communicating with a computer. It doesn’t judge you or laugh when you make mistakes. And you will make mistakes. So many mistakes. Fortunately, having a non-judgemental interlocutor allows a lot more iteration, trying things out until you get it right. Computers are also very patient, so you don’t have to worry about pausing while you Google how to do/say a certain thing.</p>
+<p>So yes, you will make errors. All the time. An important part about learning successfully in this course is accepting that these errors are a natural part of learning, and getting used to figuring out how to solve them. Here, I try to provide some tips in that regard.</p>
+<p>Firstly, when you make an error, you will likely get some sort of error message — although it’s possible your code did <em>something</em>, it just doesn’t give you the right result. If you get an error message, it will probably look scary, complicated, and confusing. It may even show you way more lines of python code than you actually wrote! It’s OK — often, most of the error message isn’t that important. Sometimes, the first thing to do is just note <em>that</em> you got an error, and look at your code again. Many errors are due to typos. In programming, you have to be precise with things like spelling, capitalization, spaces, indents, colons, semicolons, commas, periods, even different types of brackets! It will take a while to get used to this. Often you’ll catch an error just by looking at your code more closely.</p>
+<p>The second approach is to actually read the error message. If you ran a few lines of code, Python will usually indicate which line triggered the error. Sometimes, it’s due to something that happened earlier, but that’s a good place to start. The error message will often give you some insight into what you did wrong, but it’s rarely super-obvious or helpful — decoding error messages is something you get to learn, too! Also, sometimes the error message will spit out lots of lines of code. Usually this is because whatever you wrote was “calling” (relying on) some other bit of code, for the command you were running. Since <a class="reference external" href="https://en.wikipedia.org/wiki/Turtles_all_the_way_down">much of Python is itself written in Python</a>, the error message may well make it look like the error is not in what you wrote, but in someone else’s code you were trying to run. Don’t worry: 99% of the time it is actually your fault. Usually what’s happened is that your command ran, but it passed the wrong information to the underlying code. So once again, you should re-examine what you wrote. But you may also need to read the documentation for the command you’re trying to run, to understand what you did wrong. Usually you will find the reference to your line of code near the top or bottom of all the code that the error message spits out.</p>
+<p>Ultimately, writing code requires a lot of patience and trial-and-error. You rarely get it right the first time. Don’t self-flagellate or stress when you get error messages, just view it as part of the process, a puzzle that you can solve. The old adage of “measure twice, cut once” doesn’t apply in coding. Instead, you should just forge ahead and try lots of different things, until you make progress. And of course, there’s class time to ask questions, and your classmates and team members to consult with outside of class time.</p>
+</div>
+
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="mindset.html" title="previous page">Mindset</a>
+    <a class='right-next' id="next-link" href="teamwork.html" title="next page">Collaboration and Teamwork</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.1.2.<br/>
+    </p>
+  </div>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-171426664-2', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    
+  </body>
+</html>
