@@ -1,10 +1,6 @@
 # Introduction to Spike Trains
 
-*Code adapted from Chapter 3 of Nylen, E.L., and Wallisch, P.. (2017).* Neural Data Science. *Academic Press.*
-
-*Code modified and adapted to Python 3 by Aaron Newman*
-
-*Annotations (markdown cells) by Aaron Newman*
+*Code adapted from Chapter 3 of Nylen, E.L., and Wallisch, P.. (2017).* Neural Data Science. *Academic Press. by Aaron J. Newman. Explanatory text by Aaron J. Newman.*
 
 ## Overview
 This is a lesson that introduces spike trains, how they can be represented as data, and some ways of working with and visualizing them. As well, it introduces a few new bits of Python syntax and a discussion of the use of colour in scientific visualization. 
@@ -473,7 +469,6 @@ These are not explicitly explained in the book, but in a sense they are just a p
 
 For better or for worse, a consequence of the heat map representation is that it takes data that were measured at discrete levels of stimulus intensity, and interpolates between those levels to provide a smoothed representation of the data. In other words, it's filling in what the values would be in between the tested levels of stimulus intensity. 
 
-# Begin the Python way for Figure 3.10
 fig = plt.figure()
 ax = plt.subplot(111)
 # AJN had to adapt to get dict keys to sort
@@ -525,7 +520,7 @@ A final issue is that a non-negligible proportion of the population has some for
 
 In other words, choosing the wrong colour map can mislead viewers in interpreting the data, and may also result in your plots being uninterpretable by some viewers. You should pick a colour map that is **perceptually uniform** (e.g., nearby values have similar-appearing colours across the range), and robust to colourblindness. An excellent choice is one of the [viridis](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) family of colourmaps, which were explicitly designed to have these properties, and also be aesthetically appealing. The viridis family is used below:
 
-fig = plt.figure(figsize=[8,8])
+fig = plt.figure(figsize=[8,6])
 
 ax = plt.subplot(221)
 aa = ax.imshow([nbar[i] for i in sorted(nbar.keys())],
@@ -553,4 +548,12 @@ plt.yticks([]); plt.xticks([])
 
 plt.show()
 
-Compare these plots to the ones above that used non-viridis colourmaps and ask yourself how your perception and interpretation of the plots changes between them. 
+Compare these plots to the ones above that used non-viridis colourmaps (re-generated below, but with the code condensed to save space) and ask yourself how your perception and interpretation of the plots changes between them. 
+
+fig = plt.figure(figsize=[8,6])
+ax = plt.subplot(221);aa = ax.imshow([nbar[i] for i in sorted(nbar.keys())],cmap='hot',interpolation='bilinear',aspect=1.2) ; plt.yticks([]); plt.xticks([])
+ax = plt.subplot(222);aa = ax.imshow([nbar[i] for i in sorted(nbar.keys())],cmap='bone', interpolation='nearest',aspect=1.2) ;plt.yticks([]); plt.xticks([])
+ax = plt.subplot(223);aa = ax.imshow([nbar[i] for i in sorted(nbar.keys())],cmap='jet', interpolation='bicubic',aspect=1.2) ;plt.yticks([]); plt.xticks([])
+ax = plt.subplot(224);aa = ax.imshow([nbar[i] for i in sorted(nbar.keys())],cmap='gray', interpolation='bicubic',aspect=1.2);plt.yticks([]); plt.xticks([])
+plt.show()
+
