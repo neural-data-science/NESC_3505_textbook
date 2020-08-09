@@ -1,6 +1,6 @@
 # Introduction to Spike Trains
 
-*Code adapted from Chapter 3 of Nylen, E.L., and Wallisch, P.. (2017).* Neural Data Science. *Academic Press. by Aaron J. Newman. Explanatory text by Aaron J. Newman.*
+*Code adapted from Chapter 3 of Nylen, E.L., and Wallisch, P.. (2017).* [Neural Data Science](https://www.sciencedirect.com/book/9780128040430/neural-data-science). *Academic Press. by Aaron J. Newman. Explanatory text by Aaron J. Newman.*
 
 ## Overview
 This is a lesson that introduces spike trains, how they can be represented as data, and some ways of working with and visualizing them. As well, it introduces a few new bits of Python syntax and a discussion of the use of colour in scientific visualization. 
@@ -26,7 +26,7 @@ Once you've completed this lesson you should be able to:
 ---
 ## Spike Trains
 
-As you know, neurons communicate by generating action potentials. Action potentials are also called "spikes", because when they are recorded, they manifest as spikes in the electrical recording - transient changes from a baseline level of voltage to a different level, then a return to baseline. Neurons have a negative resting potential, meaning that their intracellular space has a negative voltage (more negative ions, like chloride) relative to the extracellular space (which has more positive ions like sodium). When an action potential occurs, ion channels in the neuron's cell wall open, allowing the intracellular space to become more positive. Thus the neuron **depolarizes** when it fires, and its voltage moves closer to zero. The sodium-potassium pumps on the cell wall then re-polarize the neuron to its resting (negative) voltage. 
+As you know, neurons communicate by generating[ action potentials](https://en.wikipedia.org/wiki/Action_potential). Action potentials are also called "spikes", because when they are recorded, they manifest as spikes in the electrical recording - transient changes from a baseline level of voltage to a different level, then a return to baseline. Neurons have a negative resting potential, meaning that their intracellular space has a negative voltage (more negative ions, like chloride) relative to the extracellular space (which has more positive ions like sodium). When an action potential occurs, ion channels in the neuron's cell wall open, allowing the intracellular space to become more positive. Thus the neuron **depolarizes** when it fires, and its voltage moves closer to zero. The sodium-potassium pumps on the cell wall then re-polarize the neuron to its resting (negative) voltage. 
 
 Spike trains are recordings of action potentials, from electrodes implanted in the brain. Often these are from **intracellular** recordings, meaning that an electrode penetrated the membrane of a neuron and records its action potentials. In other cases, spike train data may be from **extracellular** recordings, in which the electrode is inserted into the brain but does not penetrate a neuron. Instead, the electrode is located in extracellular space (between cells). In this case, the electrode will likely pick up action potentials from multiple nearby neurons. Extracellular recordings are commonly done with arrays of closely-spaced electrodes, such that multiple electrodes pick up the spiking of each neuron but — based on the proximity of the neurons to the electrodes — each electrode likely picks up action potentials from only a subset of the neurons that another electrode does. A process called **spike sorting** is applied to the data after it is recorded to attempt to identify spikes from different neurons, based on which electrodes detect which spikes. 
 
@@ -34,10 +34,10 @@ Spike train data are *binary* — either a neuron is spiking ("on") or not ("of
 
 Therefore, spike data, or "spike trains", ultimately consist of information concerning the times at which spikes occurred. Broadly speaking, there are two forms for this sort of data. In what I'll call the "continuous" form, we have data at every time point over a time period (e.g., a 2 s period covering one trial in an experiment). At each time point, the data is either 0 (no spike) or 1 (spike). In the "discontinuous" form, the data instead are represented as the time points at which spikes occurred. This is a more efficient way of representing the data, since we don't encode all those time points where nothing happened. But regardless, both are valid ways of representing the data that you'll see in this unit of the course. 
 
-Here's [a great article by neuroscientist Mark Humphries](https://medium.com/the-spike/a-neural-data-science-how-and-why-d7e3969086f2) on spike trains in a data science context, that will give you more background information (thanks to student Meg South for the link!). This notebook gets you started on the first of the three approaches he talks about; specifically, determining whether there is structure in the data. 
+Here's [a great article by neuroscientist Mark Humphries](https://medium.com/the-spike/a-neural-data-science-how-and-why-d7e3969086f2) on spike trains in a data science context, that will give you more background information (thanks to student Meg South for the link!). If you want to understand more about the process and lab techniques involved in recording spikes, there is a great (30 min) [video by Dr. Carl Petersen](https://youtu.be/tInqGXWTD8I).  This notebook gets you started on the first of the three approaches he talks about; specifically, determining whether there is structure in the data. 
 
 ## A fine pickle we've got ourselves in
-Naturally, the first cell in our notebook imports the packages we'll need. Most of the content in the cell below is stuff you've seen before. The one new thing is `import pickle`. Naturally, a programming language named after a snake has a library named after preserved cucumbers! In fact, **pickling** in Python is a way of preserving objects for future use. Recall that Python is an *object-oriented* language, which for purposes of this explanation means that most "things" in Python are objects. This includes ways of storing data such as lists and dictionaries. Pickling is a way of storing objects like this — typically containing data — so that you can later re-load them easily. This can be especially useful if you have complex code or large data sets, where it might take a long time to run the code to get the data into the form that you want (e.g., lots of processing steps, or a computationally-intensive machine learning algorithm).
+Naturally, the first cell in our notebook imports the packages we'll need. Most of the content in the cell below is stuff you've seen before. The one new thing is `import pickle`. Naturally, a programming language named after a snake has a library named after preserved cucumbers! In fact, [**pickling**](https://docs.python.org/3/library/pickle.html) in Python is a way of preserving objects for future use. Recall that Python is an *object-oriented* language, which for purposes of this explanation means that most "things" in Python are objects. This includes ways of storing data such as lists and dictionaries. Pickling is a way of storing objects like this — typically containing data — so that you can later re-load them easily. This can be especially useful if you have complex code or large data sets, where it might take a long time to run the code to get the data into the form that you want (e.g., lots of processing steps, or a computationally-intensive machine learning algorithm).
 
 In many cases, you can and should store data in more standard file formats like text, or CSV. However, such files store data in a basic, tabular structure, whereas Python objects like dictionaries have their own unique structures that serve specific purposes. The end result of a data processing workflow may well be a Python object that doesn't easily lend itself to saving in a text file, in which case pickling can be useful. Also, pickling is formally a type of **serialization** — putting a Python object into a **byte stream** which simply means it's an ordered set of bytes. Serialization allows Python objects to be easily transmitted over internet protocols like TCP/IP, so it can be useful in web applications. 
 
@@ -59,7 +59,7 @@ spikeTrain = [0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0]
 <div class="alert alert-block alert-info">
     <h3>Style note:</h3>
     
-Nylen and Wallisch use **camel case** in naming their variables. This is a convention in which, if a variable name is multiple words (like "spike train"), the first letter of every word other than the first is capitalized — so below we have `spikeTrain` (actually, this is a sub-type of camel case called **dromedary case**, distinct from **Pascal case** in which the first letter is also capitalized). Camel case is distinct from **snake case**, in which words are separated by underscores (e.g., `spike_train`), which is what you will have seen in virtually all of the Python code used in this course (and on DataCamp). 
+Nylen and Wallisch use [**camel case**](https://en.wikipedia.org/wiki/Camel_case) in naming their variables. This is a convention in which, if a variable name is multiple words (like "spike train"), the first letter of every word other than the first is capitalized — so below we have `spikeTrain` (actually, this is a sub-type of camel case called **dromedary case**, distinct from **Pascal case** in which the first letter is also capitalized). Camel case is distinct from [**snake case**](https://en.wikipedia.org/wiki/Snake_case), in which words are separated by underscores (e.g., `spike_train`), which is what you will have seen in virtually all of the Python code used in this course (and on DataCamp). 
     
 You will likely encounter both of these naming conventions (and others) in your future coding adventures. However, in Python PEP 8 provides [standard guidelines for naming variables and other objects in Python](https://www.python.org/dev/peps/pep-0008/#naming-conventions) (remember, PEPs are the "Python Enhancement Proposals" that provide standards for the language). PEP 8 specifies that camel case should only be used for naming classes and type variables, and that regular variables "should be lowercase, with words separated by underscores as necessary to improve readability" (i.e., snake case). Don't worry if you don't know what classes and type variables are; the point is that the Python convention is to use lower-case variable names, with words separated by underscores. 
     
@@ -68,7 +68,7 @@ There are good reasons for following these conventions — when a seasoned Pyth
 
 ## Stimulus locking
 
-In this hypothetical experiment, the neuron in question was genetically engineered for **optogenetics**, meaning that it expresses genes sensitive to a specific wavelength of light (550 nm, which is green). When light of that wavelength is directed at the neuron, it tends to fire. In this experiment, the light was turned on at time point 5 in the spike train data. 
+In this hypothetical experiment, the neuron in question was genetically engineered for [**optogenetics**](https://en.wikipedia.org/wiki/Optogenetics), meaning that it expresses genes sensitive to a specific wavelength of light (550 nm, which is green). When light of that wavelength is directed at the neuron, it tends to fire. In this experiment, the light was turned on at time point 5 in the spike train data. If you want to learn more about optogenetics, check out [this video by Prof. Carle Petersen](https://youtu.be/lqroI7sFVuk).
 
 The code below defines that light onset time as a variable, and also defines that a spike is represented as a 1 in the data. 
 
@@ -224,7 +224,6 @@ plt.axhline(y=0.5,xmin=0,xmax=20,linestyle='--',color='k')
 plt.title('Spike probability given 10 stimulus trials')
 plt.xlabel('time (in milliseconds)')
 plt.ylabel('probability of spike occurrences at this time')
-plt.savefig('Figure 3.8normalized PSTH with cutoff.png')
 plt.show()
 
 ## Ten intensities — A bigger data set
@@ -330,7 +329,7 @@ for key in tenIntensities.keys():
     # from time points past 20 s. Don't draw the histogram but return it as two variables. 
     # According to its API, np.histogram returns the values of the histogram as an array, 
     # and the bin edges
-    nOut,bins=np.histogram(spikeTimes,bins=range(20))
+    nOut,bins = np.histogram(spikeTimes, bins=range(20))
     
     # Compute probability for the histogram by dividing by number of trials
     nbar[float(key[0])] = nOut/10.
