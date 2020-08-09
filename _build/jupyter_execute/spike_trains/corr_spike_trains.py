@@ -20,8 +20,6 @@ This is a type of [microelectrode array](https://en.wikipedia.org/wiki/Microelec
 ### Stimuli
 The data here were collected in an experiment in which the monkeys viewed drifting *sine wave gratings*. As shown below, sine wave gratings are images that plot a sine wave in 2 dimensions. As you likely know, a (1D) sine (or cosine) wave is a regularly oscillating waveform, like this: 
 
-<img src='./1D_cosine_wave.png' width=175>
-
 ```{figure} ./1D_cosine_wave.png
 ---
 width: 175px
@@ -30,8 +28,6 @@ name: cosine_wave
 ```    
 
 A sine wave grating is the 2D version of this. You can imagine that you're looking down on the top of the wave shown above, such that the peaks are white and the valleys are black:
-
-<img src="./sine_wave_grating.png" width=150>
 
 ```{figure} ./sine_wave_grating.png
 ---
