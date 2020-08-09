@@ -31,7 +31,7 @@ A sine wave grating is the 2D version of this. You can imagine that you're looki
 
 ```{figure} ./sine_wave_grating.png
 ---
-width: 175px
+width: 150px
 name: 2D_sine_grating
 ---
 ```    
