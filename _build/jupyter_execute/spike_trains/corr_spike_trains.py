@@ -397,7 +397,7 @@ Beyond that, it's clear that different channels show very different response pro
 
 Plotting all 91 channels is a bit visually overwhelming. It's useful in appreciating the whole range of responses in different channels, but each plot is quite small. Here we use `ipywidgets` to generate an interactive plot, with a drop-down menu to select the channel we want to view.
 
-Note: To get this to work on your own system, you will need to run `jupyter labextension install @jupyter-widgets/jupyterlab-manager`
+**Note:** This swill not display in the online book version, but it should work if you download and run this notebook file. To get this to work on your own system, you will need to at least run `jupyter labextension install @jupyter-widgets/jupyterlab-manager`, and possibly install additional pacakges if you don't have them already (Anaconda seems to provide them).
 
 import ipywidgets as widgets
 from ipywidgets import interact, interact_manual
