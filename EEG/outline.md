@@ -36,8 +36,8 @@ ___
 ### Data import
 
 ### MNE Data Structure
-.info
-.__dict__
+- .info
+- .__dict__
 
 ### Visualizing raw data
 - raw.plot()
@@ -61,5 +61,6 @@ ___
 - mass univariate tests
 - mean amplitude t-tests
 
+#### Frequency Domain
 - frequency spectrum
 - time-frequency analysis (TFA)

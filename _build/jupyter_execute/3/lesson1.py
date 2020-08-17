@@ -268,7 +268,7 @@ Column only:
 
 my_2d_array[:, 0]
 
-Last coumn:
+Last column:
 
 my_2d_array[:, -1]
 

@@ -180,7 +180,7 @@ else:
 ## Chapter 4: Loops
 
 ### `while` Loops 
-While loops will excecute the code many times, as long as the coniditon is true ("as long as x is true, do y")
+While loops will execute the code many times, as long as the condition is true ("as long as *x* is true, do *y*")
 
 Format:
 
@@ -298,7 +298,7 @@ for x in np.nditer(odds_evens):
 
 #### To loop over a dataframe
 
-The beauty of pandas DataFrames is that they provide methods that automatically iterate over rows or columns, and they do so in ways that are much more efficient (and elegant code) than useing a `for` loop. So in most cases you should first consider how do do what you want without a `for` loop. But, if you really want to, here is how. 
+The beauty of pandas DataFrames is that they provide methods that automatically iterate over rows or columns, and they do so in ways that are much more efficient (and elegant code) than using a `for` loop. So in most cases you should first consider how do do what you want without a `for` loop. But, if you really want to, here is how. 
 
 Recall the DataFrame we created above, called `df`:
 
@@ -351,9 +351,9 @@ np.random.randint(10,100, size=(5, 2)) # note size is a tuple
 
 ### Seeds
 
-Sometimes, however, we want to generate the same random number every time. This may seem counter-intuitive, but it may be useful, for example if we want to write reproducible code that generates the same output every time it's run. One scientific application of this is simulations: sometimes, scientists want to create simulated data and test their algortihms on that, rather than on real data. They might want to do this becuase simulated data has known properties (e.g., you know the "truth"), whereas in real data, the point of analysis is often to identify certain properties that are not known. So if you are trying a new analysis method, and you don't know what the "true" result is because you're working with real data, it can be hard to validate the algorithm. If you use simulated data, you can get around that. 
+Sometimes, however, we want to generate the same random number every time. This may seem counter-intuitive, but it may be useful, for example if we want to write reproducible code that generates the same output every time it's run. One scientific application of this is simulations: sometimes, scientists want to create simulated data and test their algorithms on that, rather than on real data. They might want to do this because simulated data has known properties (e.g., you know the "truth"), whereas in real data, the point of analysis is often to identify certain properties that are not known. So if you are trying a new analysis method, and you don't know what the "true" result is because you're working with real data, it can be hard to validate the algorithm. If you use simulated data, you can get around that. 
 
-As a simple example, we might want to simulate some human reaction time (RT) data. We might want to specify that it has a particular mean, but the simulated data would be a set of randomly-generated numbers, tha, when averaged, produced that mean. If we wanted to write some Python code in a Jupyter notebook to run this simulation, we might want it to generate the same simulated data each time — especially if this was example code that we were sharing with other scientists who would want to reproduce our results. In this case, we would want to specify the random **seed** — the number that "seeds" the random number generator to produce numebr or set of numbers.
+As a simple example, we might want to simulate some human reaction time (RT) data. We might want to specify that it has a particular mean, but the simulated data would be a set of randomly-generated numbers that, when averaged, produced that mean. If we wanted to write some Python code in a Jupyter notebook to run this simulation, we might want it to generate the same simulated data each time — especially if this was example code that we were sharing with other scientists who would want to reproduce our results. In this case, we would want to specify the random **seed** — the number that "seeds" the random number generator to produce number or set of numbers.
 
 Below we specify a seed of 42 ([the answer to the Ultimate Question of Life, the Universe, and Everything](https://en.wikipedia.org/wiki/42_(number)#The_Hitchhiker's_Guide_to_the_Galaxy)), and show that each time we do so, then call `np.random.rand()`, we get the same random number:
 
