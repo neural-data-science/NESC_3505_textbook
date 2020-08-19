@@ -25,7 +25,7 @@ Clearly, an EEG signal such as the one shown in the top figure is much more comp
 ```{figure} images/fourier_series_td.png
 ---
 align: left
-height: 200px
+height: 350px
 ---
 A Fourier series — a set of sine waves of varying frequencies and amplitudes, along with their sum (bottom panel).
 ```
