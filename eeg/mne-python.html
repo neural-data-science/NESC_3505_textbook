@@ -33,6 +33,8 @@
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Organization of MNE-Python" href="mne_org.html" />
+    <link rel="prev" title="Learning Objectives" href="learning_objectives.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -160,6 +162,17 @@
   <li class="">
     <a href="learning_objectives.html">Learning Objectives</a>
   </li>
+  <li class="active">
+    <a href="">MNE-Python</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="mne_org.html">Organization of MNE-Python</a>
+    </li>
+    <li class="">
+      <a href="mne_classes.html">MNE classes</a>
+    </li>
+  </ul>
+  </li>
 <li class="navbar-special">
 <p class="margin-caption">MRI Data</p>
 </li>
@@ -224,20 +237,9 @@
         
     </div>
     <div class="d-none d-md-block col-md-2 bd-toc show">
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
 
 <nav id="bd-toc-nav">
     <ul class="nav section-nav flex-column">
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#organization-of-mne-python" class="nav-link">Organization of MNE-Python</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#mne-classes" class="nav-link">MNE classes</a>
-        </li>
     
     </ul>
 </nav>
@@ -258,37 +260,7 @@
 <p><a class="reference external" href="https://mne.tools/">MNE-Python</a> is an open-source Python package for working with EEG and MEG data. It was originally developed as a Python <em>port</em> (translation from one programming language to another) of a software package called MNE, that was written in the C language by MEG researcher Matti Hämäläinen. The letters “MNE” originally stood for <em>minimum norm estimation</em>, which is an algorithm for localizing the sources of MEG and EEG data. The original MNE software grew from an implementation of that algorithm to a much more full-fledged package capable of performing a wider range of processing and visualization tasks on MEG/EEG data — so now the name “MNE” is more of a brand, than a descriptor of the capabilities of the software. Although minimum norm estimation can still be performed using MNE-Python, it does far more even than the MNE-C package did.</p>
 <p>MNE-Python moved the development of the software to an open source model, using a language (Python) that was more accessible and familiar to the scientific community, and hosing the project on <a class="reference external" href="https://github.com/mne-tools/mne-python">GitHub</a>. This has greatly facilitated the development of the software, as it has benefitted from the contributions of hundreds of people around the world.</p>
 <p>As you might expect from your experience so far, MNE-Python is designed to used by writing Python code that employs the MNE package. Although it has some interactive tools, such as interactive plots, by and large MNE-Python is used by writing scripts in .py text files, or Jupyter notebooks. It is very tightly integrated with the scientific Python stack, notably packages you are already familiar with such as <a class="reference external" href="https://numpy.org">NumPy</a>, <a class="reference external" href="https://numpy.org">pandas</a>, <a class="reference external" href="https://matplotlib.org/">matplotlib</a> (which is used to generate all MNE-Python’s 2D plots), and <a class="reference external" href="https://scikit-learn.org/stable/">scikit-learn</a>.</p>
-<div class="section" id="organization-of-mne-python">
-<h2>Organization of MNE-Python<a class="headerlink" href="#organization-of-mne-python" title="Permalink to this headline">¶</a></h2>
-<p>One useful thing to know at the outset is that there are a lot of tools (functions, classes, methods, etc.) included with MNE-Python. These are organized into <em>submodules</em> according to their functions. For example, there are many different functions for importing data in a wide range of formats (since most neuroimaging equipment manufacturers use unique, proprietary data formats), as well as for saving data after it’s been processed by MNE-Python. These are all organized within the <code class="docutils literal notranslate"><span class="pre">mne.io</span></code> submodule (“io” standing for “input-output”). While this organization is useful, it does mean that when using an MNE function, you might need to type a relatively long bit of text. You are already familiar with specifying the package along with the name of the function in that package you want to run. For example, to create a NumPy array, you would first import the package:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>import numpy as np
-</pre></div>
-</div>
-<p>and then run the command:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>np.array()
-</pre></div>
-</div>
-<p>In other words, you can’t just type <code class="docutils literal notranslate"><span class="pre">array</span></code> because Python needs to know what package that function is part of. With MNE submodules, you often will need to use a chain of <code class="docutils literal notranslate"><span class="pre">module.submodule.function</span></code> specifications, such as <code class="docutils literal notranslate"><span class="pre">mne.io.read_raw_brainvision()</span></code> to import a data file saved in the BrainVision format.</p>
-</div>
-<div class="section" id="mne-classes">
-<h2>MNE classes<a class="headerlink" href="#mne-classes" title="Permalink to this headline">¶</a></h2>
-<p>Working with MNE, you will be working with Python <em>classes</em>. We’ve already worked extensively with classes, including NumPy’s <code class="docutils literal notranslate"><span class="pre">Array</span></code> class, and pandas’ <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. However, it’s worth reviewing and expanding on what you already know. The <a class="reference external" href="https://docs.python.org/3/tutorial/classes.html">Python documentation</a> tells us that “Classes provide a means of bundling data and functionality together.” A class is a type of <strong>object</strong>, which can in turn have <strong>instances</strong>. Putting this concretely in the MNE context, one important set of MNE classes are for storing data of different kinds. These include <code class="docutils literal notranslate"><span class="pre">mne.io.Raw</span></code>, <code class="docutils literal notranslate"><span class="pre">mne.Epochs</span></code>, and <code class="docutils literal notranslate"><span class="pre">mne.Evoked</span></code> (note the use of capital letters here, which indicates that these are classes). <code class="docutils literal notranslate"><span class="pre">mne.io.Raw</span></code> is a class specifically for raw data (EEG or other types of data as imported from a data file). When we import a data file, e.g., using the <code class="docutils literal notranslate"><span class="pre">mne.io.read_raw_brainvision()</span></code> function mentioned above, we assign it to a variable name, e.g.:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>raw = mne.io.read_raw_brainvision(&#39;my_EEG_file.vhdr&#39;)
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">raw</span></code> is thus an instance of the <code class="docutils literal notranslate"><span class="pre">mne.io.Raw</span></code> class (again pay attention to the fact that the <em>class</em> uses upper-case naming but the <em>instance</em> uses lower-case, which is a Python standard).</p>
-<p>While this may sound a bit arcane at first, it’s important to understand because classes are special, and understanding the properties of classes helps you understand how to work with data in MNE. Classes specify <strong>attributes</strong> that an instance of that class can have. Attributes are “states” of the instance — which in the case of an MNE data class are usually properties of that data. So one critical attribute of the <code class="docutils literal notranslate"><span class="pre">mne.io.Raw</span></code> class is <code class="docutils literal notranslate"><span class="pre">_data</span></code>, which contains the actual data values (e.g., microvolt values at each time point, for each electrode, in an EEG data set). But others include <code class="docutils literal notranslate"><span class="pre">info</span></code>, which includes meta-data about the data set, such as the number of electrodes, labels of the electrodes, and the sampling rate (how many times per second EEG data was recorded). The attributes of a class instance are accessed via dot-notation, so to see the data for the raw file we imported in the example above, we’d run:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>raw._data
-</pre></div>
-</div>
-<p>Whereas to see the meta-data we’d run:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>raw.info
-</pre></div>
-</div>
-<p>Note that because these are <em>attributes</em>* of the class, we don’t put parentheses after them.</p>
-<p>Classes can also specify <strong>methods</strong>, and indeed MNE classes do this. For example, the <code class="docutils literal notranslate"><span class="pre">mne.io.Raw</span></code> class specifies over three dozen different methods, allowing the user to do things such as plot the raw data (<code class="docutils literal notranslate"><span class="pre">mne.io.Raw.plot()</span></code>), plot the locations of the electrodes on teh head (<code class="docutils literal notranslate"><span class="pre">mne.io.Raw.plot_sensors()</span></code>, apply filters to it (<code class="docutils literal notranslate"><span class="pre">mne.io.Raw.filter()</span></code>), copy it (<code class="docutils literal notranslate"><span class="pre">mne.io.Raw.copy()</span></code>), or even convert it to a pandas DataFrame (<code class="docutils literal notranslate"><span class="pre">mne.io.Raw.to_data_frame()</span></code>). Note that, as these are methods, parentheses are required after the method name. Virtually all MNE methods have a range of mandatory and/or optional arguments that affect their output.</p>
-<p>MNE also has <strong>functions</strong> that perform different tasks. As in the rest of Python, functions are run by specifying the function name, with arguments in parentheses. The main difference between functions and methods is that methods are applied by specifying the name of the instance that you want to apply them to, followed by a period then the method name (<code class="docutils literal notranslate"><span class="pre">raw.plot()</span></code>), whereas functions are “free-standing” and, if they take a data input, it’s supplied as an argument inside the parentheses (e.g., <code class="docutils literal notranslate"><span class="pre">plot_raw(raw)</span></code>). The two examples just provided would both achieve the same goal; as is so often the case with Python, there are just many different ways of doing the same thing.</p>
-<p>MNE has an extensive and detailed <a class="reference external" href="https://mne.tools/stable/python_reference.html">API</a> describing all of its classes, attributes, methods, and functions.</p>
+<div class="toctree-wrapper compound">
 </div>
 </div>
 
@@ -301,6 +273,8 @@
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="learning_objectives.html" title="previous page">Learning Objectives</a>
+    <a class='right-next' id="next-link" href="mne_org.html" title="next page">Organization of MNE-Python</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
