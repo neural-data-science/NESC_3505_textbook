@@ -8,4 +8,9 @@ and then run the command:
 
     np.array()
 
-In other words, you can't just type `array` because Python needs to know what package that function is part of. With MNE submodules, you often will need to use a chain of `module.submodule.function` specifications, such as `mne.io.read_raw_brainvision()` to import a data file saved in the BrainVision format.
+In other words, you can't just type `array` because Python needs to know what package that function is part of. With MNE submodules, you often will need to use a chain of `module.submodule.function` specifications, such as
+
+    import mne
+    mne.io.read_raw_brainvision()
+
+to import a data file saved in the BrainVision format.
