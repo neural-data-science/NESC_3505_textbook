@@ -33,7 +33,7 @@
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="MNE-Python" href="mne-python.html" />
+    <link rel="next" title="Preprocessing" href="preprocessing.html" />
     <link rel="prev" title="Learning Objectives" href="learning_objectives.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -166,10 +166,10 @@
     <a href="">Time and Frequency Domains</a>
   </li>
   <li class="">
-    <a href="mne-python.html">MNE-Python</a>
+    <a href="preprocessing.html">Preprocessing</a>
   </li>
   <li class="">
-    <a href="preprocessing.html">Preprocessing</a>
+    <a href="mne-python.html">MNE-Python</a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">MRI Data</p>
@@ -254,7 +254,7 @@
 <h1>Time and Frequency Domains<a class="headerlink" href="#time-and-frequency-domains" title="Permalink to this headline">¶</a></h1>
 <p>As a time-varying signal, EEG can be viewed, analyzed, and interpreted in two distinct ways, or <em>domains</em>. The common way of viewing EEG data is in the <strong>time domain</strong>, with time plotted on the <em>x</em> axis, and potential (voltage) on the <em>y</em> axis, as shown below.</p>
 <div class="figure align-left" id="id1">
-<a class="reference internal image-reference" href="../_images/eeg_raw_continuous_30s.jpg"><img alt="../_images/eeg_raw_continuous_30s.jpg" src="../_images/eeg_raw_continuous_30s.jpg" style="height: 125px;" /></a>
+<a class="reference internal image-reference" href="../_images/eeg_raw_continuous_30s.jpg"><img alt="../_images/eeg_raw_continuous_30s.jpg" src="../_images/eeg_raw_continuous_30s.jpg" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">A 30 s sample of continuous EEG data, visualized in the time domain.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 <p>Alternatively, EEG can be viewed in the <strong>frequency domain</strong>. This is done by applying a mathematical transformation, typically a <a class="reference external" href="https://en.wikipedia.org/wiki/Fast_Fourier_transform"><strong>fast Fourier transform</strong></a> (<strong>FFT</strong>). The FFT is based on a principle that any time-varying signal can be created from (or broken down into) into a set of sine waves of varying frequencies and amplitudes, added together. Sine waves are regularly oscillating waveforms, such as this:</p>
@@ -264,12 +264,12 @@
 </div>
 <p>Clearly, an EEG signal such as the one shown in the top figure is much more complicated than a simple sine wave! The amplitude (deflection on the <em>y</em> axis) varies over time, as does the frequency (the spacing between the peaks and troughs over time)  But, by combining a large number of sine waves of different frequencies, each with a specific amplitude, we can mathematically describe even a complex EEG waveform. The figure below shows a very simple example:</p>
 <div class="figure align-left" id="id3">
-<a class="reference internal image-reference" href="../_images/fourier_series_td.png"><img alt="../_images/fourier_series_td.png" src="../_images/fourier_series_td.png" style="height: 75px;" /></a>
+<a class="reference internal image-reference" href="../_images/fourier_series_td.png"><img alt="../_images/fourier_series_td.png" src="../_images/fourier_series_td.png" style="height: 200px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">A Fourier series — a set of sine waves of varying frequencies and amplitudes, along with their sum (bottom panel).</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 <p>Applying an FFT to EEG data generates a representation of the data in the <strong>frequency domain</strong>. The FFT estimates the amplitudes of each of a wide range of sine waves (many more than shown in the figure above), and the frequency domain data represent these amplitudes, with their corresponding frequencies. The results can be plotted in the frequency domain, i.e., with frequency on the <em>x</em> axis, rather than time, and amplitude on the <em>y</em> axis. Note that in the frequency domain, the amplitude of each frequency is generally referred to as <strong>power</strong>, not amplitude.</p>
 <div class="figure align-left" id="id4">
-<a class="reference internal image-reference" href="../_images/fourier_series_fd.png"><img alt="../_images/fourier_series_fd.png" src="../_images/fourier_series_fd.png" style="height: 75px;" /></a>
+<a class="reference internal image-reference" href="../_images/fourier_series_fd.png"><img alt="../_images/fourier_series_fd.png" src="../_images/fourier_series_fd.png" style="height: 200px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">The summed Fourier series shown in the bottom panel of the previous figure, but plotted in the frequency domain. A frequency domain plot like this is often referred to as a <strong>power spectrum</strong>.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 <p>One important thing to note about the frequency domain representation of the data is that we lose temporal information. The power at each frequency in the figure above is the average power across the entire duration of the input data. We don’t necessarily have to use the entire time range of our data to compute a FFT and generate frequency domain data. However, it should be fairly intuitive that, at a minimum, the time domain data should be long enough for at least one <em>cycle</em> (time from one peak to the next) of a sine wave to occur (in practice, we would want to have at least 2-3 cycles). Thus the duration of the data we have determines the lowest frequency we can estimate, since lower frequencies take more time to complete one cycle. For example, if a sine wave has a frequency of 1 Hz, that means it contains 1 cycle/second. A 60 Hz sine wave, on the other hand, contains 60 cycles/second. Thus we can estimate a 60 Hz sine wave from a much shorter sample of time than we need to estimate a 1 Hz sine wave. On the other hand, for measuring any given frequency, a longer sample of time will necessarily give a more accurate estimate, because there are more samples (cycles) over which to measure the frequency. A useful phrase to remember this relationship between the time and frequency domains is, <em>precision in the time domain is inversely related to precision in the frequency domain</em>.</p>
@@ -314,7 +314,7 @@
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="learning_objectives.html" title="previous page">Learning Objectives</a>
-    <a class='right-next' id="next-link" href="mne-python.html" title="next page">MNE-Python</a>
+    <a class='right-next' id="next-link" href="preprocessing.html" title="next page">Preprocessing</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

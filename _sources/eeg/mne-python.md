@@ -1,7 +1,7 @@
 ```{figure} images/mne_logo.png
 ---
 align: left
-width: 100px
+width: 150px
 ```
 # MNE-Python
 

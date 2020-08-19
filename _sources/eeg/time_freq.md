@@ -5,7 +5,7 @@ As a time-varying signal, EEG can be viewed, analyzed, and interpreted in two di
 ```{figure} images/eeg_raw_continuous_30s.jpg
 ---
 align: left
-height: 125px
+width: 500px
 ---
 A 30 s sample of continuous EEG data, visualized in the time domain.
 ```
@@ -25,7 +25,7 @@ Clearly, an EEG signal such as the one shown in the top figure is much more comp
 ```{figure} images/fourier_series_td.png
 ---
 align: left
-height: 75px
+height: 200px
 ---
 A Fourier series — a set of sine waves of varying frequencies and amplitudes, along with their sum (bottom panel).
 ```
@@ -35,7 +35,7 @@ Applying an FFT to EEG data generates a representation of the data in the **freq
 ```{figure} images/fourier_series_fd.png
 ---
 align: left
-height: 75px
+height: 200px
 ---
 The summed Fourier series shown in the bottom panel of the previous figure, but plotted in the frequency domain. A frequency domain plot like this is often referred to as a **power spectrum**.
 ```
