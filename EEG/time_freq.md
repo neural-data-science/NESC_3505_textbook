@@ -10,7 +10,7 @@ width: 500px
 A 30 s sample of continuous EEG data, visualized in the time domain.
 ```
 
-Alternatively, EEG can be viewed in the **frequency domain**. This is done by applying a mathematical transformation, typically a [**fast Fourier transform**](https://en.wikipedia.org/wiki/Fast_Fourier_transform) (**FFT**). The FFT is based on a principle that any time-varying signal can be created from (or broken down into) into a set of sine waves of varying frequencies and amplitudes, added together. Sine waves are regularly oscillating waveforms, such as this:
+Alternatively, EEG can be viewed in the **frequency domain**. This is done by applying a mathematical transformation, typically a [**fast Fourier transform**](https://en.wikipedia.org/wiki/Fast_Fourier_transform) (**FFT**). The FFT is based on a principle that any time-varying signal can be created from (or broken down into) a set of sine waves of varying frequencies and amplitudes, added together. Sine waves are regularly oscillating waveforms, such as this:
 
 ```{figure} images/sine_wave.png
 ---
