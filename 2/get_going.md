@@ -22,8 +22,12 @@ On **Wednesdays**, there is a live, synchronous **check-in session** which you c
 
 On **Fridays**, we have **Demo Day** (described in the [syllabus](https://dalpsychneuro.github.io/NESC_3505/syllabus#demos)).
 
+## Weekly Organization (12-week course)
 
+In its 12 week version, the course has weekly and bi-weekly structure:
 
-## Bi-Weekly Organization (12-week course)
+### Weekly
+Each week, there will be 3 check-in times, which are more or less open office hours. The days and times of these will be scheduled based on the availability of the people registered for the class. As well, in the first half of the term there will be 1-2 DataCamp lessons for you to complete.
 
-Coming soon...
+### Bi-Weekly
+There will be an assignment or project due every two weeks. On the alternating weeks when no assignment or project is due, a demo will be due (although only the first three demos are required). The bi-weekly schedule also applies to self- and peer assessments: self-assessments are generally due every second week with peer assessments due in the intervening weeks. However, this structure changes a bit due towards the end of the term to account for the 1-week "study" break. These due dates are all mapped out on the [schedule](https://dalpsychneuro.github.io/NESC_3505/schedule), but as always, Teams is your authoritative source for due dates. 
