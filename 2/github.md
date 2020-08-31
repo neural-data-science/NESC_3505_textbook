@@ -50,11 +50,11 @@ GitHub also supports education, with extensive online help, and video tutorials,
 
 ## GitHub in this class
 
-You will not need to work with GitHub directly in this class. However, behind the scenes, we use GitHub extensively. This textbook and its entire revision history is hosted on github, and there is a second class repo that hosts the syllabus, schedule, and other class files, as well as course materials such as all of the Jupyter notebooks used for examples, assignments, and projects.
+The primary use of GitHub in this class is for your portfolio. You aren't required to use GitHub for this, but it's recommended and we provide some tutorials for doing so.  As well, behind the scenes we use GitHub extensively for this class. This textbook and its entire revision history is hosted on GitHub, and there is a second class repo that hosts the syllabus, schedule, and other class files, as well as course materials such as all of the Jupyter notebooks used for examples, assignments, and projects.
 
 I've devoted a good-sized section to GitHub though, because as a budding data scientist it's a platform you absolutely need to know about — both that it exists, and the basics of how it works.
 
-There is also a git lesson on DataCamp that you can do as a "superpower" lesson. It teaches you to use git from the command line (which is really what you should learn before you start using desktop tools), and you should probably do the DataCamp Terminal lesson before the git one. 
+There is also a git lesson on DataCamp that you can do as a "superpower" lesson. It teaches you to use git from the command line (which is really what you should learn before you start using desktop tools), and you should probably do the DataCamp Terminal lesson before the git one.
 
 ## Fun Facts
 
