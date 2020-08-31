@@ -6,23 +6,25 @@ ___
 
 ### What are we measuring?
 - Neural origins
+- time vs frequency
+- ERP Components
+    - scalp
+    - latent
+
+### The Nature of EEG Data
+    - Time-varying, analog/continuous
+    - Multiple channels
 
 ### How is it measured?
 - Electrodes and recording basics
-
-### The Nature of EEG Data
-- Time-varying, analog/continuous
-- Multiple channels
-
-### Ways of Looking at EEG Data
-- Time domain - ERPs
-- Frequency domain
+- note about MEG
 
 ### Preprocessing
 *Conceptual* - cover MNE steps below.
 - filtering
 - event code processing
 - segmentation (epoching)
+    - baselines
 - artifact removal
     - ICA
 - averaging
@@ -32,8 +34,11 @@ ___
 ### Overview
 - background
 - website
+- classes
 
 ### Data import
+- fif files
+- other formats
 
 ### MNE Data Structure
 - .info
@@ -50,16 +55,18 @@ ___
     - ICA
 - averaging
 
+### Group-Level Analysis
+- reading in multiple data files and organizing as dicts or lists
+- group grand averages
+
 ### Visualization
 #### ERPs
-- grand averages per subject
-- group grand averages
 - waveforms
 - topo maps
 - Coversion to pandas DataFrame
 - using seaborn for statistical visualization
-- mass univariate tests
 - mean amplitude t-tests
+- mass univariate tests
 
 #### Frequency Domain
 - frequency spectrum
