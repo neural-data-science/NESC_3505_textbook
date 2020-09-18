@@ -1,8 +1,8 @@
-## Learning Objectives for this Course
+# Learning Objectives for this Course
 
 The learning outcomes for this class can be characterized as a mix of “hard” and “soft” skills; both are equally valuable to your intellectual and personal development. At the end of this class, you should be able to:
 
-### Hard Skills
+## Hard Skills
 - Extract meaning from data, but also articulate the limitations of the conclusions you can draw from it
 - Write functional and efficient code in Python to perform basic data science tasks
 - Use GitHub for collaborative software development and project management
@@ -16,7 +16,7 @@ The learning outcomes for this class can be characterized as a mix of “hard”
 - Understand basic concepts and common tools used in machine learning, including deep neural networks
 - Extend your Python skills using online resources
 
-### Soft Skills
+## Soft Skills
 - demonstrate a professional work ethic
 - be effective and productive in a remote working environment
 - work collaboratively, effectively, and productively in a distributed team

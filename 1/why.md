@@ -1,4 +1,4 @@
-## Start with why
+# Start with why
 
 Why are you here, reading this? What do you hope to get out of a course in "neural data science"? These are questions for you to answer for yourself, and obviously I can't hear your answer. But, I can tell you why I designed this course, and what I hope you will get out of it.
 
