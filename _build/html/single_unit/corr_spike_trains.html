@@ -1,0 +1,2389 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correlating Spike Trains &#8212; NESC 3505 Neural Data Science</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/mystnb.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/single_unit/corr_spike_trains.html" />
+    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Introduction" href="../eeg/introduction.html" />
+    <link rel="prev" title="Introduction to Spike Trains" href="intro_spike_trains.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+<!-- Put requirejs at the end so it's always after bootstrap -->
+<!-- TODO: remove this once https://github.com/pandas-dev/pydata-sphinx-theme/pull/149 is merged -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/single_unit/corr_spike_trains.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Correlating Spike Trains" />
+<meta property="og:description" content="Correlating Spike Trains  This lesson is based on Chapter 4 of Nylen, E.L., and Wallisch, P.. (2017). Neural Data Science. Academic Press.  The data file used i" />
+<meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/NESC3505_icon.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">NESC 3505 Neural Data Science</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+  <li class="">
+    <a href="../intro.html">Welcome</a>
+  </li>
+  <li class="">
+    <a href="../syllabus.html">Syllabus</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">About This Course</p>
+</li>
+  <li class="">
+    <a href="../1/why.html">Start with why</a>
+  </li>
+  <li class="">
+    <a href="../1/teaching_approach.html">Teaching Approach</a>
+  </li>
+  <li class="">
+    <a href="../1/learning_approach.html">How To Rock This Course</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Getting Started</p>
+</li>
+  <li class="">
+    <a href="../2/introduction.html">Introduction</a>
+  </li>
+  <li class="">
+    <a href="../2/learning_objectives.html">Learning Objectives</a>
+  </li>
+  <li class="">
+    <a href="../2/what_is_nds.html">What is Data Science?</a>
+  </li>
+  <li class="">
+    <a href="../2/tools_for_nds.html">Tools for Neural Data Science</a>
+  </li>
+  <li class="">
+    <a href="../2/class_tech.html">Technologies Used in this Class</a>
+  </li>
+  <li class="">
+    <a href="../2/get_going.html">Get Going!</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Introducing Python</p>
+</li>
+  <li class="">
+    <a href="../3/introduction.html">Introduction</a>
+  </li>
+  <li class="">
+    <a href="../3/learning_objectives.html">Learning Objectives</a>
+  </li>
+  <li class="">
+    <a href="../3/getting_help.html">Getting Help with Python</a>
+  </li>
+  <li class="">
+    <a href="../3/lesson1.html">Lesson 1: Introduction to Python</a>
+  </li>
+  <li class="">
+    <a href="../3/lesson2.html">Lesson 2: Intermediate Python</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Single Unit Data</p>
+</li>
+  <li class="">
+    <a href="introduction.html">Introduction</a>
+  </li>
+  <li class="">
+    <a href="learning_objectives.html">Learning Objectives</a>
+  </li>
+  <li class="">
+    <a href="intro_spike_trains.html">Introduction to Spike Trains</a>
+  </li>
+  <li class="active">
+    <a href="">Correlating Spike Trains</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">EEG & ERP Data</p>
+</li>
+  <li class="">
+    <a href="../eeg/introduction.html">Introduction</a>
+  </li>
+  <li class="">
+    <a href="../eeg/learning_objectives.html">Learning Objectives</a>
+  </li>
+  <li class="">
+    <a href="../eeg/time_freq.html">Time and Frequency Domains</a>
+  </li>
+  <li class="">
+    <a href="../eeg/erps.html">Event-Related Potentials (ERPs)</a>
+  </li>
+  <li class="">
+    <a href="../eeg/preprocessing.html">Preprocessing</a>
+  </li>
+  <li class="">
+    <a href="../eeg/mne-python.html">MNE-Python</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">MRI Data</p>
+</li>
+  <li class="">
+    <a href="../mri/introduction.html">Introduction</a>
+  </li>
+  <li class="">
+    <a href="../mri/learning_objectives.html">Learning Objectives</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">References</p>
+</li>
+  <li class="">
+    <a href="../zrefs.html">References</a>
+  </li>
+</ul>
+</nav>
+<p class="navbar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="../_sources/single_unit/corr_spike_trains.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.ipynb</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Edit this page -->
+        
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#about-the-data" class="nav-link">About the data</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#recording" class="nav-link">Recording</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#stimuli" class="nav-link">Stimuli</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#experimental-design" class="nav-link">Experimental design</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#research-question" class="nav-link">Research question</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#references" class="nav-link">References</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#import-packages" class="nav-link">Import packages</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#set-variables" class="nav-link">Set variables</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#import-the-data" class="nav-link">Import the data</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#data-structure" class="nav-link">Data structure</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#convert-data-to-pandas-dataframe" class="nav-link">Convert data to pandas dataframe</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#exploring-the-data" class="nav-link">Exploring the data</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#peri-stimulus-time-histograms-psth" class="nav-link">Peri-Stimulus Time Histograms (PSTH)</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#using-np-histogram" class="nav-link">Using np.histogram()</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#the-dictionary-way" class="nav-link">The dictionary way</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#the-list-comprehension-way" class="nav-link">The list comprehension way</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 col-xxl-7 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="correlating-spike-trains">
+<h1>Correlating Spike Trains<a class="headerlink" href="#correlating-spike-trains" title="Permalink to this headline">¶</a></h1>
+<p>This lesson is based on Chapter 4 of Nylen, E.L., and Wallisch, P.. (2017). <a class="reference external" href="https://www.sciencedirect.com/book/9780128040430/neural-data-science"><em>Neural Data Science</em></a>. Academic Press.</p>
+<p>The data file used in this tutorial is freely available from <a class="reference external" href="https://www.elsevier.com/books-and-journals/book-companion/9780128040430/chapter-files#Chapter%20Files">the book’s website</a>, as is Nylen and Wallisch’s original code.</p>
+<p>The code provided here, along with the explanatory test, was written by by Aaron J. Newman and is distributed under the same license as the rest of this book.</p>
+<div class="section" id="about-the-data">
+<h2>About the data<a class="headerlink" href="#about-the-data" title="Permalink to this headline">¶</a></h2>
+<p>The data used here are from a study published by Snyder, Morais, Willis, and Smith (2015). The goal of the study was to relate neural activity across different scales, from single unit (single neuron) to whole-brain networks. To do this, the researchers simultaneously recorded neural activity from a 96-electrode array implanted in the brain, and EEG electrodes on the scalp, of rhesus macaque monkeys. Here we will work with only the 96 electrode invasive recordings, and not the EEG. Of interest is <strong>spike count correlation</strong>, which is a measure of neural functional connectivity. Functional connectivity is of widespread interest in neuroscience, and essentially refers to correlations in activity between different brain areas. If different brain areas (or individual neurons) show correlated activity, it is likely that they work together in some way. This is particularly true if their functional connectivity changes as a result of experimental manipulations. For example, if two areas (or neurons) show stronger correlation during a particular task than during a control condition, then we might infer that their functional connectivity is related to their involvement in the experimental task. Indeed, in their introduction Snyder and colleagues note that spike count correlations are structured and modulated by both perceptual and cognitive manipulations.</p>
+<div class="section" id="recording">
+<h3>Recording<a class="headerlink" href="#recording" title="Permalink to this headline">¶</a></h3>
+<p>The data were recorded from a Utah intracortical electrode array (Maynard, Nordhausen, &amp; Normann, 1997) implanted in area V4 of the visual cortex. The Utah array is shown in the figure below:</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Utah_array_pat5215088.jpg" width=250 alt="Utah microelectrode array">
+<p>This is a type of <a class="reference external" href="https://en.wikipedia.org/wiki/Microelectrode_array">microelectrode array</a> consisting of a 10 x 10 grid of silicon microelectrodes that can be placed directly on the cortical surface of a living animal, covering an area of approximately 16 mm<sup>2</sup>. Each electrode is ~1 mm long, and the tip of each electrode records electrical voltage. In general, the electrodes do not penetrate individual neurons (and if they do, they likely destroy those cells), and so each electrode records signals from a small population of surrounding neurons. The strength of the electrical signals measured by the electrodes drops off with the inverse of the distance from it (i.e., 1/distance). This has two important implications. Firstly, while each electrode is spaced far enough apart that it will generate a unique measurement from other electroces, because the signal strength drops off rapidaly. However, because the electrodes are relatively close together, and neurons will be between electrodes, the spiking activity of any single neuron will typically be detected by more than one electrode. A computational process called <strong>spike sorting</strong> is applied to the data after recording, to create separate spike trains for each neuron. Spike sorting is a form of <strong>inverse problem</strong>, meaning that there are many possible solutions, and so the results of spike sorting are dependent on the algorithm used, and may not be entirely accurate. Nonetheless, spike sorting algorithms at this point are well-established and reasonably trustworthy. In the present data, spike sorting has already been performed.</p>
+</div>
+<div class="section" id="stimuli">
+<h3>Stimuli<a class="headerlink" href="#stimuli" title="Permalink to this headline">¶</a></h3>
+<p>The data here were collected in an experiment in which the monkeys viewed drifting <em>sine wave gratings</em>. As shown below, sine wave gratings are images that plot a sine wave in 2 dimensions. As you likely know, a (1D) sine (or cosine) wave is a regularly oscillating waveform, like this:</p>
+<div class="figure align-default" id="cosine-wave">
+<a class="reference internal image-reference" href="../_images/1D_cosine_wave.png"><img alt="../_images/1D_cosine_wave.png" src="../_images/1D_cosine_wave.png" style="width: 175px;" /></a>
+</div>
+<p>A sine wave grating is the 2D version of this. You can imagine that you’re looking down on the top of the wave shown above, such that the peaks are white and the valleys are black:</p>
+<div class="figure align-default" id="d-sine-grating">
+<a class="reference internal image-reference" href="../_images/sine_wave_grating.png"><img alt="../_images/sine_wave_grating.png" src="../_images/sine_wave_grating.png" style="width: 150px;" /></a>
+</div>
+<p>Sine wave gratings are commonly used in visual neuroscience because of their ability to drive neural activity. Recall that many cells in the visual cortex respond to edges, or contrast. Sine wave gratings have high contrast that drives these cells nicely. <em>Drifting</em> sine wave gratings, as used in this experiment, are animated versions in which the grating appears to move, such that a given region of the visual field (the receptive field of the neuron) is stimulated by smoothly-varying intensities from black to white.</p>
+</div>
+<div class="section" id="experimental-design">
+<h3>Experimental design<a class="headerlink" href="#experimental-design" title="Permalink to this headline">¶</a></h3>
+<p>The data here comprise 2300 trials recorded from one monkey. Each trial was 2150 ms in duration, and began with a 150 ms fixation period (when the monkeys were trained to fixate on a dot at the centre of a screen), followed by a 2000 ms presentation of the drifting sine wave grating. There were two experimental conditions, one in which the orientation of the grating was 0 deg (horizontal bars) and one at 90 deg (vertical bars). There were an equal number of trials (1150) in each of the two conditions.</p>
+</div>
+<div class="section" id="research-question">
+<h3>Research question<a class="headerlink" href="#research-question" title="Permalink to this headline">¶</a></h3>
+<p>The research question we will address in this lesson is whether there is evidence of functional connectivity within the population of V4 neurons recorded. Specifically, whether stimulation with a sine wave grating increases functional connectivity between neurons, and whether this is specific to the orientation of the stimulus. Since we know that visual cells are sensitive to orientation, we would expect that different populations of neurons would show increased functional connectivity for the 0 versus 90 deg gratings.</p>
+</div>
+<div class="section" id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<p>Maynard, E.M., Nordhausen, C.T., and Normann, R.A.. (1997). The Utah Intracortical Electrode Array: A recording structure for potential brain-computer interfaces. <em>Electroencephalography and Clinical Neurophysiology</em>, 102(3), 228-39. https://doi.org/10.1016/S0013-4694(96)95176-0.</p>
+<p>Snyder, A., Morais, M., Willis, C., et al.. (2015). Global network influences on local functional connectivity. <em>Nature Neuroscience</em> 18, 736–743. https://doi.org/10.1038/nn.3979</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="import-packages">
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.io</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">sc</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="set-variables">
+<h2>Set variables<a class="headerlink" href="#set-variables" title="Permalink to this headline">¶</a></h2>
+<p>We hard-code some known properties of the experiment so that we can easily use these values later. It’s good practice only to code those things that you know you can’t read from the data. For example, we should be able to derive the number of trials, number of channels (electrodes), etc. from the data, so we won’t hard-code those. This makes the code more robust — for example if we had data from other animals that used a microarray with a different number of channels, or ran fewer trials, etc..</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">noise_codes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">]</span> <span class="c1"># explained later</span>
+
+<span class="c1"># time_base is used to define x axis in plots over time. We know that the trials went from </span>
+<span class="c1">#   150 ms pre-stimulus to 2000 ms post-stimulus onset. Here we specify a wider range, </span>
+<span class="c1">#   from -200 to 2500 ms (in 10 ms increments), to provide some padding.</span>
+<span class="n">time_base</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-.</span><span class="mi">2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="o">.</span><span class="mi">01</span><span class="p">)</span> 
+
+<span class="c1"># times the stimulus went on and off</span>
+<span class="n">grating_on_time</span>  <span class="o">=</span> <span class="mi">0</span>
+<span class="n">grating_off_time</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="import-the-data">
+<h2>Import the data<a class="headerlink" href="#import-the-data" title="Permalink to this headline">¶</a></h2>
+<p>The data are stored in a Matlab file, which has the extension <code class="docutils literal notranslate"><span class="pre">.mat</span></code>. The <code class="docutils literal notranslate"><span class="pre">scipy</span></code> package has a function that reads Matlab files into Python. Our first adventure will be deciphering how the data were stored in the Matlab file, which is much more complex than a typical CSV or other tabular-type format.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;arrayDATA.mat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="data-structure">
+<h2>Data structure<a class="headerlink" href="#data-structure" title="Permalink to this headline">¶</a></h2>
+<p>According to the book, DATA contains 2300 rows with two fields (note: “fields” not columns; this is a complex data structure): <code class="docutils literal notranslate"><span class="pre">nev</span></code> and <code class="docutils literal notranslate"><span class="pre">ori</span></code>. Each row represents a trial; <code class="docutils literal notranslate"><span class="pre">nev</span></code> is a matrix for each trial that represents the spiking information, and <code class="docutils literal notranslate"><span class="pre">ori</span></code> is the orientation of the stimulus for each trial (0 or 90 deg).</p>
+<p>Rows in each <code class="docutils literal notranslate"><span class="pre">nev</span></code> matrix represent individual spikes per trial, one for each spike. Column 1 encodes which electrode the spike was recorded on, column 2 is a sort code, and column 3 is the time since the beginning of the trial. So, like the “ten intensities” data in the previous lesson, the data record the times of individual spikes, rather than providing a time series with 1s when spikes occurred, and 0s otherwise.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Sort</span> <span class="pre">code</span></code> is a number from 0-255, indicating which neuron a spike was inferred to have come from (based on spike sorting, which was already performed on the data). Sort codes 0 and 255 are for noise (hence our defining <code class="docutils literal notranslate"><span class="pre">noise_codes</span></code> above); all other sort codes are valid neurons. However, in this data set the only other sort codes are the numbers 1-4, which is somewhat puzzling and not explained; one might expect more than 4 neurons. Indeed, for our purposes we will look at the activity, and correlations between, the channels (electrodes) in the microarray rather than using sort codes.</p>
+<p>Although all the answers are provided for you here, this section takes you on the typical journey a data scientist might embark upon when working with a new dataset, where the format is not fully documented. Our first question is what type the data is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">data_in</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>dict
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s display the dictionary:</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;__header__&#39;: b&#39;MATLAB 5.0 MAT-file, Platform: PCWIN64, Created on: Thu Jun 16 15:54:00 2016&#39;,
+ &#39;__version__&#39;: &#39;1.0&#39;,
+ &#39;__globals__&#39;: [],
+ &#39;DATA&#39;: array([[(array([[ 20.   ,   1.   ,   0.624],
+        [ 20.   ,   1.   ,   0.63 ],
+        [ 20.   ,   3.   ,   0.652],
+        [ 20.   ,   3.   ,   0.659],
+        [ 20.   , 255.   ,   0.686],
+        [ 20.   ,   1.   ,   0.689],
+        [ 20.   ,   1.   ,   0.711],
+        [ 20.   , 255.   ,   0.731],
+        [ 20.   ,   3.   ,   0.742],
+        [ 20.   ,   3.   ,   0.757],
+        [ 20.   ,   2.   ,   0.764],
+        [ 20.   ,   4.   ,   0.779],
+        [ 20.   ,   2.   ,   0.786],
+        [ 20.   ,   3.   ,   0.812],
+        [ 20.   ,   1.   ,   0.826],
+        [ 20.   ,   3.   ,   0.848],
+        [ 20.   , 255.   ,   0.857],
+        [ 20.   ,   4.   ,   0.866],
+        [ 20.   ,   1.   ,   0.872],
+        [ 20.   ,   3.   ,   0.883],
+        [ 20.   ,   3.   ,   0.898],
+        [ 20.   ,   4.   ,   0.909],
+        [ 20.   , 255.   ,   0.926],
+        [ 20.   ,   3.   ,   0.951],
+        [ 20.   ,   1.   ,   0.968],
+        [ 20.   , 255.   ,   0.981],
+        [ 20.   , 255.   ,   0.992],
+        [ 20.   , 255.   ,   0.996],
+        [ 20.   , 255.   ,   1.005],
+        [ 20.   ,   1.   ,   1.019],
+        [ 20.   ,   1.   ,   1.026],
+        [ 20.   ,   1.   ,   1.034],
+        [ 20.   ,   1.   ,   1.067],
+        [ 20.   , 255.   ,   1.079],
+        [ 20.   , 255.   ,   1.098],
+        [ 20.   ,   1.   ,   1.108],
+        [ 20.   , 255.   ,   1.117],
+        [ 20.   ,   1.   ,   1.13 ],
+        [ 20.   ,   1.   ,   1.179],
+        [ 20.   ,   1.   ,   1.191],
+        [ 20.   ,   1.   ,   1.201],
+        [ 20.   ,   1.   ,   1.205],
+        [ 20.   ,   1.   ,   1.209],
+        [ 20.   , 255.   ,   1.214],
+        [ 20.   ,   1.   ,   1.225],
+        [ 20.   ,   1.   ,   1.254],
+        [ 20.   ,   1.   ,   1.259],
+        [ 20.   ,   1.   ,   1.272],
+        [ 20.   ,   1.   ,   1.277],
+        [ 20.   ,   1.   ,   1.289],
+        [ 20.   ,   1.   ,   1.297],
+        [ 20.   , 255.   ,   1.303],
+        [ 20.   ,   1.   ,   1.328],
+        [ 20.   ,   1.   ,   1.334],
+        [ 20.   ,   1.   ,   1.35 ],
+        [ 20.   ,   1.   ,   1.364],
+        [ 20.   ,   1.   ,   1.377],
+        [ 20.   ,   1.   ,   1.402],
+        [ 20.   , 255.   ,   1.415],
+        [ 20.   ,   1.   ,   1.427],
+        [ 20.   ,   1.   ,   1.45 ],
+        [ 20.   , 255.   ,   1.47 ],
+        [ 20.   , 255.   ,   1.473],
+        [ 20.   ,   1.   ,   1.489],
+        [ 20.   , 255.   ,   1.506],
+        [ 20.   ,   1.   ,   1.512],
+        [ 20.   , 255.   ,   1.518],
+        [ 20.   ,   1.   ,   1.533],
+        [ 20.   ,   1.   ,   1.553],
+        [ 20.   , 255.   ,   1.568],
+        [ 20.   ,   1.   ,   1.591],
+        [ 20.   ,   1.   ,   1.6  ],
+        [ 20.   ,   1.   ,   1.605],
+        [ 20.   , 255.   ,   1.61 ],
+        [ 20.   ,   1.   ,   1.616],
+        [ 20.   ,   1.   ,   1.66 ],
+        [ 20.   ,   1.   ,   1.667],
+        [ 20.   ,   1.   ,   1.682],
+        [ 20.   , 255.   ,   1.689],
+        [ 20.   ,   1.   ,   1.719],
+        [ 20.   ,   1.   ,   1.729],
+        [ 20.   ,   1.   ,   1.744],
+        [ 20.   , 255.   ,   1.75 ],
+        [ 20.   ,   1.   ,   1.788],
+        [ 20.   ,   1.   ,   1.816],
+        [ 20.   ,   1.   ,   1.834],
+        [ 20.   ,   1.   ,   1.848],
+        [ 20.   ,   1.   ,   1.875],
+        [ 20.   ,   1.   ,   1.896],
+        [ 20.   ,   1.   ,   1.904],
+        [ 20.   ,   1.   ,   1.911],
+        [ 20.   ,   1.   ,   1.913],
+        [ 20.   ,   3.   ,   1.928],
+        [ 20.   ,   3.   ,   1.954],
+        [ 20.   ,   1.   ,   1.961],
+        [ 20.   ,   1.   ,   1.968],
+        [ 20.   ,   3.   ,   1.974],
+        [ 20.   ,   3.   ,   1.98 ],
+        [ 20.   ,   1.   ,   1.996],
+        [ 20.   ,   3.   ,   2.024],
+        [ 42.   ,   1.   ,   2.425],
+        [ 42.   ,   1.   ,   2.452],
+        [ 42.   ,   1.   ,   2.483],
+        [ 42.   ,   1.   ,   2.515],
+        [ 42.   ,   1.   ,   2.545],
+        [ 42.   ,   1.   ,   2.727],
+        [ 42.   ,   1.   ,   2.771],
+        [ 42.   ,   1.   ,   2.774],
+        [ 42.   ,   1.   ,   2.782],
+        [ 42.   ,   1.   ,   2.802],
+        [ 42.   ,   1.   ,   2.852],
+        [ 42.   ,   1.   ,   2.862],
+        [ 72.   ,   1.   ,   0.478],
+        [ 72.   ,   1.   ,   0.551],
+        [ 72.   ,   1.   ,   0.56 ],
+        [ 72.   ,   1.   ,   0.583],
+        [ 72.   ,   1.   ,   0.592],
+        [ 72.   ,   1.   ,   0.616],
+        [ 72.   ,   1.   ,   0.634],
+        [ 72.   ,   1.   ,   0.637],
+        [ 72.   ,   1.   ,   0.64 ],
+        [ 72.   ,   1.   ,   0.644],
+        [ 72.   ,   1.   ,   0.666],
+        [ 72.   ,   1.   ,   0.689],
+        [ 72.   ,   1.   ,   0.76 ],
+        [ 72.   ,   1.   ,   0.78 ],
+        [ 72.   ,   1.   ,   0.794],
+        [ 72.   ,   1.   ,   0.798],
+        [ 72.   ,   1.   ,   0.871],
+        [ 72.   ,   1.   ,   0.907],
+        [ 72.   ,   1.   ,   0.927],
+        [ 72.   ,   1.   ,   0.968],
+        [ 72.   ,   1.   ,   0.975],
+        [ 72.   ,   1.   ,   1.02 ],
+        [ 72.   ,   1.   ,   1.061],
+        [ 72.   ,   1.   ,   1.069],
+        [ 72.   ,   1.   ,   1.128],
+        [ 72.   ,   1.   ,   1.157],
+        [ 72.   ,   1.   ,   1.181],
+        [ 72.   ,   1.   ,   1.187],
+        [ 72.   ,   1.   ,   1.224],
+        [ 72.   ,   1.   ,   1.232],
+        [ 72.   ,   1.   ,   1.281],
+        [ 72.   ,   1.   ,   1.293],
+        [ 72.   ,   1.   ,   1.303],
+        [ 72.   ,   1.   ,   1.305],
+        [ 72.   ,   1.   ,   1.345],
+        [ 72.   ,   1.   ,   1.37 ],
+        [ 72.   ,   1.   ,   1.406],
+        [ 72.   ,   1.   ,   1.414],
+        [ 72.   ,   1.   ,   1.438],
+        [ 72.   ,   1.   ,   1.451],
+        [ 72.   ,   1.   ,   1.479],
+        [ 72.   ,   1.   ,   1.485],
+        [ 72.   ,   1.   ,   1.506],
+        [ 72.   ,   1.   ,   1.522],
+        [ 72.   ,   1.   ,   1.556],
+        [ 72.   , 255.   ,   1.56 ],
+        [ 72.   ,   1.   ,   1.566],
+        [ 72.   , 255.   ,   1.576],
+        [ 72.   , 255.   ,   1.586],
+        [ 72.   ,   1.   ,   1.603],
+        [ 72.   ,   1.   ,   1.617],
+        [ 72.   ,   1.   ,   1.626],
+        [ 72.   ,   1.   ,   1.659],
+        [ 72.   ,   1.   ,   1.694],
+        [ 72.   ,   1.   ,   1.712],
+        [ 72.   ,   1.   ,   1.73 ],
+        [ 72.   ,   1.   ,   1.743],
+        [ 72.   ,   1.   ,   1.785],
+        [ 72.   ,   1.   ,   1.8  ],
+        [ 72.   ,   1.   ,   1.814],
+        [ 72.   ,   1.   ,   1.84 ],
+        [ 72.   , 255.   ,   1.868],
+        [ 72.   ,   1.   ,   1.889],
+        [ 72.   ,   1.   ,   1.903],
+        [ 72.   , 255.   ,   1.975],
+        [ 72.   ,   1.   ,   1.982],
+        [ 72.   ,   1.   ,   2.003],
+        [ 72.   ,   1.   ,   2.052],
+        [ 72.   ,   1.   ,   2.066],
+        [ 72.   ,   1.   ,   2.107],
+        [ 72.   ,   1.   ,   2.116],
+        [ 72.   ,   1.   ,   2.151],
+        [ 72.   ,   1.   ,   2.22 ],
+        [ 72.   ,   1.   ,   2.29 ],
+        [ 72.   ,   1.   ,   2.378],
+        [ 72.   ,   1.   ,   2.472],
+        [ 72.   ,   1.   ,   2.488],
+        [ 72.   ,   1.   ,   2.506],
+        [ 72.   ,   1.   ,   2.627],
+        [ 72.   ,   1.   ,   2.643],
+        [ 72.   ,   1.   ,   2.752],
+        [ 72.   ,   1.   ,   2.762],
+        [ 72.   ,   1.   ,   2.772],
+        [ 72.   , 255.   ,   2.775],
+        [ 20.   ,   3.   ,   2.039],
+        [ 20.   ,   3.   ,   2.047],
+        [ 20.   ,   1.   ,   2.053],
+        [ 20.   ,   3.   ,   2.064],
+        [ 20.   ,   1.   ,   2.114],
+        [ 20.   , 255.   ,   2.253],
+        [ 20.   ,   3.   ,   2.257],
+        [ 20.   ,   1.   ,   2.279],
+        [ 20.   , 255.   ,   2.689],
+        [ 20.   , 255.   ,   2.845],
+        [ 20.   ,   1.   ,   2.854]], dtype=float32), array([[90.]], dtype=float32))],
+        [(array([[ 7.800e+01,  0.000e+00, -1.080e-01],
+        [ 9.400e+01,  1.000e+00, -1.090e-01],
+        [ 3.500e+01,  2.550e+02, -1.050e-01],
+        ...,
+        [ 1.900e+01,  1.000e+00,  2.614e+00],
+        [ 2.200e+01,  1.000e+00,  2.618e+00],
+        [ 8.000e+00,  1.000e+00,  2.620e+00]], dtype=float32), array([[0.]], dtype=float32))],
+        [(array([[22.   ,  1.   , -0.345],
+        [36.   ,  1.   , -0.344],
+        [78.   ,  1.   , -0.341],
+        ...,
+        [22.   ,  1.   ,  2.643],
+        [38.   ,  2.   ,  2.65 ],
+        [78.   ,  1.   ,  2.65 ]], dtype=float32), array([[0.]], dtype=float32))],
+        ...,
+        [(array([[ 80.   ,   1.   ,  -0.435],
+        [ 84.   , 255.   ,  -0.428],
+        [ 84.   ,   1.   ,  -0.424],
+        ...,
+        [ 39.   ,   1.   ,   2.606],
+        [ 75.   ,   1.   ,   2.609],
+        [ 60.   ,   1.   ,   2.616]], dtype=float32), array([[0.]], dtype=float32))],
+        [(array([[ 75.   ,   0.   ,  -0.5  ],
+        [ 72.   ,   1.   ,  -0.496],
+        [ 71.   ,   1.   ,  -0.495],
+        ...,
+        [ 14.   , 255.   ,   2.617],
+        [ 19.   ,   1.   ,   2.629],
+        [ 42.   ,   1.   ,   2.63 ]], dtype=float32), array([[90.]], dtype=float32))],
+        [(array([[ 35.   ,   1.   ,  -0.5  ],
+        [  1.   , 255.   ,  -0.499],
+        [ 49.   ,   1.   ,  -0.499],
+        ...,
+        [ 18.   ,   1.   ,   2.634],
+        [ 60.   ,   1.   ,   2.636],
+        [ 42.   ,   1.   ,   2.638]], dtype=float32), array([[0.]], dtype=float32))]],
+       dtype=[(&#39;nev&#39;, &#39;O&#39;), (&#39;ori&#39;, &#39;O&#39;)])}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Whoa, that looks complex! But we can see that the dictionary has only a few keys. The first three are information about the file (meta-data), while the fourth, <code class="docutils literal notranslate"><span class="pre">DATA</span></code>, appears to be our data. We can see that this is a numpy array, which we can cofirm by asking its type:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>numpy.ndarray
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next let’s get the shape of the data array:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>(2300, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<p>OK, this makes some sense since we know that the experiment comprised 2300 trials, and its consistent with the documentation in the book that DATA contains 2300 rows. So there is one row per trial in the DATA array, and each row is only one column. However, that one column actually contains an embedded array; note above that the first row of DATA is:</p>
+<p><code class="docutils literal notranslate"> <span class="pre">'DATA':</span> <span class="pre">array([[(array([[</span> <span class="pre">20.</span>&#160;&#160; <span class="pre">,</span>&#160;&#160; <span class="pre">1.</span>&#160;&#160; <span class="pre">,</span>&#160;&#160; <span class="pre">0.624],</span></code></p>
+<p>We know that numpy arrays are represented as quare brackets within parentheses, as such: <code class="docutils literal notranslate"><span class="pre">array([])</span></code>. The fact that here we see <code class="docutils literal notranslate"><span class="pre">array([[(array([[</span></code> suggests that we have arrays embedded inside other arrays. It will take some digging to figure this out!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>(1,)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Just one thing? So what’s in that np array?</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([(array([[ 20.   ,   1.   ,   0.624],
+       [ 20.   ,   1.   ,   0.63 ],
+       [ 20.   ,   3.   ,   0.652],
+       [ 20.   ,   3.   ,   0.659],
+       [ 20.   , 255.   ,   0.686],
+       [ 20.   ,   1.   ,   0.689],
+       [ 20.   ,   1.   ,   0.711],
+       [ 20.   , 255.   ,   0.731],
+       [ 20.   ,   3.   ,   0.742],
+       [ 20.   ,   3.   ,   0.757],
+       [ 20.   ,   2.   ,   0.764],
+       [ 20.   ,   4.   ,   0.779],
+       [ 20.   ,   2.   ,   0.786],
+       [ 20.   ,   3.   ,   0.812],
+       [ 20.   ,   1.   ,   0.826],
+       [ 20.   ,   3.   ,   0.848],
+       [ 20.   , 255.   ,   0.857],
+       [ 20.   ,   4.   ,   0.866],
+       [ 20.   ,   1.   ,   0.872],
+       [ 20.   ,   3.   ,   0.883],
+       [ 20.   ,   3.   ,   0.898],
+       [ 20.   ,   4.   ,   0.909],
+       [ 20.   , 255.   ,   0.926],
+       [ 20.   ,   3.   ,   0.951],
+       [ 20.   ,   1.   ,   0.968],
+       [ 20.   , 255.   ,   0.981],
+       [ 20.   , 255.   ,   0.992],
+       [ 20.   , 255.   ,   0.996],
+       [ 20.   , 255.   ,   1.005],
+       [ 20.   ,   1.   ,   1.019],
+       [ 20.   ,   1.   ,   1.026],
+       [ 20.   ,   1.   ,   1.034],
+       [ 20.   ,   1.   ,   1.067],
+       [ 20.   , 255.   ,   1.079],
+       [ 20.   , 255.   ,   1.098],
+       [ 20.   ,   1.   ,   1.108],
+       [ 20.   , 255.   ,   1.117],
+       [ 20.   ,   1.   ,   1.13 ],
+       [ 20.   ,   1.   ,   1.179],
+       [ 20.   ,   1.   ,   1.191],
+       [ 20.   ,   1.   ,   1.201],
+       [ 20.   ,   1.   ,   1.205],
+       [ 20.   ,   1.   ,   1.209],
+       [ 20.   , 255.   ,   1.214],
+       [ 20.   ,   1.   ,   1.225],
+       [ 20.   ,   1.   ,   1.254],
+       [ 20.   ,   1.   ,   1.259],
+       [ 20.   ,   1.   ,   1.272],
+       [ 20.   ,   1.   ,   1.277],
+       [ 20.   ,   1.   ,   1.289],
+       [ 20.   ,   1.   ,   1.297],
+       [ 20.   , 255.   ,   1.303],
+       [ 20.   ,   1.   ,   1.328],
+       [ 20.   ,   1.   ,   1.334],
+       [ 20.   ,   1.   ,   1.35 ],
+       [ 20.   ,   1.   ,   1.364],
+       [ 20.   ,   1.   ,   1.377],
+       [ 20.   ,   1.   ,   1.402],
+       [ 20.   , 255.   ,   1.415],
+       [ 20.   ,   1.   ,   1.427],
+       [ 20.   ,   1.   ,   1.45 ],
+       [ 20.   , 255.   ,   1.47 ],
+       [ 20.   , 255.   ,   1.473],
+       [ 20.   ,   1.   ,   1.489],
+       [ 20.   , 255.   ,   1.506],
+       [ 20.   ,   1.   ,   1.512],
+       [ 20.   , 255.   ,   1.518],
+       [ 20.   ,   1.   ,   1.533],
+       [ 20.   ,   1.   ,   1.553],
+       [ 20.   , 255.   ,   1.568],
+       [ 20.   ,   1.   ,   1.591],
+       [ 20.   ,   1.   ,   1.6  ],
+       [ 20.   ,   1.   ,   1.605],
+       [ 20.   , 255.   ,   1.61 ],
+       [ 20.   ,   1.   ,   1.616],
+       [ 20.   ,   1.   ,   1.66 ],
+       [ 20.   ,   1.   ,   1.667],
+       [ 20.   ,   1.   ,   1.682],
+       [ 20.   , 255.   ,   1.689],
+       [ 20.   ,   1.   ,   1.719],
+       [ 20.   ,   1.   ,   1.729],
+       [ 20.   ,   1.   ,   1.744],
+       [ 20.   , 255.   ,   1.75 ],
+       [ 20.   ,   1.   ,   1.788],
+       [ 20.   ,   1.   ,   1.816],
+       [ 20.   ,   1.   ,   1.834],
+       [ 20.   ,   1.   ,   1.848],
+       [ 20.   ,   1.   ,   1.875],
+       [ 20.   ,   1.   ,   1.896],
+       [ 20.   ,   1.   ,   1.904],
+       [ 20.   ,   1.   ,   1.911],
+       [ 20.   ,   1.   ,   1.913],
+       [ 20.   ,   3.   ,   1.928],
+       [ 20.   ,   3.   ,   1.954],
+       [ 20.   ,   1.   ,   1.961],
+       [ 20.   ,   1.   ,   1.968],
+       [ 20.   ,   3.   ,   1.974],
+       [ 20.   ,   3.   ,   1.98 ],
+       [ 20.   ,   1.   ,   1.996],
+       [ 20.   ,   3.   ,   2.024],
+       [ 42.   ,   1.   ,   2.425],
+       [ 42.   ,   1.   ,   2.452],
+       [ 42.   ,   1.   ,   2.483],
+       [ 42.   ,   1.   ,   2.515],
+       [ 42.   ,   1.   ,   2.545],
+       [ 42.   ,   1.   ,   2.727],
+       [ 42.   ,   1.   ,   2.771],
+       [ 42.   ,   1.   ,   2.774],
+       [ 42.   ,   1.   ,   2.782],
+       [ 42.   ,   1.   ,   2.802],
+       [ 42.   ,   1.   ,   2.852],
+       [ 42.   ,   1.   ,   2.862],
+       [ 72.   ,   1.   ,   0.478],
+       [ 72.   ,   1.   ,   0.551],
+       [ 72.   ,   1.   ,   0.56 ],
+       [ 72.   ,   1.   ,   0.583],
+       [ 72.   ,   1.   ,   0.592],
+       [ 72.   ,   1.   ,   0.616],
+       [ 72.   ,   1.   ,   0.634],
+       [ 72.   ,   1.   ,   0.637],
+       [ 72.   ,   1.   ,   0.64 ],
+       [ 72.   ,   1.   ,   0.644],
+       [ 72.   ,   1.   ,   0.666],
+       [ 72.   ,   1.   ,   0.689],
+       [ 72.   ,   1.   ,   0.76 ],
+       [ 72.   ,   1.   ,   0.78 ],
+       [ 72.   ,   1.   ,   0.794],
+       [ 72.   ,   1.   ,   0.798],
+       [ 72.   ,   1.   ,   0.871],
+       [ 72.   ,   1.   ,   0.907],
+       [ 72.   ,   1.   ,   0.927],
+       [ 72.   ,   1.   ,   0.968],
+       [ 72.   ,   1.   ,   0.975],
+       [ 72.   ,   1.   ,   1.02 ],
+       [ 72.   ,   1.   ,   1.061],
+       [ 72.   ,   1.   ,   1.069],
+       [ 72.   ,   1.   ,   1.128],
+       [ 72.   ,   1.   ,   1.157],
+       [ 72.   ,   1.   ,   1.181],
+       [ 72.   ,   1.   ,   1.187],
+       [ 72.   ,   1.   ,   1.224],
+       [ 72.   ,   1.   ,   1.232],
+       [ 72.   ,   1.   ,   1.281],
+       [ 72.   ,   1.   ,   1.293],
+       [ 72.   ,   1.   ,   1.303],
+       [ 72.   ,   1.   ,   1.305],
+       [ 72.   ,   1.   ,   1.345],
+       [ 72.   ,   1.   ,   1.37 ],
+       [ 72.   ,   1.   ,   1.406],
+       [ 72.   ,   1.   ,   1.414],
+       [ 72.   ,   1.   ,   1.438],
+       [ 72.   ,   1.   ,   1.451],
+       [ 72.   ,   1.   ,   1.479],
+       [ 72.   ,   1.   ,   1.485],
+       [ 72.   ,   1.   ,   1.506],
+       [ 72.   ,   1.   ,   1.522],
+       [ 72.   ,   1.   ,   1.556],
+       [ 72.   , 255.   ,   1.56 ],
+       [ 72.   ,   1.   ,   1.566],
+       [ 72.   , 255.   ,   1.576],
+       [ 72.   , 255.   ,   1.586],
+       [ 72.   ,   1.   ,   1.603],
+       [ 72.   ,   1.   ,   1.617],
+       [ 72.   ,   1.   ,   1.626],
+       [ 72.   ,   1.   ,   1.659],
+       [ 72.   ,   1.   ,   1.694],
+       [ 72.   ,   1.   ,   1.712],
+       [ 72.   ,   1.   ,   1.73 ],
+       [ 72.   ,   1.   ,   1.743],
+       [ 72.   ,   1.   ,   1.785],
+       [ 72.   ,   1.   ,   1.8  ],
+       [ 72.   ,   1.   ,   1.814],
+       [ 72.   ,   1.   ,   1.84 ],
+       [ 72.   , 255.   ,   1.868],
+       [ 72.   ,   1.   ,   1.889],
+       [ 72.   ,   1.   ,   1.903],
+       [ 72.   , 255.   ,   1.975],
+       [ 72.   ,   1.   ,   1.982],
+       [ 72.   ,   1.   ,   2.003],
+       [ 72.   ,   1.   ,   2.052],
+       [ 72.   ,   1.   ,   2.066],
+       [ 72.   ,   1.   ,   2.107],
+       [ 72.   ,   1.   ,   2.116],
+       [ 72.   ,   1.   ,   2.151],
+       [ 72.   ,   1.   ,   2.22 ],
+       [ 72.   ,   1.   ,   2.29 ],
+       [ 72.   ,   1.   ,   2.378],
+       [ 72.   ,   1.   ,   2.472],
+       [ 72.   ,   1.   ,   2.488],
+       [ 72.   ,   1.   ,   2.506],
+       [ 72.   ,   1.   ,   2.627],
+       [ 72.   ,   1.   ,   2.643],
+       [ 72.   ,   1.   ,   2.752],
+       [ 72.   ,   1.   ,   2.762],
+       [ 72.   ,   1.   ,   2.772],
+       [ 72.   , 255.   ,   2.775],
+       [ 20.   ,   3.   ,   2.039],
+       [ 20.   ,   3.   ,   2.047],
+       [ 20.   ,   1.   ,   2.053],
+       [ 20.   ,   3.   ,   2.064],
+       [ 20.   ,   1.   ,   2.114],
+       [ 20.   , 255.   ,   2.253],
+       [ 20.   ,   3.   ,   2.257],
+       [ 20.   ,   1.   ,   2.279],
+       [ 20.   , 255.   ,   2.689],
+       [ 20.   , 255.   ,   2.845],
+       [ 20.   ,   1.   ,   2.854]], dtype=float32), array([[90.]], dtype=float32))],
+      dtype=[(&#39;nev&#39;, &#39;O&#39;), (&#39;ori&#39;, &#39;O&#39;)])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hmm, <code class="docutils literal notranslate"><span class="pre">array([(array([[</span> </code> tells us there’s a numpy array inside the numpy array. The fact that the embedded array appears as <code class="docutils literal notranslate"><span class="pre">array([[</span> </code> with two open square brackets tells us that the embedded array itself contains multiple entries. So, what’s the first entry in the embedded array? As you can see below, we use a sequence of numbers in square brackets to index increasingly-deep levels of the data structure:</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>(array([[ 20.   ,   1.   ,   0.624],
+       [ 20.   ,   1.   ,   0.63 ],
+       [ 20.   ,   3.   ,   0.652],
+       [ 20.   ,   3.   ,   0.659],
+       [ 20.   , 255.   ,   0.686],
+       [ 20.   ,   1.   ,   0.689],
+       [ 20.   ,   1.   ,   0.711],
+       [ 20.   , 255.   ,   0.731],
+       [ 20.   ,   3.   ,   0.742],
+       [ 20.   ,   3.   ,   0.757],
+       [ 20.   ,   2.   ,   0.764],
+       [ 20.   ,   4.   ,   0.779],
+       [ 20.   ,   2.   ,   0.786],
+       [ 20.   ,   3.   ,   0.812],
+       [ 20.   ,   1.   ,   0.826],
+       [ 20.   ,   3.   ,   0.848],
+       [ 20.   , 255.   ,   0.857],
+       [ 20.   ,   4.   ,   0.866],
+       [ 20.   ,   1.   ,   0.872],
+       [ 20.   ,   3.   ,   0.883],
+       [ 20.   ,   3.   ,   0.898],
+       [ 20.   ,   4.   ,   0.909],
+       [ 20.   , 255.   ,   0.926],
+       [ 20.   ,   3.   ,   0.951],
+       [ 20.   ,   1.   ,   0.968],
+       [ 20.   , 255.   ,   0.981],
+       [ 20.   , 255.   ,   0.992],
+       [ 20.   , 255.   ,   0.996],
+       [ 20.   , 255.   ,   1.005],
+       [ 20.   ,   1.   ,   1.019],
+       [ 20.   ,   1.   ,   1.026],
+       [ 20.   ,   1.   ,   1.034],
+       [ 20.   ,   1.   ,   1.067],
+       [ 20.   , 255.   ,   1.079],
+       [ 20.   , 255.   ,   1.098],
+       [ 20.   ,   1.   ,   1.108],
+       [ 20.   , 255.   ,   1.117],
+       [ 20.   ,   1.   ,   1.13 ],
+       [ 20.   ,   1.   ,   1.179],
+       [ 20.   ,   1.   ,   1.191],
+       [ 20.   ,   1.   ,   1.201],
+       [ 20.   ,   1.   ,   1.205],
+       [ 20.   ,   1.   ,   1.209],
+       [ 20.   , 255.   ,   1.214],
+       [ 20.   ,   1.   ,   1.225],
+       [ 20.   ,   1.   ,   1.254],
+       [ 20.   ,   1.   ,   1.259],
+       [ 20.   ,   1.   ,   1.272],
+       [ 20.   ,   1.   ,   1.277],
+       [ 20.   ,   1.   ,   1.289],
+       [ 20.   ,   1.   ,   1.297],
+       [ 20.   , 255.   ,   1.303],
+       [ 20.   ,   1.   ,   1.328],
+       [ 20.   ,   1.   ,   1.334],
+       [ 20.   ,   1.   ,   1.35 ],
+       [ 20.   ,   1.   ,   1.364],
+       [ 20.   ,   1.   ,   1.377],
+       [ 20.   ,   1.   ,   1.402],
+       [ 20.   , 255.   ,   1.415],
+       [ 20.   ,   1.   ,   1.427],
+       [ 20.   ,   1.   ,   1.45 ],
+       [ 20.   , 255.   ,   1.47 ],
+       [ 20.   , 255.   ,   1.473],
+       [ 20.   ,   1.   ,   1.489],
+       [ 20.   , 255.   ,   1.506],
+       [ 20.   ,   1.   ,   1.512],
+       [ 20.   , 255.   ,   1.518],
+       [ 20.   ,   1.   ,   1.533],
+       [ 20.   ,   1.   ,   1.553],
+       [ 20.   , 255.   ,   1.568],
+       [ 20.   ,   1.   ,   1.591],
+       [ 20.   ,   1.   ,   1.6  ],
+       [ 20.   ,   1.   ,   1.605],
+       [ 20.   , 255.   ,   1.61 ],
+       [ 20.   ,   1.   ,   1.616],
+       [ 20.   ,   1.   ,   1.66 ],
+       [ 20.   ,   1.   ,   1.667],
+       [ 20.   ,   1.   ,   1.682],
+       [ 20.   , 255.   ,   1.689],
+       [ 20.   ,   1.   ,   1.719],
+       [ 20.   ,   1.   ,   1.729],
+       [ 20.   ,   1.   ,   1.744],
+       [ 20.   , 255.   ,   1.75 ],
+       [ 20.   ,   1.   ,   1.788],
+       [ 20.   ,   1.   ,   1.816],
+       [ 20.   ,   1.   ,   1.834],
+       [ 20.   ,   1.   ,   1.848],
+       [ 20.   ,   1.   ,   1.875],
+       [ 20.   ,   1.   ,   1.896],
+       [ 20.   ,   1.   ,   1.904],
+       [ 20.   ,   1.   ,   1.911],
+       [ 20.   ,   1.   ,   1.913],
+       [ 20.   ,   3.   ,   1.928],
+       [ 20.   ,   3.   ,   1.954],
+       [ 20.   ,   1.   ,   1.961],
+       [ 20.   ,   1.   ,   1.968],
+       [ 20.   ,   3.   ,   1.974],
+       [ 20.   ,   3.   ,   1.98 ],
+       [ 20.   ,   1.   ,   1.996],
+       [ 20.   ,   3.   ,   2.024],
+       [ 42.   ,   1.   ,   2.425],
+       [ 42.   ,   1.   ,   2.452],
+       [ 42.   ,   1.   ,   2.483],
+       [ 42.   ,   1.   ,   2.515],
+       [ 42.   ,   1.   ,   2.545],
+       [ 42.   ,   1.   ,   2.727],
+       [ 42.   ,   1.   ,   2.771],
+       [ 42.   ,   1.   ,   2.774],
+       [ 42.   ,   1.   ,   2.782],
+       [ 42.   ,   1.   ,   2.802],
+       [ 42.   ,   1.   ,   2.852],
+       [ 42.   ,   1.   ,   2.862],
+       [ 72.   ,   1.   ,   0.478],
+       [ 72.   ,   1.   ,   0.551],
+       [ 72.   ,   1.   ,   0.56 ],
+       [ 72.   ,   1.   ,   0.583],
+       [ 72.   ,   1.   ,   0.592],
+       [ 72.   ,   1.   ,   0.616],
+       [ 72.   ,   1.   ,   0.634],
+       [ 72.   ,   1.   ,   0.637],
+       [ 72.   ,   1.   ,   0.64 ],
+       [ 72.   ,   1.   ,   0.644],
+       [ 72.   ,   1.   ,   0.666],
+       [ 72.   ,   1.   ,   0.689],
+       [ 72.   ,   1.   ,   0.76 ],
+       [ 72.   ,   1.   ,   0.78 ],
+       [ 72.   ,   1.   ,   0.794],
+       [ 72.   ,   1.   ,   0.798],
+       [ 72.   ,   1.   ,   0.871],
+       [ 72.   ,   1.   ,   0.907],
+       [ 72.   ,   1.   ,   0.927],
+       [ 72.   ,   1.   ,   0.968],
+       [ 72.   ,   1.   ,   0.975],
+       [ 72.   ,   1.   ,   1.02 ],
+       [ 72.   ,   1.   ,   1.061],
+       [ 72.   ,   1.   ,   1.069],
+       [ 72.   ,   1.   ,   1.128],
+       [ 72.   ,   1.   ,   1.157],
+       [ 72.   ,   1.   ,   1.181],
+       [ 72.   ,   1.   ,   1.187],
+       [ 72.   ,   1.   ,   1.224],
+       [ 72.   ,   1.   ,   1.232],
+       [ 72.   ,   1.   ,   1.281],
+       [ 72.   ,   1.   ,   1.293],
+       [ 72.   ,   1.   ,   1.303],
+       [ 72.   ,   1.   ,   1.305],
+       [ 72.   ,   1.   ,   1.345],
+       [ 72.   ,   1.   ,   1.37 ],
+       [ 72.   ,   1.   ,   1.406],
+       [ 72.   ,   1.   ,   1.414],
+       [ 72.   ,   1.   ,   1.438],
+       [ 72.   ,   1.   ,   1.451],
+       [ 72.   ,   1.   ,   1.479],
+       [ 72.   ,   1.   ,   1.485],
+       [ 72.   ,   1.   ,   1.506],
+       [ 72.   ,   1.   ,   1.522],
+       [ 72.   ,   1.   ,   1.556],
+       [ 72.   , 255.   ,   1.56 ],
+       [ 72.   ,   1.   ,   1.566],
+       [ 72.   , 255.   ,   1.576],
+       [ 72.   , 255.   ,   1.586],
+       [ 72.   ,   1.   ,   1.603],
+       [ 72.   ,   1.   ,   1.617],
+       [ 72.   ,   1.   ,   1.626],
+       [ 72.   ,   1.   ,   1.659],
+       [ 72.   ,   1.   ,   1.694],
+       [ 72.   ,   1.   ,   1.712],
+       [ 72.   ,   1.   ,   1.73 ],
+       [ 72.   ,   1.   ,   1.743],
+       [ 72.   ,   1.   ,   1.785],
+       [ 72.   ,   1.   ,   1.8  ],
+       [ 72.   ,   1.   ,   1.814],
+       [ 72.   ,   1.   ,   1.84 ],
+       [ 72.   , 255.   ,   1.868],
+       [ 72.   ,   1.   ,   1.889],
+       [ 72.   ,   1.   ,   1.903],
+       [ 72.   , 255.   ,   1.975],
+       [ 72.   ,   1.   ,   1.982],
+       [ 72.   ,   1.   ,   2.003],
+       [ 72.   ,   1.   ,   2.052],
+       [ 72.   ,   1.   ,   2.066],
+       [ 72.   ,   1.   ,   2.107],
+       [ 72.   ,   1.   ,   2.116],
+       [ 72.   ,   1.   ,   2.151],
+       [ 72.   ,   1.   ,   2.22 ],
+       [ 72.   ,   1.   ,   2.29 ],
+       [ 72.   ,   1.   ,   2.378],
+       [ 72.   ,   1.   ,   2.472],
+       [ 72.   ,   1.   ,   2.488],
+       [ 72.   ,   1.   ,   2.506],
+       [ 72.   ,   1.   ,   2.627],
+       [ 72.   ,   1.   ,   2.643],
+       [ 72.   ,   1.   ,   2.752],
+       [ 72.   ,   1.   ,   2.762],
+       [ 72.   ,   1.   ,   2.772],
+       [ 72.   , 255.   ,   2.775],
+       [ 20.   ,   3.   ,   2.039],
+       [ 20.   ,   3.   ,   2.047],
+       [ 20.   ,   1.   ,   2.053],
+       [ 20.   ,   3.   ,   2.064],
+       [ 20.   ,   1.   ,   2.114],
+       [ 20.   , 255.   ,   2.253],
+       [ 20.   ,   3.   ,   2.257],
+       [ 20.   ,   1.   ,   2.279],
+       [ 20.   , 255.   ,   2.689],
+       [ 20.   , 255.   ,   2.845],
+       [ 20.   ,   1.   ,   2.854]], dtype=float32), array([[90.]], dtype=float32))
+</pre></div>
+</div>
+</div>
+</div>
+<p>So, this looks like a long numpy array with 3 columns, and then right down at the bottom of the output, you’ll see a second array with a single value (90). That’s followed by a final entry that is a <code class="docutils literal notranslate"><span class="pre">dtype</span></code> specification but instead of a normal Python data type, it’s a list containing two tuples, one for ‘nev’ and one for ‘ori’. These provide labels for the contents of the two arrays.</p>
+<p>Note, however, that the output above starts with <code class="docutils literal notranslate"><span class="pre">(</span></code>, whereas above the output of <code class="docutils literal notranslate"><span class="pre">data_in['DATA'][0]</span></code> started with <code class="docutils literal notranslate"><span class="pre">array</span></code> without a leading <code class="docutils literal notranslate"><span class="pre">(</span></code>. So there’s actually another level of embedding. If we ask for the type we see:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>numpy.void
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>()
+</pre></div>
+</div>
+</div>
+</div>
+<p>We haven’t encountered <code class="docutils literal notranslate"><span class="pre">numpy.void</span></code> types before, but they are a special, generic numpy data type that allows one to create a numpy object of arbitrary size. The details of this are beyond the scope of this lesson, but suffice to say that this is a necessary part of converting Matlab’s data structures to numpy format. The thing you do need to know is that this <code class="docutils literal notranslate"><span class="pre">void</span></code> data structure adds one more level of embedding, so we need to add another index to drill down into the data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>numpy.ndarray
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>(207, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<p>So <code class="docutils literal notranslate"><span class="pre">data_in['DATA'][0][0][0]</span></code> is the <code class="docutils literal notranslate"><span class="pre">nev</span></code> portion of the data for the first trial in the experiment. It’s long, but if we look at the first 10 rows we can confirm that this is the <code class="docutils literal notranslate"><span class="pre">nev</span></code> array for this trial, with 3 columns (electrode ID, sort code, and time of spike).
+Rows in each <code class="docutils literal notranslate"><span class="pre">nev</span></code> matrix represent individual spikes per trial, one for each spike. Column 1 encodes which electrode the spike was recorded on, column 2 is a sort code, and column 3 is the time since the beginning of the trial.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([[ 20.   ,   1.   ,   0.624],
+       [ 20.   ,   1.   ,   0.63 ],
+       [ 20.   ,   3.   ,   0.652],
+       [ 20.   ,   3.   ,   0.659],
+       [ 20.   , 255.   ,   0.686],
+       [ 20.   ,   1.   ,   0.689],
+       [ 20.   ,   1.   ,   0.711],
+       [ 20.   , 255.   ,   0.731],
+       [ 20.   ,   3.   ,   0.742],
+       [ 20.   ,   3.   ,   0.757]], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Each trial’s data also contains the orientation of the stimulus, in the second field of the embedded numpy array. Let’s look at this for the first trial:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([[90.]], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that the value (90) is sinde two sets of brackets, so to get the orientation as a simple float, we need to go down two more embeddings:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>90.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>OK, now let’s look at the second trial:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>(1655, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([[ 7.800e+01,  0.000e+00, -1.080e-01],
+       [ 9.400e+01,  1.000e+00, -1.090e-01],
+       [ 3.500e+01,  2.550e+02, -1.050e-01],
+       ...,
+       [ 1.900e+01,  1.000e+00,  2.614e+00],
+       [ 2.200e+01,  1.000e+00,  2.618e+00],
+       [ 8.000e+00,  1.000e+00,  2.620e+00]], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Each trial has a different number of rows (depending on the number of spikes that were recorded on that trial), but always 3 columns. Note that numpy sometimes shows you values in standard float notation (as we saw above for the first trial), and sometimes as scientific (exponential) notation (as we see for this second trial). The latter is used if there are very small or large values that would take too many digits to represent in standard notation. These are just different ways of showing the data; note that for both trials, the <code class="docutils literal notranslate"><span class="pre">dtype=float32</span></code>.</p>
+<p>Let’s check the orientation for this second trial:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="convert-data-to-pandas-dataframe">
+<h2>Convert data to pandas dataframe<a class="headerlink" href="#convert-data-to-pandas-dataframe" title="Permalink to this headline">¶</a></h2>
+<p>Nylen and Wallisch provide code that converts the data from the “raw” format it’s imported in, to basic Python types like lists and dictionaries. They admit that their code is not optimized, because their goal was to use it to demonstrate certain aspects of programming logic. Here, however, we have different goals (working with the data) and you have already learned the fundamentals of flow control such as <code class="docutils literal notranslate"><span class="pre">for</span></code> loops. You are also by now proficient with pandas which is a highly-optimized package for working with large data sets efficiently. So we will follow some of the same steps as described in Nylen and Wallisch, but using more efficient, pandas-based code.</p>
+<p>Whereas the data we imported are in a somewhat Byzantine embedded format, pandas offers a more simple and intuitive format, often called <strong>long format</strong>, in which data are stored in a 2-dimensional matrix (rows and columns), with one data point per row. Each row comprises the data itself, and additional columns that label the data.</p>
+<p>For this data set, using pandas long format, we’ll want columns for:</p>
+<ul class="simple">
+<li><p>channel (which electrode the data came from)</p></li>
+<li><p>sort code</p></li>
+<li><p>time (of spike)</p></li>
+<li><p>orientation</p></li>
+<li><p>trial number</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># num_trials = len(data_in[&#39;DATA&#39;])</span>
+<span class="c1"># all_ortn = [data_in[&#39;DATA&#39;][t][0][1][0][0] for t in range(num_trials)] #intermediate variable</span>
+<span class="c1"># ortn_levs = list(set(all_ortn))</span>
+<span class="c1"># num_ortn = len(ortn_levs)</span>
+<span class="c1"># trial_indices = defaultdict(list)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The above code uses list comprehension to loop through each trial’s data and turn it into a pandas DataFrame. This results in a list of DataFrames, each being the data from one trial. We then use <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> to convert the list of DataFrames to a single pandas DataFrame.</p>
+<p>This uses a couple of numpy functions we haven’t seen before. <code class="docutils literal notranslate"><span class="pre">np.c_</span></code> concatenates a series of numpy objects into columns. We do this because we want to combine the three-coumn <code class="docutils literal notranslate"><span class="pre">nev</span></code> array with additional columns that encode the orientation and trial number information. We create those latter columns using <code class="docutils literal notranslate"><span class="pre">np.repeat</span></code>, which generates a numpy array by repeating the input a specified number of times (in this case, the length of the <code class="docutils literal notranslate"><span class="pre">nev</span></code> numpy array, which we get as <code class="docutils literal notranslate"><span class="pre">data_in['DATA'][trial][0][0].shape[0]</span></code>).</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([[ 20.   ,   1.   ,   0.624],
+       [ 20.   ,   1.   ,   0.63 ],
+       [ 20.   ,   3.   ,   0.652],
+       [ 20.   ,   3.   ,   0.659],
+       [ 20.   , 255.   ,   0.686],
+       [ 20.   ,   1.   ,   0.689],
+       [ 20.   ,   1.   ,   0.711],
+       [ 20.   , 255.   ,   0.731],
+       [ 20.   ,   3.   ,   0.742],
+       [ 20.   ,   3.   ,   0.757],
+       [ 20.   ,   2.   ,   0.764],
+       [ 20.   ,   4.   ,   0.779],
+       [ 20.   ,   2.   ,   0.786],
+       [ 20.   ,   3.   ,   0.812],
+       [ 20.   ,   1.   ,   0.826],
+       [ 20.   ,   3.   ,   0.848],
+       [ 20.   , 255.   ,   0.857],
+       [ 20.   ,   4.   ,   0.866],
+       [ 20.   ,   1.   ,   0.872],
+       [ 20.   ,   3.   ,   0.883],
+       [ 20.   ,   3.   ,   0.898],
+       [ 20.   ,   4.   ,   0.909],
+       [ 20.   , 255.   ,   0.926],
+       [ 20.   ,   3.   ,   0.951],
+       [ 20.   ,   1.   ,   0.968],
+       [ 20.   , 255.   ,   0.981],
+       [ 20.   , 255.   ,   0.992],
+       [ 20.   , 255.   ,   0.996],
+       [ 20.   , 255.   ,   1.005],
+       [ 20.   ,   1.   ,   1.019],
+       [ 20.   ,   1.   ,   1.026],
+       [ 20.   ,   1.   ,   1.034],
+       [ 20.   ,   1.   ,   1.067],
+       [ 20.   , 255.   ,   1.079],
+       [ 20.   , 255.   ,   1.098],
+       [ 20.   ,   1.   ,   1.108],
+       [ 20.   , 255.   ,   1.117],
+       [ 20.   ,   1.   ,   1.13 ],
+       [ 20.   ,   1.   ,   1.179],
+       [ 20.   ,   1.   ,   1.191],
+       [ 20.   ,   1.   ,   1.201],
+       [ 20.   ,   1.   ,   1.205],
+       [ 20.   ,   1.   ,   1.209],
+       [ 20.   , 255.   ,   1.214],
+       [ 20.   ,   1.   ,   1.225],
+       [ 20.   ,   1.   ,   1.254],
+       [ 20.   ,   1.   ,   1.259],
+       [ 20.   ,   1.   ,   1.272],
+       [ 20.   ,   1.   ,   1.277],
+       [ 20.   ,   1.   ,   1.289],
+       [ 20.   ,   1.   ,   1.297],
+       [ 20.   , 255.   ,   1.303],
+       [ 20.   ,   1.   ,   1.328],
+       [ 20.   ,   1.   ,   1.334],
+       [ 20.   ,   1.   ,   1.35 ],
+       [ 20.   ,   1.   ,   1.364],
+       [ 20.   ,   1.   ,   1.377],
+       [ 20.   ,   1.   ,   1.402],
+       [ 20.   , 255.   ,   1.415],
+       [ 20.   ,   1.   ,   1.427],
+       [ 20.   ,   1.   ,   1.45 ],
+       [ 20.   , 255.   ,   1.47 ],
+       [ 20.   , 255.   ,   1.473],
+       [ 20.   ,   1.   ,   1.489],
+       [ 20.   , 255.   ,   1.506],
+       [ 20.   ,   1.   ,   1.512],
+       [ 20.   , 255.   ,   1.518],
+       [ 20.   ,   1.   ,   1.533],
+       [ 20.   ,   1.   ,   1.553],
+       [ 20.   , 255.   ,   1.568],
+       [ 20.   ,   1.   ,   1.591],
+       [ 20.   ,   1.   ,   1.6  ],
+       [ 20.   ,   1.   ,   1.605],
+       [ 20.   , 255.   ,   1.61 ],
+       [ 20.   ,   1.   ,   1.616],
+       [ 20.   ,   1.   ,   1.66 ],
+       [ 20.   ,   1.   ,   1.667],
+       [ 20.   ,   1.   ,   1.682],
+       [ 20.   , 255.   ,   1.689],
+       [ 20.   ,   1.   ,   1.719],
+       [ 20.   ,   1.   ,   1.729],
+       [ 20.   ,   1.   ,   1.744],
+       [ 20.   , 255.   ,   1.75 ],
+       [ 20.   ,   1.   ,   1.788],
+       [ 20.   ,   1.   ,   1.816],
+       [ 20.   ,   1.   ,   1.834],
+       [ 20.   ,   1.   ,   1.848],
+       [ 20.   ,   1.   ,   1.875],
+       [ 20.   ,   1.   ,   1.896],
+       [ 20.   ,   1.   ,   1.904],
+       [ 20.   ,   1.   ,   1.911],
+       [ 20.   ,   1.   ,   1.913],
+       [ 20.   ,   3.   ,   1.928],
+       [ 20.   ,   3.   ,   1.954],
+       [ 20.   ,   1.   ,   1.961],
+       [ 20.   ,   1.   ,   1.968],
+       [ 20.   ,   3.   ,   1.974],
+       [ 20.   ,   3.   ,   1.98 ],
+       [ 20.   ,   1.   ,   1.996],
+       [ 20.   ,   3.   ,   2.024],
+       [ 42.   ,   1.   ,   2.425],
+       [ 42.   ,   1.   ,   2.452],
+       [ 42.   ,   1.   ,   2.483],
+       [ 42.   ,   1.   ,   2.515],
+       [ 42.   ,   1.   ,   2.545],
+       [ 42.   ,   1.   ,   2.727],
+       [ 42.   ,   1.   ,   2.771],
+       [ 42.   ,   1.   ,   2.774],
+       [ 42.   ,   1.   ,   2.782],
+       [ 42.   ,   1.   ,   2.802],
+       [ 42.   ,   1.   ,   2.852],
+       [ 42.   ,   1.   ,   2.862],
+       [ 72.   ,   1.   ,   0.478],
+       [ 72.   ,   1.   ,   0.551],
+       [ 72.   ,   1.   ,   0.56 ],
+       [ 72.   ,   1.   ,   0.583],
+       [ 72.   ,   1.   ,   0.592],
+       [ 72.   ,   1.   ,   0.616],
+       [ 72.   ,   1.   ,   0.634],
+       [ 72.   ,   1.   ,   0.637],
+       [ 72.   ,   1.   ,   0.64 ],
+       [ 72.   ,   1.   ,   0.644],
+       [ 72.   ,   1.   ,   0.666],
+       [ 72.   ,   1.   ,   0.689],
+       [ 72.   ,   1.   ,   0.76 ],
+       [ 72.   ,   1.   ,   0.78 ],
+       [ 72.   ,   1.   ,   0.794],
+       [ 72.   ,   1.   ,   0.798],
+       [ 72.   ,   1.   ,   0.871],
+       [ 72.   ,   1.   ,   0.907],
+       [ 72.   ,   1.   ,   0.927],
+       [ 72.   ,   1.   ,   0.968],
+       [ 72.   ,   1.   ,   0.975],
+       [ 72.   ,   1.   ,   1.02 ],
+       [ 72.   ,   1.   ,   1.061],
+       [ 72.   ,   1.   ,   1.069],
+       [ 72.   ,   1.   ,   1.128],
+       [ 72.   ,   1.   ,   1.157],
+       [ 72.   ,   1.   ,   1.181],
+       [ 72.   ,   1.   ,   1.187],
+       [ 72.   ,   1.   ,   1.224],
+       [ 72.   ,   1.   ,   1.232],
+       [ 72.   ,   1.   ,   1.281],
+       [ 72.   ,   1.   ,   1.293],
+       [ 72.   ,   1.   ,   1.303],
+       [ 72.   ,   1.   ,   1.305],
+       [ 72.   ,   1.   ,   1.345],
+       [ 72.   ,   1.   ,   1.37 ],
+       [ 72.   ,   1.   ,   1.406],
+       [ 72.   ,   1.   ,   1.414],
+       [ 72.   ,   1.   ,   1.438],
+       [ 72.   ,   1.   ,   1.451],
+       [ 72.   ,   1.   ,   1.479],
+       [ 72.   ,   1.   ,   1.485],
+       [ 72.   ,   1.   ,   1.506],
+       [ 72.   ,   1.   ,   1.522],
+       [ 72.   ,   1.   ,   1.556],
+       [ 72.   , 255.   ,   1.56 ],
+       [ 72.   ,   1.   ,   1.566],
+       [ 72.   , 255.   ,   1.576],
+       [ 72.   , 255.   ,   1.586],
+       [ 72.   ,   1.   ,   1.603],
+       [ 72.   ,   1.   ,   1.617],
+       [ 72.   ,   1.   ,   1.626],
+       [ 72.   ,   1.   ,   1.659],
+       [ 72.   ,   1.   ,   1.694],
+       [ 72.   ,   1.   ,   1.712],
+       [ 72.   ,   1.   ,   1.73 ],
+       [ 72.   ,   1.   ,   1.743],
+       [ 72.   ,   1.   ,   1.785],
+       [ 72.   ,   1.   ,   1.8  ],
+       [ 72.   ,   1.   ,   1.814],
+       [ 72.   ,   1.   ,   1.84 ],
+       [ 72.   , 255.   ,   1.868],
+       [ 72.   ,   1.   ,   1.889],
+       [ 72.   ,   1.   ,   1.903],
+       [ 72.   , 255.   ,   1.975],
+       [ 72.   ,   1.   ,   1.982],
+       [ 72.   ,   1.   ,   2.003],
+       [ 72.   ,   1.   ,   2.052],
+       [ 72.   ,   1.   ,   2.066],
+       [ 72.   ,   1.   ,   2.107],
+       [ 72.   ,   1.   ,   2.116],
+       [ 72.   ,   1.   ,   2.151],
+       [ 72.   ,   1.   ,   2.22 ],
+       [ 72.   ,   1.   ,   2.29 ],
+       [ 72.   ,   1.   ,   2.378],
+       [ 72.   ,   1.   ,   2.472],
+       [ 72.   ,   1.   ,   2.488],
+       [ 72.   ,   1.   ,   2.506],
+       [ 72.   ,   1.   ,   2.627],
+       [ 72.   ,   1.   ,   2.643],
+       [ 72.   ,   1.   ,   2.752],
+       [ 72.   ,   1.   ,   2.762],
+       [ 72.   ,   1.   ,   2.772],
+       [ 72.   , 255.   ,   2.775],
+       [ 20.   ,   3.   ,   2.039],
+       [ 20.   ,   3.   ,   2.047],
+       [ 20.   ,   1.   ,   2.053],
+       [ 20.   ,   3.   ,   2.064],
+       [ 20.   ,   1.   ,   2.114],
+       [ 20.   , 255.   ,   2.253],
+       [ 20.   ,   3.   ,   2.257],
+       [ 20.   ,   1.   ,   2.279],
+       [ 20.   , 255.   ,   2.689],
+       [ 20.   , 255.   ,   2.845],
+       [ 20.   ,   1.   ,   2.854]], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">,</span> <span class="s1">&#39;sort&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;orientation&#39;</span><span class="p">,</span> <span class="s1">&#39;trial&#39;</span><span class="p">]</span>
+
+<span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="n">trial</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> 
+                 <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="n">trial</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                           <span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="n">trial</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                 <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">trial</span><span class="p">,</span> <span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">][</span><span class="n">trial</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="p">],</span>
+                       <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+                     <span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We know from the book that sort codes 0 and 255 represent bad data, so we will remove all rows that have these sort codes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sort&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">255</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sort&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s view the DataFrame. Note the size: over 2 million entries!!!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel</th>
+      <th>sort</th>
+      <th>time</th>
+      <th>orientation</th>
+      <th>trial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20.0</td>
+      <td>1.0</td>
+      <td>0.624</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20.0</td>
+      <td>1.0</td>
+      <td>0.630</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20.0</td>
+      <td>3.0</td>
+      <td>0.652</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20.0</td>
+      <td>3.0</td>
+      <td>0.659</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>20.0</td>
+      <td>1.0</td>
+      <td>0.689</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1321</th>
+      <td>18.0</td>
+      <td>1.0</td>
+      <td>2.625</td>
+      <td>0.0</td>
+      <td>2299.0</td>
+    </tr>
+    <tr>
+      <th>1323</th>
+      <td>74.0</td>
+      <td>2.0</td>
+      <td>2.629</td>
+      <td>0.0</td>
+      <td>2299.0</td>
+    </tr>
+    <tr>
+      <th>1324</th>
+      <td>18.0</td>
+      <td>1.0</td>
+      <td>2.634</td>
+      <td>0.0</td>
+      <td>2299.0</td>
+    </tr>
+    <tr>
+      <th>1325</th>
+      <td>60.0</td>
+      <td>1.0</td>
+      <td>2.636</td>
+      <td>0.0</td>
+      <td>2299.0</td>
+    </tr>
+    <tr>
+      <th>1326</th>
+      <td>42.0</td>
+      <td>1.0</td>
+      <td>2.638</td>
+      <td>0.0</td>
+      <td>2299.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>2340739 rows × 5 columns</p>
+</div></div></div>
+</div>
+<div class="section" id="exploring-the-data">
+<h3>Exploring the data<a class="headerlink" href="#exploring-the-data" title="Permalink to this headline">¶</a></h3>
+<p>Let’s see how many electrodes we have data from, and what their labels are. We save each as a variable, which will come in handy later in looping through these.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">num_chan</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of electrodes (channels): &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_chan</span><span class="p">))</span>
+
+<span class="n">channels</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>  <span class="c1"># use the sorted() function so the channels are listed in sequential order</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Channel labels: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">channels</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Number of electrodes (channels): 91
+Channel labels: [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0, 22.0, 23.0, 24.0, 25.0, 26.0, 27.0, 28.0, 29.0, 30.0, 32.0, 33.0, 35.0, 36.0, 37.0, 38.0, 39.0, 40.0, 41.0, 42.0, 43.0, 44.0, 45.0, 46.0, 47.0, 48.0, 49.0, 50.0, 51.0, 52.0, 53.0, 54.0, 55.0, 57.0, 58.0, 59.0, 60.0, 61.0, 62.0, 63.0, 64.0, 65.0, 66.0, 67.0, 69.0, 70.0, 71.0, 72.0, 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0, 81.0, 82.0, 83.0, 84.0, 85.0, 86.0, 87.0, 88.0, 89.0, 90.0, 91.0, 92.0, 93.0, 94.0, 95.0, 96.0]
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is a bit weird — we’re told this is a 96 electrode array, but there are only 91 electrodes?!  Nylen and Wallisch note that there were some ‘dead’ channels in the microarray that yielded no data. This is not uncommon as some electrodes in the microarray may be damaged during insertion. This is not a big deal, but it is worth keeping in mind when we look at the data.</p>
+<p>What about orientations?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">orientations</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="n">num_ortns</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">orientations</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Found &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_ortns</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; orientations, which are: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">orientations</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Found 2 orientations, which are: [0.0, 90.0]
+</pre></div>
+</div>
+</div>
+</div>
+<p>And sort codes?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sort_codes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sort&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sort_codes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[1.0, 2.0, 3.0, 4.0]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also flex our pandas slicing and filtering skills to sample the data in different ways. For example, here’s the data only from electrode number 20:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">==</span><span class="mf">20.</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel</th>
+      <th>sort</th>
+      <th>time</th>
+      <th>orientation</th>
+      <th>trial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20.0</td>
+      <td>1.0</td>
+      <td>0.624</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20.0</td>
+      <td>1.0</td>
+      <td>0.630</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20.0</td>
+      <td>3.0</td>
+      <td>0.652</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20.0</td>
+      <td>3.0</td>
+      <td>0.659</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>20.0</td>
+      <td>1.0</td>
+      <td>0.689</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1180</th>
+      <td>20.0</td>
+      <td>3.0</td>
+      <td>2.079</td>
+      <td>0.0</td>
+      <td>2299.0</td>
+    </tr>
+    <tr>
+      <th>1184</th>
+      <td>20.0</td>
+      <td>1.0</td>
+      <td>2.093</td>
+      <td>0.0</td>
+      <td>2299.0</td>
+    </tr>
+    <tr>
+      <th>1192</th>
+      <td>20.0</td>
+      <td>3.0</td>
+      <td>2.105</td>
+      <td>0.0</td>
+      <td>2299.0</td>
+    </tr>
+    <tr>
+      <th>1217</th>
+      <td>20.0</td>
+      <td>1.0</td>
+      <td>2.236</td>
+      <td>0.0</td>
+      <td>2299.0</td>
+    </tr>
+    <tr>
+      <th>1227</th>
+      <td>20.0</td>
+      <td>1.0</td>
+      <td>2.273</td>
+      <td>0.0</td>
+      <td>2299.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>233537 rows × 5 columns</p>
+</div></div></div>
+</div>
+<p>Taking that further, we can for example extract the spike times for a particular channel and orientation if we desire:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chan</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">ortn</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">chan</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">ortn</span><span class="p">)][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>7      -0.097
+22     -0.079
+755     0.949
+1108    1.445
+1371    1.965
+        ...  
+1009    1.683
+1056    1.771
+1172    2.032
+1185    2.095
+1220    2.246
+Name: time, Length: 10283, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="peri-stimulus-time-histograms-psth">
+<h2>Peri-Stimulus Time Histograms (PSTH)<a class="headerlink" href="#peri-stimulus-time-histograms-psth" title="Permalink to this headline">¶</a></h2>
+<p>We can use pandas’ <code class="docutils literal notranslate"><span class="pre">.hist()</span></code> method to obtain a PSTH, firstly just across all trials and electrodes/neurons. We use the <code class="docutils literal notranslate"><span class="pre">by=</span></code> argument to generate separate plots for each orientation. We use the <code class="docutils literal notranslate"><span class="pre">time-base</span></code> variable we set earlier to define the x axis; <code class="docutils literal notranslate"><span class="pre">time_base</span></code> is in 10 ms increments so that is the size of our histogram bins. The <code class="docutils literal notranslate"><span class="pre">layout</span></code> argument specifies 2 rows and one column. <code class="docutils literal notranslate"><span class="pre">figsize</span></code> was determined by trial and error to provide a subjectively-nice aspect ratio and fit the figure in the notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;orientation&#39;</span><span class="p">,</span> 
+        <span class="n">bins</span><span class="o">=</span><span class="n">time_base</span><span class="p">,</span> 
+        <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="c1"># force y axis range to be the same across plots</span>
+        <span class="n">xrot</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+        <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+       <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/corr_spike_trains_66_0.png" src="../_images/corr_spike_trains_66_0.png" />
+</div>
+</div>
+<p>Since we know there are 4 sort codes, we can also plot by both orientation and sort code. Here we turn off the <code class="docutils literal notranslate"><span class="pre">sharey</span></code> option, because the number of spikes varies by sort code.</p>
+<p>Note: This is actually not a valid thing to do from the point of view of the experiment, because the sort codes are unique to individual channels. That is, spike sorting is applied separately to each channel’s data, so for example <code class="docutils literal notranslate"><span class="pre">sort_code==1</span></code> does not refer to the same neuron in channels 1 and 2. However, right now our main goal is to demonstrate how to compute and plot the PSTHs separately along two dimensions. Below we’ll do that in a valid way, for all channels, but that’s a lot (91), so let’s start small.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">,</span> <span class="s1">&#39;sort&#39;</span><span class="p">],</span> 
+        <span class="n">bins</span><span class="o">=</span><span class="n">time_base</span><span class="p">,</span> 
+        <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xrot</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+        <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span>
+        <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+       <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/corr_spike_trains_68_0.png" src="../_images/corr_spike_trains_68_0.png" />
+</div>
+</div>
+<div class="section" id="using-np-histogram">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">np.histogram()</span></code><a class="headerlink" href="#using-np-histogram" title="Permalink to this headline">¶</a></h3>
+<p>We can also compute histograms using <code class="docutils literal notranslate"><span class="pre">np.histogram()</span></code>, without immediately plotting them. Instead, we save these histograms in memory, which allows more flexibility in how we later plot them. We need to loop over orientations and conditions. Below we demonstrate two ways to do this, one using a dictionary to hold the results, and the other using list comprehension. They are equally fast, and either one is valid. However, an advantage of the dictionary approach is that we use keys to the dictionary that clearly indicate what combination of orientation and sort code each histogram is associated with. In doing list comprehension, we have to generate a separate list of labels in parallel with the list containing the histograms (data) themselves. This is a bit less transparent (since unlike the dictionary, the labels aren’t stored with the data, and requires attention to detail to ensure that the list of labels is in the same order as the list of histograms.</p>
+</div>
+<div class="section" id="the-dictionary-way">
+<h3>The dictionary way<a class="headerlink" href="#the-dictionary-way" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">psth_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="n">orientations</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">sort</span> <span class="ow">in</span> <span class="n">sort_codes</span><span class="p">:</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ortn</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sort</span><span class="p">)</span>
+        <span class="n">psth_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sort&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">sort</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">ortn</span><span class="p">)][</span><span class="s1">&#39;time&#39;</span><span class="p">],</span>
+                                        <span class="n">bins</span><span class="o">=</span><span class="n">time_base</span><span class="p">,</span>
+                                       <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">num_ortns</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sort_codes</span><span class="p">),</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">label</span><span class="p">][</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">psth_dict</span><span class="p">[</span><span class="n">label</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># Show when stimulus was on</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">grating_on_time</span><span class="p">,</span> <span class="n">grating_off_time</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Spike count per bin&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span> <span class="c1"># helps ensure titles and label text don&#39;t overlap</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/corr_spike_trains_72_0.png" src="../_images/corr_spike_trains_72_0.png" />
+</div>
+</div>
+<p>Note above the differences in total spike counts (<em>y</em> axis) between sort codes. This is beacuse every channel as at least a sort code of 1 (one neuron/unit), but fewer channels were found to contain data from 2 or more units. So decreasing amounts of data contribute to the averages for sort codes 1-4.</p>
+</div>
+<div class="section" id="the-list-comprehension-way">
+<h3>The list comprehension way<a class="headerlink" href="#the-list-comprehension-way" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">psth_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sort&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">sort</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">ortn</span><span class="p">)][</span><span class="s1">&#39;time&#39;</span><span class="p">],</span>
+                          <span class="n">bins</span><span class="o">=</span><span class="n">time_base</span><span class="p">,</span>
+                         <span class="p">)</span> 
+        <span class="k">for</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="n">orientations</span>
+        <span class="k">for</span> <span class="n">sort</span> <span class="ow">in</span> <span class="n">sort_codes</span><span class="p">]</span>
+
+<span class="c1"># Generate the labels so we know what&#39;s what in the list above.</span>
+<span class="c1"># Be sure to do the nested for loops in the same order (orientation then sort_code)</span>
+<span class="n">psth_list_labels</span> <span class="o">=</span> <span class="p">[[</span><span class="n">ortn</span><span class="p">,</span> <span class="n">sort</span><span class="p">]</span> <span class="k">for</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="n">orientations</span> <span class="k">for</span> <span class="n">sort</span> <span class="ow">in</span> <span class="n">sort_codes</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">psth_list</span><span class="p">)):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">num_ortns</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sort_codes</span><span class="p">),</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">psth_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">psth_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">grating_on_time</span><span class="p">,</span> <span class="n">grating_off_time</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">psth_list_labels</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; deg. Sort code &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">psth_list_labels</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Spike count per bin&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time(s)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span> 
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/corr_spike_trains_76_0.png" src="../_images/corr_spike_trains_76_0.png" />
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="overlapping-lines">
+<h1>Overlapping lines<a class="headerlink" href="#overlapping-lines" title="Permalink to this headline">¶</a></h1>
+<p>It’s easier to make visual comparisons within a plot than between them. Since 0 and 90 degrees were the two experimental conditions that we’d want to compare, let’s overlay them, keeping the separate panels for sort code.</p>
+<p>Note that this is a bit easier to do using the list method rather than the dictionary method, because in our list of labels, the orientation and sort code are two separate entries, so it’s easy to pull out the orientations. Using the dictionary method, we’d need to parse the dictionary keys to pull out the orientation information.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sort_codes</span><span class="p">:</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sort_codes</span><span class="p">),</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">zero</span> <span class="o">=</span> <span class="n">psth_list_labels</span><span class="o">.</span><span class="n">index</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">psth_list</span><span class="p">[</span><span class="n">zero</span><span class="p">][</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">psth_list</span><span class="p">[</span><span class="n">zero</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">ninety</span> <span class="o">=</span> <span class="n">psth_list_labels</span><span class="o">.</span><span class="n">index</span><span class="p">([</span><span class="mf">90.</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">psth_list</span><span class="p">[</span><span class="n">ninety</span><span class="p">][</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">psth_list</span><span class="p">[</span><span class="n">ninety</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">grating_on_time</span><span class="p">,</span> <span class="n">grating_off_time</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sort code &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Spike count per bin&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time(s)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span> 
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/corr_spike_trains_78_0.png" src="../_images/corr_spike_trains_78_0.png" />
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="psth-for-each-channel">
+<h2>PSTH for each channel<a class="headerlink" href="#psth-for-each-channel" title="Permalink to this headline">¶</a></h2>
+<p>The above examples collapsed across all 96 channels in the microelectrode array. Let’s now computer the PSTHs for each channel and orientation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">psth</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">ortn</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">chan</span><span class="p">)][</span><span class="s1">&#39;time&#39;</span><span class="p">],</span>
+                     <span class="n">bins</span><span class="o">=</span><span class="n">time_base</span>
+                    <span class="p">)</span>
+        <span class="k">for</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="n">orientations</span>
+        <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">]</span>
+
+<span class="c1"># Generate the labels so we know what&#39;s what in the list above.</span>
+<span class="c1"># Be sure to do the nested for loops in the same order (orientation then sort_code)</span>
+<span class="n">psth_labels</span> <span class="o">=</span> <span class="p">[[</span><span class="n">ortn</span><span class="p">,</span> <span class="n">chan</span><span class="p">]</span> <span class="k">for</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="n">orientations</span> <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To plot these, we use similar code to above. However, because there are 96 channels, we want to remove some axis labels from most plots (so it’s less messy and less redundant). There’s no way to make this not a huge image, since there are 96 panels to show, but by setting it to 4 columns we attain a good balance between readability and size.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">96</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">zero</span> <span class="o">=</span> <span class="n">psth_labels</span><span class="o">.</span><span class="n">index</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">psth</span><span class="p">[</span><span class="n">zero</span><span class="p">][</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">psth</span><span class="p">[</span><span class="n">zero</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=.</span><span class="mi">75</span><span class="p">)</span>
+    <span class="n">ninety</span> <span class="o">=</span> <span class="n">psth_labels</span><span class="o">.</span><span class="n">index</span><span class="p">([</span><span class="mf">90.</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">psth</span><span class="p">[</span><span class="n">ninety</span><span class="p">][</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">psth</span><span class="p">[</span><span class="n">ninety</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=.</span><span class="mi">75</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">grating_on_time</span><span class="p">,</span> <span class="n">grating_off_time</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Channel &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">i</span><span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Spike count per bin&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        
+    <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">max</span><span class="p">(</span><span class="n">channels</span><span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time(s)&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/corr_spike_trains_82_0.png" src="../_images/corr_spike_trains_82_0.png" />
+</div>
+</div>
+<p>One thing you’ll note above is that there are some missing panels, including channels 21, 31, 34, 56, and 68. As noted above, these are the dead channels. The way the code above is written, we use the channel number as the index for the subplot position. Since there is no channel in the <code class="docutils literal notranslate"><span class="pre">channels</span></code> list for the dead channels, those subplot panels are simply left blank.</p>
+<p>Beyond that, it’s clear that different channels show very different response profiles. Some (e.g., 1, 2, 4, 5) show clear transient peaks in spiking activity soon after stimulus onset. Others do not. Some of the channels that show this initial peak return to baseline (low) levels of firing soon after, while others (e.g., 1, 20, 72) show a sustained plateau as long as the stimulus is on. Others (e.g., 3, 62) show no initial peak, but a steady rise in firing rate as the stimulus duration increases. As well, a few channels show orientation sensitivity, with clearly different responses between 0 (blue) and 90 (red) degree gratings (e.g., 29, 63, 75, 76, 91).</p>
+</div>
+<div class="section" id="interactive-plots">
+<h2>Interactive plots<a class="headerlink" href="#interactive-plots" title="Permalink to this headline">¶</a></h2>
+<p>Plotting all 91 channels is a bit visually overwhelming. It’s useful in appreciating the whole range of responses in different channels, but each plot is quite small. Here we use <code class="docutils literal notranslate"><span class="pre">ipywidgets</span></code> to generate an interactive plot, with a drop-down menu to select the channel we want to view.</p>
+<p><strong>Note:</strong> This swill not display in the online book version, but it should work if you download and run this notebook file. To get this to work on your own system, you will need to at least run <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">labextension</span> <span class="pre">install</span> <span class="pre">&#64;jupyter-widgets/jupyterlab-manager</span></code>, and possibly install additional pacakges if you don’t have them already (Anaconda seems to provide them).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interact_manual</span>
+
+<span class="nd">@interact</span>
+<span class="k">def</span> <span class="nf">psth_i</span><span class="p">(</span><span class="n">chan</span><span class="o">=</span><span class="n">channels</span><span class="p">):</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span> 
+
+    <span class="n">zero</span> <span class="o">=</span> <span class="n">psth_labels</span><span class="o">.</span><span class="n">index</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="n">chan</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">psth</span><span class="p">[</span><span class="n">zero</span><span class="p">][</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">psth</span><span class="p">[</span><span class="n">zero</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> 
+             <span class="n">linewidth</span><span class="o">=.</span><span class="mi">75</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;0 deg&#39;</span>
+            <span class="p">)</span>
+    <span class="n">ninety</span> <span class="o">=</span> <span class="n">psth_labels</span><span class="o">.</span><span class="n">index</span><span class="p">([</span><span class="mf">90.</span><span class="p">,</span> <span class="n">chan</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">psth</span><span class="p">[</span><span class="n">ninety</span><span class="p">][</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">psth</span><span class="p">[</span><span class="n">ninety</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> 
+             <span class="n">linewidth</span><span class="o">=.</span><span class="mi">75</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;90 deg&#39;</span>
+            <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">grating_on_time</span><span class="p">,</span> <span class="n">grating_off_time</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Channel &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">chan</span><span class="p">)))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Spike count per bin&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "99b0958a066f4404a26093dfd05ad11d", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id1">
+<h2>Correlating spike trains<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="compute-correlation-matrix">
+<h3>Compute correlation matrix<a class="headerlink" href="#compute-correlation-matrix" title="Permalink to this headline">¶</a></h3>
+<p>Between each pair of channels’ PSTH, for each orientation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">channels</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">channels</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">orientations</span><span class="p">)))</span>
+<span class="k">for</span> <span class="n">row_ind</span><span class="p">,</span> <span class="n">row_key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">channels</span><span class="p">):</span> 
+    <span class="k">for</span> <span class="n">col_ind</span><span class="p">,</span> <span class="n">col_key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">channels</span><span class="p">):</span> 
+        <span class="k">for</span> <span class="n">oind</span><span class="p">,</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">orientations</span><span class="p">):</span> 
+            <span class="n">corr_matrix</span><span class="p">[</span><span class="n">row_ind</span><span class="p">,</span> <span class="n">col_ind</span><span class="p">,</span> <span class="n">oind</span><span class="p">],</span> <span class="n">pvals</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">psth</span><span class="p">[</span><span class="n">psth_labels</span><span class="o">.</span><span class="n">index</span><span class="p">([</span><span class="n">ortn</span><span class="p">,</span> <span class="n">row_key</span><span class="p">])][</span><span class="mi">0</span><span class="p">],</span> 
+                                                                     <span class="n">psth</span><span class="p">[</span><span class="n">psth_labels</span><span class="o">.</span><span class="n">index</span><span class="p">([</span><span class="n">ortn</span><span class="p">,</span> <span class="n">col_key</span><span class="p">])][</span><span class="mi">0</span><span class="p">]</span>  
+                                                                    <span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="visualize-the-matrix">
+<h4>Visualize the matrix<a class="headerlink" href="#visualize-the-matrix" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">oind</span><span class="p">,</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">orientations</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">oind</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">corr_matrix</span><span class="p">[:,:,</span><span class="n">oind</span><span class="p">],</span> <span class="n">clim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ortn</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; deg&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Channel&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Channel&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/corr_spike_trains_91_0.png" src="../_images/corr_spike_trains_91_0.png" />
+</div>
+</div>
+<p>Nylen and Wallisch go on to show how we can tidy up the correlation matrix to focus on information of interest, while eliminating distracting or irrelevant factors (noise; where “noise” can be defined as “information not relevant to the research question”).</p>
+<p>These steps include:</p>
+<ul class="simple">
+<li><p>remove noisy channels</p></li>
+<li><p>use data only from the time points when the stimulus was on</p></li>
+<li><p>smooth the PSTHs by convolving with a kernel</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="remove-noisy-channels">
+<h3>Remove noisy channels<a class="headerlink" href="#remove-noisy-channels" title="Permalink to this headline">¶</a></h3>
+<p>Nylen and Wallisch provide a list of these for us, which we will use for convenience. If you cross-referenec the channels in the list below, with the plot of all 91 channels above, you’ll be able to see that these are indeed noisy looking. For example, they don’t show an initial peak after stimulus onset, nor any apparent relationship with the stimulus.</p>
+<p>In general, “eyeballing” data to remove noise is the least-desirable way to do this. It is highly subjective, meaning that it is sensitive to individual bias, and is not reproducible scientific practice. It is better to define objective criteria to categorize noise. However, for now we will take the list of noisy channels as a given for the sake of focusing on improving the correlation matrix.</p>
+<p>To do this we will go back to the original pandas DataFrame and slice that, because it’s so fast and easy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">noisy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">95</span><span class="p">]</span>
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">noisy</span><span class="p">)]</span>
+<span class="n">clean_chans</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">psth_clean</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">ortn</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">chan</span><span class="p">)][</span><span class="s1">&#39;time&#39;</span><span class="p">],</span>
+                           <span class="n">bins</span><span class="o">=</span><span class="n">time_base</span>
+                           <span class="p">)</span>
+              <span class="k">for</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="n">orientations</span>
+              <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">clean_chans</span><span class="p">]</span>
+
+<span class="c1"># Generate the labels so we know what&#39;s what in the list above.</span>
+<span class="c1"># Be sure to do the nested for loops in the same order (orientation then sort_code)</span>
+<span class="n">psth_labels</span> <span class="o">=</span> <span class="p">[[</span><span class="n">ortn</span><span class="p">,</span> <span class="n">chan</span><span class="p">]</span> <span class="k">for</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="n">orientations</span> <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">clean_chans</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">corr_matrix_clean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clean_chans</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">clean_chans</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">orientations</span><span class="p">)))</span>
+<span class="n">pvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clean_chans</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">clean_chans</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">orientations</span><span class="p">)))</span>
+
+<span class="k">for</span> <span class="n">row_ind</span><span class="p">,</span> <span class="n">row_key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clean_chans</span><span class="p">):</span> 
+    <span class="k">for</span> <span class="n">col_ind</span><span class="p">,</span> <span class="n">col_key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clean_chans</span><span class="p">):</span> 
+        <span class="k">for</span> <span class="n">oind</span><span class="p">,</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">orientations</span><span class="p">):</span> 
+            <span class="n">corr_matrix_clean</span><span class="p">[</span><span class="n">row_ind</span><span class="p">,</span> <span class="n">col_ind</span><span class="p">,</span> <span class="n">oind</span><span class="p">],</span> <span class="n">pvals</span><span class="p">[</span><span class="n">row_ind</span><span class="p">,</span> <span class="n">col_ind</span><span class="p">,</span> <span class="n">oind</span><span class="p">]</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">psth_clean</span><span class="p">[</span><span class="n">psth_labels</span><span class="o">.</span><span class="n">index</span><span class="p">([</span><span class="n">ortn</span><span class="p">,</span> <span class="n">row_key</span><span class="p">])][</span><span class="mi">0</span><span class="p">],</span>
+                                                                           <span class="n">psth_clean</span><span class="p">[</span><span class="n">psth_labels</span><span class="o">.</span><span class="n">index</span><span class="p">([</span><span class="n">ortn</span><span class="p">,</span> <span class="n">col_key</span><span class="p">])][</span><span class="mi">0</span><span class="p">]</span>  
+                                                                          <span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h4>Visualize the matrix<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">oind</span><span class="p">,</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">orientations</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">oind</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">corr_matrix_clean</span><span class="p">[:,:,</span><span class="n">oind</span><span class="p">],</span> <span class="n">clim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ortn</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; deg&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Channel&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Channel&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/corr_spike_trains_98_0.png" src="../_images/corr_spike_trains_98_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="restrict-time-range">
+<h3>Restrict time range<a class="headerlink" href="#restrict-time-range" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df_stim</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">grating_on_time</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">grating_off_time</span><span class="p">)]</span>
+
+<span class="c1"># Also need to restrict the time_base for computing histograms</span>
+<span class="n">time_base_stim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">grating_on_time</span><span class="p">,</span> <span class="n">grating_off_time</span><span class="p">,</span> <span class="o">.</span><span class="mi">01</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">psth_stim</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">df_stim</span><span class="p">[(</span><span class="n">df_stim</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">ortn</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_stim</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">chan</span><span class="p">)][</span><span class="s1">&#39;time&#39;</span><span class="p">],</span>
+                     <span class="n">bins</span><span class="o">=</span><span class="n">time_base_stim</span>
+                    <span class="p">)</span>
+        <span class="k">for</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="n">orientations</span>
+        <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">clean_chans</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">corr_matrix_stim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clean_chans</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">clean_chans</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">orientations</span><span class="p">)))</span>
+<span class="k">for</span> <span class="n">row_ind</span><span class="p">,</span> <span class="n">row_key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clean_chans</span><span class="p">):</span> 
+    <span class="k">for</span> <span class="n">col_ind</span><span class="p">,</span> <span class="n">col_key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clean_chans</span><span class="p">):</span> 
+        <span class="k">for</span> <span class="n">oind</span><span class="p">,</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">orientations</span><span class="p">):</span> 
+            <span class="n">corr_matrix_stim</span><span class="p">[</span><span class="n">row_ind</span><span class="p">,</span> <span class="n">col_ind</span><span class="p">,</span> <span class="n">oind</span><span class="p">],</span> <span class="n">pvals</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">psth_stim</span><span class="p">[</span><span class="n">psth_labels</span><span class="o">.</span><span class="n">index</span><span class="p">([</span><span class="n">ortn</span><span class="p">,</span> <span class="n">row_key</span><span class="p">])][</span><span class="mi">0</span><span class="p">],</span>
+                                                                          <span class="n">psth_stim</span><span class="p">[</span><span class="n">psth_labels</span><span class="o">.</span><span class="n">index</span><span class="p">([</span><span class="n">ortn</span><span class="p">,</span> <span class="n">col_key</span><span class="p">])][</span><span class="mi">0</span><span class="p">]</span>  
+                                                                          <span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">oind</span><span class="p">,</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">orientations</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">oind</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">corr_matrix_stim</span><span class="p">[:,:,</span><span class="n">oind</span><span class="p">],</span> <span class="n">clim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ortn</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; deg&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Channel&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Channel&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/corr_spike_trains_103_0.png" src="../_images/corr_spike_trains_103_0.png" />
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="intro_spike_trains.html" title="previous page">Introduction to Spike Trains</a>
+    <a class='right-next' id="next-link" href="../eeg/introduction.html" title="next page">Introduction</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.1.2.<br/>
+    </p>
+  </div>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-171426664-2', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    
+  </body>
+</html>
