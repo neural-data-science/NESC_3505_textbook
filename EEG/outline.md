@@ -1,8 +1,10 @@
 # EEG Chapter outline
 ___
 ## Learning Objectives
+- to do
 ___
 ## Introducing EEG
+- overview
 
 ### What are we measuring?
 - Neural origins
