@@ -1,5 +1,0 @@
-# Open Science
-
-[Open science](https://en.wikipedia.org/wiki/Open_science) is a movement to make the practice of scientific research, and dissemination of its results, freely accessible. In the present day, as a student you may find that much of the scientific literature is readily accessible, in the form of journal articles made available through your university's library. However, it is important to realize that access to most of those journals is available only because the university's library pays a subscription fee to the journal publishers. Without a university affiliation, you would have to pay a (usually substantial) fee to access any article.
-
-The open science movement addresses more than just scientific publishing, however. It also covers scientific practice, including openness and transparency in methodology, and free and open data sharing. Below we cover dissemination and methodology in more detail. The following section covers {doc}`oer`, which are also considered part of the open science movement, insofar as education is necessary for good scientific practice.
