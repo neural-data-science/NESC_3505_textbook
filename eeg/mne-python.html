@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Epoching (Segmentation) &#8212; Neural Data Science</title>
+    <title>MNE-Python &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,20 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/EEG/epoching.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/eeg/mne-python.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Organization of MNE-Python" href="mne_org.html" />
+    <link rel="prev" title="Averaging" href="averaging.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/EEG/epoching.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/eeg/mne-python.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Epoching (Segmentation)" />
-<meta property="og:description" content="Epoching (Segmentation)" />
+<meta property="og:title"       content="MNE-Python" />
+<meta property="og:description" content="MNE-Python  MNE-Python is an open-source Python package for working with EEG and MEG data. It was originally developed as a Python port (translation from one pr" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -230,6 +232,60 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="time_freq.html">
+   Time and Frequency Domains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="erps.html">
+   Event-Related Potentials (ERPs)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="components.html">
+   ERP Components
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="preprocessing.html">
+   Preprocessing
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   MNE-Python
+  </a>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="mne_org.html">
+     Organization of MNE-Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="mne_classes.html">
+     MNE classes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
   MRI Data
  </span>
 </p>
@@ -298,7 +354,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/EEG/epoching.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/eeg/mne-python.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -334,8 +390,16 @@
         
               <div>
                 
-  <div class="section" id="epoching-segmentation">
-<h1>Epoching (Segmentation)<a class="headerlink" href="#epoching-segmentation" title="Permalink to this headline">¶</a></h1>
+  <div class="figure align-left">
+<a class="reference internal image-reference" href="../_images/mne_logo.png"><img alt="../_images/mne_logo.png" src="../_images/mne_logo.png" style="width: 150px;" /></a>
+</div>
+<div class="section" id="mne-python">
+<h1>MNE-Python<a class="headerlink" href="#mne-python" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://mne.tools/">MNE-Python</a> is an open-source Python package for working with EEG and MEG data. It was originally developed as a Python <em>port</em> (translation from one programming language to another) of a software package called MNE, that was written in the C language by MEG researcher Matti Hämäläinen. The letters “MNE” originally stood for <em>minimum norm estimation</em>, which is an algorithm for localizing the sources of MEG and EEG data. The original MNE software grew from an implementation of that algorithm to a much more full-fledged package capable of performing a wider range of processing and visualization tasks on MEG/EEG data — so now the name “MNE” is more of a brand, than a descriptor of the capabilities of the software. Although minimum norm estimation can still be performed using MNE-Python, it does far more even than the MNE-C package did.</p>
+<p>MNE-Python moved the development of the software to an open source model, using a language (Python) that was more accessible and familiar to the scientific community, and hosing the project on <a class="reference external" href="https://github.com/mne-tools/mne-python">GitHub</a>. This has greatly facilitated the development of the software, as it has benefitted from the contributions of hundreds of people around the world.</p>
+<p>As you might expect from your experience so far, MNE-Python is designed to used by writing Python code that employs the MNE package. Although it has some interactive tools, such as interactive plots, by and large MNE-Python is used by writing scripts in .py text files, or Jupyter notebooks. It is very tightly integrated with the scientific Python stack, notably packages you are already familiar with such as <a class="reference external" href="https://numpy.org">NumPy</a>, <a class="reference external" href="https://numpy.org">pandas</a>, <a class="reference external" href="https://matplotlib.org/">matplotlib</a> (which is used to generate all MNE-Python’s 2D plots), and <a class="reference external" href="https://scikit-learn.org/stable/">scikit-learn</a>.</p>
+<div class="toctree-wrapper compound">
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -351,7 +415,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./EEG"
+            path: "./eeg"
         },
         predefinedOutput: true
     }
@@ -366,6 +430,8 @@
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="averaging.html" title="previous page">Averaging</a>
+    <a class='right-next' id="next-link" href="mne_org.html" title="next page">Organization of MNE-Python</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

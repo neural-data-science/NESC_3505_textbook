@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EEG Chapter outline &#8212; Neural Data Science</title>
+    <title>Preprocessing &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,20 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/EEG/outline.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/eeg/preprocessing.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Filtering" href="filtering.html" />
+    <link rel="prev" title="ERP Components" href="components.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/EEG/outline.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/eeg/preprocessing.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="EEG Chapter outline" />
-<meta property="og:description" content="EEG Chapter outline    Learning Objectives  to do    Introducing EEG  overview  What are we measuring?  Neural origins  time vs frequency  ERP Components  scalp" />
+<meta property="og:title"       content="Preprocessing" />
+<meta property="og:description" content="Preprocessing  Preprocessing is a series of signal processing steps that are performed on data prior to analysis and interpretation. In virtually all forms of n" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -230,6 +232,75 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="time_freq.html">
+   Time and Frequency Domains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="erps.html">
+   Event-Related Potentials (ERPs)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="components.html">
+   ERP Components
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Preprocessing
+  </a>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="filtering.html">
+     Filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="event_codes.html">
+     Event Codes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="epoching.html">
+     Epoching (Segmentation)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="artifacts.html">
+     Artifacts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="averaging.html">
+     Averaging
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mne-python.html">
+   MNE-Python
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
   MRI Data
  </span>
 </p>
@@ -298,7 +369,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/EEG/outline.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/eeg/preprocessing.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -325,95 +396,7 @@
             <i class="fas fa-list"></i> Contents
         </div>
         <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#learning-objectives">
-   Learning Objectives
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#introducing-eeg">
-   Introducing EEG
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#what-are-we-measuring">
-     What are we measuring?
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-nature-of-eeg-data">
-     The Nature of EEG Data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#how-is-it-measured">
-     How is it measured?
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#preprocessing">
-     Preprocessing
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mne-python-package">
-   MNE-Python Package
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#overview">
-     Overview
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#data-import">
-     Data import
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mne-data-structure">
-     MNE Data Structure
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#visualizing-raw-data">
-     Visualizing raw data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     Preprocessing
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#group-level-analysis">
-     Group-Level Analysis
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#visualization">
-     Visualization
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#erps">
-       ERPs
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#frequency-domain">
-       Frequency Domain
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
-</ul>
-
+            
         </nav>
     </div>
 </div>
@@ -422,141 +405,14 @@
         
               <div>
                 
-  <div class="section" id="eeg-chapter-outline">
-<h1>EEG Chapter outline<a class="headerlink" href="#eeg-chapter-outline" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
-<div class="section" id="learning-objectives">
-<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>to do</p></li>
-</ul>
-</div>
-<hr class="docutils" />
-<div class="section" id="introducing-eeg">
-<h2>Introducing EEG<a class="headerlink" href="#introducing-eeg" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>overview</p></li>
-</ul>
-<div class="section" id="what-are-we-measuring">
-<h3>What are we measuring?<a class="headerlink" href="#what-are-we-measuring" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Neural origins</p></li>
-<li><p>time vs frequency</p></li>
-<li><p>ERP Components</p>
-<ul>
-<li><p>scalp</p></li>
-<li><p>latent</p></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section" id="the-nature-of-eeg-data">
-<h3>The Nature of EEG Data<a class="headerlink" href="#the-nature-of-eeg-data" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- Time-varying, analog/continuous
-- Multiple channels
-</pre></div>
-</div>
-</div>
-<div class="section" id="how-is-it-measured">
-<h3>How is it measured?<a class="headerlink" href="#how-is-it-measured" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Electrodes and recording basics</p></li>
-<li><p>note about MEG</p></li>
-</ul>
-</div>
-<div class="section" id="preprocessing">
-<h3>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h3>
-<p><em>Conceptual</em> - cover MNE steps below.</p>
-<ul class="simple">
-<li><p>filtering</p></li>
-<li><p>event code processing</p></li>
-<li><p>segmentation (epoching)</p>
-<ul>
-<li><p>baselines</p></li>
-</ul>
-</li>
-<li><p>artifact removal</p>
-<ul>
-<li><p>ICA</p></li>
-</ul>
-</li>
-<li><p>averaging</p></li>
-</ul>
-</div>
-</div>
-<hr class="docutils" />
-<div class="section" id="mne-python-package">
-<h2>MNE-Python Package<a class="headerlink" href="#mne-python-package" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="overview">
-<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>background</p></li>
-<li><p>website</p></li>
-<li><p>classes</p></li>
-</ul>
-</div>
-<div class="section" id="data-import">
-<h3>Data import<a class="headerlink" href="#data-import" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>fif files</p></li>
-<li><p>other formats</p></li>
-</ul>
-</div>
-<div class="section" id="mne-data-structure">
-<h3>MNE Data Structure<a class="headerlink" href="#mne-data-structure" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>.info</p></li>
-<li><p>.<strong>dict</strong></p></li>
-</ul>
-</div>
-<div class="section" id="visualizing-raw-data">
-<h3>Visualizing raw data<a class="headerlink" href="#visualizing-raw-data" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>raw.plot()</p></li>
-</ul>
-</div>
-<div class="section" id="id1">
-<h3>Preprocessing<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>filtering</p></li>
-<li><p>event code processing</p></li>
-<li><p>segmentation (epoching)</p></li>
-<li><p>artifact removal</p>
-<ul>
-<li><p>ICA</p></li>
-</ul>
-</li>
-<li><p>averaging</p></li>
-</ul>
-</div>
-<div class="section" id="group-level-analysis">
-<h3>Group-Level Analysis<a class="headerlink" href="#group-level-analysis" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>reading in multiple data files and organizing as dicts or lists</p></li>
-<li><p>group grand averages</p></li>
-</ul>
-</div>
-<div class="section" id="visualization">
-<h3>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="erps">
-<h4>ERPs<a class="headerlink" href="#erps" title="Permalink to this headline">¶</a></h4>
-<ul class="simple">
-<li><p>waveforms</p></li>
-<li><p>topo maps</p></li>
-<li><p>Coversion to pandas DataFrame</p></li>
-<li><p>using seaborn for statistical visualization</p></li>
-<li><p>mean amplitude t-tests</p></li>
-<li><p>mass univariate tests</p></li>
-</ul>
-</div>
-<div class="section" id="frequency-domain">
-<h4>Frequency Domain<a class="headerlink" href="#frequency-domain" title="Permalink to this headline">¶</a></h4>
-<ul class="simple">
-<li><p>frequency spectrum</p></li>
-<li><p>time-frequency analysis (TFA)</p></li>
-</ul>
-</div>
-</div>
+  <div class="section" id="preprocessing">
+<h1>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h1>
+<p>Preprocessing is a series of signal processing steps that are performed on data prior to analysis and interpretation. In virtually all forms of neuroimaging data, including EEG and MEG, preprocessing is necessary in order to remove noise and obtain a clean signal of interest. In the case of EEG, the data recorded from the scalp are inevitably a mixture of signals generated from the brain (which we likely care about), and other signals generated by sources other than the brain (which we generally don’t wish to interpret). In EEG, sources of noise can be physiological and non-physiological.</p>
+<p><strong>Physiological</strong> sources of noise include muscles (which generate electrical potentials when contracting and relaxing), the eyes (which create distinctive signals both during blinks, and when the eyeballs move), and sometimes heartbeats (the heart produces strong, distinctive electrical signals as commonly measured with the electrocardiogram, or EKG) and breathing; the latter two sources typically are more of a problem for MEG than EEG data.</p>
+<p><strong>Non-physiological</strong> sources include artifacts generated when electrodes move relative to the scalp, when the electrode wires move, and ambient electromagnetic noise. Electromagnetic noise is created by virtually any device that uses electricity (except some battery-powered devices). In North America and some other parts of the world, <strong>line voltage</strong> — the alternating current that is provided through wired electrical outlets — oscillates at 60 Hz; in Europe and other parts of the world, line voltage alternates at 50 Hz. Thus depending on where the EEG data were recorded, they will likely contain a fairly distinct peak in the frequency spectrum at 50 or 60 Hz.</p>
+<p>Some people, when they first learn about preprocessing, think it sounds a lot like cheating — “doctoring” the signal to make what you want appear out of it. This is not really the case, however. Preprocessing steps are carefully designed and implemented around our understanding of the source and nature of particular sources of noise, as well as our understanding about the nature of the electrical activity generated by the brain. Because the skull is such a poor conductor of electricity, the amplitude of EEG signals recorded from the scalp is very small. In contrast, the amplitude of signals from noise sources — especially from the muscles and eyes are an order of magnitude or more larger. Thus if we fail to remove these known sources of noise from the data, it would be unlikely that we would detect the brain activity at all, and at best our ability to do so and make valid interpretations would be greatly diminished.</p>
+<p>In the next sections we will walk through some of the most common preprocessing steps that are applied to EEG data.</p>
+<div class="toctree-wrapper compound">
 </div>
 </div>
 
@@ -573,7 +429,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./EEG"
+            path: "./eeg"
         },
         predefinedOutput: true
     }
@@ -588,6 +444,8 @@
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="components.html" title="previous page">ERP Components</a>
+    <a class='right-next' id="next-link" href="filtering.html" title="next page">Filtering</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

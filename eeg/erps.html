@@ -33,17 +33,19 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/EEG/erps.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/eeg/erps.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ERP Components" href="components.html" />
+    <link rel="prev" title="Time and Frequency Domains" href="time_freq.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/EEG/erps.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/eeg/erps.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="Event-Related Potentials (ERPs)" />
 <meta property="og:description" content="Event-Related Potentials (ERPs)  Event-related potentials (ERPs) are a particular kind of measure derived from EEG data. EEG is a continuous measure of electric" />
@@ -230,6 +232,48 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="time_freq.html">
+   Time and Frequency Domains
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Event-Related Potentials (ERPs)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="components.html">
+   ERP Components
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="preprocessing.html">
+   Preprocessing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mne-python.html">
+   MNE-Python
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
   MRI Data
  </span>
 </p>
@@ -298,7 +342,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/EEG/erps.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/eeg/erps.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -341,7 +385,7 @@
 <p>Indeed, the signal-to-noise ratio of ERP data increases roughly with the square root of the number of trials that contribute to it. Depending on the particular ERP effect under investigation, a typical experiment might present anywhere from 30-40, to 100 or even 1000 stimuli from each experimental condition in order to obtain a reliable ERP. The number of stimuli depend on the size of the expected ERP signal (smaller signals require more trials to be detectable), as well as pragmatic constraints (e.g., in studies of sentence processing, it takes several seconds for a person to read or listen to one sentence — whereas if the stimuli are auditory tones that are 100 ms in duration, a lot more stimuli can be presented in a given time period). The figure below shows data from a single individual in an experiment where images of faces were presented. In each panel, the odd-numbered trials are plotted against the even-numbered trials, with increasing numbers of trials included in each average. Since there was nothing systematically different about the odd and even trials, we can assume that when a sufficient number of trials are averaged together to obtain a reliable response, the odd- and even-numbered trial averages should look basically identical. It’s clear that, at least in this particular data set, there are diminishing returns to doubling the number of trials beyond 32 or 64.</p>
 <div class="figure align-left" id="id1">
 <a class="reference internal image-reference" href="../_images/erp_trial_averaging.png"><img alt="../_images/erp_trial_averaging.png" src="../_images/erp_trial_averaging.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-text">Effects of averaging increasing numbers of trials in an ERP experiment, for a single human participant. Stimuli were images of human faces. There were a total of 256 trials in the experiment, and the average of these is shown at the bottom, with prominent component peaks (see next section) labelled.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 11 </span><span class="caption-text">Effects of averaging increasing numbers of trials in an ERP experiment, for a single human participant. Stimuli were images of human faces. There were a total of 256 trials in the experiment, and the average of these is shown at the bottom, with prominent component peaks (see next section) labelled.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 <p>Thus in a typical ERP experiment, many trials will be presented in two or more experimental conditions, and the results will be analyzed across all trials in each condition. The effects of interest may occur before or after the particular event that the ERPs are time-locked to. If the interest is in the response to stimuli, typically the focus of analysis is on the ERPs occurring after the stimulus onset. If the focus is on a motor response, the focus of analysis may be on brain activity prior to the onset of the response — for example if the interest is in response preparation — or after the response, for example if the interest is in how people interpret their own responses (for example, one might compare brain activity after correct versus incorrect responses).</p>
 <p>Analyzing ERP data thus requires <strong>segmenting</strong> the EEG data into short time periods of data around the events of experimental interest. These segments (often called <strong>epochs</strong>) can vary from a few hundred milliseconds to several seconds, depending on the timing of the expected effects. Typically, the epochs include a period of time prior to the onset of the event of interest (or after the event, if the interest is in activity prior to the event). This serves as a <strong>baseline</strong> period to compare the experimentally-related brain activity to. For example, in the figure above, the epoch is 450 ms in duration, plus a 100 ms baseline period.</p>
@@ -360,7 +404,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./EEG"
+            path: "./eeg"
         },
         predefinedOutput: true
     }
@@ -375,6 +419,8 @@
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="time_freq.html" title="previous page">Time and Frequency Domains</a>
+    <a class='right-next' id="next-link" href="components.html" title="next page">ERP Components</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
