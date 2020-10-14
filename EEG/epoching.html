@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Preprocessing &#8212; Neural Data Science</title>
+    <title>Epoching (Segmentation) &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,22 +33,20 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/eeg/preprocessing.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/EEG/epoching.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Filtering" href="filtering.html" />
-    <link rel="prev" title="ERP Components" href="components.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/eeg/preprocessing.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/EEG/epoching.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Preprocessing" />
-<meta property="og:description" content="Preprocessing  Preprocessing is a series of signal processing steps that are performed on data prior to analysis and interpretation. In virtually all forms of n" />
+<meta property="og:title"       content="Epoching (Segmentation)" />
+<meta property="og:description" content="Epoching (Segmentation)" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -232,75 +230,6 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
-  EEG Data
- </span>
-</p>
-<ul class="current nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="introduction.html">
-   Introduction
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="learning_objectives.html">
-   Learning Objectives
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="time_freq.html">
-   Time and Frequency Domains
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="erps.html">
-   Event-Related Potentials (ERPs)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="components.html">
-   ERP Components
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Preprocessing
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="filtering.html">
-     Filtering
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="event_codes.html">
-     Event Codes
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="epoching.html">
-     Epoching (Segmentation)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="artifacts.html">
-     Artifacts
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="averaging.html">
-     Averaging
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="mne-python.html">
-   MNE-Python
-  </a>
- </li>
-</ul>
-<p class="caption">
- <span class="caption-text">
   MRI Data
  </span>
 </p>
@@ -369,7 +298,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/eeg/preprocessing.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/EEG/epoching.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -405,15 +334,8 @@
         
               <div>
                 
-  <div class="section" id="preprocessing">
-<h1>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h1>
-<p>Preprocessing is a series of signal processing steps that are performed on data prior to analysis and interpretation. In virtually all forms of neuroimaging data, including EEG and MEG, preprocessing is necessary in order to remove noise and obtain a clean signal of interest. In the case of EEG, the data recorded from the scalp are inevitably a mixture of signals generated from the brain (which we likely care about), and other signals generated by sources other than the brain (which we generally don’t wish to interpret). In EEG, sources of noise can be physiological and non-physiological.</p>
-<p><strong>Physiological</strong> sources of noise include muscles (which generate electrical potentials when contracting and relaxing), the eyes (which create distinctive signals both during blinks, and when the eyeballs move), and sometimes heartbeats (the heart produces strong, distinctive electrical signals as commonly measured with the electrocardiogram, or EKG) and breathing; the latter two sources typically are more of a problem for MEG than EEG data.</p>
-<p><strong>Non-physiological</strong> sources include artifacts generated when electrodes move relative to the scalp, when the electrode wires move, and ambient electromagnetic noise. Electromagnetic noise is created by virtually any device that uses electricity (except some battery-powered devices). In North America and some other parts of the world, <strong>line voltage</strong> — the alternating current that is provided through wired electrical outlets — oscillates at 60 Hz; in Europe and other parts of the world, line voltage alternates at 50 Hz. Thus depending on where the EEG data were recorded, they will likely contain a fairly distinct peak in the frequency spectrum at 50 or 60 Hz.</p>
-<p>Some people, when they first learn about preprocessing, think it sounds a lot like cheating — “doctoring” the signal to make what you want appear out of it. This is not really the case, however. Preprocessing steps are carefully designed and implemented around our understanding of the source and nature of particular sources of noise, as well as our understanding about the nature of the electrical activity generated by the brain. Because the skull is such a poor conductor of electricity, the amplitude of EEG signals recorded from the scalp is very small. In contrast, the amplitude of signals from noise sources — especially from the muscles and eyes are an order of magnitude or more larger. Thus if we fail to remove these known sources of noise from the data, it would be unlikely that we would detect the brain activity at all, and at best our ability to do so and make valid interpretations would be greatly diminished.</p>
-<p>In the next sections we will walk through some of the most common preprocessing steps that are applied to EEG data.</p>
-<div class="toctree-wrapper compound">
-</div>
+  <div class="section" id="epoching-segmentation">
+<h1>Epoching (Segmentation)<a class="headerlink" href="#epoching-segmentation" title="Permalink to this headline">¶</a></h1>
 </div>
 
     <script type="text/x-thebe-config">
@@ -429,7 +351,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./eeg"
+            path: "./EEG"
         },
         predefinedOutput: true
     }
@@ -444,8 +366,6 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="components.html" title="previous page">ERP Components</a>
-    <a class='right-next' id="next-link" href="filtering.html" title="next page">Filtering</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

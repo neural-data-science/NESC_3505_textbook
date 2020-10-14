@@ -1,0 +1,804 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5 - Merging pandas.html" />
+    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5 - Merging pandas.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
+<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  View this lesson on datacamp  Chapter 1: Preparing Data  To read a single file into a dataframe, use the following for" />
+<meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/NESC3505_icon.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Neural Data Science</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  About This Course
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/why.html">
+   Start with why
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_objectives.html">
+   Learning Objectives for this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../syllabus.html">
+   Syllabus
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/teaching_approach.html">
+   Teaching Approach
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open.html">
+   Open Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_approach.html">
+   How To Rock This Course
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/what_is_nds.html">
+   What is Data Science?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/tools_for_nds.html">
+   Tools for Neural Data Science
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/class_tech.html">
+   Technologies Used in this Class
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/coding.html">
+   Coding Tools
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/alltogether.html">
+   Putting It All Together
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/get_going.html">
+   Get Going!
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Introducing Python
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_help.html">
+   Getting Help with Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lesson1.html">
+   Lesson 1: Introduction to Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lesson2.html">
+   Lesson 2: Intermediate Python
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Single Unit Data
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/intro_spike_trains.html">
+   Introduction to Spike Trains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/corr_spike_trains.html">
+   Correlating Spike Trains
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  MRI Data
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../zrefs.html">
+   References
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/3/lesson5 - Merging pandas.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/3/lesson5 - Merging pandas.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/3/lesson5 - Merging pandas.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-1-preparing-data">
+   Chapter 1: Preparing Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-2-concatenating-data">
+   Chapter 2: Concatenating Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-append-and-pd-concat-for-series">
+     Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       .append()
+      </span>
+     </code>
+     and
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       pd.concat()
+      </span>
+     </code>
+     for series
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-append-and-pd-concat-for-dataframes">
+     Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       .append()
+      </span>
+     </code>
+     and
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       pd.concat()
+      </span>
+     </code>
+     for dataframes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multi-indexes">
+     Multi-indexes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#outer-and-inner-joins">
+     Outer and Inner Joins
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-3-merging-data">
+   Chapter 3: Merging Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pd-merge">
+     pd.merge()
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#merging-on">
+     Merging ‘on’
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#more-pd-merge-arguments">
+     More pd.merge() arguments
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pd-merge-ordered-df1-df2">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       pd.merge.ordered(df1,
+      </span>
+      <span class="pre">
+       df2)
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
+<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://learn.datacamp.com/courses/merging-dataframes-with-pandas">View this lesson on datacamp</a></p>
+<div class="section" id="chapter-1-preparing-data">
+<h2>Chapter 1: Preparing Data<a class="headerlink" href="#chapter-1-preparing-data" title="Permalink to this headline">¶</a></h2>
+<p>To read a single file into a dataframe, use the following format:</p>
+<p><code class="docutils literal notranslate"><span class="pre">variable</span> <span class="pre">=</span> <span class="pre">pd.read_csv('filename.csv')</span></code></p>
+<p>It is also possible to use a for loop to read in multiple files:</p>
+<p>First, create a list of the files</p>
+<p><code class="docutils literal notranslate"><span class="pre">filenames</span> <span class="pre">=</span> <span class="pre">['filename1.csv',</span> <span class="pre">'filename2.csv',</span> <span class="pre">'filename3.csv']</span></code></p>
+<p>Next, create an empty list to append the files to</p>
+<p><code class="docutils literal notranslate"><span class="pre">dataframes</span> <span class="pre">=</span> <span class="pre">[]</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">filename</span> <span class="pre">in</span> <span class="pre">filenames:</span>&#160;&#160;&#160;&#160; <span class="pre">dataframes.append(pd.read_csv(filename))</span></code></p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Funciton</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code></p></td>
+<td><p>sort index - default is by ascending order, specifying <code class="docutils literal notranslate"><span class="pre">ascending=False</span></code> reverses order</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.sort_values()</span></code></p></td>
+<td><p>sort column values by increasing numerical order by default</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.reindex()</span></code></p></td>
+<td><p>reorders rows based on a new index column</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.ffill()</span></code></p></td>
+<td><p>forward fill; replace NaN with last preceding non-null value</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.str.replace('',</span> <span class="pre">'')</span></code></p></td>
+<td><p>replace first specified string with second down a column</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.multiply()</span></code></p></td>
+<td><p>performs multiplication along specified column/row and broadcasts output</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="chapter-2-concatenating-data">
+<h2>Chapter 2: Concatenating Data<a class="headerlink" href="#chapter-2-concatenating-data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="using-append-and-pd-concat-for-series">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">.append()</span></code> and <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> for series<a class="headerlink" href="#using-append-and-pd-concat-for-series" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">.append()</span></code> method is used for both series and dataframes to stack rows on top of each other. For example, appeding the 2 pandas series below results in 1 series in which the elements of ‘blue’ are stacked underneath the elements of ‘pink’</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">pink</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;rose&#39;</span><span class="p">,</span> <span class="s1">&#39;fuchsia&#39;</span><span class="p">,</span> <span class="s1">&#39;ruby&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">])</span>
+<span class="n">blue</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;turquoise&#39;</span><span class="p">,</span> <span class="s1">&#39;sky blue&#39;</span><span class="p">,</span> <span class="s1">&#39;navy&#39;</span><span class="p">,</span> <span class="s1">&#39;ocean blue&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pink</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">blue</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0          rose
+1       fuchsia
+2          ruby
+3       magenta
+0     turquoise
+1      sky blue
+2          navy
+3    ocean blue
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>One thing to note here is that the <code class="docutils literal notranslate"><span class="pre">.append()</span></code> method doesn’t adjust the index of the series when it stacks them. This can be done using the <code class="docutils literal notranslate"><span class="pre">.reset_index()</span></code> method. Setting the argument <code class="docutils literal notranslate"><span class="pre">drop=True</span></code> will drop the original index of ‘blue’</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">pink</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">blue</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0          rose
+1       fuchsia
+2          ruby
+3       magenta
+4     turquoise
+5      sky blue
+6          navy
+7    ocean blue
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> can produce the same output as above, but in this case, the input is a list of series or dataframes. The argument <code class="docutils literal notranslate"><span class="pre">ignore_index=True</span></code> performs the same function as <code class="docutils literal notranslate"><span class="pre">reset_index(drop=True)</span></code> above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#pass 2 dataframes as a list into pd.concat</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pink</span><span class="p">,</span> <span class="n">blue</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0          rose
+1       fuchsia
+2          ruby
+3       magenta
+4     turquoise
+5      sky blue
+6          navy
+7    ocean blue
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="using-append-and-pd-concat-for-dataframes">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">.append()</span></code> and <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> for dataframes<a class="headerlink" href="#using-append-and-pd-concat-for-dataframes" title="Permalink to this headline">¶</a></h3>
+<p>For pandas dataframes, the append method stacks the rows, just like for pandas series.  Here we will use 2 small csv files, one containing participants birthday month, and the other their age</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#we begin by reading the csv files into dataframes, and making &#39;Participant num&#39; the index column</span>
+<span class="n">fav_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;fav_colour.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;Participant num&#39;</span><span class="p">)</span>
+<span class="n">birthday_month</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;birthday_months.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;Participant num&#39;</span><span class="p">)</span>
+
+<span class="c1">#append birthday_month to fav_colour</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fav_colour</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">birthday_month</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                Fav Colour Birthday Month
+Participant num                          
+1                     blue            NaN
+2                      red            NaN
+3                    green            NaN
+4                  purple             NaN
+5                      red            NaN
+6                    green            NaN
+7                   orange            NaN
+8                  yellow             NaN
+9                  yellow             NaN
+10                    pink            NaN
+1                      NaN           may 
+2                      NaN          june 
+3                      NaN        january
+4                      NaN      february 
+5                      NaN     september 
+6                      NaN          july 
+7                      NaN           may 
+8                      NaN           may 
+9                      NaN         august
+10                     NaN       december
+</pre></div>
+</div>
+</div>
+</div>
+<p>If the two dataframes have different columns, such as in the example above, the places in columns where there is no corresponding value will be filled with NaN</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> for dataframes produces similar output as <code class="docutils literal notranslate"><span class="pre">.append()</span></code>, but it will overlay specified DataFrames along shared row/columns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">birthday_month</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                Fav Colour Birthday Month
+Participant num                          
+1                     blue            NaN
+2                      red            NaN
+3                    green            NaN
+4                  purple             NaN
+5                      red            NaN
+6                    green            NaN
+7                   orange            NaN
+8                  yellow             NaN
+9                  yellow             NaN
+10                    pink            NaN
+1                      NaN           may 
+2                      NaN          june 
+3                      NaN        january
+4                      NaN      february 
+5                      NaN     september 
+6                      NaN          july 
+7                      NaN           may 
+8                      NaN           may 
+9                      NaN         august
+10                     NaN       december
+</pre></div>
+</div>
+</div>
+</div>
+<p>The default when concatenating dataframes is to do so vertically, however <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> allows you to concatenate horizontally as well. To do this, you must specify either <code class="docutils literal notranslate"><span class="pre">axis=1</span></code>, or <code class="docutils literal notranslate"><span class="pre">axis=columns</span></code>. Note in the example below, the rows with identical indices get combined when concatenated.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">birthday_month</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                Fav Colour Birthday Month
+Participant num                          
+1                     blue           may 
+2                      red          june 
+3                    green        january
+4                  purple       february 
+5                      red     september 
+6                    green          july 
+7                   orange           may 
+8                  yellow            may 
+9                  yellow          august
+10                    pink       december
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="multi-indexes">
+<h3>Multi-indexes<a class="headerlink" href="#multi-indexes" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pd.IndexSlice(keys=,</span> </code> allows you to index along specified index within multi-indexed DataFrame. The argument<code class="docutils literal notranslate"><span class="pre">keys=</span></code> assigns an outer index label for each of the specified dataframes.</p>
+</div>
+<div class="section" id="outer-and-inner-joins">
+<h3>Outer and Inner Joins<a class="headerlink" href="#outer-and-inner-joins" title="Permalink to this headline">¶</a></h3>
+<p>An outer join is performed by using the keyword argument <code class="docutils literal notranslate"><span class="pre">join='outer'</span></code> in the call to <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>, it preserves teh indices of each dataframe. Specifying <code class="docutils literal notranslate"><span class="pre">join='inner'</span></code> will perform an inner join, which preserves indices common to both dataframes.</p>
+</div>
+</div>
+<div class="section" id="chapter-3-merging-data">
+<h2>Chapter 3: Merging Data<a class="headerlink" href="#chapter-3-merging-data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pd-merge">
+<h3>pd.merge()<a class="headerlink" href="#pd-merge" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pd.merge(df1,</span> <span class="pre">df2)</span></code> allows you to combine 2 or more dataframes. The default format computes a merge on all shared columns</p>
+</div>
+<div class="section" id="merging-on">
+<h3>Merging ‘on’<a class="headerlink" href="#merging-on" title="Permalink to this headline">¶</a></h3>
+<p>The keyword argument <code class="docutils literal notranslate"><span class="pre">on=</span></code> specifies which columns of a dataframe you would like to merge on. Using the example from the previous chapter, merging ‘fav_colour’ and ‘birthday_month’ on the ‘Participant num’ column creates a dataframe with 3 columns. One thing to note here - the column specified for <code class="docutils literal notranslate"><span class="pre">on=</span></code> must be a shared column between both dataframes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">birthday_month</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Participant num&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merged</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                Fav Colour Birthday Month
+Participant num                          
+1                     blue           may 
+2                      red          june 
+3                    green        january
+4                  purple       february 
+5                      red     september 
+6                    green          july 
+7                   orange           may 
+8                  yellow            may 
+9                  yellow          august
+10                    pink       december
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="more-pd-merge-arguments">
+<h3>More pd.merge() arguments<a class="headerlink" href="#more-pd-merge-arguments" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">left_on='</span> <span class="pre">'</span></code></p></td>
+<td><p>specify columns to merge on, left refers to df argument placement in call to <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">right_on=</span></code></p></td>
+<td><p>specify columns to merge on, right refers to df argument placement in call to <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">how='left'</span></code></p></td>
+<td><p>keeps all rows in left dataframe</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">how='right'</span></code></p></td>
+<td><p>keeps all rows in right dataframe</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="pd-merge-ordered-df1-df2">
+<h3><code class="docutils literal notranslate"><span class="pre">pd.merge.ordered(df1,</span> <span class="pre">df2)</span></code><a class="headerlink" href="#pd-merge-ordered-df1-df2" title="Permalink to this headline">¶</a></h3>
+<p>This merges and puts data in specified order, and has a few keyword arguments:</p>
+<p>|                                     |                                    |
+|————————————-|                                    |
+|<code class="docutils literal notranslate"><span class="pre">on=</span></code>                                |specify order type (e.g., on=’date’)|
+|<code class="docutils literal notranslate"><span class="pre">suffixes=</span></code>                          |add suffixes to column headers to improve organization|
+|<code class="docutils literal notranslate"><span class="pre">fill_method=</span></code>                       |specify NaN treatment (e.g., ‘ffill’)|</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./3"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Aaron J Newman<br/>
+        
+            &copy; Copyright 2020. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-171426664-2', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    
+  </body>
+</html>

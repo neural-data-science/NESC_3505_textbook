@@ -1,0 +1,1477 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch3.html" />
+    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch3.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
+<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  View this lesson on datacamp  Chapter 3: Merging Data  import pandas as pd  pd.merge()  pd.merge(df1, df2) is another " />
+<meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/NESC3505_icon.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Neural Data Science</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  About This Course
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/why.html">
+   Start with why
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_objectives.html">
+   Learning Objectives for this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../syllabus.html">
+   Syllabus
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/teaching_approach.html">
+   Teaching Approach
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open.html">
+   Open Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_approach.html">
+   How To Rock This Course
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/what_is_nds.html">
+   What is Data Science?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/tools_for_nds.html">
+   Tools for Neural Data Science
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/class_tech.html">
+   Technologies Used in this Class
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/coding.html">
+   Coding Tools
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/alltogether.html">
+   Putting It All Together
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/get_going.html">
+   Get Going!
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Introducing Python
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_help.html">
+   Getting Help with Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lesson1.html">
+   Lesson 1: Introduction to Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lesson2.html">
+   Lesson 2: Intermediate Python
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Single Unit Data
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/intro_spike_trains.html">
+   Introduction to Spike Trains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/corr_spike_trains.html">
+   Correlating Spike Trains
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  MRI Data
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../zrefs.html">
+   References
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/3/lesson5_ch3.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/3/lesson5_ch3.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/3/lesson5_ch3.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-3-merging-data">
+   Chapter 3: Merging Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pd-merge">
+     pd.merge()
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#merging-on">
+     Merging ‘on’
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#joining-dataframes">
+     Joining DataFrames
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#left-and-right-joins">
+       Left and Right joins
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#which-function-or-method-to-use">
+     Which function or method to use?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-many-input-dataframes">
+     How many input DataFrames?
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#for-stacking-vertically">
+       For stacking vertically
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#for-stacking-horizontally">
+       For stacking horizontally
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
+<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://learn.datacamp.com/courses/merging-dataframes-with-pandas">View this lesson on datacamp</a></p>
+<div class="section" id="chapter-3-merging-data">
+<h2>Chapter 3: Merging Data<a class="headerlink" href="#chapter-3-merging-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pd-merge">
+<h3>pd.merge()<a class="headerlink" href="#pd-merge" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pd.merge(df1,</span> <span class="pre">df2)</span></code> is another function that allows you to combine two (or more) DataFrames.</p>
+<p>Recall from the last chapter how we combined favourite colour and birth month data from ten people:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;fav_colour.csv&#39;</span><span class="p">)</span>
+<span class="n">birthday_month</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;birthday_months.csv&#39;</span><span class="p">)</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">birthday_month</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Participant num</th>
+      <th>Fav Colour</th>
+      <th>Participant num</th>
+      <th>Birthday Month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>blue</td>
+      <td>1</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>red</td>
+      <td>2</td>
+      <td>june</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>green</td>
+      <td>3</td>
+      <td>january</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>purple</td>
+      <td>4</td>
+      <td>february</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>red</td>
+      <td>5</td>
+      <td>september</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>green</td>
+      <td>6</td>
+      <td>july</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>orange</td>
+      <td>7</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>yellow</td>
+      <td>8</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>yellow</td>
+      <td>9</td>
+      <td>august</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>pink</td>
+      <td>10</td>
+      <td>december</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Doing this with <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> is a bit simpler, and has the advantage that it automatically recognizes the fact that both data files have a column called <code class="docutils literal notranslate"><span class="pre">participant_num()</span></code>, and merges these into a single column:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">birthday_month</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Participant num</th>
+      <th>Fav Colour</th>
+      <th>Birthday Month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>blue</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>red</td>
+      <td>june</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>green</td>
+      <td>january</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>purple</td>
+      <td>february</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>red</td>
+      <td>september</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>green</td>
+      <td>july</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>orange</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>yellow</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>yellow</td>
+      <td>august</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>pink</td>
+      <td>december</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>This works smoothly when we have a common column in both DataFrames, with the same values in that column (in this case, <code class="docutils literal notranslate"><span class="pre">Participant</span> <span class="pre">num</span></code> with values 1–10). But what happens when we have non-overlapping data? Here we load eye colour data, which we have for only some of the people that we have favourite colours and birth months for, as well as for some new people:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eye_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;eye_colour.csv&#39;</span><span class="p">)</span>
+<span class="n">eye_colour</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Participant num</th>
+      <th>eye_colour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>hazel</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>green</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>11</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>12</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>13</td>
+      <td>blue</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>When we merge <code class="docutils literal notranslate"><span class="pre">eye_colour</span></code> with one of the other DataFrames, we only get the data that overlaps between the two (based on shared <code class="docutils literal notranslate"><span class="pre">Participant</span> <span class="pre">num</span></code>s):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">eye_colour</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Participant num</th>
+      <th>Fav Colour</th>
+      <th>eye_colour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>blue</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>red</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>green</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>purple</td>
+      <td>hazel</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>red</td>
+      <td>green</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>In other words, <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> uses an <strong>inner join</strong> by default. We can override this using the <code class="docutils literal notranslate"><span class="pre">how=</span></code> argument though:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">eye_colour</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Participant num</th>
+      <th>Fav Colour</th>
+      <th>eye_colour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>blue</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>red</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>green</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>purple</td>
+      <td>hazel</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>red</td>
+      <td>green</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>green</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>orange</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>yellow</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>yellow</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>pink</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>11</td>
+      <td>NaN</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>12</td>
+      <td>NaN</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>13</td>
+      <td>NaN</td>
+      <td>blue</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="merging-on">
+<h3>Merging ‘on’<a class="headerlink" href="#merging-on" title="Permalink to this headline">¶</a></h3>
+<p>This works fine as long as we are merging two DataFrames that share a column label, <em>and</em> have shared values in that label column (e.g., participant numbers 1–5 in the above example). But our data aren’t always structured that way. For example, let’s re-load the RT data used in the previous chapter, that came from the same participant in two different testing sessions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;session_1.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">)</span>
+<span class="n">sess_2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;session_2.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sess_1</span><span class="p">,</span> <span class="n">sess_2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rt</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Merging these generates no output (other than the <code class="docutils literal notranslate"><span class="pre">rt</span></code> label). Why not? Let’s look at the inputs:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sess_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sess_2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          rt
+trial       
+0      0.988
+1      0.753
+2      0.949
+3      0.824
+4      0.262
+5      0.803
+6      0.376
+7      0.496
+8      0.235
+9      0.336
+10     0.645
+          rt
+trial       
+0      0.718
+1      0.851
+2      0.747
+3      0.520
+4      0.991
+5      0.004
+6      0.547
+7      0.883
+8      0.841
+9      0.195
+10     0.828
+</pre></div>
+</div>
+</div>
+</div>
+<p>Both inputs have a <code class="docutils literal notranslate"><span class="pre">trial</span></code> column, with the same values (0–10). However, they both also have an <code class="docutils literal notranslate"><span class="pre">rt</span></code> column, and the RT values are different for every trial. Since pandas sees the <code class="docutils literal notranslate"><span class="pre">rt</span></code> column label in both columns, it will only do the inner join on rows that match on <em>both</em> <code class="docutils literal notranslate"><span class="pre">trial</span></code> <em>and</em> <code class="docutils literal notranslate"><span class="pre">rt</span></code>.</p>
+<p>We can override this default behaviour by explicitly telling pandas what columns to merge on; in this case, <code class="docutils literal notranslate"><span class="pre">trial</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sess_1</span><span class="p">,</span> <span class="n">sess_2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">)</span>
+<span class="n">sess_12</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rt_x</th>
+      <th>rt_y</th>
+    </tr>
+    <tr>
+      <th>trial</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.988</td>
+      <td>0.718</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.753</td>
+      <td>0.851</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.949</td>
+      <td>0.747</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.824</td>
+      <td>0.520</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.262</td>
+      <td>0.991</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.803</td>
+      <td>0.004</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.376</td>
+      <td>0.547</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.496</td>
+      <td>0.883</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.235</td>
+      <td>0.841</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.336</td>
+      <td>0.195</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.645</td>
+      <td>0.828</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Note that in this case, the identically-named <code class="docutils literal notranslate"><span class="pre">rt</span></code> columns are given distinct names so that we know where they came from (<code class="docutils literal notranslate"><span class="pre">x</span></code> being the first input, and <code class="docutils literal notranslate"><span class="pre">y</span></code> the second). We can replace these with meaningful labels if we like, using the <code class="docutils literal notranslate"><span class="pre">suffixes=</span></code> argument and a list of labels:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sess_1</span><span class="p">,</span> <span class="n">sess_2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_sess_1&#39;</span><span class="p">,</span> <span class="s1">&#39;_sess_2&#39;</span><span class="p">])</span>
+<span class="n">sess_12</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rt_sess_1</th>
+      <th>rt_sess_2</th>
+    </tr>
+    <tr>
+      <th>trial</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.988</td>
+      <td>0.718</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.753</td>
+      <td>0.851</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.949</td>
+      <td>0.747</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.824</td>
+      <td>0.520</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.262</td>
+      <td>0.991</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.803</td>
+      <td>0.004</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.376</td>
+      <td>0.547</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.496</td>
+      <td>0.883</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.235</td>
+      <td>0.841</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.336</td>
+      <td>0.195</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.645</td>
+      <td>0.828</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pd.merge</span></code> can also come to the rescue if you have matching data columns in two inputs, but the column names aren’t the same. It’s not uncommon that a researcher will make little errors like capitalizing a title one time, but not another. This happened with the third session from our RT experiment:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;session_3.csv&#39;</span><span class="p">)</span>
+<span class="n">sess_3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Trial</th>
+      <th>RT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0.844168</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>0.913048</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>0.843295</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>0.530306</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>0.266715</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>0.707006</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>0.973193</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>7</td>
+      <td>0.432562</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>8</td>
+      <td>0.522106</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>9</td>
+      <td>0.876626</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>10</td>
+      <td>0.410011</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>So when we try to merge this third session with the already-merged other two, we get an error:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sess_12</span><span class="p">,</span> <span class="n">sess_3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">MergeError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="n">c7fbaafeda61</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sess_12</span><span class="p">,</span> <span class="n">sess_3</span><span class="p">)</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/pandas/core/reshape/merge.py</span> in <span class="ni">merge</span><span class="nt">(left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span>         <span class="n">copy</span><span class="o">=</span><span class="n">copy</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span>         <span class="n">indicator</span><span class="o">=</span><span class="n">indicator</span><span class="p">,</span>
+<span class="ne">---&gt; </span><span class="mi">87</span>         <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span>     <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">89</span>     <span class="k">return</span> <span class="n">op</span><span class="o">.</span><span class="n">get_result</span><span class="p">()</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/pandas/core/reshape/merge.py</span> in <span class="ni">__init__</span><span class="nt">(self, left, right, how, on, left_on, right_on, axis, left_index, right_index, sort, suffixes, copy, indicator, validate)</span>
+<span class="g g-Whitespace">    </span><span class="mi">643</span>             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">644</span> 
+<span class="ne">--&gt; </span><span class="mi">645</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_specification</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">646</span> 
+<span class="g g-Whitespace">    </span><span class="mi">647</span>         <span class="c1"># note this function has side effects</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/pandas/core/reshape/merge.py</span> in <span class="ni">_validate_specification</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1213</span>                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">common_cols</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1214</span>                     <span class="k">raise</span> <span class="n">MergeError</span><span class="p">(</span>
+<span class="ne">-&gt; </span><span class="mi">1215</span>                         <span class="s2">&quot;No common columns to perform merge on. &quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1216</span>                         <span class="sa">f</span><span class="s2">&quot;Merge options: left_on=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">left_on</span><span class="si">}</span><span class="s2">, &quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1217</span>                         <span class="sa">f</span><span class="s2">&quot;right_on=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">right_on</span><span class="si">}</span><span class="s2">, &quot;</span>
+
+<span class="ne">MergeError</span>: No common columns to perform merge on. Merge options: left_on=None, right_on=None, left_index=False, right_index=False
+</pre></div>
+</div>
+</div>
+</div>
+<p>So we need to tell pandas which columns in each input to merge on, with <code class="docutils literal notranslate"><span class="pre">left_on</span></code> referring to the left (first) input, and <code class="docutils literal notranslate"><span class="pre">right_on</span></code> referring to the right (second) input:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sess_12</span><span class="p">,</span> <span class="n">sess_3</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;Trial&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that this matches data between the two inputs, but keeps both columns.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="joining-dataframes">
+<h3>Joining DataFrames<a class="headerlink" href="#joining-dataframes" title="Permalink to this headline">¶</a></h3>
+<p>Yet another way of combining pandas DataFrames is with the <code class="docutils literal notranslate"><span class="pre">.join()</span></code> method. While <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> is a function (you can tell because the command name, <code class="docutils literal notranslate"><span class="pre">.merge</span></code>, is preceded by <code class="docutils literal notranslate"><span class="pre">pd</span></code> rather than a DataFrame, and all the input data is inside the parentheses), <code class="docutils literal notranslate"><span class="pre">.join()</span></code> is a method and so must be appended to the name of an existing DataFrame, with the DataFrame you want to join to it specified in the parentheses:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_12</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sess_3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">.join()</span></code> is less picky than <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code>: it ran fine even though there are no exactly-matching column labels shared by the inputs. Indeed, we can join DataFrames that have totally different columns and even lengths:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_12</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fav_colour</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In other words, <code class="docutils literal notranslate"><span class="pre">.join()</span></code> simply adds columns of the ‘right’ DataFrme (the one in parentheses) to the columns of the ‘left’ DataFrame (preceding the dot), lining up the rows and adding extra rows of <code class="docutils literal notranslate"><span class="pre">NaN</span></code>s if the inputs are not the same length.</p>
+<p>This is more flexible, but potentially more messy or dangerous. We want to be certain that the order of inputs in the two DataFrames we’re merging is exactly the same to avoid mis-aligning the data. Interestingly, if pandas does note identical column labels in the two DataFrames, it will throw an error because it doesn’t know if you want to use those to match rows between the inputs:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;fav_colour.csv&#39;</span><span class="p">)</span>
+<span class="n">eye_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;eye_colour.csv&#39;</span><span class="p">)</span>
+
+<span class="n">fav_colour</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eye_colour</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Indexing</strong> can help <code class="docutils literal notranslate"><span class="pre">.join()</span></code> operate more safely and reliably. If we specify the shared columns as indexes of each DataFrame, pandas will match the inputs based on the indexes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span> <span class="o">=</span> <span class="n">fav_colour</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Participant num&#39;</span><span class="p">)</span>
+<span class="n">eye_colour</span> <span class="o">=</span> <span class="n">eye_colour</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Participant num&#39;</span><span class="p">)</span>
+
+<span class="n">fav_colour</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eye_colour</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>By default <code class="docutils literal notranslate"><span class="pre">.join()</span></code> uses an outer join, but again we can use an argument to change that behaviour. However, for <code class="docutils literal notranslate"><span class="pre">.join()</span></code> the argument is <code class="docutils literal notranslate"><span class="pre">how=</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eye_colour</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="left-and-right-joins">
+<h4>Left and Right joins<a class="headerlink" href="#left-and-right-joins" title="Permalink to this headline">¶</a></h4>
+<p>In addition to <code class="docutils literal notranslate"><span class="pre">outer</span></code> (union; i.e., all inputs) and <code class="docutils literal notranslate"><span class="pre">inner</span></code> (intersection; i.e., only shared input) joins, we can use <code class="docutils literal notranslate"><span class="pre">left</span></code> and <code class="docutils literal notranslate"><span class="pre">right</span></code> arguments to specify including only the indices in one input that match those in the other input.</p>
+<p>So if we use <code class="docutils literal notranslate"><span class="pre">how=left</span></code>, pandas will include all indices present int he left input, filling any non-matches in the right input with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eye_colour</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Conversely, with <code class="docutils literal notranslate"><span class="pre">how=right</span></code> we get all indices present in the right input, again filling anything missing from the left with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eye_colour</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="which-function-or-method-to-use">
+<h3>Which function or method to use?<a class="headerlink" href="#which-function-or-method-to-use" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="how-many-input-dataframes">
+<h3>How many input DataFrames?<a class="headerlink" href="#how-many-input-dataframes" title="Permalink to this headline">¶</a></h3>
+<p><strong>2 inputs</strong></p>
+<ul class="simple">
+<li><p>methods: <code class="docutils literal notranslate"><span class="pre">.append()</span></code>; <code class="docutils literal notranslate"><span class="pre">.join()</span></code></p></li>
+<li><p>function: <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code></p></li>
+</ul>
+<p><strong>&gt;2 inputs:</strong></p>
+<ul class="simple">
+<li><p>function: <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>- because this takes lists as input</p></li>
+</ul>
+<div class="section" id="for-stacking-vertically">
+<h4>For stacking vertically<a class="headerlink" href="#for-stacking-vertically" title="Permalink to this headline">¶</a></h4>
+<p>(rows on top of rows)</p>
+<p><code class="docutils literal notranslate"><span class="pre">.append()</span></code></p>
+<ul class="simple">
+<li><p>for 2 inputs</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">.concat()</span></code></p>
+<ul class="simple">
+<li><p>for &gt;2 inputs</p></li>
+<li><p>allows simple inner and outer joins based on indexes</p></li>
+</ul>
+</div>
+<div class="section" id="for-stacking-horizontally">
+<h4>For stacking horizontally<a class="headerlink" href="#for-stacking-horizontally" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">.concat()</span></code></p>
+<ul class="simple">
+<li><p>for &gt;2 inputs</p></li>
+<li><p>allows simple inner and outer joins based on indexes</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">.join()</span></code></p>
+<ul class="simple">
+<li><p>allows left and right, as well as inner and outer, joins</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code></p>
+<ul class="simple">
+<li><p>allows joins on multiple, possibly non-matching, columns</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./3"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Aaron J Newman<br/>
+        
+            &copy; Copyright 2020. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-171426664-2', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    
+  </body>
+</html>
