@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Time and Frequency Domains &#8212; Neural Data Science</title>
+    <title>ERP Components &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,20 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/EEG/time_freq.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/eeg/components.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Preprocessing" href="preprocessing.html" />
+    <link rel="prev" title="Event-Related Potentials (ERPs)" href="erps.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/EEG/time_freq.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/eeg/components.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Time and Frequency Domains" />
-<meta property="og:description" content="Time and Frequency Domains  As a time-varying signal, EEG can be viewed, analyzed, and interpreted in two distinct ways, or domains. The common way of viewing E" />
+<meta property="og:title"       content="ERP Components" />
+<meta property="og:description" content="ERP Components  Much of ERP research focuses on components. Components are peaks or troughs in an ERP waveform that are characterized by consistent:  relationsh" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -230,6 +232,48 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="time_freq.html">
+   Time and Frequency Domains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="erps.html">
+   Event-Related Potentials (ERPs)
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   ERP Components
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="preprocessing.html">
+   Preprocessing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mne-python.html">
+   MNE-Python
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
   MRI Data
  </span>
 </p>
@@ -298,7 +342,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/EEG/time_freq.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/eeg/components.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -334,58 +378,20 @@
         
               <div>
                 
-  <div class="section" id="time-and-frequency-domains">
-<h1>Time and Frequency Domains<a class="headerlink" href="#time-and-frequency-domains" title="Permalink to this headline">¶</a></h1>
-<p>As a time-varying signal, EEG can be viewed, analyzed, and interpreted in two distinct ways, or <em>domains</em>. The common way of viewing EEG data is in the <strong>time domain</strong>, with time plotted on the <em>x</em> axis, and potential (voltage) on the <em>y</em> axis, as shown below.</p>
-<div class="figure align-left" id="id1">
-<a class="reference internal image-reference" href="../_images/eeg_raw_continuous_30s.jpg"><img alt="../_images/eeg_raw_continuous_30s.jpg" src="../_images/eeg_raw_continuous_30s.jpg" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-text">A 30 s sample of continuous EEG data, visualized in the time domain.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
-<p>Alternatively, EEG can be viewed in the <strong>frequency domain</strong>. This is done by applying a mathematical transformation, typically a <a class="reference external" href="https://en.wikipedia.org/wiki/Fast_Fourier_transform"><strong>fast Fourier transform</strong></a> (<strong>FFT</strong>). The FFT is based on a principle that any time-varying signal can be created from (or broken down into) a set of sine waves of varying frequencies and amplitudes, added together. Sine waves are regularly oscillating waveforms, such as this:</p>
-<div class="figure align-left" id="id2">
-<a class="reference internal image-reference" href="../_images/sine_wave.png"><img alt="../_images/sine_wave.png" src="../_images/sine_wave.png" style="height: 75px;" /></a>
-<p class="caption"><span class="caption-text">A sine wave.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
-<p>Clearly, an EEG signal such as the one shown in the top figure is much more complicated than a simple sine wave! The amplitude (deflection on the <em>y</em> axis) varies over time, as does the frequency (the spacing between the peaks and troughs over time)  But, by combining a large number of sine waves of different frequencies, each with a specific amplitude, we can mathematically describe even a complex EEG waveform. The figure below shows a very simple example:</p>
-<div class="figure align-left" id="id3">
-<a class="reference internal image-reference" href="../_images/fourier_series_td.png"><img alt="../_images/fourier_series_td.png" src="../_images/fourier_series_td.png" style="height: 350px;" /></a>
-<p class="caption"><span class="caption-text">A Fourier series — a set of sine waves of varying frequencies and amplitudes, along with their sum (bottom panel).</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
-<p>Applying an FFT to EEG data generates a representation of the data in the <strong>frequency domain</strong>. The FFT estimates the amplitudes of each of a wide range of sine waves (many more than shown in the figure above), and the frequency domain data represent these amplitudes, with their corresponding frequencies. The results can be plotted in the frequency domain, i.e., with frequency on the <em>x</em> axis, rather than time, and amplitude on the <em>y</em> axis. Note that in the frequency domain, the amplitude of each frequency is generally referred to as <strong>power</strong>, not amplitude.</p>
-<div class="figure align-left" id="id4">
-<a class="reference internal image-reference" href="../_images/fourier_series_fd.png"><img alt="../_images/fourier_series_fd.png" src="../_images/fourier_series_fd.png" style="height: 200px;" /></a>
-<p class="caption"><span class="caption-text">The summed Fourier series shown in the bottom panel of the previous figure, but plotted in the frequency domain. A frequency domain plot like this is often referred to as a <strong>power spectrum</strong>.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</div>
-<p>One important thing to note about the frequency domain representation of the data is that we lose temporal information. The power at each frequency in the figure above is the average power across the entire duration of the input data. We don’t necessarily have to use the entire time range of our data to compute a FFT and generate frequency domain data. However, it should be fairly intuitive that, at a minimum, the time domain data should be long enough for at least one <em>cycle</em> (time from one peak to the next) of a sine wave to occur (in practice, we would want to have at least 2-3 cycles). Thus the duration of the data we have determines the lowest frequency we can estimate, since lower frequencies take more time to complete one cycle. For example, if a sine wave has a frequency of 1 Hz, that means it contains 1 cycle/second. A 60 Hz sine wave, on the other hand, contains 60 cycles/second. Thus we can estimate a 60 Hz sine wave from a much shorter sample of time than we need to estimate a 1 Hz sine wave. On the other hand, for measuring any given frequency, a longer sample of time will necessarily give a more accurate estimate, because there are more samples (cycles) over which to measure the frequency. A useful phrase to remember this relationship between the time and frequency domains is, <em>precision in the time domain is inversely related to precision in the frequency domain</em>.</p>
-<p>You may wonder why we care about sine waves and Fourier transforms at all, when working with EEG data. One reason is that the brain appears to generate both <strong>periodic</strong> (oscillating sine wave) activity, and <strong>aperiodic</strong> (“one-off” peaks and troughs) signals. The time domain is typically best for viewing and analyzing aperiodic signals, and this is the basis of much cognitive neuroscience research using ERPs. However, the frequency domain is better for viewing and analyzing periodic signals. Indeed, the brain appears to use different ranges of frequencies, called <strong>frequency bands</strong>, to perform different tasks and communicate different signals between brain regions. A table of these is below.</p>
-<table class="colwidths-auto table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Band</p></th>
-<th class="head"><p>Frequency Range ( Hz)</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Delta</p></td>
-<td><p>&lt; 3</p></td>
-</tr>
-<tr class="row-odd"><td><p>Theta</p></td>
-<td><p>4–7</p></td>
-</tr>
-<tr class="row-even"><td><p>Alpha</p></td>
-<td><p>8–14</p></td>
-</tr>
-<tr class="row-odd"><td><p>Mu</p></td>
-<td><p>8–12</p></td>
-</tr>
-<tr class="row-even"><td><p>Beta</p></td>
-<td><p>15–30</p></td>
-</tr>
-<tr class="row-odd"><td><p>Gamma</p></td>
-<td><p>&gt; 30</p></td>
-</tr>
-</tbody>
-</table>
-<p>In general, activity in each frequency band is someone nonspecific. That is to say, an increase in power in a given frequency band may reflect any number of different neurocognitive processes. Knowing the conditions under which the EEG was recorded is thus critical for interpreting these frequency bands, as is the location on the scalp where they are largest. That said, there are some common generalizations. For example, delta waves are typically only seen during sleep, or when people are falling asleep. Alpha waves over occipital electrodes are often generated when people close their eyes (thus blocking visual stimulation), or when they are bored. Mu waves have a similar frequency range to alpha, but are associated with motor activity (arm or other body movements) and are focal over the motor cortex, as are beta waves.</p>
+  <div class="section" id="erp-components">
+<h1>ERP Components<a class="headerlink" href="#erp-components" title="Permalink to this headline">¶</a></h1>
+<p>Much of ERP research focuses on <strong>components</strong>. Components are peaks or troughs in an ERP waveform that are characterized by consistent:</p>
+<ul class="simple">
+<li><p>relationship with a particular experimental context (stimuli and/or task)</p></li>
+<li><p>timing</p></li>
+<li><p>scalp distribution</p></li>
+<li><p>polarity</p></li>
+</ul>
+<p>For example, the auditory N1 component is reliably produced by the onset of auditory stimuli; it peaks around 100 ms; it is largest over the midline of the head, anterior to the vertex; and it has negative polarity (i.e., a negative microvolt value). In contrast, the P3 component is elicited by infrequent but task-relevant stimuli; peaks around 300 ms; is largest over the midline posterior region of the scalp, and has positive polarity.</p>
+<p>Components are a bit of a strange concept until you get used to them. They are, ultimately, operationally defined and contextually bound. That is to say, if you were given some ERP data without knowing what the stimuli or task were, it would be challenging in most cases to be able to determine what components you were viewing or what the experimental context was that they were recorded in. For example, there are numerous other kinds of stimuli besides auditory ones that elicit midline-frontal negativities around 100 ms. As well, the timing and amplitude (size) of ERP components tends to be very sensitive to the precise experimental conditions and parameters (e.g., loudness of an auditory stimulus; brightness and size of a visual stimulus). Identifying and interpreting ERP components thus relies both on knowledge of the existing scientific literature, and of the experiment. That said, ERPs can be a powerful technique for investigating neurocognitive processes. A large number of components have been identified, and associated with particular sensory and cognitive processes. Designing an ERP experiment around particular components can allow the researcher to ask quite nuanced questions about whether, when, and how they occur, and how those processes are modulated by experimental manipulations.</p>
+<p>For example, the N1 component elicited by auditory stimuli, mentioned above, can be used in a variety of ways. For one, its amplitude is modulated by attention; attended sounds elicit a larger N1 than unattended sounds. This allows researchers to use the component to investigate many different manipulations of auditory attention. For example, research has shown that auditory attention can be spatially directed, by requiring participants to attend to different spatial locations and playing sounds both from those, and from unattended locations. These studies showed larger N1s in response to stimuli from attended than unattended locations. Moreover, the fact that these effects occurred on the N1, which occurs approximately 100 ms after stimulus onset, allowed insights into the time course of spatially selective attention. Indeed, a common use of ERPs is to identify the earliest point in time at which the brain appears to distinguish between different types of stimuli (or the same stimuli under different contexts).</p>
+<p>While in many cases behavioural measures can provide similar insights (e.g., people are faster and more accurate to respond to stimuli at attended than unattended locations, ERP has some advantages over behavioural measures. One advantage is that ERPs do not require any overt response, which means that we can tap into the brain activity involved in a particular aspect of cognitive processing without requiring that the participant think about that process in order to make a response. ERPs also allow us to look at automatic aspects of brain activity, whereas overt behavioural responses necessarily involve conscious decision-making on the part of the participant. Continuing with the auditory attention example, since human motor responses typically take at least 200-250 ms to generate, such measures could not identify 100 ms as the earliest point at which attention modulates stimulus processing. Nor, using only behavioural stimuli, could we know if the requirement to respond to a stimulus was necessary for spatially selective attention to operate. With ERPs, we could compare brain activity on trials where the participant had to respond versus not respond, to address this question.</p>
+<p>In most cases it is best to design ERP experiments around particular, expected components, based on a solid understanding of the existing literature on the topic of interest. ERP experiments should be framed in terms of specific hypotheses concerning a particular component or components, how those component(s) will be modulated by the experimental manipulations, and how those modulations of the component(s) will be interpreted, in terms of neurocognitive processes. Typically, “modulation” means differences in amplitude and/or timing (latency) of the component(s) between experimental conditions. In some cases, changes in scalp distirbution may also be of interest. Although many components are defined by their scalp distribution, there are a number whose peak location on the scalp differs in meaningful ways. For example, early visual components (such as the P1) differ in their peak location depending on whether the stimulus appears in the left or right, and upper or lower, visual field. This is due to the <a class="reference external" href="https://en.wikipedia.org/wiki/Retinotopy"><em>retinotopic</em></a> organization of the visual cortex (where the P1 is generated). In other cases, the laterality of a component (whether it is larger over the left or right side of the scalp) may be informative. For example, N170 components are associated with both face processing and word reading, but the face-related N170 tends to be larger over the right hemisphere, whereas the word-related N170 tends to be largest over the left hemisphere.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -401,7 +407,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./EEG"
+            path: "./eeg"
         },
         predefinedOutput: true
     }
@@ -416,6 +422,8 @@
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="erps.html" title="previous page">Event-Related Potentials (ERPs)</a>
+    <a class='right-next' id="next-link" href="preprocessing.html" title="next page">Preprocessing</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

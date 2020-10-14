@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <title>Chapter 1: Preparing Data &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -37,7 +37,7 @@
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Lesson 5: Merging DataFrames with pandas" href="lesson5_ch2.html" />
+    <link rel="next" title="Chapter 2: Concatenating Data" href="lesson5_ch2.html" />
     <link rel="prev" title="Lesson 2: Intermediate Python" href="lesson2.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,8 +47,8 @@
 <!-- Opengraph tags -->
 <meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch1.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
-<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  View this lesson on datacamp  Merging DataFrames is a common need in neural data science. Often you’ll have data files" />
+<meta property="og:title"       content="Chapter 1: Preparing Data" />
+<meta property="og:description" content="Chapter 1: Preparing Data  View this lesson on datacamp  Merging DataFrames is a common need in neural data science. Often you’ll have data files from individua" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -204,17 +204,17 @@
   <ul class="current">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Lesson 5: Merging DataFrames with pandas
+     Chapter 1: Preparing Data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch2.html">
-     Lesson 5: Merging DataFrames with pandas
+     Chapter 2: Concatenating Data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch3.html">
-     Lesson 5: Merging DataFrames with pandas
+     Chapter 3: Merging Data
     </a>
    </li>
   </ul>
@@ -244,6 +244,48 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../single_unit/corr_spike_trains.html">
    Correlating Spike Trains
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/time_freq.html">
+   Time and Frequency Domains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/erps.html">
+   Event-Related Potentials (ERPs)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/components.html">
+   ERP Components
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/preprocessing.html">
+   Preprocessing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/mne-python.html">
+   MNE-Python
   </a>
  </li>
 </ul>
@@ -368,60 +410,46 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chapter-1-preparing-data">
-   Chapter 1: Preparing Data
+  <a class="reference internal nav-link" href="#use-a-for-loop-to-read-in-multiple-files">
+   Use a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     for
+    </span>
+   </code>
+   loop to read in multiple files:
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reading-in-a-data-file">
-     Reading in a data file
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#use-a-for-loop-to-read-in-multiple-files">
-     Use a
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       for
-      </span>
-     </code>
-     loop to read in multiple files:
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#adding-columns-of-data-to-a-dataframe">
-     Adding columns of data to a DataFrame
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-columns-of-data-to-a-dataframe">
+   Adding columns of data to a DataFrame
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#reindexing-dataframes">
    Reindexing DataFrames
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applications-of-reindexing">
+   Applications of reindexing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bonus-section-looping">
+   Bonus Section: Looping
+  </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#re-indexing">
-     Re-indexing
+    <a class="reference internal nav-link" href="#the-enumerate-function">
+     The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       enumerate()
+      </span>
+     </code>
+     function
     </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bonus-section-looping">
-     Bonus Section: Looping
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#the-enumerate-function">
-       The
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         enumerate()
-        </span>
-       </code>
-       function
-      </a>
-     </li>
-    </ul>
    </li>
   </ul>
  </li>
@@ -440,14 +468,10 @@
         
               <div>
                 
-  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
-<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="chapter-1-preparing-data">
+<h1>Chapter 1: Preparing Data<a class="headerlink" href="#chapter-1-preparing-data" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://learn.datacamp.com/courses/merging-dataframes-with-pandas">View this lesson on datacamp</a></p>
 <p>Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants (animals, humans, cells, etc.) that you want to analyze at the group level, so you’ll need to read all the data files in and work with them as one large DataFrame. In this chapter we learn how to do this.</p>
-<div class="section" id="chapter-1-preparing-data">
-<h2>Chapter 1: Preparing Data<a class="headerlink" href="#chapter-1-preparing-data" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="reading-in-a-data-file">
-<h3>Reading in a data file<a class="headerlink" href="#reading-in-a-data-file" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -550,9 +574,8 @@
 </table>
 </div></div></div>
 </div>
-</div>
 <div class="section" id="use-a-for-loop-to-read-in-multiple-files">
-<h3>Use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to read in multiple files:<a class="headerlink" href="#use-a-for-loop-to-read-in-multiple-files" title="Permalink to this headline">¶</a></h3>
+<h2>Use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to read in multiple files:<a class="headerlink" href="#use-a-for-loop-to-read-in-multiple-files" title="Permalink to this headline">¶</a></h2>
 <p>In many data science cases, we have data in multiple files. For example, if we run an experiment with human participants, we might have a data file from each participant, but for group analysis we’ll want to combine them all into one big DataFrame. This is a great use case for looping, since we’re doing the same thing (reading a file into a DataFrame) multiple times.</p>
 <p>First, create a list of the files, Later we will loop through this list.</p>
 <div class="cell docutils container">
@@ -711,7 +734,7 @@
 </div>
 </div>
 <div class="section" id="adding-columns-of-data-to-a-dataframe">
-<h3>Adding columns of data to a DataFrame<a class="headerlink" href="#adding-columns-of-data-to-a-dataframe" title="Permalink to this headline">¶</a></h3>
+<h2>Adding columns of data to a DataFrame<a class="headerlink" href="#adding-columns-of-data-to-a-dataframe" title="Permalink to this headline">¶</a></h2>
 <p>One simple way to combine data is to add a column from one DataFrame to another. We can do this for RT from each participant.</p>
 <p>First we take the first data file, from <code class="docutils literal notranslate"><span class="pre">df_list</span></code>, and make it just a free-standing DataFrame called <code class="docutils literal notranslate"><span class="pre">df</span></code></p>
 <div class="cell docutils container">
@@ -918,7 +941,6 @@ Since participant 2’s data are in the second entry in <code class="docutils li
 </div></div></div>
 </div>
 </div>
-</div>
 <div class="section" id="reindexing-dataframes">
 <h2>Reindexing DataFrames<a class="headerlink" href="#reindexing-dataframes" title="Permalink to this headline">¶</a></h2>
 <p>The <strong>index</strong> of a DataFrame is the set of labels for rows. Just as columns have names, or labels, rows have indexes. By default, these indexes are just numbers, starting from 0. But, you can change the index to anything you want, such as months of the year, participant ID codes, etc.. You can also use the index to sort the DataFrame, or access specific rows.</p>
@@ -1104,9 +1126,10 @@ Since participant 2’s data are in the second entry in <code class="docutils li
 <li><p>we put <code class="docutils literal notranslate"><span class="pre">'trial'</span></code> in quotation marks, because it’s a string</p></li>
 <li><p>note that in the above command, the <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> command is embedded inside the <code class="docutils literal notranslate"><span class="pre">.append()</span></code> method. The argument to <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> needs to be inside the parentheses for <em>that</em> command, and not the outer parentheses that enclose the input to <code class="docutils literal notranslate"><span class="pre">df_list.append()</span></code></p></li>
 </ul>
-<div class="section" id="re-indexing">
-<h3>Re-indexing<a class="headerlink" href="#re-indexing" title="Permalink to this headline">¶</a></h3>
-<p>Re-indexing can be useful if you have, or anticipate, missing data. For example, here’s some data from three different rats who were timed running through a maze. This was an 8-day study, but not every rat was tested every day. So one animal may have data from days 1-3 and 5-8 of the study, but not day 4. When we import and combine data, though, we want to ensure that the indexing of the data reflects the days they were tested on (e.g., if a rat missed day 4, we want their day 5 data to have the index ‘5’ even though that would be the fourth data point we have for them).</p>
+</div>
+<div class="section" id="applications-of-reindexing">
+<h2>Applications of reindexing<a class="headerlink" href="#applications-of-reindexing" title="Permalink to this headline">¶</a></h2>
+<p>Reindexing can be useful if you have, or anticipate, missing data. For example, here’s some data from three different rats who were timed running through a maze. This was an 8-day study, but not every rat was tested every day. So one animal may have data from days 1-3 and 5-8 of the study, but not day 4. When we import and combine data, though, we want to ensure that the indexing of the data reflects the days they were tested on (e.g., if a rat missed day 4, we want their day 5 data to have the index ‘5’ even though that would be the fourth data point we have for them).</p>
 <p>When we load in the data, we find that it doesn’t have a column that reflects the days that each animal was tested on, so each data set is indexed sequentially from 0:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1410,7 +1433,7 @@ Since participant 2’s data are in the second entry in <code class="docutils li
 </div>
 </div>
 <div class="section" id="bonus-section-looping">
-<h3>Bonus Section: Looping<a class="headerlink" href="#bonus-section-looping" title="Permalink to this headline">¶</a></h3>
+<h2>Bonus Section: Looping<a class="headerlink" href="#bonus-section-looping" title="Permalink to this headline">¶</a></h2>
 <p>Above we noted that it would be more efficient (pythonic) to use a loop to read the files and set the indexes. Below is the same example as above, but using a loop rather than hard-coding the commands for every data file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1521,7 +1544,7 @@ Since participant 2’s data are in the second entry in <code class="docutils li
 </div></div></div>
 </div>
 <div class="section" id="the-enumerate-function">
-<h4>The <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> function<a class="headerlink" href="#the-enumerate-function" title="Permalink to this headline">¶</a></h4>
+<h3>The <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> function<a class="headerlink" href="#the-enumerate-function" title="Permalink to this headline">¶</a></h3>
 <p>Note that in the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, w use the <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> function. This can be handy in situations like this, where we want to loop through two lists “in parallel” — in other words, when we are at the first entry in one list (<code class="docutils literal notranslate"><span class="pre">maze_files</span></code>) we also want the first entry in the second list (<code class="docutils literal notranslate"><span class="pre">days_list</span></code>). Normally, whe you loop through a list using <code class="docutils literal notranslate"><span class="pre">for</span></code>, you assign a value of the current list item to a variable. For example, in <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">filename</span> <span class="pre">in</span> <span class="pre">maze_files:</span></code>, the value of <code class="docutils literal notranslate"><span class="pre">filename</span></code> is updated with the current list item each time through the loop. Using <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code>, we assign <em>two</em> values each time through the loop: <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">counter,</span> <span class="pre">filename</span> <span class="pre">in</span> <span class="pre">enumerate(maze_files):</span></code>. In this case, <code class="docutils literal notranslate"><span class="pre">counter</span></code> will enumerate the number of times it’s gone through the loop - i.e, take on a numerical value — the current iteration, while <code class="docutils literal notranslate"><span class="pre">filename</span></code> will still be the value of the current list item:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1535,7 +1558,6 @@ Since participant 2’s data are in the second entry in <code class="docutils li
 counter = 1; filename = maze_data_2.csv
 counter = 2; filename = maze_data_3.csv
 </pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -2024,7 +2046,7 @@ dtype: float64
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="lesson2.html" title="previous page">Lesson 2: Intermediate Python</a>
-    <a class='right-next' id="next-link" href="lesson5_ch2.html" title="next page">Lesson 5: Merging DataFrames with pandas</a>
+    <a class='right-next' id="next-link" href="lesson5_ch2.html" title="next page">Chapter 2: Concatenating Data</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

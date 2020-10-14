@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <title>Chapter 2: Concatenating Data &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -37,8 +37,8 @@
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Lesson 5: Merging DataFrames with pandas" href="lesson5_ch3.html" />
-    <link rel="prev" title="Lesson 5: Merging DataFrames with pandas" href="lesson5_ch1.html" />
+    <link rel="next" title="Chapter 3: Merging Data" href="lesson5_ch3.html" />
+    <link rel="prev" title="Chapter 1: Preparing Data" href="lesson5_ch1.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -47,8 +47,8 @@
 <!-- Opengraph tags -->
 <meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch2.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
-<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  View this lesson on datacamp  Chapter 2: Concatenating Data  Appending pandas Series and DataFrames  The .append() met" />
+<meta property="og:title"       content="Chapter 2: Concatenating Data" />
+<meta property="og:description" content="Chapter 2: Concatenating Data  View this lesson on datacamp  Appending pandas Series and DataFrames  The .append() method is used for both pandas Series and Dat" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -204,17 +204,17 @@
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch1.html">
-     Lesson 5: Merging DataFrames with pandas
+     Chapter 1: Preparing Data
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Lesson 5: Merging DataFrames with pandas
+     Chapter 2: Concatenating Data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch3.html">
-     Lesson 5: Merging DataFrames with pandas
+     Chapter 3: Merging Data
     </a>
    </li>
   </ul>
@@ -244,6 +244,48 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../single_unit/corr_spike_trains.html">
    Correlating Spike Trains
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/time_freq.html">
+   Time and Frequency Domains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/erps.html">
+   Event-Related Potentials (ERPs)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/components.html">
+   ERP Components
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/preprocessing.html">
+   Preprocessing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/mne-python.html">
+   MNE-Python
   </a>
  </li>
 </ul>
@@ -368,119 +410,115 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chapter-2-concatenating-data">
-   Chapter 2: Concatenating Data
+  <a class="reference internal nav-link" href="#appending-pandas-series-and-dataframes">
+   Appending pandas Series and DataFrames
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#appending-series-with-nonunique-indices">
+   Appending Series with nonunique indices
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#concatenation">
+   Concatenation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#append-and-pd-concat">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     .append()
+    </span>
+   </code>
+   and
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     pd.concat()
+    </span>
+   </code>
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#appending-pandas-series-and-dataframes">
-     Appending pandas Series and DataFrames
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#appending-series-with-nonunique-indices">
-     Appending Series with nonunique indices
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#concatenation">
-     Concatenation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#using-append-and-pd-concat-on-dataframes">
-     Using
+    <a class="reference internal nav-link" href="#appending-dataframes-with-ignore-index">
+     Appending DataFrames with
      <code class="docutils literal notranslate">
       <span class="pre">
-       .append()
+       ignore_index
       </span>
      </code>
-     and
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       pd.concat()
-      </span>
-     </code>
-     on DataFrames
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#appending-dataframes-with-ignore-index">
-       Appending DataFrames with ignore_index
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#reading-multiple-files-to-build-a-dataframe">
-       Reading multiple files to build a DataFrame
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#concatenating-columns-rather-than-rows">
-     Concatenating columns rather than rows
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reading-multiple-files-to-build-a-dataframe">
+   Reading multiple files to build a DataFrame
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#concatenating-columns-rather-than-rows">
+   Concatenating columns rather than rows
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiindexes">
+   MultiIndexes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#concatenating-dataframes-from-a-dict">
+   Concatenating DataFrames from a dict
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#concatenating-columns">
+   Concatenating Columns
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#multiindexes">
-     MultiIndexes
+    <a class="reference internal nav-link" href="#selecting-and-slicing-on-multiindexes">
+     Selecting and slicing on MultiIndexes
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#concatenating-dataframes-from-a-dict">
-       Concatenating DataFrames from a dict
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#concatenating-columns">
-       Concatenating Columns
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#selecting-and-slicing-on-multiindexes">
-       Selecting and slicing on MultiIndexes
-      </a>
-     </li>
-    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#outer-and-inner-joins">
+   Outer and Inner Joins
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#numpy">
+     NumPy
+    </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#outer-and-inner-joins">
-     Outer and Inner Joins
+    <a class="reference internal nav-link" href="#stacking-arrays-horizontally">
+     Stacking arrays horizontally
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#numpy">
-       NumPy
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#stacking-arrays-horizontally">
-       Stacking arrays horizontally
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#stacking-arrays-vertically">
-       Stacking arrays vertically
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#combining-pandas-arrays">
-       Combining pandas arrays
-      </a>
-     </li>
-    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-data">
-     Example Data
+    <a class="reference internal nav-link" href="#stacking-arrays-vertically">
+     Stacking arrays vertically
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#combining-the-data-sets">
-       Combining the data sets
-      </a>
-     </li>
-    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#combining-pandas-arrays">
+   Combining pandas arrays
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-data">
+   Example Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#combining-the-data-sets">
+     Combining the data sets
+    </a>
    </li>
   </ul>
  </li>
@@ -494,13 +532,11 @@
         
               <div>
                 
-  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
-<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="chapter-2-concatenating-data">
+<h1>Chapter 2: Concatenating Data<a class="headerlink" href="#chapter-2-concatenating-data" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://learn.datacamp.com/courses/merging-dataframes-with-pandas">View this lesson on datacamp</a></p>
-<div class="section" id="chapter-2-concatenating-data">
-<h2>Chapter 2: Concatenating Data<a class="headerlink" href="#chapter-2-concatenating-data" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="appending-pandas-series-and-dataframes">
-<h3>Appending pandas Series and DataFrames<a class="headerlink" href="#appending-pandas-series-and-dataframes" title="Permalink to this headline">¶</a></h3>
+<h2>Appending pandas Series and DataFrames<a class="headerlink" href="#appending-pandas-series-and-dataframes" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">.append()</span></code> method is used for both pandas Series and DataFrames, to stack rows on top of each other. For example, appending the two pandas Series below results in one series in which the elements of ‘blue’ are stacked underneath the elements of ‘pink’ (since we append blue to pink in this case).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -552,7 +588,7 @@ dtype: object
 </div>
 </div>
 <div class="section" id="appending-series-with-nonunique-indices">
-<h3>Appending Series with nonunique indices<a class="headerlink" href="#appending-series-with-nonunique-indices" title="Permalink to this headline">¶</a></h3>
+<h2>Appending Series with nonunique indices<a class="headerlink" href="#appending-series-with-nonunique-indices" title="Permalink to this headline">¶</a></h2>
 <p>One thing to note here is that the <code class="docutils literal notranslate"><span class="pre">.append()</span></code> method doesn’t adjust the index of the series when it stacks them.  You can see this above in that the first column (which is the index) goes from zero to three, then zero to three again. This can be an issue when working with a Series or DataFrame later on, so it’s a good idea to re-index.</p>
 <p>This can be done using the <code class="docutils literal notranslate"><span class="pre">.reset_index()</span></code> method, which sets the row indexes sequentially from 0:</p>
 <div class="cell docutils container">
@@ -721,7 +757,7 @@ dtype: object
 </div>
 </div>
 <div class="section" id="concatenation">
-<h3>Concatenation<a class="headerlink" href="#concatenation" title="Permalink to this headline">¶</a></h3>
+<h2>Concatenation<a class="headerlink" href="#concatenation" title="Permalink to this headline">¶</a></h2>
 <p>Another way to combine pandas objects (Series or DataFrames) is concatenation. The <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> function is a more powerful and flexible tool than the <code class="docutils literal notranslate"><span class="pre">.append()</span></code> method. Whereas appending always adds rows to the bottom of a DataFrame, concatenation can do this, <em>or</em> add columns to a DataFrame.</p>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html?highlight=concat#pandas.concat">API for <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code></a></p>
 <p>THere’s also a nice, detailed explanation of appending, concatenating, merging, and joining DataFrames <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html">here</a></p>
@@ -771,8 +807,8 @@ dtype: object
 </div>
 </div>
 </div>
-<div class="section" id="using-append-and-pd-concat-on-dataframes">
-<h3>Using <code class="docutils literal notranslate"><span class="pre">.append()</span></code> and <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> on DataFrames<a class="headerlink" href="#using-append-and-pd-concat-on-dataframes" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="append-and-pd-concat">
+<h2><code class="docutils literal notranslate"><span class="pre">.append()</span></code> and <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code><a class="headerlink" href="#append-and-pd-concat" title="Permalink to this headline">¶</a></h2>
 <p>Above we were working with pandas Series. For pandas DataFrames, the append method works just the same, stacking the rows.</p>
 <p>Here we will use what we learned in chapter 1 to read two CSV files as DataFrames, then combine them with the <code class="docutils literal notranslate"><span class="pre">append()</span></code> method.</p>
 <div class="cell docutils container">
@@ -915,7 +951,7 @@ dtype: object
 </div></div></div>
 </div>
 <div class="section" id="appending-dataframes-with-ignore-index">
-<h4>Appending DataFrames with ignore_index<a class="headerlink" href="#appending-dataframes-with-ignore-index" title="Permalink to this headline">¶</a></h4>
+<h3>Appending DataFrames with <code class="docutils literal notranslate"><span class="pre">ignore_index</span></code><a class="headerlink" href="#appending-dataframes-with-ignore-index" title="Permalink to this headline">¶</a></h3>
 <p>We can also do this with <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>, again using <code class="docutils literal notranslate"><span class="pre">ignore_index=True</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1056,8 +1092,9 @@ dtype: object
 </div></div></div>
 </div>
 </div>
+</div>
 <div class="section" id="reading-multiple-files-to-build-a-dataframe">
-<h4>Reading multiple files to build a DataFrame<a class="headerlink" href="#reading-multiple-files-to-build-a-dataframe" title="Permalink to this headline">¶</a></h4>
+<h2>Reading multiple files to build a DataFrame<a class="headerlink" href="#reading-multiple-files-to-build-a-dataframe" title="Permalink to this headline">¶</a></h2>
 <p>We can get a bit more fancy and use a loop to read in files, as in the previous chapter, and then combine them. Here’s the code from the last chapter, which reads the CSV files in to a list of DataFrames:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1259,9 +1296,8 @@ dtype: object
 </div></div></div>
 </div>
 </div>
-</div>
 <div class="section" id="concatenating-columns-rather-than-rows">
-<h3>Concatenating columns rather than rows<a class="headerlink" href="#concatenating-columns-rather-than-rows" title="Permalink to this headline">¶</a></h3>
+<h2>Concatenating columns rather than rows<a class="headerlink" href="#concatenating-columns-rather-than-rows" title="Permalink to this headline">¶</a></h2>
 <p>As noted earlier, <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> is more powerful in how it combine inputs.</p>
 <p>Consider this example, where we have different data about the same participants, in different files. One file contains participants’ birthday month, and the other their age. What we want is to end up with a DataFrame with one row per participant, with columns for participant number, <code class="docutils literal notranslate"><span class="pre">Fav</span> <span class="pre">Color</span></code> and <code class="docutils literal notranslate"><span class="pre">Brithday</span> <span class="pre">Month</span></code>. However, when we read in the two input files and concatenate them, we get a column for colour and a column for month, with lots of NaN values in each because each input file had different column names, but we’ve stacked the rows of the inputs:</p>
 <div class="cell docutils container">
@@ -1631,7 +1667,7 @@ dtype: object
 <p>Importantly, this is a case where we would <em>not</em> want to include the <code class="docutils literal notranslate"><span class="pre">ignore_index=True</span></code> argument to <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>, because the index is important and meaningful.</p>
 </div>
 <div class="section" id="multiindexes">
-<h3>MultiIndexes<a class="headerlink" href="#multiindexes" title="Permalink to this headline">¶</a></h3>
+<h2>MultiIndexes<a class="headerlink" href="#multiindexes" title="Permalink to this headline">¶</a></h2>
 <p>MultiIndexes extend pandas indesing, allowing you to designate multiple columns as indexes. For example, you may have data for each month of the year, from multiple years. In this case, you might want to use month as the index, but you would not want pandas to treat January, 2019, as the same as January, 2020. You you would want indexes both for month, and for year.</p>
 <p>MultiIndexes can be applied to both rows (for which we’ve already learned about single-indexing), and to columns.</p>
 <p>Imagine we collected reaction time (RT) data from an individual human participant in two different testing sessions. Each session involved 10 experimental trials. Between the first and the second session, the person played cognitive training games and we want to know if their RTs decreased due to the training. So we can load in the two data files (one from each session):</p>
@@ -2147,8 +2183,9 @@ dtype: object
 </table>
 </div></div></div>
 </div>
+</div>
 <div class="section" id="concatenating-dataframes-from-a-dict">
-<h4>Concatenating DataFrames from a dict<a class="headerlink" href="#concatenating-dataframes-from-a-dict" title="Permalink to this headline">¶</a></h4>
+<h2>Concatenating DataFrames from a dict<a class="headerlink" href="#concatenating-dataframes-from-a-dict" title="Permalink to this headline">¶</a></h2>
 <p>Instead of using the <code class="docutils literal notranslate"><span class="pre">keys=[]</span></code> argument to <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>, we can create a dictionary mapping index labels to input DataFrames. This works just as well as using the <code class="docutils literal notranslate"><span class="pre">keys</span></code> argument, but it’s a little safer and more explicit, because with a dictionary the mapping between labels and data is easy to verify. Using separate lists of DataFrames and keys relies on ensuring that the order of items is the same in both lists.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2285,7 +2322,7 @@ dtype: object
 </div>
 </div>
 <div class="section" id="concatenating-columns">
-<h4>Concatenating Columns<a class="headerlink" href="#concatenating-columns" title="Permalink to this headline">¶</a></h4>
+<h2>Concatenating Columns<a class="headerlink" href="#concatenating-columns" title="Permalink to this headline">¶</a></h2>
 <p>We can instead concatenate the data by column, as we did earlier for colours and birthday month:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2491,9 +2528,8 @@ dtype: object
 </div></div></div>
 </div>
 <p>You can see that the original column labels (<code class="docutils literal notranslate"><span class="pre">rt</span></code>) are preserved but above these are unique labels for each session.</p>
-</div>
 <div class="section" id="selecting-and-slicing-on-multiindexes">
-<h4>Selecting and slicing on MultiIndexes<a class="headerlink" href="#selecting-and-slicing-on-multiindexes" title="Permalink to this headline">¶</a></h4>
+<h3>Selecting and slicing on MultiIndexes<a class="headerlink" href="#selecting-and-slicing-on-multiindexes" title="Permalink to this headline">¶</a></h3>
 <p>When we had row MultiIndexes above, we used <code class="docutils literal notranslate"><span class="pre">.loc</span></code> to access specific data, like for one session. However, <code class="docutils literal notranslate"><span class="pre">.loc</span></code> operates on rows, not columns, so we can’t use it to select data from one session in this case. There are a few ways we can access MultiIndexes with columns, but one of the most intuitive to use is via the function <code class="docutils literal notranslate"><span class="pre">pd.IndexSlice</span></code>. This allows you to use <code class="docutils literal notranslate"><span class="pre">.loc</span></code> with a [<em>rows</em>, <em>columns</em>] syntax, as shown below, where we select all rows with <code class="docutils literal notranslate"><span class="pre">:</span></code> and the specific column by specifying its label:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2717,11 +2753,11 @@ dtype: object
 </div>
 </div>
 <div class="section" id="outer-and-inner-joins">
-<h3>Outer and Inner Joins<a class="headerlink" href="#outer-and-inner-joins" title="Permalink to this headline">¶</a></h3>
+<h2>Outer and Inner Joins<a class="headerlink" href="#outer-and-inner-joins" title="Permalink to this headline">¶</a></h2>
 <p>“Joins” refer to how two DataFrames are combined.</p>
 <p>To demonstrate, we’ll start by showing how this works with NumPy arrays, and then move on to how to do the same things with pandas DataFrames.</p>
 <div class="section" id="numpy">
-<h4>NumPy<a class="headerlink" href="#numpy" title="Permalink to this headline">¶</a></h4>
+<h3>NumPy<a class="headerlink" href="#numpy" title="Permalink to this headline">¶</a></h3>
 <p>For NumPy, the first step is to create three NumPy arrays, each with different dimensions. To do this we use NumPy’s <code class="docutils literal notranslate"><span class="pre">random.rand()</span></code> function, which creates an array with a specified shape, filled with random numbers. We <em>chain</em> this with the <code class="docutils literal notranslate"><span class="pre">.round()</span></code> method to shorten the numbers, then multiply the array by 100 to convert the numbers from values less than 1, to values in the 0-100 range (this uses NumPy <em>broadcasting</em> to apply the multiplication to each element of the array). This is done to make the numbers easy to look at, as well as demonstrating chaining and broadcasting.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2770,7 +2806,7 @@ dtype: object
 <p>NumPy has ‘convenience functions’ for combining arrays horizontally (adding columns beside columns; <code class="docutils literal notranslate"><span class="pre">np.hstack()</span></code>) and vertically (adding rows below rows; <code class="docutils literal notranslate"><span class="pre">np.vstack()</span></code>). NumPy also has a more generic <code class="docutils literal notranslate"><span class="pre">np.concatenate()</span></code> function that allows either horizontal or vertical concatenation (stacking) using the <code class="docutils literal notranslate"><span class="pre">axis=</span></code> argument.</p>
 </div>
 <div class="section" id="stacking-arrays-horizontally">
-<h4>Stacking arrays horizontally<a class="headerlink" href="#stacking-arrays-horizontally" title="Permalink to this headline">¶</a></h4>
+<h3>Stacking arrays horizontally<a class="headerlink" href="#stacking-arrays-horizontally" title="Permalink to this headline">¶</a></h3>
 <p>This will produce an array with <code class="docutils literal notranslate"><span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">a</span></code> together, ‘beside’ each other. Note that the inputs have to be inside a list:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2801,7 +2837,7 @@ dtype: object
 </div>
 </div>
 <div class="section" id="stacking-arrays-vertically">
-<h4>Stacking arrays vertically<a class="headerlink" href="#stacking-arrays-vertically" title="Permalink to this headline">¶</a></h4>
+<h3>Stacking arrays vertically<a class="headerlink" href="#stacking-arrays-vertically" title="Permalink to this headline">¶</a></h3>
 <p>This will produce an array with <code class="docutils literal notranslate"><span class="pre">c</span></code> stacked below <code class="docutils literal notranslate"><span class="pre">a</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2837,17 +2873,17 @@ dtype: object
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="combining-pandas-arrays">
-<h4>Combining pandas arrays<a class="headerlink" href="#combining-pandas-arrays" title="Permalink to this headline">¶</a></h4>
+<h2>Combining pandas arrays<a class="headerlink" href="#combining-pandas-arrays" title="Permalink to this headline">¶</a></h2>
 <p>NumPy arrays are relatively easy to work with, because they contain only numbers. Real datasets stored in pandas DataFrames present unique challenges, though, because they contain <em>labelled data</em>, and often they containg <em>missing data</em>. For instance, in a study an individual human participant may provide data on a number of tests, such as a working memory span, reading comprehension, and nonverbal intelligence. Sometimes, for any number of reasons (e.g., time, technical failures, human error), an individual’s data on one test may be missing. As another example, in a reaction time (RT) study each participant will complete a large number of trials, resulting in <em>repeated measures</em> from the same individual (RT measures on each trial). On some trials, individuals may fail to respond, resulting in missing data for those trials.</p>
 <p>Missing data creates problems when combining data. Depending on the situation, it may be preferable to replace missing values with null values (which appear in Python as <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, for ‘not a number’), or it may be preferable to have complete data and leave out data that we don’t have for all of the inputs (e.g., drop the data from one test completely, if we don’t have data for every participant).</p>
 <p>This is where teh terms <strong>inner join</strong> and <strong>outer join</strong> come in. This is a bit of jargon you need to learn, but it’s pretty logical.</p>
 <p>An <strong>outer join</strong> involves filling in missing values with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. In formal logical terms, this is the <em>union</em> of the input data sets. This is the default for <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>. You can also think of the names as reflecting the fact that this approach includes all the data within the ‘outer’ boundaries of the DataFrame, like a box drawn around the entire table.</p>
 <p>An <strong>inner join</strong> involves keeping only the data that is complete for all inputs. In formal logic, this is the <em>intersection</em> of the inputs (i.e., only what they all have in common). You can think of the term ‘inner’ as referring to the fact that this takes only the data inside that big outer box, that has no missing data.</p>
 </div>
-</div>
 <div class="section" id="example-data">
-<h3>Example Data<a class="headerlink" href="#example-data" title="Permalink to this headline">¶</a></h3>
+<h2>Example Data<a class="headerlink" href="#example-data" title="Permalink to this headline">¶</a></h2>
 <p>Here we have data from two studies of reading and related abilities in children. Each study involved different children. In each study, some of the same measures were collected (such as vocabulary), along with some that were collected in only one study. We’d like to combine the data from the two studies.</p>
 <p>First, let’s load the data from each study and see what we have. Note that I already know that there’s a <code class="docutils literal notranslate"><span class="pre">Participant</span></code> column that uniquely identifies each person by an ID code, so we use that as the index for the DataFrame.</p>
 <div class="cell docutils container">
@@ -3598,7 +3634,7 @@ dtype: object
 <p>Comparing the two datasets, we can see that there are three measures in common across the two studies: <code class="docutils literal notranslate"><span class="pre">Fluency</span></code>, <code class="docutils literal notranslate"><span class="pre">Comprehension</span></code>, and <code class="docutils literal notranslate"><span class="pre">Vocab</span></code>. Each study also has unique measures, for which we don’t have data in the other study: study 1 has <code class="docutils literal notranslate"><span class="pre">WordID</span></code>, <code class="docutils literal notranslate"><span class="pre">Orthoknow</span></code>, and <code class="docutils literal notranslate"><span class="pre">PhonAwar</span></code>, while study 2 has <code class="docutils literal notranslate"><span class="pre">Nonverbal</span></code>.</p>
 <p>The other thing to note is that in both datasets, there are missing data (<code class="docutils literal notranslate"><span class="pre">NaN</span></code>); for some participants we are missing data on some tests.</p>
 <div class="section" id="combining-the-data-sets">
-<h4>Combining the data sets<a class="headerlink" href="#combining-the-data-sets" title="Permalink to this headline">¶</a></h4>
+<h3>Combining the data sets<a class="headerlink" href="#combining-the-data-sets" title="Permalink to this headline">¶</a></h3>
 <p>Now that we have an idea of what we’re working with, we can think about how to combine these two datasets using <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>. The first question is whether horizontal or vertical concatenation makes more sense. Since each row of data in each data set corresponds to one individual, it really doesn’t make sense to combine these horizontally. So we want to concatenate vertically, stacking the rows. For this we use the <code class="docutils literal notranslate"><span class="pre">axis=0</span></code> argument.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -5635,7 +5671,6 @@ dtype: object
 </div>
 </div>
 </div>
-</div>
 
     <script type="text/x-thebe-config">
     {
@@ -5665,8 +5700,8 @@ dtype: object
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="lesson5_ch1.html" title="previous page">Lesson 5: Merging DataFrames with pandas</a>
-    <a class='right-next' id="next-link" href="lesson5_ch3.html" title="next page">Lesson 5: Merging DataFrames with pandas</a>
+    <a class='left-prev' id="prev-link" href="lesson5_ch1.html" title="previous page">Chapter 1: Preparing Data</a>
+    <a class='right-next' id="next-link" href="lesson5_ch3.html" title="next page">Chapter 3: Merging Data</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
