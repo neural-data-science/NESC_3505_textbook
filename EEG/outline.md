@@ -1,4 +1,5 @@
 # EEG Chapter outline
+Just for reference, not for publishing
 ___
 ## Learning Objectives
 - to do
