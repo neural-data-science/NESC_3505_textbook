@@ -715,8 +715,9 @@ dtype: object
 </div>
 </div>
 </div>
+<div class="alert alert-block alert-info">
 <p>So to actually reset the index of <code class="docutils literal notranslate"><span class="pre">pb</span></code>, we need to <em>assign</em> the output of the method back to <code class="docutils literal notranslate"><span class="pre">pb</span></code>, like this:</p>
-<div class="cell docutils container">
+</div><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pb</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">pb</span>
@@ -765,7 +766,7 @@ dtype: object
 <h2>Concatenation<a class="headerlink" href="#concatenation" title="Permalink to this headline">¶</a></h2>
 <p>Another way to combine pandas objects (Series or DataFrames) is concatenation. The <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> function is a more powerful and flexible tool than the <code class="docutils literal notranslate"><span class="pre">.append()</span></code> method. Whereas appending always adds rows to the bottom of a DataFrame, concatenation can do this, <em>or</em> add columns to a DataFrame.</p>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html?highlight=concat#pandas.concat">API for <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code></a></p>
-<p>THere’s also a nice, detailed explanation of appending, concatenating, merging, and joining DataFrames <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html">here</a></p>
+<p>There’s also a nice, detailed explanation of appending, concatenating, merging, and joining DataFrames <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html">here</a></p>
 <p>Here’s how we would use <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> to do the same thing we did above, with <code class="docutils literal notranslate"><span class="pre">.append()</span></code>. There are two major difference to pay attention to. Firstly, <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> is a <em>function</em>, whereas <code class="docutils literal notranslate"><span class="pre">.append()</span></code> is a <em>method</em>. Recall that methods are applied by dot-adding them to the variable name you want to modify (e.g., <code class="docutils literal notranslate"><span class="pre">pink.append(blue)</span></code>). With a function, we have to specify <code class="docutils literal notranslate"><span class="pre">pd</span></code> before the dot and the function name after, and give it all the input data as the first argument inside the parentheses. It’s also important to pay attention to how we specify the input data: since the functions arguments are separated by commas, you can’t just list the input data like this:
 <code class="docutils literal notranslate"><span class="pre">pd.concat(pink,</span> <span class="pre">blue)</span></code>, because <code class="docutils literal notranslate"><span class="pre">'pink</span></code> will be interpreted as the input data, and <code class="docutils literal notranslate"><span class="pre">blue</span></code> as a second argument. We need to put the input data inside a list, like this:</p>
 <div class="cell docutils container">
@@ -1113,7 +1114,7 @@ dtype: object
 </div>
 </div>
 </div>
-<p>Since <code class="docutils literal notranslate"><span class="pre">df_list</span></code> is already a list — which is the format that <code class="docutils literal notranslate"><span class="pre">pdconcat()</span></code> wants its input in — we can just pass the whole thing to <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>:</p>
+<p>Since <code class="docutils literal notranslate"><span class="pre">df_list</span></code> is already a list — which is the format that <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> wants its input in — we can just pass the whole thing to <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1465,7 +1466,7 @@ dtype: object
 </table>
 </div></div></div>
 </div>
-<p>You can see above that there’s also a <code class="docutils literal notranslate"><span class="pre">participant</span> <span class="pre">num</span></code> column, which indicates how we can match colours to months. What we actually want is to combine the two inputs “horizontally”, such that we have 10 rows (one for each participant), with the colour and month corresponding to each participant in the same row.</p>
+<p>You can see above that there’s also a <code class="docutils literal notranslate"><span class="pre">Participant</span> <span class="pre">num</span></code> column, which indicates how we can match colours to months. What we actually want is to combine the two inputs “horizontally”, such that we have 10 rows (one for each participant), with the colour and month corresponding to each participant in the same row.</p>
 <p>The default when concatenating dataframes is to do so vertically, as we saw above. However, <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> allows us to concatenate horizontally as well. To do this, you must specify either <code class="docutils literal notranslate"><span class="pre">axis=1</span></code>, or <code class="docutils literal notranslate"><span class="pre">axis=columns</span></code>. Note in the example below, the rows with identical indices get combined when concatenated.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
