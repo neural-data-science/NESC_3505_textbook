@@ -48,7 +48,7 @@
 <meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch3c.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="Joining DataFrames" />
-<meta property="og:description" content="Joining DataFrames  Yet another way of combining pandas DataFrames is with the .join() method. While pd.merge() is a function (you can tell because the command " />
+<meta property="og:description" content="Joining DataFrames  import pandas as pd  # Catch up on the data we loaded in the previous section sess_1 = pd.read_csv(&#39;session_1.csv&#39;, index_col=&#39;trial&#39;) sess_" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -334,7 +334,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch3a.html">
-     Lesson 5: Merging DataFrames with pandas
+     Chapter 3: Merging Data
     </a>
    </li>
    <li class="toctree-l2">
@@ -561,6 +561,19 @@
                 
   <div class="section" id="joining-dataframes">
 <h1>Joining DataFrames<a class="headerlink" href="#joining-dataframes" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Catch up on the data we loaded in the previous section</span>
+<span class="n">sess_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;session_1.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">)</span>
+<span class="n">sess_2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;session_2.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">)</span>
+<span class="n">sess_3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;session_3.csv&#39;</span><span class="p">)</span>
+<span class="n">sess_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sess_1</span><span class="p">,</span> <span class="n">sess_2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_sess_1&#39;</span><span class="p">,</span> <span class="s1">&#39;_sess_2&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>Yet another way of combining pandas DataFrames is with the <code class="docutils literal notranslate"><span class="pre">.join()</span></code> method. While <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> is a function (you can tell because the command name, <code class="docutils literal notranslate"><span class="pre">.merge</span></code>, is preceded by <code class="docutils literal notranslate"><span class="pre">pd</span></code> rather than a DataFrame, and all the input data is inside the parentheses), <code class="docutils literal notranslate"><span class="pre">.join()</span></code> is a method and so must be appended to the name of an existing DataFrame, with the DataFrame you want to join to it specified in the parentheses:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -568,14 +581,242 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rt_sess_1</th>
+      <th>rt_sess_2</th>
+      <th>Trial</th>
+      <th>RT</th>
+    </tr>
+    <tr>
+      <th>trial</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.988</td>
+      <td>0.718</td>
+      <td>0</td>
+      <td>0.844168</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.753</td>
+      <td>0.851</td>
+      <td>1</td>
+      <td>0.913048</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.949</td>
+      <td>0.747</td>
+      <td>2</td>
+      <td>0.843295</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.824</td>
+      <td>0.520</td>
+      <td>3</td>
+      <td>0.530306</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.262</td>
+      <td>0.991</td>
+      <td>4</td>
+      <td>0.266715</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.803</td>
+      <td>0.004</td>
+      <td>5</td>
+      <td>0.707006</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.376</td>
+      <td>0.547</td>
+      <td>6</td>
+      <td>0.973193</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.496</td>
+      <td>0.883</td>
+      <td>7</td>
+      <td>0.432562</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.235</td>
+      <td>0.841</td>
+      <td>8</td>
+      <td>0.522106</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.336</td>
+      <td>0.195</td>
+      <td>9</td>
+      <td>0.876626</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.645</td>
+      <td>0.828</td>
+      <td>10</td>
+      <td>0.410011</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">.join()</span></code> is less picky than <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code>: it ran fine even though there are no exactly-matching column labels shared by the inputs. Indeed, we can join DataFrames that have totally different columns and even lengths:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_12</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fav_colour</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;fav_colour.csv&#39;</span><span class="p">)</span>
+
+<span class="n">sess_12</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fav_colour</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rt_sess_1</th>
+      <th>rt_sess_2</th>
+      <th>Participant num</th>
+      <th>Fav Colour</th>
+    </tr>
+    <tr>
+      <th>trial</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.988</td>
+      <td>0.718</td>
+      <td>1.0</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.753</td>
+      <td>0.851</td>
+      <td>2.0</td>
+      <td>red</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.949</td>
+      <td>0.747</td>
+      <td>3.0</td>
+      <td>green</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.824</td>
+      <td>0.520</td>
+      <td>4.0</td>
+      <td>purple</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.262</td>
+      <td>0.991</td>
+      <td>5.0</td>
+      <td>red</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.803</td>
+      <td>0.004</td>
+      <td>6.0</td>
+      <td>green</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.376</td>
+      <td>0.547</td>
+      <td>7.0</td>
+      <td>orange</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.496</td>
+      <td>0.883</td>
+      <td>8.0</td>
+      <td>yellow</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.235</td>
+      <td>0.841</td>
+      <td>9.0</td>
+      <td>yellow</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.336</td>
+      <td>0.195</td>
+      <td>10.0</td>
+      <td>pink</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.645</td>
+      <td>0.828</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>In other words, <code class="docutils literal notranslate"><span class="pre">.join()</span></code> simply adds columns of the ‘right’ DataFrme (the one in parentheses) to the columns of the ‘left’ DataFrame (preceding the dot), lining up the rows and adding extra rows of <code class="docutils literal notranslate"><span class="pre">NaN</span></code>s if the inputs are not the same length.</p>
 <p>This is more flexible, but potentially more messy or dangerous. We want to be certain that the order of inputs in the two DataFrames we’re merging is exactly the same to avoid mis-aligning the data. Interestingly, if pandas does note identical column labels in the two DataFrames, it will throw an error because it doesn’t know if you want to use those to match rows between the inputs:</p>
@@ -585,6 +826,53 @@
 <span class="n">eye_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;eye_colour.csv&#39;</span><span class="p">)</span>
 
 <span class="n">fav_colour</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eye_colour</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">8</span><span class="o">-</span><span class="mi">59</span><span class="n">a218fb3d12</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">eye_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;eye_colour.csv&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">fav_colour</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eye_colour</span><span class="p">)</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/pandas/core/frame.py</span> in <span class="ni">join</span><span class="nt">(self, other, on, how, lsuffix, rsuffix, sort)</span>
+<span class="g g-Whitespace">   </span><span class="mi">7866</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">7867</span><span class="s2">         return self._join_compat(</span>
+<span class="ne">-&gt; </span><span class="mi">7868</span><span class="s2">             other, on=on, how=how, lsuffix=lsuffix, rsuffix=rsuffix, sort=sort</span>
+<span class="g g-Whitespace">   </span><span class="mi">7869</span><span class="s2">         )</span>
+<span class="g g-Whitespace">   </span><span class="mi">7870</span><span class="s2"> </span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/pandas/core/frame.py</span> in <span class="ni">_join_compat</span><span class="nt">(self, other, on, how, lsuffix, rsuffix, sort)</span>
+<span class="g g-Whitespace">   </span><span class="mi">7889</span><span class="s2">                 right_index=True,</span>
+<span class="g g-Whitespace">   </span><span class="mi">7890</span><span class="s2">                 suffixes=(lsuffix, rsuffix),</span>
+<span class="ne">-&gt; </span><span class="mi">7891</span><span class="s2">                 sort=sort,</span>
+<span class="g g-Whitespace">   </span><span class="mi">7892</span><span class="s2">             )</span>
+<span class="g g-Whitespace">   </span><span class="mi">7893</span><span class="s2">         else:</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/pandas/core/reshape/merge.py</span> in <span class="ni">merge</span><span class="nt">(left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)</span>
+<span class="g g-Whitespace">     </span><span class="mi">87</span><span class="s2">         validate=validate,</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span><span class="s2">     )</span>
+<span class="ne">---&gt; </span><span class="mi">89</span><span class="s2">     return op.get_result()</span>
+<span class="g g-Whitespace">     </span><span class="mi">90</span><span class="s2"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">91</span><span class="s2"> </span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/pandas/core/reshape/merge.py</span> in <span class="ni">get_result</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">669</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">670</span><span class="s2">         llabels, rlabels = _items_overlap_with_suffix(</span>
+<span class="ne">--&gt; </span><span class="mi">671</span><span class="s2">             self.left._info_axis, self.right._info_axis, self.suffixes</span>
+<span class="g g-Whitespace">    </span><span class="mi">672</span><span class="s2">         )</span>
+<span class="g g-Whitespace">    </span><span class="mi">673</span><span class="s2"> </span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/pandas/core/reshape/merge.py</span> in <span class="ni">_items_overlap_with_suffix</span><span class="nt">(left, right, suffixes)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2089</span><span class="s2"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">2090</span><span class="s2">     if not lsuffix and not rsuffix:</span>
+<span class="ne">-&gt; </span><span class="mi">2091</span><span class="s2">         raise ValueError(f&quot;columns overlap but no suffix specified: </span><span class="si">{to_rename}</span><span class="s2">&quot;)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2092</span><span class="s2"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">2093</span><span class="s2">     def renamer(x, suffix):</span>
+
+<span class="ne">ValueError</span>: columns overlap but no suffix specified: Index([&#39;Participant num&#39;], dtype=&#39;object&#39;)
 </pre></div>
 </div>
 </div>
@@ -599,6 +887,88 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fav Colour</th>
+      <th>eye_colour</th>
+    </tr>
+    <tr>
+      <th>Participant num</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>blue</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>red</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>green</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>purple</td>
+      <td>hazel</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>red</td>
+      <td>green</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>green</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>orange</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>yellow</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>yellow</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>pink</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>By default <code class="docutils literal notranslate"><span class="pre">.join()</span></code> uses an outer join, but again we can use an argument to change that behaviour. However, for <code class="docutils literal notranslate"><span class="pre">.join()</span></code> the argument is <code class="docutils literal notranslate"><span class="pre">how=</span></code>:</p>
 <div class="cell docutils container">
@@ -607,6 +977,63 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fav Colour</th>
+      <th>eye_colour</th>
+    </tr>
+    <tr>
+      <th>Participant num</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>blue</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>red</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>green</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>purple</td>
+      <td>hazel</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>red</td>
+      <td>green</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="section" id="left-and-right-joins">
 <h2>Left and Right joins<a class="headerlink" href="#left-and-right-joins" title="Permalink to this headline">¶</a></h2>
@@ -618,6 +1045,88 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fav Colour</th>
+      <th>eye_colour</th>
+    </tr>
+    <tr>
+      <th>Participant num</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>blue</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>red</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>green</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>purple</td>
+      <td>hazel</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>red</td>
+      <td>green</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>green</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>orange</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>yellow</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>yellow</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>pink</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>Conversely, with <code class="docutils literal notranslate"><span class="pre">how=right</span></code> we get all indices present in the right input, again filling anything missing from the left with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
 <div class="cell docutils container">
@@ -626,6 +1135,78 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fav Colour</th>
+      <th>eye_colour</th>
+    </tr>
+    <tr>
+      <th>Participant num</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>blue</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>red</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>green</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>purple</td>
+      <td>hazel</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>red</td>
+      <td>green</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>NaN</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>NaN</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>NaN</td>
+      <td>blue</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 </div>

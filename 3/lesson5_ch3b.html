@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Joining DataFrames" href="lesson5_ch3c.html" />
-    <link rel="prev" title="Lesson 5: Merging DataFrames with pandas" href="lesson5_ch3a.html" />
+    <link rel="prev" title="Chapter 3: Merging Data" href="lesson5_ch3a.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -334,7 +334,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch3a.html">
-     Lesson 5: Merging DataFrames with pandas
+     Chapter 3: Merging Data
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -555,6 +555,13 @@
   <div class="section" id="merging-on">
 <h1>Merging ‘on’<a class="headerlink" href="#merging-on" title="Permalink to this headline">¶</a></h1>
 <p>This works fine as long as we are merging two DataFrames that share a column label, <em>and</em> have shared values in that label column (e.g., participant numbers 1–5 in the above example). But our data aren’t always structured that way. For example, let’s re-load the RT data used in the previous chapter, that came from the same participant in two different testing sessions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;session_1.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">)</span>
@@ -923,7 +930,7 @@ trial
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">MergeError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="n">c7fbaafeda61</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">8</span><span class="o">-</span><span class="n">c7fbaafeda61</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sess_12</span><span class="p">,</span> <span class="n">sess_3</span><span class="p">)</span>
 
 <span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/pandas/core/reshape/merge.py</span> in <span class="ni">merge</span><span class="nt">(left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)</span>
@@ -959,6 +966,112 @@ trial
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rt_sess_1</th>
+      <th>rt_sess_2</th>
+      <th>Trial</th>
+      <th>RT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.988</td>
+      <td>0.718</td>
+      <td>0</td>
+      <td>0.844168</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.753</td>
+      <td>0.851</td>
+      <td>1</td>
+      <td>0.913048</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.949</td>
+      <td>0.747</td>
+      <td>2</td>
+      <td>0.843295</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.824</td>
+      <td>0.520</td>
+      <td>3</td>
+      <td>0.530306</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.262</td>
+      <td>0.991</td>
+      <td>4</td>
+      <td>0.266715</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.803</td>
+      <td>0.004</td>
+      <td>5</td>
+      <td>0.707006</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.376</td>
+      <td>0.547</td>
+      <td>6</td>
+      <td>0.973193</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.496</td>
+      <td>0.883</td>
+      <td>7</td>
+      <td>0.432562</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.235</td>
+      <td>0.841</td>
+      <td>8</td>
+      <td>0.522106</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.336</td>
+      <td>0.195</td>
+      <td>9</td>
+      <td>0.876626</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.645</td>
+      <td>0.828</td>
+      <td>10</td>
+      <td>0.410011</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>Note that this matches data between the two inputs, but keeps both columns.</p>
 </div>
@@ -991,7 +1104,7 @@ trial
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="lesson5_ch3a.html" title="previous page">Lesson 5: Merging DataFrames with pandas</a>
+    <a class='left-prev' id="prev-link" href="lesson5_ch3a.html" title="previous page">Chapter 3: Merging Data</a>
     <a class='right-next' id="next-link" href="lesson5_ch3c.html" title="next page">Joining DataFrames</a>
 
     </div>
