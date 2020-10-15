@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <title>Reading multiple files to build a DataFrame &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,22 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch2e.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chapter 1: Preparing Data" href="lesson5_ch1a.html" />
-    <link rel="prev" title="Lesson 2: Intermediate Python" href="lesson2.html" />
+    <link rel="next" title="Concatenating columns rather than rows" href="lesson5_ch2f.html" />
+    <link rel="prev" title=".append() and pd.concat()" href="lesson5_ch2d.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch2e.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
-<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants " />
+<meta property="og:title"       content="Reading multiple files to build a DataFrame" />
+<meta property="og:description" content="Reading multiple files to build a DataFrame  We can get a bit more fancy and use a loop to read in files, as in the previous chapter, and then combine them. Her" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -203,10 +203,10 @@
   </a>
  </li>
  <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="lesson5.html">
    Lesson 5: Merging DataFrames with pandas
   </a>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch1a.html">
      Chapter 1: Preparing Data
@@ -292,8 +292,8 @@
      </code>
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="lesson5_ch2e.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Reading multiple files to build a DataFrame
     </a>
    </li>
@@ -494,9 +494,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/3/lesson5.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/3/lesson5_ch2e.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -512,6 +512,28 @@
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/3/lesson5_ch2e.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/3/lesson5_ch2e.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
 
     </div>
 
@@ -530,10 +552,207 @@
         
               <div>
                 
-  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
-<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
-<p>Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants (animals, humans, cells, etc.) that you want to analyze at the group level, so you’ll need to read all the data files in and work with them as one large DataFrame. In this chapter we learn how to do this.</p>
-<div class="toctree-wrapper compound">
+  <div class="section" id="reading-multiple-files-to-build-a-dataframe">
+<h1>Reading multiple files to build a DataFrame<a class="headerlink" href="#reading-multiple-files-to-build-a-dataframe" title="Permalink to this headline">¶</a></h1>
+<p>We can get a bit more fancy and use a loop to read in files, as in the previous chapter, and then combine them. Here’s the code from the last chapter, which reads the CSV files in to a list of DataFrames:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filenames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;s1.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;s2.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;s3.csv&#39;</span><span class="p">]</span>
+
+<span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+    <span class="n">df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Since <code class="docutils literal notranslate"><span class="pre">df_list</span></code> is already a list — which is the format that <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> wants its input in — we can just pass the whole thing to <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>trial</th>
+      <th>RT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0.508971</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>0.389858</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>0.404175</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>0.269520</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0.437765</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>0.368142</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>0.400544</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>0.335198</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>0.341722</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>0.439583</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>1</td>
+      <td>0.433094</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2</td>
+      <td>0.392526</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>3</td>
+      <td>0.396831</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>4</td>
+      <td>0.417988</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>5</td>
+      <td>0.371810</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>6</td>
+      <td>0.659228</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>7</td>
+      <td>0.411051</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>8</td>
+      <td>0.409580</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>9</td>
+      <td>0.486828</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>10</td>
+      <td>0.468912</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>1</td>
+      <td>0.322099</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>2</td>
+      <td>0.396106</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>3</td>
+      <td>0.384297</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>4</td>
+      <td>0.364524</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>5</td>
+      <td>0.454075</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>6</td>
+      <td>0.494156</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>7</td>
+      <td>0.492787</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>8</td>
+      <td>0.506836</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>9</td>
+      <td>0.340722</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>10</td>
+      <td>0.704491</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 
@@ -565,8 +784,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="lesson2.html" title="previous page">Lesson 2: Intermediate Python</a>
-    <a class='right-next' id="next-link" href="lesson5_ch1a.html" title="next page">Chapter 1: Preparing Data</a>
+    <a class='left-prev' id="prev-link" href="lesson5_ch2d.html" title="previous page"><code class="docutils literal notranslate"><span class="pre">.append()</span></code> and <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code></a>
+    <a class='right-next' id="next-link" href="lesson5_ch2f.html" title="next page">Concatenating columns rather than rows</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

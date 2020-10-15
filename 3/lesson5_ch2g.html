@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <title>MultiIndexes &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,22 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch2g.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chapter 1: Preparing Data" href="lesson5_ch1a.html" />
-    <link rel="prev" title="Lesson 2: Intermediate Python" href="lesson2.html" />
+    <link rel="next" title="Concatenating DataFrames from a dict" href="lesson5_ch2h.html" />
+    <link rel="prev" title="Concatenating columns rather than rows" href="lesson5_ch2f.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch2g.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
-<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants " />
+<meta property="og:title"       content="MultiIndexes" />
+<meta property="og:description" content="MultiIndexes  MultiIndexes extend pandas indesing, allowing you to designate multiple columns as indexes. For example, you may have data for each month of the y" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -203,10 +203,10 @@
   </a>
  </li>
  <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="lesson5.html">
    Lesson 5: Merging DataFrames with pandas
   </a>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch1a.html">
      Chapter 1: Preparing Data
@@ -302,8 +302,8 @@
      Concatenating columns rather than rows
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="lesson5_ch2g.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      MultiIndexes
     </a>
    </li>
@@ -494,9 +494,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/3/lesson5.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/3/lesson5_ch2g.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -512,6 +512,28 @@
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/3/lesson5_ch2g.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/3/lesson5_ch2g.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
 
     </div>
 
@@ -530,10 +552,522 @@
         
               <div>
                 
-  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
-<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
-<p>Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants (animals, humans, cells, etc.) that you want to analyze at the group level, so you’ll need to read all the data files in and work with them as one large DataFrame. In this chapter we learn how to do this.</p>
-<div class="toctree-wrapper compound">
+  <div class="section" id="multiindexes">
+<h1>MultiIndexes<a class="headerlink" href="#multiindexes" title="Permalink to this headline">¶</a></h1>
+<p>MultiIndexes extend pandas indesing, allowing you to designate multiple columns as indexes. For example, you may have data for each month of the year, from multiple years. In this case, you might want to use month as the index, but you would not want pandas to treat January, 2019, as the same as January, 2020. You you would want indexes both for month, and for year.</p>
+<p>MultiIndexes can be applied to both rows (for which we’ve already learned about single-indexing), and to columns.</p>
+<p>Imagine we collected reaction time (RT) data from an individual human participant in two different testing sessions. Each session involved 10 experimental trials. Between the first and the second session, the person played cognitive training games and we want to know if their RTs decreased due to the training. So we can load in the two data files (one from each session):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;session_1.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">)</span>
+<span class="n">sess_2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;session_2.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we view the data from each session:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rt</th>
+    </tr>
+    <tr>
+      <th>trial</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.988</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.753</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.949</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.824</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.262</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.803</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.376</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.496</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.235</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.336</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.645</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rt</th>
+    </tr>
+    <tr>
+      <th>trial</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.718</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.851</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.747</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.520</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.991</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.004</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.547</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.883</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.841</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.195</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.828</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>You can see that because of the <code class="docutils literal notranslate"><span class="pre">index_col='trial'</span></code> argument to <code class="docutils literal notranslate"><span class="pre">pd_read_csv()</span></code>, trial number is used as the index for each DataFrame</p>
+<p>Now we can concatenate the data. One way to do this is simply appending the rows of <code class="docutils literal notranslate"><span class="pre">sess_2</span></code> to the bottom of <code class="docutils literal notranslate"><span class="pre">sess_1</span></code>, and use the <code class="docutils literal notranslate"><span class="pre">axis=0</span></code> argument to specify conctenation is by rows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">sess_1</span><span class="p">,</span> <span class="n">sess_2</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">sess_12</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rt</th>
+    </tr>
+    <tr>
+      <th>trial</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.988</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.753</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.949</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.824</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.262</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.803</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.376</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.496</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.235</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.336</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.645</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>0.718</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.851</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.747</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.520</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.991</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.004</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.547</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.883</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.841</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.195</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.828</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The problem with the result above is that we don’t know which session each data point came from. We know session names from the names of the files, but that information doesn’t get used in making the DataFrame. We can deal with this by manually specifying the session names, and using them as row indexes. Critically, we will use MultiIndexing so that <code class="docutils literal notranslate"><span class="pre">trial</span></code> is retained as an index. In other words, there are two indexes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_12</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">sess_1</span><span class="p">,</span> <span class="n">sess_2</span><span class="p">],</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sess_1&#39;</span><span class="p">,</span> <span class="s1">&#39;sess_2&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">sess_12</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>rt</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>trial</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="11" valign="top">sess_1</th>
+      <th>0</th>
+      <td>0.988</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.753</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.949</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.824</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.262</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.803</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.376</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.496</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.235</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.336</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.645</td>
+    </tr>
+    <tr>
+      <th rowspan="11" valign="top">sess_2</th>
+      <th>0</th>
+      <td>0.718</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.851</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.747</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.520</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.991</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.004</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.547</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.883</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.841</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.195</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.828</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can the use the <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code> property to select all trials from one session or the other:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_12</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;sess_1&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rt</th>
+    </tr>
+    <tr>
+      <th>trial</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.988</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.753</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.949</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.824</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.262</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.803</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.376</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.496</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.235</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.336</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.645</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 
@@ -565,8 +1099,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="lesson2.html" title="previous page">Lesson 2: Intermediate Python</a>
-    <a class='right-next' id="next-link" href="lesson5_ch1a.html" title="next page">Chapter 1: Preparing Data</a>
+    <a class='left-prev' id="prev-link" href="lesson5_ch2f.html" title="previous page">Concatenating columns rather than rows</a>
+    <a class='right-next' id="next-link" href="lesson5_ch2h.html" title="next page">Concatenating DataFrames from a dict</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

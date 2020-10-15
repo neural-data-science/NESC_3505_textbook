@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <title>Arithmetic with Series and DataFrames &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,22 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch1j.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chapter 1: Preparing Data" href="lesson5_ch1a.html" />
-    <link rel="prev" title="Lesson 2: Intermediate Python" href="lesson2.html" />
+    <link rel="next" title="Chapter 2: Concatenating Data" href="lesson5_ch2a.html" />
+    <link rel="prev" title="Bonus Section: Looping" href="lesson5_ch1i.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch1j.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
-<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants " />
+<meta property="og:title"       content="Arithmetic with Series and DataFrames" />
+<meta property="og:description" content="Arithmetic with Series and DataFrames  pandas uses broadcasting when we apply an arithmetic function to a Series or DataFrame. For example, from above here’s ou" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -203,10 +203,10 @@
   </a>
  </li>
  <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="lesson5.html">
    Lesson 5: Merging DataFrames with pandas
   </a>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch1a.html">
      Chapter 1: Preparing Data
@@ -257,8 +257,8 @@
      Bonus Section: Looping
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="lesson5_ch1j.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Arithmetic with Series and DataFrames
     </a>
    </li>
@@ -494,9 +494,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/3/lesson5.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/3/lesson5_ch1j.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -512,6 +512,28 @@
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/3/lesson5_ch1j.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/3/lesson5_ch1j.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
 
     </div>
 
@@ -530,10 +552,456 @@
         
               <div>
                 
-  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
-<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
-<p>Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants (animals, humans, cells, etc.) that you want to analyze at the group level, so you’ll need to read all the data files in and work with them as one large DataFrame. In this chapter we learn how to do this.</p>
-<div class="toctree-wrapper compound">
+  <div class="section" id="arithmetic-with-series-and-dataframes">
+<h1>Arithmetic with Series and DataFrames<a class="headerlink" href="#arithmetic-with-series-and-dataframes" title="Permalink to this headline">¶</a></h1>
+<p>pandas uses <strong>broadcasting</strong> when we apply an arithmetic function to a Series or DataFrame. For example, from above here’s our RT data from two participants:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>trial</th>
+      <th>s1</th>
+      <th>s2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0.508971</td>
+      <td>0.433094</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>0.389858</td>
+      <td>0.392526</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>0.404175</td>
+      <td>0.396831</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>0.269520</td>
+      <td>0.417988</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0.437765</td>
+      <td>0.371810</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>0.368142</td>
+      <td>0.659228</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>0.400544</td>
+      <td>0.411051</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>0.335198</td>
+      <td>0.409580</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>0.341722</td>
+      <td>0.486828</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>0.439583</td>
+      <td>0.468912</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>RT is in seconds, but often we want to report RT in milliseconds. To do this, we could multiply the entire DataFrame by 1000 (since there are 1000 ms in 1 s), but this would apply to all columns, including trial number:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">*</span> <span class="mi">1000</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>trial</th>
+      <th>s1</th>
+      <th>s2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1000</td>
+      <td>508.971072</td>
+      <td>433.093893</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2000</td>
+      <td>389.857974</td>
+      <td>392.526034</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3000</td>
+      <td>404.175466</td>
+      <td>396.830804</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4000</td>
+      <td>269.520309</td>
+      <td>417.987737</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5000</td>
+      <td>437.764713</td>
+      <td>371.810078</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6000</td>
+      <td>368.141756</td>
+      <td>659.228422</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7000</td>
+      <td>400.544278</td>
+      <td>411.051235</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8000</td>
+      <td>335.198066</td>
+      <td>409.580168</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9000</td>
+      <td>341.722042</td>
+      <td>486.828076</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10000</td>
+      <td>439.583357</td>
+      <td>468.912134</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>So instead, we can apply the math only to specified columns:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;s1&#39;</span><span class="p">,</span><span class="s1">&#39;s2&#39;</span><span class="p">]]</span> <span class="o">*</span> <span class="mi">1000</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>s1</th>
+      <th>s2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>508.971072</td>
+      <td>433.093893</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>389.857974</td>
+      <td>392.526034</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>404.175466</td>
+      <td>396.830804</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>269.520309</td>
+      <td>417.987737</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>437.764713</td>
+      <td>371.810078</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>368.141756</td>
+      <td>659.228422</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>400.544278</td>
+      <td>411.051235</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>335.198066</td>
+      <td>409.580168</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>341.722042</td>
+      <td>486.828076</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>439.583357</td>
+      <td>468.912134</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>pandas also provides methods for applying some common arithmetic operations to DataFrames. This includes simple operation slike addition (<code class="docutils literal notranslate"><span class="pre">.add()</span></code> and multiplication (<code class="docutils literal notranslate"><span class="pre">.multiply()</span></code>), but also more complex “convenience functions” like <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;s1&#39;</span><span class="p">,</span><span class="s1">&#39;s2&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>s1    0.389548
+s2    0.444785
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that this produces two values, the mean of each column. WHile the default is to apply the function “column-wise”, there’s also an argument that allows us to compute the mean of each row, instead:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;s1&#39;</span><span class="p">,</span><span class="s1">&#39;s2&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    0.471032
+1    0.391192
+2    0.400503
+3    0.343754
+4    0.404787
+5    0.513685
+6    0.405798
+7    0.372389
+8    0.414275
+9    0.454248
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>By default, these arithmetic methods will ignore any NaN values. However, we can tell pandas to replace <code class="docutils literal notranslate"><span class="pre">NaN</span></code>s with some other value. For example, let’s use the rat data which had <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rat_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>r1</th>
+      <th>r2</th>
+      <th>r3</th>
+    </tr>
+    <tr>
+      <th>days</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>day1</th>
+      <td>6.00</td>
+      <td>7.32</td>
+      <td>2.55</td>
+    </tr>
+    <tr>
+      <th>day2</th>
+      <td>7.56</td>
+      <td>4.12</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <th>day3</th>
+      <td>2.17</td>
+      <td>6.28</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>day4</th>
+      <td>2.39</td>
+      <td>NaN</td>
+      <td>6.00</td>
+    </tr>
+    <tr>
+      <th>day5</th>
+      <td>5.60</td>
+      <td>4.20</td>
+      <td>8.38</td>
+    </tr>
+    <tr>
+      <th>day6</th>
+      <td>8.94</td>
+      <td>2.11</td>
+      <td>6.53</td>
+    </tr>
+    <tr>
+      <th>day7</th>
+      <td>2.95</td>
+      <td>4.98</td>
+      <td>3.01</td>
+    </tr>
+    <tr>
+      <th>day8</th>
+      <td>3.30</td>
+      <td>7.44</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>If we wanted to sum the data from rats 1 and 2, we would get <code class="docutils literal notranslate"><span class="pre">NaN</span></code> results if any inputs were <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (like day4):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rat_df</span><span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rat_df</span><span class="p">[</span><span class="s1">&#39;r2&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>days
+day1    13.32
+day2    11.68
+day3     8.45
+day4      NaN
+day5     9.80
+day6    11.05
+day7     7.93
+day8    10.74
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>But we could use <code class="docutils literal notranslate"><span class="pre">fill_value=0</span></code> to tell pandas to treat these as zeros instead:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rat_df</span><span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rat_df</span><span class="p">[</span><span class="s1">&#39;r2&#39;</span><span class="p">],</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>days
+day1    13.32
+day2    11.68
+day3     8.45
+day4     2.39
+day5     9.80
+day6    11.05
+day7     7.93
+day8    10.74
+dtype: float64
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -565,8 +1033,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="lesson2.html" title="previous page">Lesson 2: Intermediate Python</a>
-    <a class='right-next' id="next-link" href="lesson5_ch1a.html" title="next page">Chapter 1: Preparing Data</a>
+    <a class='left-prev' id="prev-link" href="lesson5_ch1i.html" title="previous page">Bonus Section: Looping</a>
+    <a class='right-next' id="next-link" href="lesson5_ch2a.html" title="next page">Chapter 2: Concatenating Data</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

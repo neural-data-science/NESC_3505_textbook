@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <title>Read in multiple files: &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,22 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch1b.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chapter 1: Preparing Data" href="lesson5_ch1a.html" />
-    <link rel="prev" title="Lesson 2: Intermediate Python" href="lesson2.html" />
+    <link rel="next" title="Reading multiple files using list comprehension" href="lesson5_ch1c.html" />
+    <link rel="prev" title="Chapter 1: Preparing Data" href="lesson5_ch1a.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch1b.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
-<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants " />
+<meta property="og:title"       content="Read in multiple files:" />
+<meta property="og:description" content="Read in multiple files:  Using a for loop  In many data science cases, we have data in multiple files. For example, if we run an experiment with human participa" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -203,17 +203,17 @@
   </a>
  </li>
  <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="lesson5.html">
    Lesson 5: Merging DataFrames with pandas
   </a>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch1a.html">
      Chapter 1: Preparing Data
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="lesson5_ch1b.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Read in multiple files:
     </a>
    </li>
@@ -494,9 +494,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/3/lesson5.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/3/lesson5_ch1b.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -513,6 +513,28 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/3/lesson5_ch1b.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/3/lesson5_ch1b.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
@@ -521,7 +543,20 @@
             <i class="fas fa-list"></i> Contents
         </div>
         <nav id="bd-toc-nav">
-            
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-a-for-loop">
+   Using a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     for
+    </span>
+   </code>
+   loop
+  </a>
+ </li>
+</ul>
+
         </nav>
     </div>
 </div>
@@ -530,10 +565,166 @@
         
               <div>
                 
-  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
-<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
-<p>Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants (animals, humans, cells, etc.) that you want to analyze at the group level, so you’ll need to read all the data files in and work with them as one large DataFrame. In this chapter we learn how to do this.</p>
-<div class="toctree-wrapper compound">
+  <div class="section" id="read-in-multiple-files">
+<h1>Read in multiple files:<a class="headerlink" href="#read-in-multiple-files" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="using-a-for-loop">
+<h2>Using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop<a class="headerlink" href="#using-a-for-loop" title="Permalink to this headline">¶</a></h2>
+<p>In many data science cases, we have data in multiple files. For example, if we run an experiment with human participants, we might have a data file from each participant, but for group analysis we’ll want to combine them all into one big DataFrame. This is a great use case for looping, since we’re doing the same thing (reading a file into a DataFrame) multiple times.</p>
+<p>First, create a list of the files, Later we will loop through this list.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filenames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;s1.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;s2.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;s3.csv&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we create an empty list to append the files to. Note that what we’re doing here doesn’t actually create one big DataFrame (we’ll see how to do that in the next chapter). For now, we’re creating a list in which each list item is the DataFrame from one of the files we read. We name the list in a way that makes it obvious that it’s a list of DataFrames.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to read the files in. This will cycle through the items in the <code class="docutils literal notranslate"><span class="pre">filenames</span></code> list; each time through the loop, <code class="docutils literal notranslate"><span class="pre">filename</span></code> has the value of the current file name, and we use the list <code class="docutils literal notranslate"><span class="pre">append()</span></code> method to add the data from that file to <code class="docutils literal notranslate"><span class="pre">df_list</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+    <span class="n">df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When we view the contents of the list, we see each dataset, with its two columns (with headers saying what they are), and commas separating the list entries, as is typical of a list.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[   trial        RT
+ 0      1  0.508971
+ 1      2  0.389858
+ 2      3  0.404175
+ 3      4  0.269520
+ 4      5  0.437765
+ 5      6  0.368142
+ 6      7  0.400544
+ 7      8  0.335198
+ 8      9  0.341722
+ 9     10  0.439583,
+    trial        RT
+ 0      1  0.433094
+ 1      2  0.392526
+ 2      3  0.396831
+ 3      4  0.417988
+ 4      5  0.371810
+ 5      6  0.659228
+ 6      7  0.411051
+ 7      8  0.409580
+ 8      9  0.486828
+ 9     10  0.468912,
+    trial        RT
+ 0      1  0.322099
+ 1      2  0.396106
+ 2      3  0.384297
+ 3      4  0.364524
+ 4      5  0.454075
+ 5      6  0.494156
+ 6      7  0.492787
+ 7      8  0.506836
+ 8      9  0.340722
+ 9     10  0.704491]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The output above isn’t nicely formatted as a pandas DataFrame, because Python is treating the DataFrames as list entries. But, if we ask to see one of the list entries, things look prettier:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>trial</th>
+      <th>RT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0.508971</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>0.389858</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>0.404175</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>0.269520</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0.437765</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>0.368142</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>0.400544</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>0.335198</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>0.341722</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>0.439583</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 </div>
 </div>
 
@@ -565,8 +756,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="lesson2.html" title="previous page">Lesson 2: Intermediate Python</a>
-    <a class='right-next' id="next-link" href="lesson5_ch1a.html" title="next page">Chapter 1: Preparing Data</a>
+    <a class='left-prev' id="prev-link" href="lesson5_ch1a.html" title="previous page">Chapter 1: Preparing Data</a>
+    <a class='right-next' id="next-link" href="lesson5_ch1c.html" title="next page">Reading multiple files using list comprehension</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

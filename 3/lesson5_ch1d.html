@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <title>glob()ing: Selecting multiple filenames without hard-coding their names &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,22 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch1d.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chapter 1: Preparing Data" href="lesson5_ch1a.html" />
-    <link rel="prev" title="Lesson 2: Intermediate Python" href="lesson2.html" />
+    <link rel="next" title="Combining DataFrames" href="lesson5_ch1e.html" />
+    <link rel="prev" title="Reading multiple files using list comprehension" href="lesson5_ch1c.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch1d.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
-<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants " />
+<meta property="og:title"       content="glob()ing: Selecting multiple filenames without hard-coding their names" />
+<meta property="og:description" content="glob()ing: Selecting multiple filenames without hard-coding their names  Often, you have many files to read in, and you don’t want to type the names of every on" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -203,10 +203,10 @@
   </a>
  </li>
  <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="lesson5.html">
    Lesson 5: Merging DataFrames with pandas
   </a>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch1a.html">
      Chapter 1: Preparing Data
@@ -222,8 +222,8 @@
      Reading multiple files using list comprehension
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="lesson5_ch1d.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      <code class="docutils literal notranslate">
       <span class="pre">
        glob()
@@ -494,9 +494,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/3/lesson5.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/3/lesson5_ch1d.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -512,6 +512,28 @@
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/3/lesson5_ch1d.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/3/lesson5_ch1d.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
 
     </div>
 
@@ -530,11 +552,192 @@
         
               <div>
                 
-  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
-<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
-<p>Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants (animals, humans, cells, etc.) that you want to analyze at the group level, so you’ll need to read all the data files in and work with them as one large DataFrame. In this chapter we learn how to do this.</p>
-<div class="toctree-wrapper compound">
+  <div class="section" id="glob-ing-selecting-multiple-filenames-without-hard-coding-their-names">
+<h1><code class="docutils literal notranslate"><span class="pre">glob()</span></code>ing: Selecting multiple filenames without hard-coding their names<a class="headerlink" href="#glob-ing-selecting-multiple-filenames-without-hard-coding-their-names" title="Permalink to this headline">¶</a></h1>
+<p>Often, you have many files to read in, and you don’t want to type the names of every one of them. “Hard-coding” filenames like this is tedious and error-prone. It’s also not flexible or scalable: if you collect more data or remove some bad data files, you have to manually update your list of file names. This is not a big deal if you only have three files, but it’s much more work (and potential error) if you have 20, 50, 100 etc. files.</p>
+<p>Fortunately, Python has ways of listing all the files in a folder (or even in sub-folders), and using <em>filters</em> and <em>wildcards</em> to list only files whose names match specific criteria. This is done using a function called <code class="docutils literal notranslate"><span class="pre">glob()</span></code> from the package <code class="docutils literal notranslate"><span class="pre">glob</span></code> (yes, <a class="reference external" href="https://docs.python.org/3/library/glob.html">seriously</a>). To use glob you first have to import it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+</pre></div>
 </div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">glob()</span></code> requires one argument, which is a string specifying the pattern you want to match filenames against. For example, if you wanted to use <code class="docutils literal notranslate"><span class="pre">glob()</span></code> to list one of the input files above, <code class="docutils literal notranslate"><span class="pre">s1.csv</span></code>, you would use:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;s1.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;s1.csv&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>So you can see, <code class="docutils literal notranslate"><span class="pre">glob()</span></code> returns a list of filenames that match the string you specified. This is not terribly useful when you provide an exact file name, except it can tell you if a file is present or not. For example, if we glob a filename that doesn’t exist, we get an empty list:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;ceci_nest_pas_une_file.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">glob()</span></code> really gets useful though, is in its use of filters and wildcards. <code class="docutils literal notranslate"><span class="pre">glob()</span></code> uses Unix <a class="reference external" href="https://en.wikipedia.org/wiki/Regular_expression"><strong>regular expressions</strong></a> (regexp), which is a syntax for matching particular patterns of characters. Regexp are very powerful, but for now we’ll use the simplest-but-most-powerful of them all: the wildcard, <code class="docutils literal notranslate"><span class="pre">*</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">*</span></code> in a regexp is caleld the “wildcard” becuase just like a “wild” card in a card game - which can be used to represent any other card in the deck - <code class="docutils literal notranslate"><span class="pre">*</span></code> matches any number of any characters. So if we do:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;lesson5_ch2.ipynb&#39;,
+ &#39;session_1.csv&#39;,
+ &#39;maze_data_1.csv&#39;,
+ &#39;maze_data_3.csv&#39;,
+ &#39;birthday_months.csv&#39;,
+ &#39;session_3.csv&#39;,
+ &#39;session_2.csv&#39;,
+ &#39;maze_data_2.csv&#39;,
+ &#39;lesson5.md&#39;,
+ &#39;learning_objectives.md&#39;,
+ &#39;images&#39;,
+ &#39;lesson5_ch1.ipynb&#39;,
+ &#39;visuzalization.md&#39;,
+ &#39;vis_extras.md&#39;,
+ &#39;rt_data.csv&#39;,
+ &#39;introduction.md&#39;,
+ &#39;sample_data.xlsx&#39;,
+ &#39;getting_help.md&#39;,
+ &#39;lesson2.ipynb&#39;,
+ &#39;s2.csv&#39;,
+ &#39;s3.csv&#39;,
+ &#39;s1.csv&#39;,
+ &#39;eye_colour.csv&#39;,
+ &#39;study1.csv&#39;,
+ &#39;rt_data_code.txt&#39;,
+ &#39;lesson1.ipynb&#39;,
+ &#39;study2.csv&#39;,
+ &#39;data&#39;,
+ &#39;lesson1_orig.md&#39;,
+ &#39;fav_colour.csv&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>…we get a list of all the files in the current directory, because every file name contains some number of characters.</p>
+<p>This gets useful when we combine the wildcard with a <em>substring</em> - a set of characters that appears in one or more files. For example, if we want to list all files that end with the <code class="docutils literal notranslate"><span class="pre">.csv</span></code> extension, we use:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;session_1.csv&#39;,
+ &#39;maze_data_1.csv&#39;,
+ &#39;maze_data_3.csv&#39;,
+ &#39;birthday_months.csv&#39;,
+ &#39;session_3.csv&#39;,
+ &#39;session_2.csv&#39;,
+ &#39;maze_data_2.csv&#39;,
+ &#39;rt_data.csv&#39;,
+ &#39;s2.csv&#39;,
+ &#39;s3.csv&#39;,
+ &#39;s1.csv&#39;,
+ &#39;eye_colour.csv&#39;,
+ &#39;study1.csv&#39;,
+ &#39;study2.csv&#39;,
+ &#39;fav_colour.csv&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can get fancier, too. For example, if we have a number of CSV files whose names all start with <code class="docutils literal notranslate"><span class="pre">study</span></code>, followed by a number, we can use:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;study*.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;study1.csv&#39;, &#39;study2.csv&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, you have to be careful and check that you are being specific enough. For example, above we hard-coded the names of three files:
+<code class="docutils literal notranslate"><span class="pre">filenames</span> <span class="pre">=</span> <span class="pre">['s1.csv',</span> <span class="pre">'s2.csv',</span> <span class="pre">'s3.csv']</span></code></p>
+<p>We could try using <code class="docutils literal notranslate"><span class="pre">glob()</span></code> to get the same result:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;s*.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;session_1.csv&#39;, &#39;session_3.csv&#39;, &#39;session_2.csv&#39;, &#39;s2.csv&#39;, &#39;s3.csv&#39;, &#39;s1.csv&#39;, &#39;study1.csv&#39;, &#39;study2.csv&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>…but you can see we get several other files whose names also start with <code class="docutils literal notranslate"><span class="pre">s</span></code> but have more than just a number after them. Fortunately, there’s another, more restricted wildcard that matches any <em>single</em> character rather than any number of characters: <code class="docutils literal notranslate"><span class="pre">?</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;s?.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;s2.csv&#39;, &#39;s3.csv&#39;, &#39;s1.csv&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you want to match a specific number of characters, but you don’t care what those characters are, you can use that many <code class="docutils literal notranslate"><span class="pre">?</span></code>s:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;??.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;s2.csv&#39;, &#39;s3.csv&#39;, &#39;s1.csv&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also use <code class="docutils literal notranslate"><span class="pre">glob()</span></code> to find files inside folders. For example, imagine we have a folder of data from an experimetn, which is named <code class="docutils literal notranslate"><span class="pre">data</span></code>. Inside <code class="docutils literal notranslate"><span class="pre">data</span></code>, there is a folder containing the data for one participant (named according to the participant’s ID code), and each folder has a CSV file named after the participant. The naming convention for the subjects is <code class="docutils literal notranslate"><span class="pre">subj_??</span></code> where the <code class="docutils literal notranslate"><span class="pre">??</span></code> represents a two-digit ID code, starting with 01 and increasing. We can generate a list of all the data files using:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/subj_??/subj_??.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;data/subj_01/subj_01.csv&#39;, &#39;data/subj_03/subj_03.csv&#39;, &#39;data/subj_02/subj_02.csv&#39;, &#39;data/subj_05/subj_05.csv&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note here that we use <code class="docutils literal notranslate"><span class="pre">/</span></code> to represent a subfolder.</p>
+<p>Also note that <code class="docutils literal notranslate"><span class="pre">glob()</span></code> can save us a lot of trouble, because:</p>
+<ol class="simple">
+<li><p>It scales/adapts to any number of files</p></li>
+<li><p>It makes no assumptions about the filenames, beyond what you tell it. For example, above you’ll see there is no <code class="docutils literal notranslate"><span class="pre">subj_04</span></code>, but <code class="docutils literal notranslate"><span class="pre">glob()</span></code> doesn’t care - it only tells you what <em>is</em> there.</p></li>
+</ol>
+<p>Conversely, hard-coding file names becomes more tedious and error-prone the more there are, and you have to carefully double-check that you don’t specify the names of files you don’t actually have.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -565,8 +768,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="lesson2.html" title="previous page">Lesson 2: Intermediate Python</a>
-    <a class='right-next' id="next-link" href="lesson5_ch1a.html" title="next page">Chapter 1: Preparing Data</a>
+    <a class='left-prev' id="prev-link" href="lesson5_ch1c.html" title="previous page">Reading multiple files using list comprehension</a>
+    <a class='right-next' id="next-link" href="lesson5_ch1e.html" title="next page">Combining DataFrames</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

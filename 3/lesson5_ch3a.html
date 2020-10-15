@@ -33,22 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch3a.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chapter 1: Preparing Data" href="lesson5_ch1a.html" />
-    <link rel="prev" title="Lesson 2: Intermediate Python" href="lesson2.html" />
+    <link rel="next" title="Merging ‘on’" href="lesson5_ch3b.html" />
+    <link rel="prev" title="Outer and Inner Joins" href="lesson5_ch2j.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch3a.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
-<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants " />
+<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  View this lesson on datacamp  Chapter 3: Merging Data  import pandas as pd  pd.merge()  pd.merge(df1, df2) is another " />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -203,10 +203,10 @@
   </a>
  </li>
  <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="lesson5.html">
    Lesson 5: Merging DataFrames with pandas
   </a>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch1a.html">
      Chapter 1: Preparing Data
@@ -332,8 +332,8 @@
      Example Data
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="lesson5_ch3a.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Lesson 5: Merging DataFrames with pandas
     </a>
    </li>
@@ -494,9 +494,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/3/lesson5.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/3/lesson5_ch3a.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -513,6 +513,28 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/3/lesson5_ch3a.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/3/lesson5_ch3a.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
@@ -521,7 +543,21 @@
             <i class="fas fa-list"></i> Contents
         </div>
         <nav id="bd-toc-nav">
-            
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-3-merging-data">
+   Chapter 3: Merging Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pd-merge">
+     pd.merge()
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
         </nav>
     </div>
 </div>
@@ -532,8 +568,482 @@
                 
   <div class="section" id="lesson-5-merging-dataframes-with-pandas">
 <h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
-<p>Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants (animals, humans, cells, etc.) that you want to analyze at the group level, so you’ll need to read all the data files in and work with them as one large DataFrame. In this chapter we learn how to do this.</p>
-<div class="toctree-wrapper compound">
+<p><a class="reference external" href="https://learn.datacamp.com/courses/merging-dataframes-with-pandas">View this lesson on datacamp</a></p>
+<div class="section" id="chapter-3-merging-data">
+<h2>Chapter 3: Merging Data<a class="headerlink" href="#chapter-3-merging-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pd-merge">
+<h3>pd.merge()<a class="headerlink" href="#pd-merge" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pd.merge(df1,</span> <span class="pre">df2)</span></code> is another function that allows you to combine two (or more) DataFrames.</p>
+<p>Recall from the last chapter how we combined favourite colour and birth month data from ten people:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;fav_colour.csv&#39;</span><span class="p">)</span>
+<span class="n">birthday_month</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;birthday_months.csv&#39;</span><span class="p">)</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">birthday_month</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Participant num</th>
+      <th>Fav Colour</th>
+      <th>Participant num</th>
+      <th>Birthday Month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>blue</td>
+      <td>1</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>red</td>
+      <td>2</td>
+      <td>june</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>green</td>
+      <td>3</td>
+      <td>january</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>purple</td>
+      <td>4</td>
+      <td>february</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>red</td>
+      <td>5</td>
+      <td>september</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>green</td>
+      <td>6</td>
+      <td>july</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>orange</td>
+      <td>7</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>yellow</td>
+      <td>8</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>yellow</td>
+      <td>9</td>
+      <td>august</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>pink</td>
+      <td>10</td>
+      <td>december</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Doing this with <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> is a bit simpler, and has the advantage that it automatically recognizes the fact that both data files have a column called <code class="docutils literal notranslate"><span class="pre">participant_num()</span></code>, and merges these into a single column:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">birthday_month</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Participant num</th>
+      <th>Fav Colour</th>
+      <th>Birthday Month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>blue</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>red</td>
+      <td>june</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>green</td>
+      <td>january</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>purple</td>
+      <td>february</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>red</td>
+      <td>september</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>green</td>
+      <td>july</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>orange</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>yellow</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>yellow</td>
+      <td>august</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>pink</td>
+      <td>december</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>This works smoothly when we have a common column in both DataFrames, with the same values in that column (in this case, <code class="docutils literal notranslate"><span class="pre">Participant</span> <span class="pre">num</span></code> with values 1–10). But what happens when we have non-overlapping data? Here we load eye colour data, which we have for only some of the people that we have favourite colours and birth months for, as well as for some new people:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eye_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;eye_colour.csv&#39;</span><span class="p">)</span>
+<span class="n">eye_colour</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Participant num</th>
+      <th>eye_colour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>hazel</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>green</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>11</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>12</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>13</td>
+      <td>blue</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>When we merge <code class="docutils literal notranslate"><span class="pre">eye_colour</span></code> with one of the other DataFrames, we only get the data that overlaps between the two (based on shared <code class="docutils literal notranslate"><span class="pre">Participant</span> <span class="pre">num</span></code>s):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">eye_colour</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Participant num</th>
+      <th>Fav Colour</th>
+      <th>eye_colour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>blue</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>red</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>green</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>purple</td>
+      <td>hazel</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>red</td>
+      <td>green</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>In other words, <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> uses an <strong>inner join</strong> by default. We can override this using the <code class="docutils literal notranslate"><span class="pre">how=</span></code> argument though:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">eye_colour</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Participant num</th>
+      <th>Fav Colour</th>
+      <th>eye_colour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>blue</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>red</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>green</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>purple</td>
+      <td>hazel</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>red</td>
+      <td>green</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>green</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>orange</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>yellow</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>yellow</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>pink</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>11</td>
+      <td>NaN</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>12</td>
+      <td>NaN</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>13</td>
+      <td>NaN</td>
+      <td>blue</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -565,8 +1075,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="lesson2.html" title="previous page">Lesson 2: Intermediate Python</a>
-    <a class='right-next' id="next-link" href="lesson5_ch1a.html" title="next page">Chapter 1: Preparing Data</a>
+    <a class='left-prev' id="prev-link" href="lesson5_ch2j.html" title="previous page">Outer and Inner Joins</a>
+    <a class='right-next' id="next-link" href="lesson5_ch3b.html" title="next page">Merging ‘on’</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

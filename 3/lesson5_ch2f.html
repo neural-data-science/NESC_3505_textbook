@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <title>Concatenating columns rather than rows &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,22 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch2f.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chapter 1: Preparing Data" href="lesson5_ch1a.html" />
-    <link rel="prev" title="Lesson 2: Intermediate Python" href="lesson2.html" />
+    <link rel="next" title="MultiIndexes" href="lesson5_ch2g.html" />
+    <link rel="prev" title="Reading multiple files to build a DataFrame" href="lesson5_ch2e.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch2f.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
-<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants " />
+<meta property="og:title"       content="Concatenating columns rather than rows" />
+<meta property="og:description" content="Concatenating columns rather than rows  As noted earlier, pd.concat() is more powerful in how it combine inputs.  Consider this example, where we have different" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -203,10 +203,10 @@
   </a>
  </li>
  <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="lesson5.html">
    Lesson 5: Merging DataFrames with pandas
   </a>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch1a.html">
      Chapter 1: Preparing Data
@@ -297,8 +297,8 @@
      Reading multiple files to build a DataFrame
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="lesson5_ch2f.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Concatenating columns rather than rows
     </a>
    </li>
@@ -494,9 +494,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/3/lesson5.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/3/lesson5_ch2f.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -512,6 +512,28 @@
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/3/lesson5_ch2f.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/3/lesson5_ch2f.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
 
     </div>
 
@@ -530,11 +552,375 @@
         
               <div>
                 
-  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
-<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
-<p>Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants (animals, humans, cells, etc.) that you want to analyze at the group level, so you’ll need to read all the data files in and work with them as one large DataFrame. In this chapter we learn how to do this.</p>
-<div class="toctree-wrapper compound">
+  <div class="section" id="concatenating-columns-rather-than-rows">
+<h1>Concatenating columns rather than rows<a class="headerlink" href="#concatenating-columns-rather-than-rows" title="Permalink to this headline">¶</a></h1>
+<p>As noted earlier, <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> is more powerful in how it combine inputs.</p>
+<p>Consider this example, where we have different data about the same participants, in different files. One file contains participants’ birthday month, and the other their age. What we want is to end up with a DataFrame with one row per participant, with columns for participant number, <code class="docutils literal notranslate"><span class="pre">Fav</span> <span class="pre">Color</span></code> and <code class="docutils literal notranslate"><span class="pre">Brithday</span> <span class="pre">Month</span></code>. However, when we read in the two input files and concatenate them, we get a column for colour and a column for month, with lots of NaN values in each because each input file had different column names, but we’ve stacked the rows of the inputs:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;fav_colour.csv&#39;</span><span class="p">)</span>
+<span class="n">birthday_month</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;birthday_months.csv&#39;</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">birthday_month</span><span class="p">])</span>
+
+<span class="n">df</span>
+</pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Participant num</th>
+      <th>Fav Colour</th>
+      <th>Birthday Month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>blue</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>red</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>green</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>purple</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>red</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>green</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>orange</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>yellow</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>yellow</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>pink</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>NaN</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>NaN</td>
+      <td>june</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>NaN</td>
+      <td>january</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>NaN</td>
+      <td>february</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>NaN</td>
+      <td>september</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>NaN</td>
+      <td>july</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>NaN</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>NaN</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>NaN</td>
+      <td>august</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>NaN</td>
+      <td>december</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>You can see above that there’s also a <code class="docutils literal notranslate"><span class="pre">Participant</span> <span class="pre">num</span></code> column, which indicates how we can match colours to months. What we actually want is to combine the two inputs “horizontally”, such that we have 10 rows (one for each participant), with the colour and month corresponding to each participant in the same row.</p>
+<p>The default when concatenating dataframes is to do so vertically, as we saw above. However, <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> allows us to concatenate horizontally as well. To do this, you must specify either <code class="docutils literal notranslate"><span class="pre">axis=1</span></code>, or <code class="docutils literal notranslate"><span class="pre">axis=columns</span></code>. Note in the example below, the rows with identical indices get combined when concatenated.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">birthday_month</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Participant num</th>
+      <th>Fav Colour</th>
+      <th>Participant num</th>
+      <th>Birthday Month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>blue</td>
+      <td>1</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>red</td>
+      <td>2</td>
+      <td>june</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>green</td>
+      <td>3</td>
+      <td>january</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>purple</td>
+      <td>4</td>
+      <td>february</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>red</td>
+      <td>5</td>
+      <td>september</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>green</td>
+      <td>6</td>
+      <td>july</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>orange</td>
+      <td>7</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>yellow</td>
+      <td>8</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>yellow</td>
+      <td>9</td>
+      <td>august</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>pink</td>
+      <td>10</td>
+      <td>december</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We’re still not quite where we want to be, as we have two redundant <code class="docutils literal notranslate"><span class="pre">Participant</span> <span class="pre">num</span></code> columns. When concatenating, pandas plays it safe, and doesn’t assume that two columns with the same name are redundant. One way to fix this is, when we load the data in the beginning, we make the index of each input DataFrame the <code class="docutils literal notranslate"><span class="pre">participant</span> <span class="pre">num</span></code> column. Since indexes are essentially row labels, making participant_num the index tells pandas that indeed, these two columns with the same name are actually the same thing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;fav_colour.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;Participant num&#39;</span><span class="p">)</span>
+<span class="n">birthday_month</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;birthday_months.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;Participant num&#39;</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">fav_colour</span><span class="p">,</span> <span class="n">birthday_month</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fav Colour</th>
+      <th>Birthday Month</th>
+    </tr>
+    <tr>
+      <th>Participant num</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>blue</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>red</td>
+      <td>june</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>green</td>
+      <td>january</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>purple</td>
+      <td>february</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>red</td>
+      <td>september</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>green</td>
+      <td>july</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>orange</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>yellow</td>
+      <td>may</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>yellow</td>
+      <td>august</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>pink</td>
+      <td>december</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Alternatively, we could make one of the <code class="docutils literal notranslate"><span class="pre">Participant</span> <span class="pre">num</span></code> columns the index after concatenation, but specifying the index when we read in the data is a safer way of doing things. This is because, it could happen that your data aren’t in the same order in both data files (e.g., one data file might not be sorted by <code class="docutils literal notranslate"><span class="pre">Participant</span> <span class="pre">num</span></code>), or one file might have missing data. By making <code class="docutils literal notranslate"><span class="pre">Participant</span> <span class="pre">num</span></code> the index for each file before we concatenate them, we ensure that pandas matches the rows from each input based on its index.</p>
+<p>Importantly, this is a case where we would <em>not</em> want to include the <code class="docutils literal notranslate"><span class="pre">ignore_index=True</span></code> argument to <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>, because the index is important and meaningful.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -565,8 +951,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="lesson2.html" title="previous page">Lesson 2: Intermediate Python</a>
-    <a class='right-next' id="next-link" href="lesson5_ch1a.html" title="next page">Chapter 1: Preparing Data</a>
+    <a class='left-prev' id="prev-link" href="lesson5_ch2e.html" title="previous page">Reading multiple files to build a DataFrame</a>
+    <a class='right-next' id="next-link" href="lesson5_ch2g.html" title="next page">MultiIndexes</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

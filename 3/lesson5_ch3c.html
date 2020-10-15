@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <title>Joining DataFrames &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,22 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch3c.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chapter 1: Preparing Data" href="lesson5_ch1a.html" />
-    <link rel="prev" title="Lesson 2: Intermediate Python" href="lesson2.html" />
+    <link rel="next" title="Which function or method to use?" href="lesson5_ch3d.html" />
+    <link rel="prev" title="Merging ‘on’" href="lesson5_ch3b.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch3c.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
-<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants " />
+<meta property="og:title"       content="Joining DataFrames" />
+<meta property="og:description" content="Joining DataFrames  Yet another way of combining pandas DataFrames is with the .join() method. While pd.merge() is a function (you can tell because the command " />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -203,10 +203,10 @@
   </a>
  </li>
  <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="lesson5.html">
    Lesson 5: Merging DataFrames with pandas
   </a>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch1a.html">
      Chapter 1: Preparing Data
@@ -342,8 +342,8 @@
      Merging ‘on’
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="lesson5_ch3c.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Joining DataFrames
     </a>
    </li>
@@ -494,9 +494,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/3/lesson5.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/3/lesson5_ch3c.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -513,6 +513,28 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/3/lesson5_ch3c.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/3/lesson5_ch3c.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
@@ -521,7 +543,14 @@
             <i class="fas fa-list"></i> Contents
         </div>
         <nav id="bd-toc-nav">
-            
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#left-and-right-joins">
+   Left and Right joins
+  </a>
+ </li>
+</ul>
+
         </nav>
     </div>
 </div>
@@ -530,10 +559,74 @@
         
               <div>
                 
-  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
-<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
-<p>Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants (animals, humans, cells, etc.) that you want to analyze at the group level, so you’ll need to read all the data files in and work with them as one large DataFrame. In this chapter we learn how to do this.</p>
-<div class="toctree-wrapper compound">
+  <div class="section" id="joining-dataframes">
+<h1>Joining DataFrames<a class="headerlink" href="#joining-dataframes" title="Permalink to this headline">¶</a></h1>
+<p>Yet another way of combining pandas DataFrames is with the <code class="docutils literal notranslate"><span class="pre">.join()</span></code> method. While <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> is a function (you can tell because the command name, <code class="docutils literal notranslate"><span class="pre">.merge</span></code>, is preceded by <code class="docutils literal notranslate"><span class="pre">pd</span></code> rather than a DataFrame, and all the input data is inside the parentheses), <code class="docutils literal notranslate"><span class="pre">.join()</span></code> is a method and so must be appended to the name of an existing DataFrame, with the DataFrame you want to join to it specified in the parentheses:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_12</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sess_3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">.join()</span></code> is less picky than <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code>: it ran fine even though there are no exactly-matching column labels shared by the inputs. Indeed, we can join DataFrames that have totally different columns and even lengths:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sess_12</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fav_colour</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In other words, <code class="docutils literal notranslate"><span class="pre">.join()</span></code> simply adds columns of the ‘right’ DataFrme (the one in parentheses) to the columns of the ‘left’ DataFrame (preceding the dot), lining up the rows and adding extra rows of <code class="docutils literal notranslate"><span class="pre">NaN</span></code>s if the inputs are not the same length.</p>
+<p>This is more flexible, but potentially more messy or dangerous. We want to be certain that the order of inputs in the two DataFrames we’re merging is exactly the same to avoid mis-aligning the data. Interestingly, if pandas does note identical column labels in the two DataFrames, it will throw an error because it doesn’t know if you want to use those to match rows between the inputs:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;fav_colour.csv&#39;</span><span class="p">)</span>
+<span class="n">eye_colour</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;eye_colour.csv&#39;</span><span class="p">)</span>
+
+<span class="n">fav_colour</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eye_colour</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Indexing</strong> can help <code class="docutils literal notranslate"><span class="pre">.join()</span></code> operate more safely and reliably. If we specify the shared columns as indexes of each DataFrame, pandas will match the inputs based on the indexes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span> <span class="o">=</span> <span class="n">fav_colour</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Participant num&#39;</span><span class="p">)</span>
+<span class="n">eye_colour</span> <span class="o">=</span> <span class="n">eye_colour</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Participant num&#39;</span><span class="p">)</span>
+
+<span class="n">fav_colour</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eye_colour</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>By default <code class="docutils literal notranslate"><span class="pre">.join()</span></code> uses an outer join, but again we can use an argument to change that behaviour. However, for <code class="docutils literal notranslate"><span class="pre">.join()</span></code> the argument is <code class="docutils literal notranslate"><span class="pre">how=</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eye_colour</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="left-and-right-joins">
+<h2>Left and Right joins<a class="headerlink" href="#left-and-right-joins" title="Permalink to this headline">¶</a></h2>
+<p>In addition to <code class="docutils literal notranslate"><span class="pre">outer</span></code> (union; i.e., all inputs) and <code class="docutils literal notranslate"><span class="pre">inner</span></code> (intersection; i.e., only shared input) joins, we can use <code class="docutils literal notranslate"><span class="pre">left</span></code> and <code class="docutils literal notranslate"><span class="pre">right</span></code> arguments to specify including only the indices in one input that match those in the other input.</p>
+<p>So if we use <code class="docutils literal notranslate"><span class="pre">how=left</span></code>, pandas will include all indices present int he left input, filling any non-matches in the right input with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eye_colour</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Conversely, with <code class="docutils literal notranslate"><span class="pre">how=right</span></code> we get all indices present in the right input, again filling anything missing from the left with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fav_colour</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eye_colour</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -565,8 +658,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="lesson2.html" title="previous page">Lesson 2: Intermediate Python</a>
-    <a class='right-next' id="next-link" href="lesson5_ch1a.html" title="next page">Chapter 1: Preparing Data</a>
+    <a class='left-prev' id="prev-link" href="lesson5_ch3b.html" title="previous page">Merging ‘on’</a>
+    <a class='right-next' id="next-link" href="lesson5_ch3d.html" title="next page">Which function or method to use?</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

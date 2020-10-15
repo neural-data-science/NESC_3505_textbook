@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <title>Which function or method to use? &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,22 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch3d.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chapter 1: Preparing Data" href="lesson5_ch1a.html" />
-    <link rel="prev" title="Lesson 2: Intermediate Python" href="lesson2.html" />
+    <link rel="next" title="Introduction" href="../single_unit/introduction.html" />
+    <link rel="prev" title="Joining DataFrames" href="lesson5_ch3c.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch3d.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
-<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants " />
+<meta property="og:title"       content="Which function or method to use?" />
+<meta property="og:description" content="Which function or method to use?  How many input DataFrames?  2 inputs  methods: .append(); .join()  function: pd.merge()  &gt;2 inputs:  function: pd.concat()- be" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -203,10 +203,10 @@
   </a>
  </li>
  <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="lesson5.html">
    Lesson 5: Merging DataFrames with pandas
   </a>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch1a.html">
      Chapter 1: Preparing Data
@@ -347,8 +347,8 @@
      Joining DataFrames
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="lesson5_ch3d.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Which function or method to use?
     </a>
    </li>
@@ -494,9 +494,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/3/lesson5.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/3/lesson5_ch3d.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -513,6 +513,28 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/3/lesson5_ch3d.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/3/lesson5_ch3d.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
@@ -521,7 +543,24 @@
             <i class="fas fa-list"></i> Contents
         </div>
         <nav id="bd-toc-nav">
-            
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-many-input-dataframes">
+   How many input DataFrames?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#for-stacking-vertically">
+   For stacking vertically
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#for-stacking-horizontally">
+   For stacking horizontally
+  </a>
+ </li>
+</ul>
+
         </nav>
     </div>
 </div>
@@ -530,10 +569,48 @@
         
               <div>
                 
-  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
-<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
-<p>Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants (animals, humans, cells, etc.) that you want to analyze at the group level, so you’ll need to read all the data files in and work with them as one large DataFrame. In this chapter we learn how to do this.</p>
-<div class="toctree-wrapper compound">
+  <div class="section" id="which-function-or-method-to-use">
+<h1>Which function or method to use?<a class="headerlink" href="#which-function-or-method-to-use" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="how-many-input-dataframes">
+<h2>How many input DataFrames?<a class="headerlink" href="#how-many-input-dataframes" title="Permalink to this headline">¶</a></h2>
+<p><strong>2 inputs</strong></p>
+<ul class="simple">
+<li><p>methods: <code class="docutils literal notranslate"><span class="pre">.append()</span></code>; <code class="docutils literal notranslate"><span class="pre">.join()</span></code></p></li>
+<li><p>function: <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code></p></li>
+</ul>
+<p><strong>&gt;2 inputs:</strong></p>
+<ul class="simple">
+<li><p>function: <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>- because this takes lists as input</p></li>
+</ul>
+</div>
+<div class="section" id="for-stacking-vertically">
+<h2>For stacking vertically<a class="headerlink" href="#for-stacking-vertically" title="Permalink to this headline">¶</a></h2>
+<p>(rows on top of rows)</p>
+<p><code class="docutils literal notranslate"><span class="pre">.append()</span></code></p>
+<ul class="simple">
+<li><p>for 2 inputs</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">.concat()</span></code></p>
+<ul class="simple">
+<li><p>for &gt;2 inputs</p></li>
+<li><p>allows simple inner and outer joins based on indexes</p></li>
+</ul>
+</div>
+<div class="section" id="for-stacking-horizontally">
+<h2>For stacking horizontally<a class="headerlink" href="#for-stacking-horizontally" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">.concat()</span></code></p>
+<ul class="simple">
+<li><p>for &gt;2 inputs</p></li>
+<li><p>allows simple inner and outer joins based on indexes</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">.join()</span></code></p>
+<ul class="simple">
+<li><p>allows left and right, as well as inner and outer, joins</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code></p>
+<ul class="simple">
+<li><p>allows joins on multiple, possibly non-matching, columns</p></li>
+</ul>
 </div>
 </div>
 
@@ -565,8 +642,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="lesson2.html" title="previous page">Lesson 2: Intermediate Python</a>
-    <a class='right-next' id="next-link" href="lesson5_ch1a.html" title="next page">Chapter 1: Preparing Data</a>
+    <a class='left-prev' id="prev-link" href="lesson5_ch3c.html" title="previous page">Joining DataFrames</a>
+    <a class='right-next' id="next-link" href="../single_unit/introduction.html" title="next page">Introduction</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

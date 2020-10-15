@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <title>Concatenation &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,22 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch2c.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chapter 1: Preparing Data" href="lesson5_ch1a.html" />
-    <link rel="prev" title="Lesson 2: Intermediate Python" href="lesson2.html" />
+    <link rel="next" title=".append() and pd.concat()" href="lesson5_ch2d.html" />
+    <link rel="prev" title="Appending Series with nonunique indices" href="lesson5_ch2b.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch2c.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
-<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants " />
+<meta property="og:title"       content="Concatenation" />
+<meta property="og:description" content="Concatenation  Another way to combine pandas objects (Series or DataFrames) is concatenation. The pd.concat() function is a more powerful and flexible tool than" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -203,10 +203,10 @@
   </a>
  </li>
  <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="lesson5.html">
    Lesson 5: Merging DataFrames with pandas
   </a>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch1a.html">
      Chapter 1: Preparing Data
@@ -272,8 +272,8 @@
      Appending Series with nonunique indices
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="lesson5_ch2c.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Concatenation
     </a>
    </li>
@@ -494,9 +494,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/3/lesson5.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/3/lesson5_ch2c.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -512,6 +512,28 @@
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/3/lesson5_ch2c.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/3/lesson5_ch2c.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
 
     </div>
 
@@ -530,10 +552,55 @@
         
               <div>
                 
-  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
-<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
-<p>Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants (animals, humans, cells, etc.) that you want to analyze at the group level, so you’ll need to read all the data files in and work with them as one large DataFrame. In this chapter we learn how to do this.</p>
-<div class="toctree-wrapper compound">
+  <div class="section" id="concatenation">
+<h1>Concatenation<a class="headerlink" href="#concatenation" title="Permalink to this headline">¶</a></h1>
+<p>Another way to combine pandas objects (Series or DataFrames) is concatenation. The <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> function is a more powerful and flexible tool than the <code class="docutils literal notranslate"><span class="pre">.append()</span></code> method. Whereas appending always adds rows to the bottom of a DataFrame, concatenation can do this, <em>or</em> add columns to a DataFrame.</p>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html?highlight=concat#pandas.concat">API for <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code></a></p>
+<p>There’s also a nice, detailed explanation of appending, concatenating, merging, and joining DataFrames <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html">here</a></p>
+<p>Here’s how we would use <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> to do the same thing we did above, with <code class="docutils literal notranslate"><span class="pre">.append()</span></code>. There are two major difference to pay attention to. Firstly, <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> is a <em>function</em>, whereas <code class="docutils literal notranslate"><span class="pre">.append()</span></code> is a <em>method</em>. Recall that methods are applied by dot-adding them to the variable name you want to modify (e.g., <code class="docutils literal notranslate"><span class="pre">pink.append(blue)</span></code>). With a function, we have to specify <code class="docutils literal notranslate"><span class="pre">pd</span></code> before the dot and the function name after, and give it all the input data as the first argument inside the parentheses. It’s also important to pay attention to how we specify the input data: since the functions arguments are separated by commas, you can’t just list the input data like this:
+<code class="docutils literal notranslate"><span class="pre">pd.concat(pink,</span> <span class="pre">blue)</span></code>, because <code class="docutils literal notranslate"><span class="pre">'pink</span></code> will be interpreted as the input data, and <code class="docutils literal notranslate"><span class="pre">blue</span></code> as a second argument. We need to put the input data inside a list, like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pb</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pink</span><span class="p">,</span> <span class="n">blue</span><span class="p">])</span>
+<span class="n">pb</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0          rose
+1       fuchsia
+2          ruby
+3       magenta
+0     turquoise
+1      sky blue
+2          navy
+3    ocean blue
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>As with <code class="docutils literal notranslate"><span class="pre">.append()</span></code>, the original index values are preserved, which we might not want. While with <code class="docutils literal notranslate"><span class="pre">.append()</span></code> we had to run a separate method to reset the index, with <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> we can do this at the same time as the concatenation, using the <code class="docutils literal notranslate"><span class="pre">ignore_index</span></code> argument:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pb</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pink</span><span class="p">,</span> <span class="n">blue</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pb</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0          rose
+1       fuchsia
+2          ruby
+3       magenta
+4     turquoise
+5      sky blue
+6          navy
+7    ocean blue
+dtype: object
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -565,8 +632,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="lesson2.html" title="previous page">Lesson 2: Intermediate Python</a>
-    <a class='right-next' id="next-link" href="lesson5_ch1a.html" title="next page">Chapter 1: Preparing Data</a>
+    <a class='left-prev' id="prev-link" href="lesson5_ch2b.html" title="previous page">Appending Series with nonunique indices</a>
+    <a class='right-next' id="next-link" href="lesson5_ch2d.html" title="next page"><code class="docutils literal notranslate"><span class="pre">.append()</span></code> and <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code></a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

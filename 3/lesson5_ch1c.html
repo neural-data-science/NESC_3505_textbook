@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson 5: Merging DataFrames with pandas &#8212; Neural Data Science</title>
+    <title>Reading multiple files using list comprehension &#8212; Neural Data Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,22 +33,22 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch1c.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chapter 1: Preparing Data" href="lesson5_ch1a.html" />
-    <link rel="prev" title="Lesson 2: Intermediate Python" href="lesson2.html" />
+    <link rel="next" title="glob()ing: Selecting multiple filenames without hard-coding their names" href="lesson5_ch1d.html" />
+    <link rel="prev" title="Read in multiple files:" href="lesson5_ch1b.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5.html" />
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/3/lesson5_ch1c.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Lesson 5: Merging DataFrames with pandas" />
-<meta property="og:description" content="Lesson 5: Merging DataFrames with pandas  Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants " />
+<meta property="og:title"       content="Reading multiple files using list comprehension" />
+<meta property="og:description" content="Reading multiple files using list comprehension  While the for loop above works fine, there is an alternative way to do this, using list comprehension. List com" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -203,10 +203,10 @@
   </a>
  </li>
  <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="lesson5.html">
    Lesson 5: Merging DataFrames with pandas
   </a>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="lesson5_ch1a.html">
      Chapter 1: Preparing Data
@@ -217,8 +217,8 @@
      Read in multiple files:
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="lesson5_ch1c.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Reading multiple files using list comprehension
     </a>
    </li>
@@ -494,9 +494,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/3/lesson5.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/3/lesson5_ch1c.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -512,6 +512,28 @@
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/3/lesson5_ch1c.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/3/lesson5_ch1c.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
 
     </div>
 
@@ -530,10 +552,58 @@
         
               <div>
                 
-  <div class="section" id="lesson-5-merging-dataframes-with-pandas">
-<h1>Lesson 5: Merging DataFrames with pandas<a class="headerlink" href="#lesson-5-merging-dataframes-with-pandas" title="Permalink to this headline">¶</a></h1>
-<p>Merging DataFrames is a common need in neural data science. Often you’ll have data files from individual participants (animals, humans, cells, etc.) that you want to analyze at the group level, so you’ll need to read all the data files in and work with them as one large DataFrame. In this chapter we learn how to do this.</p>
-<div class="toctree-wrapper compound">
+  <div class="section" id="reading-multiple-files-using-list-comprehension">
+<h1>Reading multiple files using list comprehension<a class="headerlink" href="#reading-multiple-files-using-list-comprehension" title="Permalink to this headline">¶</a></h1>
+<p>While the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop above works fine, there is an alternative way to do this, using <a class="reference external" href="https://www.datacamp.com/community/tutorials/python-list-comprehension"><strong>list comprehension</strong></a>. List comprehensions are basically just a compact version of a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, but they have some advantages:</p>
+<ul class="simple">
+<li><p>they are more pythonic: they only require one line of code, whereas the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop above required two</p></li>
+<li><p>they are more efficient: list comprehensions actually run faster. This may not be an issue in the small examples here, but can make a big different when working with real, large data sets</p></li>
+<li><p>in some cases (not covered here), it can be easier to embed a list comprehension in a larger chunk of code, than a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span>
+<span class="n">df_list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[   trial        RT
+ 0      1  0.508971
+ 1      2  0.389858
+ 2      3  0.404175
+ 3      4  0.269520
+ 4      5  0.437765
+ 5      6  0.368142
+ 6      7  0.400544
+ 7      8  0.335198
+ 8      9  0.341722
+ 9     10  0.439583,
+    trial        RT
+ 0      1  0.433094
+ 1      2  0.392526
+ 2      3  0.396831
+ 3      4  0.417988
+ 4      5  0.371810
+ 5      6  0.659228
+ 6      7  0.411051
+ 7      8  0.409580
+ 8      9  0.486828
+ 9     10  0.468912,
+    trial        RT
+ 0      1  0.322099
+ 1      2  0.396106
+ 2      3  0.384297
+ 3      4  0.364524
+ 4      5  0.454075
+ 5      6  0.494156
+ 6      7  0.492787
+ 7      8  0.506836
+ 8      9  0.340722
+ 9     10  0.704491]
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -565,8 +635,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="lesson2.html" title="previous page">Lesson 2: Intermediate Python</a>
-    <a class='right-next' id="next-link" href="lesson5_ch1a.html" title="next page">Chapter 1: Preparing Data</a>
+    <a class='left-prev' id="prev-link" href="lesson5_ch1b.html" title="previous page">Read in multiple files:</a>
+    <a class='right-next' id="next-link" href="lesson5_ch1d.html" title="next page"><code class="docutils literal notranslate"><span class="pre">glob()</span></code>ing: Selecting multiple filenames without hard-coding their names</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
