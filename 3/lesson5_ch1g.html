@@ -559,7 +559,110 @@
 <img src='images/spreadsheet_indices.png' width=150>
 <p>In pandas, indexes have some “superpowers” relative to Excel: firstly, although they are numbers by default, you can change them top whatever you want. Secondly, a DataFrame can have more than one index (multi-indexing, which we’ll cover later).</p>
 <p>The DataCamp lesson introduces the (convenient, but not universal) convention of calling the individual labels for rows <em>indices</em>, while <em>indexes</em> refers to the more general class of labeling rows. So if we’re referring to the sets of labels for two different DataFrames, we’d call them “indexes”, but if we’re referring to the row labels then the set of labels for one DataFrame can be referred to as its “indices”. On the other hand, if you find this a bit confusing it’s not the most important thing to keep straight in your head. The important thing to know is that DataFrame rows have indices, just like columns have column labels.</p>
-<p>Carrying on with our sample data from above, we could use <code class="docutils literal notranslate"><span class="pre">trial</span></code> as the index for our data, rather than having it as a column within the data. If we’ve already loaded the data, we can do this with the <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code> method:</p>
+<p>We’ll carry on with our sample data from the previous section:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">filenames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;s1.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;s2.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;s3.csv&#39;</span><span class="p">]</span>
+<span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;RT&#39;</span><span class="p">:</span><span class="s1">&#39;s1&#39;</span><span class="p">})</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;s2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_list</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>trial</th>
+      <th>s1</th>
+      <th>s2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0.508971</td>
+      <td>0.433094</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>0.389858</td>
+      <td>0.392526</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>0.404175</td>
+      <td>0.396831</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>0.269520</td>
+      <td>0.417988</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0.437765</td>
+      <td>0.371810</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>0.368142</td>
+      <td>0.659228</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>0.400544</td>
+      <td>0.411051</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>0.335198</td>
+      <td>0.409580</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>0.341722</td>
+      <td>0.486828</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>0.439583</td>
+      <td>0.468912</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We could use <code class="docutils literal notranslate"><span class="pre">trial</span></code> as the index for our data, rather than having it as a column within the data. If we’ve already loaded the data, we can do this with the <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;trial&#39;</span><span class="p">)</span>
@@ -649,13 +752,10 @@
 </table>
 </div></div></div>
 </div>
-<p>However, if you already know there’s a column in your data that you want to use as the index, you can specify that when you first import the data, using the <code class="docutils literal notranslate"><span class="pre">index_col=</span></code> argument to <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code>:</p>
+<p>However, if you know there’s a column in your data that you want to use as the index, you can specify that when you first import the data, using the <code class="docutils literal notranslate"><span class="pre">index_col=</span></code> argument to <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code>. So :</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
-    <span class="n">df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">))</span>
-    
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span>
 <span class="n">df_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
