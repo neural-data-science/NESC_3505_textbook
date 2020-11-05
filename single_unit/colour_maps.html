@@ -1,0 +1,639 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heat Maps &#8212; Neural Data Science</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://dalpsychneuro.github.io/NESC_3505_textbook/single_unit/colour_maps.html" />
+    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Correlating Spike Trains" href="corr_spike_trains.html" />
+    <link rel="prev" title="Ten intensities — A bigger data set" href="ten_intensities.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/single_unit/colour_maps.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Heat Maps" />
+<meta property="og:description" content="Heat Maps  In a sense, heat maps are just a prettier version of the PTSH above. However, they are also a more condensed, information-rich, and efficient version" />
+<meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/NESC3505_icon.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Neural Data Science</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  About This Course
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/why.html">
+   Start with why
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_objectives.html">
+   Learning Objectives for this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../syllabus.html">
+   Syllabus
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/teaching_approach.html">
+   Teaching Approach
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open.html">
+   Open Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_approach.html">
+   How To Rock This Course
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/what_is_nds.html">
+   What is Data Science?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/tools_for_nds.html">
+   Tools for Neural Data Science
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/class_tech.html">
+   Technologies Used in this Class
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/coding.html">
+   Coding Tools
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/alltogether.html">
+   Putting It All Together
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/get_going.html">
+   Get Going!
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Introducing Python
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/getting_help.html">
+   Getting Help with Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/lesson1.html">
+   Lesson 1: Introduction to Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/lesson2.html">
+   Lesson 2: Intermediate Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/lesson5.html">
+   Lesson 5: Merging DataFrames with pandas
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Single Unit Data
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro_spike_trains.html">
+   Introduction to Spike Trains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ten_intensities.html">
+   Ten intensities — A bigger data set
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Heat Maps
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="corr_spike_trains.html">
+   Correlating Spike Trains
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/time_freq.html">
+   Time and Frequency Domains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/erps.html">
+   Event-Related Potentials (ERPs)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/components.html">
+   ERP Components
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/preprocessing.html">
+   Preprocessing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/mne-python.html">
+   MNE-Python
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  MRI Data
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../zrefs.html">
+   References
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/single_unit/colour_maps.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/single_unit/colour_maps.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/single_unit/colour_maps.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#colour-map-choices">
+   Colour Map Choices
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="heat-maps">
+<h1>Heat Maps<a class="headerlink" href="#heat-maps" title="Permalink to this headline">¶</a></h1>
+<p>In a sense, heat maps are just a prettier version of the PTSH above. However, they are also a more condensed, information-rich, and efficient version of the PSTHs, because rather than needing 10 plots to show the histograms for all levels of intensity, we can do so in a single plot. Heat maps essentially allow us to plot 3 dimensions rather than only two; we have the <em>x</em> and <em>y</em> axes, but then we can plot a third variable (dimension) using colour (or intensity of colour). Think of it the above plot rotated in a plane, so that if before, you were looking at the plot from the side, now you’re looking at it from above. More intense colours indicate a higher spike probability at that time point.</p>
+<p>First we’ll load the necessary packages, and the data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;ten_intensities.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+    <span class="n">ten_intensities</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To make it easy to plot the heat map using Matplotlib’s <code class="docutils literal notranslate"><span class="pre">ax.imshow()</span></code> function, we combine all the data from the <code class="docutils literal notranslate"><span class="pre">ten_intensities</span></code> data set into a dictionary whose keys are the intensity levels, and values are the histograms (spike probabilities):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">psth_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">num_intensities</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ten_intensities</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ten_intensities</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+    <span class="n">spike_times</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">ten_intensities</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">b</span><span class="p">]</span> 
+    
+    <span class="n">spike_count</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+    <span class="n">psth_dict</span><span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">=</span> <span class="n">spike_count</span> <span class="o">/</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+               <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+               <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> 
+               <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bilinear&#39;</span><span class="p">)</span>
+
+<span class="c1"># make pretty</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)],[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Stimulus Intensity&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Heat map of mean spiking for various intensity stimuli&#39;</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span> 
+<span class="n">cb</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Mean spikes per time bin&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/colour_maps_4_0.png" src="../_images/colour_maps_4_0.png" />
+</div>
+</div>
+<p>For better or for worse, a consequence of the heat map representation is that it takes data that were measured at discrete levels of stimulus intensity, and interpolates between those levels to provide a smoothed representation of the data. In other words, it’s filling in what the values would be in between the tested levels of stimulus intensity.</p>
+<p>Below are examples showing different colourmaps and interpolation methods. Blinear and bicubic are smoothed forms of interpolation, where nearest-neighbour looks “blocky” because it’s plotting the actual values with no interpolation, more consistent with the actual data.</p>
+<p>This is not to imply that interpolation is invalid; indeed it’s a valuable tool. But it’s important to be aware of interpolation and consider what effects it might have in some situations. On the one hand, interpolation can make predictions and also reduce noise in the data. On the other hand, if there are big gaps in your data it may note be appropriate to interpolate, because interpolation makes certain assumptions about the shape (distribution) of your data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+               <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span><span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bilinear&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+               <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;bone&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">);</span>
+<span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+               <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+               <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/colour_maps_7_0.png" src="../_images/colour_maps_7_0.png" />
+</div>
+</div>
+<div class="section" id="colour-map-choices">
+<h2>Colour Map Choices<a class="headerlink" href="#colour-map-choices" title="Permalink to this headline">¶</a></h2>
+<p>One final comment about the heat maps above: your choice of colour map (<code class="docutils literal notranslate"><span class="pre">cmap</span></code>) matters. One way to choose a colour map is based on one’s individual intuitions about aesthetics. For example, I personally think the top left one (<code class="docutils literal notranslate"><span class="pre">cmap='hot'</span></code>) is the nicest. However, it’s important to consider the neuroscience of how humans interpret colour. Even though the colour spectrum is continuous (wavelengths of electromagnetic radiation ranging from approximately 400–700 nm), we see it as distinct colours (classically, red, orange, yellow, green, blue, indigo, and violet). Although we can discriminate different hues within each of those colours, we nonetheless see colours categorically. In other words, two equally-different values at different parts of the colour range may not be perceived as the same magnitude of difference. For example in the bottom left (<code class="docutils literal notranslate"><span class="pre">cmap='jet'</span></code>) the green areas seem to ‘pop’ relative to the blue, and there is a patch of orange that really stands out. Likewise in the top left (hot) map, the is a distinctive patch of bright yellow. However, when we look at the bottom right (greyscale) plot, we see that the values are actually continuous; the same areas are still the most intense, but our brains more naturally see the continuous nature of the data. This is a truer representation of the data, than a colour map that leads to the perception of distinct patches in what is actually continuous data.</p>
+<p>Another issue with some colour maps are that they are not always <strong>isoluminent</strong>, meaning that the luminence (brightness) of some colours may be greater than others, again making some differences appear larger than others.</p>
+<p>A final issue is that a non-negligible proportion of the population has some form of colourblindness. This can range from mild forms (common) to complete achromatopsia (rare). In fact, it is estimated that 8% of males (1 in 12) have some form of colourblindness; colourblindness is caused by a recessive gene on the X chromosome, so it is far less common for females to have it. So if you anticipate that, say, even 50 people view a graph you make, the odds are that 2 or more of them will have some form of colourblindness. By the way, there is a great app that simulates different forms of colourblindness on your computer, called <a class="reference external" href="https://colororacle.org">Color Oracle</a> — it’s worth checking out!</p>
+<p>In other words, choosing the wrong colour map can mislead viewers in interpreting the data, and may also result in your plots being uninterpretable by some viewers. You should pick a colour map that is <strong>perceptually uniform</strong> (e.g., nearby values have similar-appearing colours across the range), and robust to colourblindness. An excellent choice is one of the <a class="reference external" href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">viridis</a> family of colourmaps, which were explicitly designed to have these properties, and also be aesthetically appealing. The viridis family is used below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+               <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span><span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Viridis&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+               <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Magma&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">);</span>
+<span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+               <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;plasma&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Plasma&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+               <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Inferno&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/colour_maps_9_0.png" src="../_images/colour_maps_9_0.png" />
+</div>
+</div>
+<p>Compare these plots to the ones above that used non-viridis colourmaps (re-generated below, but with the code condensed to save space) and ask yourself how your perception and interpretation of the plots changes between them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">);</span><span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span><span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bilinear&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span> <span class="p">;</span> <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">);</span><span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;bone&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span> <span class="p">;</span><span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">);</span><span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span> <span class="p">;</span><span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">);</span><span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="mf">1.2</span><span class="p">);</span><span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/colour_maps_11_0.png" src="../_images/colour_maps_11_0.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./single_unit"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="ten_intensities.html" title="previous page">Ten intensities — A bigger data set</a>
+    <a class='right-next' id="next-link" href="corr_spike_trains.html" title="next page">Correlating Spike Trains</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Aaron J Newman<br/>
+        
+            &copy; Copyright 2020. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-171426664-2', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    
+  </body>
+</html>
