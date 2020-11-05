@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Heat Maps" href="colour_maps.html" />
-    <link rel="prev" title="Introduction to Spike Trains" href="intro_spike_trains.html" />
+    <link rel="prev" title="Introduction to Spike Train Data" href="intro_spike_trains.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -226,7 +226,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="intro_spike_trains.html">
-   Introduction to Spike Trains
+   Introduction to Spike Train Data
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -740,11 +740,12 @@
 <div class="section" id="making-it-pretty">
 <h3>Making it Pretty<a class="headerlink" href="#making-it-pretty" title="Permalink to this headline">¶</a></h3>
 <p>This shows us the data, but it’s pretty messy-looking. In particular, the plots overlap with other plots’ axis labels, and those are redundant anyway - we can just put the times on the bottom of the plot since they’re the same for all plots. We can also add more labels to help make the plot more interpretable by others.</p>
-<p>Another thing we’ll do below is convert all the histograms from showing the raw number of spikes, to the probability of spiking (percentage of trials that a spike occurred at that time), which will help standardize the y axis of the histograms (i.e., all plots will be on the same scale).</p>
+<p>Another thing we’ll do below is convert all the histograms from showing the raw number of spikes, to the probability of spiking (percentage of trials that a spike occurred at that time), which will help standardize the y axis of the histograms (i.e., all plots will be on the same scale). To help with this, note the third line of code in the cell below, which sets the number of trials. Then when we get to the <code class="docutils literal notranslate"><span class="pre">plot.bar()</span></code> command, we divide the <code class="docutils literal notranslate"><span class="pre">spike_count</span></code> by the number of trials.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
 <span class="n">num_intensities</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ten_intensities</span><span class="p">)</span>
+<span class="n">num_trials</span> <span class="o">=</span> <span class="mi">10</span>
 
 <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ten_intensities</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
 
@@ -804,7 +805,7 @@
     <span class="n">spike_count</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
     
     <span class="c1"># Compute probability for the histogram by dividing spike_count by number of trials</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">spike_count</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">spike_count</span> <span class="o">/</span> <span class="n">num_trials</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
@@ -826,7 +827,21 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ten_intensities_28_0.png" src="../_images/ten_intensities_28_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">16</span><span class="o">-</span><span class="mi">43</span><span class="n">bf2cf5129e</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">num_intensities</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ten_intensities</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">num_trials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ten_intensities</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ten_intensities</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+<span class="ne">KeyError</span>: 0
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1080x720 with 0 Axes&gt;
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -954,7 +969,7 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="intro_spike_trains.html" title="previous page">Introduction to Spike Trains</a>
+    <a class='left-prev' id="prev-link" href="intro_spike_trains.html" title="previous page">Introduction to Spike Train Data</a>
     <a class='right-next' id="next-link" href="colour_maps.html" title="next page">Heat Maps</a>
 
     </div>
