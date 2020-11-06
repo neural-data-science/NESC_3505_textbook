@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Introduction" href="../eeg/introduction.html" />
-    <link rel="prev" title="Introducing Multielectrode Data" href="intro_multielec_data.html" />
+    <link rel="prev" title="Working with Multielectrode Data in pandas" href="pandas_multielec.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -249,6 +249,16 @@
    Introducing Multielectrode Data
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="import_multielec_data.html">
+   Importing Multielectrode Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="pandas_multielec.html">
+   Working with Multielectrode Data in pandas
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Correlating spike trains
@@ -427,24 +437,24 @@
      Visualize the matrix
     </a>
    </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#remove-noisy-channels">
-   Remove noisy channels
-  </a>
-  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     Visualize the matrix
+    <a class="reference internal nav-link" href="#remove-noisy-channels">
+     Remove noisy channels
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Visualize the matrix
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#restrict-time-range">
+     Restrict time range
     </a>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#restrict-time-range">
-   Restrict time range
-  </a>
  </li>
 </ul>
 
@@ -503,9 +513,8 @@
 <li><p>smooth the PSTHs by convolving with a kernel</p></li>
 </ul>
 </div>
-</div>
 <div class="section" id="remove-noisy-channels">
-<h2>Remove noisy channels<a class="headerlink" href="#remove-noisy-channels" title="Permalink to this headline">¶</a></h2>
+<h3>Remove noisy channels<a class="headerlink" href="#remove-noisy-channels" title="Permalink to this headline">¶</a></h3>
 <p>Nylen and Wallisch provide a list of these for us, which we will use for convenience. If you cross-referenec the channels in the list below, with the plot of all 91 channels above, you’ll be able to see that these are indeed noisy looking. For example, they don’t show an initial peak after stimulus onset, nor any apparent relationship with the stimulus.</p>
 <p>In general, “eyeballing” data to remove noise is the least-desirable way to do this. It is highly subjective, meaning that it is sensitive to individual bias, and is not reproducible scientific practice. It is better to define objective criteria to categorize noise. However, for now we will take the list of noisy channels as a given for the sake of focusing on improving the correlation matrix.</p>
 <p>To do this we will go back to the original pandas DataFrame and slice that, because it’s so fast and easy.</p>
@@ -549,7 +558,7 @@
 </div>
 </div>
 <div class="section" id="id1">
-<h3>Visualize the matrix<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h4>Visualize the matrix<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
@@ -572,7 +581,7 @@
 </div>
 </div>
 <div class="section" id="restrict-time-range">
-<h2>Restrict time range<a class="headerlink" href="#restrict-time-range" title="Permalink to this headline">¶</a></h2>
+<h3>Restrict time range<a class="headerlink" href="#restrict-time-range" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_stim</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">grating_on_time</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">grating_off_time</span><span class="p">)]</span>
@@ -628,6 +637,7 @@
 </div>
 </div>
 </div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -657,7 +667,7 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="intro_multielec_data.html" title="previous page">Introducing Multielectrode Data</a>
+    <a class='left-prev' id="prev-link" href="pandas_multielec.html" title="previous page">Working with Multielectrode Data in pandas</a>
     <a class='right-next' id="next-link" href="../eeg/introduction.html" title="next page">Introduction</a>
 
     </div>

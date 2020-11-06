@@ -37,6 +37,8 @@
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Correlating spike trains" href="corr_spike_trains.html" />
+    <link rel="prev" title="Importing Multielectrode Data" href="import_multielec_data.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -211,7 +213,7 @@
   Single Unit Data
  </span>
 </p>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="introduction.html">
    Introduction
@@ -245,6 +247,16 @@
  <li class="toctree-l1">
   <a class="reference internal" href="intro_multielec_data.html">
    Introducing Multielectrode Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="import_multielec_data.html">
+   Importing Multielectrode Data
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Working with Multielectrode Data in pandas
   </a>
  </li>
  <li class="toctree-l1">
@@ -1175,6 +1187,9 @@ Name: time, Length: 10283, dtype: float64
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/pandas_multielec_29_0.png" src="../_images/pandas_multielec_29_0.png" />
+</div>
 </div>
 <div class="section" id="using-np-histogram">
 <h3>Using <code class="docutils literal notranslate"><span class="pre">np.histogram()</span></code><a class="headerlink" href="#using-np-histogram" title="Permalink to this headline">¶</a></h3>
@@ -1223,6 +1238,9 @@ Name: time, Length: 10283, dtype: float64
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pandas_multielec_33_0.png" src="../_images/pandas_multielec_33_0.png" />
 </div>
 </div>
 <p>Note above the differences in total spike counts (<em>y</em> axis) between sort codes. This is beacuse every channel as at least a sort code of 1 (one neuron/unit), but fewer channels were found to contain data from 2 or more units. So decreasing amounts of data contribute to the averages for sort codes 1-4.</p>
@@ -1277,6 +1295,9 @@ Name: time, Length: 10283, dtype: float64
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/pandas_multielec_40_0.png" src="../_images/pandas_multielec_40_0.png" />
+</div>
 </div>
 </div>
 <div class="section" id="overlaying-conditions">
@@ -1286,6 +1307,11 @@ Name: time, Length: 10283, dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sort_codes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1.0, 2.0, 3.0, 4.0]
 </pre></div>
 </div>
 </div>
@@ -1310,6 +1336,9 @@ Name: time, Length: 10283, dtype: float64
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pandas_multielec_43_0.png" src="../_images/pandas_multielec_43_0.png" />
 </div>
 </div>
 <p>From this we can see that <code class="docutils literal notranslate"><span class="pre">sort_code</span> <span class="pre">2.0</span></code> appears to be sensitive to orientation, as there is a difference in the probability of spiking, particularly between 1-2 s.</p>
@@ -1369,6 +1398,9 @@ Name: time, Length: 10283, dtype: float64
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/pandas_multielec_48_0.png" src="../_images/pandas_multielec_48_0.png" />
+</div>
 </div>
 <p>One thing you’ll note above is that there are some missing panels, including channels 21, 31, 34, 56, and 68. As noted above, these are the dead channels. The way the code above is written, we use the channel number as the index for the subplot position. Since there is no channel in the <code class="docutils literal notranslate"><span class="pre">channels</span></code> list for the dead channels, those subplot panels are simply left blank.</p>
 <p>Beyond that, it’s clear that different channels show very different response profiles. Some (e.g., 1, 2, 4, 5) show clear transient peaks in spiking activity soon after stimulus onset. Others do not. Some of the channels that show this initial peak return to baseline (low) levels of firing soon after, while others (e.g., 1, 20, 72) show a sustained plateau as long as the stimulus is on. Others (e.g., 3, 62) show no initial peak, but a steady rise in firing rate as the stimulus duration increases. As well, a few channels show orientation sensitivity, with clearly different responses between 0 (blue) and 90 (red) degree gratings (e.g., 29, 63, 75, 76, 91).</p>
@@ -1407,6 +1439,10 @@ Name: time, Length: 10283, dtype: float64
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "493f9602b991463b92fc8f33b43c8875", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 </div>
 </div>
@@ -1439,6 +1475,8 @@ Name: time, Length: 10283, dtype: float64
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="import_multielec_data.html" title="previous page">Importing Multielectrode Data</a>
+    <a class='right-next' id="next-link" href="corr_spike_trains.html" title="next page">Correlating spike trains</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
