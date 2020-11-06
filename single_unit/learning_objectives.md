@@ -1,7 +1,5 @@
 # Learning Objectives
-## Single Unit Data
 
-## Learning Objectives
 Once you've completed this lesson you should be able to:
 
 ### Spike trains
