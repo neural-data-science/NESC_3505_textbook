@@ -48,7 +48,7 @@
 <meta property="og:url"         content="https://dalpsychneuro.github.io/NESC_3505_textbook/single_unit/corr_spike_trains.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="Correlating spike trains" />
-<meta property="og:description" content="Correlating spike trains  Compute correlation matrix  Between each pair of channels’ PSTH, for each orientation  corr_matrix = np.zeros(shape=(len(channels), le" />
+<meta property="og:description" content="Correlating spike trains  Recall that our research questions for this data set were:  Does stimulation with a sine wave grating increase functional connectivity" />
 <meta property="og:image"       content="https://dalpsychneuro.github.io/NESC_3505_textbook/_static/NESC3505_icon.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -428,6 +428,11 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#import-packages">
+   Import packages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#compute-correlation-matrix">
    Compute correlation matrix
   </a>
@@ -468,6 +473,29 @@
                 
   <div class="section" id="correlating-spike-trains">
 <h1>Correlating spike trains<a class="headerlink" href="#correlating-spike-trains" title="Permalink to this headline">¶</a></h1>
+<p>Recall that our research questions for this data set were:</p>
+<ul class="simple">
+<li><p>Does stimulation with a sine wave grating increase functional connectivity between neurons?</p></li>
+<li><p>If so, are increases in functional connectivity specific to the orientation of the stimulus?</p></li>
+</ul>
+<p>We hypothesized that the answer to both questions would be “yes”. Here we compute functional connectivity (correlation) between each pair of neurons in the data set, to answer these questions.</p>
+<p>In functional connectivity, we are typically interested in how similar (correlated) the patterns of activity of neurons are over time. That is, if two neurons show increases in spike probabilities at similar times, relative to the presentation of the stimulus, they ware said to be more strongly functionally connected than two neurons that do not show similar response patterns. Because the PSTH characterizes the response of a neuron over time, averaged across many trials, these are what we use as input to the functional connectivity analysis.</p>
+<div class="section" id="import-packages">
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Permalink to this headline">¶</a></h2>
+<p>We previously talked about  SciPy as the library that provided a function for importing Matlab files. The SciPy library has many useful routines for general-purpose scientific work, including many statistical and machine learning functions. Here we import <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> so that we can use its correlation functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.io</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">sc</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="compute-correlation-matrix">
 <h2>Compute correlation matrix<a class="headerlink" href="#compute-correlation-matrix" title="Permalink to this headline">¶</a></h2>
 <p>Between each pair of channels’ PSTH, for each orientation</p>
@@ -502,7 +530,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/corr_spike_trains_4_0.png" src="../_images/corr_spike_trains_4_0.png" />
+<img alt="../_images/corr_spike_trains_6_0.png" src="../_images/corr_spike_trains_6_0.png" />
 </div>
 </div>
 <p>Nylen and Wallisch go on to show how we can tidy up the correlation matrix to focus on information of interest, while eliminating distracting or irrelevant factors (noise; where “noise” can be defined as “information not relevant to the research question”).</p>
@@ -575,7 +603,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/corr_spike_trains_11_0.png" src="../_images/corr_spike_trains_11_0.png" />
+<img alt="../_images/corr_spike_trains_13_0.png" src="../_images/corr_spike_trains_13_0.png" />
 </div>
 </div>
 </div>
@@ -632,7 +660,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/corr_spike_trains_16_0.png" src="../_images/corr_spike_trains_16_0.png" />
+<img alt="../_images/corr_spike_trains_18_0.png" src="../_images/corr_spike_trains_18_0.png" />
 </div>
 </div>
 </div>
