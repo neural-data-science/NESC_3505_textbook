@@ -1357,7 +1357,10 @@ Name: time, Length: 10283, dtype: float64
                          <span class="p">)</span>
         <span class="n">psth_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
         
-<span class="n">psth</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">condition_labels</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">psth_list</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>        
+<span class="n">psth</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">condition_labels</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">psth_list</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>    
+
+<span class="c1"># Make orientation and channel indexes rather than data columns</span>
+<span class="n">psth</span> <span class="o">=</span> <span class="n">psth</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;orientation&#39;</span><span class="p">,</span><span class="s1">&#39;channel&#39;</span><span class="p">])</span>
 
 <span class="n">psth</span>
 </pre></div>
@@ -1382,8 +1385,7 @@ Name: time, Length: 10283, dtype: float64
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>orientation</th>
-      <th>channel</th>
+      <th></th>
       <th>0</th>
       <th>1</th>
       <th>2</th>
@@ -1392,6 +1394,8 @@ Name: time, Length: 10283, dtype: float64
       <th>5</th>
       <th>6</th>
       <th>7</th>
+      <th>8</th>
+      <th>9</th>
       <th>...</th>
       <th>259</th>
       <th>260</th>
@@ -1404,12 +1408,36 @@ Name: time, Length: 10283, dtype: float64
       <th>267</th>
       <th>268</th>
     </tr>
+    <tr>
+      <th>orientation</th>
+      <th>channel</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>0.0</td>
-      <td>1.0</td>
+      <th>0.0</th>
+      <th>1.0</th>
       <td>14</td>
       <td>32</td>
       <td>22</td>
@@ -1418,6 +1446,8 @@ Name: time, Length: 10283, dtype: float64
       <td>28</td>
       <td>56</td>
       <td>74</td>
+      <td>60</td>
+      <td>59</td>
       <td>...</td>
       <td>19</td>
       <td>12</td>
@@ -1431,9 +1461,8 @@ Name: time, Length: 10283, dtype: float64
       <td>11</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>90.0</td>
-      <td>1.0</td>
+      <th>90.0</th>
+      <th>1.0</th>
       <td>15</td>
       <td>32</td>
       <td>19</td>
@@ -1442,6 +1471,8 @@ Name: time, Length: 10283, dtype: float64
       <td>40</td>
       <td>42</td>
       <td>54</td>
+      <td>38</td>
+      <td>51</td>
       <td>...</td>
       <td>15</td>
       <td>17</td>
@@ -1455,9 +1486,8 @@ Name: time, Length: 10283, dtype: float64
       <td>17</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>0.0</td>
-      <td>2.0</td>
+      <th>0.0</th>
+      <th>2.0</th>
       <td>2</td>
       <td>3</td>
       <td>0</td>
@@ -1466,6 +1496,8 @@ Name: time, Length: 10283, dtype: float64
       <td>2</td>
       <td>0</td>
       <td>3</td>
+      <td>1</td>
+      <td>1</td>
       <td>...</td>
       <td>1</td>
       <td>1</td>
@@ -1479,9 +1511,8 @@ Name: time, Length: 10283, dtype: float64
       <td>0</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>90.0</td>
-      <td>2.0</td>
+      <th>90.0</th>
+      <th>2.0</th>
       <td>3</td>
       <td>1</td>
       <td>3</td>
@@ -1490,6 +1521,8 @@ Name: time, Length: 10283, dtype: float64
       <td>4</td>
       <td>5</td>
       <td>2</td>
+      <td>5</td>
+      <td>5</td>
       <td>...</td>
       <td>3</td>
       <td>2</td>
@@ -1503,9 +1536,8 @@ Name: time, Length: 10283, dtype: float64
       <td>0</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>0.0</td>
-      <td>3.0</td>
+      <th>0.0</th>
+      <th>3.0</th>
       <td>8</td>
       <td>1</td>
       <td>3</td>
@@ -1514,6 +1546,8 @@ Name: time, Length: 10283, dtype: float64
       <td>4</td>
       <td>4</td>
       <td>8</td>
+      <td>5</td>
+      <td>2</td>
       <td>...</td>
       <td>0</td>
       <td>0</td>
@@ -1527,6 +1561,7 @@ Name: time, Length: 10283, dtype: float64
       <td>0</td>
     </tr>
     <tr>
+      <th>...</th>
       <th>...</th>
       <td>...</td>
       <td>...</td>
@@ -1551,9 +1586,8 @@ Name: time, Length: 10283, dtype: float64
       <td>...</td>
     </tr>
     <tr>
-      <th>177</th>
-      <td>90.0</td>
-      <td>94.0</td>
+      <th>90.0</th>
+      <th>94.0</th>
       <td>2</td>
       <td>2</td>
       <td>0</td>
@@ -1562,6 +1596,8 @@ Name: time, Length: 10283, dtype: float64
       <td>0</td>
       <td>1</td>
       <td>3</td>
+      <td>1</td>
+      <td>1</td>
       <td>...</td>
       <td>0</td>
       <td>0</td>
@@ -1575,9 +1611,8 @@ Name: time, Length: 10283, dtype: float64
       <td>0</td>
     </tr>
     <tr>
-      <th>178</th>
-      <td>0.0</td>
-      <td>95.0</td>
+      <th>0.0</th>
+      <th>95.0</th>
       <td>0</td>
       <td>1</td>
       <td>1</td>
@@ -1586,6 +1621,8 @@ Name: time, Length: 10283, dtype: float64
       <td>0</td>
       <td>0</td>
       <td>0</td>
+      <td>0</td>
+      <td>1</td>
       <td>...</td>
       <td>0</td>
       <td>1</td>
@@ -1599,9 +1636,8 @@ Name: time, Length: 10283, dtype: float64
       <td>0</td>
     </tr>
     <tr>
-      <th>179</th>
-      <td>90.0</td>
-      <td>95.0</td>
+      <th>90.0</th>
+      <th>95.0</th>
       <td>1</td>
       <td>2</td>
       <td>1</td>
@@ -1610,6 +1646,8 @@ Name: time, Length: 10283, dtype: float64
       <td>2</td>
       <td>2</td>
       <td>2</td>
+      <td>1</td>
+      <td>0</td>
       <td>...</td>
       <td>1</td>
       <td>0</td>
@@ -1623,9 +1661,8 @@ Name: time, Length: 10283, dtype: float64
       <td>1</td>
     </tr>
     <tr>
-      <th>180</th>
-      <td>0.0</td>
-      <td>96.0</td>
+      <th>0.0</th>
+      <th>96.0</th>
       <td>13</td>
       <td>7</td>
       <td>11</td>
@@ -1634,6 +1671,8 @@ Name: time, Length: 10283, dtype: float64
       <td>5</td>
       <td>5</td>
       <td>17</td>
+      <td>7</td>
+      <td>8</td>
       <td>...</td>
       <td>13</td>
       <td>8</td>
@@ -1647,9 +1686,8 @@ Name: time, Length: 10283, dtype: float64
       <td>5</td>
     </tr>
     <tr>
-      <th>181</th>
-      <td>90.0</td>
-      <td>96.0</td>
+      <th>90.0</th>
+      <th>96.0</th>
       <td>7</td>
       <td>11</td>
       <td>12</td>
@@ -1658,6 +1696,8 @@ Name: time, Length: 10283, dtype: float64
       <td>12</td>
       <td>9</td>
       <td>12</td>
+      <td>6</td>
+      <td>3</td>
       <td>...</td>
       <td>12</td>
       <td>11</td>
@@ -1672,35 +1712,34 @@ Name: time, Length: 10283, dtype: float64
     </tr>
   </tbody>
 </table>
-<p>182 rows × 271 columns</p>
+<p>182 rows × 269 columns</p>
 </div></div></div>
 </div>
 <div class="section" id="plot-all-channels">
 <h3>Plot all channels<a class="headerlink" href="#plot-all-channels" title="Permalink to this headline">¶</a></h3>
 <p>To plot these, we use similar code to above. However, because there are 96 channels, we want to remove some axis labels from most plots (so it’s less messy and less redundant). There’s no way to make this not a huge image, since there are 96 panels to show, but by setting it to 4 columns we attain a good balance between readability and size.</p>
+<p>In the loop below, we access specific data to plot form the pandas DataFrame <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#selection-by-label">using <code class="docutils literal notranslate"><span class="pre">.loc</span></code></a> to select based on the index columns. Since the index columns are in the order <code class="docutils literal notranslate"><span class="pre">['orientation',</span> <span class="pre">'channel']</span></code> we specify the arguments to <code class="docutils literal notranslate"><span class="pre">.loc</span></code> in the same order.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mi">96</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mi">96</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">chan</span><span class="p">))</span>
 
-    <span class="c1"># One little trick here is for the second argument (histogram), we need to </span>
-    <span class="c1"># &quot;squeeze&quot; the result of the Boolean selector on the DataFrame so that it&#39;s a Series</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_base</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
-           <span class="n">psth</span><span class="p">[(</span><span class="n">psth</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">psth</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ortn_levs</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+           <span class="n">psth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ortn_levs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">chan</span><span class="p">],</span>
            <span class="n">linewidth</span><span class="o">=.</span><span class="mi">75</span>
            <span class="p">)</span>
 
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_base</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
-           <span class="n">psth</span><span class="p">[(</span><span class="n">psth</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">psth</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ortn_levs</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+           <span class="n">psth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ortn_levs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">chan</span><span class="p">],</span>
            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
            <span class="n">linewidth</span><span class="o">=.</span><span class="mi">75</span>
            <span class="p">)</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">grating_on_time</span><span class="p">,</span> <span class="n">grating_off_time</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">grating_on_time</span><span class="p">,</span> <span class="n">grating_off_time</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
      
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Channel &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Channel &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">chan</span><span class="p">))</span>
 
     <span class="c1"># Below we apply axis labels only to first/outside plots to avoid redundancy</span>
     <span class="k">if</span> <span class="n">i</span><span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -1744,18 +1783,17 @@ Name: time, Length: 10283, dtype: float64
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span> 
 
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_base</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
-           <span class="n">psth</span><span class="p">[(</span><span class="n">psth</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">chan</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">psth</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ortn_levs</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+           <span class="n">psth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ortn_levs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">chan</span><span class="p">],</span>
            <span class="n">linewidth</span><span class="o">=.</span><span class="mi">75</span>
            <span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_base</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
-           <span class="n">psth</span><span class="p">[(</span><span class="n">psth</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">chan</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">psth</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ortn_levs</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+           <span class="n">psth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ortn_levs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">chan</span><span class="p">],</span>
            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
            <span class="n">linewidth</span><span class="o">=.</span><span class="mi">75</span>
            <span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">grating_on_time</span><span class="p">,</span> <span class="n">grating_off_time</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
-<span class="c1">#     plt.legend()</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Channel &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">chan</span><span class="p">)))</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Spike count per bin&#39;</span><span class="p">)</span>
@@ -1766,7 +1804,7 @@ Name: time, Length: 10283, dtype: float64
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a2621350b73f4b6c87efd1cb291998db", "version_major": 2, "version_minor": 0}
+{"model_id": "14f622eaf27d430dab9f3786a4127292", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 </div>
