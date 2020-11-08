@@ -460,13 +460,8 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#using-np-histogram">
-     Using
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       np.histogram()
-      </span>
-     </code>
+    <a class="reference internal nav-link" href="#pre-computing-histograms">
+     Pre-Computing Histograms
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -983,8 +978,8 @@ Name: time, Length: 10283, dtype: float64
 <img alt="../_images/pandas_multielec_28_0.png" src="../_images/pandas_multielec_28_0.png" />
 </div>
 </div>
-<div class="section" id="using-np-histogram">
-<h3>Using <code class="docutils literal notranslate"><span class="pre">np.histogram()</span></code><a class="headerlink" href="#using-np-histogram" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="pre-computing-histograms">
+<h3>Pre-Computing Histograms<a class="headerlink" href="#pre-computing-histograms" title="Permalink to this headline">¶</a></h3>
 <p>Although pandas provides the convenient <code class="docutils literal notranslate"><span class="pre">.histogram()</span></code> method, this is not the most flexible way to generate a plot. We can also compute histograms using <code class="docutils literal notranslate"><span class="pre">np.histogram()</span></code>, without immediately plotting them — just the way we did with the <code class="docutils literal notranslate"><span class="pre">ten_intensities</span></code> data. We save these histograms in memory, which allows more flexibility in how we later plot them. To do this, we have to loop over orientations and sort codes, compute the histogram for each, and save these to plot later.</p>
 <p>We will store the PSTHs in a new pandas DataFrame, <code class="docutils literal notranslate"><span class="pre">psth_df</span></code>, with one row per PSTH. Each bin (time point) in the histogram will be a column, with additional columns to encode condition and sort code or channel.</p>
 <p>First we create a DataFrame with columns that will serve as labels for the histograms:</p>
@@ -992,9 +987,78 @@ Name: time, Length: 10283, dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">condition_labels</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="n">ortn</span><span class="p">,</span> <span class="n">sort</span><span class="p">]</span> <span class="k">for</span> <span class="n">sort</span> <span class="ow">in</span> <span class="n">sort_codes</span> <span class="k">for</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="n">orientations</span> <span class="p">],</span>
                                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ortn&#39;</span><span class="p">,</span> <span class="s1">&#39;sort&#39;</span><span class="p">])</span>
+
+<span class="n">condition_labels</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ortn</th>
+      <th>sort</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>90.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>90.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>90.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>90.0</td>
+      <td>4.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>Now we create a list of DataFrames, where each DataFrame is a single row containing the histogram for a particular sort_code and orientation. It is important that the order of the nested loops here, is the same as the order of the <code class="docutils literal notranslate"><span class="pre">for</span></code> statements in the list comprehension that generated the column labels above. Otherwise the labels won’t correctly match the data.</p>
 <div class="cell docutils container">
