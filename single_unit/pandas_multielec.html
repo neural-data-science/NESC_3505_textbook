@@ -460,13 +460,13 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#pre-computing-histograms">
-     Pre-Computing Histograms
+    <a class="reference internal nav-link" href="#pre-computing-psths">
+     Pre-Computing PSTHs
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#plot-the-histograms">
-     Plot the histograms
+    <a class="reference internal nav-link" href="#plotting-the-histograms">
+     Plotting the Histograms
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -547,10 +547,10 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">noise_codes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">]</span> <span class="c1"># explained later</span>
 
-<span class="c1"># time_base is used to define x axis in plots over time. We know that the trials went from </span>
+<span class="c1"># time_bins is used to define x axis in plots over time. We know that the trials went from </span>
 <span class="c1">#   150 ms pre-stimulus to 2000 ms post-stimulus onset. Here we specify a wider range, </span>
 <span class="c1">#   from -200 to 2500 ms (in 10 ms increments), to provide some padding.</span>
-<span class="n">time_base</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-.</span><span class="mi">2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="o">.</span><span class="mi">01</span><span class="p">)</span> 
+<span class="n">time_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-.</span><span class="mi">2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="o">.</span><span class="mi">01</span><span class="p">)</span> 
 
 <span class="c1"># times the stimulus went on and off</span>
 <span class="n">grating_on_time</span>  <span class="o">=</span> <span class="mi">0</span>
@@ -936,7 +936,7 @@ Name: time, Length: 10283, dtype: float64
 <ul class="simple">
 <li><p>the values in the <code class="docutils literal notranslate"><span class="pre">time</span></code> column (spike times) are what are used to generate the histogram</p></li>
 <li><p>the <code class="docutils literal notranslate"><span class="pre">by</span></code> argument generates separate plots for each value in the orientation column</p></li>
-<li><p>the <code class="docutils literal notranslate"><span class="pre">time_base</span></code> variable we set earlier defines the x axis of the histogram (<code class="docutils literal notranslate"><span class="pre">bins</span></code>); <code class="docutils literal notranslate"><span class="pre">time_base</span></code> is in 10 ms increments so that becomes the size of our histogram bins</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">time_bins</span></code> variable we set earlier defines the x axis of the histogram (<code class="docutils literal notranslate"><span class="pre">bins</span></code>); <code class="docutils literal notranslate"><span class="pre">time_bins</span></code> is in 10 ms increments so that becomes the size of our histogram bins</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sharey</span></code> forces the y axis range to be the same across plots</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">layout</span></code> specifies 2 rows (each orientation) and one column</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">figsize</span></code> was determined by trial and error to provide a subjectively-nice aspect ratio and fit the figure in the notebook</p></li>
@@ -945,7 +945,7 @@ Name: time, Length: 10283, dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> 
         <span class="n">by</span><span class="o">=</span><span class="s1">&#39;orientation&#39;</span><span class="p">,</span> 
-        <span class="n">bins</span><span class="o">=</span><span class="n">time_base</span><span class="p">,</span> 
+        <span class="n">bins</span><span class="o">=</span><span class="n">time_bins</span><span class="p">,</span> 
         <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
         <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
         <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
@@ -965,7 +965,7 @@ Name: time, Length: 10283, dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> 
         <span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">,</span> <span class="s1">&#39;sort&#39;</span><span class="p">],</span> 
-        <span class="n">bins</span><span class="o">=</span><span class="n">time_base</span><span class="p">,</span> 
+        <span class="n">bins</span><span class="o">=</span><span class="n">time_bins</span><span class="p">,</span> 
         <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
         <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
         <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
@@ -978,8 +978,8 @@ Name: time, Length: 10283, dtype: float64
 <img alt="../_images/pandas_multielec_28_0.png" src="../_images/pandas_multielec_28_0.png" />
 </div>
 </div>
-<div class="section" id="pre-computing-histograms">
-<h3>Pre-Computing Histograms<a class="headerlink" href="#pre-computing-histograms" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="pre-computing-psths">
+<h3>Pre-Computing PSTHs<a class="headerlink" href="#pre-computing-psths" title="Permalink to this headline">¶</a></h3>
 <p>Although pandas provides the convenient <code class="docutils literal notranslate"><span class="pre">.histogram()</span></code> method, this is not the most flexible way to generate a plot. We can also compute histograms using <code class="docutils literal notranslate"><span class="pre">np.histogram()</span></code>, without immediately plotting them — just the way we did with the <code class="docutils literal notranslate"><span class="pre">ten_intensities</span></code> data. We save these histograms in memory, which allows more flexibility in how we later plot them. To do this, we have to loop over orientations and sort codes, compute the histogram for each, and save these to plot later.</p>
 <p>We will store the PSTHs in a new pandas DataFrame, <code class="docutils literal notranslate"><span class="pre">psth_df</span></code>, with one row per PSTH. Each bin (time point) in the histogram will be a column, with additional columns to encode condition and sort code or channel.</p>
 <p>First we create a DataFrame with columns that will serve as labels for the histograms:</p>
@@ -1066,8 +1066,9 @@ Name: time, Length: 10283, dtype: float64
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">psth_df_list</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">sort</span> <span class="ow">in</span> <span class="n">sort_codes</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="n">orientations</span><span class="p">:</span>
-        <span class="n">hist</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sort&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">sort</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">ortn</span><span class="p">)][</span><span class="s1">&#39;time&#39;</span><span class="p">],</span>
-                          <span class="n">bins</span><span class="o">=</span><span class="n">time_base</span><span class="p">,</span>
+        <span class="n">spike_times</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sort&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">sort</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">ortn</span><span class="p">)][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+        <span class="n">hist</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span>
+                          <span class="n">bins</span><span class="o">=</span><span class="n">time_bins</span><span class="p">,</span>
                          <span class="p">)</span>
         <span class="n">psth_df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
    
@@ -1329,10 +1330,296 @@ Name: time, Length: 10283, dtype: float64
 <p>8 rows × 271 columns</p>
 </div></div></div>
 </div>
+<p>The last bit of formatting we can add to the DataFrame is to convert the columns that serve as labels (<code class="docutils literal notranslate"><span class="pre">ortn</span></code>, <code class="docutils literal notranslate"><span class="pre">sort</span></code>) to indexes. This has two advantages:</p>
+<ol class="simple">
+<li><p>We can use the <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code> method to select rows based on the labels, rather than the more-complex set of Boolean selectors on values in particular rows.</p></li>
+<li><p>The “data” part of the DataFrame contains only PSTHs. This way, when we want to write code to access the data, we don’t have to worry about excluding columns that were for labels.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">psth_df</span> <span class="o">=</span> <span class="n">psth_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;ortn&#39;</span><span class="p">,</span><span class="s1">&#39;sort&#39;</span><span class="p">])</span>
+<span class="n">psth_df</span>
+</pre></div>
 </div>
-<div class="section" id="plot-the-histograms">
-<h3>Plot the histograms<a class="headerlink" href="#plot-the-histograms" title="Permalink to this headline">¶</a></h3>
-<p>Confirm that these appear identical to the plots above that used the dictionary and list methods.</p>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>259</th>
+      <th>260</th>
+      <th>261</th>
+      <th>262</th>
+      <th>263</th>
+      <th>264</th>
+      <th>265</th>
+      <th>266</th>
+      <th>267</th>
+      <th>268</th>
+    </tr>
+    <tr>
+      <th>ortn</th>
+      <th>sort</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.0</th>
+      <th>1.0</th>
+      <td>2573</td>
+      <td>3043</td>
+      <td>2651</td>
+      <td>2418</td>
+      <td>3079</td>
+      <td>3086</td>
+      <td>3016</td>
+      <td>3074</td>
+      <td>2559</td>
+      <td>2290</td>
+      <td>...</td>
+      <td>2185</td>
+      <td>2111</td>
+      <td>2128</td>
+      <td>2047</td>
+      <td>1996</td>
+      <td>1896</td>
+      <td>1975</td>
+      <td>2070</td>
+      <td>2016</td>
+      <td>1956</td>
+    </tr>
+    <tr>
+      <th>90.0</th>
+      <th>1.0</th>
+      <td>2462</td>
+      <td>3026</td>
+      <td>2539</td>
+      <td>2332</td>
+      <td>3112</td>
+      <td>3024</td>
+      <td>2909</td>
+      <td>2959</td>
+      <td>2502</td>
+      <td>2151</td>
+      <td>...</td>
+      <td>2218</td>
+      <td>2200</td>
+      <td>2132</td>
+      <td>2201</td>
+      <td>2111</td>
+      <td>2115</td>
+      <td>2107</td>
+      <td>2143</td>
+      <td>2099</td>
+      <td>2027</td>
+    </tr>
+    <tr>
+      <th>0.0</th>
+      <th>2.0</th>
+      <td>208</td>
+      <td>266</td>
+      <td>222</td>
+      <td>210</td>
+      <td>240</td>
+      <td>237</td>
+      <td>255</td>
+      <td>275</td>
+      <td>290</td>
+      <td>268</td>
+      <td>...</td>
+      <td>139</td>
+      <td>108</td>
+      <td>144</td>
+      <td>144</td>
+      <td>132</td>
+      <td>119</td>
+      <td>150</td>
+      <td>116</td>
+      <td>140</td>
+      <td>122</td>
+    </tr>
+    <tr>
+      <th>90.0</th>
+      <th>2.0</th>
+      <td>194</td>
+      <td>244</td>
+      <td>188</td>
+      <td>209</td>
+      <td>249</td>
+      <td>274</td>
+      <td>207</td>
+      <td>256</td>
+      <td>256</td>
+      <td>259</td>
+      <td>...</td>
+      <td>129</td>
+      <td>115</td>
+      <td>94</td>
+      <td>129</td>
+      <td>110</td>
+      <td>106</td>
+      <td>116</td>
+      <td>143</td>
+      <td>122</td>
+      <td>112</td>
+    </tr>
+    <tr>
+      <th>0.0</th>
+      <th>3.0</th>
+      <td>55</td>
+      <td>60</td>
+      <td>57</td>
+      <td>50</td>
+      <td>56</td>
+      <td>47</td>
+      <td>26</td>
+      <td>32</td>
+      <td>22</td>
+      <td>27</td>
+      <td>...</td>
+      <td>15</td>
+      <td>20</td>
+      <td>21</td>
+      <td>19</td>
+      <td>13</td>
+      <td>12</td>
+      <td>13</td>
+      <td>19</td>
+      <td>16</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>90.0</th>
+      <th>3.0</th>
+      <td>51</td>
+      <td>64</td>
+      <td>47</td>
+      <td>51</td>
+      <td>54</td>
+      <td>51</td>
+      <td>37</td>
+      <td>39</td>
+      <td>18</td>
+      <td>26</td>
+      <td>...</td>
+      <td>17</td>
+      <td>15</td>
+      <td>27</td>
+      <td>20</td>
+      <td>9</td>
+      <td>10</td>
+      <td>25</td>
+      <td>19</td>
+      <td>21</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>0.0</th>
+      <th>4.0</th>
+      <td>31</td>
+      <td>30</td>
+      <td>26</td>
+      <td>27</td>
+      <td>20</td>
+      <td>25</td>
+      <td>20</td>
+      <td>13</td>
+      <td>8</td>
+      <td>10</td>
+      <td>...</td>
+      <td>1</td>
+      <td>3</td>
+      <td>2</td>
+      <td>6</td>
+      <td>5</td>
+      <td>3</td>
+      <td>5</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>90.0</th>
+      <th>4.0</th>
+      <td>29</td>
+      <td>28</td>
+      <td>21</td>
+      <td>23</td>
+      <td>30</td>
+      <td>21</td>
+      <td>19</td>
+      <td>13</td>
+      <td>5</td>
+      <td>8</td>
+      <td>...</td>
+      <td>1</td>
+      <td>6</td>
+      <td>6</td>
+      <td>5</td>
+      <td>4</td>
+      <td>3</td>
+      <td>1</td>
+      <td>5</td>
+      <td>1</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+<p>8 rows × 269 columns</p>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="plotting-the-histograms">
+<h3>Plotting the Histograms<a class="headerlink" href="#plotting-the-histograms" title="Permalink to this headline">¶</a></h3>
+<p>Now we can plot the histograms that we just completed. These should look similar to the panel of 8 histograms we plotted above; the big difference is that above we use pandas <code class="docutils literal notranslate"><span class="pre">.histogram()</span></code> method, whereas here we pre-computed the histograms so that we can use Matplotlib’s more flexible and general-purpose <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> function. This allows us more control and power in drawing the plot. For example, below we shade in the time period when the stimulus was on, and we draw the PSTHs as lines rather than bars. ALthough this may seem like something of an aesthetic preference, as you’ll see below, lines give you the ability to overlay PSTHs for different conditions, allowing comparison.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
@@ -1340,18 +1627,17 @@ Name: time, Length: 10283, dtype: float64
 <span class="c1"># loop through rows in DataFrame</span>
 <span class="n">plot_counter</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="k">for</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="n">ortn_levs</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sort_codes</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">sort</span> <span class="ow">in</span> <span class="n">sort_codes</span><span class="p">:</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ortn_levs</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">sort_codes</span><span class="p">),</span> <span class="n">plot_counter</span><span class="p">)</span>
         <span class="n">plot_counter</span> <span class="o">+=</span> <span class="mi">1</span>
         
-        <span class="c1"># One little trick here is for the second argument (histogram), we need to </span>
-        <span class="c1"># &quot;squeeze&quot; the result of the Boolean selector on the DataFrame so that it&#39;s a Series</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_base</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
-           <span class="n">psth_df</span><span class="p">[(</span><span class="n">psth_df</span><span class="p">[</span><span class="s1">&#39;sort&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">psth_df</span><span class="p">[</span><span class="s1">&#39;ortn&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ortn</span><span class="p">)]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="c1"># use .loc[] to select appropriate rows to plot</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
+                <span class="n">psth_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ortn</span><span class="p">,</span> <span class="n">sort</span><span class="p">]</span>
                <span class="p">)</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">grating_on_time</span><span class="p">,</span> <span class="n">grating_off_time</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sort code &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; Ortn &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ortn</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sort code &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sort</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; Ortn &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ortn</span><span class="p">))</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Spike count per bin&#39;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span> 
@@ -1361,7 +1647,7 @@ Name: time, Length: 10283, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/pandas_multielec_37_0.png" src="../_images/pandas_multielec_37_0.png" />
+<img alt="../_images/pandas_multielec_39_0.png" src="../_images/pandas_multielec_39_0.png" />
 </div>
 </div>
 <p>Note above the differences in total spike counts (<em>y</em> axis ranges) between sort codes. This is because the data are summed over channels; every channel as at least a sort code of 1 (i.e., contains data from one neuron/unit), but fewer channels were found to contain data from two or more units. So decreasing amounts of data contribute to the averages for sort codes 1-4.</p>
@@ -1374,22 +1660,22 @@ Name: time, Length: 10283, dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sort_codes</span><span class="p">:</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sort_codes</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">sort</span> <span class="ow">in</span> <span class="n">sort_codes</span><span class="p">:</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sort_codes</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">sort</span><span class="p">))</span>
 
     <span class="c1"># One little trick here is for the second argument (histogram), we need to </span>
     <span class="c1"># &quot;squeeze&quot; the result of the Boolean selector on the DataFrame so that it&#39;s a Series</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_base</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
-           <span class="n">psth_df</span><span class="p">[(</span><span class="n">psth_df</span><span class="p">[</span><span class="s1">&#39;sort&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">psth_df</span><span class="p">[</span><span class="s1">&#39;ortn&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ortn_levs</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
+           <span class="n">psth_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ortn_levs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sort</span><span class="p">]</span>
            <span class="p">)</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_base</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
-           <span class="n">psth_df</span><span class="p">[(</span><span class="n">psth_df</span><span class="p">[</span><span class="s1">&#39;sort&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">psth_df</span><span class="p">[</span><span class="s1">&#39;ortn&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ortn_levs</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
+           <span class="n">psth_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ortn_levs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sort</span><span class="p">],</span>
            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span>
            <span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">grating_on_time</span><span class="p">,</span> <span class="n">grating_off_time</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sort code &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sort code &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sort</span><span class="p">))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Spike count per bin&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span> 
@@ -1399,7 +1685,7 @@ Name: time, Length: 10283, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/pandas_multielec_40_0.png" src="../_images/pandas_multielec_40_0.png" />
+<img alt="../_images/pandas_multielec_42_0.png" src="../_images/pandas_multielec_42_0.png" />
 </div>
 </div>
 </div>
@@ -1417,7 +1703,7 @@ Name: time, Length: 10283, dtype: float64
 <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">ortn</span> <span class="ow">in</span> <span class="n">orientations</span><span class="p">:</span>
         <span class="n">hist</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">chan</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">ortn</span><span class="p">)][</span><span class="s1">&#39;time&#39;</span><span class="p">],</span>
-                          <span class="n">bins</span><span class="o">=</span><span class="n">time_base</span><span class="p">,</span>
+                          <span class="n">bins</span><span class="o">=</span><span class="n">time_bins</span><span class="p">,</span>
                          <span class="p">)</span>
         <span class="n">psth_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
         
@@ -1790,12 +2076,12 @@ Name: time, Length: 10283, dtype: float64
 <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mi">96</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">chan</span><span class="p">))</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_base</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
            <span class="n">psth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ortn_levs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">chan</span><span class="p">],</span>
            <span class="n">linewidth</span><span class="o">=.</span><span class="mi">75</span>
            <span class="p">)</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_base</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
            <span class="n">psth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ortn_levs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">chan</span><span class="p">],</span>
            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
            <span class="n">linewidth</span><span class="o">=.</span><span class="mi">75</span>
@@ -1806,12 +2092,12 @@ Name: time, Length: 10283, dtype: float64
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Channel &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">chan</span><span class="p">))</span>
 
     <span class="c1"># Below we apply axis labels only to first/outside plots to avoid redundancy</span>
-    <span class="k">if</span> <span class="n">i</span><span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">chan</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Spike count per bin&#39;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         
-    <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">max</span><span class="p">(</span><span class="n">channels</span><span class="p">):</span>
+    <span class="k">elif</span> <span class="n">chan</span> <span class="o">==</span> <span class="nb">max</span><span class="p">(</span><span class="n">channels</span><span class="p">):</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -1826,7 +2112,7 @@ Name: time, Length: 10283, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/pandas_multielec_44_0.png" src="../_images/pandas_multielec_44_0.png" />
+<img alt="../_images/pandas_multielec_46_0.png" src="../_images/pandas_multielec_46_0.png" />
 </div>
 </div>
 <p>One thing you’ll note above is that there are some missing panels, including channels 21, 31, 34, 56, and 68. As noted above, these are the dead channels. The way the code above is written, we use the channel number as the index for the subplot position. Since there is no channel in the <code class="docutils literal notranslate"><span class="pre">channels</span></code> list for the dead channels, those subplot panels are simply left blank.</p>
@@ -1846,12 +2132,12 @@ Name: time, Length: 10283, dtype: float64
 <span class="k">def</span> <span class="nf">psth_i</span><span class="p">(</span><span class="n">chan</span><span class="o">=</span><span class="n">channels</span><span class="p">):</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span> 
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_base</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
            <span class="n">psth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ortn_levs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">chan</span><span class="p">],</span>
            <span class="n">linewidth</span><span class="o">=.</span><span class="mi">75</span>
            <span class="p">)</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_base</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
            <span class="n">psth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ortn_levs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">chan</span><span class="p">],</span>
            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
            <span class="n">linewidth</span><span class="o">=.</span><span class="mi">75</span>
@@ -1868,7 +2154,7 @@ Name: time, Length: 10283, dtype: float64
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "121649ba70b94c698253720348363a96", "version_major": 2, "version_minor": 0}
+{"model_id": "1e166443cc224797a0eb9a6e86fafc44", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 </div>
