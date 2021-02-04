@@ -7,17 +7,16 @@ width: 65px
 
 [**Markdown**](https://daringfireball.net/projects/markdown/) is a "plain text formatting syntax" and a tool for converting such plain text to a formatted version, such as [HTML](https://en.wikipedia.org/wiki/HTML) for display in a web page. Recall earlier the discussion about plain text (.txt files) versus rich text (such as in Microsoft Word or Google Docs). Rich text files display the text that you enter, and the formatting you choose (e.g., boldface), and hide the information telling your computer to make that text boldface "behind the scenes" in a complex file. In contrast, when you open a plain text file, what you see is literally the contents of that file, with nothing hiding in the background (except for a couple of hidden features, like markers for line breaks and tabs).
 
-So a plain text file can never contain formatting like boldface or italic. Markdown allows you to create a text file with special codes that you type to "mark" certain text for formatting, and then run a program on that text file to produce a formatted output. For example, text surrounded by `*one asterisk*` shows up in italics: *one asterisk*; while text surrounded by `**two asterisks**` shows up as boldface: **two asterisks**. Different levels of headings can be indicated with hash marks; the more hash marks, the more deeply embedded a header is. So, the following:
-`# Heading 1`
-`## Heading 2`
-`### Heading 3`
- Produces:
- # Heading 1
- ## Heading 2
- ### Heading 3
+So a plain text file can never contain formatting like boldface or italic. Markdown allows you to create a text file with special codes that you type to "mark" certain text for formatting, and then run a program on that text file to produce a formatted output. For example, text surrounded by `*one asterisk*` shows up in italics: *one asterisk*; while text surrounded by `**two asterisks**` shows up as boldface: **two asterisks**.
 
+## Different levels of headings
+Different levels of headings can be indicated with hash marks; the more hash marks, the more deeply embedded a header is. So, the following:
+- `# Heading 1` = first-level heading (like the title at the top of this page)
+- `## Heading 2` = second-level heading (like the title of this subsection)
+- `### Heading 3` = third-level heading (smaller heading font)
+- etc.
 
- If you haven't already guessed, the online textbook you are currently reading is written largely in Markdown.
+If you haven't already guessed, the online textbook you are currently reading is written largely in Markdown.
 
 While originally Markdown was designed to simplify creating web pages in HTML (the coding language for web pages), there are now a huge number of output formats available (e.g., PDF, Microsoft Word, ePub) in different applications, and many Markdown apps that allow you write and edit Markdown files while viewing a preview of the formatted output in another window alongside your Markdown text file.
 
