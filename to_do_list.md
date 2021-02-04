@@ -11,6 +11,7 @@ Students don't just want the textbook, they want video walkthroughs of the textb
 ## Tricky Topics
 Apparently Jen & Leanne have created a phenomenon. This was asked for by students this year
 
+
 ## Visualization
 - definitely need to write a chapter on data visualization. Don't get lost in the weeds of the grammar of graphics before you start, Aaron!!!
 - Matplotlib - don't start with 2 ways of doing things (procedural and OO). Introduce OO and then have a "bonus" section explaining the differences, once OO is deeply ingrained.
