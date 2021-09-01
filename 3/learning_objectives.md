@@ -1,24 +1,12 @@
 # Learning Objectives
 ## Introducing Python
 
-By the end of **Lesson 1**, you should be able to use Python to:
-- perform basic operations
-- assign values to variables
-- use basic functions
-- print the output of different commands
-- understand and use basic data types
-- work with lists
-- use basic methods
-- explain the difference between functions and methods
-- explain what packages are
-- load and use packages
-- work with NumPy arrays
-
-By the end of **Lesson 2**, you should be able to use Python to:
-- generate and customize simple plots using Matplotlib
-- create and manipulate dictionaries
-- create and work with pandas DataFrames
-- use comparison and Boolean operators
-- distinguish the important functions of `=` and `==` in Python
-- use conditional `if`/`else` statements
-- use `while` and `for` loops
+By the end of this chapter, you should be able to:
+- understand and use variables
+- work with common Python data types like integers, floats, strings, characters, lists, dictionaries, as well as NumPy arrays and Pandas DataFrames.
+- read data from text files
+- obtain basic summary statistics from data files
+- manipulate and extract data from pandas DataFrames
+- visualize data using Python's Matplotlib package, and customize these plots
+- use basic flow control, including for loops and conditionals
+- write Python code according to standard style guidelines
