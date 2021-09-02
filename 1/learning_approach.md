@@ -1,6 +1,6 @@
-# How To Rock This Course
+# Learning Approach
 
-The first part of the chapter was really about me — my philosophies, values, and motivations for designing this course, and how I teach it. This next section is about YOU, the learner, and how you should approach the course.  
+The previous sections were background about the course — the philosophies, values, and motivations that explain why the course is designed as it is. This next section is about YOU, the learner, and how you should approach the course.  
 
 As stated earlier, this course treats you as an adult learner, who brings a mature and serious commitment to participating fully in the course. We assume that your motivation for taking the course is to learn how to use Python to perform data science. We also recognize that this is a challenging task, and it's likely quite different from other learning experiences you've had in the past. So class time involves a lot of support sessions where you can ask questions and get help. But at the same time, this course requires that you put in significant hours per week outside of class: at the outset, you should budget 16 h/week for a 7-week condense summer version of the course, or 8 h/week for the regular term version. This is in addition to 2-3 h/week of class time.
 
