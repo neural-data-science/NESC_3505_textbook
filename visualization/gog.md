@@ -1,6 +1,6 @@
 # The Grammar of Graphics
 
-This section is based on Leland Wilkinson's seminal book, *The Grammar of Graphics* {cite}`GOG`, originally published in 1999 and a second edition in 2005, and summarized in a shorter form in the [*Handbook of Computational Statistics*](https://doi.org/10.1007/978-3-642-21551-3_13).
+This section is based on Leland Wilkinson's seminal book, *The Grammar of Graphics* {cite:ts}`GOG`, originally published in 1999 and a second edition in 2005, and summarized in a shorter form in the [*Handbook of Computational Statistics*](https://doi.org/10.1007/978-3-642-21551-3_13).
 
 In a natural human language, grammar is *generative* — it allows hierarchical, recursive embedding of words in phrases and sentences that allow for virtually infinite forms of expression. Without grammar, we would need one word to explain every individual concept we wished to express. The grammar is the underlying structure that allows us to derive shared meanings from combinations of words.
 
@@ -30,7 +30,7 @@ According to Wilkinson, the grammar of graphics comprises seven components:
 The GOG further defines an architecture, the **dataflow**, which defines a logical sequence in which these components should be defined and applied, as the outputs of component are generally needed as the inputs to the next. This flow is shown in the figure below:
 
 ![](images/dataflow_GOG.png)
-Dataflow of the grammar of graphics. Redrawn from Wilkinson {cite}`GOG`.
+Dataflow of the grammar of graphics. Redrawn from Wilkinson {cite:ts}`GOG`.
 
 ### Variables
 Data are organized into *variables*. That is, values with labels. For example, in a reaction time study, the values could be RTs in milliseconds, and the labels would indicate things like the experimental condition for a particular reaction time, which subject it was recorded from, etc.. Data are typically organized into tables, as we see when working in pandas, where each row is a data point with (typically) a number of columns and values that provide labels.
