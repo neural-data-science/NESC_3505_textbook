@@ -2,7 +2,7 @@
 
 This is a university course, and so you will receive a grade at the end of it. This grade is meant to reflect the quality of your work and how well you met the learning objectives of the course.
 
-Although they may seem like similar concepts, there is an important difference between "assessment" and "evaluation" {cite}`conrad_assessment_2018`. Formally, **assessment** refers to ongoing feedback from the teaching team, your peers, and your own self-assessment of your performance. The goal of assessment is to help you learn, and improve your performance. For this reason it is often called **formative** — as in, helping to "form" and shape a better you.
+Although they may seem like similar concepts, there is an important difference between "assessment" and "evaluation" {cite:ts}`conrad_assessment_2018`. Formally, **assessment** refers to ongoing feedback from the teaching team, your peers, and your own self-assessment of your performance. The goal of assessment is to help you learn, and improve your performance. For this reason it is often called **formative** — as in, helping to "form" and shape a better you.
 
 Conversely, **evaluation** is **summative** — it is intended to "sum up" your performance in the course, and is used to determine your course grade. Whereas assessment is intended to be an ongoing process, evaluation is a judgement applied when you have completed a set of work designed to evaluate your learning (such as an assignment or project). Evaluations represent a judgement by the teaching team of how well you met the objectives of the assignment or project.
 
