@@ -895,14 +895,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#use-del-to-remove-items-from-a-list-entirely">
-   Use
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     del
-    </span>
-   </code>
-   to remove items from a list entirely
+  <a class="reference internal nav-link" href="#removing-items-from-a-list">
+   Removing items from a list
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -1030,17 +1024,13 @@
 <li><p>With data sets of any reasonable size, it would rapidly become inefficient and confusing to store each data point with a separate variable name</p></li>
 <li><p>For example, here are average life expectancies for Canada over 100 years, from the Gapminder data set:</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">life_exp_1900</span> <span class="o">=</span> <span class="mf">48.1</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">life_exp_1900</span> <span class="o">=</span> <span class="mf">48.1</span>
 <span class="n">life_exp_1920</span> <span class="o">=</span> <span class="mf">56.6</span>
 <span class="n">life_exp_1940</span> <span class="o">=</span> <span class="mf">64.0</span>
 <span class="n">life_exp_1960</span> <span class="o">=</span> <span class="mf">71.0</span>
 <span class="n">life_exp_1980</span> <span class="o">=</span> <span class="mf">75.2</span>
 <span class="n">life_exp_2000</span> <span class="o">=</span> <span class="mf">79.2</span>
 </pre></div>
-</div>
-</div>
 </div>
 <ul class="simple">
 <li><p>While you can store the data this way, it requires a lot of variable names. As well, although there is structure in the data (they reflect an ordered sequence of dates), this ordering is not reflected in how the data are stored.</p></li>
@@ -1051,18 +1041,8 @@
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Life expectancies:&#39;</span><span class="p">,</span> <span class="n">life_exp</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">life_exp</span> <span class="o">=</span> <span class="p">[</span><span class="mf">48.1</span><span class="p">,</span> <span class="mf">56.6</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">,</span> <span class="mf">71.0</span><span class="p">,</span> <span class="mf">75.2</span><span class="p">,</span> <span class="mf">79.2</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Life expectancies:&#39;</span><span class="p">,</span> <span class="n">life_exp</span><span class="p">)</span>
+<div class="highlight-result notranslate"><div class="highlight"><pre><span></span>Life expectancies: [48.1, 56.6, 64.0, 71.0, 75.2, 79.2]
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Life expectancies: [48.1, 56.6, 64.0, 71.0, 75.2, 79.2]
-</pre></div>
-</div>
-</div>
 </div>
 <p>Like strings, we can use the <code class="docutils literal notranslate"><span class="pre">len()</span></code> function to get the length of a list</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;length:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">life_exp</span><span class="p">))</span>
@@ -1156,7 +1136,7 @@
 </pre></div>
 </div>
 <p>The resulting value of <code class="docutils literal notranslate"><span class="pre">life_exp</span></code> would be:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kc">None</span>
+<div class="highlight-result notranslate"><div class="highlight"><pre><span></span>None
 </pre></div>
 </div>
 <p>which is definitely not what we want!</p>
@@ -1191,17 +1171,28 @@
 </pre></div>
 </div>
 </section>
-<section id="use-del-to-remove-items-from-a-list-entirely">
-<h2>Use <code class="docutils literal notranslate"><span class="pre">del</span></code> to remove items from a list entirely<a class="headerlink" href="#use-del-to-remove-items-from-a-list-entirely" title="Permalink to this headline">¶</a></h2>
-<p>We use <code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">list_name[index]</span></code> to remove an element from a list</p>
-<p><code class="docutils literal notranslate"><span class="pre">del</span></code> is not a function or a method, but a <em>statement</em> in Python. That is why it is followed by a space, rather than providing arguments in parentheses.</p>
-<p>In the example below, we extend one list with another, but then we notice that the last value in the first list, is duplicated as the first value in the second list. So we need to remove one copy of the repeated value.</p>
+<section id="removing-items-from-a-list">
+<h2>Removing items from a list<a class="headerlink" href="#removing-items-from-a-list" title="Permalink to this headline">¶</a></h2>
+<p>There are two list methods that you can use to remove an element from a list:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.remove()</span></code> will remove the <em>first</em> instance of a specific value you give it as an argument</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.pop()</span></code> will remove an element at a specific position (index) that you give as an argument</p></li>
+</ul>
+<p>In the example below, we extend one list with another, but then we notice that the last value in the first list, is duplicated as the first value in the second list. As well, the last value in the second list is duplicated. So we need to remove one copy of each repeated value.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">life_exp</span> <span class="o">=</span> <span class="p">[</span><span class="mf">48.1</span><span class="p">,</span> <span class="mf">56.6</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">,</span> <span class="mf">71.0</span><span class="p">,</span> <span class="mf">75.2</span><span class="p">,</span> <span class="mf">79.2</span><span class="p">,</span> <span class="mf">82.3</span><span class="p">]</span>
-<span class="n">life_exp_2000s</span> <span class="o">=</span> <span class="p">[</span><span class="mf">82.3</span><span class="p">,</span> <span class="mf">85.1</span><span class="p">,</span> <span class="mf">87.3</span><span class="p">,</span> <span class="mf">89.5</span><span class="p">,</span> <span class="mf">91.6</span><span class="p">]</span>
+<span class="n">life_exp_2000s</span> <span class="o">=</span> <span class="p">[</span><span class="mf">82.3</span><span class="p">,</span> <span class="mf">85.1</span><span class="p">,</span> <span class="mf">87.3</span><span class="p">,</span> <span class="mf">89.5</span><span class="p">,</span> <span class="mf">91.6</span><span class="p">,</span> <span class="mf">91.6</span><span class="p">]</span>
 <span class="n">life_exp</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">life_exp_2000s</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;With duplicated value:&#39;</span><span class="p">,</span> <span class="n">life_exp</span><span class="p">)</span>
-
-<span class="k">del</span> <span class="n">life_exp</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;With duplicated values:&#39;</span><span class="p">,</span> <span class="n">life_exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Type the code above and run it in the cell below:</p>
+<p>We will remove the value that’s duplicated in the two lists, <code class="docutils literal notranslate"><span class="pre">82.3</span></code>, using <code class="docutils literal notranslate"><span class="pre">.remove()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">life_exp</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mf">82.3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Removed duplicate value:&#39;</span><span class="p">,</span> <span class="n">life_exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We will remove the value that’s duplicated at the end using <code class="docutils literal notranslate"><span class="pre">.pop()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">life_exp</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Removed duplicate value:&#39;</span><span class="p">,</span> <span class="n">life_exp</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1273,21 +1264,6 @@
 <p>Output:</p>
 <p><code class="docutils literal notranslate"><span class="pre">first</span> <span class="pre">time:</span> <span class="pre">[1,</span> <span class="pre">3,</span> <span class="pre">5]</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">second</span> <span class="pre">time:</span> <span class="pre">[3,</span> <span class="pre">5]</span></code></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### BEGIN SOLUTION</span>
-<span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;first time:&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
-<span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;second time:&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
-<span class="c1">### END SOLUTION</span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section id="how-large-is-a-slice">
 <h2>How Large is a Slice?<a class="headerlink" href="#how-large-is-a-slice" title="Permalink to this headline">¶</a></h2>
@@ -1331,6 +1307,19 @@ of each string element in the list and adds the separator between each element i
 <span class="nb">print</span><span class="p">(</span><span class="n">life_exp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">life_exp</span> <span class="o">=</span> <span class="p">[</span><span class="mf">48.1</span><span class="p">,</span> <span class="mf">56.6</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">,</span> <span class="mf">71.0</span><span class="p">,</span> <span class="mf">75.2</span><span class="p">,</span> <span class="mf">79.2</span><span class="p">,</span> <span class="mf">82.3</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">life_exp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>82.3
+</pre></div>
+</div>
+</div>
+</div>
 <ol class="simple">
 <li><p>How does Python interpret a negative index?</p></li>
 <li><p>If a list or string has N elements,
@@ -1343,7 +1332,7 @@ and what location does that index represent?</p></li>
 </section>
 <section id="id2">
 <h2>Solution<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>The program prints <code class="docutils literal notranslate"><span class="pre">m</span></code>.</p>
+<p>The program prints <code class="docutils literal notranslate"><span class="pre">82.3</span></code>, which is the last element in the list.</p>
 <ol class="simple">
 <li><p>Python interprets a negative index as starting from the end (as opposed to
 starting from the beginning).  The last element is <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></li>
@@ -1447,35 +1436,33 @@ In simple terms, explain the difference between <code class="docutils literal no
 <p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">y</span></code> makes <code class="docutils literal notranslate"><span class="pre">x</span></code> a <em>reference</em> to the list <code class="docutils literal notranslate"><span class="pre">y</span></code> in memory; the variables <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> both point towards the same object. So when we change <code class="docutils literal notranslate"><span class="pre">x</span></code>, we also change <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
 <p>In contrast, <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">y[:]</span></code> creates a new list object <code class="docutils literal notranslate"><span class="pre">x</span></code> containing all elements from the list <code class="docutils literal notranslate"><span class="pre">y</span></code>; <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are different objects, and so changing one has no effect on the other.</p>
 <p>The fact that some operations create copies while others make new pointers to existing objects, is an important lesson to learn in Python. Different functions and methods work in different ways; the important thing for now is to be aware that both results could happen.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s1">&#39;gold&#39;</span><span class="p">)</span>
+<p>Although using <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">y[:]</span></code> works to create a copy of a list, it’s not the clearest, most explicit, or “pythonic” way to copy a list. A better approach is to use the list method <code class="docutils literal notranslate"><span class="pre">.copy()</span></code>. This is preferable because it’s easier to understand what the code is doing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s1">&#39;gold&#39;</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>   
 <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;D&#39;</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x is&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;and y is&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x is [&#39;D&#39;, &#39;o&#39;, &#39;l&#39;, &#39;d&#39;] and y is [&#39;g&#39;, &#39;o&#39;, &#39;l&#39;, &#39;d&#39;]
+<p>Prints:</p>
+<div class="highlight-result notranslate"><div class="highlight"><pre><span></span>x is [&#39;D&#39;, &#39;o&#39;, &#39;l&#39;, &#39;d&#39;] and y is [&#39;g&#39;, &#39;o&#39;, &#39;l&#39;, &#39;d&#39;]
 </pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="summary-of-key-points">
 <h2>Summary of Key Points:<a class="headerlink" href="#summary-of-key-points" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>A list stores many values in a single structure.</p></li>
-<li><p>Use an item’s index to fetch it from a list.</p></li>
-<li><p>Lists’ values can be replaced by assigning to them.</p></li>
-<li><p>Appending items to a list lengthens it.</p></li>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">del</span></code> to remove items from a list entirely.</p></li>
-<li><p>The empty list contains no values.</p></li>
-<li><p>Lists may contain values of different types.</p></li>
-<li><p>Character strings can be indexed like lists.</p></li>
-<li><p>Character strings are immutable.</p></li>
-<li><p>Indexing beyond the end of the collection is an error.</p></li>
+<li><p>A list stores many values in a single structure</p></li>
+<li><p>Lists may contain values of different types</p></li>
+<li><p>The empty list contains no values</p></li>
+<li><p>Use an item’s index to fetch it from a list</p></li>
+<li><p>Lists’ values can be replaced by assigning to them</p></li>
+<li><p>Appending items to a list lengthens it</p></li>
+<li><p>if <code class="docutils literal notranslate"><span class="pre">.append()</span></code> is used to add a collection of items (such as a list), they are added as a single new list item</p></li>
+<li><p>The list method <code class="docutils literal notranslate"><span class="pre">.extend()</span></code> can be used with a collection of items (such as another list) to create a flat list</p></li>
+<li><p>The list methods <code class="docutils literal notranslate"><span class="pre">.remove()</span></code> and <code class="docutils literal notranslate"><span class="pre">.pop()</span></code> can be used to delete list items, using either their value or index, respectively</p></li>
+<li><p>Character strings can be indexed like lists</p></li>
+<li><p>Character strings are immutable, whereas lists are mutable (changable)</p></li>
+<li><p>Indexing beyond the end of the collection is an error, but slicing can include indexes that do not occur in the list</p></li>
 </ul>
 <hr class="docutils" />
 <p>This lesson is adapted from the <a class="reference external" href="https://software-carpentry.org/lessons/">Software Carpentry</a> <a class="reference external" href="http://swcarpentry.github.io/python-novice-gapminder/">Plotting and Programming in Python</a> workshop.</p>
