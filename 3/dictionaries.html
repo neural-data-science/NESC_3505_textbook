@@ -501,6 +501,11 @@
    pandas DataFrames
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="looping-data-files.html">
+   Looping Over Data Files
+  </a>
+ </li>
 </ul>
 <p class="caption" role="heading">
  <span class="caption-text">
@@ -883,12 +888,39 @@
      Nested indexing
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nested-dictionaries">
+     Nested dictionaries
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#exercises">
    Exercises
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#practice-with-dictionaries">
+     Practice with dictionaries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sorting-dictionaries">
+     Sorting dictionaries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extending-dictionaries">
+     Extending dictionaries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#checking-dictionaries">
+     Checking dictionaries
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#summary-of-key-points">
@@ -929,7 +961,7 @@
 <h2>Dictionaries are mappings<a class="headerlink" href="#dictionaries-are-mappings" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Python provides a valuable data type called the <strong>dictionary</strong> (often abbreviated as “dict”)</p></li>
-<li><p>Dictionaries are collections, like lists or strings</p></li>
+<li><p>Dictionaries are <em>collections</em> — Python data types that store multiple values — like lists or strings</p></li>
 <li><p>However, dictionaries are <em>mappings</em>. Like a traditional dictionary that contains a word, followed by a definition, dictionaries are pairings of <strong>keys</strong> and <strong>values</strong></p></li>
 <li><p>A dictionary can be defined using curly braces that specify key-value mappings using the colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>)</p></li>
 <li><p>For example, the following defines a dictionary with four keys (<code class="docutils literal notranslate"><span class="pre">First</span> <span class="pre">Name</span></code>, <code class="docutils literal notranslate"><span class="pre">Last</span> <span class="pre">Name</span></code>, etc.), each with an associated value:</p></li>
@@ -1026,22 +1058,10 @@
 <h2>Dictionaries are unordered<a class="headerlink" href="#dictionaries-are-unordered" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Both strings and lists are <em>ordered</em> — the items exist in a string or list in a specific order. This is why we can use integers to index string or list items based on their position</p></li>
-<li><p>Dictionaries, in contrast, are <em>unordered</em>. You access values by their keys, but because they are not ordered, you can’t access values using numerical indexing. For example, this will fail:</p></li>
+<li><p>Dictionaries, in contrast, are <em>unordered</em>. Because they are not ordered, you can’t access values using numerical indexing, only by their keys. For example, this will fail:</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">life_exp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">life_exp</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{1900: 48.1, 1920: 56.6, 1940: 64.0, 1960: 71.0, 1980: 75.2, 2000: 79.2}
-</pre></div>
-</div>
-</div>
 </div>
 <p>If you run the code above, you will get a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code>, because Python interprets what’s in the square brackets as a dictionary key, not a sequential index. This makes sense, since dictionary keys can be integers.</p>
 </section>
@@ -1062,7 +1082,13 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">life_exp</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>What Python type are the results of the <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> and <code class="docutils literal notranslate"><span class="pre">.values()</span></code> methods?</p>
+<p>You can also view both the keys and values at once, using <code class="docutils literal notranslate"><span class="pre">.items()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">life_exp</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">.items()</span></code> is more complex than just asking Python to print the dictionary, but it’s organized in a way that will be useful in later lessons, for example if you want to systematically do the same thing to each item in a a dictionary.</p>
+<p><strong>Skill-Testing Question:</strong>
+What Python type are the results of the <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> and <code class="docutils literal notranslate"><span class="pre">.values()</span></code> methods?</p>
 </section>
 <section id="finding-a-key-in-a-dictionary">
 <h2>Finding a key in a dictionary<a class="headerlink" href="#finding-a-key-in-a-dictionary" title="Permalink to this headline">¶</a></h2>
@@ -1085,10 +1111,14 @@
 </div>
 <section id="nested-indexing">
 <h3>Nested indexing<a class="headerlink" href="#nested-indexing" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">intl_life_exp</span></code> is an example of <em>nesting</em>, which we saw previously in the lesson on lists. Each dictionary entry’s value is a list, which is “nested” inside the dictionary.</p>
 <p>Since we can index entries in a list, we can use a sequence of specifiers to access a particular element within the list for a specific country’s dictionary entry:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">intl_life_exp</span><span class="p">[</span><span class="s1">&#39;Denmark&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
+</section>
+<section id="nested-dictionaries">
+<h3>Nested dictionaries<a class="headerlink" href="#nested-dictionaries" title="Permalink to this headline">¶</a></h3>
 <p>Using lists in the above example has the same limitation talked about at the start of this lesson: we don’t know what years correspond to the values in each list. Using a dictionary of dictionaries solves this problem:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">intl_life_exp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Canada&#39;</span><span class="p">:{</span><span class="mi">1900</span><span class="p">:</span><span class="mf">48.1</span><span class="p">,</span> <span class="mi">1920</span><span class="p">:</span><span class="mf">56.6</span><span class="p">,</span> <span class="mi">1940</span><span class="p">:</span><span class="mf">64.0</span><span class="p">,</span> <span class="mi">1960</span><span class="p">:</span><span class="mf">71.0</span><span class="p">,</span> <span class="mi">1980</span><span class="p">:</span><span class="mf">75.2</span><span class="p">,</span> <span class="mi">2000</span><span class="p">:</span><span class="mf">79.2</span><span class="p">},</span>
                    <span class="s1">&#39;Denmark&#39;</span><span class="p">:{</span><span class="mi">1900</span><span class="p">:</span><span class="mf">51.3</span><span class="p">,</span> <span class="mi">1920</span><span class="p">:</span><span class="mf">57.5</span><span class="p">,</span> <span class="mi">1940</span><span class="p">:</span><span class="mf">66.1</span><span class="p">,</span> <span class="mi">1960</span><span class="p">:</span><span class="mf">72.0</span><span class="p">,</span> <span class="mi">1980</span><span class="p">:</span><span class="mf">74.2</span><span class="p">,</span> <span class="mi">2000</span><span class="p">:</span><span class="mf">77.0</span><span class="p">},</span>
@@ -1116,11 +1146,23 @@
 <hr class="docutils" />
 <section id="exercises">
 <h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
-<p>Create a dictionary called <code class="docutils literal notranslate"><span class="pre">weekdays</span></code> in which the keys are the names of the days of the week from Monday to Friday (not including weekends), and the values are numbers from 1-5 (with the key <code class="docutils literal notranslate"><span class="pre">Monday</span></code> associated with the value <code class="docutils literal notranslate"><span class="pre">1</span></code>, etc.).</p>
+<section id="practice-with-dictionaries">
+<h3>Practice with dictionaries<a class="headerlink" href="#practice-with-dictionaries" title="Permalink to this headline">¶</a></h3>
+<p>Create a dictionary called <code class="docutils literal notranslate"><span class="pre">weekdays</span></code> in which the keys are the names of the days of the week from Monday to Friday (not including weekends), and the values are the dates of the days of the week for this week (e.g., if today is Monday, Sept 20, then your value for <code class="docutils literal notranslate"><span class="pre">Monday</span></code> would be <code class="docutils literal notranslate"><span class="pre">20</span></code>)</p>
 <p>Using the <code class="docutils literal notranslate"><span class="pre">weekdays</span></code> list you created, print the value for <code class="docutils literal notranslate"><span class="pre">Wednesday</span></code></p>
+</section>
+<section id="sorting-dictionaries">
+<h3>Sorting dictionaries<a class="headerlink" href="#sorting-dictionaries" title="Permalink to this headline">¶</a></h3>
 <p>Although dictionaries are not stored in an ordered fashion, it is possible to view a sorted list of dictionary keys using the <code class="docutils literal notranslate"><span class="pre">sorted()</span></code> function we learned in the previous lesson on lists. Try printing the sorted keys for <code class="docutils literal notranslate"><span class="pre">weekdays</span></code></p>
+</section>
+<section id="extending-dictionaries">
+<h3>Extending dictionaries<a class="headerlink" href="#extending-dictionaries" title="Permalink to this headline">¶</a></h3>
 <p>Add key:value pairs for the weekend days to <code class="docutils literal notranslate"><span class="pre">weekdays</span></code></p>
+</section>
+<section id="checking-dictionaries">
+<h3>Checking dictionaries<a class="headerlink" href="#checking-dictionaries" title="Permalink to this headline">¶</a></h3>
 <p>Check if the year 1940 is a key in the entry for Denmark in the intl_life_exp dictionary</p>
+</section>
 </section>
 <hr class="docutils" />
 <section id="summary-of-key-points">
