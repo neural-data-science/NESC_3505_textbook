@@ -1,0 +1,1348 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Introduction to Spike Train Data &#8212; Data Science for Psychology and Neuroscience — in Python</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e2363ea40746bee74734a24ffefccd78.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="http://neuraldatascience.io/single_unit/intro_spike_trains.html" />
+    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ten intensities — A bigger data set" href="ten_intensities.html" />
+    <link rel="prev" title="Single Unit Data and Spike Trains" href="single_unit_intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/NESC3505_icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science for Psychology and Neuroscience — in Python</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  About This Course
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/why.html">
+   Start with why
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_objectives.html">
+   Learning Objectives for this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../syllabus.html">
+   Syllabus
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Pedagogy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/teaching_approach.html">
+   Teaching Approach
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/online_learning.html">
+   Hybrid Online Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/assessment_evaluation.html">
+   Assessment and Evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/constructivism.html">
+   Constructivism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/connectivism.html">
+   Connectivism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/authenticity.html">
+   Authenticity
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/21st_cen_skills.html">
+   21st Century Skills
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Open Software, Science, &amp; Education
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open.html">
+   Open Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/software.html">
+   Free Software
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/free_licenses.html">
+   Free and Open-Source Software Licenses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_science.html">
+   Open Science
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/peer_review.html">
+   Peer Review
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/for_profit.html">
+   For-Profit Publishing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/impact_factors.html">
+   Impact Factors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/novelty.html">
+   Novelty
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_publishing.html">
+   Open Publishing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/preregistration.html">
+   Preregistration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_methods.html">
+   Open Methods and Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/oer.html">
+   Open Educational Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/oer_this_course.html">
+   OERs in the Context of this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/licenses.html">
+   Licenses
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  How to Rock This Course
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_approach.html">
+   Learning Approach
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/mindset.html">
+   Mindset
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/errors_debugging.html">
+   Errors and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/teamwork.html">
+   Collaboration and Teamwork
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/what_is_nds.html">
+   What is Data Science?
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/data.html">
+     Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/tools_for_nds.html">
+   Tools for Neural Data Science
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/spreadsheets.html">
+     Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/spreadsheets_limits.html">
+     Limitations of Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/reproducibility.html">
+     Reproducibility
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/sci_prog_lang.html">
+     Scientific Programming Languages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/which_lang.html">
+     Which language to use?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/libs.html">
+     Libraries and packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/why_python.html">
+     Why Python for this Course?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/class_tech.html">
+   Technologies Used in this Class
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/lms.html">
+     Learning Management System
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/teams.html">
+     MS Teams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/communication.html">
+     Communication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/videos.html">
+     YouTube
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/coding.html">
+   Coding Tools
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/python.html">
+     Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/datacamp.html">
+     DataCamp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/py4e.html">
+     Python for Everybody (PY4E)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/terminal.html">
+     The Terminal and Command Line
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/jupyter.html">
+     Jupyter
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/markdown.html">
+     Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/cocalc.html">
+     CoCalc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/github.html">
+     GitHub
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/alltogether.html">
+   Putting It All Together
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/get_going.html">
+   Get Going!
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Introducing Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/getting_help.html">
+   Getting Help with Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/variables-and-assignment.html">
+   Variables and Assignment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/types-conversion.html">
+   Data Types and Conversion
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/built-in.html">
+   Python Built-Ins
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/lists.html">
+   Lists
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/dictionaries.html">
+   Dictionaries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/for-loops.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     for
+    </span>
+   </code>
+   Loops
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/conditionals.html">
+   Conditionals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/pandas-dataframes.html">
+   pandas DataFrames
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/looping-data-files.html">
+   Looping Over Data Files
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Visualizing Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/introduction.html">
+   Introduction to Data Visualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/plotting.html">
+   Plotting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/proc-vs-oo.html">
+   Procedural versus Object-Oriented Plotting in Matplotlib
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Single Unit Data
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="single_unit_intro.html">
+   Single Unit Data and Spike Trains
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Introduction to Spike Train Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ten_intensities.html">
+   Ten intensities — A bigger data set
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="heat_maps.html">
+   Heat Maps, Interpolation, and Colour Map Choice
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro_multielec_data.html">
+   Introducing Multielectrode Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="import_multielec_data.html">
+   Importing Multielectrode Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="pandas_multielec.html">
+   Working with Multielectrode Data in pandas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="corr_spike_trains.html">
+   Correlating spike trains
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/time_freq.html">
+   Time and Frequency Domains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/erps.html">
+   Event-Related Potentials (ERPs)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/components.html">
+   ERP Components
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../eeg/preprocessing.html">
+   Preprocessing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/filtering.html">
+     Filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/event_codes.html">
+     Event Codes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/epoching.html">
+     Epoching (Segmentation)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/artifacts.html">
+     Artifacts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/averaging.html">
+     Averaging
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../eeg/mne-python.html">
+   MNE-Python
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/mne_org.html">
+     Organization of MNE-Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/mne_classes.html">
+     MNE classes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  MRI Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine_learning/introduction.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../zrefs.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/single_unit/intro_spike_trains.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2Fsingle_unit/intro_spike_trains.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/single_unit/intro_spike_trains.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#our-first-spike-train">
+   Our first spike train
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stimulus-locking">
+   Stimulus locking
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#list-comprehension">
+     List comprehension
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#visualizing-a-spike-train-raster-plots">
+   Visualizing a Spike Train: Raster Plots
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#more-trials">
+   More Trials
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-peri-stimulus-time-histogram-psth">
+   The Peri-Stimulus Time Histogram (PSTH)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sub-plots">
+   Sub-plots
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="introduction-to-spike-train-data">
+<h1>Introduction to Spike Train Data<a class="headerlink" href="#introduction-to-spike-train-data" title="Permalink to this headline">¶</a></h1>
+<p><em>The examples and code in this chapter were adapted from Chapter 3 of Nylen, E.L., and Wallisch, P.. (2017).</em> <a class="reference external" href="https://www.sciencedirect.com/book/9780128040430/neural-data-science">Neural Data Science</a>. <em>Academic Press. by Aaron J. Newman. Code has been modified to be more pythonic and efficient. Explanatory text by Aaron J. Newman.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="our-first-spike-train">
+<h2>Our first spike train<a class="headerlink" href="#our-first-spike-train" title="Permalink to this headline">¶</a></h2>
+<p>Below we create a list of binary (1 or 0) values. Python lists are ordered, which makes them a good way of storing sequential data like a time series. In the list below, each value represents an evenly-spaced point in time (e.g., one data value every 10 ms), where <code class="docutils literal notranslate"><span class="pre">0</span></code> encodes time points at which no action potential was detected, and <code class="docutils literal notranslate"><span class="pre">1</span></code> represents times when action potentials occurred.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spike_train</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-block alert-info">
+    <h3>Style note:</h3>
+<p>Notice that in all variable names, I use all lower case with underscores separating words, as in <code class="docutils literal notranslate"><span class="pre">spike_train</span></code> and, below, <code class="docutils literal notranslate"><span class="pre">light_onset_time</span></code>. This naming convention is called <strong>snake case</strong>, and is actually defined in <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#naming-conventions">Python PEP 8</a> (remember, PEPs are the “Python Enhancement Proposals” that provide standards for the language). PEP 8 specifies that regular variables “should be lowercase, with words separated by underscores as necessary to improve readability”.</p>
+<p>You may encounter different conventions as standard in other programming languages, such as <a class="reference external" href="https://en.wikipedia.org/wiki/Camel_case"><strong>camel case</strong></a> which would be <code class="docutils literal notranslate"><span class="pre">SpikeTrains</span></code> or possibly <code class="docutils literal notranslate"><span class="pre">spikeTrains</span></code> (for the aficionados: the first is is a sub-type of camel case called <strong>Pascal case</strong>, while the second is <strong>dromedary case</strong>). However, PEP 8 specifies that camel case should only be used for naming classes and type variables. Don’t worry if you don’t know what classes and type variables are; the point is that the Python convention is to use lower-case variable names, with words separated by underscores.</p>
+<p>There is a good reason for following these conventions: when a seasoned Python programmer sees something in camel case, they will expect it to be a class or type variable, not a regular variable. Following Python’s conventions thus improves the readability, sharability, and transparency of code.</p>
+</div></div>
+<div class="section" id="stimulus-locking">
+<h2>Stimulus locking<a class="headerlink" href="#stimulus-locking" title="Permalink to this headline">¶</a></h2>
+<p>In this hypothetical experiment, the neuron in question was genetically engineered for <a class="reference external" href="https://en.wikipedia.org/wiki/Optogenetics"><strong>optogenetics</strong></a>, meaning that it expresses genes sensitive to a specific wavelength of light (550 nm, which is green). When light of that wavelength is directed at the neuron, it tends to fire. In this experiment, the light was turned on at time point 5 in the spike train data. If you want to learn more about optogenetics, check out <a class="reference external" href="https://youtu.be/lqroI7sFVuk">this video by Prof. Carl Petersen</a>.</p>
+<p>The code below defines that light onset time as a variable, and also defines that a spike is represented as a 1 in the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">light_onset_time</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">spike_value</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A characteristic feature of a neuron is the <em>first spike latency to stimulus</em> — how long after a stimulus the first spike occurs. Different neurons will have different average values of this. The code below finds this value for our data, and assigns it to a variable.</p>
+<p>In the first line, we use <code class="docutils literal notranslate"><span class="pre">light_onset_time:</span></code> to search forward in the list of values from the time of the stimulus - since we want to look for the first spike after that stimulus. We add the <code class="docutils literal notranslate"><span class="pre">.index()</span></code> method to find the index of the first instance of <code class="docutils literal notranslate"><span class="pre">spike_value</span></code> (1, when a spike occurred). We then print that value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">latency_to_first_spike</span> <span class="o">=</span> <span class="n">spike_train</span><span class="p">[</span><span class="n">light_onset_time</span><span class="p">:]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">spike_value</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;first spike latency to stimulus = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">latency_to_first_spike</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>first spike latency to stimulus = 4
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we want to find all the spikes in the spike train, we can use the <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> function in a for loop. Unlike a regular <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, which simply loops through all values of a list (or other object), <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> does this while keeping track of the index of the current item within the loop.</p>
+<p>To illustrate, if we use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to print the values of <code class="docutils literal notranslate"><span class="pre">spike_train</span></code> we get:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">spike_train</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+1
+0
+1
+0
+0
+0
+1
+0
+0
+0
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we use the <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> function, we assign the index of the list to <code class="docutils literal notranslate"><span class="pre">i</span></code>, and the value of the list to <code class="docutils literal notranslate"><span class="pre">x</span></code> (as we did above):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">spike_train</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 0
+1 0
+2 0
+3 0
+4 0
+5 0
+6 0
+7 0
+8 0
+9 1
+10 0
+11 1
+12 0
+13 1
+14 0
+15 0
+16 0
+17 1
+18 0
+19 0
+20 0
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can see the first column is the index (position) in the list, and the second column indicates whether a spike happened or not.</p>
+<p>Based on this, we can use <strong>list comprehension</strong> to create a list of the time points (indices) where spikes occurred:</p>
+<p>Here we find the time points of all spikes (where <code class="docutils literal notranslate"><span class="pre">x==1</span></code>)in the spike train:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spike_times</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">spike_train</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spike_times</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[9, 11, 13, 17]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="list-comprehension">
+<h3>List comprehension<a class="headerlink" href="#list-comprehension" title="Permalink to this headline">¶</a></h3>
+<p>The above code uses some elegant Python list comprehension:</p>
+<p><code class="docutils literal notranslate"><span class="pre">spike_times</span> <span class="pre">=</span> <span class="pre">[i</span> <span class="pre">for</span> <span class="pre">i,x</span> <span class="pre">in</span> <span class="pre">enumerate(spike_train)</span> <span class="pre">if</span> <span class="pre">x==1]</span></code></p>
+<p>Take some time to break this down and understand it — there’s a lot going on! Recall that list comprehension is used to create a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop in a single line, and return a list. It’s a useful and compact way to iterate over some set of items to get them into a list. The <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> function enumerates (counts) the items as it goes through a loop, so each time through the loop we have two variables being tracked. In this case, they are <code class="docutils literal notranslate"><span class="pre">x</span></code>, which is one value in <code class="docutils literal notranslate"><span class="pre">spike_train</span></code>, and <code class="docutils literal notranslate"><span class="pre">i</span></code>, the enumeration variable that stores the current position in the list (iteration through the loop). To the end of this is added a conditional, <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">x==1</span></code>. This allows us to retrieve the index (timing) of only values when that represent spikes.</p>
+<p>For a review of list comprehension, check out <a class="reference external" href="https://www.datacamp.com/community/tutorials/python-list-comprehension">this DataCamp tutorial</a>.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="visualizing-a-spike-train-raster-plots">
+<h2>Visualizing a Spike Train: Raster Plots<a class="headerlink" href="#visualizing-a-spike-train-raster-plots" title="Permalink to this headline">¶</a></h2>
+<p>Visualization is a highly effective way of making the data more interpretable. Below we generate a <strong>raster plot</strong>, with time on the <em>x</em> axis, and the spikes as vertical lines. The <em>y</em> axis is shown as a continuous scale (the default in matplotlib), but of course the actual values can only be 0 or 1.</p>
+<p>One thing to notice in the code for this plot is that it’s kind of “hacking” matplotlib functions to generate the plot. That is, we’re not passing the data to a standard matplotlib plot class like a bar chart or a histogram. Instead, we use the <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.vlines</span></code> function (recall above we imported <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> as <code class="docutils literal notranslate"><span class="pre">plt</span></code>) which will draw a vertical line anywhere on a plot. This is often used for manually drawing a line on top of data. In this case, we pass the <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> list to <code class="docutils literal notranslate"><span class="pre">plt.vlines</span></code> and use this function to actually plot our data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/intro_spike_trains_19_0.png" src="../_images/intro_spike_trains_19_0.png" />
+</div>
+</div>
+<p>You can see that we have a plot with blue vertical lines indicating the spike times. We can make the figure more informative though. Firstly, since the <em>x</em> axis is time, we should show the whole time period of the trial, form 0–20 ms, not just the range from the first to last spike. We can also label the <em>x</em> axis and add a title to facilitate interpretation:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;This neuron spikes in response to a single light stimulus&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/intro_spike_trains_21_0.png" src="../_images/intro_spike_trains_21_0.png" />
+</div>
+</div>
+<p>Finally, we can show when the stimulus occurred. We use the <code class="docutils literal notranslate"><span class="pre">axvspan</span></code> function to add green shading to the time period during which the green light was on. Note the clever use of colour-coding; rather than using an arbitrary or neutral shading colour like grey, the colour simultaneously encodes the time of the stimulus, and a key property of it. This is effective communication!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;This neuron spikes in response to a single light stimulus&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/intro_spike_trains_23_0.png" src="../_images/intro_spike_trains_23_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="more-trials">
+<h2>More Trials<a class="headerlink" href="#more-trials" title="Permalink to this headline">¶</a></h2>
+<p>Naturally, in a real experiment we would not stimulate a neuron once, record the data, and say the experiment was finished and that the one spike train was representative of what that neuron would do every time it’s stimulated. We would want to run repeated trials to identify the consistent properties of the neuron (and likely record from more neurons as well; we’ll come to that in the next notebook).</p>
+<p>Below we create 10 spike trains, representing 10 trials. These are stored as a list of lists, as we can tell from square brackets embedded in square brackets:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ten_spike_trains</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+                   <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Although the nicely-formatted list of lists above is pretty easy to look at and see where spikes occur, a graph will definitely be a more effective way of communicating this information, because we can add details that aid in interpretation, such as a time axis, shading to indicate when the light is on, axis labels, and a title.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an empty figure</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+<span class="c1"># Do the plotting</span>
+<span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ten_spike_trains</span><span class="p">)):</span>
+    <span class="n">spike_times</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ten_spike_trains</span><span class="p">[</span><span class="n">trial</span><span class="p">])</span> <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span> <span class="n">trial</span><span class="p">,</span> <span class="n">trial</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Make it pretty</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;This neuron spikes consistently in response to stimulus&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Trial Number&#39;</span><span class="p">)</span>
+<span class="c1"># code below places the y axis ticks at the centre of each raster line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)],</span>
+           <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/intro_spike_trains_27_0.png" src="../_images/intro_spike_trains_27_0.png" />
+</div>
+</div>
+<p>Note in the plot command above how each trial is drawn as a separate row in the graph, again using <code class="docutils literal notranslate"><span class="pre">plt.vlines()</span></code>, but embedded in a loop through each list (trial) within <code class="docutils literal notranslate"><span class="pre">ten_spike_trains</span></code>. The <a class="reference external" href="https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.vlines.html">API</a> for <code class="docutils literal notranslate"><span class="pre">plt.vlines()</span></code> shows that the first three arguments are: <code class="docutils literal notranslate"><span class="pre">vlines(x,</span> <span class="pre">ymin,</span> <span class="pre">ymax)</span></code>, where <code class="docutils literal notranslate"><span class="pre">ymin</span></code> and <code class="docutils literal notranslate"><span class="pre">ymax</span></code> define the bottom and top range of the vertical line. The trial number (<code class="docutils literal notranslate"><span class="pre">trial</span></code>, which is iterated over in the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop) is used as <code class="docutils literal notranslate"><span class="pre">ymin</span></code> and the next trial number (<code class="docutils literal notranslate"><span class="pre">trial+1</span></code>) as <code class="docutils literal notranslate"><span class="pre">ymax</span></code>. This is in contrast to the first raster plot (for one trial), where <code class="docutils literal notranslate"><span class="pre">ymin</span></code> and <code class="docutils literal notranslate"><span class="pre">ymax</span></code> were set to <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code>, respectively, to span the whole <em>y</em> axis.</p>
+</div>
+<div class="section" id="the-peri-stimulus-time-histogram-psth">
+<h2>The Peri-Stimulus Time Histogram (PSTH)<a class="headerlink" href="#the-peri-stimulus-time-histogram-psth" title="Permalink to this headline">¶</a></h2>
+<p>Along with raster plots, another common way of visualizing spike train data is the <em>peri-stimulus time histogram</em> (PSTH). As the name implies, this is a histogram — a plot of the count of spikes at each time point in the spike trains. PSTHs are a useful tool in aggregating the data across trials. As biological entities, neurons are complex and do not always spike at exactly the same time, or rate, every time they are stimulated. This is why we collect data over many trials — to identify the average pattern of responding. By summing the number of spikes in short time bins, PSTHs allow us to visualize when the neuron is most likely to spike.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+<span class="c1"># Show when stimuli were on</span>
+<span class="c1"># Do this first, so it&#39;s drawn &quot;under&quot; the PSTH</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">)</span>
+
+<span class="c1"># Draw the PSTH</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">21</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ten_spike_trains</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Make pretty</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Peri-Stimulus Time Histogram (PSTH)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Num. spike occurrences at this time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/intro_spike_trains_30_0.png" src="../_images/intro_spike_trains_30_0.png" />
+</div>
+</div>
+<p>The above PSTH simply plots the number of spikes per time bin (using the <code class="docutils literal notranslate"><span class="pre">np.sum()</span></code> function). Thus the numbers plotted are somewhat arbitrary, in that they will differ depending on the number of trials that were run. As well, even when we see peaks in the histogram, if we visualize the raw count without knowing the number of trials that contributed, we don’t have a good way of interpreting the data. That is, since we know here that we have 10 trials, a count of 7 is a high proportion of trials. However, if the data comprised 25 trials, a peak of 7 would likely not be compelling evidence that the neuron was responsive to the stimulus. We should always strive for transparency and readability in visualizing data, and minimize the need for the viewer to read additional material (e.g., the methods section where hopefully the number of trials is reported) to interpret the plot. As well, plotting things in standardized units makes it easier to compare across plots, articles, etc..</p>
+<p>In the case of PSTHs, what we really want to know is how <em>probable</em> is it that the neuron will fire at a particular time point after a stimulus, across trials. We can do this by computing the mean number of spikes at each time point with <code class="docutils literal notranslate"><span class="pre">np.mean()</span></code>, rather than just using the absolute count. Since the only possible values are 0 or 1, the mean will represent the proportion of times that the neuron spiked at that time point, regardless of how many trials comprised the data.</p>
+<p>We might also want to get a sense, visually, of whether the probability of firing is greater than chance, and thus related to the stimulus. Since the neuron only has two possible states (firing or not), a simple criterion would be to say that if the neuron fires on more than 50% of trials, it is responding to the stimulus. We can facilitate this interpretation for our viewer by adding a horizontal dashed line at 0.5 on the <em>y</em> axis, using <code class="docutils literal notranslate"><span class="pre">plt.axhline()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+<span class="c1"># Show when stimuli were on</span>
+<span class="c1"># Do this first, so it&#39;s drawn &quot;under&quot; the PSTH</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">)</span>
+
+<span class="c1"># Draw the PSTH</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">21</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ten_spike_trains</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Add line showing chance probability of firing</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+<span class="c1"># Make pretty</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Peri-Stimulus Time Histogram (PSTH)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Num. spike occurrences at this time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/intro_spike_trains_32_0.png" src="../_images/intro_spike_trains_32_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="sub-plots">
+<h2>Sub-plots<a class="headerlink" href="#sub-plots" title="Permalink to this headline">¶</a></h2>
+<p>Matplotlib has an easy way to create figures that have separate panels or <strong>subplots</strong>, which allow a lot of power and complexity in how you can visualize data. As a first example, let’s draw a single figure that has two subplots: one for the raster plot, and one of the PSTH, for our spike trains.</p>
+<p>We create a figure in the normal way, then use the <code class="docutils literal notranslate"><span class="pre">plt.subplot()</span></code> function to define both the layout of subplots we want in the figure, and a particular subplot that we want to draw into. The syntax for this is <code class="docutils literal notranslate"><span class="pre">plot.subplot(rows,</span> <span class="pre">columns,</span> <span class="pre">current)</span></code> where first two arguments specify the number of rows and columns in the figure, and the third argument defines the subplot we’ll draw into. The subplot numbers increase first across columns, then down rows, for example:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>5</p></td>
+<td><p>6</p></td>
+</tr>
+</tbody>
+</table>
+<div class="alert alert-block alert-info">
+    <h3>Warning:</h3>
+<p>In a rare exception to normal Python behaviour, <code class="docutils literal notranslate"><span class="pre">.subplots</span></code> are enumerated counting from <code class="docutils literal notranslate"><span class="pre">1</span></code>, rather than <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</div>    <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+
+<span class="c1"># Define that the figure has subplots, arranged as 2 rows (the first number) </span>
+<span class="c1">#   and 1 column (second number), and that the next commands will draw into </span>
+<span class="c1">#  the first subplot (the third number):</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Put the raster plot in the first (top) subplot. </span>
+<span class="c1"># This is essentially the same as the code for the previous raster plot, above</span>
+<span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ten_spike_trains</span><span class="p">)):</span> 
+    <span class="n">spike_times</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ten_spike_trains</span><span class="p">[</span><span class="n">trial</span><span class="p">])</span> <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span> 
+    <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span> <span class="n">trial</span><span class="p">,</span> <span class="n">trial</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> 
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">)</span> 
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;This neuron still spikes to repeated trials of the same stimulus&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Trial Number&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)],</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+
+<span class="c1"># Now draw into the second subplot, again specifying that overall the figure has 2 rows and 1 column</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Draw the PSTH</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">21</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ten_spike_trains</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability of spike occurrences at this time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/intro_spike_trains_34_0.png" src="../_images/intro_spike_trains_34_0.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./single_unit"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="single_unit_intro.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Single Unit Data and Spike Trains</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="ten_intensities.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Ten intensities — A bigger data set</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Aaron J Newman<br/>
+        
+            &copy; Copyright 2020-21. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script>
+                        window.ga = window.ga || function () {
+                            (ga.q = ga.q || []).push(arguments) };
+                        ga.l = +new Date;
+                        ga('create', 'UA-171426664-2', 'auto');
+                        ga('set', 'anonymizeIp', true);
+                        ga('send', 'pageview');
+                    </script>
+
+  </body>
+</html>
