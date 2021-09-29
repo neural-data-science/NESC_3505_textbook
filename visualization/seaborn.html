@@ -530,7 +530,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="plotting.html">
-   Introduction to Plotting Graphs
+   Introduction to Plotting with Matplotlib
   </a>
  </li>
  <li class="toctree-l1">
@@ -861,6 +861,38 @@
    Overview of Seaborn Plotting Functions
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#importing-the-seaborn-package">
+   Importing the Seaborn package
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plotting-gapminder-data">
+   Plotting Gapminder data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plotting-long-format-data">
+     Plotting Long-Format Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#descriptive-statistics">
+   Descriptive statistics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examining-distributions-with-histograms">
+   Examining distributions with histograms
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#viewing-the-data-by-condition">
+   Viewing the data by condition
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -887,7 +919,7 @@
 <hr class="docutils" />
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://seaborn.pydata.org">Seaborn</a> is a great Python plotting package that is built on top of Matplotlib. That is, it uses Matplotlib “under the hood”, but it offers the user a much simpler API (set of commands) that enable us to generate a variety of great-looking plots that are particularly useful in data science. You can check out Seaboarn’s <a class="reference external" href="https://seaborn.pydata.org/examples/index.html">examples gallery</a> to see some of the cool stuff you can do (including plotting neuroscience data!). Seaborn was written by <a class="reference external" href="https://mwaskom.github.io/">Michael Waskom</a></p>
+<p><a class="reference external" href="https://seaborn.pydata.org">Seaborn</a> is a great Python plotting package that is built on top of Matplotlib. That is, it uses Matplotlib “under the hood”, but it offers the user a much simpler API (set of commands) that enable us to generate a variety of great-looking plots that are particularly useful in data science. You can check out Seaboarn’s <a class="reference external" href="https://seaborn.pydata.org/examples/index.html">examples gallery</a> to see some of the cool stuff you can do (including plotting neuroscience data!). Seaborn was written by <a class="reference external" href="https://mwaskom.github.io/">Michael Waskom</a>.</p>
 <p>Comparing Seaborn to Matplotlib, you could say that Matplotlib givens you every sharp, hard-to-use tool in the shed, and you have to figure out how to learn them all without chopping off a finger. Fortunatley in data science you aren’t likely to lose any fingers, but Seaborn gives you some DIY-friendly power tools to get data science jobs done easily and looking great.</p>
 </div>
 <div class="section" id="overview-of-seaborn-plotting-functions">
@@ -895,7 +927,378 @@
 <p>Seaborn is organized into three categories of plot types, as shown below:</p>
 <img src=https://seaborn.pydata.org/_images/function_overview_8_0.png  alt='Seaborn overview' width=500>
 <p><em>Image source: <span class="xref myst">seaborn.pydata.org</span></em></p>
-<p>You can see that Seaborn’s functions are organized around the different types of data, and questions we typically ask of data in data science. The <code class="docutils literal notranslate"><span class="pre">relpolt</span></code> function plots relationships between different (continuous) variables; the <code class="docutils literal notranslate"><span class="pre">displot</span></code> function plots distributions of data (such as histograms), and the<code class="docutils literal notranslate"><span class="pre">catplot</span></code> function.</p>
+<p>You can see that Seaborn’s functions are organized around the different types of data, and questions we typically ask of data in data science: the <code class="docutils literal notranslate"><span class="pre">relpolt</span></code> function plots relationships between different (continuous) variables; the <code class="docutils literal notranslate"><span class="pre">displot</span></code> function plots distributions of data (such as histograms), and the<code class="docutils literal notranslate"><span class="pre">catplot</span></code> function.</p>
+</div>
+<div class="section" id="importing-the-seaborn-package">
+<h2>Importing the Seaborn package<a class="headerlink" href="#importing-the-seaborn-package" title="Permalink to this headline">¶</a></h2>
+<p>By convention, the alias we use when importing Seaborn is <code class="docutils literal notranslate"><span class="pre">sns</span></code>.</p>
+<p>We’ll also be using some other packages, so we’ll import those packages at the same time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="plotting-gapminder-data">
+<h2>Plotting Gapminder data<a class="headerlink" href="#plotting-gapminder-data" title="Permalink to this headline">¶</a></h2>
+<p>Mostly we’ll work with long-format data from here on, but since we have worked with the Gapminder data up until now, let’s see how we can generate a plot similar to what we produced in the <a class="reference internal" href="plotting.html"><span class="doc std std-doc">Introduction to Plotting with Matplotlib</span></a> lesson.</p>
+<p>First we’ll load the Ocieania GDP data, and strip the leading text off column names so that they are just the years:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp_oceania.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;gdpPercap_&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the previous lesson, we plotted GDP for each country as a function of year. That is, year is on the <em>x</em> axis, GDP is on the <em>y</em> axis, and there are separate lines for each country. As discussed previously, in this dataset, year is a continuous variable, as is GDP, but country is a categorical variable.</p>
+<p>From the figure of Seaborn plot types above, you can see that <code class="docutils literal notranslate"><span class="pre">relplot()</span></code> is the function to use for relational plots — that is, when you want to show the relationships between two continuous variables (year and GDP in this case).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">)</span>  <span class="c1"># For wide-format data we need to transpose rows &amp; columns</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># Always good practice to have this as the last line in a plotting cell</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/seaborn_8_0.png" src="../_images/seaborn_8_0.png" />
+</div>
+</div>
+<div class="section" id="plotting-long-format-data">
+<h3>Plotting Long-Format Data<a class="headerlink" href="#plotting-long-format-data" title="Permalink to this headline">¶</a></h3>
+<p>Let’s move to working some some data of the sort we might find in cognitive psychology. Imagine a simple <strong>lexical decision task</strong>, an experiment in which each trial involves presenting a printed string of letters to a participant, and asking them to make a response as quickly as possible: pressing one button of the word is a real word in their native language, and another button if it is not a real word. The dependent variable in the experiment is reation time (RT) — the amount of time that passed between the onset of the word on the screen, and the button press.</p>
+<p>Lexical decision tasks are commonly used in psycholinguistics to explore properties of the real words, such as their length or how frequently they occur in normal usage. However, for our simple example, we’ll focus on the simpler fact that, on average, people are slower in responding to nonwords than real words (especially if the nonwords look plausibly like real words, for example words like <em>blorp</em> or <em>furtle</em> that follow English word formation patterns).</p>
+<p>We’ve created some data, using a random number generator, to use in our plotting examples. The data were deliberately created with certain properties, so that the expected difference between RTs. We have data from 5 hypothetical participants, stored in separate data files in the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder. The naming format for the files is <code class="docutils literal notranslate"><span class="pre">ldt_sXX_data.csv</span></code>, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> stands for the subject ID number (two digits).</p>
+<p>First we’ll load the data from the files, practcing our <a class="reference internal" href="../3/looping-data-files.html"><span class="doc std std-doc">list comprehension</span></a>, and storing the result in a pandas DataFrame called <code class="docutils literal notranslate"><span class="pre">df</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/ldt_s??_data.csv&#39;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s look at a sample of the data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ID</th>
+      <th>condition</th>
+      <th>RT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>9</th>
+      <td>ldt_s03</td>
+      <td>word</td>
+      <td>0.534493</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>ldt_s02</td>
+      <td>word</td>
+      <td>0.507157</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>ldt_s04</td>
+      <td>nonword</td>
+      <td>0.740964</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>ldt_s04</td>
+      <td>nonword</td>
+      <td>0.809533</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>ldt_s03</td>
+      <td>nonword</td>
+      <td>0.698469</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>ldt_s05</td>
+      <td>nonword</td>
+      <td>0.674379</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>ldt_s01</td>
+      <td>nonword</td>
+      <td>0.932646</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>ldt_s04</td>
+      <td>nonword</td>
+      <td>0.590878</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>ldt_s04</td>
+      <td>word</td>
+      <td>0.636962</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>ldt_s01</td>
+      <td>nonword</td>
+      <td>0.758611</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can see that there are three columns:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ID</span></code> is the unique participant identifier</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">condition</span></code> is the type of word (real or nonword)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RT</span></code> is reaction time, measured in seconds</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="descriptive-statistics">
+<h2>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this headline">¶</a></h2>
+<p>We can use the pandas <code class="docutils literal notranslate"><span class="pre">.describe()</span></code> method to examine some basic properties of our data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>250.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.681350</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.171895</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.257868</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.547927</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.664820</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.814149</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1.171547</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Since <code class="docutils literal notranslate"><span class="pre">RT</span></code> is the only continuous variable in this DataFrame, we only get descriptive statistics for this variable.</p>
+</div>
+<div class="section" id="examining-distributions-with-histograms">
+<h2>Examining distributions with histograms<a class="headerlink" href="#examining-distributions-with-histograms" title="Permalink to this headline">¶</a></h2>
+<p><strong>Histograms</strong> are a type of plot that allows us to view distributions of values. The <em>x</em> axis of a histogram represents the values in the data, and the <em>y</em> axis shows the count of how many trials had that value on the <em>x</em> axis. Values on the <em>x</em> axis are grouped into <em>bins</em> — ranges of values.</p>
+<p>In Seaborn, we use the <code class="docutils literal notranslate"><span class="pre">displot()</span></code> function to plot distributions. Histograms are one type of <code class="docutils literal notranslate"><span class="pre">displot</span></code>, but they are the default, so we can just run the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;RT&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/seaborn_18_0.png" src="../_images/seaborn_18_0.png" />
+</div>
+</div>
+<p>Comparing the range of values on the <em>x</em> axis with the <code class="docutils literal notranslate"><span class="pre">min</span></code> and <code class="docutils literal notranslate"><span class="pre">max</span></code> values from <code class="docutils literal notranslate"><span class="pre">df.describe()</span></code>, we see that the entire range of values is represented. The range of RT values have been binned into 11 categories, in order to draw the 11 bars in the histogram. We can see that the most common values of RT are between approximately 0.5 – 0.6 s, which corresponds to the median (<code class="docutils literal notranslate"><span class="pre">50%</span></code>) value shown by <code class="docutils literal notranslate"><span class="pre">pd.describe()</span></code>. We can also see that the data are slightly <em>skewed</em> — there is a wider range of values to the right than the left of the peak. Visualizing distributions is thus a useful way of examining your data, and you can likely glean more information from this plot, more quickly and easily, than from the descriptive statistics table above.</p>
+<p>An alternative form of ditribution plot in Seaborn is the <em>kernel density estimate</em> (<code class="docutils literal notranslate"><span class="pre">kde</span></code>; often more simply called a “density plot”). This is like a histogram, but plots smooth curves over the range of values rather than bins as bars. To override <code class="docutils literal notranslate"><span class="pre">displot()</span></code>’s deafult of plotting a histogram, we add a <code class="docutils literal notranslate"><span class="pre">kind</span></code> kwarg:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span>
+           <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;RT&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/seaborn_20_0.png" src="../_images/seaborn_20_0.png" />
+</div>
+</div>
+<p>Density plots arguably make more sense for continuous variables like reaction time, since they represent continuous variables in a more continuous fashion.</p>
+</div>
+<div class="section" id="viewing-the-data-by-condition">
+<h2>Viewing the data by condition<a class="headerlink" href="#viewing-the-data-by-condition" title="Permalink to this headline">¶</a></h2>
+<p>As noted, the experiment had two conditions, words and nonwords. So far we’ve looked at the data overall, combining RTs from those two conditions. But it’s easy to look at the data broken down by condition.</p>
+<p>Firstly, we can use pandas’ <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> method to get descriptive statistics:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;condition&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="8" halign="left">RT</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>condition</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>nonword</th>
+      <td>125.0</td>
+      <td>0.805503</td>
+      <td>0.130820</td>
+      <td>0.498356</td>
+      <td>0.717614</td>
+      <td>0.814716</td>
+      <td>0.889235</td>
+      <td>1.171547</td>
+    </tr>
+    <tr>
+      <th>word</th>
+      <td>125.0</td>
+      <td>0.557198</td>
+      <td>0.105564</td>
+      <td>0.257868</td>
+      <td>0.481879</td>
+      <td>0.551796</td>
+      <td>0.625938</td>
+      <td>0.783768</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can add a <code class="docutils literal notranslate"><span class="pre">hue</span></code> kwarg to <code class="docutils literal notranslate"><span class="pre">sns.displot()</span></code> to separate and colour-code the conditions in a histogram:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;RT&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;condition&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/seaborn_25_0.png" src="../_images/seaborn_25_0.png" />
+</div>
+</div>
+<p>The grey area in the plot represents overlap.</p>
+<p>We can likewise use the <code class="docutils literal notranslate"><span class="pre">hue</span></code> kwarg with <code class="docutils literal notranslate"><span class="pre">kde</span></code> plots:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span>
+           <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+           <span class="n">x</span><span class="o">=</span><span class="s1">&#39;RT&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;condition&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/seaborn_28_0.png" src="../_images/seaborn_28_0.png" />
+</div>
+</div>
 </div>
 </div>
 
