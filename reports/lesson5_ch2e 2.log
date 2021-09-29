@@ -17,26 +17,21 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-psth_dict = {}
+filenames = ['s1.csv', 's2.csv', 's3.csv']
 
-for ortn in orientations:
-    for sort in sort_codes:
-        label = str(ortn) + '_' + str(sort)
-        psth_dict[label] = np.histogram(df[(df['orientation']==ortn) & 
-                                           (df['sort']==sort)]['time'],
-                                        bins=time_base
-                                       )
+df_list = []
+
+for filename in filenames:
+    df_list.append(pd.read_csv(filename))
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m/var/folders/x0/pvpjfdzd39sc5rqvsk5lvv4m0000gn/T/ipykernel_61289/880101533.py[0m in [0;36m<module>[0;34m[0m
-[1;32m      1[0m [0mpsth_dict[0m [0;34m=[0m [0;34m{[0m[0;34m}[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      2[0m [0;34m[0m[0m
-[0;32m----> 3[0;31m [0;32mfor[0m [0mortn[0m [0;32min[0m [0morientations[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      4[0m     [0;32mfor[0m [0msort[0m [0;32min[0m [0msort_codes[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      5[0m         [0mlabel[0m [0;34m=[0m [0mstr[0m[0;34m([0m[0mortn[0m[0;34m)[0m [0;34m+[0m [0;34m'_'[0m [0;34m+[0m [0mstr[0m[0;34m([0m[0msort[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-
-[0;31mNameError[0m: name 'orientations' is not defined
-NameError: name 'orientations' is not defined
+[0;32m/var/folders/x0/pvpjfdzd39sc5rqvsk5lvv4m0000gn/T/ipykernel_50489/3833279399.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      4[0m [0;34m[0m[0m
+[1;32m      5[0m [0;32mfor[0m [0mfilename[0m [0;32min[0m [0mfilenames[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 6[0;31m     [0mdf_list[0m[0;34m.[0m[0mappend[0m[0;34m([0m[0mpd[0m[0;34m.[0m[0mread_csv[0m[0;34m([0m[0mfilename[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;31mNameError[0m: name 'pd' is not defined
+NameError: name 'pd' is not defined
 
