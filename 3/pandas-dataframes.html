@@ -1103,29 +1103,1014 @@
 </pre></div>
 </div>
 <p>In the cell below, import pandas with the alias pd:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="importing-data-with-pandas">
 <h2>Importing data with pandas<a class="headerlink" href="#importing-data-with-pandas" title="Permalink to this headline">¶</a></h2>
 <p>As noted, we can read a CSV file and use it to create a pandas DataFrame, with the funciton <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code>. <a class="reference external" href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> is a text format used for storing tabular data, in which each line of the file corresponds to a row in the table, and columns are separated with commas (“CSV” stands for “comma-separated values”). Often the first row of a CSV file will be the <em>header</em>, containing labels for each column.</p>
 <p>The Gapminder data is in CSV format, so let’s load in one of the Gapminder datasets with the command below. Note that when we read in a DataFrame, we need to assign it to a variable name so that we can reference it later. A convention when working with pandas is to call the DataFrame <code class="docutils literal notranslate"><span class="pre">df</span></code>. This works fine if you only have one DataFrame to work with, although if you are working with multiple DataFrames it is a good idea to give them more meaningful names.</p>
 <p>The Gapminder data are stored in a subfolder called <code class="docutils literal notranslate"><span class="pre">data</span></code>, so as the argument to <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> below we give the folder name folled by a slash, then the file name:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp_europe.csv&#39;</span><span class="p">)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp_europe.csv&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
 </div>
 <p>We can view the contents of the DataFrame <code class="docutils literal notranslate"><span class="pre">df</span></code> by simply typing its name and running the cell. Note that, unlike most of the examples we’ve used in previous lessons, we <em>don’t</em> use the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function. Although it works, the result is not nicely formatted the way the output is if we just use the name of the data frame.</p>
 <p>That is, run this command: <code class="docutils literal notranslate"><span class="pre">df</span></code> — not <code class="docutils literal notranslate"><span class="pre">print(df)</span></code> — in the cell below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>gdpPercap_1952</th>
+      <th>gdpPercap_1957</th>
+      <th>gdpPercap_1962</th>
+      <th>gdpPercap_1967</th>
+      <th>gdpPercap_1972</th>
+      <th>gdpPercap_1977</th>
+      <th>gdpPercap_1982</th>
+      <th>gdpPercap_1987</th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_1997</th>
+      <th>gdpPercap_2002</th>
+      <th>gdpPercap_2007</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Albania</td>
+      <td>1601.056136</td>
+      <td>1942.284244</td>
+      <td>2312.888958</td>
+      <td>2760.196931</td>
+      <td>3313.422188</td>
+      <td>3533.003910</td>
+      <td>3630.880722</td>
+      <td>3738.932735</td>
+      <td>2497.437901</td>
+      <td>3193.054604</td>
+      <td>4604.211737</td>
+      <td>5937.029526</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Austria</td>
+      <td>6137.076492</td>
+      <td>8842.598030</td>
+      <td>10750.721110</td>
+      <td>12834.602400</td>
+      <td>16661.625600</td>
+      <td>19749.422300</td>
+      <td>21597.083620</td>
+      <td>23687.826070</td>
+      <td>27042.018680</td>
+      <td>29095.920660</td>
+      <td>32417.607690</td>
+      <td>36126.492700</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Belgium</td>
+      <td>8343.105127</td>
+      <td>9714.960623</td>
+      <td>10991.206760</td>
+      <td>13149.041190</td>
+      <td>16672.143560</td>
+      <td>19117.974480</td>
+      <td>20979.845890</td>
+      <td>22525.563080</td>
+      <td>25575.570690</td>
+      <td>27561.196630</td>
+      <td>30485.883750</td>
+      <td>33692.605080</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Bosnia and Herzegovina</td>
+      <td>973.533195</td>
+      <td>1353.989176</td>
+      <td>1709.683679</td>
+      <td>2172.352423</td>
+      <td>2860.169750</td>
+      <td>3528.481305</td>
+      <td>4126.613157</td>
+      <td>4314.114757</td>
+      <td>2546.781445</td>
+      <td>4766.355904</td>
+      <td>6018.975239</td>
+      <td>7446.298803</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Bulgaria</td>
+      <td>2444.286648</td>
+      <td>3008.670727</td>
+      <td>4254.337839</td>
+      <td>5577.002800</td>
+      <td>6597.494398</td>
+      <td>7612.240438</td>
+      <td>8224.191647</td>
+      <td>8239.854824</td>
+      <td>6302.623438</td>
+      <td>5970.388760</td>
+      <td>7696.777725</td>
+      <td>10680.792820</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Croatia</td>
+      <td>3119.236520</td>
+      <td>4338.231617</td>
+      <td>5477.890018</td>
+      <td>6960.297861</td>
+      <td>9164.090127</td>
+      <td>11305.385170</td>
+      <td>13221.821840</td>
+      <td>13822.583940</td>
+      <td>8447.794873</td>
+      <td>9875.604515</td>
+      <td>11628.388950</td>
+      <td>14619.222720</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Czech Republic</td>
+      <td>6876.140250</td>
+      <td>8256.343918</td>
+      <td>10136.867130</td>
+      <td>11399.444890</td>
+      <td>13108.453600</td>
+      <td>14800.160620</td>
+      <td>15377.228550</td>
+      <td>16310.443400</td>
+      <td>14297.021220</td>
+      <td>16048.514240</td>
+      <td>17596.210220</td>
+      <td>22833.308510</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Denmark</td>
+      <td>9692.385245</td>
+      <td>11099.659350</td>
+      <td>13583.313510</td>
+      <td>15937.211230</td>
+      <td>18866.207210</td>
+      <td>20422.901500</td>
+      <td>21688.040480</td>
+      <td>25116.175810</td>
+      <td>26406.739850</td>
+      <td>29804.345670</td>
+      <td>32166.500060</td>
+      <td>35278.418740</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Finland</td>
+      <td>6424.519071</td>
+      <td>7545.415386</td>
+      <td>9371.842561</td>
+      <td>10921.636260</td>
+      <td>14358.875900</td>
+      <td>15605.422830</td>
+      <td>18533.157610</td>
+      <td>21141.012230</td>
+      <td>20647.164990</td>
+      <td>23723.950200</td>
+      <td>28204.590570</td>
+      <td>33207.084400</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>France</td>
+      <td>7029.809327</td>
+      <td>8662.834898</td>
+      <td>10560.485530</td>
+      <td>12999.917660</td>
+      <td>16107.191710</td>
+      <td>18292.635140</td>
+      <td>20293.897460</td>
+      <td>22066.442140</td>
+      <td>24703.796150</td>
+      <td>25889.784870</td>
+      <td>28926.032340</td>
+      <td>30470.016700</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Germany</td>
+      <td>7144.114393</td>
+      <td>10187.826650</td>
+      <td>12902.462910</td>
+      <td>14745.625610</td>
+      <td>18016.180270</td>
+      <td>20512.921230</td>
+      <td>22031.532740</td>
+      <td>24639.185660</td>
+      <td>26505.303170</td>
+      <td>27788.884160</td>
+      <td>30035.801980</td>
+      <td>32170.374420</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Greece</td>
+      <td>3530.690067</td>
+      <td>4916.299889</td>
+      <td>6017.190733</td>
+      <td>8513.097016</td>
+      <td>12724.829570</td>
+      <td>14195.524280</td>
+      <td>15268.420890</td>
+      <td>16120.528390</td>
+      <td>17541.496340</td>
+      <td>18747.698140</td>
+      <td>22514.254800</td>
+      <td>27538.411880</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Hungary</td>
+      <td>5263.673816</td>
+      <td>6040.180011</td>
+      <td>7550.359877</td>
+      <td>9326.644670</td>
+      <td>10168.656110</td>
+      <td>11674.837370</td>
+      <td>12545.990660</td>
+      <td>12986.479980</td>
+      <td>10535.628550</td>
+      <td>11712.776800</td>
+      <td>14843.935560</td>
+      <td>18008.944440</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Iceland</td>
+      <td>7267.688428</td>
+      <td>9244.001412</td>
+      <td>10350.159060</td>
+      <td>13319.895680</td>
+      <td>15798.063620</td>
+      <td>19654.962470</td>
+      <td>23269.607500</td>
+      <td>26923.206280</td>
+      <td>25144.392010</td>
+      <td>28061.099660</td>
+      <td>31163.201960</td>
+      <td>36180.789190</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Ireland</td>
+      <td>5210.280328</td>
+      <td>5599.077872</td>
+      <td>6631.597314</td>
+      <td>7655.568963</td>
+      <td>9530.772896</td>
+      <td>11150.981130</td>
+      <td>12618.321410</td>
+      <td>13872.866520</td>
+      <td>17558.815550</td>
+      <td>24521.947130</td>
+      <td>34077.049390</td>
+      <td>40675.996350</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Italy</td>
+      <td>4931.404155</td>
+      <td>6248.656232</td>
+      <td>8243.582340</td>
+      <td>10022.401310</td>
+      <td>12269.273780</td>
+      <td>14255.984750</td>
+      <td>16537.483500</td>
+      <td>19207.234820</td>
+      <td>22013.644860</td>
+      <td>24675.024460</td>
+      <td>27968.098170</td>
+      <td>28569.719700</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Montenegro</td>
+      <td>2647.585601</td>
+      <td>3682.259903</td>
+      <td>4649.593785</td>
+      <td>5907.850937</td>
+      <td>7778.414017</td>
+      <td>9595.929905</td>
+      <td>11222.587620</td>
+      <td>11732.510170</td>
+      <td>7003.339037</td>
+      <td>6465.613349</td>
+      <td>6557.194282</td>
+      <td>9253.896111</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Netherlands</td>
+      <td>8941.571858</td>
+      <td>11276.193440</td>
+      <td>12790.849560</td>
+      <td>15363.251360</td>
+      <td>18794.745670</td>
+      <td>21209.059200</td>
+      <td>21399.460460</td>
+      <td>23651.323610</td>
+      <td>26790.949610</td>
+      <td>30246.130630</td>
+      <td>33724.757780</td>
+      <td>36797.933320</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Norway</td>
+      <td>10095.421720</td>
+      <td>11653.973040</td>
+      <td>13450.401510</td>
+      <td>16361.876470</td>
+      <td>18965.055510</td>
+      <td>23311.349390</td>
+      <td>26298.635310</td>
+      <td>31540.974800</td>
+      <td>33965.661150</td>
+      <td>41283.164330</td>
+      <td>44683.975250</td>
+      <td>49357.190170</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Poland</td>
+      <td>4029.329699</td>
+      <td>4734.253019</td>
+      <td>5338.752143</td>
+      <td>6557.152776</td>
+      <td>8006.506993</td>
+      <td>9508.141454</td>
+      <td>8451.531004</td>
+      <td>9082.351172</td>
+      <td>7738.881247</td>
+      <td>10159.583680</td>
+      <td>12002.239080</td>
+      <td>15389.924680</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Portugal</td>
+      <td>3068.319867</td>
+      <td>3774.571743</td>
+      <td>4727.954889</td>
+      <td>6361.517993</td>
+      <td>9022.247417</td>
+      <td>10172.485720</td>
+      <td>11753.842910</td>
+      <td>13039.308760</td>
+      <td>16207.266630</td>
+      <td>17641.031560</td>
+      <td>19970.907870</td>
+      <td>20509.647770</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Romania</td>
+      <td>3144.613186</td>
+      <td>3943.370225</td>
+      <td>4734.997586</td>
+      <td>6470.866545</td>
+      <td>8011.414402</td>
+      <td>9356.397240</td>
+      <td>9605.314053</td>
+      <td>9696.273295</td>
+      <td>6598.409903</td>
+      <td>7346.547557</td>
+      <td>7885.360081</td>
+      <td>10808.475610</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Serbia</td>
+      <td>3581.459448</td>
+      <td>4981.090891</td>
+      <td>6289.629157</td>
+      <td>7991.707066</td>
+      <td>10522.067490</td>
+      <td>12980.669560</td>
+      <td>15181.092700</td>
+      <td>15870.878510</td>
+      <td>9325.068238</td>
+      <td>7914.320304</td>
+      <td>7236.075251</td>
+      <td>9786.534714</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Slovak Republic</td>
+      <td>5074.659104</td>
+      <td>6093.262980</td>
+      <td>7481.107598</td>
+      <td>8412.902397</td>
+      <td>9674.167626</td>
+      <td>10922.664040</td>
+      <td>11348.545850</td>
+      <td>12037.267580</td>
+      <td>9498.467723</td>
+      <td>12126.230650</td>
+      <td>13638.778370</td>
+      <td>18678.314350</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Slovenia</td>
+      <td>4215.041741</td>
+      <td>5862.276629</td>
+      <td>7402.303395</td>
+      <td>9405.489397</td>
+      <td>12383.486200</td>
+      <td>15277.030170</td>
+      <td>17866.721750</td>
+      <td>18678.534920</td>
+      <td>14214.716810</td>
+      <td>17161.107350</td>
+      <td>20660.019360</td>
+      <td>25768.257590</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Spain</td>
+      <td>3834.034742</td>
+      <td>4564.802410</td>
+      <td>5693.843879</td>
+      <td>7993.512294</td>
+      <td>10638.751310</td>
+      <td>13236.921170</td>
+      <td>13926.169970</td>
+      <td>15764.983130</td>
+      <td>18603.064520</td>
+      <td>20445.298960</td>
+      <td>24835.471660</td>
+      <td>28821.063700</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Sweden</td>
+      <td>8527.844662</td>
+      <td>9911.878226</td>
+      <td>12329.441920</td>
+      <td>15258.296970</td>
+      <td>17832.024640</td>
+      <td>18855.725210</td>
+      <td>20667.381250</td>
+      <td>23586.929270</td>
+      <td>23880.016830</td>
+      <td>25266.594990</td>
+      <td>29341.630930</td>
+      <td>33859.748350</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Switzerland</td>
+      <td>14734.232750</td>
+      <td>17909.489730</td>
+      <td>20431.092700</td>
+      <td>22966.144320</td>
+      <td>27195.113040</td>
+      <td>26982.290520</td>
+      <td>28397.715120</td>
+      <td>30281.704590</td>
+      <td>31871.530300</td>
+      <td>32135.323010</td>
+      <td>34480.957710</td>
+      <td>37506.419070</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Turkey</td>
+      <td>1969.100980</td>
+      <td>2218.754257</td>
+      <td>2322.869908</td>
+      <td>2826.356387</td>
+      <td>3450.696380</td>
+      <td>4269.122326</td>
+      <td>4241.356344</td>
+      <td>5089.043686</td>
+      <td>5678.348271</td>
+      <td>6601.429915</td>
+      <td>6508.085718</td>
+      <td>8458.276384</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>United Kingdom</td>
+      <td>9979.508487</td>
+      <td>11283.177950</td>
+      <td>12477.177070</td>
+      <td>14142.850890</td>
+      <td>15895.116410</td>
+      <td>17428.748460</td>
+      <td>18232.424520</td>
+      <td>21664.787670</td>
+      <td>22705.092540</td>
+      <td>26074.531360</td>
+      <td>29478.999190</td>
+      <td>33203.261280</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <p>You’ll see that the rows are numbered in boldface, starting with 0 as is the norm in Python. This boldfaced, leftmost column is called the <strong>index</strong> of the DataFrame, and provides one way of accessing data by rows. Across the top, you’ll see that the column labels are also in boldface. pandas is pretty smart about automatically detecting when the first row of a CSV file contains header information (column names).</p>
 </div>
 <div class="section" id="heads-or-tails">
 <h2>Heads or Tails?<a class="headerlink" href="#heads-or-tails" title="Permalink to this headline">¶</a></h2>
 <p>We might want to “peek” at the DataFrame without printing out the entire thing, especially if it’s big. We can see the first 5 rows of a DataFrame with the <code class="docutils literal notranslate"><span class="pre">.head()</span></code> method:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>gdpPercap_1952</th>
+      <th>gdpPercap_1957</th>
+      <th>gdpPercap_1962</th>
+      <th>gdpPercap_1967</th>
+      <th>gdpPercap_1972</th>
+      <th>gdpPercap_1977</th>
+      <th>gdpPercap_1982</th>
+      <th>gdpPercap_1987</th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_1997</th>
+      <th>gdpPercap_2002</th>
+      <th>gdpPercap_2007</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Albania</td>
+      <td>1601.056136</td>
+      <td>1942.284244</td>
+      <td>2312.888958</td>
+      <td>2760.196931</td>
+      <td>3313.422188</td>
+      <td>3533.003910</td>
+      <td>3630.880722</td>
+      <td>3738.932735</td>
+      <td>2497.437901</td>
+      <td>3193.054604</td>
+      <td>4604.211737</td>
+      <td>5937.029526</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Austria</td>
+      <td>6137.076492</td>
+      <td>8842.598030</td>
+      <td>10750.721110</td>
+      <td>12834.602400</td>
+      <td>16661.625600</td>
+      <td>19749.422300</td>
+      <td>21597.083620</td>
+      <td>23687.826070</td>
+      <td>27042.018680</td>
+      <td>29095.920660</td>
+      <td>32417.607690</td>
+      <td>36126.492700</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Belgium</td>
+      <td>8343.105127</td>
+      <td>9714.960623</td>
+      <td>10991.206760</td>
+      <td>13149.041190</td>
+      <td>16672.143560</td>
+      <td>19117.974480</td>
+      <td>20979.845890</td>
+      <td>22525.563080</td>
+      <td>25575.570690</td>
+      <td>27561.196630</td>
+      <td>30485.883750</td>
+      <td>33692.605080</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Bosnia and Herzegovina</td>
+      <td>973.533195</td>
+      <td>1353.989176</td>
+      <td>1709.683679</td>
+      <td>2172.352423</td>
+      <td>2860.169750</td>
+      <td>3528.481305</td>
+      <td>4126.613157</td>
+      <td>4314.114757</td>
+      <td>2546.781445</td>
+      <td>4766.355904</td>
+      <td>6018.975239</td>
+      <td>7446.298803</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Bulgaria</td>
+      <td>2444.286648</td>
+      <td>3008.670727</td>
+      <td>4254.337839</td>
+      <td>5577.002800</td>
+      <td>6597.494398</td>
+      <td>7612.240438</td>
+      <td>8224.191647</td>
+      <td>8239.854824</td>
+      <td>6302.623438</td>
+      <td>5970.388760</td>
+      <td>7696.777725</td>
+      <td>10680.792820</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <p>…or the last 5 rows with <code class="docutils literal notranslate"><span class="pre">.tail()</span></code>:</p>
-<p>We can also see a random sample of rows from the DataFrame with <code class="docutils literal notranslate"><span class="pre">.sample()</span></code>, giving it a numerical argument to indicate the number of rows we want to see:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>gdpPercap_1952</th>
+      <th>gdpPercap_1957</th>
+      <th>gdpPercap_1962</th>
+      <th>gdpPercap_1967</th>
+      <th>gdpPercap_1972</th>
+      <th>gdpPercap_1977</th>
+      <th>gdpPercap_1982</th>
+      <th>gdpPercap_1987</th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_1997</th>
+      <th>gdpPercap_2002</th>
+      <th>gdpPercap_2007</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>25</th>
+      <td>Spain</td>
+      <td>3834.034742</td>
+      <td>4564.802410</td>
+      <td>5693.843879</td>
+      <td>7993.512294</td>
+      <td>10638.75131</td>
+      <td>13236.921170</td>
+      <td>13926.169970</td>
+      <td>15764.983130</td>
+      <td>18603.064520</td>
+      <td>20445.298960</td>
+      <td>24835.471660</td>
+      <td>28821.063700</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Sweden</td>
+      <td>8527.844662</td>
+      <td>9911.878226</td>
+      <td>12329.441920</td>
+      <td>15258.296970</td>
+      <td>17832.02464</td>
+      <td>18855.725210</td>
+      <td>20667.381250</td>
+      <td>23586.929270</td>
+      <td>23880.016830</td>
+      <td>25266.594990</td>
+      <td>29341.630930</td>
+      <td>33859.748350</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Switzerland</td>
+      <td>14734.232750</td>
+      <td>17909.489730</td>
+      <td>20431.092700</td>
+      <td>22966.144320</td>
+      <td>27195.11304</td>
+      <td>26982.290520</td>
+      <td>28397.715120</td>
+      <td>30281.704590</td>
+      <td>31871.530300</td>
+      <td>32135.323010</td>
+      <td>34480.957710</td>
+      <td>37506.419070</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Turkey</td>
+      <td>1969.100980</td>
+      <td>2218.754257</td>
+      <td>2322.869908</td>
+      <td>2826.356387</td>
+      <td>3450.69638</td>
+      <td>4269.122326</td>
+      <td>4241.356344</td>
+      <td>5089.043686</td>
+      <td>5678.348271</td>
+      <td>6601.429915</td>
+      <td>6508.085718</td>
+      <td>8458.276384</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>United Kingdom</td>
+      <td>9979.508487</td>
+      <td>11283.177950</td>
+      <td>12477.177070</td>
+      <td>14142.850890</td>
+      <td>15895.11641</td>
+      <td>17428.748460</td>
+      <td>18232.424520</td>
+      <td>21664.787670</td>
+      <td>22705.092540</td>
+      <td>26074.531360</td>
+      <td>29478.999190</td>
+      <td>33203.261280</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can also see a random sample of rows from the DataFrame with <code class="docutils literal notranslate"><span class="pre">.sample()</span></code>, giving it a numerical argument to indicate the number of rows we want to see:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>gdpPercap_1952</th>
+      <th>gdpPercap_1957</th>
+      <th>gdpPercap_1962</th>
+      <th>gdpPercap_1967</th>
+      <th>gdpPercap_1972</th>
+      <th>gdpPercap_1977</th>
+      <th>gdpPercap_1982</th>
+      <th>gdpPercap_1987</th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_1997</th>
+      <th>gdpPercap_2002</th>
+      <th>gdpPercap_2007</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>6</th>
+      <td>Czech Republic</td>
+      <td>6876.140250</td>
+      <td>8256.343918</td>
+      <td>10136.867130</td>
+      <td>11399.444890</td>
+      <td>13108.453600</td>
+      <td>14800.16062</td>
+      <td>15377.22855</td>
+      <td>16310.44340</td>
+      <td>14297.021220</td>
+      <td>16048.514240</td>
+      <td>17596.210220</td>
+      <td>22833.308510</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Denmark</td>
+      <td>9692.385245</td>
+      <td>11099.659350</td>
+      <td>13583.313510</td>
+      <td>15937.211230</td>
+      <td>18866.207210</td>
+      <td>20422.90150</td>
+      <td>21688.04048</td>
+      <td>25116.17581</td>
+      <td>26406.739850</td>
+      <td>29804.345670</td>
+      <td>32166.500060</td>
+      <td>35278.418740</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Greece</td>
+      <td>3530.690067</td>
+      <td>4916.299889</td>
+      <td>6017.190733</td>
+      <td>8513.097016</td>
+      <td>12724.829570</td>
+      <td>14195.52428</td>
+      <td>15268.42089</td>
+      <td>16120.52839</td>
+      <td>17541.496340</td>
+      <td>18747.698140</td>
+      <td>22514.254800</td>
+      <td>27538.411880</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Hungary</td>
+      <td>5263.673816</td>
+      <td>6040.180011</td>
+      <td>7550.359877</td>
+      <td>9326.644670</td>
+      <td>10168.656110</td>
+      <td>11674.83737</td>
+      <td>12545.99066</td>
+      <td>12986.47998</td>
+      <td>10535.628550</td>
+      <td>11712.776800</td>
+      <td>14843.935560</td>
+      <td>18008.944440</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Serbia</td>
+      <td>3581.459448</td>
+      <td>4981.090891</td>
+      <td>6289.629157</td>
+      <td>7991.707066</td>
+      <td>10522.067490</td>
+      <td>12980.66956</td>
+      <td>15181.09270</td>
+      <td>15870.87851</td>
+      <td>9325.068238</td>
+      <td>7914.320304</td>
+      <td>7236.075251</td>
+      <td>9786.534714</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Austria</td>
+      <td>6137.076492</td>
+      <td>8842.598030</td>
+      <td>10750.721110</td>
+      <td>12834.602400</td>
+      <td>16661.625600</td>
+      <td>19749.42230</td>
+      <td>21597.08362</td>
+      <td>23687.82607</td>
+      <td>27042.018680</td>
+      <td>29095.920660</td>
+      <td>32417.607690</td>
+      <td>36126.492700</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>United Kingdom</td>
+      <td>9979.508487</td>
+      <td>11283.177950</td>
+      <td>12477.177070</td>
+      <td>14142.850890</td>
+      <td>15895.116410</td>
+      <td>17428.74846</td>
+      <td>18232.42452</td>
+      <td>21664.78767</td>
+      <td>22705.092540</td>
+      <td>26074.531360</td>
+      <td>29478.999190</td>
+      <td>33203.261280</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Finland</td>
+      <td>6424.519071</td>
+      <td>7545.415386</td>
+      <td>9371.842561</td>
+      <td>10921.636260</td>
+      <td>14358.875900</td>
+      <td>15605.42283</td>
+      <td>18533.15761</td>
+      <td>21141.01223</td>
+      <td>20647.164990</td>
+      <td>23723.950200</td>
+      <td>28204.590570</td>
+      <td>33207.084400</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Ireland</td>
+      <td>5210.280328</td>
+      <td>5599.077872</td>
+      <td>6631.597314</td>
+      <td>7655.568963</td>
+      <td>9530.772896</td>
+      <td>11150.98113</td>
+      <td>12618.32141</td>
+      <td>13872.86652</td>
+      <td>17558.815550</td>
+      <td>24521.947130</td>
+      <td>34077.049390</td>
+      <td>40675.996350</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Belgium</td>
+      <td>8343.105127</td>
+      <td>9714.960623</td>
+      <td>10991.206760</td>
+      <td>13149.041190</td>
+      <td>16672.143560</td>
+      <td>19117.97448</td>
+      <td>20979.84589</td>
+      <td>22525.56308</td>
+      <td>25575.570690</td>
+      <td>27561.196630</td>
+      <td>30485.883750</td>
+      <td>33692.605080</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>Note that the <code class="docutils literal notranslate"><span class="pre">.head()</span></code> and <code class="docutils literal notranslate"><span class="pre">.tail()</span></code> methods also optionally take a numerical argument, if you want to view a different number of rows from the default of 5.</p>
 </div>
@@ -1172,8 +2157,17 @@
 </tbody>
 </table>
 <p>Numerical indexing of DataFrames is done with the <code class="docutils literal notranslate"><span class="pre">.iloc[]</span></code> method. For example, to access the GDP value for Austria in 1952 — which is located in the second row, third column of our current DataFrame, we would use:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8842.59803
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1186,89 +2180,905 @@
 </div>
 <p><strong>Note</strong> that we need to assign the result of this operation back to <code class="docutils literal notranslate"><span class="pre">df</span></code> (using <code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> </code>), otherwise the change will not actually modify <code class="docutils literal notranslate"><span class="pre">df</span></code>.</p>
 <p>In the cell below, use the <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code> method to set the index of <code class="docutils literal notranslate"><span class="pre">df</span></code> to <code class="docutils literal notranslate"><span class="pre">country</span></code>, and then view the DataFrame again to see how it has changed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>Alternatively, if we knew which column we wanted to use as the index before loading in the data file, we could have included the argument <code class="docutils literal notranslate"><span class="pre">index_col=</span></code> in the <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> command:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp_europe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Now that we have defined the index, we can access the 1952 GDP value for Austria by its index and column names:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Austria&#39;</span><span class="p">,</span> <span class="s1">&#39;gdpPercap_1952&#39;</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Austria&#39;</span><span class="p">,</span> <span class="s1">&#39;gdpPercap_1952&#39;</span><span class="p">]</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6137.076492
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="use-on-its-own-to-mean-all-columns-or-all-rows">
 <h2>Use <code class="docutils literal notranslate"><span class="pre">:</span></code> on its own to mean all columns or all rows.<a class="headerlink" href="#use-on-its-own-to-mean-all-columns-or-all-rows" title="Permalink to this headline">¶</a></h2>
 <p>Using Python’s familiar slicing notatio (which we’ve previously used for strings and lists), we can use <code class="docutils literal notranslate"><span class="pre">:</span></code> with <code class="docutils literal notranslate"><span class="pre">.iloc[]</span></code> or <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code>, to specify a range in a DataFrame.</p>
 <p>For example, to see the GDP of Albania for every year (column) in the DataFrame, we would use:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;Albania&quot;</span><span class="p">,</span> <span class="p">:]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;Albania&quot;</span><span class="p">,</span> <span class="p">:]</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gdpPercap_1952    1601.056136
+gdpPercap_1957    1942.284244
+gdpPercap_1962    2312.888958
+gdpPercap_1967    2760.196931
+gdpPercap_1972    3313.422188
+gdpPercap_1977    3533.003910
+gdpPercap_1982    3630.880722
+gdpPercap_1987    3738.932735
+gdpPercap_1992    2497.437901
+gdpPercap_1997    3193.054604
+gdpPercap_2002    4604.211737
+gdpPercap_2007    5937.029526
+Name: Albania, dtype: float64
+</pre></div>
+</div>
+</div>
 </div>
 <p>Likewise, we could see the GDP for every country (row) in the year 1957 with:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;gdpPercap_1957&#39;</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;gdpPercap_1957&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>You can also just specify the row index; if you don’t specify anything for the columns, pandas assumes you want all columns:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;Albania&quot;</span><span class="p">]</span>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>country
+Albania                    1942.284244
+Austria                    8842.598030
+Belgium                    9714.960623
+Bosnia and Herzegovina     1353.989176
+Bulgaria                   3008.670727
+Croatia                    4338.231617
+Czech Republic             8256.343918
+Denmark                   11099.659350
+Finland                    7545.415386
+France                     8662.834898
+Germany                   10187.826650
+Greece                     4916.299889
+Hungary                    6040.180011
+Iceland                    9244.001412
+Ireland                    5599.077872
+Italy                      6248.656232
+Montenegro                 3682.259903
+Netherlands               11276.193440
+Norway                    11653.973040
+Poland                     4734.253019
+Portugal                   3774.571743
+Romania                    3943.370225
+Serbia                     4981.090891
+Slovak Republic            6093.262980
+Slovenia                   5862.276629
+Spain                      4564.802410
+Sweden                     9911.878226
+Switzerland               17909.489730
+Turkey                     2218.754257
+United Kingdom            11283.177950
+Name: gdpPercap_1957, dtype: float64
 </pre></div>
+</div>
+</div>
+</div>
+<p>You can also just specify the row index; if you don’t specify anything for the columns, pandas assumes you want all columns:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;Albania&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gdpPercap_1952    1601.056136
+gdpPercap_1957    1942.284244
+gdpPercap_1962    2312.888958
+gdpPercap_1967    2760.196931
+gdpPercap_1972    3313.422188
+gdpPercap_1977    3533.003910
+gdpPercap_1982    3630.880722
+gdpPercap_1987    3738.932735
+gdpPercap_1992    2497.437901
+gdpPercap_1997    3193.054604
+gdpPercap_2002    4604.211737
+gdpPercap_2007    5937.029526
+Name: Albania, dtype: float64
+</pre></div>
+</div>
+</div>
 </div>
 <p>However, since the syntax for <code class="docutils literal notranslate"><span class="pre">.iloc[]</span></code> and <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code> is [rows, columns], you cannot omit a row index; you need to use <code class="docutils literal notranslate"><span class="pre">:</span></code> if you want all rows.</p>
 </div>
 <div class="section" id="slicing-works-on-dataframes">
 <h2>Slicing works on DataFrames<a class="headerlink" href="#slicing-works-on-dataframes" title="Permalink to this headline">¶</a></h2>
 <p>Slicing using numerical indices works similarly for DataFrames as we previously saw for strings and lists, for example, the following code will print the third through fifth rows of the DataFrame, and the fifth through eighth columns (remember, Python indexing starts at 0, and slicing does not include the “end” index):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1972</th>
+      <th>gdpPercap_1977</th>
+      <th>gdpPercap_1982</th>
+      <th>gdpPercap_1987</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Belgium</th>
+      <td>16672.143560</td>
+      <td>19117.974480</td>
+      <td>20979.845890</td>
+      <td>22525.563080</td>
+    </tr>
+    <tr>
+      <th>Bosnia and Herzegovina</th>
+      <td>2860.169750</td>
+      <td>3528.481305</td>
+      <td>4126.613157</td>
+      <td>4314.114757</td>
+    </tr>
+    <tr>
+      <th>Bulgaria</th>
+      <td>6597.494398</td>
+      <td>7612.240438</td>
+      <td>8224.191647</td>
+      <td>8239.854824</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <p>The code below will print from the sixth to second-last row of the DataFrame, and from the ninth to the last column:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">:]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">:]</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_1997</th>
+      <th>gdpPercap_2002</th>
+      <th>gdpPercap_2007</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Croatia</th>
+      <td>8447.794873</td>
+      <td>9875.604515</td>
+      <td>11628.388950</td>
+      <td>14619.222720</td>
+    </tr>
+    <tr>
+      <th>Czech Republic</th>
+      <td>14297.021220</td>
+      <td>16048.514240</td>
+      <td>17596.210220</td>
+      <td>22833.308510</td>
+    </tr>
+    <tr>
+      <th>Denmark</th>
+      <td>26406.739850</td>
+      <td>29804.345670</td>
+      <td>32166.500060</td>
+      <td>35278.418740</td>
+    </tr>
+    <tr>
+      <th>Finland</th>
+      <td>20647.164990</td>
+      <td>23723.950200</td>
+      <td>28204.590570</td>
+      <td>33207.084400</td>
+    </tr>
+    <tr>
+      <th>France</th>
+      <td>24703.796150</td>
+      <td>25889.784870</td>
+      <td>28926.032340</td>
+      <td>30470.016700</td>
+    </tr>
+    <tr>
+      <th>Germany</th>
+      <td>26505.303170</td>
+      <td>27788.884160</td>
+      <td>30035.801980</td>
+      <td>32170.374420</td>
+    </tr>
+    <tr>
+      <th>Greece</th>
+      <td>17541.496340</td>
+      <td>18747.698140</td>
+      <td>22514.254800</td>
+      <td>27538.411880</td>
+    </tr>
+    <tr>
+      <th>Hungary</th>
+      <td>10535.628550</td>
+      <td>11712.776800</td>
+      <td>14843.935560</td>
+      <td>18008.944440</td>
+    </tr>
+    <tr>
+      <th>Iceland</th>
+      <td>25144.392010</td>
+      <td>28061.099660</td>
+      <td>31163.201960</td>
+      <td>36180.789190</td>
+    </tr>
+    <tr>
+      <th>Ireland</th>
+      <td>17558.815550</td>
+      <td>24521.947130</td>
+      <td>34077.049390</td>
+      <td>40675.996350</td>
+    </tr>
+    <tr>
+      <th>Italy</th>
+      <td>22013.644860</td>
+      <td>24675.024460</td>
+      <td>27968.098170</td>
+      <td>28569.719700</td>
+    </tr>
+    <tr>
+      <th>Montenegro</th>
+      <td>7003.339037</td>
+      <td>6465.613349</td>
+      <td>6557.194282</td>
+      <td>9253.896111</td>
+    </tr>
+    <tr>
+      <th>Netherlands</th>
+      <td>26790.949610</td>
+      <td>30246.130630</td>
+      <td>33724.757780</td>
+      <td>36797.933320</td>
+    </tr>
+    <tr>
+      <th>Norway</th>
+      <td>33965.661150</td>
+      <td>41283.164330</td>
+      <td>44683.975250</td>
+      <td>49357.190170</td>
+    </tr>
+    <tr>
+      <th>Poland</th>
+      <td>7738.881247</td>
+      <td>10159.583680</td>
+      <td>12002.239080</td>
+      <td>15389.924680</td>
+    </tr>
+    <tr>
+      <th>Portugal</th>
+      <td>16207.266630</td>
+      <td>17641.031560</td>
+      <td>19970.907870</td>
+      <td>20509.647770</td>
+    </tr>
+    <tr>
+      <th>Romania</th>
+      <td>6598.409903</td>
+      <td>7346.547557</td>
+      <td>7885.360081</td>
+      <td>10808.475610</td>
+    </tr>
+    <tr>
+      <th>Serbia</th>
+      <td>9325.068238</td>
+      <td>7914.320304</td>
+      <td>7236.075251</td>
+      <td>9786.534714</td>
+    </tr>
+    <tr>
+      <th>Slovak Republic</th>
+      <td>9498.467723</td>
+      <td>12126.230650</td>
+      <td>13638.778370</td>
+      <td>18678.314350</td>
+    </tr>
+    <tr>
+      <th>Slovenia</th>
+      <td>14214.716810</td>
+      <td>17161.107350</td>
+      <td>20660.019360</td>
+      <td>25768.257590</td>
+    </tr>
+    <tr>
+      <th>Spain</th>
+      <td>18603.064520</td>
+      <td>20445.298960</td>
+      <td>24835.471660</td>
+      <td>28821.063700</td>
+    </tr>
+    <tr>
+      <th>Sweden</th>
+      <td>23880.016830</td>
+      <td>25266.594990</td>
+      <td>29341.630930</td>
+      <td>33859.748350</td>
+    </tr>
+    <tr>
+      <th>Switzerland</th>
+      <td>31871.530300</td>
+      <td>32135.323010</td>
+      <td>34480.957710</td>
+      <td>37506.419070</td>
+    </tr>
+    <tr>
+      <th>Turkey</th>
+      <td>5678.348271</td>
+      <td>6601.429915</td>
+      <td>6508.085718</td>
+      <td>8458.276384</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p><strong>Note</strong> however, that when using label-based indexing with <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code>, pandas’ slicing behaviour is a bit different. Specifically, the output <em>includes</em> the last item in the range, whereas numerical indexing with <code class="docutils literal notranslate"><span class="pre">.iloc[]</span></code> does not.</p>
 <p>So, considering that the first three rows of the DataFrame correspond to the countries Albania, Austria, and Belgium, and that columns 6 and 7 are for the years 1982 and 1987 respectively, compare the output of:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1982</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Albania</th>
+      <td>3630.880722</td>
+    </tr>
+    <tr>
+      <th>Austria</th>
+      <td>21597.083620</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <p>with:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Albania&#39;</span><span class="p">:</span><span class="s1">&#39;Belgium&#39;</span><span class="p">,</span> <span class="s1">&#39;gdpPercap_1982&#39;</span><span class="p">:</span><span class="s1">&#39;gdpPercap_1988&#39;</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Albania&#39;</span><span class="p">:</span><span class="s1">&#39;Belgium&#39;</span><span class="p">,</span> <span class="s1">&#39;gdpPercap_1982&#39;</span><span class="p">:</span><span class="s1">&#39;gdpPercap_1988&#39;</span><span class="p">]</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1982</th>
+      <th>gdpPercap_1987</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Albania</th>
+      <td>3630.880722</td>
+      <td>3738.932735</td>
+    </tr>
+    <tr>
+      <th>Austria</th>
+      <td>21597.083620</td>
+      <td>23687.826070</td>
+    </tr>
+    <tr>
+      <th>Belgium</th>
+      <td>20979.845890</td>
+      <td>22525.563080</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>The “inclusive” label-based indexing with <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code> is fairly intuitive, but it’s important to remember that it works differently from numerical indexing.</p>
 </div>
 <div class="section" id="use-lists-to-select-non-contiguous-sections-of-a-dataframe">
 <h2>Use lists to select non-contiguous sections of a DataFrame<a class="headerlink" href="#use-lists-to-select-non-contiguous-sections-of-a-dataframe" title="Permalink to this headline">¶</a></h2>
 <p>While slicing can be very useful, sometimes we might want to extract values that aren’t next to each other in a DataFrame. For example, what if we only want values from two specific years (1992 and 2002), for Scandinavian countries (Denmark, Finland, Norway, and Sweden)? Nether these years nor countries are in adjacent columns/rows in the DataFrame. With <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code>, we can use lists, rather than ranges separated by <code class="docutils literal notranslate"><span class="pre">:</span></code>, as selectors:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s1">&#39;Denmark&#39;</span><span class="p">,</span> <span class="s1">&#39;Finland&#39;</span><span class="p">,</span> <span class="s1">&#39;Norway&#39;</span><span class="p">,</span> <span class="s1">&#39;Sweden&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;gdpPercap_1992&#39;</span><span class="p">,</span> <span class="s1">&#39;gdpPercap_2002&#39;</span><span class="p">]]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s1">&#39;Denmark&#39;</span><span class="p">,</span> <span class="s1">&#39;Finland&#39;</span><span class="p">,</span> <span class="s1">&#39;Norway&#39;</span><span class="p">,</span> <span class="s1">&#39;Sweden&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;gdpPercap_1992&#39;</span><span class="p">,</span> <span class="s1">&#39;gdpPercap_2002&#39;</span><span class="p">]]</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_2002</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Denmark</th>
+      <td>26406.73985</td>
+      <td>32166.50006</td>
+    </tr>
+    <tr>
+      <th>Finland</th>
+      <td>20647.16499</td>
+      <td>28204.59057</td>
+    </tr>
+    <tr>
+      <th>Norway</th>
+      <td>33965.66115</td>
+      <td>44683.97525</td>
+    </tr>
+    <tr>
+      <th>Sweden</th>
+      <td>23880.01683</td>
+      <td>29341.63093</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <p>We can equivalently write the command over several lines to make it a bit easier to read:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s1">&#39;Denmark&#39;</span><span class="p">,</span> <span class="s1">&#39;Finland&#39;</span><span class="p">,</span> <span class="s1">&#39;Norway&#39;</span><span class="p">,</span> <span class="s1">&#39;Sweden&#39;</span><span class="p">],</span> 
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s1">&#39;Denmark&#39;</span><span class="p">,</span> <span class="s1">&#39;Finland&#39;</span><span class="p">,</span> <span class="s1">&#39;Norway&#39;</span><span class="p">,</span> <span class="s1">&#39;Sweden&#39;</span><span class="p">],</span> 
        <span class="p">[</span><span class="s1">&#39;gdpPercap_1992&#39;</span><span class="p">,</span> <span class="s1">&#39;gdpPercap_2002&#39;</span><span class="p">]</span>
       <span class="p">]</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_2002</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Denmark</th>
+      <td>26406.73985</td>
+      <td>32166.50006</td>
+    </tr>
+    <tr>
+      <th>Finland</th>
+      <td>20647.16499</td>
+      <td>28204.59057</td>
+    </tr>
+    <tr>
+      <th>Norway</th>
+      <td>33965.66115</td>
+      <td>44683.97525</td>
+    </tr>
+    <tr>
+      <th>Sweden</th>
+      <td>23880.01683</td>
+      <td>29341.63093</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <p>We could also define those lists as variables, and pass the variables to <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code>. This might be useful if you were going to use the lists more than once, as well as for clarity:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scand_countries</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Denmark&#39;</span><span class="p">,</span> <span class="s1">&#39;Finland&#39;</span><span class="p">,</span> <span class="s1">&#39;Iceland&#39;</span><span class="p">,</span> <span class="s1">&#39;Norway&#39;</span><span class="p">,</span> <span class="s1">&#39;Sweden&#39;</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scand_countries</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Denmark&#39;</span><span class="p">,</span> <span class="s1">&#39;Finland&#39;</span><span class="p">,</span> <span class="s1">&#39;Iceland&#39;</span><span class="p">,</span> <span class="s1">&#39;Norway&#39;</span><span class="p">,</span> <span class="s1">&#39;Sweden&#39;</span><span class="p">]</span>
 <span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gdpPercap_1992&#39;</span><span class="p">,</span> <span class="s1">&#39;gdpPercap_2002&#39;</span><span class="p">]</span>
 <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">scand_countries</span><span class="p">,</span> <span class="n">years</span><span class="p">]</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_2002</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Denmark</th>
+      <td>26406.73985</td>
+      <td>32166.50006</td>
+    </tr>
+    <tr>
+      <th>Finland</th>
+      <td>20647.16499</td>
+      <td>28204.59057</td>
+    </tr>
+    <tr>
+      <th>Iceland</th>
+      <td>25144.39201</td>
+      <td>31163.20196</td>
+    </tr>
+    <tr>
+      <th>Norway</th>
+      <td>33965.66115</td>
+      <td>44683.97525</td>
+    </tr>
+    <tr>
+      <th>Sweden</th>
+      <td>23880.01683</td>
+      <td>29341.63093</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <p>We can take this a step further, and assign the output of a <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code> selection like this to a new variable name. This makes a copy of the selected data, stored in a new DataFrame (or Series, if we only select one row or column) with its own name. This allows us to later reference and use that selection.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scand_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">scand_countries</span><span class="p">,</span> <span class="n">years</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scand_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">scand_countries</span><span class="p">,</span> <span class="n">years</span><span class="p">]</span>
 </pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="it-s-easy-to-do-simple-math-and-statistics-in-dataframes">
 <h2>It’s easy to do simple math and statistics in DataFrames<a class="headerlink" href="#it-s-easy-to-do-simple-math-and-statistics-in-dataframes" title="Permalink to this headline">¶</a></h2>
 <p>We prevoiusly learned about methods to get simple statistical values out of a Python list, like <code class="docutils literal notranslate"><span class="pre">.max()</span></code>, and <code class="docutils literal notranslate"><span class="pre">.min()</span></code>. pandas includes these and many more methods as well. For example, we can view the mean GDP for Italy across all years (columns) with:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Italy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Italy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16245.20900641667
+</pre></div>
+</div>
+</div>
 </div>
 <p>Or the largest GDP in 1977 with:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;gdpPercap_1977&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;gdpPercap_1977&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Another useful method is <code class="docutils literal notranslate"><span class="pre">.describe()</span></code>, which prints out a range of descriptive statistics for the range of data you specify. Without any slicing it provides information for each column:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>26982.29052
 </pre></div>
+</div>
+</div>
+</div>
+<p>Another useful method is <code class="docutils literal notranslate"><span class="pre">.describe()</span></code>, which prints out a range of descriptive statistics for the range of data you specify. Without any slicing it provides information for each column:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1952</th>
+      <th>gdpPercap_1957</th>
+      <th>gdpPercap_1962</th>
+      <th>gdpPercap_1967</th>
+      <th>gdpPercap_1972</th>
+      <th>gdpPercap_1977</th>
+      <th>gdpPercap_1982</th>
+      <th>gdpPercap_1987</th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_1997</th>
+      <th>gdpPercap_2002</th>
+      <th>gdpPercap_2007</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>30.000000</td>
+      <td>30.000000</td>
+      <td>30.000000</td>
+      <td>30.000000</td>
+      <td>30.000000</td>
+      <td>30.000000</td>
+      <td>30.000000</td>
+      <td>30.000000</td>
+      <td>30.000000</td>
+      <td>30.000000</td>
+      <td>30.000000</td>
+      <td>30.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>5661.057435</td>
+      <td>6963.012816</td>
+      <td>8365.486814</td>
+      <td>10143.823757</td>
+      <td>12479.575246</td>
+      <td>14283.979110</td>
+      <td>15617.896551</td>
+      <td>17214.310727</td>
+      <td>17061.568084</td>
+      <td>19076.781802</td>
+      <td>21711.732422</td>
+      <td>25054.481636</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>3114.060493</td>
+      <td>3677.950146</td>
+      <td>4199.193906</td>
+      <td>4724.983889</td>
+      <td>5509.691411</td>
+      <td>5874.464896</td>
+      <td>6453.234827</td>
+      <td>7482.957960</td>
+      <td>9109.804361</td>
+      <td>10065.457716</td>
+      <td>11197.355517</td>
+      <td>11800.339811</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>973.533195</td>
+      <td>1353.989176</td>
+      <td>1709.683679</td>
+      <td>2172.352423</td>
+      <td>2860.169750</td>
+      <td>3528.481305</td>
+      <td>3630.880722</td>
+      <td>3738.932735</td>
+      <td>2497.437901</td>
+      <td>3193.054604</td>
+      <td>4604.211737</td>
+      <td>5937.029526</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>3241.132406</td>
+      <td>4394.874315</td>
+      <td>5373.536612</td>
+      <td>6657.939047</td>
+      <td>9057.708094</td>
+      <td>10360.030300</td>
+      <td>11449.870115</td>
+      <td>12274.570680</td>
+      <td>8667.113214</td>
+      <td>9946.599306</td>
+      <td>11721.851483</td>
+      <td>14811.898210</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>5142.469716</td>
+      <td>6066.721495</td>
+      <td>7515.733737</td>
+      <td>9366.067033</td>
+      <td>12326.379990</td>
+      <td>14225.754515</td>
+      <td>15322.824720</td>
+      <td>16215.485895</td>
+      <td>17550.155945</td>
+      <td>19596.498550</td>
+      <td>23674.863230</td>
+      <td>28054.065790</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>7236.794919</td>
+      <td>9597.220820</td>
+      <td>10931.085348</td>
+      <td>13277.182058</td>
+      <td>16523.017127</td>
+      <td>19052.412163</td>
+      <td>20901.729730</td>
+      <td>23321.587723</td>
+      <td>25034.243045</td>
+      <td>27189.530312</td>
+      <td>30373.363307</td>
+      <td>33817.962533</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>14734.232750</td>
+      <td>17909.489730</td>
+      <td>20431.092700</td>
+      <td>22966.144320</td>
+      <td>27195.113040</td>
+      <td>26982.290520</td>
+      <td>28397.715120</td>
+      <td>31540.974800</td>
+      <td>33965.661150</td>
+      <td>41283.164330</td>
+      <td>44683.975250</td>
+      <td>49357.190170</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="section" id="mini-exercise">
 <h3>Mini-Exercise<a class="headerlink" href="#mini-exercise" title="Permalink to this headline">¶</a></h3>
@@ -1278,25 +3088,162 @@
 <div class="section" id="evaluate-cells-based-on-conditions">
 <h2>Evaluate cells based on conditions<a class="headerlink" href="#evaluate-cells-based-on-conditions" title="Permalink to this headline">¶</a></h2>
 <p>pandas allows an easy way to identify values in a DataFrame that meet a certain condition, using operators like <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, and <code class="docutils literal notranslate"><span class="pre">==</span></code>. For example, let’s see which countries in a list had a GDP over 10,000 in 1962 and 1992. The result is reported in Booleans (True/False) for each cell.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">countries</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="s1">&#39;Italy&#39;</span><span class="p">,</span> <span class="s1">&#39;Spain&#39;</span><span class="p">,</span> <span class="s1">&#39;United Kingdom&#39;</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">countries</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="s1">&#39;Italy&#39;</span><span class="p">,</span> <span class="s1">&#39;Spain&#39;</span><span class="p">,</span> <span class="s1">&#39;United Kingdom&#39;</span><span class="p">]</span>
 <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">countries</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gdpPercap_1962&#39;</span><span class="p">,</span> <span class="s1">&#39;gdpPercap_1992&#39;</span><span class="p">]]</span> <span class="o">&gt;</span> <span class="mi">10000</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1962</th>
+      <th>gdpPercap_1992</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>France</th>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>Germany</th>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>Italy</th>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>Spain</th>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>United Kingdom</th>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 <div class="section" id="select-values-or-nan-using-a-boolean-mask">
 <h2>Select values or NaN using a Boolean mask.<a class="headerlink" href="#select-values-or-nan-using-a-boolean-mask" title="Permalink to this headline">¶</a></h2>
 <p>A DataFrame full of Booleans is sometimes called a <em>mask</em> because of how it can be used. A mask removes values that are not True, and replaces them with <code class="docutils literal notranslate"><span class="pre">NaN</span></code> — a special Python value representing “not a number”. This can be useful because pandas ignores NaN values when doing computations.</p>
 <p>We create a mask by assigning the output of a conditional statement to a variable name:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span> <span class="o">=</span> <span class="n">scand_data</span> <span class="o">&gt;</span> <span class="mi">30000</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span> <span class="o">=</span> <span class="n">scand_data</span> <span class="o">&gt;</span> <span class="mi">30000</span>
 </pre></div>
+</div>
+</div>
 </div>
 <p>Then we can apply the mask to the DataFrame to get only the values that meet the criterion:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scand_data</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scand_data</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_2002</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Denmark</th>
+      <td>NaN</td>
+      <td>32166.50006</td>
+    </tr>
+    <tr>
+      <th>Finland</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Iceland</th>
+      <td>NaN</td>
+      <td>31163.20196</td>
+    </tr>
+    <tr>
+      <th>Norway</th>
+      <td>33965.66115</td>
+      <td>44683.97525</td>
+    </tr>
+    <tr>
+      <th>Sweden</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <p>As an example of how this might be used, the steps above would now allow us to find the lowest GDP value in each year, that was above 30,000:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scand_data</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scand_data</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gdpPercap_1992    33965.66115
+gdpPercap_2002    31163.20196
+dtype: float64
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="split-apply-combine">
@@ -1304,7 +3251,9 @@
 <p>A common task in data science is to split data into meaningful subgroups, apply an operation to each subgroup (e.g., compute the mean), and then combine the results into a single output, such as a table or a new DataFrame. This paradigm was famously <a class="reference external" href="http://dx.doi.org/10.18637/jss.v040.i01">described by Hadley Wickham in a 2011 paper</a>.</p>
 <p>pandas provides methods and grouping operations that are very efficient (<em>vectorized</em>) for split-apply-combine operations.</p>
 <p>As an example, let’s say that we wanted to compare the average GDP for different regions of Europe, divided as northern, southern, eastern, and western. To do this, we first have to create lists defining the countries belonging to each of these regions:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">northern</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Denmark&#39;</span><span class="p">,</span> <span class="s1">&#39;Finland&#39;</span><span class="p">,</span> <span class="s1">&#39;Iceland&#39;</span><span class="p">,</span> <span class="s1">&#39;Norway&#39;</span><span class="p">,</span> <span class="s1">&#39;Sweden&#39;</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">northern</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Denmark&#39;</span><span class="p">,</span> <span class="s1">&#39;Finland&#39;</span><span class="p">,</span> <span class="s1">&#39;Iceland&#39;</span><span class="p">,</span> <span class="s1">&#39;Norway&#39;</span><span class="p">,</span> <span class="s1">&#39;Sweden&#39;</span><span class="p">]</span>
 <span class="n">southern</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Greece&#39;</span><span class="p">,</span> <span class="s1">&#39;Italy&#39;</span><span class="p">,</span> <span class="s1">&#39;Portugal&#39;</span><span class="p">,</span> <span class="s1">&#39;Spain&#39;</span><span class="p">]</span>
 <span class="n">eastern</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Albania&#39;</span><span class="p">,</span> <span class="s1">&#39;Bosnia and Herzegovina&#39;</span><span class="p">,</span> <span class="s1">&#39;Bulgaria&#39;</span><span class="p">,</span> <span class="s1">&#39;Croatia&#39;</span><span class="p">,</span> 
             <span class="s1">&#39;Czech Republic&#39;</span><span class="p">,</span> <span class="s1">&#39;Hungary&#39;</span><span class="p">,</span> <span class="s1">&#39;Montenegro&#39;</span><span class="p">,</span> <span class="s1">&#39;Poland&#39;</span><span class="p">,</span> <span class="s1">&#39;Romania&#39;</span><span class="p">,</span> 
@@ -1313,6 +3262,8 @@
             <span class="s1">&#39;Netherlands&#39;</span><span class="p">,</span> <span class="s1">&#39;Switzerland&#39;</span><span class="p">,</span> <span class="s1">&#39;United Kingdom&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
+</div>
+</div>
 <p>Next we can make a new column simply by using <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code> with the rows specified by one of the lists we just defined, a column name that doesn’t already exist (in this case, we’ll call it “region”), then assigning a region label to that combination of rows and column. We need to do this separately for each region. Note that when we first create the new column (“region”), pandas fills it with NaN values in any rows that were not defined by the assignment. For example, in the code below, the first line will create the column “region”, and fill it with “northern” for any row in the <code class="docutils literal notranslate"><span class="pre">northern</span></code> list, and <code class="docutils literal notranslate"><span class="pre">NaN</span></code> to every other row.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">northern</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;northern&#39;</span>
 <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">southern</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;southern&#39;</span>
@@ -1320,36 +3271,480 @@
 <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">western</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;western&#39;</span>
 </pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">northern</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;northern&#39;</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">southern</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;southern&#39;</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">eastern</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;eastern&#39;</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">western</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;western&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s look at the last two columns of <code class="docutils literal notranslate"><span class="pre">df</span></code> to see the <code class="docutils literal notranslate"><span class="pre">region</span></code> column we created:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_2007</th>
+      <th>region</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Albania</th>
+      <td>5937.029526</td>
+      <td>eastern</td>
+    </tr>
+    <tr>
+      <th>Austria</th>
+      <td>36126.492700</td>
+      <td>western</td>
+    </tr>
+    <tr>
+      <th>Belgium</th>
+      <td>33692.605080</td>
+      <td>western</td>
+    </tr>
+    <tr>
+      <th>Bosnia and Herzegovina</th>
+      <td>7446.298803</td>
+      <td>eastern</td>
+    </tr>
+    <tr>
+      <th>Bulgaria</th>
+      <td>10680.792820</td>
+      <td>eastern</td>
+    </tr>
+    <tr>
+      <th>Croatia</th>
+      <td>14619.222720</td>
+      <td>eastern</td>
+    </tr>
+    <tr>
+      <th>Czech Republic</th>
+      <td>22833.308510</td>
+      <td>eastern</td>
+    </tr>
+    <tr>
+      <th>Denmark</th>
+      <td>35278.418740</td>
+      <td>northern</td>
+    </tr>
+    <tr>
+      <th>Finland</th>
+      <td>33207.084400</td>
+      <td>northern</td>
+    </tr>
+    <tr>
+      <th>France</th>
+      <td>30470.016700</td>
+      <td>western</td>
+    </tr>
+    <tr>
+      <th>Germany</th>
+      <td>32170.374420</td>
+      <td>western</td>
+    </tr>
+    <tr>
+      <th>Greece</th>
+      <td>27538.411880</td>
+      <td>southern</td>
+    </tr>
+    <tr>
+      <th>Hungary</th>
+      <td>18008.944440</td>
+      <td>eastern</td>
+    </tr>
+    <tr>
+      <th>Iceland</th>
+      <td>36180.789190</td>
+      <td>northern</td>
+    </tr>
+    <tr>
+      <th>Ireland</th>
+      <td>40675.996350</td>
+      <td>western</td>
+    </tr>
+    <tr>
+      <th>Italy</th>
+      <td>28569.719700</td>
+      <td>southern</td>
+    </tr>
+    <tr>
+      <th>Montenegro</th>
+      <td>9253.896111</td>
+      <td>eastern</td>
+    </tr>
+    <tr>
+      <th>Netherlands</th>
+      <td>36797.933320</td>
+      <td>western</td>
+    </tr>
+    <tr>
+      <th>Norway</th>
+      <td>49357.190170</td>
+      <td>northern</td>
+    </tr>
+    <tr>
+      <th>Poland</th>
+      <td>15389.924680</td>
+      <td>eastern</td>
+    </tr>
+    <tr>
+      <th>Portugal</th>
+      <td>20509.647770</td>
+      <td>southern</td>
+    </tr>
+    <tr>
+      <th>Romania</th>
+      <td>10808.475610</td>
+      <td>eastern</td>
+    </tr>
+    <tr>
+      <th>Serbia</th>
+      <td>9786.534714</td>
+      <td>eastern</td>
+    </tr>
+    <tr>
+      <th>Slovak Republic</th>
+      <td>18678.314350</td>
+      <td>eastern</td>
+    </tr>
+    <tr>
+      <th>Slovenia</th>
+      <td>25768.257590</td>
+      <td>eastern</td>
+    </tr>
+    <tr>
+      <th>Spain</th>
+      <td>28821.063700</td>
+      <td>southern</td>
+    </tr>
+    <tr>
+      <th>Sweden</th>
+      <td>33859.748350</td>
+      <td>northern</td>
+    </tr>
+    <tr>
+      <th>Switzerland</th>
+      <td>37506.419070</td>
+      <td>western</td>
+    </tr>
+    <tr>
+      <th>Turkey</th>
+      <td>8458.276384</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>United Kingdom</th>
+      <td>33203.261280</td>
+      <td>western</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <div class="section" id="split">
 <h3>Split<a class="headerlink" href="#split" title="Permalink to this headline">¶</a></h3>
 <p>Now we can use this “region” column to split the data into groups, using a pandas method called <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_countries</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;region&#39;</span><span class="p">)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_countries</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;region&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+</div>
 <p>Note that this step doesn’t create a new DataFrame, it creates a special kind of pandas object that points to a grouping in the original DataFrame:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">grouped_countries</span><span class="p">)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_countries</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;region&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="apply">
 <h3>Apply<a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h3>
 <p>Now that we have split the data, we can apply a function separately to each group. Here we’ll compute the mean GDP for each region, for each year:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mean_gdp_by_region</span> <span class="o">=</span> <span class="n">grouped_countries</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_gdp_by_region</span> <span class="o">=</span> <span class="n">grouped_countries</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="combine">
 <h3>Combine<a class="headerlink" href="#combine" title="Permalink to this headline">¶</a></h3>
 <p>The combine step actually occurred with the <em>apply</em> step above — the result is automatically combined into a table of mean values organized by region. But since our <em>apply</em> step (<code class="docutils literal notranslate"><span class="pre">.mean()</span></code>) saved the result to a variable, we can view the resulting table as the output of the <em>combine</em> step:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mean_gdp_by_region</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_gdp_by_region</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1952</th>
+      <th>gdpPercap_1957</th>
+      <th>gdpPercap_1962</th>
+      <th>gdpPercap_1967</th>
+      <th>gdpPercap_1972</th>
+      <th>gdpPercap_1977</th>
+      <th>gdpPercap_1982</th>
+      <th>gdpPercap_1987</th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_1997</th>
+      <th>gdpPercap_2002</th>
+      <th>gdpPercap_2007</th>
+    </tr>
+    <tr>
+      <th>region</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>eastern</th>
+      <td>3580.884612</td>
+      <td>4519.684445</td>
+      <td>5611.534264</td>
+      <td>6911.825724</td>
+      <td>8465.695242</td>
+      <td>10007.911765</td>
+      <td>10900.209963</td>
+      <td>11375.852107</td>
+      <td>8250.514199</td>
+      <td>9395.008143</td>
+      <td>10864.013821</td>
+      <td>14100.916656</td>
+    </tr>
+    <tr>
+      <th>northern</th>
+      <td>8401.571825</td>
+      <td>9890.985483</td>
+      <td>11817.031712</td>
+      <td>14359.783322</td>
+      <td>17164.045376</td>
+      <td>19570.072280</td>
+      <td>22091.364430</td>
+      <td>25661.659678</td>
+      <td>26008.794966</td>
+      <td>29627.830970</td>
+      <td>33111.979754</td>
+      <td>37576.646170</td>
+    </tr>
+    <tr>
+      <th>southern</th>
+      <td>3841.112208</td>
+      <td>4876.082568</td>
+      <td>6170.642960</td>
+      <td>8222.632153</td>
+      <td>11163.775519</td>
+      <td>12965.228980</td>
+      <td>14371.479317</td>
+      <td>16033.013775</td>
+      <td>18591.368087</td>
+      <td>20377.263280</td>
+      <td>23822.183125</td>
+      <td>26359.710762</td>
+    </tr>
+    <tr>
+      <th>western</th>
+      <td>8439.962345</td>
+      <td>10434.519899</td>
+      <td>12191.949119</td>
+      <td>14232.125299</td>
+      <td>17359.111144</td>
+      <td>19305.504057</td>
+      <td>20693.785153</td>
+      <td>22798.712417</td>
+      <td>25344.134586</td>
+      <td>27914.214806</td>
+      <td>31703.386229</td>
+      <td>35080.387365</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 <div class="section" id="chaining">
 <h3>Chaining<a class="headerlink" href="#chaining" title="Permalink to this headline">¶</a></h3>
 <p>In Python, <strong>chaining</strong> refers to combining a number of operations in one command, using a sequence of methods. We can perform the above split-apply-combine procedure in a single step as follows. Note that because we don’t assign the output to a variable name, it is displayed as output but not saved.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;region&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;region&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1952</th>
+      <th>gdpPercap_1957</th>
+      <th>gdpPercap_1962</th>
+      <th>gdpPercap_1967</th>
+      <th>gdpPercap_1972</th>
+      <th>gdpPercap_1977</th>
+      <th>gdpPercap_1982</th>
+      <th>gdpPercap_1987</th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_1997</th>
+      <th>gdpPercap_2002</th>
+      <th>gdpPercap_2007</th>
+    </tr>
+    <tr>
+      <th>region</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>eastern</th>
+      <td>3580.884612</td>
+      <td>4519.684445</td>
+      <td>5611.534264</td>
+      <td>6911.825724</td>
+      <td>8465.695242</td>
+      <td>10007.911765</td>
+      <td>10900.209963</td>
+      <td>11375.852107</td>
+      <td>8250.514199</td>
+      <td>9395.008143</td>
+      <td>10864.013821</td>
+      <td>14100.916656</td>
+    </tr>
+    <tr>
+      <th>northern</th>
+      <td>8401.571825</td>
+      <td>9890.985483</td>
+      <td>11817.031712</td>
+      <td>14359.783322</td>
+      <td>17164.045376</td>
+      <td>19570.072280</td>
+      <td>22091.364430</td>
+      <td>25661.659678</td>
+      <td>26008.794966</td>
+      <td>29627.830970</td>
+      <td>33111.979754</td>
+      <td>37576.646170</td>
+    </tr>
+    <tr>
+      <th>southern</th>
+      <td>3841.112208</td>
+      <td>4876.082568</td>
+      <td>6170.642960</td>
+      <td>8222.632153</td>
+      <td>11163.775519</td>
+      <td>12965.228980</td>
+      <td>14371.479317</td>
+      <td>16033.013775</td>
+      <td>18591.368087</td>
+      <td>20377.263280</td>
+      <td>23822.183125</td>
+      <td>26359.710762</td>
+    </tr>
+    <tr>
+      <th>western</th>
+      <td>8439.962345</td>
+      <td>10434.519899</td>
+      <td>12191.949119</td>
+      <td>14232.125299</td>
+      <td>17359.111144</td>
+      <td>19305.504057</td>
+      <td>20693.785153</td>
+      <td>22798.712417</td>
+      <td>25344.134586</td>
+      <td>27914.214806</td>
+      <td>31703.386229</td>
+      <td>35080.387365</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 </div>

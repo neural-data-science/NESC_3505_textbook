@@ -999,7 +999,9 @@
 <div class="section" id="use-a-for-loop-to-process-files-given-a-list-of-their-names">
 <h2>Use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to process files given a list of their names<a class="headerlink" href="#use-a-for-loop-to-process-files-given-a-list-of-their-names" title="Permalink to this headline">¶</a></h2>
 <p>We can use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to read in a set of data files, and do a thing for each one. In this case, we’ll print the minimum value in each file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">data_files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;data/gapminder_gdp_africa.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;data/gapminder_gdp_asia.csv&#39;</span><span class="p">]</span>
 
@@ -1007,6 +1009,38 @@
     <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data/gapminder_gdp_africa.csv gdpPercap_1952    298.846212
+gdpPercap_1957    335.997115
+gdpPercap_1962    355.203227
+gdpPercap_1967    412.977514
+gdpPercap_1972    464.099504
+gdpPercap_1977    502.319733
+gdpPercap_1982    462.211415
+gdpPercap_1987    389.876185
+gdpPercap_1992    410.896824
+gdpPercap_1997    312.188423
+gdpPercap_2002    241.165876
+gdpPercap_2007    277.551859
+dtype: float64
+data/gapminder_gdp_asia.csv gdpPercap_1952    331.0
+gdpPercap_1957    350.0
+gdpPercap_1962    388.0
+gdpPercap_1967    349.0
+gdpPercap_1972    357.0
+gdpPercap_1977    371.0
+gdpPercap_1982    424.0
+gdpPercap_1987    385.0
+gdpPercap_1992    347.0
+gdpPercap_1997    415.0
+gdpPercap_2002    611.0
+gdpPercap_2007    944.0
+dtype: float64
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="use-glob-glob-to-find-sets-of-files-whose-names-match-a-pattern">
@@ -1025,20 +1059,41 @@
 whose names end with <code class="docutils literal notranslate"><span class="pre">.txt</span></code>.</p></li>
 <li><p>Result is a list of strings.</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;all csv files in data directory:&#39;</span><span class="p">,</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/*.csv&#39;</span><span class="p">))</span>
-
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>all csv files in data directory: [&#39;data/gapminder_gdp_americas.csv&#39;, &#39;data/gapminder_gdp_europe.csv&#39;, &#39;data/gapminder_all.csv&#39;, &#39;data/gapminder_gdp_oceania.csv&#39;, &#39;data/gapminder_gdp_africa.csv&#39;, &#39;data/s2.csv&#39;, &#39;data/s3.csv&#39;, &#39;data/s1.csv&#39;, &#39;data/gapminder_life_expectancy_years.csv&#39;, &#39;data/gapminder_gdp_asia.csv&#39;]
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="use-glob-and-for-to-process-batches-of-files">
 <h2>Use <code class="docutils literal notranslate"><span class="pre">glob</span></code> and <code class="docutils literal notranslate"><span class="pre">for</span></code> to process batches of files.<a class="headerlink" href="#use-glob-and-for-to-process-batches-of-files" title="Permalink to this headline">¶</a></h2>
 <p>It’s good practice to name your files systematically. As you’ve learned, Python is very precise about things like capitalization, so if your file names are inconsistent (e.g., <code class="docutils literal notranslate"><span class="pre">Gapminder_Europe.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">gapminder_americas.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">gapminder_Oceania.csv</span></code>), then it is harder to write code with <code class="docutils literal notranslate"><span class="pre">glob</span></code> that works correctly.</p>
 <p>For the Gapminder data, fortunately the file names are quite systematic and consistent (as are the names of the columns inside each file), so we can use the following to read in each one and print the minimum GDP from 1952:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/gapminder_*.csv&#39;</span><span class="p">):</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp*.csv&#39;</span><span class="p">):</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;gdpPercap_1952&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data/gapminder_gdp_americas.csv 1397.717137
+data/gapminder_gdp_europe.csv 973.5331948
+data/gapminder_gdp_oceania.csv 10039.59564
+data/gapminder_gdp_africa.csv 298.8462121
+data/gapminder_gdp_asia.csv 331.0
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="appending-files-to-a-single-dataframe">
@@ -1057,21 +1112,74 @@ whose names end with <code class="docutils literal notranslate"><span class="pre
 <p>Let’s say we have data from an experiment in which we ran three human participants (sometimes called “people”) on different days. For each participant, we have a data file. The columns in all the files are the same, because the files were generated by a computer program that ran the experiment.</p>
 <p>We give the participants anonymized ID codes to protect their privacy, and allow for a simple, systematic naming convention for the files. the first participant’s data is saved in a file called <code class="docutils literal notranslate"><span class="pre">s1.csv</span></code>, the second’s in <code class="docutils literal notranslate"><span class="pre">s2.csv</span></code>, etc..</p>
 <p>We can glob the data folder in which the files are stored, to find all the CSV files whose names start with an <code class="docutils literal notranslate"><span class="pre">s</span></code> followed by a single character, followed by <code class="docutils literal notranslate"><span class="pre">.csv</span></code>. We’ll save the result to a list that we can loop through later:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/s?.csv&#39;</span><span class="p">)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/s?.csv&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
 </div>
 <p>Next, we create an empty list that we will store the DataFrames from each participant in. It will end up being a list of DataFrames (remember, lists can contain just about any other Python data type), and once we have read in all the data, we will combine them into one DataFrame. This is a trick that’s important to use in pandas. The reason has to do with how pandas combines DataFrames and stores them in memory. In simple terms, each time we concatenate DataFrames, pandas does a lot of internal checking to make sure there are no errors. Doing this checking once, when combining many DataFrames, is far more efficient (and thus faster) than doing it many times. Likewise, when a DataFrame is created, an appropriate amount of memory space is allocated for it on the computer. Each time we append additional data, we have to create a new, bigger block of memory. Allocating new blocks of memory, many times, takes more time than just doing it once.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
 </pre></div>
 </div>
+</div>
+</div>
 <p>Finally, use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to read the files in. This will cycle through the items in the <code class="docutils literal notranslate"><span class="pre">filenames</span></code> list; each time through the loop, <code class="docutils literal notranslate"><span class="pre">filename</span></code> has the value of the current file name, and we use the list <code class="docutils literal notranslate"><span class="pre">append()</span></code> method to add the data from that file to <code class="docutils literal notranslate"><span class="pre">df_list</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
     <span class="n">df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
 </pre></div>
 </div>
+</div>
+</div>
 <p>When we view the contents of the list, we see each data set, with its two columns (with headers saying what they are), and commas separating the list entries, as is typical of a list.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  participantID  trial        RT
+ 0            s2      1  0.433094
+ 1            s2      2  0.392526
+ 2            s2      3  0.396831
+ 3            s2      4  0.417988
+ 4            s2      5  0.371810
+ 5            s2      6  0.659228
+ 6            s2      7  0.411051
+ 7            s2      8  0.409580
+ 8            s2      9  0.486828
+ 9            s2     10  0.468912,
+   participantID  trial        RT
+ 0            s3      1  0.322099
+ 1            s3      2  0.396106
+ 2            s3      3  0.384297
+ 3            s3      4  0.364524
+ 4            s3      5  0.454075
+ 5            s3      6  0.494156
+ 6            s3      7  0.492787
+ 7            s3      8  0.506836
+ 8            s3      9  0.340722
+ 9            s3     10  0.704491,
+   participantID  trial        RT
+ 0            s1      1  0.508971
+ 1            s1      2  0.389858
+ 2            s1      3  0.404175
+ 3            s1      4  0.269520
+ 4            s1      5  0.437765
+ 5            s1      6  0.368142
+ 6            s1      7  0.400544
+ 7            s1      8  0.335198
+ 8            s1      9  0.341722
+ 9            s1     10  0.439583]
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1082,27 +1190,177 @@ whose names end with <code class="docutils literal notranslate"><span class="pre
 <li><p>they are <em>more pythonic</em>: they only require one line of code, whereas the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop above required two</p></li>
 <li><p>they are <em>more efficient</em>: list comprehensions actually run faster. This may not be an issue in the small examples here, but can make a big difference when working with real, large data sets</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span>
 <span class="n">df_list</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  participantID  trial        RT
+ 0            s2      1  0.433094
+ 1            s2      2  0.392526
+ 2            s2      3  0.396831
+ 3            s2      4  0.417988
+ 4            s2      5  0.371810
+ 5            s2      6  0.659228
+ 6            s2      7  0.411051
+ 7            s2      8  0.409580
+ 8            s2      9  0.486828
+ 9            s2     10  0.468912,
+   participantID  trial        RT
+ 0            s3      1  0.322099
+ 1            s3      2  0.396106
+ 2            s3      3  0.384297
+ 3            s3      4  0.364524
+ 4            s3      5  0.454075
+ 5            s3      6  0.494156
+ 6            s3      7  0.492787
+ 7            s3      8  0.506836
+ 8            s3      9  0.340722
+ 9            s3     10  0.704491,
+   participantID  trial        RT
+ 0            s1      1  0.508971
+ 1            s1      2  0.389858
+ 2            s1      3  0.404175
+ 3            s1      4  0.269520
+ 4            s1      5  0.437765
+ 5            s1      6  0.368142
+ 6            s1      7  0.400544
+ 7            s1      8  0.335198
+ 8            s1      9  0.341722
+ 9            s1     10  0.439583]
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="combining-dataframes">
 <h2>Combining DataFrames<a class="headerlink" href="#combining-dataframes" title="Permalink to this headline">¶</a></h2>
 <p>At this point, we’ve read each input file in and stored it as a DataFrame, but we have a list of three distinct DataFrames. In most cases, we’ll want to combine these in some way. Having built our list of DataFrames through reading a set of files, we can combine them into a single DataFrame using the pandas <code class="docutils literal notranslate"><span class="pre">.concat()</span></code> method:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span>
 
 <span class="c1"># Confirm this worked by viewing a random sample of rows</span>
 <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participantID</th>
+      <th>trial</th>
+      <th>RT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4</th>
+      <td>s2</td>
+      <td>5</td>
+      <td>0.371810</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s3</td>
+      <td>3</td>
+      <td>0.384297</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>s2</td>
+      <td>6</td>
+      <td>0.659228</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s1</td>
+      <td>5</td>
+      <td>0.437765</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>s3</td>
+      <td>8</td>
+      <td>0.506836</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>s2</td>
+      <td>8</td>
+      <td>0.409580</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>s2</td>
+      <td>9</td>
+      <td>0.486828</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>s3</td>
+      <td>6</td>
+      <td>0.494156</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
 <div class="section" id="setting-the-index-column">
 <h2>Setting the index column<a class="headerlink" href="#setting-the-index-column" title="Permalink to this headline">¶</a></h2>
 <p>Recall that row labels in pands are called <em>indexes</em>. We can convert any column to an index using the <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code> method. For this data, an appropriate index is the participant ID, which is in the column <code class="docutils literal notranslate"><span class="pre">Participant</span></code>. Note that we need to assign the result of the <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code> operation back to <code class="docutils literal notranslate"><span class="pre">df</span></code> for the change to be stored:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Participant&#39;</span><span class="p">)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Participant&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_14155</span><span class="o">/</span><span class="mf">1103990505.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Participant&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/util/_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">309</span>                     <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">310</span>                 <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">311</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">312</span> 
+<span class="g g-Whitespace">    </span><span class="mi">313</span>         <span class="k">return</span> <span class="n">wrapper</span>
+
+<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/frame.py</span> in <span class="ni">set_index</span><span class="nt">(self, keys, drop, append, inplace, verify_integrity)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5444</span> 
+<span class="g g-Whitespace">   </span><span class="mi">5445</span>         <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">5446</span>             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;None of </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2"> are in the columns&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5447</span> 
+<span class="g g-Whitespace">   </span><span class="mi">5448</span>         <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+
+<span class="ne">KeyError</span>: &quot;None of [&#39;Participant&#39;] are in the columns&quot;
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1150,20 +1408,6 @@ whose names end with <code class="docutils literal notranslate"><span class="pre
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_11646</span><span class="o">/</span><span class="mf">4112818135.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">data_files</span> <span class="o">=</span> <span class="n">___</span><span class="p">(</span><span class="n">___</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="ne">TypeError</span>: &#39;str&#39; object is not callable
-</pre></div>
-</div>
-</div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">Click the button to reveal!</p>
@@ -1186,7 +1430,6 @@ whose names end with <code class="docutils literal notranslate"><span class="pre
 <div class="section" id="list-comprehension">
 <h3>List comprehension<a class="headerlink" href="#list-comprehension" title="Permalink to this headline">¶</a></h3>
 <p>Now rewrite the code above to use list comprehension rather than a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, and only <em>two</em> lines of code total (excluding the <code class="docutils literal notranslate"><span class="pre">import</span></code> commands and viewing the first 10 lines of the result).</p>
-<p>For an even bigger challenge, see if you can reduce the code to a single line!</p>
 <div class="dropdown admonition">
 <p class="admonition-title">Click the button to reveal!</p>
 <p>Done in two lines of code:</p>
@@ -1197,6 +1440,10 @@ whose names end with <code class="docutils literal notranslate"><span class="pre
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<p>For an even bigger challenge, see if you can reduce the code to a single line!</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Click the button to reveal!</p>
 <p>Done in one line of code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/*gdp*.csv&#39;</span><span class="p">)])</span>
     
