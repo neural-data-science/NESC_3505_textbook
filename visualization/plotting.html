@@ -539,6 +539,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="subplots.html">
+   Subplots
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="plotting_types.html">
    Thinking About Data for Plotting
   </a>
@@ -852,8 +857,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#objectives">
-   Objectives
+  <a class="reference internal nav-link" href="#learning-objectives">
+   Learning Objectives
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -943,8 +948,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#key-points">
-   Key Points
+  <a class="reference internal nav-link" href="#summary-of-key-points">
+   Summary of Key Points
   </a>
  </li>
 </ul>
@@ -968,11 +973,13 @@
 <li><p>How can I save my plot for publishing?</p></li>
 </ul>
 </div>
-<div class="section" id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Create a time series plot showing a single data set.</p></li>
-<li><p>Create a scatter plot showing relationship between two data sets.</p></li>
+<li><p>Create a time series plot showing a single data set</p></li>
+<li><p>Create a scatter plot showing relationship between two data sets</p></li>
+<li><p>Use methods to plot directly from pandas DataFrames</p></li>
+<li><p>Customize basic features of a plot, such as axis labels, titles, colours, and line styles</p></li>
 </ul>
 <hr class="docutils" />
 <img src='https://matplotlib.org/stable/_static/logo2_compressed.svg' alt='Matplotlib' width=225>
@@ -990,6 +997,13 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="generating-a-plot">
 <h2>Generating a Plot<a class="headerlink" href="#generating-a-plot" title="Permalink to this headline">¶</a></h2>
@@ -1000,12 +1014,40 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">position</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x115db80a0&gt;]
+</pre></div>
+</div>
+<img alt="../_images/plotting_6_1.png" src="../_images/plotting_6_1.png" />
+</div>
+</div>
 <p>You can see above that we used the Matplotlib alias <code class="docutils literal notranslate"><span class="pre">plt</span></code> followed by the name of a specific function in the package, <code class="docutils literal notranslate"><span class="pre">plot()</span></code>. This is the same syntax as when we used a pandas function, such as <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code>.</p>
 <p>Another thing to note is that above the plot is some text, something like: <code class="docutils literal notranslate"><span class="pre">[&lt;matplotlib.lines.Line2D</span> <span class="pre">at</span> <span class="pre">0x7f72bc26ce20&gt;]</span></code>. This is part of the output of the <code class="docutils literal notranslate"><span class="pre">plt.plot()</span></code> command, but typically not something that we care to see. We can generate the plot without this extra output, by including the command <code class="docutils literal notranslate"><span class="pre">plt.show()</span></code> at the end of the cell. Recall that Jupyter only shows the output of the last output-generating command in a cell, and <code class="docutils literal notranslate"><span class="pre">plt.show()</span></code> shows the plot without the extra text. It’s good to make a habit of putting <code class="docutils literal notranslate"><span class="pre">plt.plot()</span></code> as the last line of code in any Jupyter cell you generate a plot in.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># since we defined time and position above, no need to re-assign them here</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># since we defined time and position above, no need to re-assign them here</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/plotting_8_0.png" src="../_images/plotting_8_0.png" />
+</div>
 </div>
 </div>
 <div class="section" id="labelling-axes">
@@ -1018,6 +1060,19 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (hr)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Position (km)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/plotting_10_0.png" src="../_images/plotting_10_0.png" />
+</div>
+</div>
 </div>
 <div class="section" id="plotting-pandas-dataframes">
 <h2>Plotting pandas DataFrames<a class="headerlink" href="#plotting-pandas-dataframes" title="Permalink to this headline">¶</a></h2>
@@ -1029,9 +1084,106 @@
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp_oceania.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp_oceania.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>Let’s see what this DataFrame looks like:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
 </pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1952</th>
+      <th>gdpPercap_1957</th>
+      <th>gdpPercap_1962</th>
+      <th>gdpPercap_1967</th>
+      <th>gdpPercap_1972</th>
+      <th>gdpPercap_1977</th>
+      <th>gdpPercap_1982</th>
+      <th>gdpPercap_1987</th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_1997</th>
+      <th>gdpPercap_2002</th>
+      <th>gdpPercap_2007</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Australia</th>
+      <td>10039.59564</td>
+      <td>10949.64959</td>
+      <td>12217.22686</td>
+      <td>14526.12465</td>
+      <td>16788.62948</td>
+      <td>18334.19751</td>
+      <td>19477.00928</td>
+      <td>21888.88903</td>
+      <td>23424.76683</td>
+      <td>26997.93657</td>
+      <td>30687.75473</td>
+      <td>34435.36744</td>
+    </tr>
+    <tr>
+      <th>New Zealand</th>
+      <td>10556.57566</td>
+      <td>12247.39532</td>
+      <td>13175.67800</td>
+      <td>14463.91893</td>
+      <td>16046.03728</td>
+      <td>16233.71770</td>
+      <td>17632.41040</td>
+      <td>19007.19129</td>
+      <td>18363.32494</td>
+      <td>21050.41377</td>
+      <td>23189.80135</td>
+      <td>25185.00911</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>There are only two countries in this data set, which makes it easy to work with.</p>
 </div>
@@ -1043,6 +1195,17 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/plotting_17_0.png" src="../_images/plotting_17_0.png" />
+</div>
+</div>
 <p>We get a plot all right, but it’s not the most intuitive way to look at the data. What happened here?</p>
 <p>We can see from the legend that Python generated a line for each year in the data set, with country on the <em>x</em> axis. This is because <strong>by default, Matplotlib will use the rows of a DataFrame as the <em>x</em> axis</strong>, and use columns to define the groupings that define individual lines. But in our DataFrame, the rows (indexes) are the countries.</p>
 <p>We can change this by <em><strong>transposing</strong></em> the DataFrame, an operation which swaps the rows and columns (rows become columns, and vice-versa). To transpose the DataFrame we us the <code class="docutils literal notranslate"><span class="pre">.T</span></code> operator (note that <code class="docutils literal notranslate"><span class="pre">.T</span></code> is an operator, not a method, so you shouldn’t add parentheses after the <code class="docutils literal notranslate"><span class="pre">T</span></code>)</p>
@@ -1050,10 +1213,110 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/plotting_19_0.png" src="../_images/plotting_19_0.png" />
+</div>
+</div>
 <p>You can see above that pandas + Matplotlib also recognizes the index of the DataFrame as labels, so a legend is automatically generated with the country names.</p>
 <p>Another important point to note is that we applied <code class="docutils literal notranslate"><span class="pre">.T</span></code> “on the fly” in generating the plot. That is, we didn’t modify the DataFrame <code class="docutils literal notranslate"><span class="pre">df</span></code> stored in memory. We just passed the data from <code class="docutils literal notranslate"><span class="pre">df</span></code> through the <code class="docutils literal notranslate"><span class="pre">.T</span></code> operator when we generated the plot. . You can see that <code class="docutils literal notranslate"><span class="pre">df</span></code> is not transposed by viewing it again:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
 </pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1952</th>
+      <th>gdpPercap_1957</th>
+      <th>gdpPercap_1962</th>
+      <th>gdpPercap_1967</th>
+      <th>gdpPercap_1972</th>
+      <th>gdpPercap_1977</th>
+      <th>gdpPercap_1982</th>
+      <th>gdpPercap_1987</th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_1997</th>
+      <th>gdpPercap_2002</th>
+      <th>gdpPercap_2007</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Australia</th>
+      <td>10039.59564</td>
+      <td>10949.64959</td>
+      <td>12217.22686</td>
+      <td>14526.12465</td>
+      <td>16788.62948</td>
+      <td>18334.19751</td>
+      <td>19477.00928</td>
+      <td>21888.88903</td>
+      <td>23424.76683</td>
+      <td>26997.93657</td>
+      <td>30687.75473</td>
+      <td>34435.36744</td>
+    </tr>
+    <tr>
+      <th>New Zealand</th>
+      <td>10556.57566</td>
+      <td>12247.39532</td>
+      <td>13175.67800</td>
+      <td>14463.91893</td>
+      <td>16046.03728</td>
+      <td>16233.71770</td>
+      <td>17632.41040</td>
+      <td>19007.19129</td>
+      <td>18363.32494</td>
+      <td>21050.41377</td>
+      <td>23189.80135</td>
+      <td>25185.00911</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 </div>
@@ -1065,14 +1328,204 @@
 <span class="n">df</span>
 </pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;gdpPercap_&#39;</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>1952</th>
+      <th>1957</th>
+      <th>1962</th>
+      <th>1967</th>
+      <th>1972</th>
+      <th>1977</th>
+      <th>1982</th>
+      <th>1987</th>
+      <th>1992</th>
+      <th>1997</th>
+      <th>2002</th>
+      <th>2007</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Australia</th>
+      <td>10039.59564</td>
+      <td>10949.64959</td>
+      <td>12217.22686</td>
+      <td>14526.12465</td>
+      <td>16788.62948</td>
+      <td>18334.19751</td>
+      <td>19477.00928</td>
+      <td>21888.88903</td>
+      <td>23424.76683</td>
+      <td>26997.93657</td>
+      <td>30687.75473</td>
+      <td>34435.36744</td>
+    </tr>
+    <tr>
+      <th>New Zealand</th>
+      <td>10556.57566</td>
+      <td>12247.39532</td>
+      <td>13175.67800</td>
+      <td>14463.91893</td>
+      <td>16046.03728</td>
+      <td>16233.71770</td>
+      <td>17632.41040</td>
+      <td>19007.19129</td>
+      <td>18363.32494</td>
+      <td>21050.41377</td>
+      <td>23189.80135</td>
+      <td>25185.00911</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <p>Now if we plot <code class="docutils literal notranslate"><span class="pre">df</span></code> again, the <em>x</em> axis labels are clearer:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/plotting_25_0.png" src="../_images/plotting_25_0.png" />
+</div>
+</div>
 <p>Look at the DataFrame now, to see the result:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>df
 </pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>1952</th>
+      <th>1957</th>
+      <th>1962</th>
+      <th>1967</th>
+      <th>1972</th>
+      <th>1977</th>
+      <th>1982</th>
+      <th>1987</th>
+      <th>1992</th>
+      <th>1997</th>
+      <th>2002</th>
+      <th>2007</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Australia</th>
+      <td>10039.59564</td>
+      <td>10949.64959</td>
+      <td>12217.22686</td>
+      <td>14526.12465</td>
+      <td>16788.62948</td>
+      <td>18334.19751</td>
+      <td>19477.00928</td>
+      <td>21888.88903</td>
+      <td>23424.76683</td>
+      <td>26997.93657</td>
+      <td>30687.75473</td>
+      <td>34435.36744</td>
+    </tr>
+    <tr>
+      <th>New Zealand</th>
+      <td>10556.57566</td>
+      <td>12247.39532</td>
+      <td>13175.67800</td>
+      <td>14463.91893</td>
+      <td>16046.03728</td>
+      <td>16233.71770</td>
+      <td>17632.41040</td>
+      <td>19007.19129</td>
+      <td>18363.32494</td>
+      <td>21050.41377</td>
+      <td>23189.80135</td>
+      <td>25185.00911</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 <div class="section" id="customizing-plot-appearance">
@@ -1087,6 +1540,17 @@
     <h3>Keyword arguments</h3>
 <p><code class="docutils literal notranslate"><span class="pre">color=</span></code> is a particular kind of argument to a function, called a <em><strong>keyword argument</strong></em> (<em><strong>kwarg</strong></em>). Recall that arguments are information provided to a function that alter how it runs. kwargs are arguments that use a keyword (in this case, <code class="docutils literal notranslate"><span class="pre">color</span></code>), followed by the <code class="docutils literal notranslate"><span class="pre">=</span></code> sign, followed by a value to pass to the argument. kwargs are commonly used for optional arguments. A Python function that takes multiple arguments needs to know how to interpret each argument. Mandatory arguments typically are required to be listed in a particular order, which allows the function to know how to interpret each one. However, optional arguments might not occur, so order would not be a good way of determining the meaning of the argument. The keywords allow the function to know how to interpret each kwarg.</p>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/plotting_29_0.png" src="../_images/plotting_29_0.png" />
+</div>
+</div>
 <div class="section" id="selecting-subsets-of-a-dataframe">
 <h3>Selecting subsets of a DataFrame<a class="headerlink" href="#selecting-subsets-of-a-dataframe" title="Permalink to this headline">¶</a></h3>
 <p>Above we selected only the data from Australia using <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code>, and assigned that to <code class="docutils literal notranslate"><span class="pre">gdp_australia</span></code>. But more efficiently, using the pandas <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method, we can <em>chain</em> together the <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code> selector and the <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method to select the relevant data ‘on the fly’ rather than first defining a variable to hold that data.</p>
@@ -1095,10 +1559,32 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Australia&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/plotting_31_0.png" src="../_images/plotting_31_0.png" />
+</div>
+</div>
 <p>We can customize this using the <code class="docutils literal notranslate"><span class="pre">color</span></code> and <code class="docutils literal notranslate"><span class="pre">linestyle</span></code> kwargs. Note that if we’re only passing a single value to a kwarg, we don’t use a list:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Australia&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Australia&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/plotting_33_0.png" src="../_images/plotting_33_0.png" />
+</div>
 </div>
 </div>
 </div>
@@ -1109,6 +1595,18 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;GDP per capita&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;GDP per capita&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/plotting_35_0.png" src="../_images/plotting_35_0.png" />
+</div>
 </div>
 <p>Something to get used to is that some plot styles can be defined as keyword arguments to <code class="docutils literal notranslate"><span class="pre">.plot()</span></code>, as above, others can be generated using subfunctions of <code class="docutils literal notranslate"><span class="pre">.plot</span></code>, such as <code class="docutils literal notranslate"><span class="pre">.plot.scatter()</span></code>, as below. Often, you can use either one to get the same result. It’s often the case in Python that there are many different ways to do the same thing!</p>
 </div>
@@ -1121,6 +1619,19 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Relationship between GDP of Australia and New Zealand&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Australia&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;New Zealand&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;GDP per capita&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Relationship between GDP of Australia and New Zealand&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/plotting_37_0.png" src="../_images/plotting_37_0.png" />
+</div>
 </div>
 </div>
 <div class="section" id="exercises">
@@ -1186,15 +1697,14 @@
 </div>
 </div>
 <hr class="docutils" />
-<div class="section" id="key-points">
-<h2>Key Points<a class="headerlink" href="#key-points" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="summary-of-key-points">
+<h2>Summary of Key Points<a class="headerlink" href="#summary-of-key-points" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Matplotlib is the most widely used scientific plotting library in Python.</p></li>
 <li><p>Methods allow you to plot data directly from a pandas dataframe.</p></li>
 <li><p>It is common to need to select and transform data, then plot it.</p></li>
 <li><p>Many styles of plot are available: see the <a class="reference external" href="https://python-graph-gallery.com/matplotlib/">Python Graph Gallery</a> for more options.</p></li>
 <li><p>It’s possible to plot many sets of data together</p></li>
-<li><p>Matplotlib allows either procedural or object-oriented approaches to plotting. It’s important to be aware of this, and be able to identify which one is being used, especially when trying to using online examples in your own code.</p></li>
 </ul>
 <hr class="docutils" />
 <p>This lesson is adapted from the <a class="reference external" href="https://software-carpentry.org/lessons/">Software Carpentry</a> <a class="reference external" href="http://swcarpentry.github.io/python-novice-gapminder/">Plotting and Programming in Python</a> workshop.</p>
