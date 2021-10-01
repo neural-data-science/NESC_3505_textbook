@@ -1,0 +1,70 @@
+Traceback (most recent call last):
+  File "/Users/aaron/miniforge3/envs/eeg/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/Users/aaron/miniforge3/envs/eeg/lib/python3.9/site-packages/nbclient/client.py", line 1112, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/aaron/miniforge3/envs/eeg/lib/python3.9/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/Users/aaron/miniforge3/envs/eeg/lib/python3.9/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/Users/aaron/miniforge3/envs/eeg/lib/python3.9/asyncio/base_events.py", line 642, in run_until_complete
+    return future.result()
+  File "/Users/aaron/miniforge3/envs/eeg/lib/python3.9/site-packages/nbclient/client.py", line 553, in async_execute
+    await self.async_execute_cell(
+  File "/Users/aaron/miniforge3/envs/eeg/lib/python3.9/site-packages/nbclient/client.py", line 857, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/Users/aaron/miniforge3/envs/eeg/lib/python3.9/site-packages/nbclient/client.py", line 760, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+fav_colour = pd.read_csv('fav_colour.csv')
+eye_colour = pd.read_csv('eye_colour.csv')
+
+fav_colour.join(eye_colour)
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+[0;32m/var/folders/x0/pvpjfdzd39sc5rqvsk5lvv4m0000gn/T/ipykernel_20101/1049025269.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      2[0m [0meye_colour[0m [0;34m=[0m [0mpd[0m[0;34m.[0m[0mread_csv[0m[0;34m([0m[0;34m'eye_colour.csv'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      3[0m [0;34m[0m[0m
+[0;32m----> 4[0;31m [0mfav_colour[0m[0;34m.[0m[0mjoin[0m[0;34m([0m[0meye_colour[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;32m~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/frame.py[0m in [0;36mjoin[0;34m(self, other, on, how, lsuffix, rsuffix, sort)[0m
+[1;32m   9093[0m         [0;36m5[0m  [0mK5[0m  [0mA5[0m  [0mNaN[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   9094[0m         """
+[0;32m-> 9095[0;31m         return self._join_compat(
+[0m[1;32m   9096[0m             [0mother[0m[0;34m,[0m [0mon[0m[0;34m=[0m[0mon[0m[0;34m,[0m [0mhow[0m[0;34m=[0m[0mhow[0m[0;34m,[0m [0mlsuffix[0m[0;34m=[0m[0mlsuffix[0m[0;34m,[0m [0mrsuffix[0m[0;34m=[0m[0mrsuffix[0m[0;34m,[0m [0msort[0m[0;34m=[0m[0msort[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   9097[0m         )
+
+[0;32m~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/frame.py[0m in [0;36m_join_compat[0;34m(self, other, on, how, lsuffix, rsuffix, sort)[0m
+[1;32m   9124[0m                     [0msort[0m[0;34m=[0m[0msort[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   9125[0m                 )
+[0;32m-> 9126[0;31m             return merge(
+[0m[1;32m   9127[0m                 [0mself[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   9128[0m                 [0mother[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/reshape/merge.py[0m in [0;36mmerge[0;34m(left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)[0m
+[1;32m    120[0m         [0mvalidate[0m[0;34m=[0m[0mvalidate[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    121[0m     )
+[0;32m--> 122[0;31m     [0;32mreturn[0m [0mop[0m[0;34m.[0m[0mget_result[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    123[0m [0;34m[0m[0m
+[1;32m    124[0m [0;34m[0m[0m
+
+[0;32m~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/reshape/merge.py[0m in [0;36mget_result[0;34m(self)[0m
+[1;32m    716[0m         [0mjoin_index[0m[0;34m,[0m [0mleft_indexer[0m[0;34m,[0m [0mright_indexer[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_get_join_info[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    717[0m [0;34m[0m[0m
+[0;32m--> 718[0;31m         llabels, rlabels = _items_overlap_with_suffix(
+[0m[1;32m    719[0m             [0mself[0m[0;34m.[0m[0mleft[0m[0;34m.[0m[0m_info_axis[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0mright[0m[0;34m.[0m[0m_info_axis[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0msuffixes[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    720[0m         )
+
+[0;32m~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/reshape/merge.py[0m in [0;36m_items_overlap_with_suffix[0;34m(left, right, suffixes)[0m
+[1;32m   2302[0m [0;34m[0m[0m
+[1;32m   2303[0m     [0;32mif[0m [0;32mnot[0m [0mlsuffix[0m [0;32mand[0m [0;32mnot[0m [0mrsuffix[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 2304[0;31m         [0;32mraise[0m [0mValueError[0m[0;34m([0m[0;34mf"columns overlap but no suffix specified: {to_rename}"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   2305[0m [0;34m[0m[0m
+[1;32m   2306[0m     [0;32mdef[0m [0mrenamer[0m[0;34m([0m[0mx[0m[0;34m,[0m [0msuffix[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mValueError[0m: columns overlap but no suffix specified: Index(['Participant num'], dtype='object')
+ValueError: columns overlap but no suffix specified: Index(['Participant num'], dtype='object')
+
