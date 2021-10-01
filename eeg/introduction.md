@@ -1,5 +1,4 @@
-# Introduction
-## EEG/ERP Data
+# Introduction to EEG/ERP Data
 
 EEG, or **electroencephalography**, is a technique that records electrical activity from the brain. Typically, it is recorded non-invasively, from electrodes placed on the scalp, although it can also be recorded from electrodes placed directly on the surface of the brain (typically for clinical neurological purposes). EEG typically involves the use of between 1–250 electrodes; even at the upper end of that range, clearly there are far fewer electrodes than the estimated 80 billion or so neurons in the brain. As well, the skull is a poor conductor of electricity. This means that what we record with EEG is inevitably the aggregated activity of large numbers of neurons working together.
 

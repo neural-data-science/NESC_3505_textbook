@@ -1,5 +1,4 @@
-# Introduction
-## Introducing Python
+# Introducing Python
 
 This chapter covers the material for about the first month of the course, which is a basic introduction to Python. This is not an introduction to computer science. Our focus is no how to use Python as a tool for working with data. As such, our focus is on:
 - learning the fundamentals of Python
