@@ -918,7 +918,7 @@
 <p>Visualization is an incredibly powerful way to present data. However, to generate effective plots, you need to understand the structure and organization of your data. In particular, you need to consider the different <strong>variables</strong> present in your data, whether they are <strong>continuous</strong> or <strong>categorical</strong>, and whether they are <strong>nested</strong> (often called <em>repeated measures</em>). In this lesson we’ll review these different types of data and some common approaches to plotting them.</p>
 <div class="section" id="continuous-data">
 <h2>Continuous Data<a class="headerlink" href="#continuous-data" title="Permalink to this headline">¶</a></h2>
-<p>Continuous data comprises most numeric data that you will encounter. Values can range continuously (i.e., in very small steps) across some range of values (possibly infinite, but typically with practical bounds when dealing with neuroscientific or psychological data). In Python, numeric data are typically stored as integers or floating point numbers.</p>
+<p>Continuous data comprises most numeric data that you will encounter. Values can range continuously (i.e., in very small steps) across some range of values (possibly infinite, but typically with practical bounds when dealing with neuroscientific or psychological data). Continuous variables in psychology and neuroscience can include reaction times, voltage measurements in electrophysiology, fMRI activation levels, etc.. In Python, numeric data are typically stored as integers or floating point numbers.</p>
 <div class="section" id="thought-question">
 <h3>Thought Question<a class="headerlink" href="#thought-question" title="Permalink to this headline">¶</a></h3>
 <p>If you think about the Gapminder GDP dataset that we have worked with in previous lessons, what variables are continuous?</p>
@@ -970,8 +970,369 @@
 <div class="section" id="long-vs-wide-form-data">
 <h3>Long- vs. Wide-Form Data<a class="headerlink" href="#long-vs-wide-form-data" title="Permalink to this headline">¶</a></h3>
 <p>Many software tools represent data in two-dimensional row-column format, including Microsoft Excel, Google Sheets, and SPSS. Across all of them, data can be stored in two ways.</p>
-<p>In <strong>wide-form</strong> data, each unit of obesrvation (such as a human or animal research participant) is associated with one measurement of each experimental variable. So each row in the DataFrame contains all the data from one participant, and columns represent individual measured variables, including different levels of the same variable. The Gapminder GDP data set is an example of wide-form data. Each row contains all the data associated with a particular country, and the columns represent all the different measurements we have. The data values in all of the columns are GDP in millions of dollars, and the different columns store data from different levels of the “years” variable..</p>
-<p>In contrast, <strong>long-form</strong> data requires fewer columns to represent a particular dataset, but more rows. Meausrements from a single source (e.g., experimental participant) are stored across several rows. Rather than each level of each variable having its own column, only two columns are required: one specifying the level of the variable, and one specifying the value of the measurement at that level fo the variable, for that participant. If we were to convert the Gapminder GDP data to long form, rather than having many columns for hte different years, we would have one column labelled “year”, that contained different values of year (e.g., 1900, 1920, etc.) and a second column called “GDP” that contained the GDP values in millions of dollars. Thus each country would have as many rows in the DataFrame as there were years for which we had measurements. Long-form data is often used with nested (repeated measures) data.</p>
+<p>In <strong>wide-form</strong> data, each unit of obesrvation (such as a human or animal research participant) is associated with one measurement of each experimental variable. So each row in the DataFrame contains all the data from one participant, and columns represent individual measured variables, including different levels of the same variable. The Gapminder GDP data set is an example of wide-form data. Each row contains all the data associated with a particular country, and the columns represent all the different measurements we have. The data values in all of the columns are GDP in millions of dollars, and the different columns store data from different levels of the “years” variable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp_europe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1952</th>
+      <th>gdpPercap_1957</th>
+      <th>gdpPercap_1962</th>
+      <th>gdpPercap_1967</th>
+      <th>gdpPercap_1972</th>
+      <th>gdpPercap_1977</th>
+      <th>gdpPercap_1982</th>
+      <th>gdpPercap_1987</th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_1997</th>
+      <th>gdpPercap_2002</th>
+      <th>gdpPercap_2007</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Albania</th>
+      <td>1601.056136</td>
+      <td>1942.284244</td>
+      <td>2312.888958</td>
+      <td>2760.196931</td>
+      <td>3313.422188</td>
+      <td>3533.003910</td>
+      <td>3630.880722</td>
+      <td>3738.932735</td>
+      <td>2497.437901</td>
+      <td>3193.054604</td>
+      <td>4604.211737</td>
+      <td>5937.029526</td>
+    </tr>
+    <tr>
+      <th>Austria</th>
+      <td>6137.076492</td>
+      <td>8842.598030</td>
+      <td>10750.721110</td>
+      <td>12834.602400</td>
+      <td>16661.625600</td>
+      <td>19749.422300</td>
+      <td>21597.083620</td>
+      <td>23687.826070</td>
+      <td>27042.018680</td>
+      <td>29095.920660</td>
+      <td>32417.607690</td>
+      <td>36126.492700</td>
+    </tr>
+    <tr>
+      <th>Belgium</th>
+      <td>8343.105127</td>
+      <td>9714.960623</td>
+      <td>10991.206760</td>
+      <td>13149.041190</td>
+      <td>16672.143560</td>
+      <td>19117.974480</td>
+      <td>20979.845890</td>
+      <td>22525.563080</td>
+      <td>25575.570690</td>
+      <td>27561.196630</td>
+      <td>30485.883750</td>
+      <td>33692.605080</td>
+    </tr>
+    <tr>
+      <th>Bosnia and Herzegovina</th>
+      <td>973.533195</td>
+      <td>1353.989176</td>
+      <td>1709.683679</td>
+      <td>2172.352423</td>
+      <td>2860.169750</td>
+      <td>3528.481305</td>
+      <td>4126.613157</td>
+      <td>4314.114757</td>
+      <td>2546.781445</td>
+      <td>4766.355904</td>
+      <td>6018.975239</td>
+      <td>7446.298803</td>
+    </tr>
+    <tr>
+      <th>Bulgaria</th>
+      <td>2444.286648</td>
+      <td>3008.670727</td>
+      <td>4254.337839</td>
+      <td>5577.002800</td>
+      <td>6597.494398</td>
+      <td>7612.240438</td>
+      <td>8224.191647</td>
+      <td>8239.854824</td>
+      <td>6302.623438</td>
+      <td>5970.388760</td>
+      <td>7696.777725</td>
+      <td>10680.792820</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>In contrast, <strong>long-form</strong> data requires fewer columns to represent a particular data set, but more rows. Measurements from a single source (e.g., experimental participant) are stored across several rows. Rather than each level of each variable having its own column, only two columns are required: one specifying the level of the variable, and one specifying the value of the measurement at that level of the variable, for that participant. If we were to convert the Gapminder GDP data to long form, rather than having many columns for the different years, we would have one column labeled “year”, that contained different values of year (e.g., 1900, 1920, etc.) and a second column called “GDP” that contained the GDP values in millions of dollars. Thus each country would have as many rows in the DataFrame as there were years for which we had measurements. Long-form data is often used with nested (repeated measures) data.</p>
+<p>With pandas it’s quite easy to convert wide-form data to long-form using the <code class="docutils literal notranslate"><span class="pre">.melt()</span></code> method. By default, <code class="docutils literal notranslate"><span class="pre">.melt()</span></code> will “melt” all of the data columns into one long column, and put the original column headings in a second column. We can use the kwargs <code class="docutils literal notranslate"><span class="pre">var_name=</span></code> and <code class="docutils literal notranslate"><span class="pre">value_name=</span></code> to name the columns that take the original column names and values in the columns, respectively.</p>
+<p>Below we convert the GDP data to long form as described above. Prior to doing so, we use another pandas method, <code class="docutils literal notranslate"><span class="pre">str.strip()</span></code>, to remove the leading text (<code class="docutils literal notranslate"><span class="pre">gdpPercap_</span></code>) from each column so that the resulting <code class="docutils literal notranslate"><span class="pre">year</span></code> column contains only the numerical year.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;gdpPercap_&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;GDP&#39;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can see below that after the row for the last country in 1952, the list of countries repeats again, now for the year 1957, and so on.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>GDP</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Albania</th>
+      <td>1952</td>
+      <td>1601.056136</td>
+    </tr>
+    <tr>
+      <th>Austria</th>
+      <td>1952</td>
+      <td>6137.076492</td>
+    </tr>
+    <tr>
+      <th>Belgium</th>
+      <td>1952</td>
+      <td>8343.105127</td>
+    </tr>
+    <tr>
+      <th>Bosnia and Herzegovina</th>
+      <td>1952</td>
+      <td>973.533195</td>
+    </tr>
+    <tr>
+      <th>Bulgaria</th>
+      <td>1952</td>
+      <td>2444.286648</td>
+    </tr>
+    <tr>
+      <th>Croatia</th>
+      <td>1952</td>
+      <td>3119.236520</td>
+    </tr>
+    <tr>
+      <th>Czech Republic</th>
+      <td>1952</td>
+      <td>6876.140250</td>
+    </tr>
+    <tr>
+      <th>Denmark</th>
+      <td>1952</td>
+      <td>9692.385245</td>
+    </tr>
+    <tr>
+      <th>Finland</th>
+      <td>1952</td>
+      <td>6424.519071</td>
+    </tr>
+    <tr>
+      <th>France</th>
+      <td>1952</td>
+      <td>7029.809327</td>
+    </tr>
+    <tr>
+      <th>Germany</th>
+      <td>1952</td>
+      <td>7144.114393</td>
+    </tr>
+    <tr>
+      <th>Greece</th>
+      <td>1952</td>
+      <td>3530.690067</td>
+    </tr>
+    <tr>
+      <th>Hungary</th>
+      <td>1952</td>
+      <td>5263.673816</td>
+    </tr>
+    <tr>
+      <th>Iceland</th>
+      <td>1952</td>
+      <td>7267.688428</td>
+    </tr>
+    <tr>
+      <th>Ireland</th>
+      <td>1952</td>
+      <td>5210.280328</td>
+    </tr>
+    <tr>
+      <th>Italy</th>
+      <td>1952</td>
+      <td>4931.404155</td>
+    </tr>
+    <tr>
+      <th>Montenegro</th>
+      <td>1952</td>
+      <td>2647.585601</td>
+    </tr>
+    <tr>
+      <th>Netherlands</th>
+      <td>1952</td>
+      <td>8941.571858</td>
+    </tr>
+    <tr>
+      <th>Norway</th>
+      <td>1952</td>
+      <td>10095.421720</td>
+    </tr>
+    <tr>
+      <th>Poland</th>
+      <td>1952</td>
+      <td>4029.329699</td>
+    </tr>
+    <tr>
+      <th>Portugal</th>
+      <td>1952</td>
+      <td>3068.319867</td>
+    </tr>
+    <tr>
+      <th>Romania</th>
+      <td>1952</td>
+      <td>3144.613186</td>
+    </tr>
+    <tr>
+      <th>Serbia</th>
+      <td>1952</td>
+      <td>3581.459448</td>
+    </tr>
+    <tr>
+      <th>Slovak Republic</th>
+      <td>1952</td>
+      <td>5074.659104</td>
+    </tr>
+    <tr>
+      <th>Slovenia</th>
+      <td>1952</td>
+      <td>4215.041741</td>
+    </tr>
+    <tr>
+      <th>Spain</th>
+      <td>1952</td>
+      <td>3834.034742</td>
+    </tr>
+    <tr>
+      <th>Sweden</th>
+      <td>1952</td>
+      <td>8527.844662</td>
+    </tr>
+    <tr>
+      <th>Switzerland</th>
+      <td>1952</td>
+      <td>14734.232750</td>
+    </tr>
+    <tr>
+      <th>Turkey</th>
+      <td>1952</td>
+      <td>1969.100980</td>
+    </tr>
+    <tr>
+      <th>United Kingdom</th>
+      <td>1952</td>
+      <td>9979.508487</td>
+    </tr>
+    <tr>
+      <th>Albania</th>
+      <td>1957</td>
+      <td>1942.284244</td>
+    </tr>
+    <tr>
+      <th>Austria</th>
+      <td>1957</td>
+      <td>8842.598030</td>
+    </tr>
+    <tr>
+      <th>Belgium</th>
+      <td>1957</td>
+      <td>9714.960623</td>
+    </tr>
+    <tr>
+      <th>Bosnia and Herzegovina</th>
+      <td>1957</td>
+      <td>1353.989176</td>
+    </tr>
+    <tr>
+      <th>Bulgaria</th>
+      <td>1957</td>
+      <td>3008.670727</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 </div>
 </div>
 </div>
