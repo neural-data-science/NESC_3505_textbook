@@ -1,3 +1,4 @@
+# Course Videos
 ```{figure} https://upload.wikimedia.org/wikipedia/commons/9/90/Logo_of_YouTube_%282013-2015%29.svg
 ---
 align: left
