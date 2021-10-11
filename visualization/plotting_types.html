@@ -561,6 +561,23 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
+  Exploratory Data Analysis
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/repeated_measures.html">
+   Working with Repeated Measures Data
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
   Single Unit Data
  </span>
 </p>
@@ -852,6 +869,16 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#learning-objectives">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#continuous-data">
    Continuous Data
   </a>
@@ -874,6 +901,16 @@
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ordinal-data">
+   Ordinal Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#making-continuous-data-categorical">
+   Making Continuous Data Categorical
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#plotting-continuous-and-categorical-data">
@@ -902,6 +939,11 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -915,18 +957,126 @@
                 
   <div class="section" id="thinking-about-data-for-plotting">
 <h1>Thinking About Data for Plotting<a class="headerlink" href="#thinking-about-data-for-plotting" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<div class="section" id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Understand the difference between continuous and categorical data</p></li>
+<li><p>Understand what nested data is</p></li>
+<li><p>Understand why it is important to consider nesting structures when computing and visualizing variance</p></li>
+<li><p>Understand the differences between wide- and long-format data</p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Visualization is an incredibly powerful way to present data. However, to generate effective plots, you need to understand the structure and organization of your data. In particular, you need to consider the different <strong>variables</strong> present in your data, whether they are <strong>continuous</strong> or <strong>categorical</strong>, and whether they are <strong>nested</strong> (often called <em>repeated measures</em>). In this lesson we’ll review these different types of data and some common approaches to plotting them.</p>
+<p>Since we’ve worked with the Gapminder GDP data set a bit, let’s look at it now and discuss the data types and structure. We’ll read in the Oceania data set (which has only two countries) and then display the DataFrame:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp_oceania.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gdpPercap_1952</th>
+      <th>gdpPercap_1957</th>
+      <th>gdpPercap_1962</th>
+      <th>gdpPercap_1967</th>
+      <th>gdpPercap_1972</th>
+      <th>gdpPercap_1977</th>
+      <th>gdpPercap_1982</th>
+      <th>gdpPercap_1987</th>
+      <th>gdpPercap_1992</th>
+      <th>gdpPercap_1997</th>
+      <th>gdpPercap_2002</th>
+      <th>gdpPercap_2007</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Australia</th>
+      <td>10039.59564</td>
+      <td>10949.64959</td>
+      <td>12217.22686</td>
+      <td>14526.12465</td>
+      <td>16788.62948</td>
+      <td>18334.19751</td>
+      <td>19477.00928</td>
+      <td>21888.88903</td>
+      <td>23424.76683</td>
+      <td>26997.93657</td>
+      <td>30687.75473</td>
+      <td>34435.36744</td>
+    </tr>
+    <tr>
+      <th>New Zealand</th>
+      <td>10556.57566</td>
+      <td>12247.39532</td>
+      <td>13175.67800</td>
+      <td>14463.91893</td>
+      <td>16046.03728</td>
+      <td>16233.71770</td>
+      <td>17632.41040</td>
+      <td>19007.19129</td>
+      <td>18363.32494</td>
+      <td>21050.41377</td>
+      <td>23189.80135</td>
+      <td>25185.00911</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
 <div class="section" id="continuous-data">
 <h2>Continuous Data<a class="headerlink" href="#continuous-data" title="Permalink to this headline">¶</a></h2>
 <p>Continuous data comprises most numeric data that you will encounter. Values can range continuously (i.e., in very small steps) across some range of values (possibly infinite, but typically with practical bounds when dealing with neuroscientific or psychological data). Continuous variables in psychology and neuroscience can include reaction times, voltage measurements in electrophysiology, fMRI activation levels, etc.. In Python, numeric data are typically stored as integers or floating point numbers.</p>
 <div class="section" id="thought-question">
 <h3>Thought Question<a class="headerlink" href="#thought-question" title="Permalink to this headline">¶</a></h3>
-<p>If you think about the Gapminder GDP dataset that we have worked with in previous lessons, what variables are continuous?</p>
+<p>In the Gapminder GDP dataset shown above, what variables are continuous?</p>
 <div class="dropdown admonition">
 <p class="admonition-title">Click the button to reveal the solution</p>
 <ul class="simple">
 <li><p>GDP is continuous. The values representing gross domestic product represent millions of dollars, and are stored as floating point numbers</p></li>
-<li><p>Year is also, arguably, a numeric variable. The way it is reprepsented in the Gapminder datasets could be considered categorical (see below), but year itself is a continuous variable, most typically reprepsented as integers.</p></li>
+<li><p>Year is also, a continuous numeric variable. However, the way it is represented in the Gapminder datasets is categorical — data is only available for only certain years; these years are the same for all countries, and each year’s data is stored in a separate column. However, “year” itself is a continuous variable, most typically represented as integers.</p></li>
 </ul>
 </div>
 </div>
@@ -941,27 +1091,67 @@
 <p class="admonition-title">Click the button to reveal the solution</p>
 <ul class="simple">
 <li><p>Country is definitely categorical. Each country has its own GDP values</p></li>
-<li><p>As noted above, year is arguably categorical, because in the Gapminder dataset, not all years are present so they are not truly continuous. However, we would typically still treat year as continuous in this context, because it is a unit of time</p></li>
-<li><p>We also created a categorical, variable called “region” in one lesson, sorting countries into northern/southern/eastern/western Europe</p></li>
+<li><p>As noted above, year is treated as categorical, because in the Gapminder data set, not all years are present so they are not truly continuous. However, we would often consider year as continuous in this context, because it is a unit of time. For instance, when we plot year on the <em>x</em> axis of a line plot, it is treated as continuous.</p></li>
+<li><p>We also created a categorical variable called “region” in one lesson, sorting countries into northern/southern/eastern/western Europe</p></li>
 </ul>
 </div>
-<p>Continuous data can sometimes be made categorical as well. For example, height is a continuous variable, but for convenience in a research study we might want to classify people as “short”, “medium”, or “tall” rather than their precise height in centimetres. In research with children, participants are often categorized into groups such as grades 1-2, grades 3-4, grades 5-6, instead of treating grade (or age) as a continuous variable. This process of turning continuous data into categorical is called <strong>discretizing</strong> (making discrete). It can be useful if the data you collect aren’t as continuous as the possible range of values (e.g., children’s academic knowledge and abilities are typically more related to their grade level than their chronological age), or for ease of generalization.</p>
 </div>
+</div>
+<div class="section" id="ordinal-data">
+<h2>Ordinal Data<a class="headerlink" href="#ordinal-data" title="Permalink to this headline">¶</a></h2>
+<p>Another type of data that you ay occasionally encounter is <strong>ordinal data</strong>. Ordinal data are <em>ordered</em> (hence the stem <em>ord-</em>), and as such fall somewhere between continuous and categorical data. Ordinal data can be distinguished from continuous data in that the levels (values) of an ordinal variable are <em>discrete</em> steps, which are ranked (i.e., ordered). Thus the steps between each level of an ordinal variable are treated as equivalent in magnitude. This is different from  continuous data, where the differences between values are quantifiable and measurable.</p>
+<p>For instance, imagine we take measurements of the weight of an animal at 4 time points: when the animal is aged 1 day, 5 days, 10 days, and 28 days. If we treat time as a continuous variable, then the gaps between measurements are 4, 5, and 18 (in days). However, if we treat time as an ordinal variable, then the gaps between each measurement are all treated as 1.</p>
+<p>Treating data as ordinal can be useful for some types of categorical data in particular. For example, if we have ratings on a Likert scale such as <em>Never – Almost Never – Sometimes – Almost Always – Always</em>, then it makes sense to treat these are ordered, rather than as 5 unordered categories.</p>
+<p>For the time being we will focus on continuous and categorical data, but it is worth noting that there are other ways of representing data as well.</p>
+</div>
+<div class="section" id="making-continuous-data-categorical">
+<h2>Making Continuous Data Categorical<a class="headerlink" href="#making-continuous-data-categorical" title="Permalink to this headline">¶</a></h2>
+<p>Continuous data can sometimes be made categorical as well. For example, height is a continuous variable, but for convenience in a research study we might want to classify people as “short”, “medium”, or “tall” rather than their precise height in centimetres. In research with children, participants are often categorized into groups such as grades 1-2, grades 3-4, grades 5-6, instead of treating grade (or age) as a continuous variable. This process of turning continuous data into categorical is called <strong>discretizing</strong> (making discrete). It can be useful if the data you collect aren’t as continuous as the possible range of values (e.g., children’s academic knowledge and abilities are typically more related to their grade level than their chronological age), or for ease of generalization. If continuous data are split into only two categories (e.g., tall vs. short), this is called <strong>binarizing</strong> the data.</p>
 </div>
 <div class="section" id="plotting-continuous-and-categorical-data">
 <h2>Plotting Continuous and Categorical Data<a class="headerlink" href="#plotting-continuous-and-categorical-data" title="Permalink to this headline">¶</a></h2>
-<p>Recognizing which variables are continuous or categorical is important, because in many cases you need to plot them differently. Continuous data lend themselves to things like continuous lines (e.g., regression lines) and scatterplots. In contrast, plotting categorical data typically involves different plot “objects” for each category, such as difeerent bars in a bar graph, or different lines in a line plot.</p>
+<p>Recognizing which variables are continuous or categorical is important, because in many cases you need to plot them differently. Continuous data lend themselves to things like continuous lines (e.g., regression lines) and scatterplots. In contrast, plotting categorical data typically involves different plot “objects” for each category, such as different bars in a bar graph, or different lines in a line plot. Often continuous and categorical data are combined in one plot, as shown below for the Gapminder GDP data, where each line shows the relationship between two continuous variables (year and GDP), and the categorical data are represented by separate lines for each country:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;gdpPercap_&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/plotting_types_8_0.png" src="../_images/plotting_types_8_0.png" />
+</div>
+</div>
 </div>
 <div class="section" id="distributions">
 <h2>Distributions<a class="headerlink" href="#distributions" title="Permalink to this headline">¶</a></h2>
 <p>A critical property of any data set is the <strong>distribution</strong> of values, also commonly called its <strong>variance</strong>. Variance is actually where <em>all the information</em> is. If every data point were the same, the data couldn’t tell us anything. Data are only interesting, or informative, if it contains <em>meaningful variability</em>. Data science is founded on different ways of assessing variability and giving it meaning. Often we talk about <em>systematic variability</em>, in other words variability that we can attribute to some measurable, systematic difference. For example, if children in grades 1-2 have smaller vocabularies than children in grades 3-4, we can say that vocabulary size varies systematically according to some property of each child — specifically what grade they are in.</p>
-<p>A critical fact in data is that variance is always present, but is typically in part systematic — related to something we measure — and in part random (often called “noise”). Visualization is a useful tool in exploring data in order to identify possible systematic patterns in data. Critically, we need to visualize how the <em>distribution</em> of values of some measrurement vary with respect to some other variable. The fact that there is random variability in all data (at least, all neuroscience and psychology data) means that we can’t just look at the average values of data points in, say, each of two groups of school children. Their averages may be numerically different, but the critical question is whether the typical variability in their values differs systematically between higher and lower grades. Plotting distirbutions of data is a useful way of comparing distirbutions. Commonly in neuroscience and psychology, we also use statistical tests to estimate our level of certainty that a difference is believable. We will come to statistical testing later, but for now we focus on making inferences based on visualization fo the data. Well-designed visualizations can actually provide the same level of precision and confidence as statsitical testing.</p>
+<p>A critical fact in data is that variance is always present, but is typically in part systematic — related to something we measure — and in part random (often called “noise”). Visualization is a useful tool in exploring data in order to identify possible systematic patterns in data. Critically, we need to visualize how the <em>distribution</em> of values of some measurement vary with respect to some other variable. The fact that there is random variability in all data (at least, all neuroscience and psychology data) means that we can’t just look at the average values of data points in, say, each of two groups of school children. Their averages may be numerically different, but the critical question is whether the typical variability in their values differs systematically between higher and lower grades. Plotting distributions of data is a useful way of comparing distributions. Commonly in neuroscience and psychology, we also use statistical tests to estimate our level of certainty that a difference is believable. We will come to statistical testing later, but for now we focus on making inferences based on visualization of the data. Well-designed visualizations can actually provide the same level of precision and confidence as statistical testing.</p>
+<p>In the next lesson, in learning about the Seaborn plotting package we’ll discuss visualizing distributions and making inferences from them. Below is a preview – a box plot which shows the distribution of GDP values across all years, for each country. If you’re not familiar with box plots, the Seaborn chapter will bring you up to speed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span> 
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;GDP&#39;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">,</span>
+           <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> 
+           <span class="n">x</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;GDP&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/plotting_types_10_0.png" src="../_images/plotting_types_10_0.png" />
+</div>
+</div>
 </div>
 <div class="section" id="nested-data">
 <h2>Nested Data<a class="headerlink" href="#nested-data" title="Permalink to this headline">¶</a></h2>
-<p>Nested data occur when some measurements are “nested” or isolated inside other variables. This is very common in cognitive and neuroscience research, where we take many measurements from each individual participant (e.g., lots of experimental trials, recording from multiple electrodes). Nested data can be continuous or categorical, but the variable that they are nested inside is almost always categorical (e.g., individual people or animals). In educational research, data may be collected from children in different schools; in this case data may be nested within each child, but children are in turn nested inside schools.</p>
-<p>Recognizing nested data is important because, typically, there is less variability within an individual (or other nesting category) than between individuals (or other categories). As discussed above, in exporatory data analysis (EDA) — as well as in statistics — measures of variability are an important way that we make inferences about the data.</p>
-<p>For example, say we run a reaction time experiment with 100 trials, and 10 participants. We thus have 100 x 10 = 1000 data points. The variability is likely lower within an individual than between – one participant may be on average 150 ms faster than another, but each individual may only show a variation of +/- 25 ms in their personal average reaction times. In this case, if we compute the averate over all 1000 trials, without considering nesting structure, our measure of the average variance across the 1000 trials will be very low, because each individual contributes so many (similar) trials. But if we first averate across the 100 trials for each participant, then compute the variability between these averages, we will capture just the person-to-person difference. In this case we are most likely see higher variance, which reflects the true person-to-person variation.</p>
+<p>Nested data occur when some measurements are “nested” or isolated inside other variables. This is very common in cognitive and neuroscience research, where we take many measurements from each individual participant (e.g., lots of experimental trials, recording from multiple electrodes). Indeed, nested data is often called <strong>repeated measures</strong> because repeated measurements are taken from the same “unit” of data (such as a human or animal participant). Nested data can be continuous or categorical, but the variable that they are nested inside is almost always categorical (e.g., individual people or animals).</p>
+<p>Examples of nested data include reaction times (RTs) obtained across a number of experimental trials from the same participant. Often data are <strong>recursively nested</strong>, meaning that there are multiple layers of nesting. For example, in a typical RT experiment, there are multiple experimental conditions, each with many trials, administered to each participant. In this case, RTs on dinvidual trials are nested within experimental conditions, which are in turn nested within individual participants. If the study involves multiple groups (e.g., patients vs. controls), then participants are further nested within groups. As another example, in educational research data may be collected from children in different schools; in this case data may be nested within each child, and children are in turn nested inside schools.</p>
+<p>Recognizing nested data is important because, the amount of variability within an individual (or other nesting category) may be different than the variability between individuals (or other categories). As discussed above, in exploratory data analysis (EDA) — as well as in statistics — measures of variability are an important way that we make inferences about the data.</p>
+<p>For example, say we run a reaction time experiment with 100 trials, and 10 participants. We thus have 100 x 10 = 1000 data points. The variability is likely lower within an individual than between – one participant may be on average 150 ms faster than another, but each individual may only show a variation of +/- 25 ms in their personal average reaction times. In this case, if we compute the average RT over all 1000 trials, without considering nesting structure, our measure of the variance across the 1000 trials will be very low (around 25 ms), because each individual contributes so many (similar) trials. But if we first average across the 100 trials for each participant, then compute the variability between these averages, we will capture just the person-to-person difference (which would be more like 150 ms in this example). In this case the variance reflects the true person-to-person variation, which is typically what we are interested in when running experiments across groups of individuals.</p>
 </div>
 <div class="section" id="representations-of-data">
 <h2>Representations of Data<a class="headerlink" href="#representations-of-data" title="Permalink to this headline">¶</a></h2>
@@ -973,8 +1163,7 @@
 <p>In <strong>wide-form</strong> data, each unit of obesrvation (such as a human or animal research participant) is associated with one measurement of each experimental variable. So each row in the DataFrame contains all the data from one participant, and columns represent individual measured variables, including different levels of the same variable. The Gapminder GDP data set is an example of wide-form data. Each row contains all the data associated with a particular country, and the columns represent all the different measurements we have. The data values in all of the columns are GDP in millions of dollars, and the different columns store data from different levels of the “years” variable.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp_europe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp_europe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1334,6 +1523,26 @@
 </div></div></div>
 </div>
 </div>
+</div>
+<hr class="docutils" />
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Data are measurements, comprising a set of values</p></li>
+<li><p>Each type of measurement can be called a <strong>variable</strong></p></li>
+<li><p><strong>Continuous variables</strong> are typically numeric, and represent values sampled from a continuum — a continuous range</p></li>
+<li><p><strong>Categorical variables</strong> are those where values are one of a limited number of different categories</p></li>
+<li><p><strong>Ordinal values</strong> are ordered (ranked), but the steps between the levels of the variable are treated as equivalent</p></li>
+<li><p>Continuous data can be made categorical by <strong>discretizing</strong> them. Similar values along the continuum are grouped into bins or categories for the purposes of simplification. If only two categories are created, this is called <strong>binarizing</strong> the data</p></li>
+<li><p>It is important to understand the differences between continuous, categorical, and ordinal data because the nature of the data affects how you visualize, analyze, and interpret the data</p></li>
+<li><p>Continuous data have a <strong>distribution</strong> of values, ranging from the minimum to maximum measured values. Distributions have other properties, including the median and inter-quartile range.</p></li>
+<li><p><strong>Nested</strong> data occur when one set of measurements is taken within another. For example, measurements of reaction time across trials may be nested within individual participants, or students may be nested within schools.</p></li>
+<li><p>It is important to consider the nesting structure of data when examining variance, because variance is often lower within a nesting structure (e.g., across trials within a participant) than at the next-higher level (e.g., between participants). Conflating variance across nesting levels can artificially decrease the measurement of variance that is appropriate for inference (e.g., variance between individuals, not within, is typically most relevant in psychology and neuroscience studies).</p></li>
+<li><p>Data can be represented in a 2D structure such as a spreadsheet or pandas DataFrame, as wide- or long-format</p></li>
+<li><p><strong>Wide-format</strong> data has levels of at least one categorical variable represented as separate columns (i.e., each level of the variable is a separate column)</p></li>
+<li><p><strong>Long-format</strong> data has one column for each variable, and one row for each measurement. Long-format data is generally preferred, and it is what we will primarily work with moving forward in this course.</p></li>
+<li><p>Wide-format data can easily be converted to long-format data in pandas, using the <code class="docutils literal notranslate"><span class="pre">.melt()</span></code> method</p></li>
+</ul>
 </div>
 </div>
 
