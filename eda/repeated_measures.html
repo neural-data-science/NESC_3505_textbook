@@ -885,12 +885,12 @@
      About the data
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#load-the-data">
-     Load the data
-    </a>
-   </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-the-data">
+   Load the data
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#examine-the-data-without-considering-repeated-measures">
@@ -927,8 +927,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#averaging-within-participants">
-   Averaging within participants
+  <a class="reference internal nav-link" href="#appropriately-dealing-with-repeated-measures-averaging-within-participants">
+   Appropriately dealing with repeated measures: Averaging within participants
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -1003,8 +1003,9 @@
 <p>This experiment also had a third condition, <em>neutral</em>. On neutral trials, only the centre arrow was presented, without flankers. This condition was included to control for the fact that 5 arrows all pointing in the same direction might facilitate (speed up) responses relative to a single arrow — there might be additive, beneficial effects of congruent flankers. Comparing both the congruent and incongruent conditions to the neutral condition allows us to estimate the relative cost or benefit of flankers that are incongruent or congruent with the direction of the centre arrow. To ensure that there were as many neutral (single-arrow) as flanker (five-arrow) trials, 80 neutral trials were included per participant.</p>
 <p>So we have data from 27 participants, and approximately 160 trials per participant in total.  The nesting structure of this data set is thus trials (n=160) nested within conditions (n=3) nested within participants (n=27).</p>
 </div>
+</div>
 <div class="section" id="load-the-data">
-<h3>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this headline">¶</a></h3>
+<h2>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this headline">¶</a></h2>
 <p>First we’ll import the packages we’ll need, read in the data, and view a sample of 10 rows of the DataFrame:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1013,83 +1014,122 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">glob</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/flanker_nagl_rt_data.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/flanker_rt_data.csv&#39;</span><span class="p">)</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_78896</span><span class="o">/</span><span class="mf">74864986.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">glob</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/flanker_nagl_rt_data.csv&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> 
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/util/_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">309</span>                     <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">310</span>                 <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">311</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">312</span> 
-<span class="g g-Whitespace">    </span><span class="mi">313</span>         <span class="k">return</span> <span class="n">wrapper</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, error_bad_lines, warn_bad_lines, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">584</span>     <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">585</span> 
-<span class="ne">--&gt; </span><span class="mi">586</span>     <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">587</span> 
-<span class="g g-Whitespace">    </span><span class="mi">588</span> 
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">480</span> 
-<span class="g g-Whitespace">    </span><span class="mi">481</span>     <span class="c1"># Create the parser.</span>
-<span class="ne">--&gt; </span><span class="mi">482</span>     <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">483</span> 
-<span class="g g-Whitespace">    </span><span class="mi">484</span>     <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ni">__init__</span><span class="nt">(self, f, engine, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">809</span>             <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">810</span> 
-<span class="ne">--&gt; </span><span class="mi">811</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">812</span> 
-<span class="g g-Whitespace">    </span><span class="mi">813</span>     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ni">_make_engine</span><span class="nt">(self, engine)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1038</span>             <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1039</span>         <span class="c1"># error: Too many arguments for &quot;ParserBase&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1040</span>         <span class="k">return</span> <span class="n">mapping</span><span class="p">[</span><span class="n">engine</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>  <span class="c1"># type: ignore[call-arg]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1041</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1042</span>     <span class="k">def</span> <span class="nf">_failover_to_python</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/io/parsers/c_parser_wrapper.py</span> in <span class="ni">__init__</span><span class="nt">(self, src, **kwds)</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span> 
-<span class="g g-Whitespace">     </span><span class="mi">50</span>         <span class="c1"># open handles</span>
-<span class="ne">---&gt; </span><span class="mi">51</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_open_handles</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span>         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> 
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/io/parsers/base_parser.py</span> in <span class="ni">_open_handles</span><span class="nt">(self, src, kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">220</span>         <span class="n">Let</span> <span class="n">the</span> <span class="n">readers</span> <span class="nb">open</span> <span class="n">IOHandles</span> <span class="n">after</span> <span class="n">they</span> <span class="n">are</span> <span class="n">done</span> <span class="k">with</span> <span class="n">their</span> <span class="n">potential</span> <span class="n">raises</span><span class="o">.</span>
-<span class="g g-Whitespace">    </span><span class="mi">221</span>         <span class="s2">&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">222</span><span class="s2">         self.handles = get_handle(</span>
-<span class="g g-Whitespace">    </span><span class="mi">223</span><span class="s2">             src,</span>
-<span class="g g-Whitespace">    </span><span class="mi">224</span><span class="s2">             &quot;r&quot;,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/io/common.py</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">699</span><span class="s2">         if ioargs.encoding and &quot;b&quot; not in ioargs.mode:</span>
-<span class="g g-Whitespace">    </span><span class="mi">700</span><span class="s2">             # Encoding</span>
-<span class="ne">--&gt; </span><span class="mi">701</span><span class="s2">             handle = open(</span>
-<span class="g g-Whitespace">    </span><span class="mi">702</span><span class="s2">                 handle,</span>
-<span class="g g-Whitespace">    </span><span class="mi">703</span><span class="s2">                 ioargs.mode,</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;data/flanker_nagl_rt_data.csv&#39;
-</pre></div>
-</div>
-</div>
-</div>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4001</th>
+      <td>s5</td>
+      <td>2</td>
+      <td>1</td>
+      <td>neutral</td>
+      <td>0.605489</td>
+    </tr>
+    <tr>
+      <th>1027</th>
+      <td>s24</td>
+      <td>3</td>
+      <td>6</td>
+      <td>congruent</td>
+      <td>0.660804</td>
+    </tr>
+    <tr>
+      <th>1801</th>
+      <td>s7</td>
+      <td>2</td>
+      <td>24</td>
+      <td>congruent</td>
+      <td>0.441652</td>
+    </tr>
+    <tr>
+      <th>1066</th>
+      <td>s24</td>
+      <td>4</td>
+      <td>16</td>
+      <td>neutral</td>
+      <td>0.532274</td>
+    </tr>
+    <tr>
+      <th>1609</th>
+      <td>s13</td>
+      <td>1</td>
+      <td>21</td>
+      <td>congruent</td>
+      <td>0.460896</td>
+    </tr>
+    <tr>
+      <th>2866</th>
+      <td>s6</td>
+      <td>1</td>
+      <td>10</td>
+      <td>neutral</td>
+      <td>0.061100</td>
+    </tr>
+    <tr>
+      <th>2574</th>
+      <td>s4</td>
+      <td>2</td>
+      <td>5</td>
+      <td>congruent</td>
+      <td>0.377785</td>
+    </tr>
+    <tr>
+      <th>1809</th>
+      <td>s7</td>
+      <td>2</td>
+      <td>32</td>
+      <td>congruent</td>
+      <td>0.661722</td>
+    </tr>
+    <tr>
+      <th>1041</th>
+      <td>s24</td>
+      <td>3</td>
+      <td>21</td>
+      <td>incongruent</td>
+      <td>0.720406</td>
+    </tr>
+    <tr>
+      <th>1144</th>
+      <td>s21</td>
+      <td>1</td>
+      <td>32</td>
+      <td>neutral</td>
+      <td>0.530738</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 <div class="section" id="examine-the-data-without-considering-repeated-measures">
@@ -1508,22 +1548,25 @@
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/categorical.py:1296: UserWarning: 64.8% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
   warnings.warn(msg, UserWarning)
-/Users/aaron/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/categorical.py:1296: UserWarning: 79.2% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-  warnings.warn(msg, UserWarning)
-/Users/aaron/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/categorical.py:1296: UserWarning: 60.4% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/categorical.py:1296: UserWarning: 79.2% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
   warnings.warn(msg, UserWarning)
 </pre></div>
 </div>
-<img alt="../_images/repeated_measures_25_1.png" src="../_images/repeated_measures_25_1.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/categorical.py:1296: UserWarning: 60.4% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
+  warnings.warn(msg, UserWarning)
+</pre></div>
+</div>
+<img alt="../_images/repeated_measures_25_3.png" src="../_images/repeated_measures_25_3.png" />
 </div>
 </div>
-<p>However, in this case there are so many data points that only a relatively small percentage of them are actually drawn. It’s hard to get a sense of the distributions of values for individual participants.</p>
+<p>However, in this case there are so many data points that only a relatively small percentage of them are actually drawn (hence the warning messages above). It’s hard to get a sense of the distributions of values for individual participants.</p>
 </div>
 </div>
-<div class="section" id="averaging-within-participants">
-<h2>Averaging within participants<a class="headerlink" href="#averaging-within-participants" title="Permalink to this headline">¶</a></h2>
-<p>Because there are so many data points, and variation in both the mean and range of values between participants, it is useful to first average within each participant and condition, prior to computing descriptive statistics or visualizing. To do this, we will use <em>two</em> split-apply-combine operations in sequence. First, we will split by participant and condition, then apply the <code class="docutils literal notranslate"><span class="pre">mean()</span></code> to average within each participant, and then to average</p>
-<p>In one chained command, we will:</p>
+<div class="section" id="appropriately-dealing-with-repeated-measures-averaging-within-participants">
+<h2>Appropriately dealing with repeated measures: Averaging within participants<a class="headerlink" href="#appropriately-dealing-with-repeated-measures-averaging-within-participants" title="Permalink to this headline">¶</a></h2>
+<p>Because there are so many data points, and variation in both the mean and range of values between participants, it is necessary to first average (<strong>aggregate</strong>) within each participant and condition, prior to computing descriptive statistics or visualizing. This ensures that the variance we are examining is the <strong>between-subjects variance</strong>, unconfounded with <strong>within-subjects variance</strong>. To do this, we will use <em>two</em> split-apply-combine operations in sequence. In one chained command, we will:</p>
 <ul class="simple">
 <li><p>split the data by participant and condition: <code class="docutils literal notranslate"><span class="pre">.groupby(['rt',</span> <span class="pre">'flankers'])</span></code></p></li>
 <li><p>select the <code class="docutils literal notranslate"><span class="pre">rt</span></code> column: <code class="docutils literal notranslate"><span class="pre">['rt']</span></code></p></li>
@@ -1816,9 +1859,9 @@
 <p><strong>This is the most important figure in this lesson</strong>. We see the same ordering of RTs as before: congruent fastest, incongruent slowest, neutral in the middle. However, compared to the point plot with 95% CIs that we generated above for the aggregated data, the CIs in this plot are much larger than those we saw earlier, in the point plot for the un-aggregated data. In that previous plot, the width of the CIs was only about 0.005 s (5 ms). Here, with the CIs computed properly (as reflecting the variance across individuals), the width of the CIs is approximately 0.02 s (20 ms). While still small relative to the differences in the means, the CIs are nonetheless roughly 4x wider in the aggregated data.</p>
 <div class="section" id="why-do-cis-get-better-when-we-properly-aggregate-repeated-measures-data">
 <h3>Why do CIs get better when we properly aggregate repeated measures data?<a class="headerlink" href="#why-do-cis-get-better-when-we-properly-aggregate-repeated-measures-data" title="Permalink to this headline">¶</a></h3>
-<p>We’ve already seen that the variance in the data actually went down, as quantified by the min-max range of values, and the standard deviation. So it may seem strange that the CIs do the opposite, and get bigger. To understand this, consider how CIs are computed:</p>
+<p>We’ve already seen that the variance in the data actually went down, as quantified by the min-max range of values, and the standard deviation. So it may seem strange that the CIs do the opposite, and get bigger. To understand this, consider how the 95% CIs are computed:</p>
 <p><span class="math notranslate nohighlight">\(CI = 1.96 * \frac{std}{\sqrt n}\)</span></p>
-<p>CIs are computed by dividing the standard deviation (<span class="math notranslate nohighlight">\(std\)</span>) by the square root of <span class="math notranslate nohighlight">\(n\)</span> — the number of data points used to compute the mean and standard deviation. In the un-aggregated data, this was approximately 1000 – 2000 data points for each condition. In contrast, for the aggregated data, <span class="math notranslate nohighlight">\(n\)</span> = 27. Thus the CIs are much wider, because dividing by a larger number (1000-2000, rather than 27) results in a smaller number (even factoring in the differences in standard deviation, and the square root calculation)</p>
+<p>CIs are computed by dividing the standard deviation (<span class="math notranslate nohighlight">\(std\)</span>) by the square root of <span class="math notranslate nohighlight">\(n\)</span> — the number of data points used to compute the mean and standard deviation. In the un-aggregated data, this was approximately 1000 – 2000 data points for each condition. In contrast, for the aggregated data, <span class="math notranslate nohighlight">\(n\)</span> = 27. Thus the CIs are much wider, because dividing by a larger number (1000 - 2000, rather than 27) results in a smaller number (even factoring in the differences in standard deviation, and the square root calculation). The values are multiplied by 1.96 because this is the <em>z</em> value corresponding to <em>p</em> = .05 in a normal distribution.</p>
 <p>Notably, the conclusions that we would draw from this final plot would be quite different from if we had, in error, used the first point plot generated from the un-aggregated data. In the above plot, it appears that the incongruent condition would be significantly slower than the congruent condition in statistical testing. However, the CIs for neutral overlap a lot with both of the flanker conditions, which makes interpretation of the data more complex. Recall that the neutral condition was intended to help assess whether the congruent flankers showed facilitation relative to neutral, and whether incongruent flankers showed interference relative to neutral. The fact that the neutral condition overlaps with both others, but congruent and incongruent appear significantly different, suggests that the flanker effect (congruent faster than incongruent) may actually be due to a <em>combination</em> of slight facilitation and slight interference, rather than one or the other.</p>
 <p>The interpretation of the current data set is less important here than understanding the importance of recognizing and appropriately dealing with repeated-measures data. It is critical to understand the effects of repeated measures and nesting on estimate of variance — and of the differences between measures of variance in the data (as reflected by things like standard deviation, or box plots), and estimates of our confidence in the accuracy of the mean (CIs). CIs can be used for statistical inference (i.e., is there a believable difference?), whereas the variance reflected in box plots (and histograms, KDEs, etc.) is more informative at the early stages of exploring and understanding your data, and diagnosing potential issues in the data that might need to be addressed prior to inference about the true patters in the data. Although this initial example used relatively “clean” data — and we didn’t worry about doing anything to address the skew of the distributions or the outliers — in future lessons we will see cases where this first step can be critically important.</p>
 </div>
@@ -1826,6 +1869,18 @@
 <hr class="docutils" />
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Repeated measures occur when we take repeated samples of the same measurement. This is common in cognitive psychology and neuroscience data, because individual measurements typically include noise. Averaging across repeated measurements yields a more robust estimate of the true value for that individual</p></li>
+<li><p>When we have repeated measures data, we need to be concerned about the difference between within-subjects variance, and between-subjects variance</p></li>
+<li><p>Within-subjects variance is the variation within an individual, across the repeated measurements we take</p></li>
+<li><p>Between-subjects variance is the variation between individuals, in the <em>average</em> response across the repeated measures taken from that individual</p></li>
+<li><p>If we simply average across all trials and participants, our measures of variance will be inaccurate, because we are conflating within- and between-subjects variance</p></li>
+<li><p>Conflating within-and between-subjects variance will lead to incorrect conclusions, particularly because confidence intervals and statistical tests consider the number of samples in their computations. When assessing effects across a group of participants, the number of participants is the appropriate number of samples to use. The much larger number of samples that comes from summing the number of individual trials across all participants will artificially inflate estimates of the significance of experimental effects</p></li>
+<li><p>The proper way to work with repeated measures data is to first average across all trials for each experimental condition, within an individual. We call this <em>aggregation</em></p></li>
+<li><p>After we have properly aggregated the data within each individual, then we can average across participants and accurately estimate the between-subjects variance</p></li>
+<li><p>Between-subject variance is typically what is important in assessing the significance of experimental manipulations</p></li>
+<li><p>Proper aggregation of repeated measures data is easy using the pandas <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> method</p></li>
+</ul>
 </div>
 </div>
 
