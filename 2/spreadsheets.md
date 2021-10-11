@@ -10,7 +10,7 @@ or in the opposite direction (incongruent)
 
 ![flanker_incongruent](images/flanker_incongruent@0.75x.png)
 
-We expect that the incongruent condition would be associated with slower RTs, because the flanking arrows create some visual confusion and response competition (cognitive interference; this process is not unlike that underlying the famous Stroop experiment, which you are likely familiar with). In order to confirm this hypothesis, we would want to get an estimate of the RT for each condition, from a representative sample of human participants. We need a number of participants because we know that there is variability in the average RT from person to person (**between-subject** variability). For our example, let's say we tested 40 participants.
+We expect that the incongruent condition would be associated with slower RTs, because the flanking arrows create some visual confusion and response competition (cognitive interference; this process is not unlike that underlying the famous [Stroop](https://en.wikipedia.org/wiki/Stroop_effect) experiment, which you are likely familiar with). In order to confirm this hypothesis, we would want to get an estimate of the RT for each condition, from a representative sample of human participants. We need a number of participants because we know that there is variability in the average RT from person to person (**between-subject** variability). For our example, let's say we tested 40 participants.
 
 To estimate the average RT for each condition for an individual, we would want to present many trials of each condition, in random order. We do this because there is always some trial-to-trial variability in measuring human RTs (**within-subject** variability). We might want to include 50 trials per condition.
 
