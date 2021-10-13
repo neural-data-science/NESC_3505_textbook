@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Heat Maps, Interpolation, and Colour Map Choice &#8212; Data Science for Psychology and Neuroscience — in Python</title>
+    <title>Heat Maps &#8212; Data Science for Psychology and Neuroscience — in Python</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -567,7 +567,7 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../eda/introduction.html">
-   Introduction
+   Introduction to EDA
   </a>
  </li>
  <li class="toctree-l1">
@@ -609,7 +609,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Heat Maps, Interpolation, and Colour Map Choice
+   Heat Maps
   </a>
  </li>
  <li class="toctree-l1">
@@ -869,6 +869,16 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#learning-objectives">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#interpolation">
    Interpolation
   </a>
@@ -889,12 +899,26 @@
         
               <div>
                 
-  <div class="section" id="heat-maps-interpolation-and-colour-map-choice">
-<h1>Heat Maps, Interpolation, and Colour Map Choice<a class="headerlink" href="#heat-maps-interpolation-and-colour-map-choice" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="heat-maps">
+<h1>Heat Maps<a class="headerlink" href="#heat-maps" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<div class="section" id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Visualize spike train data along two dimensions using heat maps</p></li>
+<li><p>Understand the process of interpolation</p></li>
+<li><p>Understand advantages and disadvantages of different ways of interpolating</p></li>
+<li><p>Understand how colour choice can influence the interpretation of heat maps</p></li>
+<li><p>Make well-reasoned choices about colour map selection</p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Heat maps are another way of plotting spike train data. An example is below:</p>
 <p><img alt="" src="../_images/heat_map.png" /></p>
 <p>Like a PSTH, the heat map has time on the <em>x</em> axis, and plots the probability of spikes at each time point. However, the heat maps a more condensed, information-rich, and efficient version of the PSTHs: rather than needing 10 plots to show the histograms for all 10 levels of intensity, we do so in a single plot. Heat maps essentially allow us to plot 3 dimensions rather than only two; we have the <em>x</em> and <em>y</em> axes, but then we can plot a third variable (dimension) using colour (or intensity of colour). Think of it the above plot rotated in a plane, so that if before, you were looking at the plot from the side, now you’re looking at it from above. More intense colours indicate a higher spike probability at that time point.</p>
-<p>We can use Matplotlib’s <a class="reference external" href="https://matplotlib.org/3.3.2/api/_as_gen/matplotlib.axes.Axes.imshow.html"><code class="docutils literal notranslate"><span class="pre">ax.imshow()</span></code></a> function to generate a heat map. This function allows us to plot any 2-dimensional dataset (like a 2D array) as an image, and apply colour to the values in the array. To demonstrate, first we’ll load the necessary packages, and the <code class="docutils literal notranslate"><span class="pre">ten_intensites</span></code> data:</p>
+<p>We can use Matplotlib’s <code class="docutils literal notranslate"><span class="pre">plt.imshow()</span></code> function or the <a class="reference external" href="https://matplotlib.org/3.3.2/api/_as_gen/matplotlib.axes.Axes.imshow.html"><code class="docutils literal notranslate"><span class="pre">ax.imshow()</span></code></a> method to generate a heat map. This function allows us to plot any 2-dimensional dataset (like a 2D array) as an image, and apply colour to the values in the array. To demonstrate, first we’ll load the necessary packages, and the <code class="docutils literal notranslate"><span class="pre">ten_intensites</span></code> data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -1006,6 +1030,7 @@
 </div>
 </div>
 <p>The heat map above makes a few interesting properties of the data immediately evident, more clearly and concisely than ten PSTHs or raster plots. For example, it’s clear that spiking increases with stimulus intensity, particularly after 7.5 ms. Recall that the stimulus onset time was 5 ms, so there is a delay prior to spiking onset (the neuron’s characteristic <em>latency to first spike</em>). As well, the heat map displays a documented property of neurons’ responses to stimuli of varying intensity: as intensity increases, the latency to first spike becomes shorter (i.e., the neuron spikes sooner after a more intense stimulus). We can see this in the fact that the “hot spots” in the image occur later for lower-intensity stimuli.</p>
+</div>
 <div class="section" id="interpolation">
 <h2>Interpolation<a class="headerlink" href="#interpolation" title="Permalink to this headline">¶</a></h2>
 <p>For better or for worse, a consequence of the bilinear interpolation is that it takes data that were measured at discrete levels of stimulus intensity, and interpolates between those levels to provide a smoothed representation of the data. In other words, it’s making inferences about what the values would be in between the tested levels of stimulus intensity.</p>
