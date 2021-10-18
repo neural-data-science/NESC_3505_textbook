@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Basic Statistics in Python: t tests and z scores with SciPy &#8212; Data Science for Psychology and Neuroscience — in Python</title>
+    <title>Basic Statistics in Python: t tests with SciPy &#8212; Data Science for Psychology and Neuroscience — in Python</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -44,6 +44,8 @@
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -51,10 +53,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="http://neuraldatascience.io/eda/ttests_zscores.html" />
+    <link rel="canonical" href="http://neuraldatascience.io/eda/ttests.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Introduction to Single Unit Data" href="../single_unit/introduction.html" />
+    <link rel="prev" title="Data Cleaning - Dealing with Outliers" href="data_cleaning.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -562,7 +566,7 @@
   Exploratory Data Analysis
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="introduction.html">
    Introduction to EDA
@@ -581,6 +585,15 @@
  <li class="toctree-l1">
   <a class="reference internal" href="data_cleaning.html">
    Data Cleaning - Dealing with Outliers
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Basic Statistics in Python:
+   <em>
+    t
+   </em>
+   tests with SciPy
   </a>
  </li>
 </ul>
@@ -813,7 +826,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/eda/ttests_zscores.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/eda/ttests.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -833,7 +846,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2Feda/ttests_zscores.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2Feda/ttests.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -854,7 +867,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/eda/ttests_zscores.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/eda/ttests.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -877,8 +890,8 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#learning-objetives">
-   Learning Objetives
+  <a class="reference internal nav-link" href="#learning-objectives">
+   Learning Objectives
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -887,11 +900,12 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#t-test">
+  <a class="reference internal nav-link" href="#the-t-test">
+   The
    <em>
     t
    </em>
-   Test
+   test
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -902,6 +916,31 @@
    </em>
    -test
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#select-the-data">
+     Select the data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#run-the-t-test">
+     Run the
+     <em>
+      t
+     </em>
+     test
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tailed-vs-2-tailed-p-values">
+     1-tailed vs. 2-tailed
+     <em>
+      p
+     </em>
+     values
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#be-careful-about-order-of-data-values">
@@ -909,16 +948,33 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#randomize-associations-between-id-and-rt">
-     Randomize associations between ID and RT
+    <a class="reference internal nav-link" href="#ensure-pandas-indexing-is-used-in-t-tests">
+     Ensure pandas indexing is used in
+     <em>
+      t
+     </em>
+     tests
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-could-go-wrong">
+       What could go wrong?
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-sort-index-to-ensure-paired-data-are-aligned">
+     Use
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       .sort_index()
+      </span>
+     </code>
+     to ensure paired data are aligned
     </a>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#randomize-order-of-incongruent-data-but-preserve-association-netween-id-and-rt">
-   Randomize order of incongruent data, but preserve association netween ID and RT
-  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#testing-differences-one-sample-t-tests">
@@ -935,7 +991,7 @@
      <em>
       t
      </em>
-     tests
+     tests?
     </a>
    </li>
   </ul>
@@ -951,26 +1007,23 @@
         
               <div>
                 
-  <div class="section" id="basic-statistics-in-python-t-tests-and-z-scores-with-scipy">
-<h1>Basic Statistics in Python: <em>t</em> tests and <em>z</em> scores with SciPy<a class="headerlink" href="#basic-statistics-in-python-t-tests-and-z-scores-with-scipy" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="basic-statistics-in-python-t-tests-with-scipy">
+<h1>Basic Statistics in Python: <em>t</em> tests with SciPy<a class="headerlink" href="#basic-statistics-in-python-t-tests-with-scipy" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<div class="section" id="learning-objetives">
-<h2>Learning Objetives<a class="headerlink" href="#learning-objetives" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>implement paired and unpaired <em>t</em> tests using the SciPy package</p></li>
-<li><p>implement paired and unpaired <em>z</em> test using the SciPy package</p></li>
-<li><p>implement ANOVA and repeated measures ANOVA using the statsmodels package</p></li>
-<li><p>implement general linear mixed effects analysis using the statsmodels package</p></li>
 </ul>
 </div>
 <hr class="docutils" />
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>An introductory course in statistics is a prerequisite for this class, so we assume you remember (some of) the basics including <em>t</em>-tests, <em>z</em>-tests, ANOVAs, and regression (or at least correlation).</p>
-<p>Here we will demonstrate how to perform these statistical tests in Python.</p>
+<p>An introductory course in statistics is a prerequisite for this class, so we assume you remember (some of) the basics including <em>t</em>-tests, ANOVAs, and regression (or at least correlation).</p>
+<p>Here we will demonstrate how to perform <em>t</em> tests in Python. Future lessons will cover ANOVA and regression.</p>
 </div>
-<div class="section" id="t-test">
-<h2><em>t</em> Test<a class="headerlink" href="#t-test" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-t-test">
+<h2>The <em>t</em> test<a class="headerlink" href="#the-t-test" title="Permalink to this headline">¶</a></h2>
 <p>A <em>t</em> test is used to compare the means of two sets of data. For example, in the flanker experiment we used in the <span class="xref myst">previous section</span>, we could compare the mean RTs for the congruent and incongruent conditions. <em>t</em> tests consider the size of the difference between the means of the two data sets, relative to the variance in each one. The less the distributions of values in the two data sets overlap, the larger the <em>t</em> value will tend to be. We can then estimate the probability that the observed difference occurred simply by chance, rather than due to a true difference — this is the <em>p</em> value. Typically, researchers use a <em>p</em> &lt; .05 threshold to determine statistical significance.</p>
 <p><em>t</em> tests are implemented in the <a class="reference external" href="https://docs.scipy.org">SciPy</a> library, which “provides many user-friendly and efficient numerical routines, such as routines for numerical integration, interpolation, optimization, linear algebra, and statistics.” Each of those type of routines is in a separate sub-module of SciPy; the one we’ll want is <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>. We can import this specific module with the command:</p>
 <div class="cell docutils container">
@@ -999,11 +1052,14 @@
 </div>
 </div>
 </div>
+<hr class="docutils" />
 <div class="section" id="paired-t-test">
 <h2>Paired <em>t</em>-test<a class="headerlink" href="#paired-t-test" title="Permalink to this headline">¶</a></h2>
 <p>Let’s start by comparing the mean RTs for the congruent and incongruent flanker conditions.</p>
 <p>Recall that we are working with repeated-measures data – for each participant, we have 160 trials across 4 conditions. <em>t</em> tests are not meant for <em>within-condition</em> repeated measures data — we need only one measurement per participant in each condition. This is for essentially the same reason discussed at the end of the previous section on repeated measures data: if we treat the within-participant variability the same as the between-participant variability, then we will tend to grossly under-estimate the true (between-participant) variance. When running a <em>t</em> test, this would result in erroneously large <em>t</em> values that could often falsely suggest a statistically significant result. So, we need to use the aggregated data, <code class="docutils literal notranslate"><span class="pre">df_avg</span></code>.</p>
 <p>The other important characteristic of our data are that, even though aggregation has reduced the data to one measurement per participant, we still have repeated measures, across the two conditions. The default assumption of a <em>t</em> test is that each of the two data sets being compared come from different samples of the population (often called a <em>between-subjects design</em> in Psychology). This means that <em>t</em> tests assume there is no relationship between any particular measurement in each of the two data sets being compared. When we have measurements from the same people in both data sets (a <em>within-subjects. design</em>), we need to account for this, or the <em>t</em> test will again suggest an inflated (incorrect) value. We account for this by using a <strong>paired <em>t</em> test</strong>. In SciPy, this is the function <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_rel.html"><code class="docutils literal notranslate"><span class="pre">ttest_rel()</span></code></a>.  (For a between-subjects — or <em>independent groups</em> design, which we will not cover here, you would use <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html"><code class="docutils literal notranslate"><span class="pre">ttest_ind()</span></code></a>).</p>
+<div class="section" id="select-the-data">
+<h3>Select the data<a class="headerlink" href="#select-the-data" title="Permalink to this headline">¶</a></h3>
 <p>Running <code class="docutils literal notranslate"><span class="pre">ttest_rel()</span></code> is as simple as giving it the two sets of data you want to compare, as arguments. We can pull these directly from our <code class="docutils literal notranslate"><span class="pre">df_avg</span></code> pandas DataFrame. We’ll do this in a few lines of code below, first assigning each data set to a new variable, and then running the <em>t</em> test.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1236,7 +1292,7 @@ Name: flankers, Length: 81, dtype: bool
 </table>
 </div></div></div>
 </div>
-<p>Finally, we add [‘rt’] to the end to indicate that, having selected the incongruent rows, we actually only want the column with the RT values, because those are what we want to perform the <em>t</em> test on. The second line does the same thing for incongruent trials.</p>
+<p>Finally, we add <code class="docutils literal notranslate"><span class="pre">['rt']</span></code> to the end to indicate that, having selected the incongruent rows, we actually only want the column with the RT values, because those are what we want to perform the <em>t</em> test on. The second line does the same thing for incongruent trials.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_avg</span><span class="p">[</span><span class="n">df_avg</span><span class="p">[</span><span class="s1">&#39;flankers&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;congruent&#39;</span><span class="p">][</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span>
@@ -1277,45 +1333,6 @@ Name: rt, dtype: float64
 </div>
 </div>
 <p>This last result is what we assign to <code class="docutils literal notranslate"><span class="pre">congr</span></code> (note, by the way, that this is a pandas Series, not a DataFrame).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">congr</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     0.455259
-3     0.471231
-6     0.417540
-9     0.429758
-12    0.419096
-15    0.437178
-18    0.548638
-21    0.433748
-24    0.437577
-27    0.488892
-30    0.539020
-33    0.438167
-36    0.462935
-39    0.417553
-42    0.410191
-45    0.549622
-48    0.568396
-51    0.450102
-54    0.528508
-57    0.439243
-60    0.570766
-63    0.401993
-66    0.462927
-69    0.446840
-72    0.628185
-75    0.428642
-78    0.431829
-Name: rt, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
 <p>Likewise, <code class="docutils literal notranslate"><span class="pre">incongr</span></code> is a Series of the same length (the number of participants):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1356,6 +1373,9 @@ Name: rt, dtype: float64
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="run-the-t-test">
+<h3>Run the <em>t</em> test<a class="headerlink" href="#run-the-t-test" title="Permalink to this headline">¶</a></h3>
 <p>Now we just pass <code class="docutils literal notranslate"><span class="pre">congr</span></code> and <code class="docutils literal notranslate"><span class="pre">incongr</span></code> as the first (and only) two arguments to <code class="docutils literal notranslate"><span class="pre">ttest_rel()</span></code>, and print the results out with some explanatory text. Note that we have to write <code class="docutils literal notranslate"><span class="pre">stats.ttest_rel()</span></code>, because we imported the library as <code class="docutils literal notranslate"><span class="pre">stats</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1385,6 +1405,26 @@ Name: rt, dtype: float64
 </div>
 <p>Now that’s a results any researcher would be happy to see! The <em>p</em> value is not actually zero by the way, but note in the original output the <em>p</em> value was reported in scientific notation, ending in <code class="docutils literal notranslate"><span class="pre">e-10</span></code>. This means that the <em>p</em> value is actually 0.00000000013739. We would typically report this as <em>p</em> &lt; .0001, since we rounded to 4 decimal places (which is fairly typical for reporting <em>p</em> values).</p>
 </div>
+<div class="section" id="tailed-vs-2-tailed-p-values">
+<h3>1-tailed vs. 2-tailed <em>p</em> values<a class="headerlink" href="#tailed-vs-2-tailed-p-values" title="Permalink to this headline">¶</a></h3>
+<p>By default, SciPy’s <code class="docutils literal notranslate"><span class="pre">ttest_</span></code> functions return <strong>2-tailed <em>p</em> values</strong>. This means that the <em>p</em> value considers both possible directions of difference between the two conditions. In the present example, that means <em>either</em> RTs for congruent are faster than incongruent, <em>or</em> they are slower for congruent than incongruent. In contrast, a <strong>1-tailed <em>p</em> value</strong> should be used if we have a specific prediction of a “direction” of the difference. Using a 1-tailed <em>p</em> value will tend to be less conservative, i.e., more likely to find a significant effect. This is because, for a given <em>p</em> threshold (e.g., <span class="math notranslate nohighlight">\(\alpha = .05\)</span>), a 2-tailed test effectively splits the <em>p</em> in half, and reflects a probability of 2.5% that the result occurred by chance in one direction (e.g., congruent slower) and a 2.5% probability of getting the revser result (e.g., congruent faster) by chance. In contrast, a 1-tailed test allocates all of the 5% chance probability to the likelihood of a difference in one direction (e.g., congruent faster).</p>
+<p>Practically speaking, 2-tailed tests should be used by default, but if you have a specific a priori hypothesis regarding the direction of the difference, you can use a 1-tailed test. For example, for the flanker experiment we’re working with here, previous research would lead us to the congruent-faster hypothesis.</p>
+<p>In the present example, it really doesn’t matter since the two-tailed <em>p</em> value is wildly significant. However, if you want to convert to one-tailed <em>p</em> values, you just need to divide <em>p</em> in half:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Congruent vs. Incongruent t = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="s1">&#39; p (one-tailed) = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Congruent vs. Incongruent t =  -10.21  p (one-tailed) =  6.869648289910338e-11
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
 <div class="section" id="be-careful-about-order-of-data-values">
 <h2>Be careful about order of data values<a class="headerlink" href="#be-careful-about-order-of-data-values" title="Permalink to this headline">¶</a></h2>
 <p>The above paired <em>t</em> test worked properly because in our pandas DataFrame, participants are listed in a consistent order. So when we create separate Series for congruent and incongruent, the same rows of the two Series belong to the same participant. However, this isn’t always guaranteed, and so it’s good practice to do things in a way that ensures proper pairing of participants between data sets.</p>
@@ -1479,75 +1519,11 @@ Name: rt, dtype: float64
 </div>
 </div>
 </div>
-<div class="section" id="randomize-associations-between-id-and-rt">
-<h3>Randomize associations between ID and RT<a class="headerlink" href="#randomize-associations-between-id-and-rt" title="Permalink to this headline">¶</a></h3>
-<p>To make the point that the order of the data values in each of the two data sets being compared is important, let’s randomize the order of the data values in the incongruent data. We’ll save this as a new variable/Series, <code class="docutils literal notranslate"><span class="pre">incongr2</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">incongr2</span> <span class="o">=</span> <span class="n">incongr</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">incongr2</span><span class="p">)</span>
-<span class="n">incongr2</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/x0/pvpjfdzd39sc5rqvsk5lvv4m0000gn/T/ipykernel_73998/2459672336.py:2: UserWarning: you are shuffling a &#39;Series&#39; object which is not a subclass of &#39;Sequence&#39;; `shuffle` is not guaranteed to behave correctly. E.g., non-numpy array/tensor objects with view semantics may contain duplicates after shuffling.
-  np.random.shuffle(incongr2)
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>participant
-s1     0.650769
-s10    0.506722
-s11    0.490298
-s12    0.453524
-s13    0.507257
-s14    0.595977
-s15    0.507033
-s16    0.494878
-s17    0.518216
-s18    0.473012
-s19    0.492921
-s2     0.471838
-s20    0.530722
-s21    0.527152
-s22    0.437926
-s23    0.591181
-s24    0.513179
-s25    0.501069
-s26    0.474612
-s27    0.428867
-s3     0.504452
-s4     0.499031
-s5     0.591022
-s6     0.591644
-s7     0.554172
-s8     0.478367
-s9     0.565531
-Name: rt, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now when we run the <em>t</em> test, we see when get different <em>t</em> and <em>p</em> values. In fact, if you run the cell above and then the cell below repeatedly, you’ll get a different <em>t</em> value each time, because the pairing between congruent and incongruent RTs will be randomly different each time.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_rel</span><span class="p">(</span><span class="n">congr</span><span class="p">,</span> <span class="n">incongr2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Congruent vs. Incongruent t = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="s1">&#39; p = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Congruent vs. Incongruent t =  -3.22  p =  0.0034
-</pre></div>
-</div>
-</div>
-</div>
-<p>In many cases this error can easily be avoided by ensuring that your data are listed in the same order in both data sets you’re comparing. But if your data aren’t (or you aren’t sure), how do you ensure that the order is matched?</p>
-</div>
-</div>
-<div class="section" id="randomize-order-of-incongruent-data-but-preserve-association-netween-id-and-rt">
-<h2>Randomize order of incongruent data, but preserve association netween ID and RT<a class="headerlink" href="#randomize-order-of-incongruent-data-but-preserve-association-netween-id-and-rt" title="Permalink to this headline">¶</a></h2>
-<p>It turns out that SciPy’s <code class="docutils literal notranslate"><span class="pre">ttest</span></code> functions ignore pandas indexes, so indexing on its own won’t ensure that the <em>t</em> test compares data points from the same individuals. We can see that by randomizing the order of the rows of the <code class="docutils literal notranslate"><span class="pre">incongr2</span></code> series, while preserving the relationship between participant IDs and RTs (you can compare with above data to confirm that the same RT values are associated with the same IDs as in the original <code class="docutils literal notranslate"><span class="pre">incongr</span></code> Series):</p>
+<div class="section" id="ensure-pandas-indexing-is-used-in-t-tests">
+<h3>Ensure pandas indexing is used in <em>t</em> tests<a class="headerlink" href="#ensure-pandas-indexing-is-used-in-t-tests" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="what-could-go-wrong">
+<h4>What could go wrong?<a class="headerlink" href="#what-could-go-wrong" title="Permalink to this headline">¶</a></h4>
+<p>It turns out that SciPy’s <code class="docutils literal notranslate"><span class="pre">ttest</span></code> functions ignore pandas indexes, so indexing on its own won’t ensure that the <em>t</em> test compares data points from the same individuals. We can see that by randomizing the order of the rows of the <code class="docutils literal notranslate"><span class="pre">incongr2</span></code> series, while preserving the relationship between indexes (participant IDs) and RTs (you can compare with above data to confirm that the same RT values are associated with the same IDs as in the original <code class="docutils literal notranslate"><span class="pre">incongr</span></code> Series):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_avg</span> <span class="o">=</span> <span class="n">df_avg</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -1561,39 +1537,39 @@ Name: rt, dtype: float64
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>participant
-s12    0.506722
-s22    0.474612
-s27    0.501069
-s8     0.494878
-s20    0.507257
-s18    0.527152
-s16    0.492921
-s6     0.490298
-s24    0.595977
-s23    0.554172
-s26    0.565531
-s25    0.513179
-s3     0.591022
-s1     0.471838
 s21    0.507033
-s2     0.518216
-s14    0.453524
-s5     0.530722
-s11    0.473012
-s19    0.591181
-s13    0.478367
-s7     0.650769
+s12    0.506722
 s17    0.504452
-s4     0.428867
-s15    0.591644
 s9     0.437926
+s8     0.494878
+s11    0.473012
+s20    0.507257
+s26    0.565531
+s27    0.501069
+s4     0.428867
+s6     0.490298
 s10    0.499031
+s25    0.513179
+s2     0.518216
+s3     0.591022
+s16    0.492921
+s13    0.478367
+s18    0.527152
+s19    0.591181
+s15    0.591644
+s7     0.650769
+s5     0.530722
+s22    0.474612
+s14    0.453524
+s1     0.471838
+s23    0.554172
+s24    0.595977
 Name: rt, dtype: object
 </pre></div>
 </div>
 </div>
 </div>
-<p>But when we run the <em>t</em> test, the <em>t</em> value doesn’t match the value of 10.21 that we got with the properly-paired data:</p>
+<p>Now when we run the <em>t</em> test, the <em>t</em> value doesn’t match the <em>t</em> value that we got above with the properly-paired data, and in fact if you run the code below multiple times, you will get diferent <em>t</em> and <em>p</em> values each time due to the random shuffling.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_rel</span><span class="p">(</span><span class="n">congr</span><span class="p">,</span> <span class="n">incongr2</span><span class="p">)</span>
@@ -1602,11 +1578,15 @@ Name: rt, dtype: object
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Congruent vs. Incongruent t =  -2.95  p =  0.0066
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Congruent vs. Incongruent t =  -2.91  p =  0.0074
 </pre></div>
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="section" id="use-sort-index-to-ensure-paired-data-are-aligned">
+<h3>Use <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> to ensure paired data are aligned<a class="headerlink" href="#use-sort-index-to-ensure-paired-data-are-aligned" title="Permalink to this headline">¶</a></h3>
 <p>The way we can fix this is by <em>re-ordering</em> the data in both Series that we’re comparing (<code class="docutils literal notranslate"><span class="pre">congr</span></code> and <code class="docutils literal notranslate"><span class="pre">incongr2</span></code> in this case), using pandas <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1623,15 +1603,13 @@ Name: rt, dtype: object
 </div>
 <p>Long story short, it is good practice to index by participant ID, and use the <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> method when applying <em>t</em> tests to pandas Series or DataFrames, to ensure that values are appropriately paired.</p>
 </div>
+</div>
+<hr class="docutils" />
 <div class="section" id="testing-differences-one-sample-t-tests">
 <h2>Testing differences: one-sample <em>t</em> tests<a class="headerlink" href="#testing-differences-one-sample-t-tests" title="Permalink to this headline">¶</a></h2>
 <p>An alternative way to compare the congruent and incongruent conditions is to compute the difference in mean RTs between the two conditions for each participant (since it is a paired design), and then run a <em>t</em> test on the differences. In this case, we use a <strong>one sample</strong> <em>t</em> test, in which we compare the data set to zero. In other words, is the difference between the conditions basically zero, or is it significantly different from zero (i.e., a believable difference)?</p>
-<p>We can compute the difference between two pandas Series easily just using the <code class="docutils literal notranslate"><span class="pre">-</span></code> (minus) operator, so in this case we could use:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">congr</span> <span class="o">-</span> <span class="n">incongr</span>
-</pre></div>
-</div>
-<p>Note that this subtraction <em>only</em> works if the two Series are indexed by participant ID (or in some way that preserves the alignment of values between the two data sets). However, because we are subtracting two pandas objects, pandas recognizes the indexes in each and aligns them, even if the indexes aren’t in the same order in the two input Series.</p>
-<p>In other words, we get the same result from the 1 sample <em>t</em> test if we perform the subtraction on the two Series that have the same order of indexes:</p>
+<p>We can compute the difference between two pandas Series easily just using the <code class="docutils literal notranslate"><span class="pre">-</span></code> (minus) operator, so in this case we could use <code class="docutils literal notranslate"><span class="pre">congr</span> <span class="pre">-</span> <span class="pre">incongr</span></code></p>
+<p>Note that this subtraction <em>only</em> works if the two Series are indexed by participant ID (or in some way that preserves the alignment of values between the two data sets). However, because we are subtracting two pandas objects, pandas recognizes the indexes in each and aligns them, even if the indexes aren’t in the same order in the two input Series. So we don’t have to worry about using <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> as we did above for paired <em>t</em> tests.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">congr_vs_incongr</span> <span class="o">=</span> <span class="n">congr</span> <span class="o">-</span> <span class="n">incongr</span>
@@ -1646,7 +1624,7 @@ Name: rt, dtype: object
 </div>
 </div>
 </div>
-<p>…as when we perform the subtraction using <code class="docutils literal notranslate"><span class="pre">incongr2</span></code>, which has a randomly shuffled order of indexes. We don’t need to explicitly <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> in this case:</p>
+<p>Note that we get the same result from the 1 sample <em>t</em> test if we perform the subtraction on the two Series that have the same order of indexes, as when we perform the subtraction using <code class="docutils literal notranslate"><span class="pre">incongr2</span></code>, which has a randomly shuffled order of indexes. We don’t need to explicitly <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> in this case:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">congr_vs_incongr</span> <span class="o">=</span> <span class="n">congr</span> <span class="o">-</span> <span class="n">incongr2</span>
@@ -1661,10 +1639,12 @@ Name: rt, dtype: object
 </div>
 </div>
 </div>
+<div class="alert alert-block alert-info">
 <div class="section" id="paired-vs-1-sample-t-tests">
-<h3>Paired vs. 1-sample <em>t</em> tests<a class="headerlink" href="#paired-vs-1-sample-t-tests" title="Permalink to this headline">¶</a></h3>
-<p>You’ll note the result of the 1-sample <em>t</em> test is the same as the paired <em>t</em> test above. This is expected, because in both cases we ran a <em>t</em> test to compare the difference between the same two sets of data. From a coding perspective, the paired <em>t</em> test is a bit simpler, because you don’t have to perform a subtraction on the data prior to running the <em>t</em> test. The reasons we might want to run a 1-sample <em>t</em> test include cases where are data are already represented as a subtraction, or in some cases when we’re working with multiple variables, performing subtractions can be a way of simplifying our presentation of the results. We will see examples of this below.</p>
-</div>
+<h3>Paired vs. 1-sample <em>t</em> tests?<a class="headerlink" href="#paired-vs-1-sample-t-tests" title="Permalink to this headline">¶</a></h3>
+<p>You’ll note the result of the 1-sample <em>t</em> test is the same as the paired <em>t</em> test above. This is expected, because in both cases we ran a <em>t</em> test to compare the difference between the same two sets of data. From a coding perspective, the paired <em>t</em> test is a bit simpler, because you don’t have to perform a subtraction on the data prior to running the <em>t</em> test.</p>
+<p>The reasons we might want to run a 1-sample <em>t</em> test include cases where are data are already represented as a subtraction, or in some cases when we’re working with multiple variables, performing subtractions can be a way of simplifying our presentation of the results. As well, since pandas subtraction respects the indexes, computing differences and then 1-sample <em>t</em> tests can be a bit safer in ensuring that the proper within-participants nesting structure of your data is preserved.</p>
+</div></div>
 </div>
 </div>
 
@@ -1697,6 +1677,24 @@ Name: rt, dtype: object
 
 <div class='prev-next-bottom'>
     
+    <div id="prev">
+        <a class="left-prev" href="data_cleaning.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Data Cleaning - Dealing with Outliers</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../single_unit/introduction.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Introduction to Single Unit Data</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
 </div>
         

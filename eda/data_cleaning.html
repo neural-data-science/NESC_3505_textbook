@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Introduction to Single Unit Data" href="../single_unit/introduction.html" />
+    <link rel="next" title="Basic Statistics in Python: t tests with SciPy" href="ttests.html" />
     <link rel="prev" title="Working with Repeated Measures Data" href="repeated_measures.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -585,6 +585,15 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Data Cleaning - Dealing with Outliers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ttests.html">
+   Basic Statistics in Python:
+   <em>
+    t
+   </em>
+   tests with SciPy
   </a>
  </li>
 </ul>
@@ -1610,10 +1619,10 @@ Name: rt_z, Length: 4289, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.64201836 -0.3321611  -1.23836306 -0.80113763  0.16419021  0.7021216
-  1.69919147 -0.23715346  0.92439728 -0.69347369]
-Mean of data with no outliers: 0.08296
-Standard deviation of data with no outliers: 0.86185
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.53211448 -0.53312209 -0.79909466 -0.63998897 -0.62724159 -0.58060055
+ -0.51087503  0.47224508 -0.56147115  0.63194798]
+Mean of data with no outliers: -0.26161
+Standard deviation of data with no outliers: 0.53481
 </pre></div>
 </div>
 </div>
@@ -1631,10 +1640,10 @@ Standard deviation of data with no outliers: 0.86185
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.64201836 -0.3321611  -1.23836306 -0.80113763  0.16419021  0.7021216
-  1.69919147 -0.23715346  0.92439728  3.        ]
-Mean of data with minor outlier: 0.45231
-Standard deviation of data with minor outlier: 1.18195
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.53211448 -0.53312209 -0.79909466 -0.63998897 -0.62724159 -0.58060055
+ -0.51087503  0.47224508 -0.56147115  3.        ]
+Mean of data with minor outlier: -0.0248
+Standard deviation of data with minor outlier: 1.10178
 </pre></div>
 </div>
 </div>
@@ -1652,10 +1661,10 @@ Standard deviation of data with minor outlier: 1.18195
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.64201836 -0.3321611  -1.23836306 -0.80113763  0.16419021  0.7021216
-  1.69919147 -0.23715346  0.92439728 10.        ]
-Mean of data with extreme outlier: 1.15231
-Standard deviation of data with extreme outlier: 3.06166
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.53211448 -0.53312209 -0.79909466 -0.63998897 -0.62724159 -0.58060055
+ -0.51087503  0.47224508 -0.56147115 10.        ]
+Mean of data with extreme outlier: 0.6752
+Standard deviation of data with extreme outlier: 3.13985
 </pre></div>
 </div>
 </div>
@@ -1675,25 +1684,25 @@ Standard deviation of data with extreme outlier: 3.06166
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.2751596  -1.01290863 -0.19071994  0.14846965  0.77418424  0.88644408
-  1.06481478 -0.10193842 -0.30698548 -0.92920303 -1.43363265  0.36051921
-  0.92020304 -0.52525941 -0.54365134 -1.08367924  0.17085871 -0.98838298
- -0.60851424  0.60107082  2.01915171  0.53320467  0.84979475 -1.22449953
- -0.17718899  1.46799481 -0.74569698 -1.72841652 -0.07955425 -0.09514787
-  0.84706884 -1.17319954 -0.12592138 -1.41045172  0.15183162 -1.24683741
-  0.64863814 -0.16140242  0.78603205 -0.21693486  0.16652128  0.70864286
-  1.69086239  1.23880632  0.18692139  0.86079932 -1.16275661  0.43076064
- -0.11207821  0.79937698  0.36003478  0.20407531  0.56916357 -0.3839921
-  0.89451546 -0.22117153 -0.68392217 -1.05570411 -1.55886204 -0.10117272
- -0.03672987  0.64219845 -1.06674268 -1.41958592 -0.63422748 -1.32428958
-  0.67175429 -0.74167368 -0.08246884  1.54705731 -1.60234047  0.23541329
-  0.580935   -1.17666565 -1.4579787   0.22419163 -1.61481797  0.68351828
- -0.87928953  0.4493025   0.34569893  1.32435875 -1.23535352  1.23636585
- -1.68222281 -1.70769834  0.71528012  0.01962522  0.02623001  2.87146727
- -1.96881482  0.68719731  1.22678398 -0.35385597  1.13112608 -0.15102693
-  0.45127279 -0.36897966 -0.53011295 -1.03955224]
-Mean of data with no outliers: -0.06779
-Standard deviation of data with no outliers: 0.95568
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [-0.40393685  0.73996083  0.00441464 -0.57347873 -0.17477242  0.50974145
+  0.43151812 -0.49582046 -1.27686775 -0.08670144  0.67934401 -0.94141547
+  0.63103415 -0.65991651  0.2926388   1.04738104  1.04375646 -0.84140233
+ -0.09024147  0.19427655  0.2915248   1.59880814  1.40484865 -1.07348297
+ -2.37114208 -0.96676533 -0.54877685  2.12433983 -1.28513216 -0.85832688
+ -0.15527722  0.567685    2.7065774   0.40383443  1.40560526 -0.79799185
+  0.66187814 -0.75762424  0.08170575  1.19495817 -0.07893205 -0.77578579
+  0.22654384  0.72734456  1.71497775  0.58303948  1.9418534  -0.97428267
+ -0.04916932  0.41447297  0.48815151 -2.10399288 -1.31394882 -0.87214885
+ -0.1498845   0.09025541 -1.56124191  0.04513096  0.92801065 -1.57466786
+ -0.64299932 -0.23747383  0.62756616  0.49991805  0.03819625 -0.96154842
+ -0.12142802 -0.67958569 -0.32960075  1.72363924  0.17502983 -0.07598251
+ -0.39632796 -0.50753636  1.82266367 -0.71800182 -0.20599289 -0.64664131
+ -0.1320286  -0.23591507  0.18348389 -0.83725105 -0.24075796  1.1472213
+ -1.54974102 -0.77665548 -1.23535156 -1.97797505 -2.6849355  -0.22515641
+ -0.4387555  -0.20043805  1.63670195  1.235504    0.61269498  0.32883671
+ -0.51368793  1.00305263 -0.09987826  0.69145779]
+Mean of data with no outliers: -0.03583
+Standard deviation of data with no outliers: 0.99063
 </pre></div>
 </div>
 </div>
@@ -1711,25 +1720,33 @@ Standard deviation of data with no outliers: 0.95568
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.2751596  -1.01290863 -0.19071994  0.14846965  0.77418424  0.88644408
-  1.06481478 -0.10193842 -0.30698548 -0.92920303 -1.43363265  0.36051921
-  0.92020304 -0.52525941 -0.54365134 -1.08367924  0.17085871 -0.98838298
- -0.60851424  0.60107082  2.01915171  0.53320467  0.84979475 -1.22449953
- -0.17718899  1.46799481 -0.74569698 -1.72841652 -0.07955425 -0.09514787
-  0.84706884 -1.17319954 -0.12592138 -1.41045172  0.15183162 -1.24683741
-  0.64863814 -0.16140242  0.78603205 -0.21693486  0.16652128  0.70864286
-  1.69086239  1.23880632  0.18692139  0.86079932 -1.16275661  0.43076064
- -0.11207821  0.79937698  0.36003478  0.20407531  0.56916357 -0.3839921
-  0.89451546 -0.22117153 -0.68392217 -1.05570411 -1.55886204 -0.10117272
- -0.03672987  0.64219845 -1.06674268 -1.41958592 -0.63422748 -1.32428958
-  0.67175429 -0.74167368 -0.08246884  1.54705731 -1.60234047  0.23541329
-  0.580935   -1.17666565 -1.4579787   0.22419163 -1.61481797  0.68351828
- -0.87928953  0.4493025   0.34569893  1.32435875 -1.23535352  1.23636585
- -1.68222281 -1.70769834  0.71528012  0.01962522  0.02623001  2.87146727
- -1.96881482  0.68719731  1.22678398 -0.35385597  1.13112608 -0.15102693
-  0.45127279 -0.36897966 -0.53011295 10.        ]
-Mean of data with extreme outlier: 0.04261
-Standard deviation of data with extreme outlier: 1.38033
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [-4.03936847e-01  7.39960833e-01  4.41463639e-03 -5.73478727e-01
+ -1.74772415e-01  5.09741454e-01  4.31518118e-01 -4.95820463e-01
+ -1.27686775e+00 -8.67014395e-02  6.79344011e-01 -9.41415473e-01
+  6.31034151e-01 -6.59916508e-01  2.92638803e-01  1.04738104e+00
+  1.04375646e+00 -8.41402334e-01 -9.02414685e-02  1.94276546e-01
+  2.91524802e-01  1.59880814e+00  1.40484865e+00 -1.07348297e+00
+ -2.37114208e+00 -9.66765330e-01 -5.48776848e-01  2.12433983e+00
+ -1.28513216e+00 -8.58326880e-01 -1.55277220e-01  5.67685004e-01
+  2.70657740e+00  4.03834435e-01  1.40560526e+00 -7.97991851e-01
+  6.61878142e-01 -7.57624243e-01  8.17057495e-02  1.19495817e+00
+ -7.89320542e-02 -7.75785786e-01  2.26543840e-01  7.27344564e-01
+  1.71497775e+00  5.83039484e-01  1.94185340e+00 -9.74282667e-01
+ -4.91693161e-02  4.14472975e-01  4.88151515e-01 -2.10399288e+00
+ -1.31394882e+00 -8.72148855e-01 -1.49884498e-01  9.02554050e-02
+ -1.56124191e+00  4.51309627e-02  9.28010653e-01 -1.57466786e+00
+ -6.42999323e-01 -2.37473831e-01  6.27566160e-01  4.99918050e-01
+  3.81962489e-02 -9.61548422e-01 -1.21428017e-01 -6.79585688e-01
+ -3.29600750e-01  1.72363924e+00  1.75029826e-01 -7.59825086e-02
+ -3.96327958e-01 -5.07536360e-01  1.82266367e+00 -7.18001817e-01
+ -2.05992886e-01 -6.46641309e-01 -1.32028602e-01 -2.35915072e-01
+  1.83483892e-01 -8.37251051e-01 -2.40757964e-01  1.14722130e+00
+ -1.54974102e+00 -7.76655476e-01 -1.23535156e+00 -1.97797505e+00
+ -2.68493550e+00 -2.25156412e-01 -4.38755502e-01 -2.00438053e-01
+  1.63670195e+00  1.23550400e+00  6.12694981e-01  3.28836708e-01
+ -5.13687931e-01  1.00305263e+00 -9.98782632e-02  1.00000000e+01]
+Mean of data with extreme outlier: 0.05725
+Standard deviation of data with extreme outlier: 1.4052
 </pre></div>
 </div>
 </div>
@@ -1749,33 +1766,33 @@ Standard deviation of data with extreme outlier: 1.38033
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 2.75159605e-01 -1.01290863e+00 -1.90719945e-01  1.48469655e-01
-  7.74184241e-01  8.86444078e-01  1.06481478e+00 -1.01938419e-01
- -3.06985478e-01 -9.29203035e-01 -1.43363265e+00  3.60519214e-01
-  9.20203044e-01 -5.25259412e-01 -5.43651340e-01 -1.08367924e+00
-  1.70858713e-01 -9.88382976e-01 -6.08514241e-01  6.01070821e-01
-  2.01915171e+00  5.33204668e-01  8.49794745e-01 -1.22449953e+00
- -1.77188992e-01  1.46799481e+00 -7.45696980e-01 -1.72841652e+00
- -7.95542499e-02 -9.51478675e-02  8.47068839e-01 -1.17319954e+00
- -1.25921382e-01 -1.41045172e+00  1.51831623e-01 -1.24683741e+00
-  6.48638144e-01 -1.61402416e-01  7.86032052e-01 -2.16934859e-01
-  1.66521279e-01  7.08642861e-01  1.69086239e+00  1.23880632e+00
-  1.86921390e-01  8.60799321e-01 -1.16275661e+00  4.30760641e-01
- -1.12078214e-01  7.99376983e-01  3.60034784e-01  2.04075311e-01
-  5.69163574e-01 -3.83992100e-01  8.94515456e-01 -2.21171526e-01
- -6.83922167e-01 -1.05570411e+00 -1.55886204e+00 -1.01172723e-01
- -3.67298705e-02  6.42198451e-01 -1.06674268e+00 -1.41958592e+00
- -6.34227483e-01 -1.32428958e+00  6.71754287e-01 -7.41673684e-01
- -8.24688400e-02  1.54705731e+00 -1.60234047e+00  2.35413286e-01
-  5.80934997e-01 -1.17666565e+00 -1.45797870e+00  2.24191632e-01
- -1.61481797e+00  6.83518282e-01 -8.79289529e-01  4.49302500e-01
-  3.45698929e-01  1.32435875e+00 -1.23535352e+00  1.23636585e+00
- -1.68222281e+00 -1.70769834e+00  7.15280118e-01  1.96252172e-02
-  2.62300125e-02  2.87146727e+00 -1.96881482e+00  6.87197313e-01
-  1.22678398e+00 -3.53855969e-01  1.13112608e+00 -1.51026927e-01
-  4.51272793e-01 -3.68979657e-01 -5.30112950e-01  1.00000000e+02]
-Mean of data with extreme outlier: 0.94261
-Standard deviation of data with extreme outlier: 10.00093
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [-4.03936847e-01  7.39960833e-01  4.41463639e-03 -5.73478727e-01
+ -1.74772415e-01  5.09741454e-01  4.31518118e-01 -4.95820463e-01
+ -1.27686775e+00 -8.67014395e-02  6.79344011e-01 -9.41415473e-01
+  6.31034151e-01 -6.59916508e-01  2.92638803e-01  1.04738104e+00
+  1.04375646e+00 -8.41402334e-01 -9.02414685e-02  1.94276546e-01
+  2.91524802e-01  1.59880814e+00  1.40484865e+00 -1.07348297e+00
+ -2.37114208e+00 -9.66765330e-01 -5.48776848e-01  2.12433983e+00
+ -1.28513216e+00 -8.58326880e-01 -1.55277220e-01  5.67685004e-01
+  2.70657740e+00  4.03834435e-01  1.40560526e+00 -7.97991851e-01
+  6.61878142e-01 -7.57624243e-01  8.17057495e-02  1.19495817e+00
+ -7.89320542e-02 -7.75785786e-01  2.26543840e-01  7.27344564e-01
+  1.71497775e+00  5.83039484e-01  1.94185340e+00 -9.74282667e-01
+ -4.91693161e-02  4.14472975e-01  4.88151515e-01 -2.10399288e+00
+ -1.31394882e+00 -8.72148855e-01 -1.49884498e-01  9.02554050e-02
+ -1.56124191e+00  4.51309627e-02  9.28010653e-01 -1.57466786e+00
+ -6.42999323e-01 -2.37473831e-01  6.27566160e-01  4.99918050e-01
+  3.81962489e-02 -9.61548422e-01 -1.21428017e-01 -6.79585688e-01
+ -3.29600750e-01  1.72363924e+00  1.75029826e-01 -7.59825086e-02
+ -3.96327958e-01 -5.07536360e-01  1.82266367e+00 -7.18001817e-01
+ -2.05992886e-01 -6.46641309e-01 -1.32028602e-01 -2.35915072e-01
+  1.83483892e-01 -8.37251051e-01 -2.40757964e-01  1.14722130e+00
+ -1.54974102e+00 -7.76655476e-01 -1.23535156e+00 -1.97797505e+00
+ -2.68493550e+00 -2.25156412e-01 -4.38755502e-01 -2.00438053e-01
+  1.63670195e+00  1.23550400e+00  6.12694981e-01  3.28836708e-01
+ -5.13687931e-01  1.00305263e+00 -9.98782632e-02  1.00000000e+02]
+Mean of data with extreme outlier: 0.95725
+Standard deviation of data with extreme outlier: 10.00308
 </pre></div>
 </div>
 </div>
@@ -2310,112 +2327,112 @@ Standard deviation of data with extreme outlier: 10.00093
   </thead>
   <tbody>
     <tr>
-      <th>1570</th>
-      <td>s1</td>
-      <td>5</td>
-      <td>14</td>
-      <td>congruent</td>
-      <td>0.481326</td>
-      <td>0.161549</td>
-    </tr>
-    <tr>
-      <th>1364</th>
-      <td>s2</td>
-      <td>3</td>
-      <td>30</td>
-      <td>incongruent</td>
-      <td>0.465915</td>
-      <td>-0.158973</td>
-    </tr>
-    <tr>
-      <th>3905</th>
-      <td>s19</td>
-      <td>4</td>
-      <td>1</td>
-      <td>incongruent</td>
-      <td>0.626911</td>
-      <td>0.645877</td>
-    </tr>
-    <tr>
-      <th>1602</th>
-      <td>s13</td>
-      <td>1</td>
-      <td>14</td>
-      <td>incongruent</td>
-      <td>0.412979</td>
-      <td>-0.658176</td>
-    </tr>
-    <tr>
-      <th>2345</th>
-      <td>s26</td>
-      <td>4</td>
-      <td>31</td>
-      <td>neutral</td>
-      <td>0.440964</td>
-      <td>-1.309528</td>
-    </tr>
-    <tr>
-      <th>3163</th>
-      <td>s23</td>
-      <td>5</td>
-      <td>21</td>
-      <td>incongruent</td>
-      <td>0.533921</td>
-      <td>-0.169128</td>
-    </tr>
-    <tr>
-      <th>785</th>
-      <td>s11</td>
-      <td>5</td>
-      <td>18</td>
-      <td>neutral</td>
-      <td>0.533653</td>
-      <td>1.406787</td>
-    </tr>
-    <tr>
-      <th>2410</th>
-      <td>s14</td>
+      <th>3524</th>
+      <td>s20</td>
       <td>2</td>
       <td>1</td>
-      <td>neutral</td>
-      <td>0.581021</td>
-      <td>1.887808</td>
-    </tr>
-    <tr>
-      <th>264</th>
-      <td>s18</td>
-      <td>4</td>
-      <td>9</td>
       <td>congruent</td>
-      <td>0.393558</td>
-      <td>-1.408164</td>
+      <td>0.493003</td>
+      <td>-0.026250</td>
     </tr>
     <tr>
-      <th>3308</th>
-      <td>s27</td>
-      <td>5</td>
-      <td>6</td>
-      <td>neutral</td>
-      <td>0.601618</td>
-      <td>1.728681</td>
+      <th>58</th>
+      <td>s25</td>
+      <td>2</td>
+      <td>27</td>
+      <td>congruent</td>
+      <td>0.369356</td>
+      <td>-1.172525</td>
     </tr>
     <tr>
-      <th>496</th>
-      <td>s22</td>
+      <th>807</th>
+      <td>s8</td>
       <td>1</td>
-      <td>17</td>
+      <td>9</td>
       <td>incongruent</td>
-      <td>0.441949</td>
-      <td>0.003149</td>
+      <td>0.536410</td>
+      <td>0.609541</td>
     </tr>
     <tr>
-      <th>568</th>
-      <td>s22</td>
+      <th>1337</th>
+      <td>s2</td>
       <td>3</td>
-      <td>25</td>
+      <td>3</td>
+      <td>neutral</td>
+      <td>0.489284</td>
+      <td>0.128315</td>
+    </tr>
+    <tr>
+      <th>654</th>
+      <td>s11</td>
+      <td>1</td>
+      <td>15</td>
+      <td>neutral</td>
+      <td>0.417645</td>
+      <td>-0.473860</td>
+    </tr>
+    <tr>
+      <th>3153</th>
+      <td>s23</td>
+      <td>5</td>
+      <td>11</td>
       <td>incongruent</td>
-      <td>0.313848</td>
-      <td>-1.563505</td>
+      <td>0.557981</td>
+      <td>0.053296</td>
+    </tr>
+    <tr>
+      <th>429</th>
+      <td>s16</td>
+      <td>4</td>
+      <td>14</td>
+      <td>incongruent</td>
+      <td>0.358197</td>
+      <td>-1.175116</td>
+    </tr>
+    <tr>
+      <th>1113</th>
+      <td>s21</td>
+      <td>1</td>
+      <td>1</td>
+      <td>congruent</td>
+      <td>0.525953</td>
+      <td>0.737927</td>
+    </tr>
+    <tr>
+      <th>3708</th>
+      <td>s17</td>
+      <td>2</td>
+      <td>26</td>
+      <td>neutral</td>
+      <td>0.530194</td>
+      <td>0.734851</td>
+    </tr>
+    <tr>
+      <th>1414</th>
+      <td>s2</td>
+      <td>5</td>
+      <td>17</td>
+      <td>neutral</td>
+      <td>0.465956</td>
+      <td>-0.158469</td>
+    </tr>
+    <tr>
+      <th>2377</th>
+      <td>s26</td>
+      <td>5</td>
+      <td>32</td>
+      <td>neutral</td>
+      <td>0.640895</td>
+      <td>0.999794</td>
+    </tr>
+    <tr>
+      <th>185</th>
+      <td>s18</td>
+      <td>1</td>
+      <td>26</td>
+      <td>congruent</td>
+      <td>0.518414</td>
+      <td>0.036031</td>
     </tr>
   </tbody>
 </table>
@@ -2512,6 +2529,97 @@ Standard deviation of data with extreme outlier: 10.00093
 </table>
 </div></div></div>
 </div>
+<p>But actually, doing the above computes the mean across all trials for each participant - including the outlier trials. We can compute the mean across only the non-outlier trials by adding a filter  on <code class="docutils literal notranslate"><span class="pre">df</span></code> prior to the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> operation:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">z_thresh</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participant&#39;</span><span class="p">)[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>rt_z</th>
+      <th>rt_mean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>1</td>
+      <td>congruent</td>
+      <td>0.652072</td>
+      <td>1.822298</td>
+      <td>0.475143</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>2</td>
+      <td>neutral</td>
+      <td>0.644872</td>
+      <td>1.746028</td>
+      <td>0.475143</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>3</td>
+      <td>congruent</td>
+      <td>0.445182</td>
+      <td>-0.369295</td>
+      <td>0.475143</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>4</td>
+      <td>neutral</td>
+      <td>0.525200</td>
+      <td>0.478337</td>
+      <td>0.475143</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>5</td>
+      <td>congruent</td>
+      <td>0.533328</td>
+      <td>0.564439</td>
+      <td>0.475143</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># view sample of rows to confirm RT varies by participant</span>
@@ -2549,104 +2657,104 @@ Standard deviation of data with extreme outlier: 10.00093
   </thead>
   <tbody>
     <tr>
-      <th>943</th>
-      <td>s8</td>
-      <td>5</td>
-      <td>17</td>
-      <td>neutral</td>
-      <td>0.517592</td>
-      <td>0.457214</td>
-      <td>0.461109</td>
-    </tr>
-    <tr>
-      <th>3499</th>
-      <td>s20</td>
-      <td>1</td>
-      <td>8</td>
-      <td>neutral</td>
-      <td>0.498040</td>
-      <td>0.034691</td>
-      <td>0.495173</td>
-    </tr>
-    <tr>
-      <th>622</th>
-      <td>s22</td>
-      <td>5</td>
-      <td>15</td>
-      <td>congruent</td>
-      <td>0.361959</td>
-      <td>-0.975114</td>
-      <td>0.441692</td>
-    </tr>
-    <tr>
-      <th>3009</th>
-      <td>s6</td>
-      <td>5</td>
-      <td>25</td>
-      <td>neutral</td>
-      <td>0.452540</td>
-      <td>-0.157465</td>
-      <td>0.472783</td>
-    </tr>
-    <tr>
-      <th>519</th>
-      <td>s22</td>
-      <td>2</td>
-      <td>8</td>
-      <td>neutral</td>
-      <td>0.457882</td>
-      <td>0.198004</td>
-      <td>0.441692</td>
-    </tr>
-    <tr>
-      <th>669</th>
-      <td>s11</td>
-      <td>1</td>
-      <td>30</td>
-      <td>neutral</td>
-      <td>0.409572</td>
-      <td>-0.604736</td>
-      <td>0.446875</td>
-    </tr>
-    <tr>
-      <th>1657</th>
-      <td>s13</td>
+      <th>85</th>
+      <td>s25</td>
       <td>3</td>
-      <td>5</td>
+      <td>22</td>
       <td>neutral</td>
-      <td>0.505019</td>
-      <td>0.773239</td>
-      <td>0.455300</td>
+      <td>0.413426</td>
+      <td>-0.705689</td>
+      <td>0.475143</td>
     </tr>
     <tr>
-      <th>842</th>
-      <td>s8</td>
-      <td>2</td>
-      <td>12</td>
-      <td>congruent</td>
-      <td>0.497603</td>
-      <td>0.295408</td>
-      <td>0.461109</td>
-    </tr>
-    <tr>
-      <th>646</th>
-      <td>s11</td>
-      <td>1</td>
-      <td>7</td>
+      <th>1496</th>
+      <td>s1</td>
+      <td>3</td>
+      <td>4</td>
       <td>incongruent</td>
-      <td>0.453586</td>
-      <td>0.108794</td>
-      <td>0.446875</td>
+      <td>0.397072</td>
+      <td>-1.031559</td>
+      <td>0.465963</td>
     </tr>
     <tr>
-      <th>3886</th>
-      <td>s19</td>
+      <th>2115</th>
+      <td>s9</td>
+      <td>2</td>
+      <td>24</td>
+      <td>neutral</td>
+      <td>0.405752</td>
+      <td>-0.396567</td>
+      <td>0.430409</td>
+    </tr>
+    <tr>
+      <th>3242</th>
+      <td>s27</td>
+      <td>3</td>
+      <td>4</td>
+      <td>neutral</td>
+      <td>0.401705</td>
+      <td>-0.772854</td>
+      <td>0.457454</td>
+    </tr>
+    <tr>
+      <th>2507</th>
+      <td>s14</td>
+      <td>5</td>
+      <td>2</td>
+      <td>incongruent</td>
+      <td>0.413691</td>
+      <td>-0.527710</td>
+      <td>0.446461</td>
+    </tr>
+    <tr>
+      <th>2389</th>
+      <td>s14</td>
+      <td>1</td>
+      <td>12</td>
+      <td>neutral</td>
+      <td>0.385138</td>
+      <td>-0.939895</td>
+      <td>0.446461</td>
+    </tr>
+    <tr>
+      <th>2454</th>
+      <td>s14</td>
       <td>3</td>
       <td>13</td>
-      <td>neutral</td>
-      <td>0.612937</td>
-      <td>0.489959</td>
+      <td>incongruent</td>
+      <td>0.797524</td>
+      <td>5.013169</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1151</th>
+      <td>s21</td>
+      <td>2</td>
+      <td>7</td>
+      <td>incongruent</td>
+      <td>0.750666</td>
+      <td>3.288323</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3930</th>
+      <td>s19</td>
+      <td>4</td>
+      <td>26</td>
+      <td>congruent</td>
+      <td>0.664838</td>
+      <td>1.069046</td>
       <td>0.569024</td>
+    </tr>
+    <tr>
+      <th>3514</th>
+      <td>s20</td>
+      <td>1</td>
+      <td>23</td>
+      <td>neutral</td>
+      <td>0.477585</td>
+      <td>-0.212773</td>
+      <td>0.489359</td>
     </tr>
   </tbody>
 </table>
@@ -2695,114 +2803,114 @@ Standard deviation of data with extreme outlier: 10.00093
   </thead>
   <tbody>
     <tr>
-      <th>2407</th>
+      <th>3041</th>
+      <td>s23</td>
+      <td>1</td>
+      <td>25</td>
+      <td>neutral</td>
+      <td>0.567777</td>
+      <td>0.143855</td>
+      <td>0.542556</td>
+      <td>0.567777</td>
+    </tr>
+    <tr>
+      <th>2177</th>
+      <td>s9</td>
+      <td>4</td>
+      <td>23</td>
+      <td>congruent</td>
+      <td>0.377828</td>
+      <td>-0.795651</td>
+      <td>0.430409</td>
+      <td>0.377828</td>
+    </tr>
+    <tr>
+      <th>1496</th>
+      <td>s1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>incongruent</td>
+      <td>0.397072</td>
+      <td>-1.031559</td>
+      <td>0.465963</td>
+      <td>0.397072</td>
+    </tr>
+    <tr>
+      <th>1071</th>
+      <td>s24</td>
+      <td>4</td>
+      <td>21</td>
+      <td>neutral</td>
+      <td>0.544220</td>
+      <td>-0.419975</td>
+      <td>0.581082</td>
+      <td>0.544220</td>
+    </tr>
+    <tr>
+      <th>3627</th>
+      <td>s20</td>
+      <td>5</td>
+      <td>9</td>
+      <td>neutral</td>
+      <td>0.457978</td>
+      <td>-0.449976</td>
+      <td>0.489359</td>
+      <td>0.457978</td>
+    </tr>
+    <tr>
+      <th>2379</th>
       <td>s14</td>
       <td>1</td>
-      <td>30</td>
-      <td>neutral</td>
-      <td>0.481373</td>
-      <td>0.449321</td>
-      <td>0.450247</td>
-      <td>0.481373</td>
-    </tr>
-    <tr>
-      <th>965</th>
-      <td>s24</td>
-      <td>1</td>
-      <td>7</td>
+      <td>2</td>
       <td>congruent</td>
-      <td>0.524815</td>
-      <td>-0.619188</td>
-      <td>0.585129</td>
-      <td>0.524815</td>
+      <td>0.386002</td>
+      <td>-0.927418</td>
+      <td>0.446461</td>
+      <td>0.386002</td>
     </tr>
     <tr>
-      <th>4233</th>
+      <th>3126</th>
+      <td>s23</td>
+      <td>4</td>
+      <td>16</td>
+      <td>congruent</td>
+      <td>0.529510</td>
+      <td>-0.209905</td>
+      <td>0.542556</td>
+      <td>0.529510</td>
+    </tr>
+    <tr>
+      <th>1067</th>
+      <td>s24</td>
+      <td>4</td>
+      <td>17</td>
+      <td>neutral</td>
+      <td>0.580801</td>
+      <td>-0.044429</td>
+      <td>0.581082</td>
+      <td>0.580801</td>
+    </tr>
+    <tr>
+      <th>4230</th>
       <td>s15</td>
       <td>4</td>
-      <td>9</td>
+      <td>6</td>
       <td>neutral</td>
-      <td>0.505455</td>
-      <td>-0.562191</td>
-      <td>0.564044</td>
-      <td>0.505455</td>
+      <td>0.497183</td>
+      <td>-0.641564</td>
+      <td>0.557696</td>
+      <td>0.497183</td>
     </tr>
     <tr>
-      <th>3965</th>
-      <td>s19</td>
-      <td>5</td>
-      <td>29</td>
+      <th>2126</th>
+      <td>s9</td>
+      <td>3</td>
+      <td>3</td>
       <td>congruent</td>
-      <td>0.416727</td>
-      <td>-1.699265</td>
-      <td>0.569024</td>
-      <td>0.416727</td>
-    </tr>
-    <tr>
-      <th>2865</th>
-      <td>s6</td>
-      <td>1</td>
-      <td>9</td>
-      <td>neutral</td>
-      <td>0.365066</td>
-      <td>-0.837885</td>
-      <td>0.472783</td>
-      <td>0.365066</td>
-    </tr>
-    <tr>
-      <th>902</th>
-      <td>s8</td>
-      <td>4</td>
-      <td>8</td>
-      <td>neutral</td>
-      <td>0.441632</td>
-      <td>-0.157663</td>
-      <td>0.461109</td>
-      <td>0.441632</td>
-    </tr>
-    <tr>
-      <th>764</th>
-      <td>s11</td>
-      <td>4</td>
-      <td>29</td>
-      <td>incongruent</td>
-      <td>0.525660</td>
-      <td>1.277210</td>
-      <td>0.446875</td>
-      <td>0.525660</td>
-    </tr>
-    <tr>
-      <th>3616</th>
-      <td>s20</td>
-      <td>4</td>
-      <td>29</td>
-      <td>incongruent</td>
-      <td>0.510000</td>
-      <td>0.179379</td>
-      <td>0.495173</td>
-      <td>0.510000</td>
-    </tr>
-    <tr>
-      <th>1739</th>
-      <td>s13</td>
-      <td>5</td>
-      <td>23</td>
-      <td>neutral</td>
-      <td>0.384951</td>
-      <td>-1.094074</td>
-      <td>0.455300</td>
-      <td>0.384951</td>
-    </tr>
-    <tr>
-      <th>2241</th>
-      <td>s26</td>
-      <td>1</td>
-      <td>23</td>
-      <td>incongruent</td>
-      <td>0.536449</td>
-      <td>-0.206621</td>
-      <td>0.554337</td>
-      <td>0.536449</td>
+      <td>0.345186</td>
+      <td>-1.262162</td>
+      <td>0.430409</td>
+      <td>0.345186</td>
     </tr>
   </tbody>
 </table>
@@ -2853,8 +2961,8 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>incongruent</td>
       <td>0.757437</td>
       <td>2.938435</td>
-      <td>0.480044</td>
-      <td>0.480044</td>
+      <td>0.475143</td>
+      <td>0.475143</td>
     </tr>
     <tr>
       <th>37</th>
@@ -2864,8 +2972,8 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>neutral</td>
       <td>0.917223</td>
       <td>4.631054</td>
-      <td>0.480044</td>
-      <td>0.480044</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>90</th>
@@ -2875,8 +2983,8 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>congruent</td>
       <td>0.693357</td>
       <td>2.259632</td>
-      <td>0.480044</td>
-      <td>0.480044</td>
+      <td>0.475143</td>
+      <td>0.475143</td>
     </tr>
     <tr>
       <th>117</th>
@@ -2886,8 +2994,8 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>incongruent</td>
       <td>0.817285</td>
       <td>3.572408</td>
-      <td>0.480044</td>
-      <td>0.480044</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>141</th>
@@ -2897,8 +3005,8 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>incongruent</td>
       <td>0.721394</td>
       <td>2.556630</td>
-      <td>0.480044</td>
-      <td>0.480044</td>
+      <td>0.475143</td>
+      <td>0.475143</td>
     </tr>
     <tr>
       <th>...</th>
@@ -2919,8 +3027,8 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>incongruent</td>
       <td>0.897641</td>
       <td>3.201033</td>
-      <td>0.564044</td>
-      <td>0.564044</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>4231</th>
@@ -2930,8 +3038,8 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>congruent</td>
       <td>0.881503</td>
       <td>3.046180</td>
-      <td>0.564044</td>
-      <td>0.564044</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>4262</th>
@@ -2941,8 +3049,8 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>incongruent</td>
       <td>0.853477</td>
       <td>2.777256</td>
-      <td>0.564044</td>
-      <td>0.564044</td>
+      <td>0.557696</td>
+      <td>0.557696</td>
     </tr>
     <tr>
       <th>4279</th>
@@ -2952,8 +3060,8 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>neutral</td>
       <td>0.845636</td>
       <td>2.702019</td>
-      <td>0.564044</td>
-      <td>0.564044</td>
+      <td>0.557696</td>
+      <td>0.557696</td>
     </tr>
     <tr>
       <th>4288</th>
@@ -2963,8 +3071,8 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>congruent</td>
       <td>0.789597</td>
       <td>2.164295</td>
-      <td>0.564044</td>
-      <td>0.564044</td>
+      <td>0.557696</td>
+      <td>0.557696</td>
     </tr>
   </tbody>
 </table>
@@ -2989,7 +3097,7 @@ Standard deviation of data with extreme outlier: 10.00093
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/data_cleaning_75_0.png" src="../_images/data_cleaning_75_0.png" />
+<img alt="../_images/data_cleaning_77_0.png" src="../_images/data_cleaning_77_0.png" />
 </div>
 </div>
 </div>
@@ -3006,7 +3114,7 @@ Standard deviation of data with extreme outlier: 10.00093
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/data_cleaning_77_0.png" src="../_images/data_cleaning_77_0.png" />
+<img alt="../_images/data_cleaning_79_0.png" src="../_images/data_cleaning_79_0.png" />
 </div>
 </div>
 </div>
@@ -3025,7 +3133,7 @@ Standard deviation of data with extreme outlier: 10.00093
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/data_cleaning_79_0.png" src="../_images/data_cleaning_79_0.png" />
+<img alt="../_images/data_cleaning_81_0.png" src="../_images/data_cleaning_81_0.png" />
 </div>
 </div>
 </div>
@@ -3042,7 +3150,7 @@ Standard deviation of data with extreme outlier: 10.00093
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/data_cleaning_81_0.png" src="../_images/data_cleaning_81_0.png" />
+<img alt="../_images/data_cleaning_83_0.png" src="../_images/data_cleaning_83_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3091,7 +3199,7 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>congruent</td>
       <td>0.652072</td>
       <td>1.822298</td>
-      <td>0.480044</td>
+      <td>0.475143</td>
       <td>0.652072</td>
       <td>1.533573</td>
     </tr>
@@ -3103,7 +3211,7 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>neutral</td>
       <td>0.644872</td>
       <td>1.746028</td>
-      <td>0.480044</td>
+      <td>0.475143</td>
       <td>0.644872</td>
       <td>1.550695</td>
     </tr>
@@ -3115,7 +3223,7 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>congruent</td>
       <td>0.445182</td>
       <td>-0.369295</td>
-      <td>0.480044</td>
+      <td>0.475143</td>
       <td>0.445182</td>
       <td>2.246272</td>
     </tr>
@@ -3127,7 +3235,7 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>neutral</td>
       <td>0.525200</td>
       <td>0.478337</td>
-      <td>0.480044</td>
+      <td>0.475143</td>
       <td>0.525200</td>
       <td>1.904037</td>
     </tr>
@@ -3139,7 +3247,7 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>congruent</td>
       <td>0.533328</td>
       <td>0.564439</td>
-      <td>0.480044</td>
+      <td>0.475143</td>
       <td>0.533328</td>
       <td>1.875019</td>
     </tr>
@@ -3158,7 +3266,7 @@ Standard deviation of data with extreme outlier: 10.00093
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/data_cleaning_84_0.png" src="../_images/data_cleaning_84_0.png" />
+<img alt="../_images/data_cleaning_86_0.png" src="../_images/data_cleaning_86_0.png" />
 </div>
 </div>
 <p>One thing to recognize about both the inverse and log transforms is that they reverse the order of the data values. That is, 1 divided by a very large number results in a very small number (e.g., <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">1000</span> <span class="pre">=</span> <span class="pre">0.001</span></code>), where as 1 divided by a very small number results in a very large number (e.g., <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">0.001</span> <span class="pre">=</span> <span class="pre">1000</span></code>). Therefore in box plot above, the extremely large outlier value is actually caused by an extremely fast (short) RT. Notably as well, after the inverse transform <em>all</em> of the outliers are now at the short RT end of the distribution, whereas prior to transformation, most outliers were at the slow end of the distribution.</p>
@@ -3209,7 +3317,7 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>congruent</td>
       <td>0.652072</td>
       <td>1.822298</td>
-      <td>0.480044</td>
+      <td>0.475143</td>
       <td>0.652072</td>
       <td>1.533573</td>
       <td>1.533573</td>
@@ -3222,7 +3330,7 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>neutral</td>
       <td>0.644872</td>
       <td>1.746028</td>
-      <td>0.480044</td>
+      <td>0.475143</td>
       <td>0.644872</td>
       <td>1.550695</td>
       <td>1.550695</td>
@@ -3235,7 +3343,7 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>congruent</td>
       <td>0.445182</td>
       <td>-0.369295</td>
-      <td>0.480044</td>
+      <td>0.475143</td>
       <td>0.445182</td>
       <td>2.246272</td>
       <td>2.246272</td>
@@ -3248,7 +3356,7 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>neutral</td>
       <td>0.525200</td>
       <td>0.478337</td>
-      <td>0.480044</td>
+      <td>0.475143</td>
       <td>0.525200</td>
       <td>1.904037</td>
       <td>1.904037</td>
@@ -3261,7 +3369,7 @@ Standard deviation of data with extreme outlier: 10.00093
       <td>congruent</td>
       <td>0.533328</td>
       <td>0.564439</td>
-      <td>0.480044</td>
+      <td>0.475143</td>
       <td>0.533328</td>
       <td>1.875019</td>
       <td>1.875019</td>
@@ -3281,7 +3389,7 @@ Standard deviation of data with extreme outlier: 10.00093
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/data_cleaning_92_0.png" src="../_images/data_cleaning_92_0.png" />
+<img alt="../_images/data_cleaning_94_0.png" src="../_images/data_cleaning_94_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3335,10 +3443,10 @@ Standard deviation of data with extreme outlier: 10.00093
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="../single_unit/introduction.html" title="next page">
+        <a class="right-next" href="ttests.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Introduction to Single Unit Data</p>
+                <p class="prevnext-title">Basic Statistics in Python: <em>t</em> tests with SciPy</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
