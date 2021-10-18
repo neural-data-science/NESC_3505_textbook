@@ -1,0 +1,3381 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Cleaning - Dealing with Outliers &#8212; Data Science for Psychology and Neuroscience — in Python</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e2363ea40746bee74734a24ffefccd78.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="http://neuraldatascience.io/eda/data_cleaning.html" />
+    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Introduction to Single Unit Data" href="../single_unit/introduction.html" />
+    <link rel="prev" title="Working with Repeated Measures Data" href="repeated_measures.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/NESC3505_icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science for Psychology and Neuroscience — in Python</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  About This Course
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/why.html">
+   Start with why
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_objectives.html">
+   Learning Objectives for this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../syllabus.html">
+   Syllabus
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Pedagogy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/teaching_approach.html">
+   Teaching Approach
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/online_learning.html">
+   Hybrid Online Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/assessment_evaluation.html">
+   Assessment and Evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/constructivism.html">
+   Constructivism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/connectivism.html">
+   Connectivism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/authenticity.html">
+   Authenticity
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/21st_cen_skills.html">
+   21st Century Skills
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Open Software, Science, &amp; Education
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open.html">
+   Open Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/software.html">
+   Free Software
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/free_licenses.html">
+   Free and Open-Source Software Licenses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_science.html">
+   Open Science
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/peer_review.html">
+   Peer Review
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/for_profit.html">
+   For-Profit Publishing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/impact_factors.html">
+   Impact Factors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/novelty.html">
+   Novelty
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_publishing.html">
+   Open Publishing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/preregistration.html">
+   Preregistration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_methods.html">
+   Open Methods and Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/oer.html">
+   Open Educational Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/oer_this_course.html">
+   OERs in the Context of this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/licenses.html">
+   Licenses
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  How to Rock This Course
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_approach.html">
+   Learning Approach
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/mindset.html">
+   Mindset
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/errors_debugging.html">
+   Errors and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/teamwork.html">
+   Collaboration and Teamwork
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/introduction.html">
+   Getting Started with the Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/what_is_nds.html">
+   What is Data Science?
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/data.html">
+     Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/tools_for_nds.html">
+   Tools for Neural Data Science
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/spreadsheets.html">
+     Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/spreadsheets_limits.html">
+     Limitations of Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/reproducibility.html">
+     Reproducibility
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/sci_prog_lang.html">
+     Scientific Programming Languages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/which_lang.html">
+     Which language to use?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/libs.html">
+     Libraries and packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/why_python.html">
+     Why Python for this Course?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/class_tech.html">
+   Technologies Used in this Class
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/lms.html">
+     Learning Management System
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/teams.html">
+     MS Teams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/communication.html">
+     Communication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/videos.html">
+     Course Videos
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/coding.html">
+   Coding Tools
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/python.html">
+     Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/datacamp.html">
+     DataCamp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/py4e.html">
+     Python for Everybody (PY4E)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/terminal.html">
+     The Terminal and Command Line
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/jupyter.html">
+     Jupyter
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/markdown.html">
+     Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/cocalc.html">
+     CoCalc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/github.html">
+     GitHub
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/alltogether.html">
+   Putting It All Together
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/get_going.html">
+   Get Going!
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Introducing Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/introduction.html">
+   Introducing Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/getting_help.html">
+   Getting Help with Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/variables-and-assignment.html">
+   Variables and Assignment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/types-conversion.html">
+   Data Types and Conversion
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/built-in.html">
+   Python Built-Ins
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/lists.html">
+   Lists
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/dictionaries.html">
+   Dictionaries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/for-loops.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     for
+    </span>
+   </code>
+   Loops
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/conditionals.html">
+   Conditionals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/pandas-dataframes.html">
+   pandas DataFrames
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/looping-data-files.html">
+   Looping Over Data Files
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Visualizing Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/introduction.html">
+   Introduction to Data Visualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/plotting.html">
+   Introduction to Plotting with Matplotlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/proc_vs_oo.html">
+   Procedural versus Object-Oriented Plotting in Matplotlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/subplots.html">
+   Subplots
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/plotting_types.html">
+   Thinking About Data for Plotting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/seaborn.html">
+   Introduction to Plotting with Seaborn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/human_factors.html">
+   Accessibility and Human Factors in Plotting
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Exploratory Data Analysis
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction to EDA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="repeated_measures.html">
+   Working with Repeated Measures Data
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Data Cleaning - Dealing with Outliers
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Single Unit Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/introduction.html">
+   Introduction to Single Unit Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/single_unit_intro.html">
+   Single Unit Data and Spike Trains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/intro_spike_trains.html">
+   Introduction to Spike Train Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/ten_intensities.html">
+   Ten intensities — A bigger data set
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/heat_maps.html">
+   Heat Maps
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/intro_multielec_data.html">
+   Introducing Multielectrode Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/import_multielec_data.html">
+   Importing Multielectrode Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/pandas_multielec.html">
+   Working with Multielectrode Data in pandas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/corr_spike_trains.html">
+   Correlating spike trains
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/introduction.html">
+   Introduction to EEG/ERP Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/time_freq.html">
+   Time and Frequency Domains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/erps.html">
+   Event-Related Potentials (ERPs)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/components.html">
+   ERP Components
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../eeg/preprocessing.html">
+   Preprocessing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/filtering.html">
+     Filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/event_codes.html">
+     Event Codes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/epoching.html">
+     Epoching (Segmentation)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/artifacts.html">
+     Artifacts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/averaging.html">
+     Averaging
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../eeg/mne-python.html">
+   MNE-Python
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/mne_org.html">
+     Organization of MNE-Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/mne_classes.html">
+     MNE classes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  MRI Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/introduction.html">
+   Introduction to MRI Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine_learning/introduction.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../zrefs.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/eda/data_cleaning.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2Feda/data_cleaning.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/eda/data_cleaning.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#outlier-identification-and-removal">
+   Outlier Identification and Removal
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tukey-s-method">
+     Tukey’s method
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#standard-scores">
+     Standard scores
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#identifying-outliers">
+   Identifying outliers
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualizing-the-distribution">
+     Visualizing the distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#idenfity-outliers-in-a-dataframe">
+     Idenfity outliers in a DataFrame
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#marking-data-points-as-outliers">
+       Marking data points as outliers
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#standard-scores-z-transform">
+     Standard scores (
+     <em>
+      z
+     </em>
+     transform)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#write-column-of-standard-score-outliers">
+       Write column of standard score outliers
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-are-outliers-a-problem">
+   Why are outliers a problem?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#which-method-to-use">
+   Which method to use?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#an-empirical-study-addressing-outlier-removal-with-rt-data">
+     An empirical study addressing outlier removal with RT data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-to-do-with-outliers">
+   What to do with outliers
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ignore-them">
+     1. Ignore them
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#remove-them-from-the-data-set">
+     2. Remove them from the data set
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#replace-them-with-non-outlier-values">
+     3. Replace them with non-outlier values
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#replacing-outliers-with-mean-values">
+   Replacing outliers with mean values
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reporting-outlier-rejections">
+     Reporting outlier rejections
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#working-with-nested-data">
+   Working with nested data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#visualizing-the-cleaned-data">
+   Visualizing the cleaned data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#box-plots">
+     Box plots
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#before-outlier-correction">
+       Before outlier correction
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#after-outlier-correction">
+       After outlier correction
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kernel-density-estimates">
+     Kernel density estimates
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Before outlier correction
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       After outlier correction
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="data-cleaning-dealing-with-outliers">
+<h1>Data Cleaning - Dealing with Outliers<a class="headerlink" href="#data-cleaning-dealing-with-outliers" title="Permalink to this headline">¶</a></h1>
+<p>An important first step in data science is cleaning up your data. This includes identifying and removing data points that may be due to errors in data collection, or other factors that could lead us to make erroneous conclusions about the data. This is <em>not</em> the same as “cooking” your data — modifying it specifically to get the results you want. Data cleaning involves a set of methods that are specifically designed to identify and remove data points that are objectively anomalous — that is, you have objective reasons for removing them. Data cleaning steps should always be documented when you write up a study, and should be included in the code you share for analyses so that your procedures are transparent and reproducible.</p>
+<div class="section" id="outlier-identification-and-removal">
+<h2>Outlier Identification and Removal<a class="headerlink" href="#outlier-identification-and-removal" title="Permalink to this headline">¶</a></h2>
+<p><strong>Outliers</strong> are data points that are “significantly different” from the majority of data points in a data set. “Significantly different” is in quotes here, because this doesn’t not necessarily mean we use statistical testing to define outliers, and also that there several different definitions of “significant” that ca be used to identify outliers.</p>
+<div class="section" id="tukey-s-method">
+<h3>Tukey’s method<a class="headerlink" href="#tukey-s-method" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/John_Tukey">John Tukey</a>, <a class="reference external" href="https://scholar.google.com/scholar_lookup?&amp;journal=Exploratory+Data+Analysis&amp;author=Tukey+J.+W.&amp;publication_year=1977&amp;volume=Vol.%202">who was a driving force in the development of exploratory data analysis</a>, defined outliers as points more than <span class="math notranslate nohighlight">\(1.5 x IQR\)</span>. Recall that IQR is the <em>inter-quartile range</em>, which captures 50% of the data points in a data set. In a box plot (which Tukey invented), the IQR is the “box”, and 1.5 IQR are the extent of the “whiskers” in each direction from the median. We noted earlier that in box plots, outliers are represented as individual points in the plot, beyond the whiskers. Since Tukey invented box plots and this definition of outliers, it’s not surprising that they are identical. In general, outliers defined in this way will comprise approximately 1% of the data, if the data are approximately normally distributed.</p>
+<p><img alt="" src="../_images/boxplot_vs_pdf.png" /></p>
+<p><em>Image from <a class="reference external" href="https://en.wikipedia.org/wiki/User:Jhguch">Jhguch</a> and shared under the  <a class="reference external" href="https://creativecommons.org/licenses/by-sa/2.5/deed.en">Creative Commons Attribution-Share Alike 2.5 Generic</a> license, via Wikimedia Commons</em></p>
+</div>
+<div class="section" id="standard-scores">
+<h3>Standard scores<a class="headerlink" href="#standard-scores" title="Permalink to this headline">¶</a></h3>
+<p>An alternative method is to use standard scores. This is done by applying the <strong><em>z</em> transform</strong> to the data. This transform’s formula is:</p>
+<p>$z = \frac{x - \mu}{\sigma}$</p>
+<p>Where <span class="math notranslate nohighlight">\(x\)</span> is an individual data point, <span class="math notranslate nohighlight">\(\mu\)</span> is the mean of the data set, and <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation. In other words, the <em>z</em> transform takes a data set and transforms it so that its mean is zero (by subtracting the mean from every value), and its standard deviation as 1.</p>
+<p>Put another way, after we apply a <em>z</em> transform to a data set, the numerical values in the data set are not in their original units (be that milliseconds, or dollars, or whatever) but in units of standard deviations. So in a <em>z</em> transformed data set, a data point with a value of 1 would have had an original value that was 1 standard deviation from the mean. This is where the “standard” in “standard scores” comes from.</p>
+<p>Applying a <em>z</em> transform is also called <em>normalizing</em> the data set, because the <em>z</em> transform assumes that the data come from a normal distribution (also known as a Gaussian distribution, or the <em>bell curve</em>). The nice thing about standardizing a data set is that the values have fairly straightforward interpretations. In a normal distribution:</p>
+<ul class="simple">
+<li><p>68.27% of all values fall within ±1 standard deviation of the mean (<span class="math notranslate nohighlight">\(1 \sigma\)</span>),</p></li>
+<li><p>95.45% of all values fall within ±2 standard deviations of the mean (<span class="math notranslate nohighlight">\(2 \sigma\)</span>), and</p></li>
+<li><p>99.73% of all values fall within ±3 standard deviations of the mean (<span class="math notranslate nohighlight">\(3 \sigma\)</span>)</p></li>
+</ul>
+<img alt="M. W. Toews, CC BY 2.5 &lt;https://creativecommons.org/licenses/by/2.5&gt;, via Wikimedia Commons" src="./images/standard_deviation_diagram.svg" width=500>
+<p><em>Image from M. W. Toews, and shared under the  <a class="reference external" href="https://creativecommons.org/licenses/by-sa/2.5/deed.en">Creative Commons Attribution-Share Alike 2.5 Generic</a> license, via <a class="reference external" href="https://commons.wikimedia.org/wiki/File:Standard_deviation_diagram_micro.svg">Wikimedia Commons</a></em></p>
+<p>This means that if we define outliers as those values <em>z</em> &gt; 3 or <em>z</em> &lt; -3, then we will tend to reject about 0.25% of a data set. Sometimes, <em>z</em> ±2.5 <span class="math notranslate nohighlight">\(\sigma\)</span> is used instead. This will tend to reject more data points (typically around 2%).</p>
+</div>
+</div>
+<div class="section" id="identifying-outliers">
+<h2>Identifying outliers<a class="headerlink" href="#identifying-outliers" title="Permalink to this headline">¶</a></h2>
+<p>First, we’ll load in the same Flanker data set we used in the <span class="xref myst"><em>Repeated Measures</em></span> lesson:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/flanker_rt_data.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="visualizing-the-distribution">
+<h3>Visualizing the distribution<a class="headerlink" href="#visualizing-the-distribution" title="Permalink to this headline">¶</a></h3>
+<p>Let’s generate a box plot of the entire data set, organized by condition. This is the same as the first box plot in the <em>Repeated Measures</em> lesson.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">,</span>
+           <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+           <span class="n">x</span><span class="o">=</span><span class="s1">&#39;flankers&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;rt&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/data_cleaning_6_0.png" src="../_images/data_cleaning_6_0.png" />
+</div>
+</div>
+<p>Let’s also look at the distribution of values with a kernel density estimate:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span>
+           <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+           <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rt&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;flankers&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/data_cleaning_8_0.png" src="../_images/data_cleaning_8_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="idenfity-outliers-in-a-dataframe">
+<h3>Idenfity outliers in a DataFrame<a class="headerlink" href="#idenfity-outliers-in-a-dataframe" title="Permalink to this headline">¶</a></h3>
+<p>To define values based on the IQR, we first need to calculate the IQR. pandas doesn’t have a method for this specifically, but we can use the pandas <code class="docutils literal notranslate"><span class="pre">.quantile()</span></code> method with the argument 0.25 to reference the lower end of the IQR (the 0.25 quantile means the point below which 25% of data values lie), and 0.75 for the upper end of the IQR. Since IQR is defined as the range between the 25th and 75th quantiles, we can compute it be subtracting the difference between the two:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">q3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">iqr</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">iqr</span></code> represents the size of the box in the box plot of the data. Recall that our definition of outliers is 1.5 x IQR — the length of the whiskers in the box plot.</p>
+<p>We can now define the threshold for values we well call “outliers” (i.e., the length of the whiskers) based on <code class="docutils literal notranslate"><span class="pre">iqr</span></code>:””</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out_low</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">iqr</span>
+<span class="n">out_high</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">iqr</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>So <code class="docutils literal notranslate"><span class="pre">out_low</span></code> (the end of the bottom whisker) is 1.5 x IQR below q1 (the lower end of the box), and likewise for <code class="docutils literal notranslate"><span class="pre">out_high</span></code>.</p>
+<p>Recall from the <span class="xref myst">pandas</span> lesson that we can select values in a DataFrame using a Boolean mask. We can do that here to identify the rows of the DataFrame where the RT values are lower than 1.5 x IQR:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;rt&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">out_low</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0       False
+1       False
+2       False
+3       False
+4       False
+        ...  
+4284    False
+4285    False
+4286    False
+4287    False
+4288    False
+Name: rt, Length: 4289, dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p>The result will have values of <code class="docutils literal notranslate"><span class="pre">True</span></code> for those data points that are “low” outliers, and <code class="docutils literal notranslate"><span class="pre">False</span></code> for all other data points. We can count the number of these by passing the mask to <code class="docutils literal notranslate"><span class="pre">np.sum()</span></code> (since <code class="docutils literal notranslate"><span class="pre">True</span></code> = <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code> = <code class="docutils literal notranslate"><span class="pre">0</span></code>)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;rt&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">out_low</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can do the same to identify outliers at the high end of the range of values, using the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> operator this time:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;rt&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">out_high</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>110
+</pre></div>
+</div>
+</div>
+</div>
+<p>Consistent with what we saw in the box plot, there are more outliers at the high (slow RT) end of the distribution than at the low (fast RT) end.</p>
+<div class="section" id="marking-data-points-as-outliers">
+<h4>Marking data points as outliers<a class="headerlink" href="#marking-data-points-as-outliers" title="Permalink to this headline">¶</a></h4>
+<p>We’ll worry about what to do with outliers later — after we’ve described standard scores. For now, let’s make a column in <code class="docutils literal notranslate"><span class="pre">df</span></code> called <code class="docutils literal notranslate"><span class="pre">outliers_tukey</span></code> that is a Boolean mask: values of <code class="docutils literal notranslate"><span class="pre">True</span></code> in rows with outlier RT values, and <code class="docutils literal notranslate"><span class="pre">False</span></code> for all other rows.</p>
+<p>To do this, we want to combine the two masking operations above <code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">out_low</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">out_high</span></code>. We can do that using the OR <code class="docutils literal notranslate"><span class="pre">|</span></code> operator, as long as we include each of our masking operations in parentheses (this last bit is important, but easy to forget!):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;rt&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">out_low</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;rt&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">out_high</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0       False
+1       False
+2       False
+3       False
+4       False
+        ...  
+4284    False
+4285    False
+4286    False
+4287    False
+4288     True
+Name: rt, Length: 4289, dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p>It’s a bit hard to confirm that this works from the output above, but if we pass that whole expression to <code class="docutils literal notranslate"><span class="pre">np.sum()</span></code> we can see that the number of all <code class="docutils literal notranslate"><span class="pre">True</span></code> values is the same as the total of the <code class="docutils literal notranslate"><span class="pre">out_low</span></code> and <code class="docutils literal notranslate"><span class="pre">out_high</span></code> values reported above:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;rt&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">out_low</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;rt&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">out_high</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>120
+</pre></div>
+</div>
+</div>
+</div>
+<p>To actually use this expression to create a new column, we just have to assign the result to a new column name in <code class="docutils literal notranslate"><span class="pre">df</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_tukey&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;rt&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">out_low</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;rt&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">out_high</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>outliers_tukey</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>1</td>
+      <td>congruent</td>
+      <td>0.652072</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>2</td>
+      <td>neutral</td>
+      <td>0.644872</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>3</td>
+      <td>congruent</td>
+      <td>0.445182</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>4</td>
+      <td>neutral</td>
+      <td>0.525200</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>5</td>
+      <td>congruent</td>
+      <td>0.533328</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>And double-check the number, using the pandas <code class="docutils literal notranslate"><span class="pre">.sum()</span></code> method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_tukey&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>120
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="standard-scores-z-transform">
+<h3>Standard scores (<em>z</em> transform)<a class="headerlink" href="#standard-scores-z-transform" title="Permalink to this headline">¶</a></h3>
+<p>We can convert scores to standard scores very easily, using the <code class="docutils literal notranslate"><span class="pre">zscore()</span></code> function in <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">zscore</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>outliers_tukey</th>
+      <th>rt_z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>1</td>
+      <td>congruent</td>
+      <td>0.652072</td>
+      <td>False</td>
+      <td>1.526800</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>2</td>
+      <td>neutral</td>
+      <td>0.644872</td>
+      <td>False</td>
+      <td>1.456483</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>3</td>
+      <td>congruent</td>
+      <td>0.445182</td>
+      <td>False</td>
+      <td>-0.493736</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>4</td>
+      <td>neutral</td>
+      <td>0.525200</td>
+      <td>False</td>
+      <td>0.287737</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>5</td>
+      <td>congruent</td>
+      <td>0.533328</td>
+      <td>False</td>
+      <td>0.367119</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now we can identify outliers as those rows where <code class="docutils literal notranslate"><span class="pre">rt_z</span> <span class="pre">&gt;</span> <span class="pre">2.5</span></code> or <code class="docutils literal notranslate"><span class="pre">rt_z</span> <span class="pre">&lt;</span> <span class="pre">-2.5</span></code>. We’ll define a variable <code class="docutils literal notranslate"><span class="pre">z_thresh</span></code> because that way we can later change it to a different value (like 3) if we desire.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z_thresh</span> <span class="o">=</span> <span class="mf">2.5</span>
+<span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">z_thresh</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">z_thresh</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0       True
+1       True
+2       True
+3       True
+4       True
+        ... 
+4284    True
+4285    True
+4286    True
+4287    True
+4288    True
+Name: rt_z, Length: 4289, dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p>More simply, we can take the absolute value of <em>z</em> (which ignores the <code class="docutils literal notranslate"><span class="pre">-</span></code> sign):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">z_thresh</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0       False
+1       False
+2       False
+3       False
+4       False
+        ...  
+4284    False
+4285    False
+4286    False
+4287    False
+4288     True
+Name: rt_z, Length: 4289, dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p>The number of outliers identified this way is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">z_thresh</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>111
+</pre></div>
+</div>
+</div>
+</div>
+<p>You’ll note that there are actually fewer outliers defined this way as using the 1.5 x IQR (Tukey) method. Why is this? As noted earlier, Tukey’s threshold and <em>z</em> &gt;= 2.5 are only approximately the same, so we expect minor differences. However, we noted that the 1.5 x IQR range is a bit <em>wider</em> than <em>z</em> &gt; 2.5, meaning it should capture more data points and <em>fewer</em> values should be identified as outliers by Tukey’s method. Yet yere, more are. The reason for this is that both Tukey’s and the standard score methods assume our data are normally distributed, when in fact they are skewed, with more values at the high (slow RT) end than at the low (fast RT) end. Since the data don’t fit the assumptions of the methods we used, we get unexpected results.</p>
+<div class="section" id="write-column-of-standard-score-outliers">
+<h4>Write column of standard score outliers<a class="headerlink" href="#write-column-of-standard-score-outliers" title="Permalink to this headline">¶</a></h4>
+<p>We’ll worry about skewness a little later, but for now we will add a column marking outliers as defined this way, similarly to what we did above for the Tukey method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">3</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>outliers_tukey</th>
+      <th>rt_z</th>
+      <th>outliers_z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>1</td>
+      <td>congruent</td>
+      <td>0.652072</td>
+      <td>False</td>
+      <td>1.526800</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>2</td>
+      <td>neutral</td>
+      <td>0.644872</td>
+      <td>False</td>
+      <td>1.456483</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>3</td>
+      <td>congruent</td>
+      <td>0.445182</td>
+      <td>False</td>
+      <td>-0.493736</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>4</td>
+      <td>neutral</td>
+      <td>0.525200</td>
+      <td>False</td>
+      <td>0.287737</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>5</td>
+      <td>congruent</td>
+      <td>0.533328</td>
+      <td>False</td>
+      <td>0.367119</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="why-are-outliers-a-problem">
+<h2>Why are outliers a problem?<a class="headerlink" href="#why-are-outliers-a-problem" title="Permalink to this headline">¶</a></h2>
+<p>Outliers are a problem because they have disproportionate <em>leverage</em> on statistical properties of the data, such as the mean and variance. We can see this by creating a small, simulated data set from a normal distribution, then replacing one value with either an extremely different or just slightly different data point. Let’s do this, and compare the means and standard deviations in each case. We use NumPy’s <code class="docutils literal notranslate"><span class="pre">np.random.default_rng().normal()</span></code> function to do this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create array with mean=0, standard deviation=1, and 10 data values</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean of data with no outliers:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Standard deviation of data with no outliers:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.64201836 -0.3321611  -1.23836306 -0.80113763  0.16419021  0.7021216
+  1.69919147 -0.23715346  0.92439728 -0.69347369]
+Mean of data with no outliers: 0.08296
+Standard deviation of data with no outliers: 0.86185
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_not_extreme</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="c1"># replace last value in array with outlier</span>
+<span class="n">data_not_extreme</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_not_extreme</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean of data with minor outlier:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data_not_extreme</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Standard deviation of data with minor outlier:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data_not_extreme</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.64201836 -0.3321611  -1.23836306 -0.80113763  0.16419021  0.7021216
+  1.69919147 -0.23715346  0.92439728  3.        ]
+Mean of data with minor outlier: 0.45231
+Standard deviation of data with minor outlier: 1.18195
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_extreme</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="c1"># replace last value in array with outlier</span>
+<span class="n">data_extreme</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_extreme</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean of data with extreme outlier:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data_extreme</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Standard deviation of data with extreme outlier:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data_extreme</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.64201836 -0.3321611  -1.23836306 -0.80113763  0.16419021  0.7021216
+  1.69919147 -0.23715346  0.92439728 10.        ]
+Mean of data with extreme outlier: 1.15231
+Standard deviation of data with extreme outlier: 3.06166
+</pre></div>
+</div>
+</div>
+</div>
+<p>From the above we can see that a larger outlier has a larger impact on both the mean and variance of the data. Also remember, when looking at the information above, that the true population mean of the data (as specified in the arguments to the random number generator) is 0 and the true standard deviation is 1. Using this normal distribution makes it easy to see that outliers bias our statistics away from the true population mean and variance.</p>
+<p>The impact of outliers is often less extreme — in the above examples, our data set comprised only 10 values, and so making one an outlier meant that 10% of data points were outliers — whereas by the definitions above, we would normally expect only 1–2% of data points to be outliers.</p>
+<p>If we re-run the simulations with a data set of 100 values and one outlier, you can see that the impact of even an extreme outlier is much reduced:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create array with mean=0, standard deviation=1, and 10 data values</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean of data with no outliers:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Standard deviation of data with no outliers:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.2751596  -1.01290863 -0.19071994  0.14846965  0.77418424  0.88644408
+  1.06481478 -0.10193842 -0.30698548 -0.92920303 -1.43363265  0.36051921
+  0.92020304 -0.52525941 -0.54365134 -1.08367924  0.17085871 -0.98838298
+ -0.60851424  0.60107082  2.01915171  0.53320467  0.84979475 -1.22449953
+ -0.17718899  1.46799481 -0.74569698 -1.72841652 -0.07955425 -0.09514787
+  0.84706884 -1.17319954 -0.12592138 -1.41045172  0.15183162 -1.24683741
+  0.64863814 -0.16140242  0.78603205 -0.21693486  0.16652128  0.70864286
+  1.69086239  1.23880632  0.18692139  0.86079932 -1.16275661  0.43076064
+ -0.11207821  0.79937698  0.36003478  0.20407531  0.56916357 -0.3839921
+  0.89451546 -0.22117153 -0.68392217 -1.05570411 -1.55886204 -0.10117272
+ -0.03672987  0.64219845 -1.06674268 -1.41958592 -0.63422748 -1.32428958
+  0.67175429 -0.74167368 -0.08246884  1.54705731 -1.60234047  0.23541329
+  0.580935   -1.17666565 -1.4579787   0.22419163 -1.61481797  0.68351828
+ -0.87928953  0.4493025   0.34569893  1.32435875 -1.23535352  1.23636585
+ -1.68222281 -1.70769834  0.71528012  0.01962522  0.02623001  2.87146727
+ -1.96881482  0.68719731  1.22678398 -0.35385597  1.13112608 -0.15102693
+  0.45127279 -0.36897966 -0.53011295 -1.03955224]
+Mean of data with no outliers: -0.06779
+Standard deviation of data with no outliers: 0.95568
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_extreme</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="c1"># replace last value in array with outlier</span>
+<span class="n">data_extreme</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_extreme</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean of data with extreme outlier:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data_extreme</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Standard deviation of data with extreme outlier:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data_extreme</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.2751596  -1.01290863 -0.19071994  0.14846965  0.77418424  0.88644408
+  1.06481478 -0.10193842 -0.30698548 -0.92920303 -1.43363265  0.36051921
+  0.92020304 -0.52525941 -0.54365134 -1.08367924  0.17085871 -0.98838298
+ -0.60851424  0.60107082  2.01915171  0.53320467  0.84979475 -1.22449953
+ -0.17718899  1.46799481 -0.74569698 -1.72841652 -0.07955425 -0.09514787
+  0.84706884 -1.17319954 -0.12592138 -1.41045172  0.15183162 -1.24683741
+  0.64863814 -0.16140242  0.78603205 -0.21693486  0.16652128  0.70864286
+  1.69086239  1.23880632  0.18692139  0.86079932 -1.16275661  0.43076064
+ -0.11207821  0.79937698  0.36003478  0.20407531  0.56916357 -0.3839921
+  0.89451546 -0.22117153 -0.68392217 -1.05570411 -1.55886204 -0.10117272
+ -0.03672987  0.64219845 -1.06674268 -1.41958592 -0.63422748 -1.32428958
+  0.67175429 -0.74167368 -0.08246884  1.54705731 -1.60234047  0.23541329
+  0.580935   -1.17666565 -1.4579787   0.22419163 -1.61481797  0.68351828
+ -0.87928953  0.4493025   0.34569893  1.32435875 -1.23535352  1.23636585
+ -1.68222281 -1.70769834  0.71528012  0.01962522  0.02623001  2.87146727
+ -1.96881482  0.68719731  1.22678398 -0.35385597  1.13112608 -0.15102693
+  0.45127279 -0.36897966 -0.53011295 10.        ]
+Mean of data with extreme outlier: 0.04261
+Standard deviation of data with extreme outlier: 1.38033
+</pre></div>
+</div>
+</div>
+</div>
+<p>The impact of an individual outlier is thus dependent on the size of the data set, and indeed in many data sets comprising a large number of data points, the impact of one outlier (or even 1% of the data values being outliers) can be quite minimal.</p>
+<p>However, the impact of an outlier is also proportionate to its size, relative to the other values in the data set. Here we use 100 as the anomalous value, rather than 10, again in a data set with 100 values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_extreme</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="c1"># replace last value in array with outlier</span>
+<span class="n">data_extreme</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_extreme</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean of data with extreme outlier:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data_extreme</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Standard deviation of data with extreme outlier:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data_extreme</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 2.75159605e-01 -1.01290863e+00 -1.90719945e-01  1.48469655e-01
+  7.74184241e-01  8.86444078e-01  1.06481478e+00 -1.01938419e-01
+ -3.06985478e-01 -9.29203035e-01 -1.43363265e+00  3.60519214e-01
+  9.20203044e-01 -5.25259412e-01 -5.43651340e-01 -1.08367924e+00
+  1.70858713e-01 -9.88382976e-01 -6.08514241e-01  6.01070821e-01
+  2.01915171e+00  5.33204668e-01  8.49794745e-01 -1.22449953e+00
+ -1.77188992e-01  1.46799481e+00 -7.45696980e-01 -1.72841652e+00
+ -7.95542499e-02 -9.51478675e-02  8.47068839e-01 -1.17319954e+00
+ -1.25921382e-01 -1.41045172e+00  1.51831623e-01 -1.24683741e+00
+  6.48638144e-01 -1.61402416e-01  7.86032052e-01 -2.16934859e-01
+  1.66521279e-01  7.08642861e-01  1.69086239e+00  1.23880632e+00
+  1.86921390e-01  8.60799321e-01 -1.16275661e+00  4.30760641e-01
+ -1.12078214e-01  7.99376983e-01  3.60034784e-01  2.04075311e-01
+  5.69163574e-01 -3.83992100e-01  8.94515456e-01 -2.21171526e-01
+ -6.83922167e-01 -1.05570411e+00 -1.55886204e+00 -1.01172723e-01
+ -3.67298705e-02  6.42198451e-01 -1.06674268e+00 -1.41958592e+00
+ -6.34227483e-01 -1.32428958e+00  6.71754287e-01 -7.41673684e-01
+ -8.24688400e-02  1.54705731e+00 -1.60234047e+00  2.35413286e-01
+  5.80934997e-01 -1.17666565e+00 -1.45797870e+00  2.24191632e-01
+ -1.61481797e+00  6.83518282e-01 -8.79289529e-01  4.49302500e-01
+  3.45698929e-01  1.32435875e+00 -1.23535352e+00  1.23636585e+00
+ -1.68222281e+00 -1.70769834e+00  7.15280118e-01  1.96252172e-02
+  2.62300125e-02  2.87146727e+00 -1.96881482e+00  6.87197313e-01
+  1.22678398e+00 -3.53855969e-01  1.13112608e+00 -1.51026927e-01
+  4.51272793e-01 -3.68979657e-01 -5.30112950e-01  1.00000000e+02]
+Mean of data with extreme outlier: 0.94261
+Standard deviation of data with extreme outlier: 10.00093
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now the impact of this 1% of the data is much more extreme. In some data sets, it is unlikely or even impossible to have very extreme outliers. For example, in the Flanker study we’re working with, the lower bound of RT is 0, and the upper bound is 1000 ms, because if a participant didn’t make a response iwthin 1 s of the stimulus, the trial automatically ended without recording a response. However, in some data sets more extreme values are possible. For example, a technical problem with a neuroimaging system, such as EEG or single-unit recording electrodes, could result in very extreme values relative to normal physiologically-plausible values.</p>
+</div>
+<div class="section" id="which-method-to-use">
+<h2>Which method to use?<a class="headerlink" href="#which-method-to-use" title="Permalink to this headline">¶</a></h2>
+<p>If you look at the image idescribing the Tukey method above, you can see that the range of the distribution covered by <span class="math notranslate nohighlight">\(1.5 x IQR\)</span> is just slightly larger than 2.5 <span class="math notranslate nohighlight">\(\sigma\)</span>. So, the Tukey method is roughly equivalent to using a <em>z</em> threshold of ±2.5. The <span class="math notranslate nohighlight">\(1.5 x IQR\)</span> range is slightly wider than <em>z</em> = 2.5, and so may on average identify slightly fewer data points as outliers, but the result is probably negligible in practice. However, many researchers use <em>z</em> &gt; 3 as their threshold for outliers, which will tend to identify fewer outliers than the Tukey method.</p>
+<p>Since box plots are a great — and well-known — way of visualizing data distributions, there is a logic to using the <span class="math notranslate nohighlight">\(1.5 x IQR\)</span> method to identify outliers since the results will be consistent. However, the approximate equivalence between the Tukey method and <em>z</em> = 2.5 is <em>only true if the data are normally distributed</em>. For skewed data, like RT data, this method may exclude too many outliers. In particular, it will tend to exclude more long RT values than short RT values, even though many of the long RT values are likely valid (especially in a case like the present experiment, where trials were cut off at 1 s, preventing really long RTs).</p>
+<div class="section" id="an-empirical-study-addressing-outlier-removal-with-rt-data">
+<h3>An empirical study addressing outlier removal with RT data<a class="headerlink" href="#an-empirical-study-addressing-outlier-removal-with-rt-data" title="Permalink to this headline">¶</a></h3>
+<p>Berger and Kiefer (<a class="reference external" href="https://doi.org/10.3389/fpsyg.2021.675558">2021</a>) performed a study in which they simulated many samples of reaction times, and introduced either more- or less-extreme outliers into the data. Essentially this was a more sophisticated version of the simulations shown above, and using the natural properties of RT data, and simulating an experiment with different conditions. Berger and Kiefer compared Tukey’s method, the <em>z</em> transform method using thresholds of both 2 and 3, and several other methods, as well as simply leaving outliers in the data. Since this was simulated data, the authors knew the true values of the mean and standard deviation in each data set, which allowed them to compare each method to the “truth” — something we never have the luxury of knowing in experimental psychology and neuroscience.</p>
+<p>Berger and Kiefer found that the <em>z</em> transform method was the best choice. With RT data, as noted above, Tukey’s method excluded too many data points on the long-RT side of the distribution. This had two negative impacts: firstly, it made the data appear more normally distributed than it really was, and secondly, it biased the statistical analyses towards false positives (Type 1 errors) — finding statistically significant differences between conditions when they were not present in the “true” data. Berger and Kiefer also observed that <em>not</em> rejecting outliers was the worst choice. The outliers led to a high rate of false negative results (Type 2 errors), meaning that true differences between conditions were not found to be statistically significant, due to the presence of outliers.</p>
+<p>The <em>z</em> transform was not perfect (and we cannot expect any method to be), but it was more balanced in not rejecting disproportionately more long RTs than short RTs, rejecting fewer data points overall, and biasing the statistical analyses the least. Since in general, with experimental data we want to only exclude truly anomalous data points, I suggest using a <em>z</em> threshold of 3 for outlier removal. Using a threshold of 2 or 2.5 will naturally exclude more data points, increasing the likelihood that valid data is excluded.</p>
+<p>It’s also important to note that trying different outlier removal methods on a real data set, or even different <em>z</em> thresholds to define outliers, introduces a component of <em>researcher bias</em> (or <em>researcher degrees of freedom</em>) into the analysis. Once you start doing this, it because easy to choose a method based on what “looks right” — which is, ultimately, what the researcher <em>thinks</em> the data should look like, not the true nature of the data. For this reason, parameters such as outlier definition method and threshold should be chosen prior to performing the analyses (ideally, <span class="xref myst">preregistering</span> the plan even before running the experiment).</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="what-to-do-with-outliers">
+<h2>What to do with outliers<a class="headerlink" href="#what-to-do-with-outliers" title="Permalink to this headline">¶</a></h2>
+<p>We have three basic options for outliers:</p>
+<ol class="simple">
+<li><p>Ignore them — just include them in the data and all analyses</p></li>
+<li><p>Remove them completely from the DataFrame</p></li>
+<li><p>Replace them with non-outlier values</p></li>
+</ol>
+<div class="section" id="ignore-them">
+<h3>1. Ignore them<a class="headerlink" href="#ignore-them" title="Permalink to this headline">¶</a></h3>
+<p>Some scientists fundamentally do not believe in rejecting outliers. In working with data from human or animal participants, one can argue that any behavioural response is possibly valid, and outliers may represent interesting data points for any number of reasons (e.g., an exceptionally slow RT may mean the person spent a lot of time thinking about the stimulus and trying to decide on a response).</p>
+<p>Another reason to consider not removing outliers (or using some other definition of outliers) is if the data are not actually normally distributed. Indeed, the RT data we have been working with are not normally distributed, they are skewed - an issue which we will address below. Skew is a relatively minor violation of normality. More generally, although the normal distribution is very common in nature, not all data is normally distributed, and so it is worth examining the distribution of your data (one reason we spend so much time looking at box plots, histograms, and other visualizations of distributions).</p>
+<p>On the other hand, outliers can arise for reasons that really aren’t of experimental interest (<a class="reference external" href="https://doi.org/10.1037/h0083285">McCormack &amp; Wright, 1964)</a>. For instance, in the present data set we have a few very short RTs from true measurement error. In the box plot of the data, we can see 2–3 data points in each flanker condition below 100–200 ms. It is nearly impossible for a typical human to respond to a stimulus in less than this amount of time, particularly when some decision (like which way an arrow is pointing) is required first (<a class="reference external" href="https://dx.doi.org/10.1093/acprof:oso/9780195070019.001.0001">Luce, 1991</a>; <a class="reference external" href="https://dx.doi.org/10.1007/BF03395630">Whelan, 2008</a>). So rather than being scientifically interesting, these outliers probably reflect trials when the participant accidentally pressed a response button. Likewise, exceptionally long RTs could reflect trials on which the participant thought they pressed the button then realized they didn’t, trials where the participant got distracted, or sneezed and didn’t see the stimulus, etc.. As noted above, Berger and Kiefer (2021) found that not rejecting outliers decreased the likelihood of finding statistically significant differences, when those differences were actually present in the data.</p>
+<p>My general advice is not to ignore outliers, unless you have strong, principled reasons as to why outliers might be interesting (or not actually outliers, if the distribution is not normal) and how you would interpret them.</p>
+</div>
+<div class="section" id="remove-them-from-the-data-set">
+<h3>2. Remove them from the data set<a class="headerlink" href="#remove-them-from-the-data-set" title="Permalink to this headline">¶</a></h3>
+<p>Removing data points — known as <strong>trimming</strong> or <strong>truncation</strong> — is acceptable in some cases, but problematic in others. For repeated measures data, it’s often fine to remove outliers at the individual participant level, since we have many other samples of the measurement (i.e., the repeated measures, such as trials). On the other hand, if we only have one measurement for a particular “unit” of the experimental design (e.g., one measurement from each participant, in each condition), then we might not want to completely lose that data point. This is especially true for data that will be analyzed statistically with a <em>t</em> test or ANOVA, because these methods cannot handle missing values.</p>
+</div>
+<div class="section" id="replace-them-with-non-outlier-values">
+<h3>3. Replace them with non-outlier values<a class="headerlink" href="#replace-them-with-non-outlier-values" title="Permalink to this headline">¶</a></h3>
+<p>Another approach to dealing with outliers is to replace them with a less-outlying value. This could be the mean value, or the most extreme value that is not considered an outlier. Replacing an outlier with the mean value basically “neutralizes” that data point, since it is equivalent to the mean it doesn’t alter the mean  of the data points. However, it does artificially reduce the variance in the data a bit, because variance is, by definition, the amount by which any data point differs from the mean. But if you are only replacing 1–2% of your data values, the impact on variance should be fairly small. Also note that, properly, the mean that is used as the replacement value should be computed only from all of the <em>non-outlier</em> data values. This is because a major reason to replace or remove outliers in the first place is that they have disproportionate influence on the mean.</p>
+<p>Replacing the outlier with the most-extreme non-outlier value will preserve variance contributed by that data point, but reduce the variance relative to retaining the outlier value. Likewise, the impact on the mean will not be neutral, but it will be rather small. Note that an assumption of replacing the outlier value with another, relatively extreme (relative to the mean), value is that the outlier was actually a valid measurement, perhaps with some noise in it. Since we don’t know for sure what the true value of the data was, in principle it seems better to replace outliers with the mean.</p>
+</div>
+</div>
+<div class="section" id="replacing-outliers-with-mean-values">
+<h2>Replacing outliers with mean values<a class="headerlink" href="#replacing-outliers-with-mean-values" title="Permalink to this headline">¶</a></h2>
+<p>Based on the information above, we will approach outliers in the Flanker data set by applying a <em>z</em> transform, defining outliers as those values with <span class="math notranslate nohighlight">\(\lvert z \lvert \gt 3\)</span>, and replace these values with the mean (where the mean is calculated excluding the outlier values).</p>
+<p>First, as we did above, we’ll define <code class="docutils literal notranslate"><span class="pre">z_thresh</span></code> as 3 and fill the <code class="docutils literal notranslate"><span class="pre">outliers_z</span></code> column with <code class="docutils literal notranslate"><span class="pre">True</span></code> where <span class="math notranslate nohighlight">\(\lvert z \lvert \gt 3\)</span> and <code class="docutils literal notranslate"><span class="pre">False</span></code> for all other rows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z_thresh</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">z_thresh</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next we’ll create a column containing the mean RT. To exclude the outlier values in computing this, we select only the rows where <code class="docutils literal notranslate"><span class="pre">outliers_z</span></code> is False:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">][</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>outliers_tukey</th>
+      <th>rt_z</th>
+      <th>outliers_z</th>
+      <th>rt_mean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>1</td>
+      <td>congruent</td>
+      <td>0.652072</td>
+      <td>False</td>
+      <td>1.526800</td>
+      <td>False</td>
+      <td>0.49191</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>2</td>
+      <td>neutral</td>
+      <td>0.644872</td>
+      <td>False</td>
+      <td>1.456483</td>
+      <td>False</td>
+      <td>0.49191</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>3</td>
+      <td>congruent</td>
+      <td>0.445182</td>
+      <td>False</td>
+      <td>-0.493736</td>
+      <td>False</td>
+      <td>0.49191</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>4</td>
+      <td>neutral</td>
+      <td>0.525200</td>
+      <td>False</td>
+      <td>0.287737</td>
+      <td>False</td>
+      <td>0.49191</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>5</td>
+      <td>congruent</td>
+      <td>0.533328</td>
+      <td>False</td>
+      <td>0.367119</td>
+      <td>False</td>
+      <td>0.49191</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Finally, we fill a new column, <code class="docutils literal notranslate"><span class="pre">rt_clean</span></code>, with either the original RT value (for non-outliers), or the mean RT (for outliers). The way that we create a new pandas column, contingent on the values of another column, is using the <code class="docutils literal notranslate"><span class="pre">np.where()</span></code> function. This is essentially a way of running an <code class="docutils literal notranslate"><span class="pre">if-else</span></code> conditional statement on each row in a pandas column. <code class="docutils literal notranslate"><span class="pre">np.where()</span></code> takes three arguments, which are (in order), the conditional statement, the value to fill in the new column if the conditional is true, and finally the value to fill in if the conditional is false.</p>
+<p>So the code below tests, for each row, whether <code class="docutils literal notranslate"><span class="pre">outliers_z</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>. If it is (i.e., an outlier), the mean RT is filled in; otherwise the original RT value for that trial is copied to the <code class="docutils literal notranslate"><span class="pre">clean_rt</span></code> column. The three arguments to <code class="docutils literal notranslate"><span class="pre">np.where()</span></code> are each shown on their own line, to make it a little more readable:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_clean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> 
+                          <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_mean&#39;</span><span class="p">],</span> 
+                          <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>outliers_tukey</th>
+      <th>rt_z</th>
+      <th>outliers_z</th>
+      <th>rt_mean</th>
+      <th>rt_clean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>1</td>
+      <td>congruent</td>
+      <td>0.652072</td>
+      <td>False</td>
+      <td>1.526800</td>
+      <td>False</td>
+      <td>0.49191</td>
+      <td>0.652072</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>2</td>
+      <td>neutral</td>
+      <td>0.644872</td>
+      <td>False</td>
+      <td>1.456483</td>
+      <td>False</td>
+      <td>0.49191</td>
+      <td>0.644872</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>3</td>
+      <td>congruent</td>
+      <td>0.445182</td>
+      <td>False</td>
+      <td>-0.493736</td>
+      <td>False</td>
+      <td>0.49191</td>
+      <td>0.445182</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>4</td>
+      <td>neutral</td>
+      <td>0.525200</td>
+      <td>False</td>
+      <td>0.287737</td>
+      <td>False</td>
+      <td>0.49191</td>
+      <td>0.525200</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>5</td>
+      <td>congruent</td>
+      <td>0.533328</td>
+      <td>False</td>
+      <td>0.367119</td>
+      <td>False</td>
+      <td>0.49191</td>
+      <td>0.533328</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Although the first few rows in this DataFrame were not identified as outliers, we can confirm that this procedure worked by filtering the DataFrame to only show us rows where <code class="docutils literal notranslate"><span class="pre">outliers_z</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>outliers_tukey</th>
+      <th>rt_z</th>
+      <th>outliers_z</th>
+      <th>rt_mean</th>
+      <th>rt_clean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>37</th>
+      <td>s25</td>
+      <td>2</td>
+      <td>6</td>
+      <td>neutral</td>
+      <td>0.917223</td>
+      <td>True</td>
+      <td>4.116328</td>
+      <td>True</td>
+      <td>0.49191</td>
+      <td>0.49191</td>
+    </tr>
+    <tr>
+      <th>117</th>
+      <td>s25</td>
+      <td>4</td>
+      <td>22</td>
+      <td>incongruent</td>
+      <td>0.817285</td>
+      <td>True</td>
+      <td>3.140311</td>
+      <td>True</td>
+      <td>0.49191</td>
+      <td>0.49191</td>
+    </tr>
+    <tr>
+      <th>227</th>
+      <td>s18</td>
+      <td>3</td>
+      <td>4</td>
+      <td>neutral</td>
+      <td>0.806528</td>
+      <td>True</td>
+      <td>3.035256</td>
+      <td>True</td>
+      <td>0.49191</td>
+      <td>0.49191</td>
+    </tr>
+    <tr>
+      <th>518</th>
+      <td>s22</td>
+      <td>2</td>
+      <td>7</td>
+      <td>incongruent</td>
+      <td>0.817863</td>
+      <td>True</td>
+      <td>3.145955</td>
+      <td>True</td>
+      <td>0.49191</td>
+      <td>0.49191</td>
+    </tr>
+    <tr>
+      <th>841</th>
+      <td>s8</td>
+      <td>2</td>
+      <td>11</td>
+      <td>congruent</td>
+      <td>0.056265</td>
+      <td>True</td>
+      <td>-4.291995</td>
+      <td>True</td>
+      <td>0.49191</td>
+      <td>0.49191</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4195</th>
+      <td>s15</td>
+      <td>3</td>
+      <td>3</td>
+      <td>congruent</td>
+      <td>0.853705</td>
+      <td>True</td>
+      <td>3.495996</td>
+      <td>True</td>
+      <td>0.49191</td>
+      <td>0.49191</td>
+    </tr>
+    <tr>
+      <th>4208</th>
+      <td>s15</td>
+      <td>3</td>
+      <td>16</td>
+      <td>incongruent</td>
+      <td>0.897641</td>
+      <td>True</td>
+      <td>3.925088</td>
+      <td>True</td>
+      <td>0.49191</td>
+      <td>0.49191</td>
+    </tr>
+    <tr>
+      <th>4231</th>
+      <td>s15</td>
+      <td>4</td>
+      <td>7</td>
+      <td>congruent</td>
+      <td>0.881503</td>
+      <td>True</td>
+      <td>3.767480</td>
+      <td>True</td>
+      <td>0.49191</td>
+      <td>0.49191</td>
+    </tr>
+    <tr>
+      <th>4262</th>
+      <td>s15</td>
+      <td>5</td>
+      <td>6</td>
+      <td>incongruent</td>
+      <td>0.853477</td>
+      <td>True</td>
+      <td>3.493770</td>
+      <td>True</td>
+      <td>0.49191</td>
+      <td>0.49191</td>
+    </tr>
+    <tr>
+      <th>4279</th>
+      <td>s15</td>
+      <td>5</td>
+      <td>23</td>
+      <td>neutral</td>
+      <td>0.845636</td>
+      <td>True</td>
+      <td>3.417194</td>
+      <td>True</td>
+      <td>0.49191</td>
+      <td>0.49191</td>
+    </tr>
+  </tbody>
+</table>
+<p>66 rows × 10 columns</p>
+</div></div></div>
+</div>
+<div class="section" id="reporting-outlier-rejections">
+<h3>Reporting outlier rejections<a class="headerlink" href="#reporting-outlier-rejections" title="Permalink to this headline">¶</a></h3>
+<p>In any report describing your data, you should state:</p>
+<ul class="simple">
+<li><p>the method you used to identify outliers</p></li>
+<li><p>how you dealt with outliers</p></li>
+<li><p>what proportion of the data were identified as outliers, and thus treated</p></li>
+</ul>
+<p>To get this last value, we can simply compute the number of <code class="docutils literal notranslate"><span class="pre">True</span></code> values in <code class="docutils literal notranslate"><span class="pre">outliers_z</span></code>, divided by the total number of trials (rows):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outliers_removed</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+
+<span class="c1"># Convert proportion to percent, and round to 2 decimal places</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">outliers_removed</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="s2">&quot;</span><span class="si">% o</span><span class="s2">f the data identified as outliers and replaced with mean value.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.54 % of the data identified as outliers and replaced with mean value.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="working-with-nested-data">
+<h2>Working with nested data<a class="headerlink" href="#working-with-nested-data" title="Permalink to this headline">¶</a></h2>
+<p>All of the above was correct, for data without nesting or repeated measures. The reason for this caveat is that with nested data, what constitutes an “outlier” for one source of data (e.g., one participant) may be a very reasonable value for another person. This is perhaps most intuitive if we think about an experiment comparing older and younger adults. With age, RTs on average get longer. So slow RT that is an outlier for an 18 year old university student may be about the average RT for someone who is 80 years old.</p>
+<p>To properly address the nested structure of data in identifying and correcting outliers, we can use the same steps as above, but using the split-apply-combine approach provided by pandas <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> method. In other words, we split the data by participant, apply the outlier detection and correction steps, and then combine the data into a new column in the DataFrame.</p>
+<p>Since we’ve added lots of columns above, let’s start fresh by re-loading the DataFrame from the file:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/flanker_rt_data.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s split by participant and apply the <em>z</em> transform to the split data. pandas has a useful method, <code class="docutils literal notranslate"><span class="pre">.transform()</span></code>, that allows us to run a non-pandas function on a selection from a DataFrame. So we group by participant, select only the <code class="docutils literal notranslate"><span class="pre">rt</span></code> column to operate on, and then <code class="docutils literal notranslate"><span class="pre">.transform(stats.zscore)</span></code> and assign this to a new column in the DataFrame, <code class="docutils literal notranslate"><span class="pre">rt_z</span></code>. Note that when we pass a function to <code class="docutils literal notranslate"><span class="pre">.apply()</span></code>, we <em>do not</em> put parentheses after the name of the function we are using. That is, if we were running <code class="docutils literal notranslate"><span class="pre">stats.zscore</span></code> on its own (see above), we would use <code class="docutils literal notranslate"><span class="pre">stats.zscore(df['rt'])</span></code>. But since the we have already selected the data that we are passing with <code class="docutils literal notranslate"><span class="pre">.transform()</span></code>, we don’t use the parentheses with the function call.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participant&#39;</span><span class="p">)[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">zscore</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>rt_z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1570</th>
+      <td>s1</td>
+      <td>5</td>
+      <td>14</td>
+      <td>congruent</td>
+      <td>0.481326</td>
+      <td>0.161549</td>
+    </tr>
+    <tr>
+      <th>1364</th>
+      <td>s2</td>
+      <td>3</td>
+      <td>30</td>
+      <td>incongruent</td>
+      <td>0.465915</td>
+      <td>-0.158973</td>
+    </tr>
+    <tr>
+      <th>3905</th>
+      <td>s19</td>
+      <td>4</td>
+      <td>1</td>
+      <td>incongruent</td>
+      <td>0.626911</td>
+      <td>0.645877</td>
+    </tr>
+    <tr>
+      <th>1602</th>
+      <td>s13</td>
+      <td>1</td>
+      <td>14</td>
+      <td>incongruent</td>
+      <td>0.412979</td>
+      <td>-0.658176</td>
+    </tr>
+    <tr>
+      <th>2345</th>
+      <td>s26</td>
+      <td>4</td>
+      <td>31</td>
+      <td>neutral</td>
+      <td>0.440964</td>
+      <td>-1.309528</td>
+    </tr>
+    <tr>
+      <th>3163</th>
+      <td>s23</td>
+      <td>5</td>
+      <td>21</td>
+      <td>incongruent</td>
+      <td>0.533921</td>
+      <td>-0.169128</td>
+    </tr>
+    <tr>
+      <th>785</th>
+      <td>s11</td>
+      <td>5</td>
+      <td>18</td>
+      <td>neutral</td>
+      <td>0.533653</td>
+      <td>1.406787</td>
+    </tr>
+    <tr>
+      <th>2410</th>
+      <td>s14</td>
+      <td>2</td>
+      <td>1</td>
+      <td>neutral</td>
+      <td>0.581021</td>
+      <td>1.887808</td>
+    </tr>
+    <tr>
+      <th>264</th>
+      <td>s18</td>
+      <td>4</td>
+      <td>9</td>
+      <td>congruent</td>
+      <td>0.393558</td>
+      <td>-1.408164</td>
+    </tr>
+    <tr>
+      <th>3308</th>
+      <td>s27</td>
+      <td>5</td>
+      <td>6</td>
+      <td>neutral</td>
+      <td>0.601618</td>
+      <td>1.728681</td>
+    </tr>
+    <tr>
+      <th>496</th>
+      <td>s22</td>
+      <td>1</td>
+      <td>17</td>
+      <td>incongruent</td>
+      <td>0.441949</td>
+      <td>0.003149</td>
+    </tr>
+    <tr>
+      <th>568</th>
+      <td>s22</td>
+      <td>3</td>
+      <td>25</td>
+      <td>incongruent</td>
+      <td>0.313848</td>
+      <td>-1.563505</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Likewise, we need to compute the mean RT within participants, so again we split by participant and then compute the within-participant mean. Since pandas has a <code class="docutils literal notranslate"><span class="pre">.mean()</span></code> method, we don’t need to use <code class="docutils literal notranslate"><span class="pre">.apply()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participant&#39;</span><span class="p">)[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>rt_z</th>
+      <th>rt_mean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>1</td>
+      <td>congruent</td>
+      <td>0.652072</td>
+      <td>1.822298</td>
+      <td>0.480044</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>2</td>
+      <td>neutral</td>
+      <td>0.644872</td>
+      <td>1.746028</td>
+      <td>0.480044</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>3</td>
+      <td>congruent</td>
+      <td>0.445182</td>
+      <td>-0.369295</td>
+      <td>0.480044</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>4</td>
+      <td>neutral</td>
+      <td>0.525200</td>
+      <td>0.478337</td>
+      <td>0.480044</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>5</td>
+      <td>congruent</td>
+      <td>0.533328</td>
+      <td>0.564439</td>
+      <td>0.480044</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># view sample of rows to confirm RT varies by participant</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>rt_z</th>
+      <th>rt_mean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>943</th>
+      <td>s8</td>
+      <td>5</td>
+      <td>17</td>
+      <td>neutral</td>
+      <td>0.517592</td>
+      <td>0.457214</td>
+      <td>0.461109</td>
+    </tr>
+    <tr>
+      <th>3499</th>
+      <td>s20</td>
+      <td>1</td>
+      <td>8</td>
+      <td>neutral</td>
+      <td>0.498040</td>
+      <td>0.034691</td>
+      <td>0.495173</td>
+    </tr>
+    <tr>
+      <th>622</th>
+      <td>s22</td>
+      <td>5</td>
+      <td>15</td>
+      <td>congruent</td>
+      <td>0.361959</td>
+      <td>-0.975114</td>
+      <td>0.441692</td>
+    </tr>
+    <tr>
+      <th>3009</th>
+      <td>s6</td>
+      <td>5</td>
+      <td>25</td>
+      <td>neutral</td>
+      <td>0.452540</td>
+      <td>-0.157465</td>
+      <td>0.472783</td>
+    </tr>
+    <tr>
+      <th>519</th>
+      <td>s22</td>
+      <td>2</td>
+      <td>8</td>
+      <td>neutral</td>
+      <td>0.457882</td>
+      <td>0.198004</td>
+      <td>0.441692</td>
+    </tr>
+    <tr>
+      <th>669</th>
+      <td>s11</td>
+      <td>1</td>
+      <td>30</td>
+      <td>neutral</td>
+      <td>0.409572</td>
+      <td>-0.604736</td>
+      <td>0.446875</td>
+    </tr>
+    <tr>
+      <th>1657</th>
+      <td>s13</td>
+      <td>3</td>
+      <td>5</td>
+      <td>neutral</td>
+      <td>0.505019</td>
+      <td>0.773239</td>
+      <td>0.455300</td>
+    </tr>
+    <tr>
+      <th>842</th>
+      <td>s8</td>
+      <td>2</td>
+      <td>12</td>
+      <td>congruent</td>
+      <td>0.497603</td>
+      <td>0.295408</td>
+      <td>0.461109</td>
+    </tr>
+    <tr>
+      <th>646</th>
+      <td>s11</td>
+      <td>1</td>
+      <td>7</td>
+      <td>incongruent</td>
+      <td>0.453586</td>
+      <td>0.108794</td>
+      <td>0.446875</td>
+    </tr>
+    <tr>
+      <th>3886</th>
+      <td>s19</td>
+      <td>3</td>
+      <td>13</td>
+      <td>neutral</td>
+      <td>0.612937</td>
+      <td>0.489959</td>
+      <td>0.569024</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Finally, we can use <code class="docutils literal notranslate"><span class="pre">np.where()</span></code> to find outliers and replace them with each individual’s mean RT. Below, we do this in one line of code, which is more compact and efficient than we did above. Earlier, we first created a column, <code class="docutils literal notranslate"><span class="pre">outliers_z</span></code> and then used that to determine which rows would be filled with the original RT versus the mean RT. However, creating a column in our DataFrame that we will never use again is not efficient use of resources. Here we simply use the threshold test as our conditional.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z_thresh</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_clean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">z_thresh</span><span class="p">,</span> 
+                          <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_mean&#39;</span><span class="p">],</span> 
+                          <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">])</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>rt_z</th>
+      <th>rt_mean</th>
+      <th>rt_clean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2407</th>
+      <td>s14</td>
+      <td>1</td>
+      <td>30</td>
+      <td>neutral</td>
+      <td>0.481373</td>
+      <td>0.449321</td>
+      <td>0.450247</td>
+      <td>0.481373</td>
+    </tr>
+    <tr>
+      <th>965</th>
+      <td>s24</td>
+      <td>1</td>
+      <td>7</td>
+      <td>congruent</td>
+      <td>0.524815</td>
+      <td>-0.619188</td>
+      <td>0.585129</td>
+      <td>0.524815</td>
+    </tr>
+    <tr>
+      <th>4233</th>
+      <td>s15</td>
+      <td>4</td>
+      <td>9</td>
+      <td>neutral</td>
+      <td>0.505455</td>
+      <td>-0.562191</td>
+      <td>0.564044</td>
+      <td>0.505455</td>
+    </tr>
+    <tr>
+      <th>3965</th>
+      <td>s19</td>
+      <td>5</td>
+      <td>29</td>
+      <td>congruent</td>
+      <td>0.416727</td>
+      <td>-1.699265</td>
+      <td>0.569024</td>
+      <td>0.416727</td>
+    </tr>
+    <tr>
+      <th>2865</th>
+      <td>s6</td>
+      <td>1</td>
+      <td>9</td>
+      <td>neutral</td>
+      <td>0.365066</td>
+      <td>-0.837885</td>
+      <td>0.472783</td>
+      <td>0.365066</td>
+    </tr>
+    <tr>
+      <th>902</th>
+      <td>s8</td>
+      <td>4</td>
+      <td>8</td>
+      <td>neutral</td>
+      <td>0.441632</td>
+      <td>-0.157663</td>
+      <td>0.461109</td>
+      <td>0.441632</td>
+    </tr>
+    <tr>
+      <th>764</th>
+      <td>s11</td>
+      <td>4</td>
+      <td>29</td>
+      <td>incongruent</td>
+      <td>0.525660</td>
+      <td>1.277210</td>
+      <td>0.446875</td>
+      <td>0.525660</td>
+    </tr>
+    <tr>
+      <th>3616</th>
+      <td>s20</td>
+      <td>4</td>
+      <td>29</td>
+      <td>incongruent</td>
+      <td>0.510000</td>
+      <td>0.179379</td>
+      <td>0.495173</td>
+      <td>0.510000</td>
+    </tr>
+    <tr>
+      <th>1739</th>
+      <td>s13</td>
+      <td>5</td>
+      <td>23</td>
+      <td>neutral</td>
+      <td>0.384951</td>
+      <td>-1.094074</td>
+      <td>0.455300</td>
+      <td>0.384951</td>
+    </tr>
+    <tr>
+      <th>2241</th>
+      <td>s26</td>
+      <td>1</td>
+      <td>23</td>
+      <td>incongruent</td>
+      <td>0.536449</td>
+      <td>-0.206621</td>
+      <td>0.554337</td>
+      <td>0.536449</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Since a random sample of 10 rows may not show any where <em>z</em> actually exceeded our outlier threshold, we can use filtering to view only those rows where the absolute value of <em>z</em> was greater than our threshold, to confirm that in those rows <code class="docutils literal notranslate"><span class="pre">rt_clean</span></code> is the same as <code class="docutils literal notranslate"><span class="pre">rt_mean</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">z_thresh</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>rt_z</th>
+      <th>rt_mean</th>
+      <th>rt_clean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>26</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>27</td>
+      <td>incongruent</td>
+      <td>0.757437</td>
+      <td>2.938435</td>
+      <td>0.480044</td>
+      <td>0.480044</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>s25</td>
+      <td>2</td>
+      <td>6</td>
+      <td>neutral</td>
+      <td>0.917223</td>
+      <td>4.631054</td>
+      <td>0.480044</td>
+      <td>0.480044</td>
+    </tr>
+    <tr>
+      <th>90</th>
+      <td>s25</td>
+      <td>3</td>
+      <td>27</td>
+      <td>congruent</td>
+      <td>0.693357</td>
+      <td>2.259632</td>
+      <td>0.480044</td>
+      <td>0.480044</td>
+    </tr>
+    <tr>
+      <th>117</th>
+      <td>s25</td>
+      <td>4</td>
+      <td>22</td>
+      <td>incongruent</td>
+      <td>0.817285</td>
+      <td>3.572408</td>
+      <td>0.480044</td>
+      <td>0.480044</td>
+    </tr>
+    <tr>
+      <th>141</th>
+      <td>s25</td>
+      <td>5</td>
+      <td>14</td>
+      <td>incongruent</td>
+      <td>0.721394</td>
+      <td>2.556630</td>
+      <td>0.480044</td>
+      <td>0.480044</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4208</th>
+      <td>s15</td>
+      <td>3</td>
+      <td>16</td>
+      <td>incongruent</td>
+      <td>0.897641</td>
+      <td>3.201033</td>
+      <td>0.564044</td>
+      <td>0.564044</td>
+    </tr>
+    <tr>
+      <th>4231</th>
+      <td>s15</td>
+      <td>4</td>
+      <td>7</td>
+      <td>congruent</td>
+      <td>0.881503</td>
+      <td>3.046180</td>
+      <td>0.564044</td>
+      <td>0.564044</td>
+    </tr>
+    <tr>
+      <th>4262</th>
+      <td>s15</td>
+      <td>5</td>
+      <td>6</td>
+      <td>incongruent</td>
+      <td>0.853477</td>
+      <td>2.777256</td>
+      <td>0.564044</td>
+      <td>0.564044</td>
+    </tr>
+    <tr>
+      <th>4279</th>
+      <td>s15</td>
+      <td>5</td>
+      <td>23</td>
+      <td>neutral</td>
+      <td>0.845636</td>
+      <td>2.702019</td>
+      <td>0.564044</td>
+      <td>0.564044</td>
+    </tr>
+    <tr>
+      <th>4288</th>
+      <td>s15</td>
+      <td>5</td>
+      <td>32</td>
+      <td>congruent</td>
+      <td>0.789597</td>
+      <td>2.164295</td>
+      <td>0.564044</td>
+      <td>0.564044</td>
+    </tr>
+  </tbody>
+</table>
+<p>185 rows × 8 columns</p>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="visualizing-the-cleaned-data">
+<h2>Visualizing the cleaned data<a class="headerlink" href="#visualizing-the-cleaned-data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="box-plots">
+<h3>Box plots<a class="headerlink" href="#box-plots" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="before-outlier-correction">
+<h4>Before outlier correction<a class="headerlink" href="#before-outlier-correction" title="Permalink to this headline">¶</a></h4>
+<p>Let’s generate a box plot of the original RT values for reference (this is the same as the one plotted at the top of this lesson).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">,</span>
+           <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+           <span class="n">x</span><span class="o">=</span><span class="s1">&#39;flankers&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;rt&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/data_cleaning_75_0.png" src="../_images/data_cleaning_75_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="after-outlier-correction">
+<h4>After outlier correction<a class="headerlink" href="#after-outlier-correction" title="Permalink to this headline">¶</a></h4>
+<p>Below, we can see that the number of short RT outliers is reduced, and those that remain are very close to the whiskers (and also greater than 200 ms). At the same time, the number of outliers at the long RT end of the distribution is also reduced, but there are still more of them than at the short end (which is reasonable, for RT data).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">,</span>
+           <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+           <span class="n">x</span><span class="o">=</span><span class="s1">&#39;flankers&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;rt_clean&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/data_cleaning_77_0.png" src="../_images/data_cleaning_77_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="kernel-density-estimates">
+<h3>Kernel density estimates<a class="headerlink" href="#kernel-density-estimates" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h4>Before outlier correction<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span>
+           <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+           <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rt&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;flankers&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/data_cleaning_79_0.png" src="../_images/data_cleaning_79_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h4>After outlier correction<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>We can see that the distributions look less “peaky” in the middle with long tails. The long tails were caused by the few outlier data points at extreme ends of the 0–1 s range.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span>
+           <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+           <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rt_clean&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;flankers&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/data_cleaning_81_0.png" src="../_images/data_cleaning_81_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inv_rt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>rt_z</th>
+      <th>rt_mean</th>
+      <th>rt_clean</th>
+      <th>inv_rt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>1</td>
+      <td>congruent</td>
+      <td>0.652072</td>
+      <td>1.822298</td>
+      <td>0.480044</td>
+      <td>0.652072</td>
+      <td>1.533573</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>2</td>
+      <td>neutral</td>
+      <td>0.644872</td>
+      <td>1.746028</td>
+      <td>0.480044</td>
+      <td>0.644872</td>
+      <td>1.550695</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>3</td>
+      <td>congruent</td>
+      <td>0.445182</td>
+      <td>-0.369295</td>
+      <td>0.480044</td>
+      <td>0.445182</td>
+      <td>2.246272</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>4</td>
+      <td>neutral</td>
+      <td>0.525200</td>
+      <td>0.478337</td>
+      <td>0.480044</td>
+      <td>0.525200</td>
+      <td>1.904037</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>5</td>
+      <td>congruent</td>
+      <td>0.533328</td>
+      <td>0.564439</td>
+      <td>0.480044</td>
+      <td>0.533328</td>
+      <td>1.875019</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now when we plot the data, we see some rather dramatic differences:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">,</span>
+           <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+           <span class="n">x</span><span class="o">=</span><span class="s1">&#39;flankers&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;inv_rt&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/data_cleaning_84_0.png" src="../_images/data_cleaning_84_0.png" />
+</div>
+</div>
+<p>One thing to recognize about both the inverse and log transforms is that they reverse the order of the data values. That is, 1 divided by a very large number results in a very small number (e.g., <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">1000</span> <span class="pre">=</span> <span class="pre">0.001</span></code>), where as 1 divided by a very small number results in a very large number (e.g., <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">0.001</span> <span class="pre">=</span> <span class="pre">1000</span></code>). Therefore in box plot above, the extremely large outlier value is actually caused by an extremely fast (short) RT. Notably as well, after the inverse transform <em>all</em> of the outliers are now at the short RT end of the distribution, whereas prior to transformation, most outliers were at the slow end of the distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;log_rt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>rt_z</th>
+      <th>rt_mean</th>
+      <th>rt_clean</th>
+      <th>inv_rt</th>
+      <th>log_rt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>1</td>
+      <td>congruent</td>
+      <td>0.652072</td>
+      <td>1.822298</td>
+      <td>0.480044</td>
+      <td>0.652072</td>
+      <td>1.533573</td>
+      <td>1.533573</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>2</td>
+      <td>neutral</td>
+      <td>0.644872</td>
+      <td>1.746028</td>
+      <td>0.480044</td>
+      <td>0.644872</td>
+      <td>1.550695</td>
+      <td>1.550695</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>3</td>
+      <td>congruent</td>
+      <td>0.445182</td>
+      <td>-0.369295</td>
+      <td>0.480044</td>
+      <td>0.445182</td>
+      <td>2.246272</td>
+      <td>2.246272</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>4</td>
+      <td>neutral</td>
+      <td>0.525200</td>
+      <td>0.478337</td>
+      <td>0.480044</td>
+      <td>0.525200</td>
+      <td>1.904037</td>
+      <td>1.904037</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>5</td>
+      <td>congruent</td>
+      <td>0.533328</td>
+      <td>0.564439</td>
+      <td>0.480044</td>
+      <td>0.533328</td>
+      <td>1.875019</td>
+      <td>1.875019</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now when we plot the data, we see less skew:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">,</span>
+           <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+           <span class="n">x</span><span class="o">=</span><span class="s1">&#39;flankers&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;log_rt&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/data_cleaning_92_0.png" src="../_images/data_cleaning_92_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df.query(&#39;(@q1 - 1.5 * @iqr) &lt;= rt &lt;= (@q3 + 1.5 * @iqr)&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./eda"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="repeated_measures.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Working with Repeated Measures Data</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../single_unit/introduction.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Introduction to Single Unit Data</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Aaron J Newman<br/>
+        
+            &copy; Copyright 2020-21. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script>
+                        window.ga = window.ga || function () {
+                            (ga.q = ga.q || []).push(arguments) };
+                        ga.l = +new Date;
+                        ga('create', 'UA-171426664-2', 'auto');
+                        ga('set', 'anonymizeIp', true);
+                        ga('send', 'pageview');
+                    </script>
+
+  </body>
+</html>

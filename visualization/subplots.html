@@ -1,0 +1,1225 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subplots &#8212; Data Science for Psychology and Neuroscience — in Python</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e2363ea40746bee74734a24ffefccd78.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="http://neuraldatascience.io/visualization/subplots.html" />
+    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Thinking About Data for Plotting" href="plotting_types.html" />
+    <link rel="prev" title="Procedural versus Object-Oriented Plotting in Matplotlib" href="proc_vs_oo.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/NESC3505_icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science for Psychology and Neuroscience — in Python</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  About This Course
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/why.html">
+   Start with why
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_objectives.html">
+   Learning Objectives for this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../syllabus.html">
+   Syllabus
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Pedagogy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/teaching_approach.html">
+   Teaching Approach
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/online_learning.html">
+   Hybrid Online Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/assessment_evaluation.html">
+   Assessment and Evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/constructivism.html">
+   Constructivism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/connectivism.html">
+   Connectivism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/authenticity.html">
+   Authenticity
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/21st_cen_skills.html">
+   21st Century Skills
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Open Software, Science, &amp; Education
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open.html">
+   Open Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/software.html">
+   Free Software
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/free_licenses.html">
+   Free and Open-Source Software Licenses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_science.html">
+   Open Science
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/peer_review.html">
+   Peer Review
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/for_profit.html">
+   For-Profit Publishing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/impact_factors.html">
+   Impact Factors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/novelty.html">
+   Novelty
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_publishing.html">
+   Open Publishing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/preregistration.html">
+   Preregistration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_methods.html">
+   Open Methods and Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/oer.html">
+   Open Educational Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/oer_this_course.html">
+   OERs in the Context of this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/licenses.html">
+   Licenses
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  How to Rock This Course
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_approach.html">
+   Learning Approach
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/mindset.html">
+   Mindset
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/errors_debugging.html">
+   Errors and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/teamwork.html">
+   Collaboration and Teamwork
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/introduction.html">
+   Getting Started with the Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/what_is_nds.html">
+   What is Data Science?
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/data.html">
+     Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/tools_for_nds.html">
+   Tools for Neural Data Science
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/spreadsheets.html">
+     Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/spreadsheets_limits.html">
+     Limitations of Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/reproducibility.html">
+     Reproducibility
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/sci_prog_lang.html">
+     Scientific Programming Languages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/which_lang.html">
+     Which language to use?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/libs.html">
+     Libraries and packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/why_python.html">
+     Why Python for this Course?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/class_tech.html">
+   Technologies Used in this Class
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/lms.html">
+     Learning Management System
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/teams.html">
+     MS Teams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/communication.html">
+     Communication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/videos.html">
+     Course Videos
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/coding.html">
+   Coding Tools
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/python.html">
+     Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/datacamp.html">
+     DataCamp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/py4e.html">
+     Python for Everybody (PY4E)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/terminal.html">
+     The Terminal and Command Line
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/jupyter.html">
+     Jupyter
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/markdown.html">
+     Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/cocalc.html">
+     CoCalc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/github.html">
+     GitHub
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/alltogether.html">
+   Putting It All Together
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/get_going.html">
+   Get Going!
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Introducing Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/introduction.html">
+   Introducing Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/getting_help.html">
+   Getting Help with Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/variables-and-assignment.html">
+   Variables and Assignment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/types-conversion.html">
+   Data Types and Conversion
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/built-in.html">
+   Python Built-Ins
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/lists.html">
+   Lists
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/dictionaries.html">
+   Dictionaries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/for-loops.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     for
+    </span>
+   </code>
+   Loops
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/conditionals.html">
+   Conditionals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/pandas-dataframes.html">
+   pandas DataFrames
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3/looping-data-files.html">
+   Looping Over Data Files
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Visualizing Data
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction to Data Visualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="plotting.html">
+   Introduction to Plotting with Matplotlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="proc_vs_oo.html">
+   Procedural versus Object-Oriented Plotting in Matplotlib
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Subplots
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="plotting_types.html">
+   Thinking About Data for Plotting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="seaborn.html">
+   Introduction to Plotting with Seaborn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="human_factors.html">
+   Accessibility and Human Factors in Plotting
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Exploratory Data Analysis
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/introduction.html">
+   Introduction to EDA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/repeated_measures.html">
+   Working with Repeated Measures Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/data_cleaning.html">
+   Data Cleaning - Dealing with Outliers
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Single Unit Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/introduction.html">
+   Introduction to Single Unit Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/single_unit_intro.html">
+   Single Unit Data and Spike Trains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/intro_spike_trains.html">
+   Introduction to Spike Train Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/ten_intensities.html">
+   Ten intensities — A bigger data set
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/heat_maps.html">
+   Heat Maps
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/intro_multielec_data.html">
+   Introducing Multielectrode Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/import_multielec_data.html">
+   Importing Multielectrode Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/pandas_multielec.html">
+   Working with Multielectrode Data in pandas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/corr_spike_trains.html">
+   Correlating spike trains
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/introduction.html">
+   Introduction to EEG/ERP Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/time_freq.html">
+   Time and Frequency Domains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/erps.html">
+   Event-Related Potentials (ERPs)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/components.html">
+   ERP Components
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../eeg/preprocessing.html">
+   Preprocessing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/filtering.html">
+     Filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/event_codes.html">
+     Event Codes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/epoching.html">
+     Epoching (Segmentation)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/artifacts.html">
+     Artifacts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/averaging.html">
+     Averaging
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../eeg/mne-python.html">
+   MNE-Python
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/mne_org.html">
+     Organization of MNE-Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/mne_classes.html">
+     MNE classes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  MRI Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/introduction.html">
+   Introduction to MRI Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine_learning/introduction.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../zrefs.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/visualization/subplots.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2Fvisualization/subplots.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/visualization/subplots.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#questions">
+   Questions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#learning-objectives">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d-subplots">
+   2D subplots
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-formatting-with-subplots">
+   Basic Formatting with subplots
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#figure-size">
+     Figure size
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#avoiding-overlap">
+     Avoiding overlap
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary-of-key-points">
+   Summary of Key Points
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="subplots">
+<h1>Subplots<a class="headerlink" href="#subplots" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<div class="section" id="questions">
+<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>How can I make a figure containing more than one plot?</p></li>
+</ul>
+</div>
+<div class="section" id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Generate figures with subplots, using object-oriented plotting in Matplotlib</p></li>
+<li><p>Modify properties of figures subplots, such as size and layout</p></li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>A great feature of Matplotlib is that you can create a single figure with multiple panels, or subplots. We’ll get lots of practice doing this in the section on single unit data.</p>
+<p>As you might have intuited, the <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code> function can be used to create a figure with multiple subplots. It’s default is to create a single (sub)plot, but we can create more subplots by passing arguments indicating the number of rows and columns of subplots we want (thinking of subplots as a 2D grid).</p>
+<p>For example, to create a figure with one row and two columns of subplots, we would use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can actually omit the <code class="docutils literal notranslate"><span class="pre">nrows=</span></code> and <code class="docutils literal notranslate"><span class="pre">ncols=</span></code> kwargs, and just use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Matplotlib assumes the first two arguments are the number of subplot rows and columns. This is more compact code, although less transparent/explicit than using <code class="docutils literal notranslate"><span class="pre">nrows=</span></code> and <code class="docutils literal notranslate"><span class="pre">ncols=</span></code></p>
+<p>Note that in the above examples, we have replaced <code class="docutils literal notranslate"><span class="pre">ax</span></code> with <code class="docutils literal notranslate"><span class="pre">axs</span></code>. This is a convention, not a requirement, but it makes explicit the fact that the <code class="docutils literal notranslate"><span class="pre">ax</span></code> variable now contains multiple axes objects, which is how we specify which subplot to draw into with any command.</p>
+<p>Try running the following code, which will generate a figure with two subplots, and print out what the <code class="docutils literal notranslate"><span class="pre">axs</span></code> object contains:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">axs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;AxesSubplot:&gt; &lt;AxesSubplot:&gt;]
+</pre></div>
+</div>
+<img alt="../_images/subplots_2_1.png" src="../_images/subplots_2_1.png" />
+</div>
+</div>
+<p>The output is a little confusing because the <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code> function generates an empty plot, but this appears under the result of printing the <code class="docutils literal notranslate"><span class="pre">axs</span></code>, even though the plot command was run first.</p>
+<p>Regardless, note that the <code class="docutils literal notranslate"><span class="pre">axs</span></code> object contains two <code class="docutils literal notranslate"><span class="pre">AxesSubplot</span></code> objects. This means that to access (and draw into) one of these obejcts, we can use indexing on <code class="docutils literal notranslate"><span class="pre">axs</span></code>. For example, to draw into the first subplot, we can use <code class="docutils literal notranslate"><span class="pre">axs[0]</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/subplots_4_0.png" src="../_images/subplots_4_0.png" />
+</div>
+</div>
+<p>To draw into the second subplot, we use <code class="docutils literal notranslate"><span class="pre">axs[1]</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># generate different data for second plot, going from 9 to 0</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/subplots_6_0.png" src="../_images/subplots_6_0.png" />
+</div>
+</div>
+<p>We can modify properties of each subplot separately, using their <code class="docutils literal notranslate"><span class="pre">axs</span></code> indices. We can also modify properties of the entire figure (such as an overall title) using <code class="docutils literal notranslate"><span class="pre">fig.</span></code> methods:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># First subplot</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Positive correlation&#39;</span><span class="p">)</span>
+
+<span class="c1"># Second subplot</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Negative correlation&#39;</span><span class="p">)</span>
+
+<span class="c1"># Set overall figure title</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Two types of perfect correlations&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/subplots_8_0.png" src="../_images/subplots_8_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="d-subplots">
+<h2>2D subplots<a class="headerlink" href="#d-subplots" title="Permalink to this headline">¶</a></h2>
+<p>When you have a figure with multiple rows and columns of subplots, the indexing of <code class="docutils literal notranslate"><span class="pre">AxesSubplot</span></code> objects is two-dimensional. This is similar to indexing a pandas DataFrame, where we might specify a position with [row, column] indexing (e.g., <code class="docutils literal notranslate"><span class="pre">df.iloc[1,</span> <span class="pre">2]</span></code> to get the second row, third column).</p>
+<p>The only tricky thing about this is that if you have a one-dimensional figure (i.e., one row and multiple columns, or one column and multiple rows), you only need to use a single index (the column or row position, respectively), as shown in the examples above. However, as soon as you generate a figure with multiple rows <em>and</em> columns, you need to use two-dimensional indexing.</p>
+<p>So for example, with one column but two rows, we can use the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># First subplot</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Positive correlation&#39;</span><span class="p">)</span>
+
+<span class="c1"># Second subplot</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Negative correlation&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/subplots_10_0.png" src="../_images/subplots_10_0.png" />
+</div>
+</div>
+<p>But when we have two rows <em>and</em> two columns, we need to use 2D indexing:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># First subplot</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Positive correlation&#39;</span><span class="p">)</span>
+
+<span class="c1"># Second subplot</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Negative correlation&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/subplots_12_0.png" src="../_images/subplots_12_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="basic-formatting-with-subplots">
+<h2>Basic Formatting with subplots<a class="headerlink" href="#basic-formatting-with-subplots" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="figure-size">
+<h3>Figure size<a class="headerlink" href="#figure-size" title="Permalink to this headline">¶</a></h3>
+<p>You might have noticed two annoying things about the above figures with subplots. Firstly, the subplots aren’t square, but our <em>x</em> and <em>y</em> axes cover the same range, so ideally they would be of the same length in the plot. We can set the figure size with an additional <code class="docutils literal notranslate"><span class="pre">figsize</span></code> kwarg to <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code>, giving it a list of <code class="docutils literal notranslate"><span class="pre">[width,</span> <span class="pre">height]</span></code>. Note that this specifies the width and height of the entire figure. So in the example below, since we are plotting two rows and one column, we make the height double the width:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>This can require some trial-and-error, because the height in this case also includes the plot titles, so the results will not look perfectly square.</p>
+</div>
+<div class="section" id="avoiding-overlap">
+<h3>Avoiding overlap<a class="headerlink" href="#avoiding-overlap" title="Permalink to this headline">¶</a></h3>
+<p>The other annoying thing is that, specifically in the two-row-one-column plot above, the title of the bottom subplot overlaps with the tick labels for the top <em>x</em> axis. Matplotlib has a handy function that automatically corrects this in most cases:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To put this altogether, try the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+
+<span class="c1"># First subplot</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Positive correlation&#39;</span><span class="p">)</span>
+
+<span class="c1"># Second subplot</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Negative correlation&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Two types of perfect correlations&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/subplots_14_0.png" src="../_images/subplots_14_0.png" />
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="summary-of-key-points">
+<h2>Summary of Key Points<a class="headerlink" href="#summary-of-key-points" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code>, we can generate figures containing multiple subplots</p></li>
+<li><p>The number of rows and columns of subplots in a figure is set by the <code class="docutils literal notranslate"><span class="pre">nrows=</span></code> and <code class="docutils literal notranslate"><span class="pre">ncols=</span></code> kwargs, or alternatively just providing the number of rows and columns as the first arguments to <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code></p></li>
+<li><p>When creating a figure with subplots, it’s good practice to assign the result to <code class="docutils literal notranslate"><span class="pre">fig,</span> <span class="pre">axs</span></code> rather than <code class="docutils literal notranslate"><span class="pre">fig,</span> <span class="pre">ax</span></code>, to reflect the fact that <code class="docutils literal notranslate"><span class="pre">axs</span></code> is an object containing all of the axes</p></li>
+<li><p>The different axes of a subplot are accessed (such as for drawing into, or modifying properties) using indexing, as in <code class="docutils literal notranslate"><span class="pre">axs[0]</span></code></p></li>
+<li><p>If a figure’s layout is two-dimensional (i.e., &gt; 1 rows and &gt; 1 columns), then two-dimensional indexing is required for axes (e.g., <code class="docutils literal notranslate"><span class="pre">axs[0,</span> <span class="pre">1]</span></code>)</p></li>
+<li><p>The figure’s overall size is set by the <code class="docutils literal notranslate"><span class="pre">figsize=</span></code> kwarg to <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code></p></li>
+<li><p>Avoid overlapping elements in subplots by running <code class="docutils literal notranslate"><span class="pre">plt.tight_layout()</span></code> right before <code class="docutils literal notranslate"><span class="pre">plt.show()</span></code></p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./visualization"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="proc_vs_oo.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Procedural versus Object-Oriented Plotting in Matplotlib</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="plotting_types.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Thinking About Data for Plotting</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Aaron J Newman<br/>
+        
+            &copy; Copyright 2020-21. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script>
+                        window.ga = window.ga || function () {
+                            (ga.q = ga.q || []).push(arguments) };
+                        ga.l = +new Date;
+                        ga('create', 'UA-171426664-2', 'auto');
+                        ga('set', 'anonymizeIp', true);
+                        ga('send', 'pageview');
+                    </script>
+
+  </body>
+</html>

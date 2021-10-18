@@ -1,0 +1,1244 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Introduction to Jupyter Notebooks in CoCalc &#8212; Data Science for Psychology and Neuroscience — in Python</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e2363ea40746bee74734a24ffefccd78.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="http://neuraldatascience.io/3/jupyter-cocalc.html" />
+    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/NESC3505_icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science for Psychology and Neuroscience — in Python</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  About This Course
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/why.html">
+   Start with why
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_objectives.html">
+   Learning Objectives for this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../syllabus.html">
+   Syllabus
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Pedagogy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/teaching_approach.html">
+   Teaching Approach
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/online_learning.html">
+   Hybrid Online Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/assessment_evaluation.html">
+   Assessment and Evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/constructivism.html">
+   Constructivism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/connectivism.html">
+   Connectivism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/authenticity.html">
+   Authenticity
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/21st_cen_skills.html">
+   21st Century Skills
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Open Software, Science, &amp; Education
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open.html">
+   Open Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/software.html">
+   Free Software
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/free_licenses.html">
+   Free and Open-Source Software Licenses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_science.html">
+   Open Science
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/peer_review.html">
+   Peer Review
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/for_profit.html">
+   For-Profit Publishing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/impact_factors.html">
+   Impact Factors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/novelty.html">
+   Novelty
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_publishing.html">
+   Open Publishing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/preregistration.html">
+   Preregistration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_methods.html">
+   Open Methods and Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/oer.html">
+   Open Educational Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/oer_this_course.html">
+   OERs in the Context of this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/licenses.html">
+   Licenses
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  How to Rock This Course
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_approach.html">
+   Learning Approach
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/mindset.html">
+   Mindset
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/errors_debugging.html">
+   Errors and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/teamwork.html">
+   Collaboration and Teamwork
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/introduction.html">
+   Getting Started with the Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/what_is_nds.html">
+   What is Data Science?
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/data.html">
+     Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/tools_for_nds.html">
+   Tools for Neural Data Science
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/spreadsheets.html">
+     Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/spreadsheets_limits.html">
+     Limitations of Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/reproducibility.html">
+     Reproducibility
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/sci_prog_lang.html">
+     Scientific Programming Languages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/which_lang.html">
+     Which language to use?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/libs.html">
+     Libraries and packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/why_python.html">
+     Why Python for this Course?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/class_tech.html">
+   Technologies Used in this Class
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/lms.html">
+     Learning Management System
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/teams.html">
+     MS Teams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/communication.html">
+     Communication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/videos.html">
+     Course Videos
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/coding.html">
+   Coding Tools
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/python.html">
+     Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/datacamp.html">
+     DataCamp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/py4e.html">
+     Python for Everybody (PY4E)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/terminal.html">
+     The Terminal and Command Line
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/jupyter.html">
+     Jupyter
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/markdown.html">
+     Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/cocalc.html">
+     CoCalc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/github.html">
+     GitHub
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/alltogether.html">
+   Putting It All Together
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/get_going.html">
+   Get Going!
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Introducing Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introducing Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_help.html">
+   Getting Help with Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="variables-and-assignment.html">
+   Variables and Assignment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="types-conversion.html">
+   Data Types and Conversion
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="built-in.html">
+   Python Built-Ins
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lists.html">
+   Lists
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dictionaries.html">
+   Dictionaries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="for-loops.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     for
+    </span>
+   </code>
+   Loops
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="conditionals.html">
+   Conditionals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="pandas-dataframes.html">
+   pandas DataFrames
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="looping-data-files.html">
+   Looping Over Data Files
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Visualizing Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/introduction.html">
+   Introduction to Data Visualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/plotting.html">
+   Introduction to Plotting with Matplotlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/proc_vs_oo.html">
+   Procedural versus Object-Oriented Plotting in Matplotlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/subplots.html">
+   Subplots
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/plotting_types.html">
+   Thinking About Data for Plotting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/seaborn.html">
+   Introduction to Plotting with Seaborn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/human_factors.html">
+   Accessibility and Human Factors in Plotting
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Exploratory Data Analysis
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/introduction.html">
+   Introduction to EDA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/repeated_measures.html">
+   Working with Repeated Measures Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/data_cleaning.html">
+   Data Cleaning - Dealing with Outliers
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Single Unit Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/introduction.html">
+   Introduction to Single Unit Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/single_unit_intro.html">
+   Single Unit Data and Spike Trains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/intro_spike_trains.html">
+   Introduction to Spike Train Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/ten_intensities.html">
+   Ten intensities — A bigger data set
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/heat_maps.html">
+   Heat Maps
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/intro_multielec_data.html">
+   Introducing Multielectrode Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/import_multielec_data.html">
+   Importing Multielectrode Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/pandas_multielec.html">
+   Working with Multielectrode Data in pandas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/corr_spike_trains.html">
+   Correlating spike trains
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/introduction.html">
+   Introduction to EEG/ERP Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/time_freq.html">
+   Time and Frequency Domains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/erps.html">
+   Event-Related Potentials (ERPs)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/components.html">
+   ERP Components
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../eeg/preprocessing.html">
+   Preprocessing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/filtering.html">
+     Filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/event_codes.html">
+     Event Codes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/epoching.html">
+     Epoching (Segmentation)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/artifacts.html">
+     Artifacts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/averaging.html">
+     Averaging
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../eeg/mne-python.html">
+   MNE-Python
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/mne_org.html">
+     Organization of MNE-Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/mne_classes.html">
+     MNE classes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  MRI Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/introduction.html">
+   Introduction to MRI Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine_learning/introduction.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../zrefs.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/3/jupyter-cocalc.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2F3/jupyter-cocalc.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/3/jupyter-cocalc.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#questions">
+   Questions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#learning-objectives">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jupyter-notebooks">
+   Jupyter notebooks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-bit-more-about-jupyter-notebooks">
+   A bit more about Jupyter notebooks
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#working-with-files">
+     Working With Files
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#running-kernels-and-items-in-memory">
+     Running Kernels, and Items in Memory
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#working-in-notebooks">
+     Working in Notebooks
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#help">
+     Help!
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#markdown">
+   Markdown
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lists-in-markdown">
+     Lists in Markdown
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#different-levels-of-headings">
+     Different levels of headings
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise">
+   Exercise
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="introduction-to-jupyter-notebooks-in-cocalc">
+<h1>Introduction to Jupyter Notebooks in CoCalc<a class="headerlink" href="#introduction-to-jupyter-notebooks-in-cocalc" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<div class="section" id="questions">
+<h2>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>How do I use CoCalc?</p></li>
+<li><p>How do I work with and navigate Jupyter notebooks in CoCalc?</p></li>
+</ul>
+</div>
+<div class="section" id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>be able to open a Jupyter notebook</p></li>
+<li><p>be able to navigate a Jupyter notebook</p></li>
+<li><p>be able to enter and run code in a Jupyter notebook</p></li>
+<li><p>be able to enter and format rich text in a Jupyter notebook, using Markdown</p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="jupyter-notebooks">
+<h2>Jupyter notebooks<a class="headerlink" href="#jupyter-notebooks" title="Permalink to this headline">¶</a></h2>
+<p>You are currently viewing a Jupyter notebook file on CoCalc. Jupyter notebooks are composed of <em>cells</em>. Cells can be of three types: code, Markdown, or raw. This cell you’re reading is Markdown, a simple language for formatting rich text. The cell below is a code cell, where you can write and run Python commands. Raw cells are “raw” text — they aren’t fancy-formatted Markdown, and they aren’t run-able as code. They also aren’t terribly useful.</p>
+<p>Cells have two modes: <strong>edit</strong> and <strong>command</strong>. Edit mode is indicated by a green border around the cell, while command mode has a blue border. In edit mode, you can type into the cell and edit it. In command mode, you can run the cell, or manipulate it in certain ways (e.g., deleting a whole cell, or moving it).</p>
+<p>This text you are currently reading is a Markdown cell. If you are viewing it in CoCalc, and click once on this text, the cell should become active in command mode, so you should see a blue border around it. If you double-click on this (or any other Markdown) cell, the outline will turn green, the text will change to a <em>fixed-width</em> font and you’ll see the Markdown formatting tags (like <code class="docutils literal notranslate"><span class="pre">#</span></code> for headings). Try it! Then hit Shift &amp; Enter to execute the cell (which applies and renders the Markdown formatting).</p>
+<p>So in summary:</p>
+<ul class="simple">
+<li><p>Single-clicking a cell will select it in Command mode</p></li>
+<li><p>Double-clicking a cell will put it in Edit mode</p></li>
+<li><p>Pressing the Shift &amp; Enter keys on your keyboard simultaneously will execute a cell. Execution will format a Markdown cell, or run the code in a code cell.</p></li>
+</ul>
+<p>Below is a code cell with some very simple Python code. You haven’t started learning Python yet, but as you can see, at its simplest Python can act like a calculator. Try executing the cell and see what happens.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+<p>Take note of a couple of things here. Firstly, The text to the left of the cell changed from <code class="docutils literal notranslate"><span class="pre">In:</span> <span class="pre">[]:</span></code> to <code class="docutils literal notranslate"><span class="pre">In</span> <span class="pre">[1]:</span></code> (or some number). “In” stands for “input”, and the number indicates that the cell was run, and the numbers increase sequentially as you run cells. In general, it’s a good idea to run Jupyter notebook cells sequentially, from top to bottom. But sometimes, when you’re writing and debugging your code, you’ll run them many times before you get it right, and sometimes you’ll run a few cells and then go back and run them again. So the numbers are useful in keeping track of what you’ve done, in what order. If a process takes a while to run, then the cell will show <code class="docutils literal notranslate"><span class="pre">In:</span> <span class="pre">[*]:</span></code> while the cell is running.</p>
+<p>The outputs (<code class="docutils literal notranslate"><span class="pre">Out</span></code>) are numbered to match the inputs. The more important thing to know about the <code class="docutils literal notranslate"><span class="pre">Out[]:</span></code> output is that it  <em>only reflects the last output from the cell</em>. In the example above, that’s OK, but check out what happens when you run the cell below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
+</pre></div>
+</div>
+</div>
+</div>
+<p>…you only see the output of the last line! This is normally not what you want. Thus in Jupyter if you want to see the output of commands you run in a cell, you should embed the command inside a <code class="docutils literal notranslate"><span class="pre">print()</span></code> statement, as shown below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+4
+6
+</pre></div>
+</div>
+</div>
+</div>
+<p>Soon in this workshop, you’ll learn about data <em>types</em>. For now, it’s worth noting that if you want to output text in Python, you need to put it inside quotation marks (Python doesn’t care if you use single or double quotes, as long as you start and finish with the same one). So, running the cell below produces an error (do it!):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">Hello</span> <span class="n">World</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;/var/folders/x0/pvpjfdzd39sc5rqvsk5lvv4m0000gn/T/ipykernel_73935/4293340409.py&quot;</span><span class="gt">, line </span><span class="mi">1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">Hello</span> <span class="n">World</span><span class="p">)</span>
+                <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax
+</pre></div>
+</div>
+</div>
+</div>
+<p>But this works as desired:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello world!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Even in code cells, you can add random commentary that&#39;s not Python code </span>
+<span class="c1"># as long as you start each line with a hash mark, like this line is.</span>
+
+<span class="c1"># These lines are called &quot;comments&quot; and it is good coding practice to use them.</span>
+
+<span class="c1"># Comments allow you to make notes about your code. When you&#39;re starting out, you may want to add comments so that the next time you look at your code, you remember what a particular line or section does. Or, you may want to leave a &quot;note to self&quot; if you want to come back and add things to a particular section later.</span>
+
+<span class="c1"># Although CoCalc &quot;wraps&quot; your comments to the width of the window, </span>
+<span class="c1"># not all programs do this. So it&#39;s good programming style to put in line breaks</span>
+<span class="c1"># manually for your comments, like this.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run this cell. We&#39;ll use it later.</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="a-bit-more-about-jupyter-notebooks">
+<h2>A bit more about Jupyter notebooks<a class="headerlink" href="#a-bit-more-about-jupyter-notebooks" title="Permalink to this headline">¶</a></h2>
+<p>The top of this window probably looks a bit intimidating, with a lot of menus and buttons. You’ll gradually get familiar with many of these functions, although some you may never use in this course. For now, we’ll go through the most important functions and concepts.</p>
+<div class="section" id="working-with-files">
+<h3>Working With Files<a class="headerlink" href="#working-with-files" title="Permalink to this headline">¶</a></h3>
+<p>In general, when using CoCalc you don’t need to explicitly save files. Notebooks are auto-saved so you don’t have to worry about it! But there is a button to manually save between auto-saves.</p>
+<p>Although for most of your work you will receive assignments with pre-made files to work in, for projects, for practice, or just for fun, you can create new files — including Jupyter notebooks but a variety of others as well. The <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">&gt;</span> <span class="pre">New</span></code> menu item will give you the options for different types of files you can create. All of your CoCalc files are associated with your account, and will last through the duration of the course — and even beyond! Your CoCalc account will not expire at the end of the course, although the paid upgrades to your account will. But you will still be able to use CoCalc and access your files after the course ends. The <code class="docutils literal notranslate"><span class="pre">File</span></code>menu also provides options for downloading your notebook files, including converting them from Jupyter notebooks to PDFs or other formats.</p>
+<p>You can have multiple files open at once, and they appear as tabs at the top of the CoCalc window. In general, the tabs/files you have open will stay there even when you close your browser window/tab or log out, so the next time you connect to CoCalc you’ll see those tabs still there. <strong>HOWEVER</strong> (and this is important), even if you leave your browser with the CoCalc window/tab open on your computer, CoCalc will “terminate” your running notebook after about 2 hours.</p>
+<p>If you have multiple files open, normally they’ll just appear as tabs across the top. However, over in the top right section of the window, you’ll find these buttons:
+<img alt="" src="../_images/frames.png" /> which allow you to divide the window into multiple “frames” and view multiple files at one time; each pane is itself sub-dividable into more frames!</p>
+<p><strong>Pro tip:</strong> Notebook files can get really long. CoCalc has a “Contents” button that will show you a table of contents for a notebook file. It makes this automatically from all the Markdown headings it finds. Find the Contents button above and click it to see.</p>
+</div>
+<div class="section" id="running-kernels-and-items-in-memory">
+<h3>Running Kernels, and Items in Memory<a class="headerlink" href="#running-kernels-and-items-in-memory" title="Permalink to this headline">¶</a></h3>
+<p>This may seem contradictory: how is it that the file is still open, but the notebook is terminated? The answer lies in the fact that when you open a notebook file, you are <em>also</em> starting a new Python <strong>kernel</strong> — a live, running instance of Python that will interpret your Python commands and produce output. Each notebook you open will start a new Python kernel. As long as the kernel is running, the things you do in Python will be stored in memory (RAM). This will make more sense as you start to use Python, but when you’re running Python, you generally don’t just run commands and get output. You also read data files into memory, and store the results of one command in memory for use in the next command. For example, a bit earlier in this notebook you were instructed to run a cell with the code:
+<code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">1</span></code></p>
+<p>This <em>assigned</em> a value of <code class="docutils literal notranslate"><span class="pre">1</span></code> to a <em>variable</em> named <code class="docutils literal notranslate"><span class="pre">x</span></code>. This is now stored in RAM in side this notebooks kernel, so now in the cell below if you type
+<code class="docutils literal notranslate"><span class="pre">print(x)</span></code> you will get the output <code class="docutils literal notranslate"><span class="pre">1</span></code>, because the variable <code class="docutils literal notranslate"><span class="pre">x</span></code> was stored in memory.</p>
+<p>However, if the notebook’s kernel terminates, then everything that was held in memory is erased. The next time you open or start to use the notebook, if you tried to run that <code class="docutils literal notranslate"><span class="pre">print(x)</span></code> command without running the cells above it, you would get an error, because <code class="docutils literal notranslate"><span class="pre">x</span></code> is no longer in memory. You would need to start at the top of the file and run all the commands again.</p>
+<p>In general, this isn’t a big deal. Python is very efficient, and for the most part we are working with reasonably small data sets so your code should not take long to run or re-run. It is important to understand this, though, because you will get confusing errors if you come back to your work after several hours, and try to just pick up where you left off.</p>
+<p>If you’re wondering why kernels are automatically terminated, it’s because CoCalc runs on cloud servers. Every active kernel is consuming resources (computer hardware and energy) at a data centre somewhere. Terminating “idle” kernels saves CoCalc’s operator money, as well as reducing the energy demands of the data centre.</p>
+<p>You’ll see at the top that there is a <code class="docutils literal notranslate"><span class="pre">Kernel</span></code> menu. That has a few options, including restarting a kernel manually (which will clear everything out of memory. You may want to do this sometimes as you’re working, to get a fresh start rather than trying to un-do errors you made.), running all the cells in the notebook (an easy way to get back to where you left off, when your kernel terminated), and clearing all of the output in the notebook.</p>
+<p><strong>Pro tip:</strong> In general, it’s a good idea to clear all output from a notebook when you restart the kernel, so you don’t get confused between old and new outputs.</p>
+</div>
+<div class="section" id="working-in-notebooks">
+<h3>Working in Notebooks<a class="headerlink" href="#working-in-notebooks" title="Permalink to this headline">¶</a></h3>
+<p>There is an <strong>undo</strong> function, which works similarly to other software you’ll have used, sequentially undoing things you’ve typed in cells. <strong>Importantly</strong>, <em>the undo function does <em>not</em> undo the results of commands you’ve run in Python</em>. Continuing with our previous example, this means that if you ran the Python command <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">1</span></code>, then ran “undo”, Jupyter would delete your typing, <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">1</span></code>. However, in the kernel’s memory, <code class="docutils literal notranslate"><span class="pre">x</span></code> would still equal <code class="docutils literal notranslate"><span class="pre">1</span></code>. So you could run <code class="docutils literal notranslate"><span class="pre">print(x)</span></code> the output would be <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+<p>CoCalc also offers <a class="reference external" href="https://doc.cocalc.com/time-travel.html">Time Travel</a>. This allows you to revert your notebook file to some specific, previous state. It’s essentially like hitting “undo” a large (and very specific) number of times, without the risk of carpal tunnel syndrome.</p>
+<p>You can insert a new cell right below whatever cell is currently active, either by pressing the “+” button under the menu, or using the <code class="docutils literal notranslate"><span class="pre">Insert</span></code> menu, or As long as no cell is in edit mode) pressing the <code class="docutils literal notranslate"><span class="pre">b</span></code> key on the keyboard to insert a new cell <em>b</em>elow the selected cell (or <code class="docutils literal notranslate"><span class="pre">a</span></code> to insert a cell <em>a</em>bove the selected one). The <code class="docutils literal notranslate"><span class="pre">Cell</span></code> menu also has a variety of useful tools for working with cells, which are pretty self-explanatory if you look at them.</p>
+<p>We encourage you to peruse the menus and randomly push buttons and try things in a notebook file. You will not break the internet (probably). Maybe first create a new notebook file first, though, and don’t mess this one up!</p>
+</div>
+<div class="section" id="help">
+<h3>Help!<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h3>
+<p>CoCalc has <a class="reference external" href="https://doc.cocalc.com/">extensive documentation</a>. You may want to read the <a class="reference external" href="https://doc.cocalc.com/teaching-students.html">Cocalc Student Guide</a>.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="markdown">
+<h2>Markdown<a class="headerlink" href="#markdown" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> is a “plain text formatting syntax” and a tool for converting such plain text to a formatted version, such as <a class="reference external" href="https://en.wikipedia.org/wiki/HTML">HTML</a> for display in a web page. There is a fundamental difference between plain text (.txt files) versus rich text (such as in Markdown, and also Microsoft Word or Google Docs). Rich text files display the text that you enter, and the formatting you choose (e.g., boldface), and hide the information telling your computer to make that text boldface “behind the scenes” in a complex file. In contrast, when you open a plain text file, what you see is literally the contents of that file, with nothing hiding in the background (except for a couple of hidden features, like markers for line breaks and tabs).</p>
+<p>So a plain text file can never contain formatting like boldface or italic. Markdown allows you to create a text file with special codes that you type to “mark” certain text for formatting, and then run a program on that text file to produce a formatted output. For example, text surrounded by <code class="docutils literal notranslate"><span class="pre">*one</span> <span class="pre">asterisk*</span></code> shows up in <em>italics</em>; text surrounded by <code class="docutils literal notranslate"><span class="pre">**two</span> <span class="pre">asterisks**</span></code> shows up as <strong>boldface</strong>.</p>
+<div class="section" id="lists-in-markdown">
+<h3>Lists in Markdown<a class="headerlink" href="#lists-in-markdown" title="Permalink to this headline">¶</a></h3>
+<p>You can make a bulleted list by starting each line of the list with a hyphen (<code class="docutils literal notranslate"><span class="pre">-</span></code>) followed by a space:</p>
+<ul class="simple">
+<li><p>this is a first list item</p></li>
+<li><p>this is another list item</p></li>
+</ul>
+<p>You can generate a numbered list by starting each line with a number, then a period, then a space. A nice feature is that if you start <em>every</em> item in your list with <code class="docutils literal notranslate"><span class="pre">1.</span> </code>, Markdown will auto-number your items:</p>
+<ol class="simple">
+<li><p>This is item 1</p></li>
+<li><p>This is item 2, even though the Markdown starts with <code class="docutils literal notranslate"><span class="pre">1.</span> </code></p></li>
+</ol>
+</div>
+<div class="section" id="different-levels-of-headings">
+<h3>Different levels of headings<a class="headerlink" href="#different-levels-of-headings" title="Permalink to this headline">¶</a></h3>
+<p>Different levels of headings can be indicated with hash marks; the more hash marks, the more deeply embedded a header is. So, the following:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">Heading</span> <span class="pre">1</span></code> = first-level heading (like the title at the very top of this page)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">Heading</span> <span class="pre">2</span></code> = second-level heading (like the title of the section titled ‘Markdown’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">###</span> <span class="pre">Heading</span> <span class="pre">3</span></code> = third-level heading (heading of this section)</p></li>
+<li><p>etc.</p></li>
+</ul>
+<p>While originally Markdown was designed to simplify creating web pages in HTML (the coding language for web pages), there are now a huge number of output formats available (e.g., PDF, Microsoft Word, ePub) in different applications, and many Markdown apps that allow you write and edit Markdown files while viewing a preview of the formatted output in another window alongside your Markdown text file.</p>
+<p>HTML — and by extension, Markdown — embodies a design philosophy of separating the content of a document from its formatting. That is, when writing the content, you focus on writing, not how it’s going to look, and then later, you apply formatting to make it look a certain way. This means that the same document can be formatted in virtually any possible way, with different fonts, sizes, etc.. It also provides consistency (e.g., you don’t have to remember to manually make every first-level heading a specific larger font size, and bold) and makes it very easy to produce professional-looking output without professional web design skills.</p>
+<p><a class="reference external" href="https://www.markdownguide.org/cheat-sheet/">You can see a Markdown cheatsheet here</a></p>
+</div>
+</div>
+<div class="section" id="exercise">
+<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h2>
+<p>Create a cell below this one, convert it to Markdown, and use Markdown to do the following:</p>
+<ul class="simple">
+<li><p>your name, with your last name in bold</p></li>
+<li><p>a bulleted list of names of people in your family</p></li>
+<li><p>a second-level heading that reads “Education”</p></li>
+<li><p>a numbered list of educational attainments, including your high school diploma and any university degrees</p></li>
+</ul>
+<p>Note: By default, new cells are code cells. Use the drop-down menu at the top (which will say “code”) to change it to a Markdown cell.</p>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>CoCalc is a cloud platform for working with Jupyter notebooks</p></li>
+<li><p>You can edit and run code in Jupyter notebooks. Results will appear in the notebook</p></li>
+<li><p>Jupyter notebooks can contain a mixture of code, Markdown, and raw cells</p></li>
+<li><p>Each Jupyter notebook runs a kernel (e.g, Python) that maintains information in RAM as long as it is running</p></li>
+<li><p>Restarting the kernel will clear everything from RAM for that notebook</p></li>
+<li><p>Operations occur in the order that you run cells in a notebook - not necessarily the order the cells appear in the notebook. It’s good practice to run cells in the order they appear in the notebook, and restart the kernel if you need to make changes and re-run</p></li>
+<li><p>Markdown is useful for annotating your code with rich text</p></li>
+<li><p>Comments can be put in code cells as well; Python ignores anything on a line after a <code class="docutils literal notranslate"><span class="pre">#</span></code></p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./3"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Aaron J Newman<br/>
+        
+            &copy; Copyright 2020-21. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script>
+                        window.ga = window.ga || function () {
+                            (ga.q = ga.q || []).push(arguments) };
+                        ga.l = +new Date;
+                        ga('create', 'UA-171426664-2', 'auto');
+                        ga('set', 'anonymizeIp', true);
+                        ga('send', 'pageview');
+                    </script>
+
+  </body>
+</html>

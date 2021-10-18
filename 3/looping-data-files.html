@@ -1,0 +1,1579 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Looping Over Data Files &#8212; Data Science for Psychology and Neuroscience — in Python</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e2363ea40746bee74734a24ffefccd78.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="http://neuraldatascience.io/3/looping-data-files.html" />
+    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Introduction to Data Visualization" href="../visualization/introduction.html" />
+    <link rel="prev" title="pandas DataFrames" href="pandas-dataframes.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/NESC3505_icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science for Psychology and Neuroscience — in Python</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  About This Course
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/why.html">
+   Start with why
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_objectives.html">
+   Learning Objectives for this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../syllabus.html">
+   Syllabus
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Pedagogy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/teaching_approach.html">
+   Teaching Approach
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/online_learning.html">
+   Hybrid Online Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/assessment_evaluation.html">
+   Assessment and Evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/constructivism.html">
+   Constructivism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/connectivism.html">
+   Connectivism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/authenticity.html">
+   Authenticity
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/21st_cen_skills.html">
+   21st Century Skills
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Open Software, Science, &amp; Education
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open.html">
+   Open Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/software.html">
+   Free Software
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/free_licenses.html">
+   Free and Open-Source Software Licenses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_science.html">
+   Open Science
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/peer_review.html">
+   Peer Review
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/for_profit.html">
+   For-Profit Publishing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/impact_factors.html">
+   Impact Factors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/novelty.html">
+   Novelty
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_publishing.html">
+   Open Publishing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/preregistration.html">
+   Preregistration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/open_methods.html">
+   Open Methods and Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/oer.html">
+   Open Educational Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/oer_this_course.html">
+   OERs in the Context of this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/licenses.html">
+   Licenses
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  How to Rock This Course
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/learning_approach.html">
+   Learning Approach
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/mindset.html">
+   Mindset
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/errors_debugging.html">
+   Errors and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1/teamwork.html">
+   Collaboration and Teamwork
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/introduction.html">
+   Getting Started with the Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/what_is_nds.html">
+   What is Data Science?
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/data.html">
+     Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/tools_for_nds.html">
+   Tools for Neural Data Science
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/spreadsheets.html">
+     Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/spreadsheets_limits.html">
+     Limitations of Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/reproducibility.html">
+     Reproducibility
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/sci_prog_lang.html">
+     Scientific Programming Languages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/which_lang.html">
+     Which language to use?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/libs.html">
+     Libraries and packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/why_python.html">
+     Why Python for this Course?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/class_tech.html">
+   Technologies Used in this Class
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/lms.html">
+     Learning Management System
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/teams.html">
+     MS Teams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/communication.html">
+     Communication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/videos.html">
+     Course Videos
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2/coding.html">
+   Coding Tools
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/python.html">
+     Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/datacamp.html">
+     DataCamp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/py4e.html">
+     Python for Everybody (PY4E)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/terminal.html">
+     The Terminal and Command Line
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/jupyter.html">
+     Jupyter
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/markdown.html">
+     Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/cocalc.html">
+     CoCalc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2/github.html">
+     GitHub
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/alltogether.html">
+   Putting It All Together
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2/get_going.html">
+   Get Going!
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Introducing Python
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introducing Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_help.html">
+   Getting Help with Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="variables-and-assignment.html">
+   Variables and Assignment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="types-conversion.html">
+   Data Types and Conversion
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="built-in.html">
+   Python Built-Ins
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lists.html">
+   Lists
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dictionaries.html">
+   Dictionaries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="for-loops.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     for
+    </span>
+   </code>
+   Loops
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="conditionals.html">
+   Conditionals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="pandas-dataframes.html">
+   pandas DataFrames
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Looping Over Data Files
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Visualizing Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/introduction.html">
+   Introduction to Data Visualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/plotting.html">
+   Introduction to Plotting with Matplotlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/proc_vs_oo.html">
+   Procedural versus Object-Oriented Plotting in Matplotlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/subplots.html">
+   Subplots
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/plotting_types.html">
+   Thinking About Data for Plotting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/seaborn.html">
+   Introduction to Plotting with Seaborn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/human_factors.html">
+   Accessibility and Human Factors in Plotting
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Exploratory Data Analysis
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/introduction.html">
+   Introduction to EDA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/repeated_measures.html">
+   Working with Repeated Measures Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eda/data_cleaning.html">
+   Data Cleaning - Dealing with Outliers
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Single Unit Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/introduction.html">
+   Introduction to Single Unit Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/single_unit_intro.html">
+   Single Unit Data and Spike Trains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/intro_spike_trains.html">
+   Introduction to Spike Train Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/ten_intensities.html">
+   Ten intensities — A bigger data set
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/heat_maps.html">
+   Heat Maps
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/intro_multielec_data.html">
+   Introducing Multielectrode Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/import_multielec_data.html">
+   Importing Multielectrode Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/pandas_multielec.html">
+   Working with Multielectrode Data in pandas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../single_unit/corr_spike_trains.html">
+   Correlating spike trains
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/introduction.html">
+   Introduction to EEG/ERP Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/time_freq.html">
+   Time and Frequency Domains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/erps.html">
+   Event-Related Potentials (ERPs)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/components.html">
+   ERP Components
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../eeg/preprocessing.html">
+   Preprocessing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/filtering.html">
+     Filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/event_codes.html">
+     Event Codes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/epoching.html">
+     Epoching (Segmentation)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/artifacts.html">
+     Artifacts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/averaging.html">
+     Averaging
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../eeg/mne-python.html">
+   MNE-Python
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/mne_org.html">
+     Organization of MNE-Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/mne_classes.html">
+     MNE classes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  MRI Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/introduction.html">
+   Introduction to MRI Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mri/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine_learning/introduction.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../zrefs.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/3/looping-data-files.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2F3/looping-data-files.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/3/looping-data-files.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Looping Over Data Files
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#questions">
+     Questions:
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#learning-objectives">
+     Learning Objectives:
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-a-for-loop-to-process-files-given-a-list-of-their-names">
+     Use a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       for
+      </span>
+     </code>
+     loop to process files given a list of their names
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-glob-glob-to-find-sets-of-files-whose-names-match-a-pattern">
+     Use
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       glob.glob
+      </span>
+     </code>
+     to find sets of files whose names match a pattern.
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-glob-and-for-to-process-batches-of-files">
+     Use
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       glob
+      </span>
+     </code>
+     and
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       for
+      </span>
+     </code>
+     to process batches of files.
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#appending-files-to-a-single-dataframe">
+     Appending Files to a Single DataFrame
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#reading-in-data-from-multiple-experimental-participants">
+       Reading in data from multiple experimental participants
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reading-multiple-files-using-list-comprehension">
+     Reading multiple files using list comprehension
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#combining-dataframes">
+     Combining DataFrames
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#setting-the-index-column">
+     Setting the index column
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercises">
+   Exercises
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#determining-matches">
+     Determining Matches
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#globbing-files">
+     Globbing files
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#list-comprehension">
+       List comprehension
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#summary-of-key-points">
+     Summary of Key Points:
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="looping-over-data-files">
+<h1>Looping Over Data Files<a class="headerlink" href="#looping-over-data-files" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p><a class="reference external" href="https://youtu.be/zcg28Qz0ToY">Watch a walk-through of this lesson on YouTube</a></p>
+<div class="section" id="questions">
+<h2>Questions:<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>How can I efficiently read in many data sets from different files?</p></li>
+<li><p>How can I combine data from different files into one pandas DataFrame?</p></li>
+</ul>
+</div>
+<div class="section" id="learning-objectives">
+<h2>Learning Objectives:<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Be able to write “globbing” expressions that match sets of files</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">glob</span></code> to create lists of files</p></li>
+<li><p>Write <code class="docutils literal notranslate"><span class="pre">for</span></code> loops to perform operations on many files</p></li>
+<li><p>Write list comprehensions to perform operations on many files</p></li>
+<li><p>combine pandas DataFrames</p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="use-a-for-loop-to-process-files-given-a-list-of-their-names">
+<h2>Use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to process files given a list of their names<a class="headerlink" href="#use-a-for-loop-to-process-files-given-a-list-of-their-names" title="Permalink to this headline">¶</a></h2>
+<p>We can use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to read in a set of data files, and do a thing for each one. In this case, we’ll print the minimum value in each file:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">data_files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;data/gapminder_gdp_africa.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;data/gapminder_gdp_asia.csv&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">data_files</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data/gapminder_gdp_africa.csv gdpPercap_1952    298.846212
+gdpPercap_1957    335.997115
+gdpPercap_1962    355.203227
+gdpPercap_1967    412.977514
+gdpPercap_1972    464.099504
+gdpPercap_1977    502.319733
+gdpPercap_1982    462.211415
+gdpPercap_1987    389.876185
+gdpPercap_1992    410.896824
+gdpPercap_1997    312.188423
+gdpPercap_2002    241.165876
+gdpPercap_2007    277.551859
+dtype: float64
+data/gapminder_gdp_asia.csv gdpPercap_1952    331.0
+gdpPercap_1957    350.0
+gdpPercap_1962    388.0
+gdpPercap_1967    349.0
+gdpPercap_1972    357.0
+gdpPercap_1977    371.0
+gdpPercap_1982    424.0
+gdpPercap_1987    385.0
+gdpPercap_1992    347.0
+gdpPercap_1997    415.0
+gdpPercap_2002    611.0
+gdpPercap_2007    944.0
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="use-glob-glob-to-find-sets-of-files-whose-names-match-a-pattern">
+<h2>Use <a class="reference external" href="https://docs.python.org/3/library/glob.html#glob.glob"><code class="docutils literal notranslate"><span class="pre">glob.glob</span></code></a> to find sets of files whose names match a pattern.<a class="headerlink" href="#use-glob-glob-to-find-sets-of-files-whose-names-match-a-pattern" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>In Unix, the term <em><strong>globbing</strong></em> means matching a set of files with a pattern.</p></li>
+<li><p>The most common patterns are:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code> meaning match zero or more characters</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">?</span></code> meaning match exactly one character</p></li>
+</ul>
+</li>
+<li><p>Python’s standard library contains the <a class="reference external" href="https://docs.python.org/3/library/glob.html"><code class="docutils literal notranslate"><span class="pre">glob</span></code></a> module to provide pattern matching functionality</p></li>
+<li><p>The <a class="reference external" href="https://docs.python.org/3/library/glob.html"><code class="docutils literal notranslate"><span class="pre">glob</span></code></a> module contains a function also called <code class="docutils literal notranslate"><span class="pre">glob</span></code> to match file patterns</p></li>
+<li><p>E.g., <code class="docutils literal notranslate"><span class="pre">glob.glob('*.txt')</span></code> matches all files in the current directory
+whose names end with <code class="docutils literal notranslate"><span class="pre">.txt</span></code>.</p></li>
+<li><p>Result is a list of strings.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;all csv files in data directory:&#39;</span><span class="p">,</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/*.csv&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>all csv files in data directory: [&#39;data/gapminder_gdp_americas.csv&#39;, &#39;data/gapminder_gdp_europe.csv&#39;, &#39;data/gapminder_all.csv&#39;, &#39;data/gapminder_gdp_oceania.csv&#39;, &#39;data/gapminder_gdp_africa.csv&#39;, &#39;data/s2.csv&#39;, &#39;data/s3.csv&#39;, &#39;data/s1.csv&#39;, &#39;data/gapminder_life_expectancy_years.csv&#39;, &#39;data/gapminder_gdp_asia.csv&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="use-glob-and-for-to-process-batches-of-files">
+<h2>Use <code class="docutils literal notranslate"><span class="pre">glob</span></code> and <code class="docutils literal notranslate"><span class="pre">for</span></code> to process batches of files.<a class="headerlink" href="#use-glob-and-for-to-process-batches-of-files" title="Permalink to this headline">¶</a></h2>
+<p>It’s good practice to name your files systematically. As you’ve learned, Python is very precise about things like capitalization, so if your file names are inconsistent (e.g., <code class="docutils literal notranslate"><span class="pre">Gapminder_Europe.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">gapminder_americas.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">gapminder_Oceania.csv</span></code>), then it is harder to write code with <code class="docutils literal notranslate"><span class="pre">glob</span></code> that works correctly.</p>
+<p>For the Gapminder data, fortunately the file names are quite systematic and consistent (as are the names of the columns inside each file), so we can use the following to read in each one and print the minimum GDP from 1952:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp*.csv&#39;</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;gdpPercap_1952&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data/gapminder_gdp_americas.csv 1397.717137
+data/gapminder_gdp_europe.csv 973.5331948
+data/gapminder_gdp_oceania.csv 10039.59564
+data/gapminder_gdp_africa.csv 298.8462121
+data/gapminder_gdp_asia.csv 331.0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="appending-files-to-a-single-dataframe">
+<h2>Appending Files to a Single DataFrame<a class="headerlink" href="#appending-files-to-a-single-dataframe" title="Permalink to this headline">¶</a></h2>
+<p>Often we don’t just want to open a file and extract a small bit of data (such as the minimum value in examples above). Rather, we might want to open a set of related data files and combine them into one big DataFrame. For example, in psychology and neuroscience most experiments involve multiple participants. For each participant, when we run the experiment we get a data file. To analyze the data across participants, we would want to read in all participants’ data files and combined them into one DataFrame.</p>
+<p>pandas has a few methods that allow us to combine DataFrames, including:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.concat.html"><code class="docutils literal notranslate"><span class="pre">.concat()</span></code></a></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.merge.html?highlight=merge"><code class="docutils literal notranslate"><span class="pre">.merge()</span></code></a></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.append.html?highlight=append#pandas.DataFrame.append"><code class="docutils literal notranslate"><span class="pre">.append()</span></code></a></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.join.html#pandas.DataFrame.join"><code class="docutils literal notranslate"><span class="pre">.join()</span></code></a></p></li>
+</ul>
+<p>We will focus here on the first one. <code class="docutils literal notranslate"><span class="pre">concat</span></code> stands for “concatenate” which essentially means combine files by “stacking” them. That is, start with one DataFrame, and add a new data frame to the bottom of it, creating additional rows. In what we’ll do here, we assume that all of the data files we’re reading have the same columns. For example, in the Gapminder GDP data sets, each file has a column for <code class="docutils literal notranslate"><span class="pre">country</span></code> plus a series of columns for GDP in different years — and the same years are in the columns of all the data sets.</p>
+<div class="section" id="reading-in-data-from-multiple-experimental-participants">
+<h3>Reading in data from multiple experimental participants<a class="headerlink" href="#reading-in-data-from-multiple-experimental-participants" title="Permalink to this headline">¶</a></h3>
+<p>Let’s say we have data from an experiment in which we ran three human participants (sometimes called “people”) on different days. For each participant, we have a data file. The columns in all the files are the same, because the files were generated by a computer program that ran the experiment.</p>
+<p>We give the participants anonymized ID codes to protect their privacy, and allow for a simple, systematic naming convention for the files. the first participant’s data is saved in a file called <code class="docutils literal notranslate"><span class="pre">s1.csv</span></code>, the second’s in <code class="docutils literal notranslate"><span class="pre">s2.csv</span></code>, etc..</p>
+<p>We can glob the data folder in which the files are stored, to find all the CSV files whose names start with an <code class="docutils literal notranslate"><span class="pre">s</span></code> followed by a single character, followed by <code class="docutils literal notranslate"><span class="pre">.csv</span></code>. We’ll save the result to a list that we can loop through later:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/s?.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we create an empty list that we will store the DataFrames from each participant in. It will end up being a list of DataFrames (remember, lists can contain just about any other Python data type), and once we have read in all the data, we will combine them into one DataFrame. This is a trick that’s important to use in pandas. The reason has to do with how pandas combines DataFrames and stores them in memory. In simple terms, each time we concatenate DataFrames, pandas does a lot of internal checking to make sure there are no errors. Doing this checking once, when combining many DataFrames, is far more efficient (and thus faster) than doing it many times. Likewise, when a DataFrame is created, an appropriate amount of memory space is allocated for it on the computer. Each time we append additional data, we have to create a new, bigger block of memory. Allocating new blocks of memory, many times, takes more time than just doing it once.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to read the files in. This will cycle through the items in the <code class="docutils literal notranslate"><span class="pre">filenames</span></code> list; each time through the loop, <code class="docutils literal notranslate"><span class="pre">filename</span></code> has the value of the current file name, and we use the list <code class="docutils literal notranslate"><span class="pre">append()</span></code> method to add the data from that file to <code class="docutils literal notranslate"><span class="pre">df_list</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+    <span class="n">df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When we view the contents of the list, we see each data set, with its two columns (with headers saying what they are), and commas separating the list entries, as is typical of a list.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  participantID  trial        RT
+ 0            s2      1  0.433094
+ 1            s2      2  0.392526
+ 2            s2      3  0.396831
+ 3            s2      4  0.417988
+ 4            s2      5  0.371810
+ 5            s2      6  0.659228
+ 6            s2      7  0.411051
+ 7            s2      8  0.409580
+ 8            s2      9  0.486828
+ 9            s2     10  0.468912,
+   participantID  trial        RT
+ 0            s3      1  0.322099
+ 1            s3      2  0.396106
+ 2            s3      3  0.384297
+ 3            s3      4  0.364524
+ 4            s3      5  0.454075
+ 5            s3      6  0.494156
+ 6            s3      7  0.492787
+ 7            s3      8  0.506836
+ 8            s3      9  0.340722
+ 9            s3     10  0.704491,
+   participantID  trial        RT
+ 0            s1      1  0.508971
+ 1            s1      2  0.389858
+ 2            s1      3  0.404175
+ 3            s1      4  0.269520
+ 4            s1      5  0.437765
+ 5            s1      6  0.368142
+ 6            s1      7  0.400544
+ 7            s1      8  0.335198
+ 8            s1      9  0.341722
+ 9            s1     10  0.439583]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="reading-multiple-files-using-list-comprehension">
+<h2>Reading multiple files using list comprehension<a class="headerlink" href="#reading-multiple-files-using-list-comprehension" title="Permalink to this headline">¶</a></h2>
+<p>While the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop above works fine, there is an alternative way to do this, using <a class="reference external" href="https://neuraldatascience.io/3/for-loops.html#list-comprehension"><strong>list comprehension</strong></a>. Recall that list comprehensions are basically just a compact version of a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, but they have some advantages:</p>
+<ul class="simple">
+<li><p>they are <em>more pythonic</em>: they only require one line of code, whereas the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop above required two</p></li>
+<li><p>they are <em>more efficient</em>: list comprehensions actually run faster. This may not be an issue in the small examples here, but can make a big difference when working with real, large data sets</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span>
+<span class="n">df_list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  participantID  trial        RT
+ 0            s2      1  0.433094
+ 1            s2      2  0.392526
+ 2            s2      3  0.396831
+ 3            s2      4  0.417988
+ 4            s2      5  0.371810
+ 5            s2      6  0.659228
+ 6            s2      7  0.411051
+ 7            s2      8  0.409580
+ 8            s2      9  0.486828
+ 9            s2     10  0.468912,
+   participantID  trial        RT
+ 0            s3      1  0.322099
+ 1            s3      2  0.396106
+ 2            s3      3  0.384297
+ 3            s3      4  0.364524
+ 4            s3      5  0.454075
+ 5            s3      6  0.494156
+ 6            s3      7  0.492787
+ 7            s3      8  0.506836
+ 8            s3      9  0.340722
+ 9            s3     10  0.704491,
+   participantID  trial        RT
+ 0            s1      1  0.508971
+ 1            s1      2  0.389858
+ 2            s1      3  0.404175
+ 3            s1      4  0.269520
+ 4            s1      5  0.437765
+ 5            s1      6  0.368142
+ 6            s1      7  0.400544
+ 7            s1      8  0.335198
+ 8            s1      9  0.341722
+ 9            s1     10  0.439583]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="combining-dataframes">
+<h2>Combining DataFrames<a class="headerlink" href="#combining-dataframes" title="Permalink to this headline">¶</a></h2>
+<p>At this point, we’ve read each input file in and stored it as a DataFrame, but we have a list of three distinct DataFrames. In most cases, we’ll want to combine these in some way. Having built our list of DataFrames through reading a set of files, we can combine them into a single DataFrame using the pandas <code class="docutils literal notranslate"><span class="pre">.concat()</span></code> method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span>
+
+<span class="c1"># Confirm this worked by viewing a random sample of rows</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participantID</th>
+      <th>trial</th>
+      <th>RT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s3</td>
+      <td>1</td>
+      <td>0.322099</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s2</td>
+      <td>3</td>
+      <td>0.396831</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>s3</td>
+      <td>6</td>
+      <td>0.494156</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s2</td>
+      <td>5</td>
+      <td>0.371810</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s3</td>
+      <td>5</td>
+      <td>0.454075</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s2</td>
+      <td>2</td>
+      <td>0.392526</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s2</td>
+      <td>4</td>
+      <td>0.417988</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>s3</td>
+      <td>10</td>
+      <td>0.704491</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="setting-the-index-column">
+<h2>Setting the index column<a class="headerlink" href="#setting-the-index-column" title="Permalink to this headline">¶</a></h2>
+<p>Recall that row labels in pands are called <em>indexes</em>. We can convert any column to an index using the <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code> method. For this data, an appropriate index is the participant ID, which is in the column <code class="docutils literal notranslate"><span class="pre">Participant</span></code>. Note that we need to assign the result of the <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code> operation back to <code class="docutils literal notranslate"><span class="pre">df</span></code> for the change to be stored:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Participant&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_73946</span><span class="o">/</span><span class="mf">1103990505.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Participant&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/util/_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">309</span>                     <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">310</span>                 <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">311</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">312</span> 
+<span class="g g-Whitespace">    </span><span class="mi">313</span>         <span class="k">return</span> <span class="n">wrapper</span>
+
+<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/frame.py</span> in <span class="ni">set_index</span><span class="nt">(self, keys, drop, append, inplace, verify_integrity)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5444</span> 
+<span class="g g-Whitespace">   </span><span class="mi">5445</span>         <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">5446</span>             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;None of </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2"> are in the columns&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5447</span> 
+<span class="g g-Whitespace">   </span><span class="mi">5448</span>         <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+
+<span class="ne">KeyError</span>: &quot;None of [&#39;Participant&#39;] are in the columns&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="exercises">
+<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="determining-matches">
+<h2>Determining Matches<a class="headerlink" href="#determining-matches" title="Permalink to this headline">¶</a></h2>
+<p>Which of these files is <em>not</em> matched by the expression <code class="docutils literal notranslate"><span class="pre">glob.glob('data/*as*.csv')</span></code>?</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data/gapminder_gdp_africa.csv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data/gapminder_gdp_americas.csv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data/gapminder_gdp_asia.csv</span></code></p></li>
+</ol>
+<div class="dropdown admonition">
+<p class="admonition-title">Click the button to reveal the answer</p>
+<p>1 and 2 are not matched. Only 3 is, because it is the only file name in which the string <code class="docutils literal notranslate"><span class="pre">as</span></code> occurs.</p>
+</div>
+</div>
+<div class="section" id="globbing-files">
+<h2>Globbing files<a class="headerlink" href="#globbing-files" title="Permalink to this headline">¶</a></h2>
+<p>Fill in the blanks so that the code below does the following:</p>
+<ul class="simple">
+<li><p>Find all of the CSV files in the data folder that contain GDP data</p></li>
+<li><p>Read these files in using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop</p></li>
+<li><p>Concatenate the data files into a single pandas DataFrame</p></li>
+<li><p>Print out the first 10 lines of the final combined DataFrame</p></li>
+</ul>
+<p><em>Note</em> that not all the Gapminder data files contain GDP data, but the file names will indicate which ones do.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">data_files</span> <span class="o">=</span> <span class="n">___</span><span class="p">(</span><span class="n">___</span><span class="p">)</span>
+
+<span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">____</span> <span class="ow">in</span> <span class="n">____</span><span class="p">:</span>
+    <span class="n">df_list</span><span class="o">.</span><span class="n">___</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+    
+<span class="n">df</span> <span class="o">=</span> <span class="n">___</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">___</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Click the button to reveal the solution</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">data_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/*gdp*.csv&#39;</span><span class="p">)</span>
+
+<span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">data_files</span><span class="p">:</span>
+    <span class="n">df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+    
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-comprehension">
+<h3>List comprehension<a class="headerlink" href="#list-comprehension" title="Permalink to this headline">¶</a></h3>
+<p>Now rewrite the code above to use list comprehension rather than a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, and only <em>two</em> lines of code total (excluding the <code class="docutils literal notranslate"><span class="pre">import</span></code> commands and viewing the first 10 lines of the result).</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Click the button to reveal the solution</p>
+<p>Done in two lines of code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/*gdp*.csv&#39;</span><span class="p">)]</span>
+    
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>For an even bigger challenge, see if you can reduce the code to a single line!</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Click the button to reveal the solution</p>
+<p>Done in one line of code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/*gdp*.csv&#39;</span><span class="p">)])</span>
+    
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="summary-of-key-points">
+<h2>Summary of Key Points:<a class="headerlink" href="#summary-of-key-points" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to process files given a list of their names</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">glob.glob</span></code> to find sets of files whose names match a pattern</p></li>
+<li><p>List comprehension can replace a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, resulting in more compact and efficient code</p></li>
+<li><p>Naming your files in a consistent manner is just as important in data science, as writing the code to read them</p></li>
+<li><p>When you want to combine multiple files into one pandas DataFrame, read each one in to a list of DataFrames, then run <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> only once</p></li>
+</ul>
+<hr class="docutils" />
+<p>This lesson is adapted from the <a class="reference external" href="https://software-carpentry.org/lessons/">Software Carpentry</a> <a class="reference external" href="http://swcarpentry.github.io/python-novice-gapminder/">Plotting and Programming in Python</a> workshop.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./3"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="pandas-dataframes.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">pandas DataFrames</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../visualization/introduction.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Introduction to Data Visualization</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Aaron J Newman<br/>
+        
+            &copy; Copyright 2020-21. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script>
+                        window.ga = window.ga || function () {
+                            (ga.q = ga.q || []).push(arguments) };
+                        ga.l = +new Date;
+                        ga('create', 'UA-171426664-2', 'auto');
+                        ga('set', 'anonymizeIp', true);
+                        ga('send', 'pageview');
+                    </script>
+
+  </body>
+</html>
