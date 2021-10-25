@@ -963,9 +963,16 @@
      </li>
     </ul>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solution-1-use-dataframe-columns-rather-than-extracting-series">
+   Solution 1: Use DataFrame columns rather than extracting Series
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#use-sort-index-to-ensure-paired-data-are-aligned">
-     Use
+    <a class="reference internal nav-link" href="#solution-2-use-sort-index-to-ensure-paired-data-are-aligned">
+     Solution 2: Use
      <code class="docutils literal notranslate">
       <span class="pre">
        .sort_index()
@@ -995,6 +1002,11 @@
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
  </li>
 </ul>
 
@@ -1537,33 +1549,33 @@ Name: rt, dtype: float64
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>participant
-s2     0.518216
-s13    0.478367
-s18    0.527152
-s7     0.650769
-s17    0.504452
-s5     0.530722
-s26    0.565531
-s8     0.494878
-s4     0.428867
-s25    0.513179
-s1     0.471838
-s24    0.595977
-s22    0.474612
-s12    0.506722
-s19    0.591181
-s23    0.554172
-s20    0.507257
-s3     0.591022
-s9     0.437926
-s14    0.453524
-s16    0.492921
-s11    0.473012
-s27    0.501069
-s21    0.507033
 s6     0.490298
+s12    0.506722
+s25    0.513179
+s17    0.504452
+s21    0.507033
+s27    0.501069
+s19    0.591181
 s10    0.499031
+s3     0.591022
+s13    0.478367
+s22    0.474612
+s24    0.595977
+s4     0.428867
+s7     0.650769
+s23    0.554172
+s18    0.527152
+s2     0.518216
+s26    0.565531
 s15    0.591644
+s20    0.507257
+s1     0.471838
+s11    0.473012
+s14    0.453524
+s5     0.530722
+s9     0.437926
+s8     0.494878
+s16    0.492921
 Name: rt, dtype: object
 </pre></div>
 </div>
@@ -1578,16 +1590,40 @@ Name: rt, dtype: object
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Congruent vs. Incongruent t =  -2.74  p =  0.011
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Congruent vs. Incongruent t =  -2.73  p =  0.0113
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="use-sort-index-to-ensure-paired-data-are-aligned">
-<h3>Use <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> to ensure paired data are aligned<a class="headerlink" href="#use-sort-index-to-ensure-paired-data-are-aligned" title="Permalink to this headline">¶</a></h3>
-<p>The way we can fix this is by <em>re-ordering</em> the data in both Series that we’re comparing (<code class="docutils literal notranslate"><span class="pre">congr</span></code> and <code class="docutils literal notranslate"><span class="pre">incongr2</span></code> in this case), using pandas <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> method:</p>
+</div>
+<div class="section" id="solution-1-use-dataframe-columns-rather-than-extracting-series">
+<h2>Solution 1: Use DataFrame columns rather than extracting Series<a class="headerlink" href="#solution-1-use-dataframe-columns-rather-than-extracting-series" title="Permalink to this headline">¶</a></h2>
+<p>Above, we extracted the two data sets we wanted to compare with a <em>t</em> test from a DataFrame (df) to two pandas Series, <code class="docutils literal notranslate"><span class="pre">congr</span></code> and <code class="docutils literal notranslate"><span class="pre">incongr</span></code>. On the one hand, this simplifies the syntax of the <em>t</em> test command, but on the other hand we lose the structure of the pandas DataFrame. That is, in the DataFrame, the values from each participant are in the same row, and so we don’t have to worry about the order of the data values. We can run the <em>t</em> test on two columns of the pandas DataFrame, the code is just a little more complex to look at:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_rel</span><span class="p">(</span><span class="n">df_avg</span><span class="p">[</span><span class="n">df_avg</span><span class="p">[</span><span class="s1">&#39;flankers&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;congruent&#39;</span><span class="p">][</span><span class="s1">&#39;rt&#39;</span><span class="p">],</span>
+                       <span class="n">df_avg</span><span class="p">[</span><span class="n">df_avg</span><span class="p">[</span><span class="s1">&#39;flankers&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;incongruent&#39;</span><span class="p">][</span><span class="s1">&#39;rt&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Congruent vs. Incongruent t = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="s1">&#39; p = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Congruent vs. Incongruent t =  -10.21  p =  0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is probably the best approach to use in most cases, because:</p>
+<ol class="simple">
+<li><p>It ensures that the repeated-measures structure of the data is preserved</p></li>
+<li><p>It uses less memory resources, because we aren’t copying columns of our DataFrame to new Series/vairables.</p></li>
+</ol>
+<p>It may in fact seem overly convoluted to have first demonstrated the extract-to-Series approach, then explain that it’s not the ideal way to do things! However, for many people, it’s intuitive to extract subsets of data to perform further processing on. One point of this lesson was to illustrate how that can create problems, even though it might seem like a logical approach.</p>
+<div class="section" id="solution-2-use-sort-index-to-ensure-paired-data-are-aligned">
+<h3>Solution 2: Use <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> to ensure paired data are aligned<a class="headerlink" href="#solution-2-use-sort-index-to-ensure-paired-data-are-aligned" title="Permalink to this headline">¶</a></h3>
+<p>If you do choose to work with a pair of Series, the way we can ensure that the indexes of the two data sets align this is by <em>re-ordering</em> the data in both Series that we’re comparing (<code class="docutils literal notranslate"><span class="pre">congr</span></code> and <code class="docutils literal notranslate"><span class="pre">incongr2</span></code> in this case), using pandas <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_rel</span><span class="p">(</span><span class="n">congr</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(),</span> <span class="n">incongr2</span><span class="o">.</span><span class="n">sort_index</span><span class="p">())</span>
@@ -1645,6 +1681,28 @@ Name: rt, dtype: object
 <p>You’ll note the result of the 1-sample <em>t</em> test is the same as the paired <em>t</em> test above. This is expected, because in both cases we ran a <em>t</em> test to compare the difference between the same two sets of data. From a coding perspective, the paired <em>t</em> test is a bit simpler, because you don’t have to perform a subtraction on the data prior to running the <em>t</em> test.</p>
 <p>The reasons we might want to run a 1-sample <em>t</em> test include cases where are data are already represented as a subtraction, or in some cases when we’re working with multiple variables, performing subtractions can be a way of simplifying our presentation of the results. As well, since pandas subtraction respects the indexes, computing differences and then 1-sample <em>t</em> tests can be a bit safer in ensuring that the proper within-participants nesting structure of your data is preserved.</p>
 </div></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><em>t</em> tests are used to compare the means of two sets of data to each other, or the mean of one set of data against a particular value (such as zero)</p></li>
+<li><p>An <strong>unpaired <em>t</em> test</strong> is used to compare two independent sets of data (e.g., from two different samples of a population, two groups, etc.)</p></li>
+<li><p>A <strong>paired <em>t</em> test</strong> must be used when the two sets of data come from the same samples (e.g., the same individual participants)</p></li>
+<li><p>A <strong>1-sample <em>t</em> test</strong> is used to compare the mean of one set of data against a specific value. This is often used to compare a data set to zero</p></li>
+<li><p>Paired <em>t</em> tests and 1-sample <em>t</em> tests can both be used to determine whether differences between two samples are significantly different from zero (no difference).</p>
+<ul>
+<li><p>In the 1-sample case, you must first compute the difference between the pairs of data in two conditions.</p></li>
+</ul>
+</li>
+<li><p>When working with pandas data objects, it is important to remember that SciPy’s functions (including <code class="docutils literal notranslate"><span class="pre">ttest</span></code>s) do not use pandas indexes. So when doing paired <em>t</em> tests, you must ensure that the data are listed in the same order in the two Series being compared.</p>
+<ul>
+<li><p>The best way to ensure that the within-participant/repeated measures structure of the data is preserved when doing a <em>t</em> test, is to use two columns from a DataFrame that is indexed by participant ID.</p></li>
+<li><p>One alternative is to use the <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> method on two series that are indexed by participant ID</p></li>
+<li><p>Another alternative is to use the fact that pandas does respect its indexing when you subtract two Series, so if your data are indexed by participant ID, doing the subtraction followed by a 1-sample <em>t</em> test is a way of ensuring that the within-participants relationships between data sets are preserved.</p></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 
