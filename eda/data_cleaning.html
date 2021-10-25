@@ -1001,6 +1001,32 @@
   <a class="reference internal nav-link" href="#working-with-nested-data">
    Working with nested data
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#compute-z-scores-by-participant">
+     Compute
+     <em>
+      z
+     </em>
+     scores by participant
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#compute-mean-rt-from-valid-trials-for-each-participant">
+     Compute mean RT from valid trials for each participant
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fill-in-mean-values-for-outlier-rows">
+     Fill in mean values for outlier rows
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-final-output-column">
+     Create final output column
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#visualizing-the-cleaned-data">
@@ -1506,8 +1532,8 @@ Name: rt_z, Length: 4289, dtype: bool
 <p>We’ll worry about skewness a little later, but for now we will add a column marking outliers as defined this way, similarly to what we did above for the Tukey method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">3</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">z_thresh</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1542,62 +1568,236 @@ Name: rt_z, Length: 4289, dtype: bool
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>s25</td>
-      <td>1</td>
-      <td>1</td>
-      <td>congruent</td>
-      <td>0.652072</td>
-      <td>False</td>
-      <td>1.526800</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>s25</td>
-      <td>1</td>
-      <td>2</td>
-      <td>neutral</td>
-      <td>0.644872</td>
-      <td>False</td>
-      <td>1.456483</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>s25</td>
-      <td>1</td>
+      <th>4220</th>
+      <td>s15</td>
       <td>3</td>
-      <td>congruent</td>
-      <td>0.445182</td>
-      <td>False</td>
-      <td>-0.493736</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>s25</td>
-      <td>1</td>
-      <td>4</td>
+      <td>28</td>
       <td>neutral</td>
-      <td>0.525200</td>
+      <td>0.489550</td>
       <td>False</td>
-      <td>0.287737</td>
+      <td>-0.060427</td>
       <td>False</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>s25</td>
+      <th>1905</th>
+      <td>s12</td>
       <td>1</td>
       <td>5</td>
       <td>congruent</td>
-      <td>0.533328</td>
+      <td>0.341975</td>
       <td>False</td>
-      <td>0.367119</td>
+      <td>-1.501682</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1303</th>
+      <td>s2</td>
+      <td>1</td>
+      <td>32</td>
+      <td>neutral</td>
+      <td>0.449960</td>
+      <td>False</td>
+      <td>-0.447074</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2482</th>
+      <td>s14</td>
+      <td>4</td>
+      <td>9</td>
+      <td>neutral</td>
+      <td>0.413565</td>
+      <td>False</td>
+      <td>-0.802517</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>3403</th>
+      <td>s3</td>
+      <td>3</td>
+      <td>8</td>
+      <td>incongruent</td>
+      <td>0.469138</td>
+      <td>False</td>
+      <td>-0.259778</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2002</th>
+      <td>s12</td>
+      <td>4</td>
+      <td>6</td>
+      <td>neutral</td>
+      <td>0.525361</td>
+      <td>False</td>
+      <td>0.289309</td>
       <td>False</td>
     </tr>
   </tbody>
 </table>
+</div></div></div>
+</div>
+<p>The above <code class="docutils literal notranslate"><span class="pre">.sample()</span></code> is not likely to happen to sample outlier data points, but we can confirm their presence with:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>outliers_tukey</th>
+      <th>rt_z</th>
+      <th>outliers_z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>26</th>
+      <td>s25</td>
+      <td>1</td>
+      <td>27</td>
+      <td>incongruent</td>
+      <td>0.757437</td>
+      <td>True</td>
+      <td>2.555820</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>s25</td>
+      <td>2</td>
+      <td>6</td>
+      <td>neutral</td>
+      <td>0.917223</td>
+      <td>True</td>
+      <td>4.116328</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>117</th>
+      <td>s25</td>
+      <td>4</td>
+      <td>22</td>
+      <td>incongruent</td>
+      <td>0.817285</td>
+      <td>True</td>
+      <td>3.140311</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>227</th>
+      <td>s18</td>
+      <td>3</td>
+      <td>4</td>
+      <td>neutral</td>
+      <td>0.806528</td>
+      <td>True</td>
+      <td>3.035256</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>350</th>
+      <td>s16</td>
+      <td>1</td>
+      <td>32</td>
+      <td>incongruent</td>
+      <td>0.762060</td>
+      <td>True</td>
+      <td>2.600971</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4208</th>
+      <td>s15</td>
+      <td>3</td>
+      <td>16</td>
+      <td>incongruent</td>
+      <td>0.897641</td>
+      <td>True</td>
+      <td>3.925088</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4231</th>
+      <td>s15</td>
+      <td>4</td>
+      <td>7</td>
+      <td>congruent</td>
+      <td>0.881503</td>
+      <td>True</td>
+      <td>3.767480</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4262</th>
+      <td>s15</td>
+      <td>5</td>
+      <td>6</td>
+      <td>incongruent</td>
+      <td>0.853477</td>
+      <td>True</td>
+      <td>3.493770</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4279</th>
+      <td>s15</td>
+      <td>5</td>
+      <td>23</td>
+      <td>neutral</td>
+      <td>0.845636</td>
+      <td>True</td>
+      <td>3.417194</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4288</th>
+      <td>s15</td>
+      <td>5</td>
+      <td>32</td>
+      <td>congruent</td>
+      <td>0.789597</td>
+      <td>True</td>
+      <td>2.869903</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+<p>111 rows × 8 columns</p>
 </div></div></div>
 </div>
 </div>
@@ -1619,10 +1819,10 @@ Name: rt_z, Length: 4289, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.52398454 -1.00509831  2.39872041  0.9094142   0.37788228  0.47368081
- -1.00867947  0.85019063 -1.41475063  2.13496449]
-Mean of data with no outliers: 0.42403
-Standard deviation of data with no outliers: 1.21386
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 1.56301827  0.55439286 -0.1942331   0.46017368  0.94083105  0.95228205
+ -0.6964534   0.9165169   1.55603986 -0.62917392]
+Mean of data with no outliers: 0.54234
+Standard deviation of data with no outliers: 0.77413
 </pre></div>
 </div>
 </div>
@@ -1640,10 +1840,10 @@ Standard deviation of data with no outliers: 1.21386
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.52398454 -1.00509831  2.39872041  0.9094142   0.37788228  0.47368081
- -1.00867947  0.85019063 -1.41475063  3.        ]
-Mean of data with minor outlier: 0.51053
-Standard deviation of data with minor outlier: 1.35529
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 1.56301827  0.55439286 -0.1942331   0.46017368  0.94083105  0.95228205
+ -0.6964534   0.9165169   1.55603986  3.        ]
+Mean of data with minor outlier: 0.90526
+Standard deviation of data with minor outlier: 0.96661
 </pre></div>
 </div>
 </div>
@@ -1661,10 +1861,10 @@ Standard deviation of data with minor outlier: 1.35529
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.52398454 -1.00509831  2.39872041  0.9094142   0.37788228  0.47368081
- -1.00867947  0.85019063 -1.41475063 10.        ]
-Mean of data with extreme outlier: 1.21053
-Standard deviation of data with extreme outlier: 3.11963
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 1.56301827  0.55439286 -0.1942331   0.46017368  0.94083105  0.95228205
+ -0.6964534   0.9165169   1.55603986 10.        ]
+Mean of data with extreme outlier: 1.60526
+Standard deviation of data with extreme outlier: 2.87697
 </pre></div>
 </div>
 </div>
@@ -1684,25 +1884,25 @@ Standard deviation of data with extreme outlier: 3.11963
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [-0.22855623 -0.19660063 -0.45367735 -0.01443482 -0.40073877 -0.30258803
-  0.1070958  -3.80149147 -0.05472793  1.02189518  1.45992481  1.40400044
- -3.03073039 -0.22584988 -0.30514872 -0.98327804 -0.03854221 -0.60854819
-  0.55701219 -1.22667704  1.53023815  0.8650857  -1.01858458  0.73245416
-  0.47951733  0.75424233 -1.59432207 -1.682242   -1.23561248  0.30322004
- -0.85545028 -0.67142352  1.2635515  -1.48884695  1.07170916 -0.82414305
- -0.52274605  1.105479    0.5878948  -0.7547083  -0.4259561  -1.02976143
-  1.96562428 -0.56323887  1.1371789  -2.5127285  -1.40925138  0.76804809
-  0.13459959 -0.80190514 -2.64262348  0.35753958 -3.02098454 -0.05869658
-  0.95858781 -0.76549868 -0.49985155 -0.43631623 -0.66788861 -1.8999524
- -0.91096991 -1.54694562 -1.74285976  2.86930076 -0.41603404  0.95544014
- -1.63879036  0.94527903  0.82763416  0.51673999 -0.92019447  2.02125696
- -0.45523313 -1.73559922 -0.12308326 -0.73092081  0.02778536 -1.84820681
-  0.85503237 -1.23960717  0.2418569  -0.69187283 -1.69147906  0.10955256
-  0.21967083 -1.07909459 -1.25960051 -1.35935288  0.77212117  1.90875726
-  2.27591777  0.86769788 -0.85585329  2.35239961 -0.71644234  0.90630348
-  0.4673753  -2.07840973  0.82464639 -1.25535993]
-Mean of data with no outliers: -0.25021
-Standard deviation of data with no outliers: 1.23976
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 0.0809252  -1.17562369 -0.92764225 -0.79876534  1.54317646 -0.19220285
+  1.07112729 -0.7910312  -0.5588819   1.28617742  1.26869305 -0.88932524
+  0.45605532 -1.00055067  1.06383527 -0.31963805  0.04641404  0.2146881
+  0.83110691 -0.41911015  0.15210623 -0.21096758  0.9754068  -1.27143563
+  0.19496654  0.13892214 -1.03253638 -1.66315872 -2.34125864  0.40744314
+ -0.59085582 -0.7273552  -0.60175952  0.28541108  0.29892179 -0.03161987
+ -0.13409583  1.30703376 -0.17056566 -0.23643829  1.07910015  0.61395234
+ -0.19551573  2.29724589 -1.35779291  0.29125213 -1.88014212  1.23918531
+ -0.36997257  0.73849881  0.72149642  1.08226055  1.2841566  -2.52599337
+  2.05333917 -0.14353938 -0.15240806  0.77306245 -0.18868507 -0.01585047
+  0.55492295 -2.35647744  2.41114011  0.12987463 -0.25587654 -2.63452744
+ -0.40802587  2.16527239 -0.8762953  -0.40705122 -0.09948786  1.65208809
+  0.48179807  0.44209808 -1.78227988  1.65978046  0.72964452 -0.00738589
+ -0.62638153  0.91380497  1.88018091  0.19915958  0.29092758  1.06123637
+ -0.75825366 -1.93400736  0.60611112  0.09425181 -0.63848707 -0.57067145
+  0.40925033  0.23861758  0.34987231 -1.56457514 -0.05431066  1.55528448
+ -0.39800149 -0.29112276 -0.91383182  0.93050435]
+Mean of data with no outliers: 0.0306
+Standard deviation of data with no outliers: 1.05818
 </pre></div>
 </div>
 </div>
@@ -1720,25 +1920,33 @@ Standard deviation of data with no outliers: 1.23976
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [-0.22855623 -0.19660063 -0.45367735 -0.01443482 -0.40073877 -0.30258803
-  0.1070958  -3.80149147 -0.05472793  1.02189518  1.45992481  1.40400044
- -3.03073039 -0.22584988 -0.30514872 -0.98327804 -0.03854221 -0.60854819
-  0.55701219 -1.22667704  1.53023815  0.8650857  -1.01858458  0.73245416
-  0.47951733  0.75424233 -1.59432207 -1.682242   -1.23561248  0.30322004
- -0.85545028 -0.67142352  1.2635515  -1.48884695  1.07170916 -0.82414305
- -0.52274605  1.105479    0.5878948  -0.7547083  -0.4259561  -1.02976143
-  1.96562428 -0.56323887  1.1371789  -2.5127285  -1.40925138  0.76804809
-  0.13459959 -0.80190514 -2.64262348  0.35753958 -3.02098454 -0.05869658
-  0.95858781 -0.76549868 -0.49985155 -0.43631623 -0.66788861 -1.8999524
- -0.91096991 -1.54694562 -1.74285976  2.86930076 -0.41603404  0.95544014
- -1.63879036  0.94527903  0.82763416  0.51673999 -0.92019447  2.02125696
- -0.45523313 -1.73559922 -0.12308326 -0.73092081  0.02778536 -1.84820681
-  0.85503237 -1.23960717  0.2418569  -0.69187283 -1.69147906  0.10955256
-  0.21967083 -1.07909459 -1.25960051 -1.35935288  0.77212117  1.90875726
-  2.27591777  0.86769788 -0.85585329  2.35239961 -0.71644234  0.90630348
-  0.4673753  -2.07840973  0.82464639 10.        ]
-Mean of data with extreme outlier: -0.13765
-Standard deviation of data with extreme outlier: 1.60153
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 8.09251989e-02 -1.17562369e+00 -9.27642246e-01 -7.98765342e-01
+  1.54317646e+00 -1.92202848e-01  1.07112729e+00 -7.91031203e-01
+ -5.58881903e-01  1.28617742e+00  1.26869305e+00 -8.89325242e-01
+  4.56055323e-01 -1.00055067e+00  1.06383527e+00 -3.19638047e-01
+  4.64140398e-02  2.14688096e-01  8.31106913e-01 -4.19110149e-01
+  1.52106226e-01 -2.10967579e-01  9.75406799e-01 -1.27143563e+00
+  1.94966536e-01  1.38922139e-01 -1.03253638e+00 -1.66315872e+00
+ -2.34125864e+00  4.07443142e-01 -5.90855818e-01 -7.27355197e-01
+ -6.01759522e-01  2.85411082e-01  2.98921785e-01 -3.16198685e-02
+ -1.34095828e-01  1.30703376e+00 -1.70565656e-01 -2.36438293e-01
+  1.07910015e+00  6.13952339e-01 -1.95515727e-01  2.29724589e+00
+ -1.35779291e+00  2.91252128e-01 -1.88014212e+00  1.23918531e+00
+ -3.69972569e-01  7.38498812e-01  7.21496421e-01  1.08226055e+00
+  1.28415660e+00 -2.52599337e+00  2.05333917e+00 -1.43539380e-01
+ -1.52408063e-01  7.73062454e-01 -1.88685066e-01 -1.58504694e-02
+  5.54922950e-01 -2.35647744e+00  2.41114011e+00  1.29874631e-01
+ -2.55876540e-01 -2.63452744e+00 -4.08025873e-01  2.16527239e+00
+ -8.76295298e-01 -4.07051221e-01 -9.94878598e-02  1.65208809e+00
+  4.81798071e-01  4.42098081e-01 -1.78227988e+00  1.65978046e+00
+  7.29644519e-01 -7.38588569e-03 -6.26381526e-01  9.13804968e-01
+  1.88018091e+00  1.99159584e-01  2.90927584e-01  1.06123637e+00
+ -7.58253662e-01 -1.93400736e+00  6.06111118e-01  9.42518073e-02
+ -6.38487070e-01 -5.70671454e-01  4.09250330e-01  2.38617578e-01
+  3.49872315e-01 -1.56457514e+00 -5.43106579e-02  1.55528448e+00
+ -3.98001491e-01 -2.91122763e-01 -9.13831815e-01  1.00000000e+01]
+Mean of data with extreme outlier: 0.1213
+Standard deviation of data with extreme outlier: 1.44821
 </pre></div>
 </div>
 </div>
@@ -1758,33 +1966,33 @@ Standard deviation of data with extreme outlier: 1.60153
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [-2.28556234e-01 -1.96600634e-01 -4.53677349e-01 -1.44348166e-02
- -4.00738767e-01 -3.02588027e-01  1.07095796e-01 -3.80149147e+00
- -5.47279342e-02  1.02189518e+00  1.45992481e+00  1.40400044e+00
- -3.03073039e+00 -2.25849877e-01 -3.05148720e-01 -9.83278038e-01
- -3.85422057e-02 -6.08548186e-01  5.57012186e-01 -1.22667704e+00
-  1.53023815e+00  8.65085702e-01 -1.01858458e+00  7.32454161e-01
-  4.79517330e-01  7.54242334e-01 -1.59432207e+00 -1.68224200e+00
- -1.23561248e+00  3.03220035e-01 -8.55450281e-01 -6.71423522e-01
-  1.26355150e+00 -1.48884695e+00  1.07170916e+00 -8.24143055e-01
- -5.22746052e-01  1.10547900e+00  5.87894798e-01 -7.54708298e-01
- -4.25956098e-01 -1.02976143e+00  1.96562428e+00 -5.63238871e-01
-  1.13717890e+00 -2.51272850e+00 -1.40925138e+00  7.68048091e-01
-  1.34599585e-01 -8.01905143e-01 -2.64262348e+00  3.57539576e-01
- -3.02098454e+00 -5.86965824e-02  9.58587812e-01 -7.65498678e-01
- -4.99851551e-01 -4.36316234e-01 -6.67888610e-01 -1.89995240e+00
- -9.10969910e-01 -1.54694562e+00 -1.74285976e+00  2.86930076e+00
- -4.16034035e-01  9.55440144e-01 -1.63879036e+00  9.45279035e-01
-  8.27634157e-01  5.16739989e-01 -9.20194471e-01  2.02125696e+00
- -4.55233131e-01 -1.73559922e+00 -1.23083260e-01 -7.30920808e-01
-  2.77853635e-02 -1.84820681e+00  8.55032373e-01 -1.23960717e+00
-  2.41856898e-01 -6.91872828e-01 -1.69147906e+00  1.09552558e-01
-  2.19670831e-01 -1.07909459e+00 -1.25960051e+00 -1.35935288e+00
-  7.72121171e-01  1.90875726e+00  2.27591777e+00  8.67697877e-01
- -8.55853286e-01  2.35239961e+00 -7.16442341e-01  9.06303483e-01
-  4.67375296e-01 -2.07840973e+00  8.24646385e-01  1.00000000e+02]
-Mean of data with extreme outlier: 0.76235
-Standard deviation of data with extreme outlier: 10.05001
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data: [ 8.09251989e-02 -1.17562369e+00 -9.27642246e-01 -7.98765342e-01
+  1.54317646e+00 -1.92202848e-01  1.07112729e+00 -7.91031203e-01
+ -5.58881903e-01  1.28617742e+00  1.26869305e+00 -8.89325242e-01
+  4.56055323e-01 -1.00055067e+00  1.06383527e+00 -3.19638047e-01
+  4.64140398e-02  2.14688096e-01  8.31106913e-01 -4.19110149e-01
+  1.52106226e-01 -2.10967579e-01  9.75406799e-01 -1.27143563e+00
+  1.94966536e-01  1.38922139e-01 -1.03253638e+00 -1.66315872e+00
+ -2.34125864e+00  4.07443142e-01 -5.90855818e-01 -7.27355197e-01
+ -6.01759522e-01  2.85411082e-01  2.98921785e-01 -3.16198685e-02
+ -1.34095828e-01  1.30703376e+00 -1.70565656e-01 -2.36438293e-01
+  1.07910015e+00  6.13952339e-01 -1.95515727e-01  2.29724589e+00
+ -1.35779291e+00  2.91252128e-01 -1.88014212e+00  1.23918531e+00
+ -3.69972569e-01  7.38498812e-01  7.21496421e-01  1.08226055e+00
+  1.28415660e+00 -2.52599337e+00  2.05333917e+00 -1.43539380e-01
+ -1.52408063e-01  7.73062454e-01 -1.88685066e-01 -1.58504694e-02
+  5.54922950e-01 -2.35647744e+00  2.41114011e+00  1.29874631e-01
+ -2.55876540e-01 -2.63452744e+00 -4.08025873e-01  2.16527239e+00
+ -8.76295298e-01 -4.07051221e-01 -9.94878598e-02  1.65208809e+00
+  4.81798071e-01  4.42098081e-01 -1.78227988e+00  1.65978046e+00
+  7.29644519e-01 -7.38588569e-03 -6.26381526e-01  9.13804968e-01
+  1.88018091e+00  1.99159584e-01  2.90927584e-01  1.06123637e+00
+ -7.58253662e-01 -1.93400736e+00  6.06111118e-01  9.42518073e-02
+ -6.38487070e-01 -5.70671454e-01  4.09250330e-01  2.38617578e-01
+  3.49872315e-01 -1.56457514e+00 -5.43106579e-02  1.55528448e+00
+ -3.98001491e-01 -2.91122763e-01 -9.13831815e-01  1.00000000e+02]
+Mean of data with extreme outlier: 1.0213
+Standard deviation of data with extreme outlier: 10.00345
 </pre></div>
 </div>
 </div>
@@ -2254,10 +2462,10 @@ Standard deviation of data with extreme outlier: 10.05001
 <p>To get this last value, we can simply compute the number of <code class="docutils literal notranslate"><span class="pre">True</span></code> values in <code class="docutils literal notranslate"><span class="pre">outliers_z</span></code>, divided by the total number of trials (rows):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outliers_removed</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outliers</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;outliers_z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
 
 <span class="c1"># Convert proportion to percent, and round to 2 decimal places</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">outliers_removed</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="s2">&quot;</span><span class="si">% o</span><span class="s2">f the data identified as outliers and replaced with mean value.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">outliers</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="s2">&quot;</span><span class="si">% o</span><span class="s2">f the data identified as outliers and replaced with mean value.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2274,6 +2482,9 @@ Standard deviation of data with extreme outlier: 10.05001
 <h2>Working with nested data<a class="headerlink" href="#working-with-nested-data" title="Permalink to this headline">¶</a></h2>
 <p>All of the above was correct, for data without nesting or repeated measures. The reason for this caveat is that with nested data, what constitutes an “outlier” for one source of data (e.g., one participant) may be a very reasonable value for another person. This is perhaps most intuitive if we think about an experiment comparing older and younger adults. With age, RTs on average get longer. So slow RT that is an outlier for an 18 year old university student may be about the average RT for someone who is 80 years old.</p>
 <p>To properly address the nested structure of data in identifying and correcting outliers, we can use the same steps as above, but using the split-apply-combine approach provided by pandas <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> method. In other words, we split the data by participant, apply the outlier detection and correction steps, and then combine the data into a new column in the DataFrame.</p>
+<div class="alert alert-block alert-info">
+<p>The code below is probably the most complex that we’ve worked with so far. Take your time going through this, and try to understand it as fully as you can. It may seem like a convoluted series of steps, but they are a logical sequence and each one is optimized for pandas. This is in fact <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html#transformation">pandas’ suggested approach for outlier correction</a></p>
+</div>
 <p>Since we’ve added lots of columns above, let’s start fresh by re-loading the DataFrame from the file:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2282,7 +2493,9 @@ Standard deviation of data with extreme outlier: 10.05001
 </div>
 </div>
 </div>
-<p>Now let’s split by participant and apply the <em>z</em> transform to the split data. pandas has a useful method, <code class="docutils literal notranslate"><span class="pre">.transform()</span></code>, that allows us to run a non-pandas function on a selection from a DataFrame. So we group by participant, select only the <code class="docutils literal notranslate"><span class="pre">rt</span></code> column to operate on, and then <code class="docutils literal notranslate"><span class="pre">.transform(stats.zscore)</span></code> and assign this to a new column in the DataFrame, <code class="docutils literal notranslate"><span class="pre">rt_z</span></code>. Note that when we pass a function to <code class="docutils literal notranslate"><span class="pre">.apply()</span></code>, we <em>do not</em> put parentheses after the name of the function we are using. That is, if we were running <code class="docutils literal notranslate"><span class="pre">stats.zscore</span></code> on its own (see above), we would use <code class="docutils literal notranslate"><span class="pre">stats.zscore(df['rt'])</span></code>. But since the we have already selected the data that we are passing with <code class="docutils literal notranslate"><span class="pre">.transform()</span></code>, we don’t use the parentheses with the function call.</p>
+<div class="section" id="compute-z-scores-by-participant">
+<h3>Compute <em>z</em> scores by participant<a class="headerlink" href="#compute-z-scores-by-participant" title="Permalink to this headline">¶</a></h3>
+<p>Now let’s split by participant and apply the <em>z</em> transform to the split data. Pandas has a useful method, <code class="docutils literal notranslate"><span class="pre">.transform()</span></code>, that allows us to run a non-pandas function on a selection from a DataFrame. So we group by participant, select only the <code class="docutils literal notranslate"><span class="pre">rt</span></code> column to operate on, and then <code class="docutils literal notranslate"><span class="pre">.transform(stats.zscore)</span></code> and assign this to a new column in the DataFrame, <code class="docutils literal notranslate"><span class="pre">rt_z</span></code>. Note that when we pass a function to <code class="docutils literal notranslate"><span class="pre">.apply()</span></code>, we <em>do not</em> put parentheses after the name of the function we are using. That is, if we were running <code class="docutils literal notranslate"><span class="pre">stats.zscore</span></code> on its own (see above), we would use <code class="docutils literal notranslate"><span class="pre">stats.zscore(df['rt'])</span></code>. But since the we have already selected the data that we are passing with <code class="docutils literal notranslate"><span class="pre">.transform()</span></code>, we don’t use the parentheses with the function call.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participant&#39;</span><span class="p">)[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">zscore</span><span class="p">)</span>
@@ -2319,209 +2532,125 @@ Standard deviation of data with extreme outlier: 10.05001
   </thead>
   <tbody>
     <tr>
-      <th>21</th>
-      <td>s25</td>
+      <th>2310</th>
+      <td>s26</td>
+      <td>3</td>
+      <td>28</td>
+      <td>incongruent</td>
+      <td>0.597077</td>
+      <td>0.493667</td>
+    </tr>
+    <tr>
+      <th>1232</th>
+      <td>s21</td>
+      <td>4</td>
+      <td>25</td>
+      <td>neutral</td>
+      <td>0.406686</td>
+      <td>-0.615704</td>
+    </tr>
+    <tr>
+      <th>1291</th>
+      <td>s2</td>
       <td>1</td>
-      <td>22</td>
+      <td>20</td>
       <td>congruent</td>
-      <td>0.649386</td>
-      <td>1.793845</td>
+      <td>0.497975</td>
+      <td>0.235156</td>
     </tr>
     <tr>
-      <th>3085</th>
-      <td>s23</td>
-      <td>3</td>
+      <th>196</th>
+      <td>s18</td>
+      <td>2</td>
       <td>5</td>
-      <td>incongruent</td>
-      <td>0.397808</td>
-      <td>-1.427432</td>
+      <td>neutral</td>
+      <td>0.422368</td>
+      <td>-1.074922</td>
     </tr>
     <tr>
-      <th>1050</th>
-      <td>s24</td>
-      <td>3</td>
-      <td>31</td>
+      <th>3477</th>
+      <td>s3</td>
+      <td>5</td>
+      <td>18</td>
+      <td>neutral</td>
+      <td>0.617253</td>
+      <td>0.359362</td>
+    </tr>
+    <tr>
+      <th>4266</th>
+      <td>s15</td>
+      <td>5</td>
+      <td>10</td>
       <td>congruent</td>
-      <td>0.596610</td>
-      <td>0.117868</td>
+      <td>0.469193</td>
+      <td>-0.910143</td>
     </tr>
     <tr>
-      <th>132</th>
-      <td>s25</td>
-      <td>5</td>
-      <td>5</td>
-      <td>incongruent</td>
-      <td>0.440720</td>
-      <td>-0.416561</td>
+      <th>433</th>
+      <td>s16</td>
+      <td>4</td>
+      <td>18</td>
+      <td>neutral</td>
+      <td>0.470188</td>
+      <td>0.142431</td>
     </tr>
     <tr>
-      <th>2622</th>
-      <td>s4</td>
+      <th>2473</th>
+      <td>s14</td>
       <td>3</td>
+      <td>32</td>
+      <td>neutral</td>
+      <td>0.490001</td>
+      <td>0.573874</td>
+    </tr>
+    <tr>
+      <th>3842</th>
+      <td>s19</td>
+      <td>2</td>
+      <td>1</td>
+      <td>congruent</td>
+      <td>0.675419</td>
+      <td>1.187104</td>
+    </tr>
+    <tr>
+      <th>2770</th>
+      <td>s10</td>
+      <td>3</td>
+      <td>9</td>
+      <td>incongruent</td>
+      <td>0.553727</td>
+      <td>0.846896</td>
+    </tr>
+    <tr>
+      <th>3448</th>
+      <td>s3</td>
+      <td>4</td>
       <td>21</td>
       <td>neutral</td>
-      <td>0.477721</td>
-      <td>1.084486</td>
+      <td>0.584995</td>
+      <td>0.044301</td>
     </tr>
     <tr>
-      <th>168</th>
-      <td>s18</td>
-      <td>1</td>
-      <td>9</td>
-      <td>congruent</td>
-      <td>0.450479</td>
-      <td>-0.749765</td>
-    </tr>
-    <tr>
-      <th>3386</th>
-      <td>s3</td>
-      <td>2</td>
-      <td>22</td>
-      <td>incongruent</td>
-      <td>0.589132</td>
-      <td>0.084707</td>
-    </tr>
-    <tr>
-      <th>3625</th>
+      <th>3649</th>
       <td>s20</td>
       <td>5</td>
-      <td>7</td>
-      <td>congruent</td>
-      <td>0.345276</td>
-      <td>-1.813430</td>
-    </tr>
-    <tr>
-      <th>2030</th>
-      <td>s12</td>
-      <td>5</td>
-      <td>3</td>
-      <td>congruent</td>
-      <td>0.505885</td>
-      <td>0.157771</td>
-    </tr>
-    <tr>
-      <th>2743</th>
-      <td>s10</td>
-      <td>2</td>
-      <td>14</td>
+      <td>31</td>
       <td>neutral</td>
-      <td>0.421754</td>
-      <td>-0.946985</td>
-    </tr>
-    <tr>
-      <th>3733</th>
-      <td>s17</td>
-      <td>3</td>
-      <td>19</td>
-      <td>neutral</td>
-      <td>0.554209</td>
-      <td>1.058097</td>
-    </tr>
-    <tr>
-      <th>707</th>
-      <td>s11</td>
-      <td>3</td>
-      <td>4</td>
-      <td>neutral</td>
-      <td>0.421583</td>
-      <td>-0.410021</td>
+      <td>0.525877</td>
+      <td>0.371457</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>Likewise, we need to compute the mean RT within participants, so again we split by participant and then compute the within-participant mean. Since pandas has a <code class="docutils literal notranslate"><span class="pre">.mean()</span></code> method, we don’t need to use <code class="docutils literal notranslate"><span class="pre">.apply()</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participant&#39;</span><span class="p">)[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</div>
+<div class="section" id="compute-mean-rt-from-valid-trials-for-each-participant">
+<h3>Compute mean RT from valid trials for each participant<a class="headerlink" href="#compute-mean-rt-from-valid-trials-for-each-participant" title="Permalink to this headline">¶</a></h3>
+<p>Likewise, we need to compute the mean RT within participants, so again we could split by participant and then compute the within-participant mean, this time passing <code class="docutils literal notranslate"><span class="pre">np.mean</span></code> to <code class="docutils literal notranslate"><span class="pre">.transform()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participant&#39;</span><span class="p">)[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>participant</th>
-      <th>block</th>
-      <th>trial</th>
-      <th>flankers</th>
-      <th>rt</th>
-      <th>rt_z</th>
-      <th>rt_mean</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>s25</td>
-      <td>1</td>
-      <td>1</td>
-      <td>congruent</td>
-      <td>0.652072</td>
-      <td>1.822298</td>
-      <td>0.480044</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>s25</td>
-      <td>1</td>
-      <td>2</td>
-      <td>neutral</td>
-      <td>0.644872</td>
-      <td>1.746028</td>
-      <td>0.480044</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>s25</td>
-      <td>1</td>
-      <td>3</td>
-      <td>congruent</td>
-      <td>0.445182</td>
-      <td>-0.369295</td>
-      <td>0.480044</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>s25</td>
-      <td>1</td>
-      <td>4</td>
-      <td>neutral</td>
-      <td>0.525200</td>
-      <td>0.478337</td>
-      <td>0.480044</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>s25</td>
-      <td>1</td>
-      <td>5</td>
-      <td>congruent</td>
-      <td>0.533328</td>
-      <td>0.564439</td>
-      <td>0.480044</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>But actually, doing the above computes the mean across all trials for each participant - including the outlier trials. We can compute the mean across only the non-outlier trials by adding a filter  on <code class="docutils literal notranslate"><span class="pre">df</span></code> prior to the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> operation:</p>
+<p>But actually, doing the above computes the mean across all trials for each participant — including the outlier trials. We can compute the mean across only the non-outlier trials by adding a filter  on <code class="docutils literal notranslate"><span class="pre">df</span></code> prior to the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> operation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">z_thresh</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participant&#39;</span><span class="p">)[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
@@ -2612,10 +2741,14 @@ Standard deviation of data with extreme outlier: 10.05001
 </table>
 </div></div></div>
 </div>
+</div>
+<div class="section" id="fill-in-mean-values-for-outlier-rows">
+<h3>Fill in mean values for outlier rows<a class="headerlink" href="#fill-in-mean-values-for-outlier-rows" title="Permalink to this headline">¶</a></h3>
+<p>There’s a catch with this however — since we grouped <em>filtered</em> <code class="docutils literal notranslate"><span class="pre">np.abs(df['rt_z'])</span> <span class="pre">&lt;=</span> <span class="pre">z_thresh</span></code> data, this only fills in the <em>non-outlier</em> rows with mean RT, because those are the only rows that get passed to the <code class="docutils literal notranslate"><span class="pre">.transform()</span></code> method. The <code class="docutils literal notranslate"><span class="pre">mean_RT</span></code> rows where <em>z</em> exceeds outlier threshold are filled with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, since pandas doesn’t know what else to do with them. We can see this if we ask for a sample of just the rows that exceed the outlier threshold:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># view sample of rows to confirm RT varies by participant</span>
-<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">z_thresh</span><span class="p">]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2649,64 +2782,74 @@ Standard deviation of data with extreme outlier: 10.05001
   </thead>
   <tbody>
     <tr>
-      <th>3334</th>
+      <th>3302</th>
       <td>s27</td>
-      <td>5</td>
+      <td>4</td>
       <td>32</td>
-      <td>congruent</td>
-      <td>0.469728</td>
-      <td>0.078325</td>
-      <td>0.457454</td>
+      <td>incongruent</td>
+      <td>0.728959</td>
+      <td>3.322114</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>1565</th>
+      <th>4208</th>
+      <td>s15</td>
+      <td>3</td>
+      <td>16</td>
+      <td>incongruent</td>
+      <td>0.897641</td>
+      <td>3.201033</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2314</th>
+      <td>s26</td>
+      <td>3</td>
+      <td>32</td>
+      <td>neutral</td>
+      <td>0.937082</td>
+      <td>4.420926</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1524</th>
       <td>s1</td>
-      <td>5</td>
-      <td>9</td>
-      <td>congruent</td>
-      <td>0.405326</td>
-      <td>-0.914678</td>
-      <td>0.465963</td>
+      <td>3</td>
+      <td>32</td>
+      <td>incongruent</td>
+      <td>0.777096</td>
+      <td>4.349914</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>906</th>
-      <td>s8</td>
+      <th>2262</th>
+      <td>s26</td>
+      <td>2</td>
+      <td>12</td>
+      <td>incongruent</td>
+      <td>0.840871</td>
+      <td>3.309630</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2964</th>
+      <td>s6</td>
       <td>4</td>
       <td>12</td>
       <td>neutral</td>
-      <td>0.525561</td>
-      <td>0.521723</td>
-      <td>0.477679</td>
+      <td>0.917153</td>
+      <td>3.456548</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>2819</th>
-      <td>s10</td>
-      <td>4</td>
-      <td>26</td>
-      <td>neutral</td>
-      <td>0.529726</td>
-      <td>0.520654</td>
-      <td>0.489909</td>
-    </tr>
-    <tr>
-      <th>597</th>
-      <td>s22</td>
-      <td>4</td>
-      <td>22</td>
-      <td>incongruent</td>
-      <td>0.441555</td>
-      <td>-0.001671</td>
-      <td>0.431980</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>s25</td>
+      <th>1299</th>
+      <td>s2</td>
       <td>1</td>
-      <td>26</td>
+      <td>28</td>
       <td>neutral</td>
-      <td>0.481292</td>
-      <td>0.013219</td>
-      <td>0.475143</td>
+      <td>0.837920</td>
+      <td>4.414282</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>609</th>
@@ -2719,44 +2862,181 @@ Standard deviation of data with extreme outlier: 10.05001
       <td>NaN</td>
     </tr>
     <tr>
-      <th>1452</th>
-      <td>s1</td>
-      <td>1</td>
-      <td>24</td>
-      <td>congruent</td>
-      <td>0.444856</td>
-      <td>-0.354894</td>
-      <td>0.465963</td>
-    </tr>
-    <tr>
-      <th>4023</th>
-      <td>s5</td>
+      <th>2579</th>
+      <td>s4</td>
       <td>2</td>
-      <td>23</td>
-      <td>neutral</td>
-      <td>0.406017</td>
-      <td>-1.254775</td>
-      <td>0.499061</td>
+      <td>10</td>
+      <td>incongruent</td>
+      <td>0.589781</td>
+      <td>3.158490</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>4136</th>
-      <td>s15</td>
-      <td>1</td>
-      <td>8</td>
+      <th>593</th>
+      <td>s22</td>
+      <td>4</td>
+      <td>18</td>
       <td>neutral</td>
-      <td>0.449659</td>
-      <td>-1.097581</td>
-      <td>0.557696</td>
+      <td>0.758045</td>
+      <td>3.868943</td>
+      <td>NaN</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>Finally, we can use <code class="docutils literal notranslate"><span class="pre">np.where()</span></code> to find outliers and replace them with each individual’s mean RT. Below, we do this in one line of code, which is more compact and efficient than we did above. Earlier, we first created a column, <code class="docutils literal notranslate"><span class="pre">outliers_z</span></code> and then used that to determine which rows would be filled with the original RT versus the mean RT. However, creating a column in our DataFrame that we will never use again is not efficient use of resources. Here we simply use the threshold test as our conditional.</p>
+<p>To fix this, we need to group the data by participant again, except this time not excluding outlier rows. Then, we need to replace all NaNs in the <code class="docutils literal notranslate"><span class="pre">rt_mean</span></code> column with the mean RT for that participant.</p>
+<p>To do this, we run another <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> + <code class="docutils literal notranslate"><span class="pre">.transform()</span></code> operation, but this time applying a more complex transformation using a <a class="reference external" href="https://www.datacamp.com/community/tutorials/python-lambda"><strong>lambda function</strong></a>. Lambda functions are basically a way of writing a small Python function inside a command. They are used when what you need to do is a bit more complex or specific than can be done with an existing method or function.</p>
+<p>In this case, what we want to do is group <code class="docutils literal notranslate"><span class="pre">df</span></code> by participant ID, then fill in the NaN values with the mean RT from all non-NaN values for that participant. We do this by applying two operations in sequence: first we use <code class="docutils literal notranslate"><span class="pre">np.nanmean()</span></code> to compute the mean over all non-NaN RT values for that participant, and then we pass that value to <code class="docutils literal notranslate"><span class="pre">.fillna()</span></code> to replace any NaN values for that participant with the mean RT. This works because the <code class="docutils literal notranslate"><span class="pre">x</span></code> in the lambda function is a variable that refers to the entire grouped data set that we pass to it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z_thresh</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_clean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">z_thresh</span><span class="p">,</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participant&#39;</span><span class="p">)[</span><span class="s1">&#39;rt_mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+
+<span class="c1"># Check by again printing a smaple of outlier rows</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">z_thresh</span><span class="p">]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participant</th>
+      <th>block</th>
+      <th>trial</th>
+      <th>flankers</th>
+      <th>rt</th>
+      <th>rt_z</th>
+      <th>rt_mean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>495</th>
+      <td>s22</td>
+      <td>1</td>
+      <td>16</td>
+      <td>incongruent</td>
+      <td>0.722015</td>
+      <td>3.428305</td>
+      <td>0.431980</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>s12</td>
+      <td>4</td>
+      <td>20</td>
+      <td>neutral</td>
+      <td>0.814067</td>
+      <td>3.895140</td>
+      <td>0.490843</td>
+    </tr>
+    <tr>
+      <th>3058</th>
+      <td>s23</td>
+      <td>2</td>
+      <td>10</td>
+      <td>congruent</td>
+      <td>0.953989</td>
+      <td>3.714217</td>
+      <td>0.542556</td>
+    </tr>
+    <tr>
+      <th>2262</th>
+      <td>s26</td>
+      <td>2</td>
+      <td>12</td>
+      <td>incongruent</td>
+      <td>0.840871</td>
+      <td>3.309630</td>
+      <td>0.550074</td>
+    </tr>
+    <tr>
+      <th>2454</th>
+      <td>s14</td>
+      <td>3</td>
+      <td>13</td>
+      <td>incongruent</td>
+      <td>0.797524</td>
+      <td>5.013169</td>
+      <td>0.446461</td>
+    </tr>
+    <tr>
+      <th>667</th>
+      <td>s11</td>
+      <td>1</td>
+      <td>28</td>
+      <td>incongruent</td>
+      <td>0.701472</td>
+      <td>4.127361</td>
+      <td>0.443325</td>
+    </tr>
+    <tr>
+      <th>2314</th>
+      <td>s26</td>
+      <td>3</td>
+      <td>32</td>
+      <td>neutral</td>
+      <td>0.937082</td>
+      <td>4.420926</td>
+      <td>0.550074</td>
+    </tr>
+    <tr>
+      <th>3769</th>
+      <td>s17</td>
+      <td>4</td>
+      <td>23</td>
+      <td>incongruent</td>
+      <td>0.778205</td>
+      <td>4.073122</td>
+      <td>0.473696</td>
+    </tr>
+    <tr>
+      <th>2440</th>
+      <td>s14</td>
+      <td>2</td>
+      <td>31</td>
+      <td>neutral</td>
+      <td>0.701127</td>
+      <td>3.621617</td>
+      <td>0.446461</td>
+    </tr>
+    <tr>
+      <th>1296</th>
+      <td>s2</td>
+      <td>1</td>
+      <td>25</td>
+      <td>incongruent</td>
+      <td>0.745997</td>
+      <td>3.284224</td>
+      <td>0.474832</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="create-final-output-column">
+<h3>Create final output column<a class="headerlink" href="#create-final-output-column" title="Permalink to this headline">¶</a></h3>
+<p>Next, we want to create a column called <code class="docutils literal notranslate"><span class="pre">rt_clean</span></code> that contains the original RT for non-outlier trials, and the mean RT for that participant for outlier trials. We can use <code class="docutils literal notranslate"><span class="pre">np.where()</span></code> to find outliers and replace them with each individual’s mean RT. Below, we do this in one line of code, which is more compact and efficient than we did above. Earlier, we first created a column, <code class="docutils literal notranslate"><span class="pre">outliers_z</span></code> and then used that to determine which rows would be filled with the original RT versus the mean RT. However, creating a column in our DataFrame that we will never use again is not efficient use of resources. Here we simply use the threshold test as our conditional.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_clean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">z_thresh</span><span class="p">,</span> 
                           <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_mean&#39;</span><span class="p">],</span> 
                           <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">])</span>
 
@@ -2795,114 +3075,114 @@ Standard deviation of data with extreme outlier: 10.05001
   </thead>
   <tbody>
     <tr>
-      <th>3660</th>
-      <td>s17</td>
-      <td>1</td>
-      <td>10</td>
-      <td>incongruent</td>
-      <td>0.530175</td>
-      <td>0.734594</td>
-      <td>0.473696</td>
-      <td>0.530175</td>
-    </tr>
-    <tr>
-      <th>1371</th>
-      <td>s2</td>
-      <td>4</td>
-      <td>5</td>
-      <td>neutral</td>
-      <td>0.498060</td>
-      <td>0.236203</td>
-      <td>0.474832</td>
-      <td>0.498060</td>
-    </tr>
-    <tr>
-      <th>203</th>
-      <td>s18</td>
+      <th>526</th>
+      <td>s22</td>
       <td>2</td>
-      <td>12</td>
-      <td>neutral</td>
-      <td>0.586396</td>
-      <td>0.822371</td>
-      <td>0.513467</td>
-      <td>0.586396</td>
-    </tr>
-    <tr>
-      <th>3765</th>
-      <td>s17</td>
-      <td>4</td>
-      <td>19</td>
-      <td>incongruent</td>
-      <td>0.461682</td>
-      <td>-0.187332</td>
-      <td>0.473696</td>
-      <td>0.461682</td>
-    </tr>
-    <tr>
-      <th>270</th>
-      <td>s18</td>
-      <td>4</td>
       <td>15</td>
       <td>congruent</td>
-      <td>0.397202</td>
-      <td>-1.366014</td>
-      <td>0.513467</td>
-      <td>0.397202</td>
+      <td>0.345793</td>
+      <td>-1.172823</td>
+      <td>0.431980</td>
+      <td>0.345793</td>
     </tr>
     <tr>
-      <th>1560</th>
-      <td>s1</td>
-      <td>5</td>
-      <td>4</td>
-      <td>incongruent</td>
-      <td>0.509389</td>
-      <td>0.558946</td>
-      <td>0.465963</td>
-      <td>0.509389</td>
-    </tr>
-    <tr>
-      <th>1178</th>
-      <td>s21</td>
-      <td>3</td>
+      <th>1322</th>
+      <td>s2</td>
       <td>2</td>
-      <td>congruent</td>
-      <td>0.490808</td>
-      <td>0.339045</td>
-      <td>0.459101</td>
-      <td>0.490808</td>
-    </tr>
-    <tr>
-      <th>255</th>
-      <td>s18</td>
-      <td>3</td>
-      <td>32</td>
-      <td>congruent</td>
-      <td>0.546395</td>
-      <td>0.359685</td>
-      <td>0.513467</td>
-      <td>0.546395</td>
-    </tr>
-    <tr>
-      <th>3327</th>
-      <td>s27</td>
-      <td>5</td>
-      <td>25</td>
+      <td>20</td>
       <td>neutral</td>
-      <td>0.454252</td>
-      <td>-0.115328</td>
-      <td>0.457454</td>
-      <td>0.454252</td>
+      <td>0.510039</td>
+      <td>0.383468</td>
+      <td>0.474832</td>
+      <td>0.510039</td>
     </tr>
     <tr>
-      <th>1452</th>
-      <td>s1</td>
+      <th>943</th>
+      <td>s8</td>
+      <td>5</td>
+      <td>17</td>
+      <td>neutral</td>
+      <td>0.517592</td>
+      <td>0.457214</td>
+      <td>0.477679</td>
+      <td>0.517592</td>
+    </tr>
+    <tr>
+      <th>995</th>
+      <td>s24</td>
+      <td>2</td>
+      <td>6</td>
+      <td>neutral</td>
+      <td>0.600864</td>
+      <td>0.161539</td>
+      <td>0.581082</td>
+      <td>0.600864</td>
+    </tr>
+    <tr>
+      <th>3206</th>
+      <td>s27</td>
       <td>1</td>
-      <td>24</td>
-      <td>congruent</td>
-      <td>0.444856</td>
-      <td>-0.354894</td>
+      <td>32</td>
+      <td>neutral</td>
+      <td>0.445412</td>
+      <td>-0.225945</td>
+      <td>0.457454</td>
+      <td>0.445412</td>
+    </tr>
+    <tr>
+      <th>1610</th>
+      <td>s13</td>
+      <td>1</td>
+      <td>22</td>
+      <td>incongruent</td>
+      <td>0.385060</td>
+      <td>-1.092376</td>
+      <td>0.453831</td>
+      <td>0.385060</td>
+    </tr>
+    <tr>
+      <th>4084</th>
+      <td>s5</td>
+      <td>4</td>
+      <td>20</td>
+      <td>neutral</td>
+      <td>0.570357</td>
+      <td>0.925856</td>
+      <td>0.499061</td>
+      <td>0.570357</td>
+    </tr>
+    <tr>
+      <th>1514</th>
+      <td>s1</td>
+      <td>3</td>
+      <td>22</td>
+      <td>neutral</td>
+      <td>0.405257</td>
+      <td>-0.915653</td>
       <td>0.465963</td>
-      <td>0.444856</td>
+      <td>0.405257</td>
+    </tr>
+    <tr>
+      <th>2040</th>
+      <td>s12</td>
+      <td>5</td>
+      <td>13</td>
+      <td>incongruent</td>
+      <td>0.385942</td>
+      <td>-1.296799</td>
+      <td>0.490843</td>
+      <td>0.385942</td>
+    </tr>
+    <tr>
+      <th>1653</th>
+      <td>s13</td>
+      <td>3</td>
+      <td>1</td>
+      <td>neutral</td>
+      <td>0.541894</td>
+      <td>1.346727</td>
+      <td>0.453831</td>
+      <td>0.541894</td>
     </tr>
   </tbody>
 </table>
@@ -2911,7 +3191,7 @@ Standard deviation of data with extreme outlier: 10.05001
 <p>Since a random sample of 10 rows may not show any where <em>z</em> actually exceeded our outlier threshold, we can use filtering to view only those rows where the absolute value of <em>z</em> was greater than our threshold, to confirm that in those rows <code class="docutils literal notranslate"><span class="pre">rt_clean</span></code> is the same as <code class="docutils literal notranslate"><span class="pre">rt_mean</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">z_thresh</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">z_thresh</span><span class="p">]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2946,130 +3226,135 @@ Standard deviation of data with extreme outlier: 10.05001
   </thead>
   <tbody>
     <tr>
-      <th>26</th>
-      <td>s25</td>
+      <th>2076</th>
+      <td>s9</td>
       <td>1</td>
-      <td>27</td>
+      <td>17</td>
       <td>incongruent</td>
-      <td>0.757437</td>
-      <td>2.938435</td>
-      <td>0.475143</td>
-      <td>0.475143</td>
+      <td>0.705617</td>
+      <td>3.889038</td>
+      <td>0.430409</td>
+      <td>0.430409</td>
     </tr>
     <tr>
-      <th>37</th>
-      <td>s25</td>
+      <th>3108</th>
+      <td>s23</td>
+      <td>3</td>
+      <td>28</td>
+      <td>incongruent</td>
+      <td>0.877870</td>
+      <td>3.010529</td>
+      <td>0.542556</td>
+      <td>0.542556</td>
+    </tr>
+    <tr>
+      <th>2841</th>
+      <td>s10</td>
+      <td>5</td>
+      <td>17</td>
+      <td>neutral</td>
+      <td>0.730521</td>
+      <td>3.250012</td>
+      <td>0.489909</td>
+      <td>0.489909</td>
+    </tr>
+    <tr>
+      <th>953</th>
+      <td>s8</td>
+      <td>5</td>
+      <td>27</td>
+      <td>incongruent</td>
+      <td>0.881690</td>
+      <td>3.404502</td>
+      <td>0.477679</td>
+      <td>0.477679</td>
+    </tr>
+    <tr>
+      <th>2926</th>
+      <td>s6</td>
+      <td>3</td>
+      <td>6</td>
+      <td>congruent</td>
+      <td>0.889037</td>
+      <td>3.237846</td>
+      <td>0.466651</td>
+      <td>0.466651</td>
+    </tr>
+    <tr>
+      <th>848</th>
+      <td>s8</td>
       <td>2</td>
-      <td>6</td>
+      <td>18</td>
+      <td>congruent</td>
+      <td>0.009837</td>
+      <td>-3.652943</td>
+      <td>0.477679</td>
+      <td>0.477679</td>
+    </tr>
+    <tr>
+      <th>3058</th>
+      <td>s23</td>
+      <td>2</td>
+      <td>10</td>
+      <td>congruent</td>
+      <td>0.953989</td>
+      <td>3.714217</td>
+      <td>0.542556</td>
+      <td>0.542556</td>
+    </tr>
+    <tr>
+      <th>2440</th>
+      <td>s14</td>
+      <td>2</td>
+      <td>31</td>
       <td>neutral</td>
-      <td>0.917223</td>
-      <td>4.631054</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.701127</td>
+      <td>3.621617</td>
+      <td>0.446461</td>
+      <td>0.446461</td>
     </tr>
     <tr>
-      <th>90</th>
-      <td>s25</td>
-      <td>3</td>
-      <td>27</td>
+      <th>667</th>
+      <td>s11</td>
+      <td>1</td>
+      <td>28</td>
+      <td>incongruent</td>
+      <td>0.701472</td>
+      <td>4.127361</td>
+      <td>0.443325</td>
+      <td>0.443325</td>
+    </tr>
+    <tr>
+      <th>841</th>
+      <td>s8</td>
+      <td>2</td>
+      <td>11</td>
       <td>congruent</td>
-      <td>0.693357</td>
-      <td>2.259632</td>
-      <td>0.475143</td>
-      <td>0.475143</td>
-    </tr>
-    <tr>
-      <th>117</th>
-      <td>s25</td>
-      <td>4</td>
-      <td>22</td>
-      <td>incongruent</td>
-      <td>0.817285</td>
-      <td>3.572408</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>141</th>
-      <td>s25</td>
-      <td>5</td>
-      <td>14</td>
-      <td>incongruent</td>
-      <td>0.721394</td>
-      <td>2.556630</td>
-      <td>0.475143</td>
-      <td>0.475143</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>4208</th>
-      <td>s15</td>
-      <td>3</td>
-      <td>16</td>
-      <td>incongruent</td>
-      <td>0.897641</td>
-      <td>3.201033</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4231</th>
-      <td>s15</td>
-      <td>4</td>
-      <td>7</td>
-      <td>congruent</td>
-      <td>0.881503</td>
-      <td>3.046180</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4262</th>
-      <td>s15</td>
-      <td>5</td>
-      <td>6</td>
-      <td>incongruent</td>
-      <td>0.853477</td>
-      <td>2.777256</td>
-      <td>0.557696</td>
-      <td>0.557696</td>
-    </tr>
-    <tr>
-      <th>4279</th>
-      <td>s15</td>
-      <td>5</td>
-      <td>23</td>
-      <td>neutral</td>
-      <td>0.845636</td>
-      <td>2.702019</td>
-      <td>0.557696</td>
-      <td>0.557696</td>
-    </tr>
-    <tr>
-      <th>4288</th>
-      <td>s15</td>
-      <td>5</td>
-      <td>32</td>
-      <td>congruent</td>
-      <td>0.789597</td>
-      <td>2.164295</td>
-      <td>0.557696</td>
-      <td>0.557696</td>
+      <td>0.056265</td>
+      <td>-3.277120</td>
+      <td>0.477679</td>
+      <td>0.477679</td>
     </tr>
   </tbody>
 </table>
-<p>185 rows × 8 columns</p>
 </div></div></div>
+</div>
+<p>Finally we’ll print out the proportion of data identified as outliers, by computing the number of <em>z</em> values that exceed our threshold, relative to the total number of <em>z</em> values (i.e., the number of rows in the DataFrame):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outliers</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">z_thresh</span><span class="p">][</span><span class="s1">&#39;rt_z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt_z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+
+<span class="c1"># Convert proportion to percent, and round to 2 decimal places</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">outliers</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="s2">&quot;</span><span class="si">% o</span><span class="s2">f the data identified as outliers and replaced with mean value.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.17 % of the data identified as outliers and replaced with mean value.
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="visualizing-the-cleaned-data">
@@ -3089,7 +3374,7 @@ Standard deviation of data with extreme outlier: 10.05001
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/data_cleaning_77_0.png" src="../_images/data_cleaning_77_0.png" />
+<img alt="../_images/data_cleaning_83_0.png" src="../_images/data_cleaning_83_0.png" />
 </div>
 </div>
 </div>
@@ -3106,7 +3391,7 @@ Standard deviation of data with extreme outlier: 10.05001
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/data_cleaning_79_0.png" src="../_images/data_cleaning_79_0.png" />
+<img alt="../_images/data_cleaning_85_0.png" src="../_images/data_cleaning_85_0.png" />
 </div>
 </div>
 </div>
@@ -3125,7 +3410,7 @@ Standard deviation of data with extreme outlier: 10.05001
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/data_cleaning_81_0.png" src="../_images/data_cleaning_81_0.png" />
+<img alt="../_images/data_cleaning_87_0.png" src="../_images/data_cleaning_87_0.png" />
 </div>
 </div>
 </div>
@@ -3142,7 +3427,7 @@ Standard deviation of data with extreme outlier: 10.05001
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/data_cleaning_83_0.png" src="../_images/data_cleaning_83_0.png" />
+<img alt="../_images/data_cleaning_89_0.png" src="../_images/data_cleaning_89_0.png" />
 </div>
 </div>
 </div>
