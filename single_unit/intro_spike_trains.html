@@ -42,8 +42,6 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -55,7 +53,7 @@
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Ten intensities — A bigger data set" href="ten_intensities.html" />
+    <link rel="next" title="Effects of light intensity on spike rate" href="ten_intensities.html" />
     <link rel="prev" title="Single Unit Data and Spike Trains" href="single_unit_intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -623,7 +621,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="ten_intensities.html">
-   Ten intensities — A bigger data set
+   Effects of light intensity on spike rate
   </a>
  </li>
  <li class="toctree-l1">
@@ -634,11 +632,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="intro_multielec_data.html">
    Introducing Multielectrode Data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="import_multielec_data.html">
-   Importing Multielectrode Data
   </a>
  </li>
  <li class="toctree-l1">
@@ -971,7 +964,7 @@
                 
   <div class="section" id="introduction-to-spike-train-data">
 <h1>Introduction to Spike Train Data<a class="headerlink" href="#introduction-to-spike-train-data" title="Permalink to this headline">¶</a></h1>
-<p><em>The examples in this chapter were adapted from Chapter 3 of Nylen, E.L., and Wallisch, P.. (2017).</em> <a class="reference external" href="https://www.sciencedirect.com/book/9780128040430/neural-data-science">Neural Data Science</a>. <em>Academic Press. Code and explanatory text by Aaron J. Newman.</em></p>
+<p><em>The examples in this lesson were adapted from Chapter 3 of Nylen, E.L., and Wallisch, P.. (2017).</em> <a class="reference external" href="https://www.sciencedirect.com/book/9780128040430/neural-data-science">Neural Data Science</a>. <em>Academic Press. Code and explanatory text by Aaron J. Newman.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import libraries we&#39;ll need</span>
@@ -984,7 +977,7 @@
 <div class="section" id="our-first-spike-train">
 <h2>Our first spike train<a class="headerlink" href="#our-first-spike-train" title="Permalink to this headline">¶</a></h2>
 <p>Imagine an experiment involving a neuron that was genetically engineered for <a class="reference external" href="https://en.wikipedia.org/wiki/Optogenetics"><strong>optogenetics</strong></a>, meaning that it expresses genes sensitive to a specific wavelength of light (550 nm, which is green; to learn more about optogenetics, check out <a class="reference external" href="https://youtu.be/lqroI7sFVuk">this video by Prof. Carl Petersen</a>). When light of that wavelength is directed at the neuron, it tends to fire.</p>
-<p>For this hypothetical experiment, we used an electrode to record action potentials from this optogenetically-engineered neuron to confirm that it tends to fire in response to 550 nm light. This was done across multiple trials. On each trial, recording was started and then the 550 nm light was turned on 5 ms later, for a duration of 10 ms. Each trial lasted a total of 20 ms. Data was sampled from the electrode every millisecond.</p>
+<p>For this hypothetical experiment, we used an electrode to record action potentials from this optogenetically-engineered neuron to confirm that it tends to fire in response to 550 nm light. This was done across multiple trials. On each trial, recording was started and then the 550 nm light was turned on 4 ms later, for a duration of 10 ms. Each trial lasted a total of 20 ms. Data was sampled from the electrode every millisecond.</p>
 <p>We can store the data from each trial in a list, <code class="docutils literal notranslate"><span class="pre">spike_train</span></code>. Each value represents an evenly-spaced point in time (e.g.,  every 1 ms), where <code class="docutils literal notranslate"><span class="pre">0</span></code> encodes time points at which no action potential was detected, and <code class="docutils literal notranslate"><span class="pre">1</span></code> represents times when action potentials occurred:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1006,7 +999,7 @@
 <p>Since we know the light came on 5 ms after the start of each trial, we can define light onset time and duration as variables, and also defines that a spike is represented as a <code class="docutils literal notranslate"><span class="pre">1</span></code> in the data. Then, we can look for the first spike that occurred after the onset of the light.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">light_onset_time</span> <span class="o">=</span> <span class="mi">5</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">light_onset_time</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">stimulus_duration</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">spike_value</span> <span class="o">=</span> <span class="mi">1</span>
 </pre></div>
@@ -1022,7 +1015,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>First spike latency to stimulus = 4
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>First spike latency to stimulus = 5
 </pre></div>
 </div>
 </div>
@@ -1481,7 +1474,7 @@
         <a class="right-next" href="ten_intensities.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Ten intensities — A bigger data set</p>
+                <p class="prevnext-title">Effects of light intensity on spike rate</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

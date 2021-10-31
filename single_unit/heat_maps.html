@@ -42,8 +42,6 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -56,7 +54,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Introducing Multielectrode Data" href="intro_multielec_data.html" />
-    <link rel="prev" title="Ten intensities — A bigger data set" href="ten_intensities.html" />
+    <link rel="prev" title="Effects of light intensity on spike rate" href="ten_intensities.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -623,7 +621,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="ten_intensities.html">
-   Ten intensities — A bigger data set
+   Effects of light intensity on spike rate
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -634,11 +632,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="intro_multielec_data.html">
    Introducing Multielectrode Data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="import_multielec_data.html">
-   Importing Multielectrode Data
   </a>
  </li>
  <li class="toctree-l1">
@@ -949,6 +942,19 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_12473</span><span class="o">/</span><span class="mf">4185433218.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pickle</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;ten_intensities.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">ten_intensities</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin1&#39;</span><span class="p">)</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;ten_intensities.pkl&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <p>Recall that the <code class="docutils literal notranslate"><span class="pre">ten_intensities</span></code> data is stored as a dictionary of lists, with one dictionary entry for each intensity level. The value of each dictionary entry is a list, which in turn contains a list of spike times for each trial.</p>
 <p>Since heat maps are histograms, and <code class="docutils literal notranslate"><span class="pre">ax.imshow()</span></code> is designed to plot 2D arrays, we’ll need to convert the data to histograms and arrange it as a 2D array.</p>
@@ -977,6 +983,20 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_12473</span><span class="o">/</span><span class="mf">391677217.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Set some experimental parameters</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">num_intensities</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ten_intensities</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">num_trials</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">len_trials</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> 
+
+<span class="ne">NameError</span>: name &#39;ten_intensities&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <p>Now we plot the heat map, by looping through each entry (intensity level) in the <code class="docutils literal notranslate"><span class="pre">psth_hist</span></code> dictionary. We do this using list comprehension <em>inside</em> the plot command — i.e., as the data that we give plt.imshow() as input. Each intensity level is used to draw a row of the heat map image. Note the use of the <code class="docutils literal notranslate"><span class="pre">sorted()</span></code> function inside the list comprehension; this is critical because dictionaries are not inherently stored in any order. They are organized by keys, and in this case the first character of the key name is the intensity level (<code class="docutils literal notranslate"><span class="pre">1_intensity</span></code>, <code class="docutils literal notranslate"><span class="pre">2_intensity</span></code>, etc.). So by applying <code class="docutils literal notranslate"><span class="pre">sorted()</span></code> to the keys, they are plotted in numerical order.</p>
 <div class="cell docutils container">
@@ -990,7 +1010,21 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/heat_maps_5_0.png" src="../_images/heat_maps_5_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_12473</span><span class="o">/</span><span class="mf">1067499403.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>           <span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;psth_dict&#39; is not defined
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 720x720 with 0 Axes&gt;
+</pre></div>
+</div>
 </div>
 </div>
 <p>The above plot is far less pretty than the one at the top of this section! We need to pass additional arguments to <code class="docutils literal notranslate"><span class="pre">plt.imshow()</span></code>, and then add some more generic Matplotlib tweaks in order to get it to look the way we want.</p>
@@ -1014,7 +1048,21 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/heat_maps_7_0.png" src="../_images/heat_maps_7_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_12473</span><span class="o">/</span><span class="mf">1259164925.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span>
+
+<span class="ne">NameError</span>: name &#39;psth_dict&#39; is not defined
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 720x720 with 0 Axes&gt;
+</pre></div>
+</div>
 </div>
 </div>
 <p>Now we can add features that help with interpretation, such as axis labels and a leged explaining what the colours represent.</p>
@@ -1045,7 +1093,21 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/heat_maps_9_0.png" src="../_images/heat_maps_9_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_12473</span><span class="o">/</span><span class="mf">2439620658.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">aa</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                 <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                 <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span>
+
+<span class="ne">NameError</span>: name &#39;psth_dict&#39; is not defined
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 720x720 with 0 Axes&gt;
+</pre></div>
+</div>
 </div>
 </div>
 <p>The heat map above makes a few interesting properties of the data immediately evident, more clearly and concisely than ten PSTHs or raster plots. For example, it’s clear that spiking increases with stimulus intensity, particularly after 7.5 ms. Recall that the stimulus onset time was 5 ms, so there is a delay prior to spiking onset (the neuron’s characteristic <em>latency to first spike</em>). As well, the heat map displays a documented property of neurons’ responses to stimuli of varying intensity: as intensity increases, the latency to first spike becomes shorter (i.e., the neuron spikes sooner after a more intense stimulus). We can see this in the fact that the “hot spots” in the image occur later for lower-intensity stimuli.</p>
@@ -1096,7 +1158,19 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/heat_maps_12_0.png" src="../_images/heat_maps_12_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_12473</span><span class="o">/</span><span class="mf">2020678117.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span>
+
+<span class="ne">NameError</span>: name &#39;psth_dict&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/heat_maps_12_1.png" src="../_images/heat_maps_12_1.png" />
 </div>
 </div>
 </div>
@@ -1116,7 +1190,21 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/heat_maps_14_0.png" src="../_images/heat_maps_14_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_12473</span><span class="o">/</span><span class="mf">2537264142.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span>
+
+<span class="ne">NameError</span>: name &#39;psth_dict&#39; is not defined
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 360x216 with 0 Axes&gt;
+</pre></div>
+</div>
 </div>
 </div>
 <p>On the other hand, if we use a monochromatic (single-colour) map, the differences in numerical values are represented in a more continuous fashion, as the intensity (brightness) of the pixel, resulting in smoother, more continuous-looking gradients:</p>
@@ -1133,7 +1221,21 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/heat_maps_16_0.png" src="../_images/heat_maps_16_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_12473</span><span class="o">/</span><span class="mf">2969262556.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+
+<span class="ne">NameError</span>: name &#39;psth_dict&#39; is not defined
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 360x216 with 0 Axes&gt;
+</pre></div>
+</div>
 </div>
 </div>
 <p>Another issue with some colour maps are that they are not always <strong>isoluminent</strong>, meaning that the luminance (brightness) of some colours may be greater than others, again making some differences appear larger than others.</p>
@@ -1183,7 +1285,19 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/heat_maps_18_0.png" src="../_images/heat_maps_18_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_12473</span><span class="o">/</span><span class="mf">3635789761.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
+
+<span class="ne">NameError</span>: name &#39;psth_dict&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/heat_maps_18_1.png" src="../_images/heat_maps_18_1.png" />
 </div>
 </div>
 <p>Compare these plots to  ones above that use non-viridis colourmaps (including the ones above, and some more examples below) and ask yourself how your perception and interpretation of the plots changes between them.</p>
@@ -1207,7 +1321,19 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/heat_maps_20_0.png" src="../_images/heat_maps_20_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_12473</span><span class="o">/</span><span class="mf">4104621073.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">);</span><span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                                      <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                                      <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span> <span class="p">;</span> <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">);</span><span class="n">aa</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">psth_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">psth_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())],</span>
+
+<span class="ne">NameError</span>: name &#39;psth_dict&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/heat_maps_20_1.png" src="../_images/heat_maps_20_1.png" />
 </div>
 </div>
 </div>
@@ -1247,7 +1373,7 @@
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Ten intensities — A bigger data set</p>
+                <p class="prevnext-title">Effects of light intensity on spike rate</p>
             </div>
         </a>
     </div>
