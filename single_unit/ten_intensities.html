@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Effects of light intensity on spike rate &#8212; Data Science for Psychology and Neuroscience — in Python</title>
+    <title>Effects of Light Intensity on Spike Rate &#8212; Data Science for Psychology and Neuroscience — in Python</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -621,7 +621,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Effects of light intensity on spike rate
+   Effects of Light Intensity on Spike Rate
   </a>
  </li>
  <li class="toctree-l1">
@@ -938,6 +938,24 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scale-the-x-axes">
+     Scale the
+     <em>
+      x
+     </em>
+     axes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scale-the-y-axes">
+     Scale the
+     <em>
+      y
+     </em>
+     axes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#label-the-plot">
      Label the plot
     </a>
@@ -961,9 +979,10 @@
               <div>
                 
   <div class="section" id="effects-of-light-intensity-on-spike-rate">
-<h1>Effects of light intensity on spike rate<a class="headerlink" href="#effects-of-light-intensity-on-spike-rate" title="Permalink to this headline">¶</a></h1>
+<h1>Effects of Light Intensity on Spike Rate<a class="headerlink" href="#effects-of-light-intensity-on-spike-rate" title="Permalink to this headline">¶</a></h1>
 <p>Now we’re going to load an even larger data set. The <code class="docutils literal notranslate"><span class="pre">ten_intensities</span></code> data set expands on the optogenetic spike train data we worked with in the previous chapter. Now we have data recorded from a neuron as it was stimulated with ten different intensities of the light that activates its receptors (550 nm green). We have 10 trials’ worth of data at each intensity, so 100 trials in total. Each trial was 20 ms long, with optical stimulation starting at 5 ms and ending at 15 ms. Measuring the neuron’s response across a range of intensities allows us to map out the response “profile” of the neuron in terms of the number of spikes elicited by differing intensities.</p>
 <p>This data set is adapted from Nylen, E.L., and Wallisch, P.. (2017). <a class="reference external" href="https://www.sciencedirect.com/book/9780128040430/neural-data-science"><em>Neural Data Science</em></a>. Academic Press.</p>
+<hr class="docutils" />
 <div class="section" id="learning-objectives">
 <h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -971,10 +990,12 @@
 <li><p>Select data for a specific intensity level</p></li>
 <li><p>Plot raster plots and PSTHs for specific intensity levels</p></li>
 <li><p>Plot raster plots and PSTHs for all intensity levels</p></li>
+<li><p>Use Matplotlib subplots to visualize multivariate data</p></li>
 <li><p>Format a complex Matplotlib figure with appropriate labeling and scales</p></li>
 <li><p>Use a combination of raster and PSTH plots to make inferences about the relationship between an experimentally-manipulated variable and spike rate and timing.</p></li>
 </ul>
 </div>
+<hr class="docutils" />
 <div class="section" id="import-necessary-packages">
 <h2>Import necessary packages<a class="headerlink" href="#import-necessary-packages" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
@@ -994,6 +1015,7 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stim_on</span> <span class="o">=</span> <span class="mi">4</span>   <span class="c1"># time stimulus turned on</span>
 <span class="n">stim_off</span> <span class="o">=</span> <span class="mi">14</span> <span class="c1"># time stimulus turned off</span>
 <span class="n">num_trials</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># number of trials per intensity level</span>
+<span class="n">num_tp</span> <span class="o">=</span> <span class="mi">21</span>     <span class="c1"># Number of time points in each trial (0-20 ms, inclusive)</span>
 </pre></div>
 </div>
 </div>
@@ -1112,88 +1134,22 @@
   </thead>
   <tbody>
     <tr>
-      <th>132</th>
+      <th>145</th>
       <td>7</td>
-      <td>6</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>193</th>
-      <td>8</td>
       <td>9</td>
-      <td>17</td>
+      <td>10</td>
     </tr>
     <tr>
-      <th>91</th>
-      <td>6</td>
-      <td>6</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <th>131</th>
-      <td>7</td>
-      <td>5</td>
-      <td>20</td>
-    </tr>
-    <tr>
-      <th>153</th>
-      <td>8</td>
-      <td>1</td>
+      <th>218</th>
       <td>9</td>
-    </tr>
-    <tr>
-      <th>45</th>
-      <td>5</td>
-      <td>0</td>
-      <td>15</td>
-    </tr>
-    <tr>
-      <th>158</th>
-      <td>8</td>
-      <td>2</td>
-      <td>13</td>
-    </tr>
-    <tr>
-      <th>199</th>
-      <td>9</td>
-      <td>0</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <th>174</th>
-      <td>8</td>
-      <td>6</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>3</td>
-      <td>4</td>
-      <td>14</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>1</td>
-      <td>0</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <th>70</th>
-      <td>6</td>
-      <td>1</td>
-      <td>14</td>
-    </tr>
-    <tr>
-      <th>56</th>
-      <td>5</td>
-      <td>5</td>
-      <td>18</td>
-    </tr>
-    <tr>
-      <th>139</th>
       <td>7</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>127</th>
       <td>7</td>
-      <td>14</td>
+      <td>5</td>
+      <td>7</td>
     </tr>
     <tr>
       <th>172</th>
@@ -1202,34 +1158,28 @@
       <td>11</td>
     </tr>
     <tr>
-      <th>39</th>
-      <td>4</td>
-      <td>4</td>
-      <td>20</td>
-    </tr>
-    <tr>
-      <th>197</th>
-      <td>9</td>
-      <td>0</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>3</td>
-      <td>4</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <th>42</th>
-      <td>4</td>
-      <td>7</td>
-      <td>19</td>
-    </tr>
-    <tr>
-      <th>222</th>
-      <td>9</td>
+      <th>177</th>
       <td>8</td>
-      <td>12</td>
+      <td>6</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>6</td>
+      <td>1</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>6</td>
+      <td>0</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>210</th>
+      <td>9</td>
+      <td>4</td>
+      <td>8</td>
     </tr>
     <tr>
       <th>175</th>
@@ -1238,28 +1188,100 @@
       <td>9</td>
     </tr>
     <tr>
-      <th>75</th>
-      <td>6</td>
-      <td>2</td>
-      <td>13</td>
+      <th>173</th>
+      <td>8</td>
+      <td>5</td>
+      <td>16</td>
     </tr>
     <tr>
-      <th>160</th>
-      <td>8</td>
-      <td>3</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>223</th>
-      <td>9</td>
-      <td>8</td>
+      <th>61</th>
+      <td>5</td>
+      <td>7</td>
       <td>18</td>
     </tr>
     <tr>
-      <th>178</th>
+      <th>83</th>
+      <td>6</td>
+      <td>5</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>171</th>
       <td>8</td>
+      <td>5</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>143</th>
       <td>7</td>
+      <td>8</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>126</th>
+      <td>7</td>
+      <td>4</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>101</th>
+      <td>6</td>
       <td>9</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>5</td>
+      <td>8</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>4</td>
+      <td>6</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>5</td>
+      <td>4</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>5</td>
+      <td>7</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>5</td>
+      <td>1</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>230</th>
+      <td>9</td>
+      <td>9</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1</td>
+      <td>2</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>3</td>
+      <td>1</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>4</td>
+      <td>14</td>
     </tr>
   </tbody>
 </table>
@@ -1352,7 +1374,7 @@
 </div>
 <div class="section" id="psth">
 <h3>PSTH<a class="headerlink" href="#psth" title="Permalink to this headline">¶</a></h3>
-<p>Now we can draw a PSTH for this intensity level. We’re going to draw this differently from before, because in the previous lesson we could sum the number of spikes in each time bin. Since our data here are represented as spike times, it’s easiest to use the Matplotlib <code class="docutils literal notranslate"><span class="pre">.hist()</span></code> method to count the number of times each time point is found in the data, for this particular intensity level:</p>
+<p>Now we can draw a PSTH for this intensity level. We’re going to draw this differently from before, because in the previous lesson we could sum the number of spikes in each time bin. Since our data here are represented as spike times, it’s easiest to use the Matplotlib <code class="docutils literal notranslate"><span class="pre">.hist()</span></code> method to count the number of times each time point is found in the data, for this particular intensity level. For the PSTH, we want a bin for every time point, so we use a combination of two kwargs to force this (because otherwise, the histogram range will only include the minimum and maximum times at which spikes occur for this intensity level, which could potentially not include the earliest and/or latest time points in the trial. The <code class="docutils literal notranslate"><span class="pre">bins</span></code> kwarg is used to set the number of bins equal to the number of time points, and the <code class="docutils literal notranslate"><span class="pre">range</span></code> kwarg tell Matplotlib to space those bins evenly from 0 to the end of the trial.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -1360,7 +1382,7 @@
 <span class="c1"># Shade time when stimulus was on</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">stim_on</span><span class="p">,</span> <span class="n">stim_off</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;greenyellow&#39;</span><span class="p">)</span>
 
-<span class="n">dat</span><span class="p">[</span><span class="s1">&#39;SpikeTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">)</span>
+<span class="n">dat</span><span class="p">[</span><span class="s1">&#39;SpikeTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">num_tp</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span><span class="p">))</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1396,7 +1418,7 @@
     
 <span class="c1"># Shade time when stimulus was on</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">stim_on</span><span class="p">,</span> <span class="n">stim_off</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;greenyellow&#39;</span><span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;SpikeTime&#39;</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;SpikeTime&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">num_tp</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span><span class="p">))</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1422,13 +1444,13 @@
 <p>Note that we make use of the intensity levels not just for looping through the data, but also specify rows of subplots, and the intensity of the shading that shows when the stimulus was on.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the number of subplot rows based on number of intensity levels in data</span>
-<span class="c1"># specify the figure dimensions since it will need to be a big figure</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the number of subplot rows based on number of intensity levels in data</span>
+<span class="c1"># Also specify the figure dimensions since it will need to be a big figure</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">int_levels</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">int_levels</span><span class="p">:</span>
     
-    <span class="c1"># Raster plot</span>
+    <span class="c1">## Raster plot</span>
     <span class="c1"># select just data for current intensity level</span>
     <span class="c1"># this is convenient since we&#39;ll refer to this subset of data a few times below</span>
     <span class="n">dat</span> <span class="o">=</span> <span class="n">spikes</span><span class="p">[</span><span class="n">spikes</span><span class="p">[</span><span class="s1">&#39;Intensity&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">]</span>
@@ -1446,13 +1468,13 @@
                       <span class="n">alpha</span><span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">+</span> <span class="mf">.1</span><span class="p">,</span>       <span class="c1"># Base intensity of shading (alpha) on intensity level</span>
                       <span class="n">color</span><span class="o">=</span><span class="s1">&#39;greenyellow&#39;</span><span class="p">)</span>
 
-    <span class="c1"># PSTH</span>
+    <span class="c1">## PSTH</span>
     <span class="c1"># Shade time when stimulus was on</span>
     <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">stim_on</span><span class="p">,</span> <span class="n">stim_off</span><span class="p">,</span> 
                       <span class="n">alpha</span><span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">+</span> <span class="mf">.1</span><span class="p">,</span> 
                       <span class="n">color</span><span class="o">=</span><span class="s1">&#39;greenyellow&#39;</span><span class="p">)</span>
     
-    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;SpikeTime&#39;</span><span class="p">])</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;SpikeTime&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">num_tp</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span><span class="p">))</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -1463,17 +1485,18 @@
 <img alt="../_images/ten_intensities_31_0.png" src="../_images/ten_intensities_31_0.png" />
 </div>
 </div>
+</div>
+<div class="section" id="scale-the-x-axes">
+<h3>Scale the <em>x</em> axes<a class="headerlink" href="#scale-the-x-axes" title="Permalink to this headline">¶</a></h3>
 <p>You may note that the plot above looks wrong — the “stimulus on” shading doesn’t line up for all the plots! This is because by default, Matplotlib scales each subplot’s axes independently. For the low intensity levels, there are few spikes, and so if you look at the units on the <em>x</em> axes, they are quite variable.</p>
-<p>We can fix this by adding a <code class="docutils literal notranslate"><span class="pre">sharex=True</span></code> kwarg to the <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code> call, which forces all the subplots to share the same <em>x</em> axis range (scaled to the minimum and maximum <em>x</em> values found in the data):</p>
+<p>We can fix this by adding a <code class="docutils literal notranslate"><span class="pre">sharex=True</span></code> kwarg to the <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code> call, which forces all the subplots to share the same <em>x</em> axis range. Since the histograms are already set to range from 0-21 ms, the raster plots will “inherit” the same range due to <code class="docutils literal notranslate"><span class="pre">sharex=True</span></code>. We add one further line, using <code class="docutils literal notranslate"><span class="pre">.set_xticks()</span></code> to specify the spacing of the tickmarks on the <em>x</em> axis to 2 ms:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the number of subplot rows based on number of intensity levels in data</span>
-<span class="c1"># specify the figure dimensions since it will need to be a big figure</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">int_levels</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">int_levels</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">int_levels</span><span class="p">:</span>
     
-    <span class="c1"># Raster plot</span>
+    <span class="c1">## Raster plot</span>
     <span class="c1"># select just data for current intensity level</span>
     <span class="c1"># this is convenient since we&#39;ll refer to this subset of data a few times below</span>
     <span class="n">dat</span> <span class="o">=</span> <span class="n">spikes</span><span class="p">[</span><span class="n">spikes</span><span class="p">[</span><span class="s1">&#39;Intensity&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">]</span>
@@ -1485,20 +1508,22 @@
         <span class="c1"># Draw the raster</span>
         <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span> 
                          <span class="n">trial</span> <span class="o">-</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">trial</span> <span class="o">+</span> <span class="mf">0.4</span><span class="p">)</span>
-
     <span class="c1"># Shade time when stimulus was on</span>
     <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">stim_on</span><span class="p">,</span> <span class="n">stim_off</span><span class="p">,</span> 
                       <span class="n">alpha</span><span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">+</span> <span class="mf">.1</span><span class="p">,</span>       <span class="c1"># Base intensity of shading (alpha) on intensity level</span>
                       <span class="n">color</span><span class="o">=</span><span class="s1">&#39;greenyellow&#39;</span><span class="p">)</span>
 
-    <span class="c1"># PSTH</span>
+    <span class="c1">## PSTH</span>
     <span class="c1"># Shade time when stimulus was on</span>
     <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">stim_on</span><span class="p">,</span> <span class="n">stim_off</span><span class="p">,</span> 
                       <span class="n">alpha</span><span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">+</span> <span class="mf">.1</span><span class="p">,</span> 
                       <span class="n">color</span><span class="o">=</span><span class="s1">&#39;greenyellow&#39;</span><span class="p">)</span>
     
-    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;SpikeTime&#39;</span><span class="p">])</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;SpikeTime&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">num_tp</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span><span class="p">))</span>
 
+    <span class="c1"># Set the x tickmarks to every 2 ms</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1508,6 +1533,9 @@
 <img alt="../_images/ten_intensities_33_0.png" src="../_images/ten_intensities_33_0.png" />
 </div>
 </div>
+</div>
+<div class="section" id="scale-the-y-axes">
+<h3>Scale the <em>y</em> axes<a class="headerlink" href="#scale-the-y-axes" title="Permalink to this headline">¶</a></h3>
 <p>Although there is also a <code class="docutils literal notranslate"><span class="pre">sharey</span></code> kwarg for the <em>y</em> axis, this isn’t appropriate for the current figure because the raster and PSTH plots necessarily will have different scales. The rasters are already on the same scale, since there were 10 trials at each intensity level. However, note that the <em>y</em> scales for the PSTHs are all different, which makes it very hard to compare between different intensity levels.</p>
 <p>There are (at least) two different ways we could do this: we could normalize the histograms (making the <em>y</em> axis the proportion of total spikes in each bin), or we could simply scale them all to the maximum number of spikes in any bin, across the entire data set.</p>
 <p>In this case, the latter option makes more sense. We want to compare the amount of spiking activity between different intensity levels, so we want to compare “apples to apples” by using the absolute number of spikes in each bin, rather than the proportion of spikes in each bin, at a particular intensity level.</p>
@@ -1522,7 +1550,7 @@
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">int_levels</span><span class="p">:</span>
     
-    <span class="c1"># Raster plot</span>
+    <span class="c1">## Raster plot</span>
     <span class="c1"># select just data for current intensity level</span>
     <span class="c1"># this is convenient since we&#39;ll refer to this subset of data a few times below</span>
     <span class="n">dat</span> <span class="o">=</span> <span class="n">spikes</span><span class="p">[</span><span class="n">spikes</span><span class="p">[</span><span class="s1">&#39;Intensity&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">]</span>
@@ -1540,14 +1568,14 @@
                       <span class="n">alpha</span><span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">+</span> <span class="mf">.1</span><span class="p">,</span>       <span class="c1"># Base intensity of shading (alpha) on intensity level</span>
                       <span class="n">color</span><span class="o">=</span><span class="s1">&#39;greenyellow&#39;</span><span class="p">)</span>
 
-    <span class="c1"># PSTH</span>
+    <span class="c1">## PSTH</span>
     <span class="c1"># Shade time when stimulus was on</span>
     <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">stim_on</span><span class="p">,</span> <span class="n">stim_off</span><span class="p">,</span> 
                       <span class="n">alpha</span><span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">+</span> <span class="mf">.1</span><span class="p">,</span> 
                       <span class="n">color</span><span class="o">=</span><span class="s1">&#39;greenyellow&#39;</span><span class="p">)</span>
     
     <span class="c1"># Plot histogram</span>
-    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;SpikeTime&#39;</span><span class="p">])</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;SpikeTime&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">num_tp</span><span class="p">)</span>
 
     <span class="c1"># find y max of current plot</span>
     <span class="n">cur_min</span><span class="p">,</span> <span class="n">cur_max</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
@@ -1582,7 +1610,7 @@
 <span class="n">y_max</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Accumulator variable</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">int_levels</span><span class="p">:</span>
-    <span class="c1">### Raster plot</span>
+    <span class="c1">## Raster plot</span>
     <span class="c1"># select just data for current intensity level</span>
     <span class="c1"># this is convenient since we&#39;ll refer to this subset of data a few times below</span>
     <span class="n">dat</span> <span class="o">=</span> <span class="n">spikes</span><span class="p">[</span><span class="n">spikes</span><span class="p">[</span><span class="s1">&#39;Intensity&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">]</span>
@@ -1608,15 +1636,18 @@
         <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Raster Plot for each intensity&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
  
 
-    <span class="c1">### PSTH</span>
+    <span class="c1">## PSTH</span>
     <span class="c1"># Shade time when stimulus was on</span>
     <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">stim_on</span><span class="p">,</span> <span class="n">stim_off</span><span class="p">,</span> 
                       <span class="n">alpha</span><span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">+</span> <span class="mf">.1</span><span class="p">,</span> 
                       <span class="n">color</span><span class="o">=</span><span class="s1">&#39;greenyellow&#39;</span><span class="p">)</span>
     
     <span class="c1"># Plot histogram</span>
-    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;SpikeTime&#39;</span><span class="p">])</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;SpikeTime&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">num_tp</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span><span class="p">))</span>
 
+    <span class="c1"># Set the x tickmarks to every 2 ms</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    
     <span class="c1"># Label the y axis </span>
     <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Num. Spikes&#39;</span><span class="p">)</span>
 
@@ -1642,6 +1673,9 @@
     <span class="n">axs</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_trials</span><span class="p">)</span>
     <span class="n">axs</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span>
     
+<span class="c1"># Add an overall figure title</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Effects of 550 nm light intensity on spike rate of neuron&#39;</span><span class="p">)</span>
+    
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1657,8 +1691,9 @@
 <h2>Interpreting the data<a class="headerlink" href="#interpreting-the-data" title="Permalink to this headline">¶</a></h2>
 <p>Now that we have a nice visualization, we can use it to make sense of the data. Take some time to look at the figure above and think about what it shows you, about the relationship between light intensity and the activity of the neuron, then read on below.</p>
 <p>It is clear from the figure that more intense light stimulation elicits a stronger response from the neuron. Furthermore, it doesn’t look like there is a <em>linear</em> relationship between intensity and neuronal activity. If the relationship was linear, we would see a steady increase in spiking with increasing intensity level. Instead, it looks like the light elicits very little response at levels 0–2, a weak response at levels 3–5, and a stronger response at levels 6–9. So it may be that the neuron has a <em>threshold</em> level of light intensity, below which it doesn’t respond, and above which it does respond. From levels 3 to 8, spiking intensity seems to increase with light intensity, however at level 9 the peak number of spikes is lower than for levels 7 or 8.</p>
-<p>This relationship also appears to involve both the intensity of the neuron’s response (spike rate), and its timing. As intensity increases, especially from level 3 upwards, the time at which spiking activity is evident relative to the onset of the light stimulation seems to get earlier, as does the time at which peak spiking occurs.</p>
-<p>Finally, the neuron seems. to show offset as well as onset effects. That is, at least at the highest intensity levels (7–9)m there is a clear decrease in spiking towards the end of the stimulation period, followed by a brief increase in spiking after the light turns off.</p>
+<p>This relationship also appears to involve both the intensity of the neuron’s response (spike rate), and its timing. As intensity increases, especially from level 3 upwards, the time at which spiking activity is evident relative to the onset of the light stimulation seems to get earlier, as does the time at which peak spiking occurs. So it seems that the latency to first spike property we mentioned in the previous lesson is influenced by light intensity.</p>
+<p>Finally, the neuron seems. to show offset as well as onset effects. That is, at least at the highest intensity levels (7–9) there is a clear decrease in spiking towards the end of the stimulation period, followed by a brief increase in spiking after the light turns off.</p>
+<hr class="docutils" />
 </div>
 </div>
 
