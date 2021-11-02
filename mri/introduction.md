@@ -1,2 +1,1 @@
-# Introduction
-## MRI Data
+# Introduction to MRI Data
