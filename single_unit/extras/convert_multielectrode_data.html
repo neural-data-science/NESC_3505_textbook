@@ -898,6 +898,11 @@
   </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#select-subset-of-channels">
+   Select subset of channels
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#export-data-to-csv">
    Export data to CSV
   </a>
@@ -916,6 +921,7 @@
   <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.io</span>
+<span class="kn">from</span> <span class="nn">pyarrow.feather</span> <span class="kn">import</span> <span class="n">write_feather</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -927,55 +933,7 @@
 <h1>Import the data<a class="headerlink" href="#import-the-data" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;extras/arrayDATA.mat&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/scipy/io/matlab/mio.py</span> in <span class="ni">_open_file</span><span class="nt">(file_like, appendmat, mode)</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span>     <span class="k">try</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">39</span>         <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_like</span><span class="p">,</span> <span class="n">mode</span><span class="p">),</span> <span class="kc">True</span>
-<span class="g g-Whitespace">     </span><span class="mi">40</span>     <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;extras/arrayDATA.mat&#39;
-
-<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
-
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_19535</span><span class="o">/</span><span class="mf">4146826334.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">data_in</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;extras/arrayDATA.mat&#39;</span><span class="p">)</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/scipy/io/matlab/mio.py</span> in <span class="ni">loadmat</span><span class="nt">(file_name, mdict, appendmat, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">222</span>     <span class="s2">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">223</span><span class="s2">     variable_names = kwargs.pop(&#39;variable_names&#39;, None)</span>
-<span class="ne">--&gt; </span><span class="mi">224</span><span class="s2">     with _open_file_context(file_name, appendmat) as f:</span>
-<span class="g g-Whitespace">    </span><span class="mi">225</span><span class="s2">         MR, _ = mat_reader_factory(f, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">226</span><span class="s2">         matfile_dict = MR.get_variables(variable_names)</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/contextlib.py</span> in <span class="ni">__enter__</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span><span class="s2">         del self.args, self.kwds, self.func</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span><span class="s2">         try:</span>
-<span class="ne">--&gt; </span><span class="mi">119</span><span class="s2">             return next(self.gen)</span>
-<span class="g g-Whitespace">    </span><span class="mi">120</span><span class="s2">         except StopIteration:</span>
-<span class="g g-Whitespace">    </span><span class="mi">121</span><span class="s2">             raise RuntimeError(&quot;generator didn&#39;t yield&quot;) from None</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/scipy/io/matlab/mio.py</span> in <span class="ni">_open_file_context</span><span class="nt">(file_like, appendmat, mode)</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span><span class="s2"> @contextmanager</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span><span class="s2"> def _open_file_context(file_like, appendmat, mode=&#39;rb&#39;):</span>
-<span class="ne">---&gt; </span><span class="mi">17</span><span class="s2">     f, opened = _open_file(file_like, appendmat, mode)</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span><span class="s2">     try:</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span><span class="s2">         yield f</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/scipy/io/matlab/mio.py</span> in <span class="ni">_open_file</span><span class="nt">(file_like, appendmat, mode)</span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span><span class="s2">             if appendmat and not file_like.endswith(&#39;.mat&#39;):</span>
-<span class="g g-Whitespace">     </span><span class="mi">44</span><span class="s2">                 file_like += &#39;.mat&#39;</span>
-<span class="ne">---&gt; </span><span class="mi">45</span><span class="s2">             return open(file_like, mode), True</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span><span class="s2">         else:</span>
-<span class="g g-Whitespace">     </span><span class="mi">47</span><span class="s2">             raise IOError(</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;extras/arrayDATA.mat&#39;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_in</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;./arrayDATA.mat&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1002,20 +960,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_19535</span><span class="o">/</span><span class="mf">380076646.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>                              <span class="p">],</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>                         <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">10</span>            <span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">data_in</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> 
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;data_in&#39; is not defined
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1024,15 +968,75 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_19535</span><span class="o">/</span><span class="mf">964094849.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;df&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel</th>
+      <th>sort</th>
+      <th>time</th>
+      <th>orientation</th>
+      <th>trial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20.0</td>
+      <td>1.0</td>
+      <td>0.624</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20.0</td>
+      <td>1.0</td>
+      <td>0.630</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20.0</td>
+      <td>3.0</td>
+      <td>0.652</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20.0</td>
+      <td>3.0</td>
+      <td>0.659</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20.0</td>
+      <td>255.0</td>
+      <td>0.686</td>
+      <td>90.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1041,15 +1045,131 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_19535</span><span class="o">/</span><span class="mf">3516202358.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;df&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel</th>
+      <th>sort</th>
+      <th>time</th>
+      <th>orientation</th>
+      <th>trial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1452</th>
+      <td>75.0</td>
+      <td>1.0</td>
+      <td>2.008</td>
+      <td>0.0</td>
+      <td>370.0</td>
+    </tr>
+    <tr>
+      <th>5046</th>
+      <td>44.0</td>
+      <td>0.0</td>
+      <td>0.829</td>
+      <td>0.0</td>
+      <td>968.0</td>
+    </tr>
+    <tr>
+      <th>860</th>
+      <td>76.0</td>
+      <td>1.0</td>
+      <td>1.370</td>
+      <td>90.0</td>
+      <td>145.0</td>
+    </tr>
+    <tr>
+      <th>526</th>
+      <td>18.0</td>
+      <td>1.0</td>
+      <td>0.644</td>
+      <td>90.0</td>
+      <td>1575.0</td>
+    </tr>
+    <tr>
+      <th>1181</th>
+      <td>87.0</td>
+      <td>1.0</td>
+      <td>1.945</td>
+      <td>90.0</td>
+      <td>485.0</td>
+    </tr>
+    <tr>
+      <th>341</th>
+      <td>49.0</td>
+      <td>2.0</td>
+      <td>0.206</td>
+      <td>0.0</td>
+      <td>1526.0</td>
+    </tr>
+    <tr>
+      <th>614</th>
+      <td>72.0</td>
+      <td>1.0</td>
+      <td>0.979</td>
+      <td>0.0</td>
+      <td>1270.0</td>
+    </tr>
+    <tr>
+      <th>985</th>
+      <td>46.0</td>
+      <td>1.0</td>
+      <td>1.662</td>
+      <td>0.0</td>
+      <td>272.0</td>
+    </tr>
+    <tr>
+      <th>565</th>
+      <td>71.0</td>
+      <td>255.0</td>
+      <td>0.934</td>
+      <td>90.0</td>
+      <td>1246.0</td>
+    </tr>
+    <tr>
+      <th>454</th>
+      <td>60.0</td>
+      <td>255.0</td>
+      <td>0.385</td>
+      <td>0.0</td>
+      <td>1855.0</td>
+    </tr>
+    <tr>
+      <th>449</th>
+      <td>40.0</td>
+      <td>1.0</td>
+      <td>0.728</td>
+      <td>0.0</td>
+      <td>1610.0</td>
+    </tr>
+    <tr>
+      <th>1200</th>
+      <td>67.0</td>
+      <td>1.0</td>
+      <td>1.683</td>
+      <td>0.0</td>
+      <td>332.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1058,12 +1178,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_19535</span><span class="o">/</span><span class="mf">857714779.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span>
-
-<span class="ne">NameError</span>: name &#39;df&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3425176, 5)
 </pre></div>
 </div>
 </div>
@@ -1079,18 +1194,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_19535</span><span class="o">/</span><span class="mf">2421403572.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">noise_codes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">]</span> <span class="c1"># explained later</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sort&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">noise_codes</span><span class="p">)]</span>
-
-<span class="ne">NameError</span>: name &#39;df&#39; is not defined
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1099,12 +1202,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_19535</span><span class="o">/</span><span class="mf">857714779.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span>
-
-<span class="ne">NameError</span>: name &#39;df&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2340739, 5)
 </pre></div>
 </div>
 </div>
@@ -1116,14 +1214,205 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_19535</span><span class="o">/</span><span class="mf">1551113802.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;df&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([20., 42., 72., 94., 53.,  1.,  6., 37., 10., 63., 66., 74., 77.,
+       22., 39., 84., 38., 85., 15., 55., 81., 86., 69., 40., 11., 23.,
+       19., 79., 80., 60., 76., 90., 87.,  9., 61., 75., 35., 17., 64.,
+       46., 71., 89., 58., 44.,  2., 49., 91., 78., 65., 18., 96., 25.,
+       36., 33., 88., 43., 29., 12.,  7., 93., 41., 30., 92.,  5., 83.,
+       14.,  8., 45.,  4., 24., 13., 67., 62., 16., 82., 48., 51., 50.,
+       54., 57., 73.,  3., 26., 47., 70., 59., 52., 27., 95., 32., 28.])
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;channel&#39;</span><span class="p">,</span> <span class="s1">&#39;sort&#39;</span><span class="p">])[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>channel  sort
+1.0      1.0      21263
+2.0      1.0       1953
+3.0      1.0       1550
+         2.0       1894
+4.0      1.0       1638
+5.0      1.0       3289
+6.0      1.0      10911
+         2.0      35184
+7.0      1.0       2271
+8.0      1.0      16169
+9.0      1.0      57536
+10.0     1.0       9498
+11.0     1.0       5848
+12.0     1.0       3169
+13.0     1.0       7914
+14.0     1.0      30385
+15.0     1.0      43942
+16.0     1.0       5609
+17.0     1.0       8242
+18.0     1.0     100534
+19.0     1.0      28172
+         2.0       1829
+20.0     1.0      52161
+         2.0      20953
+         3.0      96756
+         4.0      63667
+22.0     1.0      66749
+23.0     1.0      72019
+24.0     1.0       3453
+25.0     1.0       8598
+26.0     1.0       3557
+27.0     1.0       2093
+28.0     1.0        757
+29.0     1.0       3838
+         2.0       5393
+30.0     1.0       4909
+32.0     1.0        223
+33.0     1.0      26440
+         2.0        424
+35.0     1.0      11676
+36.0     1.0      33271
+37.0     1.0      16488
+38.0     1.0      17963
+         2.0      15524
+39.0     1.0       2534
+40.0     1.0      30585
+41.0     1.0       4372
+42.0     1.0     118478
+43.0     1.0       6431
+44.0     1.0      15929
+45.0     1.0        558
+46.0     1.0      14199
+47.0     1.0        805
+48.0     1.0       3343
+49.0     1.0      24395
+         2.0       9859
+50.0     1.0       2600
+51.0     1.0        355
+52.0     1.0        762
+53.0     1.0      69436
+         2.0      11118
+54.0     1.0       1365
+55.0     1.0        529
+57.0     1.0       4257
+58.0     1.0       2969
+59.0     1.0       1743
+60.0     1.0      54982
+         2.0      23642
+61.0     1.0       6307
+62.0     1.0       2487
+63.0     1.0       7507
+64.0     1.0       6170
+65.0     1.0      17607
+66.0     1.0      26125
+67.0     1.0      10506
+69.0     1.0      23203
+70.0     1.0      12722
+71.0     1.0      15128
+72.0     1.0     156014
+73.0     1.0       7201
+74.0     1.0      11049
+         2.0      68740
+75.0     1.0      50969
+76.0     1.0      42128
+77.0     1.0      45233
+78.0     1.0      69610
+79.0     1.0      41536
+80.0     1.0      35279
+81.0     1.0      10576
+82.0     1.0       6769
+83.0     1.0      13241
+84.0     1.0       6288
+85.0     1.0      30923
+86.0     1.0     141910
+87.0     1.0      60206
+88.0     1.0      21916
+89.0     1.0        904
+         2.0       3353
+90.0     1.0       8862
+91.0     1.0      10211
+92.0     1.0       2817
+93.0     1.0      13832
+         2.0       2721
+94.0     1.0        483
+95.0     1.0        662
+96.0     1.0      18586
+Name: time, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="select-subset-of-channels">
+<h1>Select subset of channels<a class="headerlink" href="#select-subset-of-channels" title="Permalink to this headline">¶</a></h1>
+<p>Based on looking at the PSTH from all channels (previous version of lessons), selected the following to have amixture of response patterns (and a couple of bad ones)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">keep_chans</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">96</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">keep_chans</span><span class="p">))</span>
+<span class="n">df_use</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">keep_chans</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>20
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">keep_chans</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[4, 7, 10, 22, 23, 32, 35, 42, 44, 45, 63, 67, 73, 75, 79, 80, 86, 91, 95, 96]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_use</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;channel&#39;</span><span class="p">,</span> <span class="s1">&#39;sort&#39;</span><span class="p">])[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>channel  sort
+4.0      1.0       1638
+7.0      1.0       2271
+10.0     1.0       9498
+22.0     1.0      66749
+23.0     1.0      72019
+32.0     1.0        223
+35.0     1.0      11676
+42.0     1.0     118478
+44.0     1.0      15929
+45.0     1.0        558
+63.0     1.0       7507
+67.0     1.0      10506
+73.0     1.0       7201
+75.0     1.0      50969
+79.0     1.0      41536
+80.0     1.0      35279
+86.0     1.0     141910
+91.0     1.0      10211
+95.0     1.0        662
+96.0     1.0      18586
+Name: time, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_use</span> <span class="o">=</span> <span class="n">df_use</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;sort&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -1132,24 +1421,21 @@
 <h1>Export data to CSV<a class="headerlink" href="#export-data-to-csv" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/multielectrode_data.csv&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">x0</span><span class="o">/</span><span class="n">pvpjfdzd39sc5rqvsk5lvv4m0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_19535</span><span class="o">/</span><span class="mf">2799481651.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/multielectrode_data.csv&#39;</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;df&#39; is not defined
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_use</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;../data/multielectrode_data.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some new stuff</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># write_feather(df_use, &#39;../data/multielectrode_data.fea&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># write_feather(df, &#39;../data/multielectrode_data_all.fea&#39;)</span>
 </pre></div>
 </div>
 </div>

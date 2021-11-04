@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction to Single Unit Data &#8212; Data Science for Psychology and Neuroscience — in Python</title>
+    <title>Interactive plots &#8212; Data Science for Psychology and Neuroscience — in Python</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,12 +51,10 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="http://neuraldatascience.io/single_unit/introduction.html" />
+    <link rel="canonical" href="http://neuraldatascience.io/single_unit/interactive_plots.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Learning Objectives" href="learning_objectives.html" />
-    <link rel="prev" title="Basic Statistics in Python: t tests with SciPy" href="../eda/ttests.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -600,9 +598,9 @@
   Single Unit Data
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
    Introduction to Single Unit Data
   </a>
  </li>
@@ -819,9 +817,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/single_unit/introduction.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/single_unit/interactive_plots.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -839,7 +837,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2Fsingle_unit/introduction.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2Fsingle_unit/interactive_plots.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -855,6 +853,23 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/single_unit/interactive_plots.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -868,9 +883,44 @@
         
               <div>
                 
-  <div class="section" id="introduction-to-single-unit-data">
-<h1>Introduction to Single Unit Data<a class="headerlink" href="#introduction-to-single-unit-data" title="Permalink to this headline">¶</a></h1>
-<p>This chapter introduces data obtained from recordings of individual neurons, which we typically call <strong>single unit</strong> data (“units” being neurons). Single unit data is typically analyzed in terms of <strong>spike trains</strong> — sequences of action potentials. In this chapter we will learn how spike trains can be represented as data, and some ways of working with and visualizing them. As well, the chapter extends our knowledge of Python, including working with NumPy arrays, and complex figures with multiple subplots, as well as further discussion of the use of colour and other considerations in scientific visualization.</p>
+  <div class="section" id="interactive-plots">
+<h1>Interactive plots<a class="headerlink" href="#interactive-plots" title="Permalink to this headline">¶</a></h1>
+<p>Plotting all the channels is a bit visually overwhelming. It’s useful in appreciating the whole range of responses in different channels, but each plot is quite small. Here we use <code class="docutils literal notranslate"><span class="pre">ipywidgets</span></code> to generate an interactive plot, with a drop-down menu to select the channel we want to view. This way, we can view a large plot of one channel to really examine its response in detail.</p>
+<p><strong>Note:</strong> This will not display in the online book version, but it should work if you download and run this notebook file. To get this to work on your own system, you will need to at least run <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">labextension</span> <span class="pre">install</span> <span class="pre">&#64;jupyter-widgets/jupyterlab-manager</span></code>, and possibly install additional pacakges if you don’t have them already (although Anaconda seems to provide them, and they work on the <a class="reference external" href="https://cocalc.com/">CoCalc</a> cloud platform).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interact_manual</span>
+
+<span class="nd">@interact</span>
+<span class="k">def</span> <span class="nf">psth_i</span><span class="p">(</span><span class="n">chan</span><span class="o">=</span><span class="n">channels</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
+           <span class="n">df_psth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">channels</span><span class="p">[</span><span class="n">chan</span><span class="p">],</span> <span class="n">orientations</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+           <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
+           <span class="n">df_psth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">channels</span><span class="p">[</span><span class="n">chan</span><span class="p">],</span> <span class="n">orientations</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+           <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+           <span class="n">linewidth</span><span class="o">=</span><span class="mf">.75</span>
+           <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">grating_on_time</span><span class="p">,</span> <span class="n">grating_off_time</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Channel &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">chan</span><span class="p">)))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Spike count per bin&#39;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "91f6fc442c8f44fc92a737711818e6c7", "version_major": 2, "version_minor": 0}
+</script><img alt="../_images/interactive_plots_1_1.png" src="../_images/interactive_plots_1_1.png" />
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -902,24 +952,6 @@
 
 <div class='prev-next-bottom'>
     
-    <div id="prev">
-        <a class="left-prev" href="../eda/ttests.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Basic Statistics in Python: <em>t</em> tests with SciPy</p>
-            </div>
-        </a>
-    </div>
-     <div id="next">
-        <a class="right-next" href="learning_objectives.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Learning Objectives</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
 
 </div>
         

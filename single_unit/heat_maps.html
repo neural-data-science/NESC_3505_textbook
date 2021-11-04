@@ -963,6 +963,11 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -1082,11 +1087,11 @@ Bins has 22 values
 <img alt="../_images/heat_maps_9_1.png" src="../_images/heat_maps_9_1.png" />
 </div>
 </div>
-<p>Since we don’t want a bar plot of our histogram but a heat map, we just save the histograms into a 2D array and then plot them as a heat map. The 2D array we’ll create is shaped exactly like the heat map we want to plot like the one above: with time as columns, and intensity levels as rows. Since we know in advance the dimensions of this array (10 rows and 21 columns), we can make an empty NumPy array (with a function called <code class="docutils literal notranslate"><span class="pre">np.empty()</span></code>) and then fill each row as we go through the loop of intensities. Note that we’re only saving the histogram part of the <code class="docutils literal notranslate"><span class="pre">np.histogram()</span></code> function, not the bins, since the bins are the same for every histogram.</p>
+<p>Since we don’t want a bar plot of our histogram but a heat map, we just save the histograms into a 2D array and then plot them as a heat map. The 2D array we’ll create is shaped exactly like the heat map we want to plot like the one above: with time as columns, and intensity levels as rows. Since we know in advance the dimensions of this array (10 rows and 21 columns), we can make a NumPy array of that shape (with a function called <code class="docutils literal notranslate"><span class="pre">np.zeros()</span></code>, which fills all cells with zero to start) and then fill each row as we go through the loop of intensities. Note that we’re only saving the histogram part of the <code class="docutils literal notranslate"><span class="pre">np.histogram()</span></code> function, not the bins, since the bins are the same for every histogram.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create empty np array to fill with histograms</span>
-<span class="n">hist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">num_intensities</span><span class="p">,</span> <span class="n">num_tp</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create np array full of zeros to fill with histograms</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">num_intensities</span><span class="p">,</span> <span class="n">num_tp</span><span class="p">])</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_intensities</span><span class="p">):</span>
     <span class="n">hist</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">spikes</span><span class="p">[</span><span class="n">spikes</span><span class="p">[</span><span class="s1">&#39;Intensity&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">][</span><span class="s1">&#39;SpikeTime&#39;</span><span class="p">],</span>
@@ -1516,8 +1521,21 @@ Bins has 22 values
 </div>
 </div>
 <p>In all of these last four plots, the colour maps make continuous differences look highly <em>dis</em>continuous</p>
-<hr class="docutils" />
 </div>
+</div>
+<hr class="docutils" />
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Heat maps allow us to visualize the relationship between three continuous variables, using colour to represent one variable</p></li>
+<li><p>A heat map is effectively a 2D image, and can be represented by a 2D NumPy array</p></li>
+<li><p>We can save a pointer to a Matplotlib image (object) that we create, by assigning the result of generating the image to a variable name</p></li>
+<li><p>These pointers to plots can be used by some other Matplotlib commands, such as for creating colourbars</p></li>
+<li><p>Interpolation is the process of determining how to fill in the missing values between data points, for plotting smooth, continuous plots such as heat maps</p></li>
+<li><p>Different interpolation methods trade off between being more literal representations of the measured data, to smoother-looking representations based on fitting mathematical functions to the data</p></li>
+<li><p>The choice of colour scales in heat maps and other images is even more important than for other types of plots, because non-linear changes in hue (colour) or intensity (luminance) can trick the human eye/brain into seeing continuous data as more discontinuous. Such distortions can interfere with correct interpretation of the data.</p></li>
+<li><p>It is best to use an isoluminant, perceptually uniform colour scale when plotting continuous data such as heat maps and other images.</p></li>
+</ul>
 </div>
 </div>
 

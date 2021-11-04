@@ -6,16 +6,17 @@ Once you've completed this lesson you should be able to:
 - define spike trains
 - explain how spike train data is recorded
 - describe two ways of storing spike train data: time series and spike times
-- interpret raster plots and peri-stimulus time histograms
-- generate those two types of visualizations
+- generate two type of visualizations of spike train data: raster plots and peri-stimulus time histograms (PSTHs)
+- interpret raster plots and PSTHs with respect to experimental manipulations
+- generate 2D heat maps of PSTHs
+- work with data sets comprising thousands of rows
+- generate correlation matrices of spike train data from multi-unit recordings
 
 ### Python
-- explain what a pickle is in Python, and some advantages and disadvantages of pickling
-- use subplots to plot multiple levels of data in a single graphic
-- understand and properly use Python's naming convention (snake case) for variable names
-- properly use whitespace in formatting your code
-- consider the relative benefits of hard-coding values in your code, versus writing snippets of code that derive these values from the data itself
+- create and work with data in lists, NymPy arrays, and pandas DataFrames
 - use nested list comprehension
+- use subplots to plot multiple levels of data in a single graphic
+- generate 2D images from data
 
 ### Data Visualization
 - make informed decisions about accessible design in scientific visualization, including colour map choice and interpolation methods
