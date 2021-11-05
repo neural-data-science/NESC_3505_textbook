@@ -908,6 +908,16 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-array-of-histograms">
+   Create array of histograms
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#draw-heat-map">
+   Draw heat map
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#format-the-heat-map">
    Format the heat map
   </a>
@@ -944,13 +954,11 @@
      Filling in the blanks: Interpolation
     </a>
    </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#colour-map-choices">
-   Colour Map Choices
-  </a>
-  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#colour-map-choices">
+     Colour Map Choices
+    </a>
+   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#luminance">
      Luminance
@@ -959,6 +967,16 @@
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#colourblindness">
      Colourblindness
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#perceptual-uniformity">
+     Perceptual uniformity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#violations-of-perceptual-uniformity">
+     Violations of perceptual uniformity
     </a>
    </li>
   </ul>
@@ -999,7 +1017,7 @@
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Heat maps are another way of plotting spike train data. An example is below:</p>
 <p><img alt="" src="../_images/heat_map.png" /></p>
-<p>Like a PSTH, the heat map has time on the <em>x</em> axis, and plots the probability of spikes at each time point. But we’re able to show all intensity levels in a single plot, by putting intensity on the <em>y</em> axis and using colur, rather than bar height, to represent the number of spikes. Heat maps are a more condensed, information-rich, and efficient version of the PSTHs: rather than needing 10 plots to show the histograms for all 10 levels of intensity, we do so in a single plot. Heat maps allow us to plot <em>three dimensions</em> rather than only two; we have the <em>x</em> and <em>y</em> axes, and then we can plot a third variable (dimension) using colour (or intensity of colour). Think of it the above plot rotated in a plane, so that if before, you were looking at the plot from the side, now you’re looking at it from above. More intense colours indicate a higher spike probability at that time point.</p>
+<p>Like a PSTH, the heat map has time on the <em>x</em> axis, and plots the probability of spikes at each time point. But we’re able to show all intensity levels in a single plot, by putting intensity on the <em>y</em> axis and using colour, rather than bar height, to represent the number of spikes. Heat maps are a more condensed, information-rich, and efficient version of the PSTHs: rather than needing 10 plots to show the histograms for all 10 levels of intensity, we do so in a single plot. Heat maps allow us to plot <em>three dimensions</em> rather than only two; we have the <em>x</em> and <em>y</em> axes, and then we can plot a third variable (dimension) using colour (or intensity of colour). Think of it the above plot rotated in a plane, so that if before, you were looking at the plot from the side, now you’re looking at it from above. More intense colours indicate a higher spike probability at that time point.</p>
 <p>We can use Matplotlib’s <a class="reference external" href="https://matplotlib.org/3.3.2/api/_as_gen/matplotlib.axes.Axes.imshow.html"><code class="docutils literal notranslate"><span class="pre">ax.imshow()</span></code></a> method (or <code class="docutils literal notranslate"><span class="pre">plt.imshow()</span></code> function) to generate a heat map. This function allows us to plot any 2-dimensional data set (like a 2D array) as an image, and apply colour to the values in the array. To demonstrate, first we’ll load the necessary packages:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1087,6 +1105,9 @@ Bins has 22 values
 <img alt="../_images/heat_maps_9_1.png" src="../_images/heat_maps_9_1.png" />
 </div>
 </div>
+</div>
+<div class="section" id="create-array-of-histograms">
+<h2>Create array of histograms<a class="headerlink" href="#create-array-of-histograms" title="Permalink to this headline">¶</a></h2>
 <p>Since we don’t want a bar plot of our histogram but a heat map, we just save the histograms into a 2D array and then plot them as a heat map. The 2D array we’ll create is shaped exactly like the heat map we want to plot like the one above: with time as columns, and intensity levels as rows. Since we know in advance the dimensions of this array (10 rows and 21 columns), we can make a NumPy array of that shape (with a function called <code class="docutils literal notranslate"><span class="pre">np.zeros()</span></code>, which fills all cells with zero to start) and then fill each row as we go through the loop of intensities. Note that we’re only saving the histogram part of the <code class="docutils literal notranslate"><span class="pre">np.histogram()</span></code> function, not the bins, since the bins are the same for every histogram.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1123,6 +1144,9 @@ Bins has 22 values
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="draw-heat-map">
+<h2>Draw heat map<a class="headerlink" href="#draw-heat-map" title="Permalink to this headline">¶</a></h2>
 <p>Now that we have our array of histograms, we simply pass it as the single argument to <code class="docutils literal notranslate"><span class="pre">plt.imshow()</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1136,7 +1160,7 @@ Bins has 22 values
 </div>
 </div>
 <div class="alert alert-block alert-info">
-<p>You may notice we’re using procedural plotting with <code class="docutils literal notranslate"><span class="pre">plt.</span></code> functions rather than than using the object-oriented approach you’ve been encouraged to use. This is because, when we just want to show one plot and not worry about details, this approach uses only one line of code.
+<p>You may notice we’re using procedural plotting with <code class="docutils literal notranslate"><span class="pre">plt</span></code> functions rather than than using the object-oriented approach you’ve been encouraged to use. This is because, when we just want to show one plot and not worry about details, this approach uses only one line of code.
 </div></p>
 </div>
 <div class="section" id="format-the-heat-map">
@@ -1160,7 +1184,7 @@ Bins has 22 values
           <span class="p">)</span>
 
 <span class="c1"># Set tick mark range and spacing</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_intensities</span><span class="p">))</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -1190,7 +1214,7 @@ Bins has 22 values
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">stim_on</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">stim_off</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_intensities</span><span class="p">))</span>
@@ -1227,7 +1251,7 @@ Bins has 22 values
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">stim_on</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">stim_off</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_intensities</span><span class="p">))</span>
@@ -1235,7 +1259,7 @@ Bins has 22 values
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Probability of spiking across intensity levels&#39;</span><span class="p">)</span>
 
-<span class="c1"># Create a colourbar using the im pointer. </span>
+<span class="c1"># Create a colourbar using the im pointer</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -1249,7 +1273,7 @@ Bins has 22 values
 <div class="section" id="clean-up-the-colourbar">
 <h3>Clean up the colourbar<a class="headerlink" href="#clean-up-the-colourbar" title="Permalink to this headline">¶</a></h3>
 <p>So now we have a colourbar, but it’s huge! Fortunately there’s a kwarg for that: <code class="docutils literal notranslate"><span class="pre">shrink</span></code>. We’ll also make the figure larger so that things are more visible.</p>
-<p>Also, we’re going to add a text label to explain what the numbers on the clourbar are. To do this, we need to create a pointer to the colourbar (which technically is a second subplot in the figure) and then use that pointer to set the label.</p>
+<p>Also, we’re going to add a text label to explain what the numbers on the colourbar are. To do this, we need to create a pointer to the colourbar (which technically is a second subplot in the figure) and then use that pointer to set the label.</p>
 <p>If this seems convoluted, it is — at least, it reflects the power and complexity of Matplotlib. We can’t simply add a “colourbar” kwarg to <code class="docutils literal notranslate"><span class="pre">.imshow()</span></code> because the colourbar actually needs to be its own subplot, and it relies on data created when the plot is draw. Procedures like this are typically something you figure out by finding examples like this one, or other tutorials on the web.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1266,7 +1290,7 @@ Bins has 22 values
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">stim_on</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">stim_off</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_tp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_intensities</span><span class="p">))</span>
@@ -1305,11 +1329,11 @@ Bins has 22 values
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
 
-<span class="c1"># Nearest negihbour (default)</span>
+<span class="c1"># Nearest neighbour (default)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span>
-                <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
-                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> 
-               <span class="p">)</span>
+                 <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+                 <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> 
+                <span class="p">)</span>
 
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Nearest Neighbour&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
@@ -1317,10 +1341,10 @@ Bins has 22 values
 
 <span class="c1"># Blinear</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span>
-                <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
-                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> 
-                <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bilinear&#39;</span>
-               <span class="p">)</span>
+                 <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+                 <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> 
+                 <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bilinear&#39;</span>
+                <span class="p">)</span>
 
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Bilinear&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
@@ -1328,10 +1352,10 @@ Bins has 22 values
 
 <span class="c1"># Hanning</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span>
-                <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
-                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> 
-                <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;hanning&#39;</span>
-               <span class="p">)</span>
+                 <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+                 <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> 
+                 <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;hanning&#39;</span>
+                <span class="p">)</span>
 
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hanning&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
@@ -1339,9 +1363,9 @@ Bins has 22 values
 
 <span class="c1"># Bicubic</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span>
-                <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
-                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> 
-                <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span>
+                 <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+                 <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> 
+                 <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span>
                <span class="p">)</span>
 
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Bicubic&#39;</span><span class="p">)</span>
@@ -1357,20 +1381,18 @@ Bins has 22 values
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="colour-map-choices">
-<h2>Colour Map Choices<a class="headerlink" href="#colour-map-choices" title="Permalink to this headline">¶</a></h2>
+<h3>Colour Map Choices<a class="headerlink" href="#colour-map-choices" title="Permalink to this headline">¶</a></h3>
 <p>One final comment about the heat maps above: your choice of colour map (<code class="docutils literal notranslate"><span class="pre">cmap</span></code>) matters. One way to choose a colour map is based on one’s individual intuitions about aesthetics. For example, I personally think the one used above (<code class="docutils literal notranslate"><span class="pre">hot</span></code>) is quite attractive. However, it’s important to consider the neuroscience of how humans interpret colour. Even though the colour spectrum is continuous (wavelengths of electromagnetic radiation ranging from approximately 400–700 nm), we see it as distinct colours (classically, red, orange, yellow, green, blue, indigo, and violet). Although we can discriminate different hues within each of those colours, we nonetheless see colours categorically. In other words, two equally-different values at different parts of the colour range may not be perceived as the same magnitude of difference. For example in the bottom left (<code class="docutils literal notranslate"><span class="pre">cmap='jet'</span></code>) the green areas seem to ‘pop’ relative to the blue, and there is are patches of orange that really stand out.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 
-<span class="c1"># Nearest negihbour (default)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span>
-                <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
-                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span> 
-                <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span>
-               <span class="p">)</span>
+          <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+          <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span> 
+          <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span>
+         <span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
@@ -1387,12 +1409,11 @@ Bins has 22 values
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 
-<span class="c1"># Nearest negihbour (default)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span>
-                <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
-                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> 
-                <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span>
-               <span class="p">)</span>
+          <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+          <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> 
+          <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span>
+         <span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
@@ -1404,16 +1425,20 @@ Bins has 22 values
 <img alt="../_images/heat_maps_31_0.png" src="../_images/heat_maps_31_0.png" />
 </div>
 </div>
+</div>
 <div class="section" id="luminance">
 <h3>Luminance<a class="headerlink" href="#luminance" title="Permalink to this headline">¶</a></h3>
 <p>Another issue with some colour maps are that they are not always <strong>isoluminent</strong>, meaning that the luminance (brightness) of some colours may be greater than others, again making some differences appear larger than others, even when those differences are of the same numerical size.</p>
 </div>
 <div class="section" id="colourblindness">
 <h3>Colourblindness<a class="headerlink" href="#colourblindness" title="Permalink to this headline">¶</a></h3>
-<p>A final issue, discussed earlier in this book, is that a non-negligible proportion of the population has some form of colourblindness.  Recall that the incidence of colourblindnes is such that if 20 people view a graph you make, the odds are at least one of them will not see the colours in your plot as you do (unless of course you are colourblind yourself).</p>
+<p>A final issue, discussed earlier in this book, is that a non-negligible proportion of the population has some form of colourblindness.  Recall that the incidence of colourblindness is such that if 20 people view a graph you make, the odds are at least one of them will not see the colours in your plot as you do (unless of course you are colourblind yourself).</p>
+</div>
+<div class="section" id="perceptual-uniformity">
+<h3>Perceptual uniformity<a class="headerlink" href="#perceptual-uniformity" title="Permalink to this headline">¶</a></h3>
 <p>In other words, choosing the wrong colour map can mislead viewers in interpreting the data, and may also result in your plots being uninterpretable by some viewers. You should pick a colour map that is <strong>perceptually uniform</strong> (e.g., nearby values have similar-appearing colours across the range), and robust to colourblindness. An excellent choice is one of the <a class="reference external" href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">Viridis</a> family of colourmaps, which were explicitly designed to have these properties, and also be aesthetically appealing. The four colourmaps in the Viridis family is used below.</p>
 <div class="alert alert-block alert-info">
-    There is a great app that simulates different forms of colourblindness on your computer, called [Color Oracle](https://colororacle.org) — it's worth checking out! 
+<p>There is a great app that simulates different forms of colourblindness on your computer, called <a href='https://colororacle.org'>Color Oracle</a> — it’s worth checking out!</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1467,7 +1492,10 @@ Bins has 22 values
 <img alt="../_images/heat_maps_33_0.png" src="../_images/heat_maps_33_0.png" />
 </div>
 </div>
-<p>Compare these plots to  ones above that use non-viridis colourmaps (including the ones above, and some more examples below) and ask yourself how your perception and interpretation of the plots changes between them.</p>
+</div>
+<div class="section" id="violations-of-perceptual-uniformity">
+<h3>Violations of perceptual uniformity<a class="headerlink" href="#violations-of-perceptual-uniformity" title="Permalink to this headline">¶</a></h3>
+<p>Compare these plots to  ones above that use non-Viridis colourmaps (including the ones above, and some more examples below) and ask yourself how your perception and interpretation of the plots changes between them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
