@@ -691,9 +691,19 @@
    ERP Components
   </a>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1">
   <a class="reference internal" href="../eeg/mne_python.html">
    MNE-Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/mne_data.html">
+   Exploring MNE’s data structure
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../eeg/erp_preprocessing.html">
+   EEG-ERP Preprocessing
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -702,18 +712,28 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../eeg/mne_org.html">
-     Organization of MNE-Python
+    <a class="reference internal" href="../eeg/erp_filtering.html">
+     Filtering EEG Data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../eeg/mne_classes.html">
-     MNE classes
+    <a class="reference internal" href="../eeg/erp_artifacts.html">
+     Artifacts in EEG Data
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../eeg/mne_data.html">
-     Exploring MNE’s data structure
+    <a class="reference internal" href="../eeg/erp_segmentation.html">
+     Segmentation into ERP epochs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/erp_rereferencing.html">
+     Re-referencing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../eeg/erp_averaging.html">
+     Averaging ERPs: Creating MNE Evoked objects
     </a>
    </li>
   </ul>
@@ -963,7 +983,7 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="effects-of-light-intensity-on-spike-rate">
 <h1>Effects of Light Intensity on Spike Rate<a class="headerlink" href="#effects-of-light-intensity-on-spike-rate" title="Permalink to this headline">¶</a></h1>
-<p>Now we’re going to load an even larger data set. The <code class="docutils literal notranslate"><span class="pre">ten_intensities</span></code> data set expands on the optogenetic spike train data we worked with in the previous chapter. Now we have data recorded from a neuron as it was stimulated with ten different intensities of the light that activates its receptors (550 nm green). We have 10 trials’ worth of data at each intensity, so 100 trials in total. Each trial was 20 ms long, with optical stimulation starting at 5 ms and ending at 15 ms. Measuring the neuron’s response across a range of intensities allows us to map out the response “profile” of the neuron in terms of the number of spikes elicited by differing intensities.</p>
+<p>Now we’re going to load an even larger data set. The <code class="docutils literal notranslate"><span class="pre">ten_intensities</span></code> data set expands on the optogenetic spike train data we worked with in the previous chapter. Now we have data recorded from a neuron as it was stimulated with ten different intensities of the light that activates its receptors (550 nm green). We have 10 trials’ worth of data at each intensity, so 100 trials in total. Each trial was 20 ms long, with optical stimulation starting at 4 ms and ending at 14 ms. Measuring the neuron’s response across a range of intensities allows us to map out the response “profile” of the neuron in terms of the number of spikes elicited by differing intensities.</p>
 <p><a class="reference external" href="https://youtu.be/SeE5omWkhnY">Watch a walk-through of this lesson on YouTube</a></p>
 <hr class="docutils" />
 <div class="section" id="learning-objectives">
@@ -1118,39 +1138,9 @@
   </thead>
   <tbody>
     <tr>
-      <th>59</th>
-      <td>5</td>
-      <td>7</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>71</th>
+      <th>67</th>
       <td>6</td>
-      <td>1</td>
-      <td>14</td>
-    </tr>
-    <tr>
-      <th>222</th>
-      <td>9</td>
-      <td>8</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <th>115</th>
-      <td>7</td>
-      <td>2</td>
-      <td>14</td>
-    </tr>
-    <tr>
-      <th>65</th>
-      <td>5</td>
-      <td>9</td>
-      <td>15</td>
-    </tr>
-    <tr>
-      <th>210</th>
-      <td>9</td>
-      <td>4</td>
+      <td>0</td>
       <td>8</td>
     </tr>
     <tr>
@@ -1160,22 +1150,10 @@
       <td>11</td>
     </tr>
     <tr>
-      <th>127</th>
+      <th>143</th>
       <td>7</td>
-      <td>5</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>152</th>
       <td>8</td>
-      <td>1</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>98</th>
-      <td>6</td>
-      <td>8</td>
-      <td>15</td>
+      <td>11</td>
     </tr>
     <tr>
       <th>93</th>
@@ -1190,82 +1168,124 @@
       <td>11</td>
     </tr>
     <tr>
-      <th>74</th>
-      <td>6</td>
-      <td>2</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <th>160</th>
-      <td>8</td>
-      <td>3</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>151</th>
-      <td>8</td>
-      <td>0</td>
-      <td>18</td>
-    </tr>
-    <tr>
-      <th>118</th>
-      <td>7</td>
-      <td>2</td>
-      <td>19</td>
-    </tr>
-    <tr>
-      <th>138</th>
-      <td>7</td>
-      <td>7</td>
+      <th>211</th>
+      <td>9</td>
+      <td>4</td>
       <td>11</td>
     </tr>
     <tr>
-      <th>61</th>
-      <td>5</td>
-      <td>7</td>
-      <td>18</td>
+      <th>216</th>
+      <td>9</td>
+      <td>6</td>
+      <td>8</td>
     </tr>
     <tr>
-      <th>111</th>
-      <td>7</td>
-      <td>1</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <th>108</th>
-      <td>7</td>
-      <td>1</td>
+      <th>148</th>
+      <td>8</td>
+      <td>0</td>
       <td>9</td>
     </tr>
     <tr>
-      <th>180</th>
-      <td>8</td>
-      <td>7</td>
+      <th>10</th>
+      <td>1</td>
+      <td>6</td>
       <td>13</td>
     </tr>
     <tr>
-      <th>20</th>
+      <th>44</th>
+      <td>4</td>
+      <td>8</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>222</th>
+      <td>9</td>
+      <td>8</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>198</th>
+      <td>9</td>
+      <td>0</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>161</th>
+      <td>8</td>
       <td>3</td>
-      <td>1</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>119</th>
+      <td>7</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>86</th>
+      <td>6</td>
+      <td>5</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>3</td>
+      <td>3</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>213</th>
+      <td>9</td>
+      <td>5</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>225</th>
+      <td>9</td>
+      <td>9</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>2</td>
+      <td>5</td>
       <td>15</td>
     </tr>
     <tr>
-      <th>81</th>
-      <td>6</td>
+      <th>52</th>
+      <td>5</td>
       <td>4</td>
-      <td>10</td>
+      <td>12</td>
     </tr>
     <tr>
-      <th>97</th>
+      <th>136</th>
+      <td>7</td>
       <td>6</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>201</th>
+      <td>9</td>
+      <td>1</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>168</th>
       <td>8</td>
-      <td>13</td>
+      <td>4</td>
+      <td>11</td>
     </tr>
     <tr>
-      <th>132</th>
-      <td>7</td>
-      <td>6</td>
-      <td>7</td>
+      <th>170</th>
+      <td>8</td>
+      <td>5</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>5</td>
+      <td>2</td>
+      <td>14</td>
     </tr>
   </tbody>
 </table>
