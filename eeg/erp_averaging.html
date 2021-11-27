@@ -884,6 +884,11 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-evoked-objects">
+   Create Evoked objects
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#plot-average-erp-for-each-condition">
    Plot average ERP for each condition
   </a>
@@ -916,7 +921,8 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="averaging-erps-creating-mne-evoked-objects">
 <h1>Averaging ERPs: Creating MNE Evoked objects<a class="headerlink" href="#averaging-erps-creating-mne-evoked-objects" title="Permalink to this headline">¶</a></h1>
-<p>Since averaging across trials is typically the end goal of an ERP experiment, MNE has a distinct class, <code class="docutils literal notranslate"><span class="pre">Evoked</span></code>, for ERP data where multiple trials have been averaged for each experimental condition or trial type. Unlike <code class="docutils literal notranslate"><span class="pre">Epochs</span></code>, which by definition contain multiple trials and in which each trial has an associated condition label (event code), <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> data sets are averages across trials for a <em>single</em> condition. Thus we have to create a separate <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object for each condition in our experiment. For convenience, we can store these in a dictionary, where the keys are the condition labels and the values are <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects.</p>
+<p>Since averaging across trials is typically the end goal of an ERP experiment, MNE has a distinct class, <code class="docutils literal notranslate"><span class="pre">Evoked</span></code>, for ERP data where multiple trials have been averaged for each experimental condition or trial type.</p>
+<p>We’ll firstimport MNE and the mastoid-referenced, cleaned epochs we saved in the previous step.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
@@ -931,6 +937,9 @@
 </div>
 </div>
 </div>
+<div class="section" id="create-evoked-objects">
+<h2>Create Evoked objects<a class="headerlink" href="#create-evoked-objects" title="Permalink to this headline">¶</a></h2>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">Epochs</span></code>, which by definition contain multiple trials and in which each trial has an associated condition label (event code), <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> data sets are averages across trials for a <em>single</em> condition. Thus we have to create a separate <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object for each condition in our experiment. For convenience, we can store these in a dictionary, where the keys are the condition labels, and the values are <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects. We use a for loop to create the dictionary, looping through each of our conditions (Match and Mismatch):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span>
@@ -952,9 +961,10 @@
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="plot-average-erp-for-each-condition">
 <h2>Plot average ERP for each condition<a class="headerlink" href="#plot-average-erp-for-each-condition" title="Permalink to this headline">¶</a></h2>
-<p>We can use a method called <code class="docutils literal notranslate"><span class="pre">plot_joint()</span></code> to generate a combination of “butterfly” plots (waveforms of all electrode overlaid) and topographic maps at specific time points that we specify. This is a nice way of relating scalp topographies and waveforms. The time points specified for the topo plots were selected based on early peaks apparent in the waveforms above, and then on 200 ms intervals over the time period when teh N400 is expected:</p>
+<p>We can use a method called <code class="docutils literal notranslate"><span class="pre">plot_joint()</span></code> to generate a combination of “butterfly” plots (waveforms of all electrode overlaid) and topographic maps at specific time points that we specify. This is a nice way of relating scalp topographies and waveforms. The time points specified for the topo plots were selected based on early peaks apparent in the waveforms above, and then on 200 ms intervals over the time period when the N400 is expected:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">times</span> <span class="o">=</span> <span class="p">[</span><span class="mf">.150</span><span class="p">,</span> <span class="mf">.250</span><span class="p">,</span> <span class="mf">.400</span><span class="p">,</span> <span class="mf">.600</span><span class="p">,</span> <span class="mf">.800</span><span class="p">]</span>
@@ -964,8 +974,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/erp_averaging_4_0.png" src="../_images/erp_averaging_4_0.png" />
-<img alt="../_images/erp_averaging_4_1.png" src="../_images/erp_averaging_4_1.png" />
+<img alt="../_images/erp_averaging_5_0.png" src="../_images/erp_averaging_5_0.png" />
+<img alt="../_images/erp_averaging_5_1.png" src="../_images/erp_averaging_5_1.png" />
 </div>
 </div>
 </div>
@@ -980,7 +990,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/erp_averaging_6_0.png" src="../_images/erp_averaging_6_0.png" />
+<img alt="../_images/erp_averaging_7_0.png" src="../_images/erp_averaging_7_0.png" />
 </div>
 </div>
 <p>We can make this plot a bit nicer by adding a few things to it:</p>
@@ -1007,7 +1017,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/erp_averaging_8_0.png" src="../_images/erp_averaging_8_0.png" />
+<img alt="../_images/erp_averaging_9_0.png" src="../_images/erp_averaging_9_0.png" />
 </div>
 </div>
 <p>The N400 can be observed as the difference between the two conditions’ waveforms starting just after 400 ms, and continuing to the end of the epoch. As predicted, the Mismatch waveform is more negative than the Match waveform during this period.</p>
@@ -1015,7 +1025,7 @@
 <div class="section" id="create-difference-waves">
 <h2>Create difference waves<a class="headerlink" href="#create-difference-waves" title="Permalink to this headline">¶</a></h2>
 <p>Finally, we can create <strong>difference waves</strong> by subtracting the waveforms of our two experimental conditions. Since the N400 manifests as a larger negativity for mismatch, it is conventional to compute this difference as Mismatch - Match (otherwise the difference between the two would appear as positive, rather than negative, voltage).</p>
-<p>Computing difference waves allows us to view the experimental effect in a quite intuitive way: zero voltage means no difference between conditions, and and deviation from teh zero line in the waveform plot (or from white in the topopmaps) indicates an experimental effect.</p>
+<p>Computing difference waves allows us to view the experimental effect in a quite intuitive way: zero voltage means no difference between conditions, and and deviation from the zero line in the waveform plot (or from white in the topopmaps) indicates an experimental effect.</p>
 <p>MNE’s <code class="docutils literal notranslate"><span class="pre">combine_evoked()</span></code> function allows us to combine Evoked data sets in different ways. To compute a difference, we pass the weights of <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">-1]</span></code> to indicate we want to subtract the second Evoked data set listed (Match) from the first (Mismatch):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1048,10 +1058,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/erp_averaging_13_0.png" src="../_images/erp_averaging_13_0.png" />
+<img alt="../_images/erp_averaging_14_0.png" src="../_images/erp_averaging_14_0.png" />
 </div>
 </div>
-<p>One advantage of difference waves is that they make it very cclear when differences are occurring between conditions, and how large they are. When we compare waveforms for two conditions, the shape of the waveforms can sometimes make it hard to mentally compute the size of the difference - especially at time points when the waveforms’ amplitudes are changing. In a difference waveform plot, the zero line clearly indicates no difference between conditions, and so the magnitude of the difference — as well as its timing — is easy to see.</p>
+<p>One advantage of difference waves is that they make it very clear when differences are occurring between conditions, and how large they are. When we compare waveforms for two conditions, the shape of the waveforms can sometimes make it hard to mentally compute the size of the difference - especially at time points when the waveforms’ amplitudes are changing. In a difference waveform plot, the zero line clearly indicates no difference between conditions, and so the magnitude of the difference — as well as its timing — is easy to see.</p>
 <p>And we can plot the scalp distribution of the differences as well, which nicely shows the scalp distribution of the N400:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1064,7 +1074,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/erp_averaging_16_0.png" src="../_images/erp_averaging_16_0.png" />
+<img alt="../_images/erp_averaging_17_0.png" src="../_images/erp_averaging_17_0.png" />
 </div>
 </div>
 </div>
@@ -1073,7 +1083,8 @@
 <p>Preprocessing EEG data and deriving ERPs is a multi-step process. It’s important to understand what each step does, why it’s applied, and how to choose the correct parameters.</p>
 <p>There are a few additional steps that could be included in a preprocessing pipeline, that we have omitted here. For example, sometimes there there are <em>bad channels</em> — electrodes that had a poor connection throughout the recording, or were broken. There are ways to manually or automatically identify these and have them ignored throughout the preprocessing stream, and then <em>interpolate</em> data for these electrodes after artifact correction.</p>
 <p>After each individual participant’s data has been preprocessed through a pipeline line this, the next step in analyzing an ERP experiment would be a group-level analysis. In a group-level analysis, the data from all participants would typically be averaged, and visualized using waveform plots and scalp topographic maps similar to the ones we’ve created here for one participant.</p>
-<p>As well, statistics can be applied. While there are many ways to do this, one of the most common ways for ERP studies is to average the data at each channel over a time period appropriate for the component of interest. For example, in this study a mean amplitude could be computed over the 600–800 ms time window, and then a</p>
+<p>As well, statistics can be applied. An important question in applying statistics to EEG data is how to handle time - do we perform statistical comparisons between conditions at every time point, or average over periods of time when ERP components occur, or include time as an additional variable in an analysis?</p>
+<p>One of the most common ways for ERP studies to run statistics is to average the data at each channel over a time period appropriate for the component of interest. For example, in this study a mean amplitude could be computed over the 600–800 ms time window, and then a <em>t</em>-test could be performed to compare the mean amplitude values between conditions.</p>
 </div>
 </div>
 
