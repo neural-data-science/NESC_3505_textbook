@@ -736,6 +736,11 @@
    </li>
   </ul>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="erp_group.html">
+   Group Analysis of ERP Data
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1251,51 +1256,85 @@
 <p>We can force MNE to load in the data when we read the file, with the <code class="docutils literal notranslate"><span class="pre">preload</span></code> kwarg. We’ll do this now so that we can look at the data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span><span class="s1">&#39;data/P4.vhdr&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span><span class="s1">&#39;data/N400_dataset_04.vhdr&#39;</span><span class="p">,</span> 
+                                  <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">raw</span><span class="o">.</span><span class="vm">__dict__</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_5373</span><span class="o">/</span><span class="mf">1605029911.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span><span class="s1">&#39;data/P4.vhdr&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">raw</span><span class="o">.</span><span class="vm">__dict__</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/mne/io/brainvision/brainvision.py</span> in <span class="ni">read_raw_brainvision</span><span class="nt">(vhdr_fname, eog, misc, scale, preload, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">855</span>     <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">Raw</span> <span class="p">:</span> <span class="n">Documentation</span> <span class="n">of</span> <span class="n">attribute</span> <span class="ow">and</span> <span class="n">methods</span><span class="o">.</span>
-<span class="g g-Whitespace">    </span><span class="mi">856</span>     <span class="sd">&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">857</span><span class="sd">     return RawBrainVision(vhdr_fname=vhdr_fname, eog=eog,</span>
-<span class="g g-Whitespace">    </span><span class="mi">858</span><span class="sd">                           misc=misc, scale=scale, preload=preload,</span>
-<span class="g g-Whitespace">    </span><span class="mi">859</span><span class="sd">                           verbose=verbose)</span>
-
-<span class="nn">&lt;decorator-gen-211&gt;</span> in <span class="ni">__init__</span><span class="nt">(self, vhdr_fname, eog, misc, scale, preload, verbose)</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/mne/io/brainvision/brainvision.py</span> in <span class="ni">__init__</span><span class="nt">(self, vhdr_fname, eog, misc, scale, preload, verbose)</span>
-<span class="g g-Whitespace">     </span><span class="mi">71</span><span class="sd">         vhdr_fname = op.abspath(vhdr_fname)</span>
-<span class="g g-Whitespace">     </span><span class="mi">72</span><span class="sd">         (info, data_fname, fmt, order, n_samples, mrk_fname, montage,</span>
-<span class="ne">---&gt; </span><span class="mi">73</span><span class="sd">          orig_units) = _get_vhdr_info(vhdr_fname, eog, misc, scale)</span>
-<span class="g g-Whitespace">     </span><span class="mi">74</span><span class="sd"> </span>
-<span class="g g-Whitespace">     </span><span class="mi">75</span><span class="sd">         with open(data_fname, &#39;rb&#39;) as f:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/mne/io/brainvision/brainvision.py</span> in <span class="ni">_get_vhdr_info</span><span class="nt">(vhdr_fname, eog, misc, scale)</span>
-<span class="g g-Whitespace">    </span><span class="mi">455</span><span class="sd">                       &quot;not a file with extension &#39;%s&#39;.&quot; % ext)</span>
-<span class="g g-Whitespace">    </span><span class="mi">456</span><span class="sd"> </span>
-<span class="ne">--&gt; </span><span class="mi">457</span><span class="sd">     settings, cfg, cinfostr, info = _aux_vhdr_info(vhdr_fname)</span>
-<span class="g g-Whitespace">    </span><span class="mi">458</span><span class="sd">     info._unlocked = True</span>
-<span class="g g-Whitespace">    </span><span class="mi">459</span><span class="sd"> </span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/mne/io/brainvision/brainvision.py</span> in <span class="ni">_aux_vhdr_info</span><span class="nt">(vhdr_fname)</span>
-<span class="g g-Whitespace">    </span><span class="mi">357</span><span class="sd"> def _aux_vhdr_info(vhdr_fname):</span>
-<span class="g g-Whitespace">    </span><span class="mi">358</span><span class="sd">     &quot;&quot;&quot;</span><span class="n">Aux</span> <span class="n">function</span> <span class="k">for</span> <span class="n">_get_vhdr_info</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">359</span><span class="s2">     with open(vhdr_fname, &#39;rb&#39;) as f:</span>
-<span class="g g-Whitespace">    </span><span class="mi">360</span><span class="s2">         # extract the first section to resemble a cfg</span>
-<span class="g g-Whitespace">    </span><span class="mi">361</span><span class="s2">         header = f.readline()</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/Users/aaron/3505/NESC_3505_textbook/eeg/data/P4.vhdr&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;_last_samps&#39;: array([682589]),
+ &#39;_first_samps&#39;: array([0]),
+ &#39;info&#39;: &lt;Info | 7 non-empty values
+  bads: []
+  ch_names: Fp1, F3, F7, C3, P3, TP9, Fz, Cz, Fp2, F4, F8, C4, P4, TP10, Pz, Oz
+  chs: 16 EEG
+  custom_ref_applied: False
+  highpass: 0.0 Hz
+  lowpass: 80.0 Hz
+  meas_date: 2000-03-08 09:05:29 UTC
+  nchan: 16
+  projs: []
+  sfreq: 500.0 Hz
+ &gt;,
+ &#39;buffer_size_sec&#39;: 1.0,
+ &#39;verbose&#39;: None,
+ &#39;_cals&#39;: array([4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08,
+        4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08,
+        4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08,
+        4.88281e-08]),
+ &#39;_raw_extras&#39;: [{&#39;offsets&#39;: None,
+   &#39;fmt&#39;: &#39;single&#39;,
+   &#39;order&#39;: &#39;F&#39;,
+   &#39;n_samples&#39;: 682590,
+   &#39;orig_nchan&#39;: 16}],
+ &#39;_read_picks&#39;: [array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15])],
+ &#39;_read_comp_grade&#39;: None,
+ &#39;_comp&#39;: None,
+ &#39;_filenames&#39;: [&#39;/Users/aaron/3505/NESC_3505_textbook/eeg/data/N400_dataset_04.eeg&#39;],
+ &#39;orig_format&#39;: &#39;single&#39;,
+ &#39;_orig_units&#39;: {&#39;Fp1&#39;: &#39;µV&#39;,
+  &#39;F3&#39;: &#39;µV&#39;,
+  &#39;F7&#39;: &#39;µV&#39;,
+  &#39;C3&#39;: &#39;µV&#39;,
+  &#39;P3&#39;: &#39;µV&#39;,
+  &#39;TP9&#39;: &#39;µV&#39;,
+  &#39;Fz&#39;: &#39;µV&#39;,
+  &#39;Cz&#39;: &#39;µV&#39;,
+  &#39;Fp2&#39;: &#39;µV&#39;,
+  &#39;F4&#39;: &#39;µV&#39;,
+  &#39;F8&#39;: &#39;µV&#39;,
+  &#39;C4&#39;: &#39;µV&#39;,
+  &#39;P4&#39;: &#39;µV&#39;,
+  &#39;TP10&#39;: &#39;µV&#39;,
+  &#39;Pz&#39;: &#39;µV&#39;,
+  &#39;Oz&#39;: &#39;µV&#39;},
+ &#39;_projectors&#39;: [],
+ &#39;_projector&#39;: None,
+ &#39;_dtype_&#39;: numpy.float64,
+ &#39;_annotations&#39;: &lt;Annotations | 154 segments: Comment/actiCAP Data On (1), Comment/actiCAP ...&gt;,
+ &#39;_data&#39;: array([[-2.67079217e-05, -3.40180700e-05, -3.36670703e-05, ...,
+         -3.08213636e-01, -3.08150990e-01, -3.08088343e-01],
+        [-1.09543744e-06, -7.06529256e-07,  4.21714567e-07, ...,
+          3.56437879e-01,  3.56370032e-01,  3.56302186e-01],
+        [ 1.18619858e-05,  1.43045352e-05,  2.06130876e-05, ...,
+         -3.21511579e-01, -3.21447589e-01, -3.21383600e-01],
+        ...,
+        [-4.71284208e-05, -4.18195153e-05, -3.77398298e-05, ...,
+         -3.36509740e-01, -3.36444701e-01, -3.36379637e-01],
+        [-1.77195458e-05, -1.72090919e-05, -1.30532198e-05, ...,
+          3.73319584e-01,  3.73250053e-01,  3.73180546e-01],
+        [-3.49426091e-05, -3.36795634e-05, -2.86693426e-05, ...,
+         -3.19992683e-01, -3.19929304e-01, -3.19865950e-01]]),
+ &#39;preload&#39;: True,
+ &#39;_init_kwargs&#39;: {&#39;vhdr_fname&#39;: &#39;/Users/aaron/3505/NESC_3505_textbook/eeg/data/N400_dataset_04.vhdr&#39;,
+  &#39;eog&#39;: (&#39;HEOGL&#39;, &#39;HEOGR&#39;, &#39;VEOGb&#39;),
+  &#39;misc&#39;: &#39;auto&#39;,
+  &#39;scale&#39;: 1.0,
+  &#39;preload&#39;: True,
+  &#39;verbose&#39;: None},
+ &#39;impedances&#39;: {}}
 </pre></div>
 </div>
 </div>
@@ -1309,13 +1348,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_5373</span><span class="o">/</span><span class="mf">2066902740.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">_data</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-
-<span class="ne">AttributeError</span>: &#39;RawBrainVision&#39; object has no attribute &#39;_data&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;numpy.ndarray&#39;&gt;
+(16, 682590)
 </pre></div>
 </div>
 </div>
@@ -1329,13 +1363,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_5373</span><span class="o">/</span><span class="mf">274614120.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">scan_durn</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Duration of EEG recording = &#39;</span><span class="p">,</span> <span class="n">scan_durn</span><span class="p">,</span> <span class="s1">&#39;s, or&#39;</span><span class="p">,</span> <span class="n">scan_durn</span> <span class="o">/</span> <span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;min.&#39;</span><span class="p">)</span>
-
-<span class="ne">AttributeError</span>: &#39;RawBrainVision&#39; object has no attribute &#39;_data&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duration of EEG recording =  1365.18 s, or 22.753 min.
 </pre></div>
 </div>
 </div>
@@ -1351,12 +1379,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_5373</span><span class="o">/</span><span class="mf">1696479417.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="p">:])</span>
-
-<span class="ne">AttributeError</span>: &#39;RawBrainVision&#39; object has no attribute &#39;_data&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-3.49426091e-05 -3.36795634e-05 -2.86693426e-05 ... -3.19992683e-01
+ -3.19929304e-01 -3.19865950e-01]
 </pre></div>
 </div>
 </div>
@@ -1369,12 +1393,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_5373</span><span class="o">/</span><span class="mf">3303137331.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="p">:</span><span class="mi">11</span><span class="p">])</span>
-
-<span class="ne">AttributeError</span>: &#39;RawBrainVision&#39; object has no attribute &#39;_data&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.00021124 0.00021153 0.00021526 0.00022065 0.00022381 0.0002228
+ 0.00022086 0.00022152 0.00022406 0.00022598 0.00022798]
 </pre></div>
 </div>
 </div>
@@ -1390,14 +1410,36 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_5373</span><span class="o">/</span><span class="mf">4194281260.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">start_time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="mi">1500</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">*</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">])</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">end_time</span>   <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="mi">1800</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">*</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">])</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">raw</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">chan</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span><span class="n">end_time</span><span class="p">]</span>
-
-<span class="ne">AttributeError</span>: &#39;RawBrainVision&#39; object has no attribute &#39;_data&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.00018245, 0.00018437, 0.00018864, 0.00019457, 0.00019848,
+       0.00019798, 0.00019517, 0.00019331, 0.00019327, 0.00019501,
+       0.00019897, 0.00020431, 0.00020803, 0.00020714, 0.0002027 ,
+       0.00019861, 0.00019641, 0.00019518, 0.00019454, 0.00019453,
+       0.00019386, 0.00019153, 0.00018945, 0.00018907, 0.0001888 ,
+       0.00018899, 0.00019214, 0.00019711, 0.00020056, 0.00020286,
+       0.00020605, 0.00020858, 0.00020825, 0.00020669, 0.00020621,
+       0.00020703, 0.00020843, 0.00020945, 0.00021   , 0.00021019,
+       0.0002085 , 0.00020438, 0.00020072, 0.00020058, 0.00020341,
+       0.00020607, 0.00020706, 0.00020666, 0.00020411, 0.00019923,
+       0.00019499, 0.00019539, 0.00020034, 0.00020524, 0.0002075 ,
+       0.00020769, 0.00020545, 0.00020112, 0.00019691, 0.00019422,
+       0.00019391, 0.00019645, 0.00020019, 0.00020246, 0.00020222,
+       0.0001997 , 0.00019523, 0.00019023, 0.00018778, 0.00019002,
+       0.00019562, 0.00020115, 0.00020264, 0.00019867, 0.000194  ,
+       0.00019433, 0.00019933, 0.00020523, 0.00020942, 0.00021133,
+       0.00021113, 0.00020858, 0.00020462, 0.00020216, 0.00020332,
+       0.00020762, 0.00021293, 0.00021691, 0.00021779, 0.00021543,
+       0.00021212, 0.00021039, 0.00021111, 0.00021463, 0.00022007,
+       0.00022462, 0.00022677, 0.00022727, 0.0002261 , 0.0002232 ,
+       0.00022106, 0.00022189, 0.00022526, 0.00023023, 0.00023543,
+       0.00023825, 0.00023812, 0.00023738, 0.00023718, 0.00023695,
+       0.00023741, 0.00023942, 0.00024243, 0.00024562, 0.00024795,
+       0.00024888, 0.00024939, 0.00025169, 0.00025767, 0.00026505,
+       0.00026985, 0.00027485, 0.00028527, 0.00029842, 0.00030838,
+       0.00031412, 0.00031789, 0.00032193, 0.00032744, 0.00033402,
+       0.00034016, 0.00034477, 0.0003477 , 0.0003484 , 0.00034782,
+       0.00034937, 0.00035373, 0.00035726, 0.00035742, 0.00035541,
+       0.00035342, 0.00035181, 0.00035078, 0.00035245, 0.00035672,
+       0.00035879, 0.00035553, 0.00034966, 0.00034424, 0.00033889])
 </pre></div>
 </div>
 </div>

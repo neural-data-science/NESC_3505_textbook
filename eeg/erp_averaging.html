@@ -53,7 +53,7 @@
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Introduction to MRI Data" href="../mri/introduction.html" />
+    <link rel="next" title="Group Analysis of ERP Data" href="erp_group.html" />
     <link rel="prev" title="Re-referencing" href="erp_rereferencing.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -736,6 +736,11 @@
    </li>
   </ul>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="erp_group.html">
+   Group Analysis of ERP Data
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -907,6 +912,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#saved-evoked-to-file">
+   Saved Evoked to file
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#create-difference-waves">
    Create difference waves
   </a>
@@ -952,17 +962,13 @@
 </div>
 <div class="section" id="create-evoked-objects">
 <h2>Create Evoked objects<a class="headerlink" href="#create-evoked-objects" title="Permalink to this headline">¶</a></h2>
-<p>Unlike <code class="docutils literal notranslate"><span class="pre">Epochs</span></code>, which by definition contain multiple trials and in which each trial has an associated condition label (event code), <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> data sets are averages across trials for a <em>single</em> condition. Thus we have to create a separate <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object for each condition in our experiment. For convenience, we can store these in a dictionary, where the keys are the condition labels, and the values are <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects. We use a for loop to create the dictionary, looping through each of our conditions (Match and Mismatch):</p>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">Epochs</span></code>, which by definition contain multiple trials and in which each trial has an associated condition label (event code), <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> data sets are averages across trials for a <em>single</em> condition. Thus we have to create a separate <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object for each condition in our experiment. For convenience, we can store these in a list, and we can created the list of Evoked objects using dictionary comprehension, so that each dictionary key is the condition name and its value is the Evoked object:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span>
-<span class="c1"># Create empty dict to append to</span>
-<span class="n">evokeds</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">:</span>
-    <span class="n">evokeds</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">epochs_mastoidref</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span>
-    
-<span class="c1"># Print out contents of evokeds dict    </span>
+<span class="n">evokeds</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="n">epochs_mastoidref</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">}</span>
+
 <span class="n">evokeds</span>    
 </pre></div>
 </div>
@@ -1035,6 +1041,51 @@
 </div>
 <p>The N400 can be observed as the difference between the two conditions’ waveforms starting just after 400 ms, and continuing to the end of the epoch. As predicted, the Mismatch waveform is more negative than the Match waveform during this period.</p>
 </div>
+<div class="section" id="saved-evoked-to-file">
+<h2>Saved Evoked to file<a class="headerlink" href="#saved-evoked-to-file" title="Permalink to this headline">¶</a></h2>
+<p>We can save Evoked objects to files using <code class="docutils literal notranslate"><span class="pre">mne.write_evokeds()</span></code>. Note that this function does not accept a dictionary as input, only a singe <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object, or a list of <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects, so below we convert the values of <code class="docutils literal notranslate"><span class="pre">evokeds</span></code> to a list using the <code class="docutils literal notranslate"><span class="pre">list()</span></code> function.</p>
+<p>One potential source of error here is that, unlike dictionaries, lists don’t have labels for their entries. So in a list of <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects, we risk not knowing later which list item corresponds to which condition. Fortunately, MNE provides a way to label Evoked objects: the <code class="docutils literal notranslate"><span class="pre">.comment</span></code> property:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">evokeds</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">comment</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.25 × Match/A + 0.25 × Match/B + 0.25 × Match/C + 0.25 × Match/D&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>At the moment, this does indicate what condition the data are from, but in a somewhat messy way. Indeed, the comment there reflects the result of averaging the 4 different <em>Match</em> conditions into one <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object; the 02.5 values reflect the weighting of each condition in the average, which was based on the number of trials in each. In this case, we had equal numbers of trials of each of the four <em>Match</em> conditions, so all the weights are 25%. Since this information isn’t terribly relevant now that we are treating all four conditions as the same (simply <em>Match</em>), so we can change the contents of the <code class="docutils literal notranslate"><span class="pre">.comment</span></code> property through assignment:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">condition</span> <span class="ow">in</span> <span class="n">evokeds</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">evokeds</span><span class="p">[</span><span class="n">condition</span><span class="p">]</span><span class="o">.</span><span class="n">comment</span> <span class="o">=</span> <span class="n">condition</span>
+
+<span class="n">evokeds</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Match&#39;: &lt;Evoked | &#39;Match&#39; (average, N=72), -0.2 – 1 sec, baseline -0.2 – 0 sec, 16 ch, ~105 kB&gt;,
+ &#39;Mismatch&#39;: &lt;Evoked | &#39;Mismatch&#39; (average, N=72), -0.2 – 1 sec, baseline -0.2 – 0 sec, 16 ch, ~105 kB&gt;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we have comments that will help clearly identify each <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object later, we can write these out to a file.</p>
+<p>MNE imposes file naming conventions (rules), which specify that Evoked file names should always end in <code class="docutils literal notranslate"><span class="pre">-ave.fif</span></code>. It’s good practice to use the participant ID and condition name in the file name as well. The <code class="docutils literal notranslate"><span class="pre">write_evoked()</span></code> function requires the output file name as its first argument, and the Evoked data as the second argument.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mne</span><span class="o">.</span><span class="n">write_evokeds</span><span class="p">(</span><span class="s1">&#39;data/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ave.fif&#39;</span><span class="p">,</span> 
+                  <span class="nb">list</span><span class="p">(</span><span class="n">evokeds</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="create-difference-waves">
 <h2>Create difference waves<a class="headerlink" href="#create-difference-waves" title="Permalink to this headline">¶</a></h2>
 <p>Finally, we can create <strong>difference waves</strong> by subtracting the waveforms of our two experimental conditions. Since the N400 manifests as a larger negativity for mismatch, it is conventional to compute this difference as Mismatch - Match (otherwise the difference between the two would appear as positive, rather than negative, voltage).</p>
@@ -1050,7 +1101,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Evoked | &#39;(0.25 × Mismatch/A + 0.25 × Mismatch/B + 0.25 × Mismatch/C + 0.25 × Mismatch/D) - (0.25 × Match/A + 0.25 × Match/B + 0.25 × Match/C + 0.25 × Match/D)&#39; (average, N=36.0), -0.2 – 1 sec, baseline -0.2 – 0 sec, 16 ch, ~105 kB&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Evoked | &#39;Mismatch - Match&#39; (average, N=36.0), -0.2 – 1 sec, baseline -0.2 – 0 sec, 16 ch, ~105 kB&gt;
 </pre></div>
 </div>
 </div>
@@ -1071,7 +1122,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/erp_averaging_14_0.png" src="../_images/erp_averaging_14_0.png" />
+<img alt="../_images/erp_averaging_20_0.png" src="../_images/erp_averaging_20_0.png" />
 </div>
 </div>
 <p>One advantage of difference waves is that they make it very clear when differences are occurring between conditions, and how large they are. When we compare waveforms for two conditions, the shape of the waveforms can sometimes make it hard to mentally compute the size of the difference - especially at time points when the waveforms’ amplitudes are changing. In a difference waveform plot, the zero line clearly indicates no difference between conditions, and so the magnitude of the difference — as well as its timing — is easy to see.</p>
@@ -1087,7 +1138,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/erp_averaging_17_0.png" src="../_images/erp_averaging_17_0.png" />
+<img alt="../_images/erp_averaging_23_0.png" src="../_images/erp_averaging_23_0.png" />
 </div>
 </div>
 </div>
@@ -1105,7 +1156,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/erp_averaging_19_0.png" src="../_images/erp_averaging_19_0.png" />
+<img alt="../_images/erp_averaging_25_0.png" src="../_images/erp_averaging_25_0.png" />
 </div>
 </div>
 </div>
@@ -1151,10 +1202,10 @@
             <p class="prev-next-title">Re-referencing</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../mri/introduction.html" title="next page">
+    <a class='right-next' id="next-link" href="erp_group.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Introduction to MRI Data</p>
+        <p class="prev-next-title">Group Analysis of ERP Data</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

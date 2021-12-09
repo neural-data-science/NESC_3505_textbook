@@ -736,6 +736,11 @@
    </li>
   </ul>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eeg/erp_group.html">
+   Group Analysis of ERP Data
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1080,7 +1085,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/seaborn_9_0.png" src="../_images/seaborn_9_0.png" />
+<img alt="../_images/seaborn_8_0.png" src="../_images/seaborn_8_0.png" />
 </div>
 </div>
 <p>Compared to plotting the data in Matplotlib (below), the results are similar, but Seaborn adds some aesthetic touches by default, such as reducing the number of irrelevant frame lines, putting the legend outside the plot, and making the line for the second condition dashed (which aids in discriminating lines, especially if there are several of them, or if someone has vision problems). As we’ll see, Seaborn isn’t just another pretty face — it also makes a wide variety of plots easy to make with a consistent and relatively intuitive syntax.</p>
@@ -1093,7 +1098,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/seaborn_11_0.png" src="../_images/seaborn_11_0.png" />
+<img alt="../_images/seaborn_10_0.png" src="../_images/seaborn_10_0.png" />
 </div>
 </div>
 <div class="section" id="plotting-long-format-data">
@@ -1101,10 +1106,11 @@
 <p>Let’s move to working some some data of the sort we might find in cognitive psychology. Imagine a simple <strong>lexical decision task</strong>, an experiment in which each trial involves presenting a printed string of letters to a participant, and asking them to make a response as quickly as possible: pressing one button of the word is a real word in their native language, and another button if it is not a real word. The dependent variable in the experiment is reaction time (RT) — the amount of time that passed between the onset of the word on the screen, and the button press.</p>
 <p>Lexical decision tasks are commonly used in psycholinguistics to explore properties of the real words, such as their length or how frequently they occur in normal usage. However, for our simple example, we’ll focus on the simpler fact that, on average, people are slower in responding to nonwords than real words (especially if the nonwords look plausibly like real words, for example words like <em>blorp</em> or <em>furtle</em> that follow English word formation patterns).</p>
 <p>We’ve created some data, using a random number generator, to use in our plotting examples. The data were deliberately created with certain properties, so that the expected difference between RTs. We have data from 5 hypothetical participants, stored in separate data files in the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder. The naming format for the files is <code class="docutils literal notranslate"><span class="pre">ldt_sXX_data.csv</span></code>, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> stands for the subject ID number (two digits).</p>
-<p>First we’ll load the data from the files, practicing our <a class="reference internal" href="../3/looping-data-files.html"><span class="doc std std-doc">list comprehension</span></a>, and storing the result in a pandas DataFrame called <code class="docutils literal notranslate"><span class="pre">df</span></code>:</p>
+<p>First we’ll load the data from the files, practicing our <a class="reference internal" href="../3/looping-data-files.html"><span class="doc std std-doc">list comprehension</span></a>, and storing the result in a pandas DataFrame called <code class="docutils literal notranslate"><span class="pre">df</span></code>. We need to include the <code class="docutils literal notranslate"><span class="pre">ignore_index=True</span></code> kwarg when concatenating the data, because otherwise there will be multiple copies of the same index in the merged DataFrame (since each data file that is read will start at index 0).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/ldt_s??_data.csv&#39;</span><span class="p">)])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/ldt_s??_data.csv&#39;</span><span class="p">)],</span>
+              <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1142,64 +1148,64 @@
   </thead>
   <tbody>
     <tr>
-      <th>10</th>
-      <td>ldt_s03</td>
-      <td>word</td>
-      <td>0.501729</td>
-    </tr>
-    <tr>
-      <th>25</th>
+      <th>95</th>
       <td>ldt_s03</td>
       <td>nonword</td>
-      <td>0.862632</td>
+      <td>0.867952</td>
     </tr>
     <tr>
-      <th>47</th>
+      <th>122</th>
+      <td>ldt_s02</td>
+      <td>word</td>
+      <td>0.713376</td>
+    </tr>
+    <tr>
+      <th>152</th>
+      <td>ldt_s04</td>
+      <td>word</td>
+      <td>0.639911</td>
+    </tr>
+    <tr>
+      <th>116</th>
+      <td>ldt_s02</td>
+      <td>word</td>
+      <td>0.674870</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>ldt_s01</td>
+      <td>word</td>
+      <td>0.701532</td>
+    </tr>
+    <tr>
+      <th>242</th>
+      <td>ldt_s05</td>
+      <td>nonword</td>
+      <td>0.810391</td>
+    </tr>
+    <tr>
+      <th>142</th>
+      <td>ldt_s02</td>
+      <td>nonword</td>
+      <td>0.838584</td>
+    </tr>
+    <tr>
+      <th>36</th>
       <td>ldt_s01</td>
       <td>nonword</td>
-      <td>0.780303</td>
+      <td>1.049282</td>
     </tr>
     <tr>
-      <th>40</th>
-      <td>ldt_s03</td>
-      <td>nonword</td>
-      <td>0.753041</td>
-    </tr>
-    <tr>
-      <th>49</th>
-      <td>ldt_s05</td>
-      <td>nonword</td>
-      <td>0.689732</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>ldt_s05</td>
+      <th>157</th>
+      <td>ldt_s04</td>
       <td>word</td>
-      <td>0.543898</td>
+      <td>0.597772</td>
     </tr>
     <tr>
-      <th>44</th>
-      <td>ldt_s02</td>
+      <th>35</th>
+      <td>ldt_s01</td>
       <td>nonword</td>
-      <td>0.802241</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>ldt_s02</td>
-      <td>nonword</td>
-      <td>0.955208</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>ldt_s03</td>
-      <td>word</td>
-      <td>0.598109</td>
-    </tr>
-    <tr>
-      <th>49</th>
-      <td>ldt_s02</td>
-      <td>nonword</td>
-      <td>0.768360</td>
+      <td>0.640320</td>
     </tr>
   </tbody>
 </table>
@@ -1295,114 +1301,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_5462</span><span class="o">/</span><span class="mf">1554502687.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;RT&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">displot</span><span class="nt">(data, x, y, hue, row, col, weights, kind, rug, rug_kws, log_scale, legend, palette, hue_order, hue_norm, color, col_wrap, row_order, col_order, height, aspect, facet_kws, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2272</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2273</span>             <span class="n">_assign_default_kwargs</span><span class="p">(</span><span class="n">hist_kws</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_histogram</span><span class="p">,</span> <span class="n">histplot</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">2274</span>             <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_histogram</span><span class="p">(</span><span class="o">**</span><span class="n">hist_kws</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2275</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2276</span>         <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">plot_univariate_histogram</span><span class="nt">(self, multiple, element, fill, common_norm, common_bins, shrink, kde, kde_kws, color, legend, line_kws, estimate_kws, **plot_kws)</span>
-<span class="g g-Whitespace">    </span><span class="mi">426</span> 
-<span class="g g-Whitespace">    </span><span class="mi">427</span>         <span class="c1"># First pass through the data to compute the histograms</span>
-<span class="ne">--&gt; </span><span class="mi">428</span>         <span class="k">for</span> <span class="n">sub_vars</span><span class="p">,</span> <span class="n">sub_data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_data</span><span class="p">(</span><span class="s2">&quot;hue&quot;</span><span class="p">,</span> <span class="n">from_comp_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">429</span> 
-<span class="g g-Whitespace">    </span><span class="mi">430</span>             <span class="c1"># Prepare the relevant data</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/_core.py</span> in <span class="ni">iter_data</span><span class="nt">(self, grouping_vars, reverse, from_comp_data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">981</span> 
-<span class="g g-Whitespace">    </span><span class="mi">982</span>         <span class="k">if</span> <span class="n">from_comp_data</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">983</span>             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comp_data</span>
-<span class="g g-Whitespace">    </span><span class="mi">984</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">985</span>             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/_core.py</span> in <span class="ni">comp_data</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1055</span>                     <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1056</span>                 <span class="n">comp_col</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1057</span>                 <span class="n">comp_col</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">convert_units</span><span class="p">(</span><span class="n">orig</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1058</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1059</span>                 <span class="k">if</span> <span class="n">axis</span><span class="o">.</span><span class="n">get_scale</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;log&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">__setitem__</span><span class="nt">(self, key, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">721</span> 
-<span class="g g-Whitespace">    </span><span class="mi">722</span>         <span class="n">iloc</span> <span class="o">=</span> <span class="bp">self</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;iloc&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">iloc</span>
-<span class="ne">--&gt; </span><span class="mi">723</span>         <span class="n">iloc</span><span class="o">.</span><span class="n">_setitem_with_indexer</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">724</span> 
-<span class="g g-Whitespace">    </span><span class="mi">725</span>     <span class="k">def</span> <span class="nf">_validate_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_with_indexer</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1730</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1731</span>         <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1732</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_single_block</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1733</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1734</span>     <span class="k">def</span> <span class="nf">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_single_block</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1957</span>             <span class="c1"># setting for extensionarrays that store dicts. Need to decide</span>
-<span class="g g-Whitespace">   </span><span class="mi">1958</span>             <span class="c1"># if it&#39;s worth supporting that.</span>
-<span class="ne">-&gt; </span><span class="mi">1959</span>             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_align_series</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">Series</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1960</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1961</span>         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ABCDataFrame</span><span class="p">)</span> <span class="ow">and</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;iloc&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_align_series</span><span class="nt">(self, indexer, ser, multiindex_indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2094</span>             <span class="c1"># series, so need to broadcast (see GH5206)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2095</span>             <span class="k">if</span> <span class="n">sum_aligners</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">is_sequence</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">2096</span>                 <span class="n">ser</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">indexer</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">_values</span>
-<span class="g g-Whitespace">   </span><span class="mi">2097</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2098</span>                 <span class="c1"># single indexer</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/series.py</span> in <span class="ni">reindex</span><span class="nt">(self, index, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4578</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4579</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">4580</span>         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4581</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4582</span>     <span class="nd">@deprecate_nonkeyword_arguments</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allowed_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">])</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">reindex</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4816</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4817</span>         <span class="c1"># perform the reindex on the axes</span>
-<span class="ne">-&gt; </span><span class="mi">4818</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reindex_axes</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4819</span>             <span class="n">axes</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span> <span class="n">copy</span>
-<span class="g g-Whitespace">   </span><span class="mi">4820</span>         <span class="p">)</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;reindex&quot;</span><span class="p">)</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_axes</span><span class="nt">(self, axes, level, limit, tolerance, method, fill_value, copy)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4837</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4838</span>             <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_axis_number</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">4839</span>             <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_reindex_with_indexers</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4840</span>                 <span class="p">{</span><span class="n">axis</span><span class="p">:</span> <span class="p">[</span><span class="n">new_index</span><span class="p">,</span> <span class="n">indexer</span><span class="p">]},</span>
-<span class="g g-Whitespace">   </span><span class="mi">4841</span>                 <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_with_indexers</span><span class="nt">(self, reindexers, fill_value, copy, allow_dups)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4881</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4882</span>             <span class="c1"># TODO: speed up on homogeneous DataFrame objects</span>
-<span class="ne">-&gt; </span><span class="mi">4883</span>             <span class="n">new_data</span> <span class="o">=</span> <span class="n">new_data</span><span class="o">.</span><span class="n">reindex_indexer</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4884</span>                 <span class="n">index</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">4885</span>                 <span class="n">indexer</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/internals/managers.py</span> in <span class="ni">reindex_indexer</span><span class="nt">(self, new_axis, indexer, axis, fill_value, allow_dups, copy, consolidate, only_slice)</span>
-<span class="g g-Whitespace">    </span><span class="mi">668</span>         <span class="c1"># some axes don&#39;t allow reindexing with dups</span>
-<span class="g g-Whitespace">    </span><span class="mi">669</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_dups</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">670</span>             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">.</span><span class="n">_validate_can_reindex</span><span class="p">(</span><span class="n">indexer</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">671</span> 
-<span class="g g-Whitespace">    </span><span class="mi">672</span>         <span class="k">if</span> <span class="n">axis</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">_validate_can_reindex</span><span class="nt">(self, indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3783</span>         <span class="c1"># trying to reindex on an axis with duplicates</span>
-<span class="g g-Whitespace">   </span><span class="mi">3784</span>         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_as_unique</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">3785</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot reindex from a duplicate axis&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3786</span> 
-<span class="g g-Whitespace">   </span><span class="mi">3787</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span>
-
-<span class="ne">ValueError</span>: cannot reindex from a duplicate axis
-</pre></div>
-</div>
-<img alt="../_images/seaborn_21_1.png" src="../_images/seaborn_21_1.png" />
+<img alt="../_images/seaborn_20_0.png" src="../_images/seaborn_20_0.png" />
 </div>
 </div>
 <p>Comparing the range of values on the <em>x</em> axis with the <code class="docutils literal notranslate"><span class="pre">min</span></code> and <code class="docutils literal notranslate"><span class="pre">max</span></code> values from <code class="docutils literal notranslate"><span class="pre">df.describe()</span></code>, we see that the entire range of values is represented. The range of RT values have been binned into 11 categories, in order to draw the 11 bars in the histogram. We can see that the most common values of RT are between approximately 0.5 – 0.6 s, which corresponds to the median (<code class="docutils literal notranslate"><span class="pre">50%</span></code>) value shown by <code class="docutils literal notranslate"><span class="pre">pd.describe()</span></code>. We can also see that the data are slightly <em>skewed</em> — there is a wider range of values to the right than the left of the peak. Visualizing distributions is thus a useful way of examining your data, and you can likely glean more information from this plot, more quickly and easily, than from the descriptive statistics table above.</p>
@@ -1419,116 +1318,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_5462</span><span class="o">/</span><span class="mf">2331334776.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;RT&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>            <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">displot</span><span class="nt">(data, x, y, hue, row, col, weights, kind, rug, rug_kws, log_scale, legend, palette, hue_order, hue_norm, color, col_wrap, row_order, col_order, height, aspect, facet_kws, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2272</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2273</span>             <span class="n">_assign_default_kwargs</span><span class="p">(</span><span class="n">hist_kws</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_histogram</span><span class="p">,</span> <span class="n">histplot</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">2274</span>             <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_histogram</span><span class="p">(</span><span class="o">**</span><span class="n">hist_kws</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2275</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2276</span>         <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">plot_univariate_histogram</span><span class="nt">(self, multiple, element, fill, common_norm, common_bins, shrink, kde, kde_kws, color, legend, line_kws, estimate_kws, **plot_kws)</span>
-<span class="g g-Whitespace">    </span><span class="mi">426</span> 
-<span class="g g-Whitespace">    </span><span class="mi">427</span>         <span class="c1"># First pass through the data to compute the histograms</span>
-<span class="ne">--&gt; </span><span class="mi">428</span>         <span class="k">for</span> <span class="n">sub_vars</span><span class="p">,</span> <span class="n">sub_data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_data</span><span class="p">(</span><span class="s2">&quot;hue&quot;</span><span class="p">,</span> <span class="n">from_comp_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">429</span> 
-<span class="g g-Whitespace">    </span><span class="mi">430</span>             <span class="c1"># Prepare the relevant data</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/_core.py</span> in <span class="ni">iter_data</span><span class="nt">(self, grouping_vars, reverse, from_comp_data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">981</span> 
-<span class="g g-Whitespace">    </span><span class="mi">982</span>         <span class="k">if</span> <span class="n">from_comp_data</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">983</span>             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comp_data</span>
-<span class="g g-Whitespace">    </span><span class="mi">984</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">985</span>             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/_core.py</span> in <span class="ni">comp_data</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1055</span>                     <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1056</span>                 <span class="n">comp_col</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1057</span>                 <span class="n">comp_col</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">convert_units</span><span class="p">(</span><span class="n">orig</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1058</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1059</span>                 <span class="k">if</span> <span class="n">axis</span><span class="o">.</span><span class="n">get_scale</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;log&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">__setitem__</span><span class="nt">(self, key, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">721</span> 
-<span class="g g-Whitespace">    </span><span class="mi">722</span>         <span class="n">iloc</span> <span class="o">=</span> <span class="bp">self</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;iloc&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">iloc</span>
-<span class="ne">--&gt; </span><span class="mi">723</span>         <span class="n">iloc</span><span class="o">.</span><span class="n">_setitem_with_indexer</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">724</span> 
-<span class="g g-Whitespace">    </span><span class="mi">725</span>     <span class="k">def</span> <span class="nf">_validate_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_with_indexer</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1730</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1731</span>         <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1732</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_single_block</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1733</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1734</span>     <span class="k">def</span> <span class="nf">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_single_block</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1957</span>             <span class="c1"># setting for extensionarrays that store dicts. Need to decide</span>
-<span class="g g-Whitespace">   </span><span class="mi">1958</span>             <span class="c1"># if it&#39;s worth supporting that.</span>
-<span class="ne">-&gt; </span><span class="mi">1959</span>             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_align_series</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">Series</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1960</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1961</span>         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ABCDataFrame</span><span class="p">)</span> <span class="ow">and</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;iloc&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_align_series</span><span class="nt">(self, indexer, ser, multiindex_indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2094</span>             <span class="c1"># series, so need to broadcast (see GH5206)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2095</span>             <span class="k">if</span> <span class="n">sum_aligners</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">is_sequence</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">2096</span>                 <span class="n">ser</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">indexer</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">_values</span>
-<span class="g g-Whitespace">   </span><span class="mi">2097</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2098</span>                 <span class="c1"># single indexer</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/series.py</span> in <span class="ni">reindex</span><span class="nt">(self, index, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4578</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4579</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">4580</span>         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4581</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4582</span>     <span class="nd">@deprecate_nonkeyword_arguments</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allowed_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">])</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">reindex</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4816</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4817</span>         <span class="c1"># perform the reindex on the axes</span>
-<span class="ne">-&gt; </span><span class="mi">4818</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reindex_axes</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4819</span>             <span class="n">axes</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span> <span class="n">copy</span>
-<span class="g g-Whitespace">   </span><span class="mi">4820</span>         <span class="p">)</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;reindex&quot;</span><span class="p">)</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_axes</span><span class="nt">(self, axes, level, limit, tolerance, method, fill_value, copy)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4837</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4838</span>             <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_axis_number</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">4839</span>             <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_reindex_with_indexers</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4840</span>                 <span class="p">{</span><span class="n">axis</span><span class="p">:</span> <span class="p">[</span><span class="n">new_index</span><span class="p">,</span> <span class="n">indexer</span><span class="p">]},</span>
-<span class="g g-Whitespace">   </span><span class="mi">4841</span>                 <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_with_indexers</span><span class="nt">(self, reindexers, fill_value, copy, allow_dups)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4881</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4882</span>             <span class="c1"># TODO: speed up on homogeneous DataFrame objects</span>
-<span class="ne">-&gt; </span><span class="mi">4883</span>             <span class="n">new_data</span> <span class="o">=</span> <span class="n">new_data</span><span class="o">.</span><span class="n">reindex_indexer</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4884</span>                 <span class="n">index</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">4885</span>                 <span class="n">indexer</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/internals/managers.py</span> in <span class="ni">reindex_indexer</span><span class="nt">(self, new_axis, indexer, axis, fill_value, allow_dups, copy, consolidate, only_slice)</span>
-<span class="g g-Whitespace">    </span><span class="mi">668</span>         <span class="c1"># some axes don&#39;t allow reindexing with dups</span>
-<span class="g g-Whitespace">    </span><span class="mi">669</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_dups</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">670</span>             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">.</span><span class="n">_validate_can_reindex</span><span class="p">(</span><span class="n">indexer</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">671</span> 
-<span class="g g-Whitespace">    </span><span class="mi">672</span>         <span class="k">if</span> <span class="n">axis</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">_validate_can_reindex</span><span class="nt">(self, indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3783</span>         <span class="c1"># trying to reindex on an axis with duplicates</span>
-<span class="g g-Whitespace">   </span><span class="mi">3784</span>         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_as_unique</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">3785</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot reindex from a duplicate axis&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3786</span> 
-<span class="g g-Whitespace">   </span><span class="mi">3787</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span>
-
-<span class="ne">ValueError</span>: cannot reindex from a duplicate axis
-</pre></div>
-</div>
-<img alt="../_images/seaborn_24_1.png" src="../_images/seaborn_24_1.png" />
+<img alt="../_images/seaborn_23_0.png" src="../_images/seaborn_23_0.png" />
 </div>
 </div>
 <p>In the above plot we increased the number of bins from the default to 25. You can see that the histogram looks less  smooth than it did with fewer bins — increasing the number of bins decreases the number of data points in the bins, which in turn results in greater random variability.</p>
@@ -1547,115 +1337,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_5462</span><span class="o">/</span><span class="mf">1373660378.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;RT&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>            <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">displot</span><span class="nt">(data, x, y, hue, row, col, weights, kind, rug, rug_kws, log_scale, legend, palette, hue_order, hue_norm, color, col_wrap, row_order, col_order, height, aspect, facet_kws, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2272</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2273</span>             <span class="n">_assign_default_kwargs</span><span class="p">(</span><span class="n">hist_kws</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_histogram</span><span class="p">,</span> <span class="n">histplot</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">2274</span>             <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_histogram</span><span class="p">(</span><span class="o">**</span><span class="n">hist_kws</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2275</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2276</span>         <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">plot_univariate_histogram</span><span class="nt">(self, multiple, element, fill, common_norm, common_bins, shrink, kde, kde_kws, color, legend, line_kws, estimate_kws, **plot_kws)</span>
-<span class="g g-Whitespace">    </span><span class="mi">426</span> 
-<span class="g g-Whitespace">    </span><span class="mi">427</span>         <span class="c1"># First pass through the data to compute the histograms</span>
-<span class="ne">--&gt; </span><span class="mi">428</span>         <span class="k">for</span> <span class="n">sub_vars</span><span class="p">,</span> <span class="n">sub_data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_data</span><span class="p">(</span><span class="s2">&quot;hue&quot;</span><span class="p">,</span> <span class="n">from_comp_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">429</span> 
-<span class="g g-Whitespace">    </span><span class="mi">430</span>             <span class="c1"># Prepare the relevant data</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/_core.py</span> in <span class="ni">iter_data</span><span class="nt">(self, grouping_vars, reverse, from_comp_data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">981</span> 
-<span class="g g-Whitespace">    </span><span class="mi">982</span>         <span class="k">if</span> <span class="n">from_comp_data</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">983</span>             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comp_data</span>
-<span class="g g-Whitespace">    </span><span class="mi">984</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">985</span>             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/_core.py</span> in <span class="ni">comp_data</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1055</span>                     <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1056</span>                 <span class="n">comp_col</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1057</span>                 <span class="n">comp_col</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">convert_units</span><span class="p">(</span><span class="n">orig</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1058</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1059</span>                 <span class="k">if</span> <span class="n">axis</span><span class="o">.</span><span class="n">get_scale</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;log&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">__setitem__</span><span class="nt">(self, key, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">721</span> 
-<span class="g g-Whitespace">    </span><span class="mi">722</span>         <span class="n">iloc</span> <span class="o">=</span> <span class="bp">self</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;iloc&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">iloc</span>
-<span class="ne">--&gt; </span><span class="mi">723</span>         <span class="n">iloc</span><span class="o">.</span><span class="n">_setitem_with_indexer</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">724</span> 
-<span class="g g-Whitespace">    </span><span class="mi">725</span>     <span class="k">def</span> <span class="nf">_validate_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_with_indexer</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1730</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1731</span>         <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1732</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_single_block</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1733</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1734</span>     <span class="k">def</span> <span class="nf">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_single_block</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1957</span>             <span class="c1"># setting for extensionarrays that store dicts. Need to decide</span>
-<span class="g g-Whitespace">   </span><span class="mi">1958</span>             <span class="c1"># if it&#39;s worth supporting that.</span>
-<span class="ne">-&gt; </span><span class="mi">1959</span>             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_align_series</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">Series</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1960</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1961</span>         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ABCDataFrame</span><span class="p">)</span> <span class="ow">and</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;iloc&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_align_series</span><span class="nt">(self, indexer, ser, multiindex_indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2094</span>             <span class="c1"># series, so need to broadcast (see GH5206)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2095</span>             <span class="k">if</span> <span class="n">sum_aligners</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">is_sequence</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">2096</span>                 <span class="n">ser</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">indexer</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">_values</span>
-<span class="g g-Whitespace">   </span><span class="mi">2097</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2098</span>                 <span class="c1"># single indexer</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/series.py</span> in <span class="ni">reindex</span><span class="nt">(self, index, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4578</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4579</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">4580</span>         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4581</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4582</span>     <span class="nd">@deprecate_nonkeyword_arguments</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allowed_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">])</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">reindex</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4816</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4817</span>         <span class="c1"># perform the reindex on the axes</span>
-<span class="ne">-&gt; </span><span class="mi">4818</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reindex_axes</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4819</span>             <span class="n">axes</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span> <span class="n">copy</span>
-<span class="g g-Whitespace">   </span><span class="mi">4820</span>         <span class="p">)</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;reindex&quot;</span><span class="p">)</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_axes</span><span class="nt">(self, axes, level, limit, tolerance, method, fill_value, copy)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4837</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4838</span>             <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_axis_number</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">4839</span>             <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_reindex_with_indexers</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4840</span>                 <span class="p">{</span><span class="n">axis</span><span class="p">:</span> <span class="p">[</span><span class="n">new_index</span><span class="p">,</span> <span class="n">indexer</span><span class="p">]},</span>
-<span class="g g-Whitespace">   </span><span class="mi">4841</span>                 <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_with_indexers</span><span class="nt">(self, reindexers, fill_value, copy, allow_dups)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4881</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4882</span>             <span class="c1"># TODO: speed up on homogeneous DataFrame objects</span>
-<span class="ne">-&gt; </span><span class="mi">4883</span>             <span class="n">new_data</span> <span class="o">=</span> <span class="n">new_data</span><span class="o">.</span><span class="n">reindex_indexer</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4884</span>                 <span class="n">index</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">4885</span>                 <span class="n">indexer</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/internals/managers.py</span> in <span class="ni">reindex_indexer</span><span class="nt">(self, new_axis, indexer, axis, fill_value, allow_dups, copy, consolidate, only_slice)</span>
-<span class="g g-Whitespace">    </span><span class="mi">668</span>         <span class="c1"># some axes don&#39;t allow reindexing with dups</span>
-<span class="g g-Whitespace">    </span><span class="mi">669</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_dups</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">670</span>             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">.</span><span class="n">_validate_can_reindex</span><span class="p">(</span><span class="n">indexer</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">671</span> 
-<span class="g g-Whitespace">    </span><span class="mi">672</span>         <span class="k">if</span> <span class="n">axis</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">_validate_can_reindex</span><span class="nt">(self, indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3783</span>         <span class="c1"># trying to reindex on an axis with duplicates</span>
-<span class="g g-Whitespace">   </span><span class="mi">3784</span>         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_as_unique</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">3785</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot reindex from a duplicate axis&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3786</span> 
-<span class="g g-Whitespace">   </span><span class="mi">3787</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span>
-
-<span class="ne">ValueError</span>: cannot reindex from a duplicate axis
-</pre></div>
-</div>
-<img alt="../_images/seaborn_27_1.png" src="../_images/seaborn_27_1.png" />
+<img alt="../_images/seaborn_26_0.png" src="../_images/seaborn_26_0.png" />
 </div>
 </div>
 </div>
@@ -1674,122 +1356,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_5462</span><span class="o">/</span><span class="mf">2370641547.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>            <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;RT&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">displot</span><span class="nt">(data, x, y, hue, row, col, weights, kind, rug, rug_kws, log_scale, legend, palette, hue_order, hue_norm, color, col_wrap, row_order, col_order, height, aspect, facet_kws, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2297</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2298</span>             <span class="n">_assign_default_kwargs</span><span class="p">(</span><span class="n">kde_kws</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_density</span><span class="p">,</span> <span class="n">kdeplot</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">2299</span>             <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_density</span><span class="p">(</span><span class="o">**</span><span class="n">kde_kws</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2300</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2301</span>         <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">plot_univariate_density</span><span class="nt">(self, multiple, common_norm, common_grid, warn_singular, fill, legend, estimate_kws, **plot_kws)</span>
-<span class="g g-Whitespace">    </span><span class="mi">926</span> 
-<span class="g g-Whitespace">    </span><span class="mi">927</span>         <span class="c1"># Do the computation</span>
-<span class="ne">--&gt; </span><span class="mi">928</span>         <span class="n">densities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_univariate_density</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">929</span>             <span class="bp">self</span><span class="o">.</span><span class="n">data_variable</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">930</span>             <span class="n">common_norm</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">_compute_univariate_density</span><span class="nt">(self, data_variable, common_norm, common_grid, estimate_kws, log_scale, warn_singular)</span>
-<span class="g g-Whitespace">    </span><span class="mi">301</span>         <span class="n">densities</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">    </span><span class="mi">302</span> 
-<span class="ne">--&gt; </span><span class="mi">303</span>         <span class="k">for</span> <span class="n">sub_vars</span><span class="p">,</span> <span class="n">sub_data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_data</span><span class="p">(</span><span class="s2">&quot;hue&quot;</span><span class="p">,</span> <span class="n">from_comp_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">304</span> 
-<span class="g g-Whitespace">    </span><span class="mi">305</span>             <span class="c1"># Extract the data points from this sub set and remove nulls</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/_core.py</span> in <span class="ni">iter_data</span><span class="nt">(self, grouping_vars, reverse, from_comp_data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">981</span> 
-<span class="g g-Whitespace">    </span><span class="mi">982</span>         <span class="k">if</span> <span class="n">from_comp_data</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">983</span>             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comp_data</span>
-<span class="g g-Whitespace">    </span><span class="mi">984</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">985</span>             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/_core.py</span> in <span class="ni">comp_data</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1055</span>                     <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1056</span>                 <span class="n">comp_col</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1057</span>                 <span class="n">comp_col</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">convert_units</span><span class="p">(</span><span class="n">orig</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1058</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1059</span>                 <span class="k">if</span> <span class="n">axis</span><span class="o">.</span><span class="n">get_scale</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;log&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">__setitem__</span><span class="nt">(self, key, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">721</span> 
-<span class="g g-Whitespace">    </span><span class="mi">722</span>         <span class="n">iloc</span> <span class="o">=</span> <span class="bp">self</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;iloc&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">iloc</span>
-<span class="ne">--&gt; </span><span class="mi">723</span>         <span class="n">iloc</span><span class="o">.</span><span class="n">_setitem_with_indexer</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">724</span> 
-<span class="g g-Whitespace">    </span><span class="mi">725</span>     <span class="k">def</span> <span class="nf">_validate_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_with_indexer</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1730</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1731</span>         <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1732</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_single_block</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1733</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1734</span>     <span class="k">def</span> <span class="nf">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_single_block</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1957</span>             <span class="c1"># setting for extensionarrays that store dicts. Need to decide</span>
-<span class="g g-Whitespace">   </span><span class="mi">1958</span>             <span class="c1"># if it&#39;s worth supporting that.</span>
-<span class="ne">-&gt; </span><span class="mi">1959</span>             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_align_series</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">Series</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1960</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1961</span>         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ABCDataFrame</span><span class="p">)</span> <span class="ow">and</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;iloc&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_align_series</span><span class="nt">(self, indexer, ser, multiindex_indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2094</span>             <span class="c1"># series, so need to broadcast (see GH5206)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2095</span>             <span class="k">if</span> <span class="n">sum_aligners</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">is_sequence</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">2096</span>                 <span class="n">ser</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">indexer</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">_values</span>
-<span class="g g-Whitespace">   </span><span class="mi">2097</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2098</span>                 <span class="c1"># single indexer</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/series.py</span> in <span class="ni">reindex</span><span class="nt">(self, index, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4578</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4579</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">4580</span>         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4581</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4582</span>     <span class="nd">@deprecate_nonkeyword_arguments</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allowed_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">])</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">reindex</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4816</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4817</span>         <span class="c1"># perform the reindex on the axes</span>
-<span class="ne">-&gt; </span><span class="mi">4818</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reindex_axes</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4819</span>             <span class="n">axes</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span> <span class="n">copy</span>
-<span class="g g-Whitespace">   </span><span class="mi">4820</span>         <span class="p">)</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;reindex&quot;</span><span class="p">)</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_axes</span><span class="nt">(self, axes, level, limit, tolerance, method, fill_value, copy)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4837</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4838</span>             <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_axis_number</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">4839</span>             <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_reindex_with_indexers</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4840</span>                 <span class="p">{</span><span class="n">axis</span><span class="p">:</span> <span class="p">[</span><span class="n">new_index</span><span class="p">,</span> <span class="n">indexer</span><span class="p">]},</span>
-<span class="g g-Whitespace">   </span><span class="mi">4841</span>                 <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_with_indexers</span><span class="nt">(self, reindexers, fill_value, copy, allow_dups)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4881</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4882</span>             <span class="c1"># TODO: speed up on homogeneous DataFrame objects</span>
-<span class="ne">-&gt; </span><span class="mi">4883</span>             <span class="n">new_data</span> <span class="o">=</span> <span class="n">new_data</span><span class="o">.</span><span class="n">reindex_indexer</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4884</span>                 <span class="n">index</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">4885</span>                 <span class="n">indexer</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/internals/managers.py</span> in <span class="ni">reindex_indexer</span><span class="nt">(self, new_axis, indexer, axis, fill_value, allow_dups, copy, consolidate, only_slice)</span>
-<span class="g g-Whitespace">    </span><span class="mi">668</span>         <span class="c1"># some axes don&#39;t allow reindexing with dups</span>
-<span class="g g-Whitespace">    </span><span class="mi">669</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_dups</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">670</span>             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">.</span><span class="n">_validate_can_reindex</span><span class="p">(</span><span class="n">indexer</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">671</span> 
-<span class="g g-Whitespace">    </span><span class="mi">672</span>         <span class="k">if</span> <span class="n">axis</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">_validate_can_reindex</span><span class="nt">(self, indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3783</span>         <span class="c1"># trying to reindex on an axis with duplicates</span>
-<span class="g g-Whitespace">   </span><span class="mi">3784</span>         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_as_unique</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">3785</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot reindex from a duplicate axis&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3786</span> 
-<span class="g g-Whitespace">   </span><span class="mi">3787</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span>
-
-<span class="ne">ValueError</span>: cannot reindex from a duplicate axis
-</pre></div>
-</div>
-<img alt="../_images/seaborn_29_1.png" src="../_images/seaborn_29_1.png" />
+<img alt="../_images/seaborn_28_0.png" src="../_images/seaborn_28_0.png" />
 </div>
 </div>
 <p>Density plots arguably make more sense for continuous variables like reaction time, since they represent continuous variables in a more continuous fashion.</p>
@@ -1889,107 +1456,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_5462</span><span class="o">/</span><span class="mf">1411182471.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;RT&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;condition&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">displot</span><span class="nt">(data, x, y, hue, row, col, weights, kind, rug, rug_kws, log_scale, legend, palette, hue_order, hue_norm, color, col_wrap, row_order, col_order, height, aspect, facet_kws, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2272</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2273</span>             <span class="n">_assign_default_kwargs</span><span class="p">(</span><span class="n">hist_kws</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_histogram</span><span class="p">,</span> <span class="n">histplot</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">2274</span>             <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_histogram</span><span class="p">(</span><span class="o">**</span><span class="n">hist_kws</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2275</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2276</span>         <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">plot_univariate_histogram</span><span class="nt">(self, multiple, element, fill, common_norm, common_bins, shrink, kde, kde_kws, color, legend, line_kws, estimate_kws, **plot_kws)</span>
-<span class="g g-Whitespace">    </span><span class="mi">398</span>         <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span> <span class="o">-</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">}:</span>
-<span class="g g-Whitespace">    </span><span class="mi">399</span> 
-<span class="ne">--&gt; </span><span class="mi">400</span>             <span class="n">all_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comp_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">401</span> 
-<span class="g g-Whitespace">    </span><span class="mi">402</span>             <span class="k">if</span> <span class="n">common_bins</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/_core.py</span> in <span class="ni">comp_data</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1055</span>                     <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1056</span>                 <span class="n">comp_col</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1057</span>                 <span class="n">comp_col</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">convert_units</span><span class="p">(</span><span class="n">orig</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1058</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1059</span>                 <span class="k">if</span> <span class="n">axis</span><span class="o">.</span><span class="n">get_scale</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;log&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">__setitem__</span><span class="nt">(self, key, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">721</span> 
-<span class="g g-Whitespace">    </span><span class="mi">722</span>         <span class="n">iloc</span> <span class="o">=</span> <span class="bp">self</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;iloc&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">iloc</span>
-<span class="ne">--&gt; </span><span class="mi">723</span>         <span class="n">iloc</span><span class="o">.</span><span class="n">_setitem_with_indexer</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">724</span> 
-<span class="g g-Whitespace">    </span><span class="mi">725</span>     <span class="k">def</span> <span class="nf">_validate_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_with_indexer</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1730</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1731</span>         <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1732</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_single_block</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1733</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1734</span>     <span class="k">def</span> <span class="nf">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_single_block</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1957</span>             <span class="c1"># setting for extensionarrays that store dicts. Need to decide</span>
-<span class="g g-Whitespace">   </span><span class="mi">1958</span>             <span class="c1"># if it&#39;s worth supporting that.</span>
-<span class="ne">-&gt; </span><span class="mi">1959</span>             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_align_series</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">Series</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1960</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1961</span>         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ABCDataFrame</span><span class="p">)</span> <span class="ow">and</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;iloc&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_align_series</span><span class="nt">(self, indexer, ser, multiindex_indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2094</span>             <span class="c1"># series, so need to broadcast (see GH5206)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2095</span>             <span class="k">if</span> <span class="n">sum_aligners</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">is_sequence</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">2096</span>                 <span class="n">ser</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">indexer</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">_values</span>
-<span class="g g-Whitespace">   </span><span class="mi">2097</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2098</span>                 <span class="c1"># single indexer</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/series.py</span> in <span class="ni">reindex</span><span class="nt">(self, index, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4578</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4579</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">4580</span>         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4581</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4582</span>     <span class="nd">@deprecate_nonkeyword_arguments</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allowed_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">])</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">reindex</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4816</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4817</span>         <span class="c1"># perform the reindex on the axes</span>
-<span class="ne">-&gt; </span><span class="mi">4818</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reindex_axes</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4819</span>             <span class="n">axes</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span> <span class="n">copy</span>
-<span class="g g-Whitespace">   </span><span class="mi">4820</span>         <span class="p">)</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;reindex&quot;</span><span class="p">)</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_axes</span><span class="nt">(self, axes, level, limit, tolerance, method, fill_value, copy)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4837</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4838</span>             <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_axis_number</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">4839</span>             <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_reindex_with_indexers</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4840</span>                 <span class="p">{</span><span class="n">axis</span><span class="p">:</span> <span class="p">[</span><span class="n">new_index</span><span class="p">,</span> <span class="n">indexer</span><span class="p">]},</span>
-<span class="g g-Whitespace">   </span><span class="mi">4841</span>                 <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_with_indexers</span><span class="nt">(self, reindexers, fill_value, copy, allow_dups)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4881</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4882</span>             <span class="c1"># TODO: speed up on homogeneous DataFrame objects</span>
-<span class="ne">-&gt; </span><span class="mi">4883</span>             <span class="n">new_data</span> <span class="o">=</span> <span class="n">new_data</span><span class="o">.</span><span class="n">reindex_indexer</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4884</span>                 <span class="n">index</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">4885</span>                 <span class="n">indexer</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/internals/managers.py</span> in <span class="ni">reindex_indexer</span><span class="nt">(self, new_axis, indexer, axis, fill_value, allow_dups, copy, consolidate, only_slice)</span>
-<span class="g g-Whitespace">    </span><span class="mi">668</span>         <span class="c1"># some axes don&#39;t allow reindexing with dups</span>
-<span class="g g-Whitespace">    </span><span class="mi">669</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_dups</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">670</span>             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">.</span><span class="n">_validate_can_reindex</span><span class="p">(</span><span class="n">indexer</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">671</span> 
-<span class="g g-Whitespace">    </span><span class="mi">672</span>         <span class="k">if</span> <span class="n">axis</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">_validate_can_reindex</span><span class="nt">(self, indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3783</span>         <span class="c1"># trying to reindex on an axis with duplicates</span>
-<span class="g g-Whitespace">   </span><span class="mi">3784</span>         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_as_unique</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">3785</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot reindex from a duplicate axis&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3786</span> 
-<span class="g g-Whitespace">   </span><span class="mi">3787</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span>
-
-<span class="ne">ValueError</span>: cannot reindex from a duplicate axis
-</pre></div>
-</div>
-<img alt="../_images/seaborn_34_1.png" src="../_images/seaborn_34_1.png" />
+<img alt="../_images/seaborn_33_0.png" src="../_images/seaborn_33_0.png" />
 </div>
 </div>
 <p>The grey area in the plot represents overlap.</p>
@@ -2032,107 +1499,7 @@ sns.color_palette()</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_5462</span><span class="o">/</span><span class="mf">1260523294.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;RT&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;condition&#39;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;Paired&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">displot</span><span class="nt">(data, x, y, hue, row, col, weights, kind, rug, rug_kws, log_scale, legend, palette, hue_order, hue_norm, color, col_wrap, row_order, col_order, height, aspect, facet_kws, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2272</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2273</span>             <span class="n">_assign_default_kwargs</span><span class="p">(</span><span class="n">hist_kws</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_histogram</span><span class="p">,</span> <span class="n">histplot</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">2274</span>             <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_histogram</span><span class="p">(</span><span class="o">**</span><span class="n">hist_kws</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2275</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2276</span>         <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">plot_univariate_histogram</span><span class="nt">(self, multiple, element, fill, common_norm, common_bins, shrink, kde, kde_kws, color, legend, line_kws, estimate_kws, **plot_kws)</span>
-<span class="g g-Whitespace">    </span><span class="mi">398</span>         <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span> <span class="o">-</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">}:</span>
-<span class="g g-Whitespace">    </span><span class="mi">399</span> 
-<span class="ne">--&gt; </span><span class="mi">400</span>             <span class="n">all_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comp_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">401</span> 
-<span class="g g-Whitespace">    </span><span class="mi">402</span>             <span class="k">if</span> <span class="n">common_bins</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/_core.py</span> in <span class="ni">comp_data</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1055</span>                     <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1056</span>                 <span class="n">comp_col</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1057</span>                 <span class="n">comp_col</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">convert_units</span><span class="p">(</span><span class="n">orig</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1058</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1059</span>                 <span class="k">if</span> <span class="n">axis</span><span class="o">.</span><span class="n">get_scale</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;log&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">__setitem__</span><span class="nt">(self, key, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">721</span> 
-<span class="g g-Whitespace">    </span><span class="mi">722</span>         <span class="n">iloc</span> <span class="o">=</span> <span class="bp">self</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;iloc&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">iloc</span>
-<span class="ne">--&gt; </span><span class="mi">723</span>         <span class="n">iloc</span><span class="o">.</span><span class="n">_setitem_with_indexer</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">724</span> 
-<span class="g g-Whitespace">    </span><span class="mi">725</span>     <span class="k">def</span> <span class="nf">_validate_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_with_indexer</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1730</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1731</span>         <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1732</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_single_block</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1733</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1734</span>     <span class="k">def</span> <span class="nf">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_single_block</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1957</span>             <span class="c1"># setting for extensionarrays that store dicts. Need to decide</span>
-<span class="g g-Whitespace">   </span><span class="mi">1958</span>             <span class="c1"># if it&#39;s worth supporting that.</span>
-<span class="ne">-&gt; </span><span class="mi">1959</span>             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_align_series</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">Series</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1960</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1961</span>         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ABCDataFrame</span><span class="p">)</span> <span class="ow">and</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;iloc&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_align_series</span><span class="nt">(self, indexer, ser, multiindex_indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2094</span>             <span class="c1"># series, so need to broadcast (see GH5206)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2095</span>             <span class="k">if</span> <span class="n">sum_aligners</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">is_sequence</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">2096</span>                 <span class="n">ser</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">indexer</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">_values</span>
-<span class="g g-Whitespace">   </span><span class="mi">2097</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2098</span>                 <span class="c1"># single indexer</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/series.py</span> in <span class="ni">reindex</span><span class="nt">(self, index, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4578</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4579</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">4580</span>         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4581</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4582</span>     <span class="nd">@deprecate_nonkeyword_arguments</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allowed_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">])</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">reindex</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4816</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4817</span>         <span class="c1"># perform the reindex on the axes</span>
-<span class="ne">-&gt; </span><span class="mi">4818</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reindex_axes</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4819</span>             <span class="n">axes</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span> <span class="n">copy</span>
-<span class="g g-Whitespace">   </span><span class="mi">4820</span>         <span class="p">)</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;reindex&quot;</span><span class="p">)</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_axes</span><span class="nt">(self, axes, level, limit, tolerance, method, fill_value, copy)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4837</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4838</span>             <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_axis_number</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">4839</span>             <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_reindex_with_indexers</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4840</span>                 <span class="p">{</span><span class="n">axis</span><span class="p">:</span> <span class="p">[</span><span class="n">new_index</span><span class="p">,</span> <span class="n">indexer</span><span class="p">]},</span>
-<span class="g g-Whitespace">   </span><span class="mi">4841</span>                 <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_with_indexers</span><span class="nt">(self, reindexers, fill_value, copy, allow_dups)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4881</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4882</span>             <span class="c1"># TODO: speed up on homogeneous DataFrame objects</span>
-<span class="ne">-&gt; </span><span class="mi">4883</span>             <span class="n">new_data</span> <span class="o">=</span> <span class="n">new_data</span><span class="o">.</span><span class="n">reindex_indexer</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4884</span>                 <span class="n">index</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">4885</span>                 <span class="n">indexer</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/internals/managers.py</span> in <span class="ni">reindex_indexer</span><span class="nt">(self, new_axis, indexer, axis, fill_value, allow_dups, copy, consolidate, only_slice)</span>
-<span class="g g-Whitespace">    </span><span class="mi">668</span>         <span class="c1"># some axes don&#39;t allow reindexing with dups</span>
-<span class="g g-Whitespace">    </span><span class="mi">669</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_dups</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">670</span>             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">.</span><span class="n">_validate_can_reindex</span><span class="p">(</span><span class="n">indexer</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">671</span> 
-<span class="g g-Whitespace">    </span><span class="mi">672</span>         <span class="k">if</span> <span class="n">axis</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">_validate_can_reindex</span><span class="nt">(self, indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3783</span>         <span class="c1"># trying to reindex on an axis with duplicates</span>
-<span class="g g-Whitespace">   </span><span class="mi">3784</span>         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_as_unique</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">3785</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot reindex from a duplicate axis&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3786</span> 
-<span class="g g-Whitespace">   </span><span class="mi">3787</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span>
-
-<span class="ne">ValueError</span>: cannot reindex from a duplicate axis
-</pre></div>
-</div>
-<img alt="../_images/seaborn_41_1.png" src="../_images/seaborn_41_1.png" />
+<img alt="../_images/seaborn_40_0.png" src="../_images/seaborn_40_0.png" />
 </div>
 </div>
 <p>Some palettes are better for some things than others, though — for example, in the histogram above, the overlap is not very distinct from the other shades of blue.</p>
@@ -2148,124 +1515,7 @@ sns.color_palette()</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_5462</span><span class="o">/</span><span class="mf">1222493919.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>            <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>            <span class="n">x</span><span class="o">=</span><span class="s1">&#39;RT&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;condition&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>            <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;colorblind&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">displot</span><span class="nt">(data, x, y, hue, row, col, weights, kind, rug, rug_kws, log_scale, legend, palette, hue_order, hue_norm, color, col_wrap, row_order, col_order, height, aspect, facet_kws, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2297</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2298</span>             <span class="n">_assign_default_kwargs</span><span class="p">(</span><span class="n">kde_kws</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_density</span><span class="p">,</span> <span class="n">kdeplot</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">2299</span>             <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_density</span><span class="p">(</span><span class="o">**</span><span class="n">kde_kws</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2300</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2301</span>         <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">plot_univariate_density</span><span class="nt">(self, multiple, common_norm, common_grid, warn_singular, fill, legend, estimate_kws, **plot_kws)</span>
-<span class="g g-Whitespace">    </span><span class="mi">926</span> 
-<span class="g g-Whitespace">    </span><span class="mi">927</span>         <span class="c1"># Do the computation</span>
-<span class="ne">--&gt; </span><span class="mi">928</span>         <span class="n">densities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_univariate_density</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">929</span>             <span class="bp">self</span><span class="o">.</span><span class="n">data_variable</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">930</span>             <span class="n">common_norm</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/distributions.py</span> in <span class="ni">_compute_univariate_density</span><span class="nt">(self, data_variable, common_norm, common_grid, estimate_kws, log_scale, warn_singular)</span>
-<span class="g g-Whitespace">    </span><span class="mi">301</span>         <span class="n">densities</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">    </span><span class="mi">302</span> 
-<span class="ne">--&gt; </span><span class="mi">303</span>         <span class="k">for</span> <span class="n">sub_vars</span><span class="p">,</span> <span class="n">sub_data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_data</span><span class="p">(</span><span class="s2">&quot;hue&quot;</span><span class="p">,</span> <span class="n">from_comp_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">304</span> 
-<span class="g g-Whitespace">    </span><span class="mi">305</span>             <span class="c1"># Extract the data points from this sub set and remove nulls</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/_core.py</span> in <span class="ni">iter_data</span><span class="nt">(self, grouping_vars, reverse, from_comp_data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">981</span> 
-<span class="g g-Whitespace">    </span><span class="mi">982</span>         <span class="k">if</span> <span class="n">from_comp_data</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">983</span>             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comp_data</span>
-<span class="g g-Whitespace">    </span><span class="mi">984</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">985</span>             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/seaborn/_core.py</span> in <span class="ni">comp_data</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1055</span>                     <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1056</span>                 <span class="n">comp_col</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1057</span>                 <span class="n">comp_col</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">convert_units</span><span class="p">(</span><span class="n">orig</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1058</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1059</span>                 <span class="k">if</span> <span class="n">axis</span><span class="o">.</span><span class="n">get_scale</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;log&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">__setitem__</span><span class="nt">(self, key, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">721</span> 
-<span class="g g-Whitespace">    </span><span class="mi">722</span>         <span class="n">iloc</span> <span class="o">=</span> <span class="bp">self</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;iloc&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">iloc</span>
-<span class="ne">--&gt; </span><span class="mi">723</span>         <span class="n">iloc</span><span class="o">.</span><span class="n">_setitem_with_indexer</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">724</span> 
-<span class="g g-Whitespace">    </span><span class="mi">725</span>     <span class="k">def</span> <span class="nf">_validate_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_with_indexer</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1730</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1731</span>         <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1732</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_setitem_single_block</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1733</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1734</span>     <span class="k">def</span> <span class="nf">_setitem_with_indexer_split_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_setitem_single_block</span><span class="nt">(self, indexer, value, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1957</span>             <span class="c1"># setting for extensionarrays that store dicts. Need to decide</span>
-<span class="g g-Whitespace">   </span><span class="mi">1958</span>             <span class="c1"># if it&#39;s worth supporting that.</span>
-<span class="ne">-&gt; </span><span class="mi">1959</span>             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_align_series</span><span class="p">(</span><span class="n">indexer</span><span class="p">,</span> <span class="n">Series</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1960</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1961</span>         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ABCDataFrame</span><span class="p">)</span> <span class="ow">and</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;iloc&quot;</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_align_series</span><span class="nt">(self, indexer, ser, multiindex_indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2094</span>             <span class="c1"># series, so need to broadcast (see GH5206)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2095</span>             <span class="k">if</span> <span class="n">sum_aligners</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">is_sequence</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">2096</span>                 <span class="n">ser</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">indexer</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">_values</span>
-<span class="g g-Whitespace">   </span><span class="mi">2097</span> 
-<span class="g g-Whitespace">   </span><span class="mi">2098</span>                 <span class="c1"># single indexer</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/series.py</span> in <span class="ni">reindex</span><span class="nt">(self, index, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4578</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4579</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">4580</span>         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4581</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4582</span>     <span class="nd">@deprecate_nonkeyword_arguments</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allowed_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">])</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">reindex</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4816</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4817</span>         <span class="c1"># perform the reindex on the axes</span>
-<span class="ne">-&gt; </span><span class="mi">4818</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reindex_axes</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4819</span>             <span class="n">axes</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span> <span class="n">copy</span>
-<span class="g g-Whitespace">   </span><span class="mi">4820</span>         <span class="p">)</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;reindex&quot;</span><span class="p">)</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_axes</span><span class="nt">(self, axes, level, limit, tolerance, method, fill_value, copy)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4837</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4838</span>             <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_axis_number</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">4839</span>             <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_reindex_with_indexers</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4840</span>                 <span class="p">{</span><span class="n">axis</span><span class="p">:</span> <span class="p">[</span><span class="n">new_index</span><span class="p">,</span> <span class="n">indexer</span><span class="p">]},</span>
-<span class="g g-Whitespace">   </span><span class="mi">4841</span>                 <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">_reindex_with_indexers</span><span class="nt">(self, reindexers, fill_value, copy, allow_dups)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4881</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4882</span>             <span class="c1"># TODO: speed up on homogeneous DataFrame objects</span>
-<span class="ne">-&gt; </span><span class="mi">4883</span>             <span class="n">new_data</span> <span class="o">=</span> <span class="n">new_data</span><span class="o">.</span><span class="n">reindex_indexer</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4884</span>                 <span class="n">index</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">4885</span>                 <span class="n">indexer</span><span class="p">,</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/internals/managers.py</span> in <span class="ni">reindex_indexer</span><span class="nt">(self, new_axis, indexer, axis, fill_value, allow_dups, copy, consolidate, only_slice)</span>
-<span class="g g-Whitespace">    </span><span class="mi">668</span>         <span class="c1"># some axes don&#39;t allow reindexing with dups</span>
-<span class="g g-Whitespace">    </span><span class="mi">669</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_dups</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">670</span>             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">.</span><span class="n">_validate_can_reindex</span><span class="p">(</span><span class="n">indexer</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">671</span> 
-<span class="g g-Whitespace">    </span><span class="mi">672</span>         <span class="k">if</span> <span class="n">axis</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">_validate_can_reindex</span><span class="nt">(self, indexer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3783</span>         <span class="c1"># trying to reindex on an axis with duplicates</span>
-<span class="g g-Whitespace">   </span><span class="mi">3784</span>         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_as_unique</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">3785</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot reindex from a duplicate axis&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3786</span> 
-<span class="g g-Whitespace">   </span><span class="mi">3787</span>     <span class="k">def</span> <span class="nf">reindex</span><span class="p">(</span>
-
-<span class="ne">ValueError</span>: cannot reindex from a duplicate axis
-</pre></div>
-</div>
-<img alt="../_images/seaborn_43_1.png" src="../_images/seaborn_43_1.png" />
+<img alt="../_images/seaborn_42_0.png" src="../_images/seaborn_42_0.png" />
 </div>
 </div>
 </div>
@@ -2294,7 +1544,7 @@ sns.color_palette()</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/seaborn_46_0.png" src="../_images/seaborn_46_0.png" />
+<img alt="../_images/seaborn_45_0.png" src="../_images/seaborn_45_0.png" />
 </div>
 </div>
 <p>We can see from this that the distributions of the two conditions appear quite different, and indeed their IQRs do not overlap at all. This gives us good confidence that RTs are probably different in the two conditions. You can also see that there are a few outliers (the diamonds outside the whiskers).</p>
@@ -2315,7 +1565,7 @@ sns.color_palette()</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/seaborn_49_0.png" src="../_images/seaborn_49_0.png" />
+<img alt="../_images/seaborn_48_0.png" src="../_images/seaborn_48_0.png" />
 </div>
 </div>
 <p>The box plot has been made more narrow, but the thinker black line inside each “violin” is the IQR, and the thinner lines the whiskers. The coloured, shaded area is the KDE. For aesthetic reasons, the KDE is shown on both sides of the box plot (although if you have different sub-categories, you could plot different distributions on each side).</p>
@@ -2337,7 +1587,7 @@ I'll comment for the record that "violin" plot is a terrible name — if the di
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/seaborn_52_0.png" src="../_images/seaborn_52_0.png" />
+<img alt="../_images/seaborn_51_0.png" src="../_images/seaborn_51_0.png" />
 </div>
 </div>
 <p>Swarm plots shift data points laterally when they are dense, reducing overlap and making it easier to see where the data are more dense.</p>
@@ -2352,7 +1602,7 @@ I'll comment for the record that "violin" plot is a terrible name — if the di
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/seaborn_54_0.png" src="../_images/seaborn_54_0.png" />
+<img alt="../_images/seaborn_53_0.png" src="../_images/seaborn_53_0.png" />
 </div>
 </div>
 </div>
@@ -2371,7 +1621,7 @@ I'll comment for the record that "violin" plot is a terrible name — if the di
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/seaborn_56_0.png" src="../_images/seaborn_56_0.png" />
+<img alt="../_images/seaborn_55_0.png" src="../_images/seaborn_55_0.png" />
 </div>
 </div>
 </div>
@@ -2390,7 +1640,7 @@ I'll comment for the record that "violin" plot is a terrible name — if the di
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/seaborn_58_0.png" src="../_images/seaborn_58_0.png" />
+<img alt="../_images/seaborn_57_0.png" src="../_images/seaborn_57_0.png" />
 </div>
 </div>
 <p>We can remove the lines with <code class="docutils literal notranslate"><span class="pre">join=False</span></code>, and colour-code the different levels of condition with <code class="docutils literal notranslate"><span class="pre">hue='condition'</span></code></p>
@@ -2405,7 +1655,7 @@ I'll comment for the record that "violin" plot is a terrible name — if the di
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/seaborn_60_0.png" src="../_images/seaborn_60_0.png" />
+<img alt="../_images/seaborn_59_0.png" src="../_images/seaborn_59_0.png" />
 </div>
 </div>
 </div>
