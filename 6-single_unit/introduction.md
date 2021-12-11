@@ -1,0 +1,3 @@
+# Introduction to Single Unit Data
+
+This chapter introduces data obtained from recordings of individual neurons, which we typically call **single unit** data ("units" being neurons). Single unit data is typically analyzed in terms of **spike trains** — sequences of action potentials. In this chapter we will learn how spike trains can be represented as data, and some ways of working with and visualizing them. As well, the chapter extends our knowledge of Python, including working with NumPy arrays, and complex figures with multiple subplots, as well as further discussion of the use of colour and other considerations in scientific visualization. 
