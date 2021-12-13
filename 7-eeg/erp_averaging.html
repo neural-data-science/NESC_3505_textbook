@@ -1,0 +1,1248 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Averaging ERPs: Creating MNE Evoked objects &#8212; Data Science for Psychology and Neuroscience — in Python</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="http://neuraldatascience.io/7-eeg/erp_averaging.html" />
+    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Group Analysis of ERP Data" href="erp_group.html" />
+    <link rel="prev" title="Re-referencing" href="erp_rereferencing.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script>
+                        window.ga = window.ga || function () {
+                            (ga.q = ga.q || []).push(arguments) };
+                        ga.l = +new Date;
+                        ga('create', 'UA-171426664-2', 'auto');
+                        ga('set', 'anonymizeIp', true);
+                        ga('send', 'pageview');
+                    </script>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/NESC3505_icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science for Psychology and Neuroscience — in Python</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  About This Course
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1-intro/why.html">
+   Start with why
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1-intro/learning_objectives.html">
+   Learning Objectives for this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../syllabus.html">
+   Syllabus
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../1-intro/class_tech.html">
+   Technologies Used in this Class
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/lms.html">
+     Learning Management System
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/teams.html">
+     MS Teams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/communication.html">
+     Communication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/videos.html">
+     Course Videos
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../1-intro/how_to_rock.html">
+   How to Rock This Course
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/learning_approach.html">
+     Learning Approach
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/mindset.html">
+     Mindset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/errors_debugging.html">
+     Errors and Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/teamwork.html">
+     Collaboration and Teamwork
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../1-intro/pedagogy.html">
+   Pedagogy
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/teaching_approach.html">
+     Teaching Approach
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/online_learning.html">
+     Hybrid Online Learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/assessment_evaluation.html">
+     Assessment and Evaluation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/constructivism.html">
+     Constructivism
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/connectivism.html">
+     Connectivism
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/authenticity.html">
+     Authenticity
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/21st_cen_skills.html">
+     21st Century Skills
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../1-intro/open.html">
+   Open Resources
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/software.html">
+     Free Software
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/free_licenses.html">
+     Free and Open-Source Software Licenses
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/open_science.html">
+     Open Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/peer_review.html">
+     Peer Review
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/for_profit.html">
+     For-Profit Publishing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/impact_factors.html">
+     Impact Factors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/novelty.html">
+     Novelty
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/open_publishing.html">
+     Open Publishing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/preregistration.html">
+     Preregistration
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/open_methods.html">
+     Open Methods and Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/oer.html">
+     Open Educational Resources
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/oer_this_course.html">
+     OERs in the Context of this Course
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/licenses.html">
+     Licenses
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction to Data Science
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2-nds/introduction.html">
+   Getting Started with the Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2-nds/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2-nds/what_is_nds.html">
+   What is Data Science?
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/data.html">
+     Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2-nds/tools_for_nds.html">
+   Tools for Neural Data Science
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/spreadsheets.html">
+     Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/spreadsheets_limits.html">
+     Limitations of Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/reproducibility.html">
+     Reproducibility
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/sci_prog_lang.html">
+     Scientific Programming Languages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/which_lang.html">
+     Which language to use?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/libs.html">
+     Libraries and packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/why_python.html">
+     Why Python for this Course?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2-nds/coding.html">
+   Coding Tools
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/python.html">
+     Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/datacamp.html">
+     DataCamp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/py4e.html">
+     Python for Everybody (PY4E)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/terminal.html">
+     The Terminal and Command Line
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/jupyter.html">
+     Jupyter
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/markdown.html">
+     Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/cocalc.html">
+     CoCalc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/github.html">
+     GitHub
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introducing Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3-python/introduction.html">
+   Introducing Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3-python/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3-python/jupyter_cocalc.html">
+   Introduction to Jupyter Notebooks in CoCalc
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3-python/getting_help.html">
+   Getting Help with Python
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../3-python/data_types.html">
+   Data types
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/variables_assignment.html">
+     Variables and Assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/types_conversion.html">
+     Data Types and Conversion
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/builtin.html">
+     Python Built-Ins
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/lists.html">
+     Lists
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/dictionaries.html">
+     Dictionaries
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../3-python/working_w_data.html">
+   Working with Data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="simple">
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Visualizing Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/introduction.html">
+   Introduction to Data Visualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/plotting.html">
+   Introduction to Plotting with Matplotlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/proc_vs_oo.html">
+   Procedural versus Object-Oriented Plotting in Matplotlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/subplots.html">
+   Subplots
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/plotting_types.html">
+   Thinking About Data for Plotting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/seaborn.html">
+   Introduction to Plotting with Seaborn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/human_factors.html">
+   Accessibility and Human Factors in Plotting
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exploratory Data Analysis
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5-eda/introduction.html">
+   Introduction to EDA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5-eda/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5-eda/repeated_measures.html">
+   Working with Repeated Measures Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5-eda/data_cleaning.html">
+   Data Cleaning - Dealing with Outliers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5-eda/ttests.html">
+   Basic Statistics in Python:
+   <em>
+    t
+   </em>
+   tests with SciPy
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Single Unit Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../6-single_unit/introduction.html">
+   Introduction to Single Unit Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../6-single_unit/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../6-single_unit/single_unit_intro.html">
+   Single Unit Data and Spike Trains
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../6-single_unit/intro_spike_trains.html">
+     Introduction to Spike Train Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../6-single_unit/ten_intensities.html">
+     Effects of Light Intensity on Spike Rate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../6-single_unit/heat_maps.html">
+     Heat Maps
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../6-single_unit/intro_multielec_data.html">
+   Introducing Multielectrode Data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../6-single_unit/pandas_multielec.html">
+     Working with Multielectrode Data in pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../6-single_unit/corr_spike_trains.html">
+     Correlating spike trains
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction to EEG/ERP Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="approaches.html">
+   EEG in the Time and Frequency Domains
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="time_freq.html">
+     Time and Frequency Domains
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="erps.html">
+     Event-Related Potentials (ERPs)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="components.html">
+     ERP Components
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mne_python.html">
+   MNE-Python
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="erp_preprocessing.html">
+   EEG-ERP Preprocessing
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="erp_filtering.html">
+     Filtering EEG Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="erp_artifacts.html">
+     Artifacts in EEG Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="erp_segmentation.html">
+     Segmentation into ERP epochs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="erp_rereferencing.html">
+     Re-referencing
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Averaging ERPs: Creating MNE Evoked objects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="erp_group.html">
+   Group Analysis of ERP Data
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MRI Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../8-mri/introduction.html">
+   Introduction to MRI Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../8-mri/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../8-mri/read_viz.html">
+   Reading and Visualizing Structural MRI Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../8-mri/nifti.html">
+   Working with NIfTI images
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../zrefs.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/7-eeg/erp_averaging.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2F7-eeg/erp_averaging.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/7-eeg/erp_averaging.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-evoked-objects">
+   Create Evoked objects
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plot-average-erp-for-each-condition">
+   Plot average ERP for each condition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examine-contrasts-between-conditions">
+   Examine contrasts between conditions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#saved-evoked-to-file">
+   Saved Evoked to file
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-difference-waves">
+   Create difference waves
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#saving-figures-to-files">
+   Saving figures to files
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="averaging-erps-creating-mne-evoked-objects">
+<h1>Averaging ERPs: Creating MNE Evoked objects<a class="headerlink" href="#averaging-erps-creating-mne-evoked-objects" title="Permalink to this headline">¶</a></h1>
+<p>Since averaging across trials is typically the end goal of an ERP experiment, MNE has a distinct class, <code class="docutils literal notranslate"><span class="pre">Evoked</span></code>, for ERP data where multiple trials have been averaged for each experimental condition or trial type.</p>
+<p>We’ll firstimport MNE and the mastoid-referenced, cleaned epochs we saved in the previous step.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
+<span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>  <span class="c1"># reduce extraneous MNE output</span>
+
+<span class="c1"># Participant ID code</span>
+<span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;N400_dataset_14&#39;</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
+
+<span class="n">epochs_mastoidref</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">read_epochs</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-mstd-epo.fif&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="create-evoked-objects">
+<h2>Create Evoked objects<a class="headerlink" href="#create-evoked-objects" title="Permalink to this headline">¶</a></h2>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">Epochs</span></code>, which by definition contain multiple trials and in which each trial has an associated condition label (event code), <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> data sets are averages across trials for a <em>single</em> condition. Thus we have to create a separate <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object for each condition in our experiment. For convenience, we can store these in a list, and we can created the list of Evoked objects using dictionary comprehension, so that each dictionary key is the condition name and its value is the Evoked object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span>
+
+<span class="n">evokeds</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="n">epochs_mastoidref</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">}</span>
+
+<span class="n">evokeds</span>    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Match&#39;: &lt;Evoked | &#39;0.25 × Match/A + 0.25 × Match/B + 0.25 × Match/C + 0.25 × Match/D&#39; (average, N=72), -0.2 – 1 sec, baseline -0.2 – 0 sec, 16 ch, ~105 kB&gt;,
+ &#39;Mismatch&#39;: &lt;Evoked | &#39;0.25 × Mismatch/A + 0.25 × Mismatch/B + 0.25 × Mismatch/C + 0.25 × Mismatch/D&#39; (average, N=72), -0.2 – 1 sec, baseline -0.2 – 0 sec, 16 ch, ~105 kB&gt;}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="plot-average-erp-for-each-condition">
+<h2>Plot average ERP for each condition<a class="headerlink" href="#plot-average-erp-for-each-condition" title="Permalink to this headline">¶</a></h2>
+<p>We can use a method called <code class="docutils literal notranslate"><span class="pre">plot_joint()</span></code> to generate a combination of “butterfly” plots (waveforms of all electrode overlaid) and topographic maps at specific time points that we specify. This is a nice way of relating scalp topographies and waveforms. The time points specified for the topo plots were selected based on early peaks apparent in the waveforms above, and then on 200 ms intervals over the time period when the N400 is expected:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">times</span> <span class="o">=</span> <span class="p">[</span><span class="mf">.150</span><span class="p">,</span> <span class="mf">.250</span><span class="p">,</span> <span class="mf">.400</span><span class="p">,</span> <span class="mf">.600</span><span class="p">,</span> <span class="mf">.800</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">evokeds</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">evokeds</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">plot_joint</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">c</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/erp_averaging_5_0.png" src="../_images/erp_averaging_5_0.png" />
+<img alt="../_images/erp_averaging_5_1.png" src="../_images/erp_averaging_5_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="examine-contrasts-between-conditions">
+<h2>Examine contrasts between conditions<a class="headerlink" href="#examine-contrasts-between-conditions" title="Permalink to this headline">¶</a></h2>
+<p>Viewing the ERPs for each experimental condition is a good first step, but ultimately any ERP experiment should be designed around <em>contrasts</em> between different conditions. In the present study, we are interested in the difference between match and mismatch items. We predicted an N400 component, which would be larger (more negative) for mismatch than match items. The N400 tends to be largest over the midline centre/posterior region of the scalp (when using averaged-mastoid reference). So here we will plot the data at electrode Cz, which typically shows the N400 effect. We use the function <code class="docutils literal notranslate"><span class="pre">mne.viz.plot_compare_evokeds()</span></code>, which plots waveforms for each of a list of evoked items that you pass to it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">(</span><span class="n">evokeds</span><span class="p">,</span> 
+                             <span class="n">picks</span><span class="o">=</span><span class="s1">&#39;Cz&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/erp_averaging_7_0.png" src="../_images/erp_averaging_7_0.png" />
+</div>
+</div>
+<p>We can make this plot a bit nicer by adding a few things to it:</p>
+<ul class="simple">
+<li><p>firstly we define a <em>region of interest</em> (ROI) that includes a set of electrodes where the N400 is expected, so that we can plot the ERP waveform averaged over these electrodes</p></li>
+<li><p>we add the <code class="docutils literal notranslate"><span class="pre">combine</span></code> kwarg to tell MNE how to combine the data from these electrodes</p></li>
+<li><p>we define dictionaries mapping condition names to colours and linestyles for out plot, to make the two conditions’ lines more distinctive</p></li>
+<li><p>we tell MNE where to put the legend and plot of the sensor locations, to ensure these don’t overlap with the waveforms</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roi</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;C3&#39;</span><span class="p">,</span> <span class="s1">&#39;Cz&#39;</span><span class="p">,</span> <span class="s1">&#39;C4&#39;</span><span class="p">,</span> 
+       <span class="s1">&#39;P3&#39;</span><span class="p">,</span> <span class="s1">&#39;Pz&#39;</span><span class="p">,</span> <span class="s1">&#39;P4&#39;</span><span class="p">]</span>
+
+<span class="n">color_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Match&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">}</span>
+<span class="n">linestyle_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Match&#39;</span><span class="p">:</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">:</span><span class="s1">&#39;--&#39;</span><span class="p">}</span>
+
+<span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">(</span><span class="n">evokeds</span><span class="p">,</span> <span class="n">combine</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> 
+                             <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">,</span>
+                             <span class="n">picks</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
+                             <span class="n">colors</span><span class="o">=</span><span class="n">color_dict</span><span class="p">,</span>
+                             <span class="n">linestyles</span><span class="o">=</span><span class="n">linestyle_dict</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/erp_averaging_9_0.png" src="../_images/erp_averaging_9_0.png" />
+</div>
+</div>
+<p>The N400 can be observed as the difference between the two conditions’ waveforms starting just after 400 ms, and continuing to the end of the epoch. As predicted, the Mismatch waveform is more negative than the Match waveform during this period.</p>
+</div>
+<div class="section" id="saved-evoked-to-file">
+<h2>Saved Evoked to file<a class="headerlink" href="#saved-evoked-to-file" title="Permalink to this headline">¶</a></h2>
+<p>We can save Evoked objects to files using <code class="docutils literal notranslate"><span class="pre">mne.write_evokeds()</span></code>. Note that this function does not accept a dictionary as input, only a singe <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object, or a list of <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects, so below we convert the values of <code class="docutils literal notranslate"><span class="pre">evokeds</span></code> to a list using the <code class="docutils literal notranslate"><span class="pre">list()</span></code> function.</p>
+<p>One potential source of error here is that, unlike dictionaries, lists don’t have labels for their entries. So in a list of <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects, we risk not knowing later which list item corresponds to which condition. Fortunately, MNE provides a way to label Evoked objects: the <code class="docutils literal notranslate"><span class="pre">.comment</span></code> property:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">evokeds</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">comment</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.25 × Match/A + 0.25 × Match/B + 0.25 × Match/C + 0.25 × Match/D&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>At the moment, this does indicate what condition the data are from, but in a somewhat messy way. Indeed, the comment there reflects the result of averaging the 4 different <em>Match</em> conditions into one <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object; the 02.5 values reflect the weighting of each condition in the average, which was based on the number of trials in each. In this case, we had equal numbers of trials of each of the four <em>Match</em> conditions, so all the weights are 25%. Since this information isn’t terribly relevant now that we are treating all four conditions as the same (simply <em>Match</em>), so we can change the contents of the <code class="docutils literal notranslate"><span class="pre">.comment</span></code> property through assignment:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">condition</span> <span class="ow">in</span> <span class="n">evokeds</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">evokeds</span><span class="p">[</span><span class="n">condition</span><span class="p">]</span><span class="o">.</span><span class="n">comment</span> <span class="o">=</span> <span class="n">condition</span>
+
+<span class="n">evokeds</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Match&#39;: &lt;Evoked | &#39;Match&#39; (average, N=72), -0.2 – 1 sec, baseline -0.2 – 0 sec, 16 ch, ~105 kB&gt;,
+ &#39;Mismatch&#39;: &lt;Evoked | &#39;Mismatch&#39; (average, N=72), -0.2 – 1 sec, baseline -0.2 – 0 sec, 16 ch, ~105 kB&gt;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we have comments that will help clearly identify each <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object later, we can write these out to a file.</p>
+<p>MNE imposes file naming conventions (rules), which specify that Evoked file names should always end in <code class="docutils literal notranslate"><span class="pre">-ave.fif</span></code>. It’s good practice to use the participant ID and condition name in the file name as well. The <code class="docutils literal notranslate"><span class="pre">write_evoked()</span></code> function requires the output file name as its first argument, and the Evoked data as the second argument.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mne</span><span class="o">.</span><span class="n">write_evokeds</span><span class="p">(</span><span class="s1">&#39;data/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ave.fif&#39;</span><span class="p">,</span> 
+                  <span class="nb">list</span><span class="p">(</span><span class="n">evokeds</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="create-difference-waves">
+<h2>Create difference waves<a class="headerlink" href="#create-difference-waves" title="Permalink to this headline">¶</a></h2>
+<p>Finally, we can create <strong>difference waves</strong> by subtracting the waveforms of our two experimental conditions. Since the N400 manifests as a larger negativity for mismatch, it is conventional to compute this difference as Mismatch - Match (otherwise the difference between the two would appear as positive, rather than negative, voltage).</p>
+<p>Computing difference waves allows us to view the experimental effect in a quite intuitive way: zero voltage means no difference between conditions, and and deviation from the zero line in the waveform plot (or from white in the topopmaps) indicates an experimental effect.</p>
+<p>MNE’s <code class="docutils literal notranslate"><span class="pre">combine_evoked()</span></code> function allows us to combine Evoked data sets in different ways. To compute a difference, we pass the weights of <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">-1]</span></code> to indicate we want to subtract the second Evoked data set listed (Match) from the first (Mismatch):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">evokeds_diff</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">combine_evoked</span><span class="p">([</span><span class="n">evokeds</span><span class="p">[</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">],</span> <span class="n">evokeds</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]],</span> 
+                                             <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    
+<span class="n">evokeds_diff</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Evoked | &#39;Mismatch - Match&#39; (average, N=36.0), -0.2 – 1 sec, baseline -0.2 – 0 sec, 16 ch, ~105 kB&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Having saved this as a new Evoked object, we can plot it as a waveform.</p>
+<p>We do a few extra things to make the plot more readable:</p>
+<ul class="simple">
+<li><p>Whereas before we simply passed the Epochs or Evoked data to the <code class="docutils literal notranslate"><span class="pre">plot_compare_evokeds()</span></code> function, here we pass a dictionary, where the key is the label we want to appear in the legend and the value is the Evoked data</p></li>
+<li><p>we add a <code class="docutils literal notranslate"><span class="pre">title</span></code> kwarg to give the plot an informative title</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">({</span><span class="s1">&#39;Mismatch-Match&#39;</span><span class="p">:</span><span class="n">evokeds_diff</span><span class="p">},</span> 
+                             <span class="n">picks</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
+                             <span class="n">combine</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+                             <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Difference Wave&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/erp_averaging_20_0.png" src="../_images/erp_averaging_20_0.png" />
+</div>
+</div>
+<p>One advantage of difference waves is that they make it very clear when differences are occurring between conditions, and how large they are. When we compare waveforms for two conditions, the shape of the waveforms can sometimes make it hard to mentally compute the size of the difference - especially at time points when the waveforms’ amplitudes are changing. In a difference waveform plot, the zero line clearly indicates no difference between conditions, and so the magnitude of the difference — as well as its timing — is easy to see.</p>
+<p>And we can plot the scalp distribution of the differences as well, which nicely shows the scalp distribution of the N400:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">evokeds_diff</span><span class="o">.</span><span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">evokeds_diff</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mismatch-Match&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/erp_averaging_23_0.png" src="../_images/erp_averaging_23_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="saving-figures-to-files">
+<h2>Saving figures to files<a class="headerlink" href="#saving-figures-to-files" title="Permalink to this headline">¶</a></h2>
+<p>Since MNE uses Matplotlib for its plotting duties, it is easy to save any MNE figure as an image file. The trick to doing this is to run the plotting command with the <code class="docutils literal notranslate"><span class="pre">show=False</span></code> kwarg, and then running <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code>. The figure will still show in your notebook, but it will also be saved to the file name you specify. The extension you give the filename determines the image file format (e.g., <code class="docutils literal notranslate"><span class="pre">.png</span></code>, <code class="docutils literal notranslate"><span class="pre">.jpg</span></code>, <code class="docutils literal notranslate"><span class="pre">.pdf</span></code>, etc.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">evokeds_diff</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mismatch-Match&#39;</span><span class="p">,</span>
+                          <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;diffwave_topomaps.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/erp_averaging_25_0.png" src="../_images/erp_averaging_25_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>Preprocessing EEG data and deriving ERPs is a multi-step process. It’s important to understand what each step does, why it’s applied, and how to choose the correct parameters.</p>
+<p>There are a few additional steps that could be included in a preprocessing pipeline, that we have omitted here. For example, sometimes there there are <em>bad channels</em> — electrodes that had a poor connection throughout the recording, or were broken. There are ways to manually or automatically identify these and have them ignored throughout the preprocessing stream, and then <em>interpolate</em> data for these electrodes after artifact correction.</p>
+<p>After each individual participant’s data has been preprocessed through a pipeline line this, the next step in analyzing an ERP experiment would be a group-level analysis. In a group-level analysis, the data from all participants would typically be averaged, and visualized using waveform plots and scalp topographic maps similar to the ones we’ve created here for one participant.</p>
+<p>As well, statistics can be applied. An important question in applying statistics to EEG data is how to handle time - do we perform statistical comparisons between conditions at every time point, or average over periods of time when ERP components occur, or include time as an additional variable in an analysis?</p>
+<p>One of the most common ways for ERP studies to run statistics is to average the data at each channel over a time period appropriate for the component of interest. For example, in this study a mean amplitude could be computed over the 600–800 ms time window, and then a <em>t</em>-test could be performed to compare the mean amplitude values between conditions.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./7-eeg"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="erp_rereferencing.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Re-referencing</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="erp_group.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Group Analysis of ERP Data</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Aaron J Newman<br/>
+        
+            &copy; Copyright 2020-21. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

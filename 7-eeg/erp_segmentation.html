@@ -1,0 +1,1533 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Segmentation into ERP epochs &#8212; Data Science for Psychology and Neuroscience — in Python</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="http://neuraldatascience.io/7-eeg/erp_segmentation.html" />
+    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Re-referencing" href="erp_rereferencing.html" />
+    <link rel="prev" title="Artifacts in EEG Data" href="erp_artifacts.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script>
+                        window.ga = window.ga || function () {
+                            (ga.q = ga.q || []).push(arguments) };
+                        ga.l = +new Date;
+                        ga('create', 'UA-171426664-2', 'auto');
+                        ga('set', 'anonymizeIp', true);
+                        ga('send', 'pageview');
+                    </script>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/NESC3505_icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science for Psychology and Neuroscience — in Python</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  About This Course
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1-intro/why.html">
+   Start with why
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../1-intro/learning_objectives.html">
+   Learning Objectives for this Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../syllabus.html">
+   Syllabus
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../1-intro/class_tech.html">
+   Technologies Used in this Class
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/lms.html">
+     Learning Management System
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/teams.html">
+     MS Teams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/communication.html">
+     Communication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/videos.html">
+     Course Videos
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../1-intro/how_to_rock.html">
+   How to Rock This Course
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/learning_approach.html">
+     Learning Approach
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/mindset.html">
+     Mindset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/errors_debugging.html">
+     Errors and Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/teamwork.html">
+     Collaboration and Teamwork
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../1-intro/pedagogy.html">
+   Pedagogy
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/teaching_approach.html">
+     Teaching Approach
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/online_learning.html">
+     Hybrid Online Learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/assessment_evaluation.html">
+     Assessment and Evaluation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/constructivism.html">
+     Constructivism
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/connectivism.html">
+     Connectivism
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/authenticity.html">
+     Authenticity
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/21st_cen_skills.html">
+     21st Century Skills
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../1-intro/open.html">
+   Open Resources
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/software.html">
+     Free Software
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/free_licenses.html">
+     Free and Open-Source Software Licenses
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/open_science.html">
+     Open Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/peer_review.html">
+     Peer Review
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/for_profit.html">
+     For-Profit Publishing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/impact_factors.html">
+     Impact Factors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/novelty.html">
+     Novelty
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/open_publishing.html">
+     Open Publishing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/preregistration.html">
+     Preregistration
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/open_methods.html">
+     Open Methods and Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/oer.html">
+     Open Educational Resources
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/oer_this_course.html">
+     OERs in the Context of this Course
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../1-intro/licenses.html">
+     Licenses
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction to Data Science
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2-nds/introduction.html">
+   Getting Started with the Course
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2-nds/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2-nds/what_is_nds.html">
+   What is Data Science?
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/data.html">
+     Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2-nds/tools_for_nds.html">
+   Tools for Neural Data Science
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/spreadsheets.html">
+     Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/spreadsheets_limits.html">
+     Limitations of Spreadsheets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/reproducibility.html">
+     Reproducibility
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/sci_prog_lang.html">
+     Scientific Programming Languages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/which_lang.html">
+     Which language to use?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/libs.html">
+     Libraries and packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/why_python.html">
+     Why Python for this Course?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../2-nds/coding.html">
+   Coding Tools
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/python.html">
+     Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/datacamp.html">
+     DataCamp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/py4e.html">
+     Python for Everybody (PY4E)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/terminal.html">
+     The Terminal and Command Line
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/jupyter.html">
+     Jupyter
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/markdown.html">
+     Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/cocalc.html">
+     CoCalc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../2-nds/github.html">
+     GitHub
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introducing Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3-python/introduction.html">
+   Introducing Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3-python/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3-python/jupyter_cocalc.html">
+   Introduction to Jupyter Notebooks in CoCalc
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../3-python/getting_help.html">
+   Getting Help with Python
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../3-python/data_types.html">
+   Data types
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/variables_assignment.html">
+     Variables and Assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/types_conversion.html">
+     Data Types and Conversion
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/builtin.html">
+     Python Built-Ins
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/lists.html">
+     Lists
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/dictionaries.html">
+     Dictionaries
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../3-python/working_w_data.html">
+   Working with Data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="simple">
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Visualizing Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/introduction.html">
+   Introduction to Data Visualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/plotting.html">
+   Introduction to Plotting with Matplotlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/proc_vs_oo.html">
+   Procedural versus Object-Oriented Plotting in Matplotlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/subplots.html">
+   Subplots
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/plotting_types.html">
+   Thinking About Data for Plotting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/seaborn.html">
+   Introduction to Plotting with Seaborn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../4-viz/human_factors.html">
+   Accessibility and Human Factors in Plotting
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exploratory Data Analysis
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5-eda/introduction.html">
+   Introduction to EDA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5-eda/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5-eda/repeated_measures.html">
+   Working with Repeated Measures Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5-eda/data_cleaning.html">
+   Data Cleaning - Dealing with Outliers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../5-eda/ttests.html">
+   Basic Statistics in Python:
+   <em>
+    t
+   </em>
+   tests with SciPy
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Single Unit Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../6-single_unit/introduction.html">
+   Introduction to Single Unit Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../6-single_unit/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../6-single_unit/single_unit_intro.html">
+   Single Unit Data and Spike Trains
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../6-single_unit/intro_spike_trains.html">
+     Introduction to Spike Train Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../6-single_unit/ten_intensities.html">
+     Effects of Light Intensity on Spike Rate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../6-single_unit/heat_maps.html">
+     Heat Maps
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../6-single_unit/intro_multielec_data.html">
+   Introducing Multielectrode Data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../6-single_unit/pandas_multielec.html">
+     Working with Multielectrode Data in pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../6-single_unit/corr_spike_trains.html">
+     Correlating spike trains
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  EEG Data
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction to EEG/ERP Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="approaches.html">
+   EEG in the Time and Frequency Domains
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="time_freq.html">
+     Time and Frequency Domains
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="erps.html">
+     Event-Related Potentials (ERPs)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="components.html">
+     ERP Components
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mne_python.html">
+   MNE-Python
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="erp_preprocessing.html">
+   EEG-ERP Preprocessing
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="erp_filtering.html">
+     Filtering EEG Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="erp_artifacts.html">
+     Artifacts in EEG Data
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Segmentation into ERP epochs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="erp_rereferencing.html">
+     Re-referencing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="erp_averaging.html">
+     Averaging ERPs: Creating MNE Evoked objects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="erp_group.html">
+   Group Analysis of ERP Data
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MRI Data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../8-mri/introduction.html">
+   Introduction to MRI Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../8-mri/learning_objectives.html">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../8-mri/read_viz.html">
+   Reading and Visualizing Structural MRI Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../8-mri/nifti.html">
+   Working with NIfTI images
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../zrefs.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/7-eeg/erp_segmentation.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2F7-eeg/erp_segmentation.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/7-eeg/erp_segmentation.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#import-mne-and-raw-data">
+   Import MNE and raw data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mne-s-events-structure">
+     MNE’s events structure
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#experimental-design">
+     Experimental design
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#label-event-codes">
+     Label Event Codes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#segment-the-data-into-epochs">
+     Segment the data into epochs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualize-average-erp-across-all-conditions-before-artifact-correction">
+     Visualize average ERP across all conditions before artifact correction
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scalp-topography-maps">
+     Scalp topography maps
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#apply-ica-correction-to-epochs">
+     Apply ICA correction to epochs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualize-average-erp-across-all-conditions-after-artifact-correction">
+     Visualize average ERP across all conditions after artifact correction
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Scalp topography maps
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#save-epochs">
+   Save epochs
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="segmentation-into-erp-epochs">
+<h1>Segmentation into ERP epochs<a class="headerlink" href="#segmentation-into-erp-epochs" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="import-mne-and-raw-data">
+<h2>Import MNE and raw data<a class="headerlink" href="#import-mne-and-raw-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
+<span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>  <span class="c1"># reduce extraneous MNE output</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Participant ID code</span>
+<span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;N400_dataset_14&#39;</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
+
+<span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span> <span class="s1">&#39;data/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;.vhdr&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="mne-s-events-structure">
+<h3>MNE’s events structure<a class="headerlink" href="#mne-s-events-structure" title="Permalink to this headline">¶</a></h3>
+<p><strong>Event codes</strong> indicate when events of experimental interest occurred during the EEG recording. They are typically generated by the stimulus computer, and sent to the EEG recording computer at the same time that the stimuli are presented to the participant. Event codes may also mark when a participant made a response (such as a button press, or the onset of a vocal response), or other information such as the start of a new bock of trials or condition, rather than a specific stimulus.</p>
+<div class="alert alert-block alert-info">
+<p>Event codes can also be generated by devices that detect when a stimulus occurs. For example, a light-sensitive <em>photodiode</em> can be used to detect when the brightness of a location on a computer screen changes. This setup can be useful in some situations, because sometimes there is an unpredictable delay between the time that the computer software initiates presentation of a stimulus, and when the hardware actually presents the stimulus. These delays are typically only on the order of a few, or possibly tens, of milliseconds, but that is enough to cause problems when averaging ERPs from multiple trials together — especially if the delay is inconsistent across trials. The result will be that the peaks and troughs of the waveforms do not align perfectly across trials, and the resulting averaged ERP will look more smoothed and less “peaky”. Event codes can also be generated by devices that detect when a stimulus occurs. For example, a light-sensitive <em>photodiode</em> can be used to detect when the brightness of a location on a computer screen changes. This setup can be useful in some situations, because sometimes there is an unpredictable delay between the time that the computer software initiates presentation of a stimulus, and when the hardware actually presents the stimulus. These delays are typically only on the order of a few, or possibly tens, of milliseconds, but that is enough to cause problems when averaging ERPs from multiple trials together — especially if the delay is inconsistent across trials. The result will be that the peaks and troughs of the waveforms do not align perfectly across trials, and the resulting averaged ERP will look more smoothed and less “peaky”.</p>
+</div>
+<p>Segmenting the data into ERPs depends on these event codes, since they are what we time-lock to. To use them for ERP segmentation, we need to first extract the timing and identity of each code from the raw data, and store it in a NumPy array. Because event codes are numeric (for reasons explained below), we also need to define a mapping between these numbers and meaningful labels (such as what type of stimulus or experimental condition the code denotes).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">events</span><span class="p">,</span> <span class="n">event_dict</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">events_from_annotations</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can view the first 10 rows of the events array:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">events</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[    0,     0, 99999],
+       [   20,     0, 10001],
+       [59520,     0,     5],
+       [59523,     0,     1],
+       [60055,     0,   201],
+       [60199,     0,     2],
+       [61253,     0,     3],
+       [63156,     0,     1],
+       [63653,     0,   201],
+       [63756,     0,     2]])
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">events</span></code> is a NumPy array with 3 columns, and one row for each event code in the data.</p>
+<p>The <strong>first column</strong> contains the index of the event code in terms of the data array. Recall that the data were sampled at a rate of 500 Hz, meaning we have one sample (i.e., measurement) every 2 ms. So the values in the first column of <code class="docutils literal notranslate"><span class="pre">events</span></code> are not time measured in milliseconds, but “time” in terms of samples or data points. This is important to remember later, although MNE generally makes it easy to go between samples and more intuitive measures of time like milliseconds or seconds.</p>
+<p>The <strong>second column</strong> is usually zero, but is intended to mark the end time off an event, if the event code was send to the EEG system for a period of time. In practice it is rarely used.</p>
+<p>The <strong>third column</strong> is the event code itself, as an integer. We’ll elaborate later on what each code means.</p>
+<div class="alert alert-block alert-info">
+<p>Most EEG systems receive event codes from the stimulus computer using an electronic communications protocol called <strong>TTL</strong>, or transistor-to-transistor logic. It’s very simple and low-level, and is done via the parallel port of a computer (which is so low-level, computers almost never have these build in anymore). The reason this arcane system is still routinely used in EEG is that its timing is very precise, which means it is the best option to get millisecond-level synchronization between when the stimulus computer presents a stimulus, and when the event code is received by the EEG system. This level of precision is vital in EEG research because the effects of interest occur on a millisecond time scale. The impact of this system for us is that the event codes stored in an EEG data file are usually restricted to integers in the range of 1–255, because that is the (8 bit) resolution of the TTL protocol (i.e., this kind of connection can inherently only send this range of values). Some EEG recording software allows the experimenter to specify text labels for each numerical event code, based on what the numbers mean in that particular experiment. However, in most cases mapping between the numerical event codes and meaningful labels is something we do in preprocessing, as shown below.</p>
+</div><p>The second output, <code class="docutils literal notranslate"><span class="pre">event_dict</span></code>, is a dictionary mapping labels to the integer codes in the <code class="docutils literal notranslate"><span class="pre">events</span></code> array. The labels were created by the EEG recording software and stored in the raw file, but as you can see below they are mostly not very informative. We can see, however, that the first two codes in the <code class="docutils literal notranslate"><span class="pre">events</span></code> array above simply mark the start of the recording (<em>actiCAP</em> is the name of this EEG manufacturer’s electrode system).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">event_dict</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Comment/actiCAP Data On&#39;: 10001,
+ &#39;New Segment/&#39;: 99999,
+ &#39;Stimulus/S  1&#39;: 1,
+ &#39;Stimulus/S  2&#39;: 2,
+ &#39;Stimulus/S  3&#39;: 3,
+ &#39;Stimulus/S  4&#39;: 4,
+ &#39;Stimulus/S  5&#39;: 5,
+ &#39;Stimulus/S  7&#39;: 7,
+ &#39;Stimulus/S101&#39;: 101,
+ &#39;Stimulus/S102&#39;: 102,
+ &#39;Stimulus/S111&#39;: 111,
+ &#39;Stimulus/S112&#39;: 112,
+ &#39;Stimulus/S201&#39;: 201,
+ &#39;Stimulus/S202&#39;: 202,
+ &#39;Stimulus/S211&#39;: 211,
+ &#39;Stimulus/S212&#39;: 212}
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will need to create our own dictionary of mappings between the integer event codes and meaningful names based on the design of our experiment.</p>
+</div>
+<div class="section" id="experimental-design">
+<h3>Experimental design<a class="headerlink" href="#experimental-design" title="Permalink to this headline">¶</a></h3>
+<p>This data set was collected while the participant viewed a series of pictures of objects on a computer screen. One second after each picture was presented, a spoken word was played over a speaker. The word was either the name of the pictured object, or some other word. Based on prior research, we predicted an <strong>N400</strong> ERP component for the mismatch trials relative to those on which the picture and word matched.</p>
+<p>The N400 is a component first discovered by <a class="reference external" href="https://dx.doi.org/10.1126/science.7350657">Kutas &amp; Hillyard (1980)</a>, in response to sentences that ended in a word whose meaning was not predicted given the preceding words in the sentence. For example, the sentence <em>I take my coffee with milk and dog.</em> would elicit an N400 at the word <em>dog</em>. More than 40 years of subsequent research has shown that the N400 is a marker of brain processes involved in integrating new information into an ongoing context that people maintain of words and concepts — or in technical terms, <em>semantic integration</em>. Violations of expectations related to the meaning of stimuli evoke an N400 response. In the present experiment, we did not use sentences, however each picture created a context and the subsequent word either fit (matched) or did not fit (mismatched) that context.</p>
+<p>Although there were really only two experimental conditions in this experiment (match and mismatch), as you  there are a lot more than two event codes in the <code class="docutils literal notranslate"><span class="pre">events</span></code> array and <code class="docutils literal notranslate"><span class="pre">events_dict</span></code> dictionary above! This is because in this study, the experimenters coded details of the stimuli in great detail. This is common in research, where we have one central research question, but perhaps other questions relating to more fine-grained details of the stimuli. As well, the stimuli may vary in ways that are not of experimental interest, but are properties that we would like to control for. For now we will label each event code</p>
+</div>
+<div class="section" id="label-event-codes">
+<h3>Label Event Codes<a class="headerlink" href="#label-event-codes" title="Permalink to this headline">¶</a></h3>
+<p>We can define a dictionary that maps labels onto each event code of interest. As you can see below, there are 4 event codes associated with Match trials, and 4 associated with Mismatch trials. Later we will merge them before examining the ERPs, but for now we will label each one separately. This preserves the more detailed information, in case later we decide we want to break the data down in a more fine-grained fashion.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">event_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PicOnset&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;RespPrompt&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;CorResp&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;IncorResp&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;RespFeedback&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>             
+                 <span class="s1">&#39;Match/A&#39;</span><span class="p">:</span><span class="mi">111</span><span class="p">,</span> <span class="s1">&#39;Match/B&#39;</span><span class="p">:</span><span class="mi">211</span><span class="p">,</span> <span class="s1">&#39;Match/C&#39;</span><span class="p">:</span><span class="mi">112</span><span class="p">,</span> <span class="s1">&#39;Match/D&#39;</span><span class="p">:</span><span class="mi">212</span><span class="p">,</span>
+                 <span class="s1">&#39;Mismatch/A&#39;</span><span class="p">:</span><span class="mi">101</span><span class="p">,</span> <span class="s1">&#39;Mismatch/B&#39;</span><span class="p">:</span><span class="mi">201</span><span class="p">,</span> <span class="s1">&#39;Mismatch/C&#39;</span><span class="p">:</span><span class="mi">102</span><span class="p">,</span> <span class="s1">&#39;Mismatch/D&#39;</span><span class="p">:</span><span class="mi">202</span>
+                <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>MNE’s <code class="docutils literal notranslate"><span class="pre">viz.plot_events()</span></code> function will read an events array and plot the timing of event codes over the time, with different rows and colours for each event type. We have to pass the sampling rate (<code class="docutils literal notranslate"><span class="pre">raw.info['sfreq']</span></code>) as the second argument so that MNE knows how to convert the samples in the <code class="docutils literal notranslate"><span class="pre">events</span></code> array to units of time. We also pass <code class="docutils literal notranslate"><span class="pre">event_mapping</span></code> so that the plot has a meaningful legend.</p>
+<p>This plot can be very useful to understand the timeline of an experiment, and also to confirm that the types and timing of event codes Control what was expected based on the design of the experiment. In the present experiment, all three sentence types were randomly intermixed, so the plot below is consistent with this.</p>
+<p>Note that it’s not necessary to use <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code> before running any MNE plot routine. However, in some cases, such as this one, MNE’s default plot size is not optimal for what is being plotted, so <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code> allows us to specify the figure size. Note that when we run the MNE plot command, we don’t apply a Matplotlib axis method, but instead pass the <code class="docutils literal notranslate"><span class="pre">ax</span></code> pointer to the subplot to MNE’s plot command using the <code class="docutils literal notranslate"><span class="pre">axes=</span></code> kwarg. Many of MNE’s plotting commands support this kwarg, but not all (since some MNE plots actually create figures with multiple subplots).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">events</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[     0,      0,  99999],
+       [    20,      0,  10001],
+       [ 59520,      0,      5],
+       ...,
+       [619324,      0,      3],
+       [623249,      0,      7],
+       [623253,      0,      4]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+
+<span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">],</span>  
+                    <span class="n">event_id</span><span class="o">=</span><span class="n">event_mapping</span><span class="p">,</span>                    
+                    <span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/erp_segmentation_14_0.png" src="../_images/erp_segmentation_14_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="segment-the-data-into-epochs">
+<h3>Segment the data into epochs<a class="headerlink" href="#segment-the-data-into-epochs" title="Permalink to this headline">¶</a></h3>
+<p>Finally, we split the continuous, filtered raw EEG data into epochs time-locked to the event codes of interest, as defined in <code class="docutils literal notranslate"><span class="pre">event_mapping</span></code>. To do this we use <code class="docutils literal notranslate"><span class="pre">mne.Epochs()</span></code>, which creates an object of the class <code class="docutils literal notranslate"><span class="pre">Epochs</span></code>. A number of arguments are necessary; the first 5 of these are <em>positional</em> arguments, meaning that the first 5 argument positions must have specific contents:</p>
+<ul class="simple">
+<li><p>the first is the raw data. We pass the filtered data.</p></li>
+<li><p>the next two arguments are the events array, and the mapping of events to labels</p></li>
+<li><p>the fourth and fifth arguments are the start and end times of each epoch (<code class="docutils literal notranslate"><span class="pre">timn</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code>), relative to the event code. Typically the minimum (start) tie is a negative number, because for reasons explained below we want a <em>baseline</em> period to compare to the activity after the event code (typically 50-200 ms, but sometimes longer). The stop time depends on the timing of the ERP components you expect to occur. Some types of stimuli and experiments (such as studies of attention, or face processing) may only be interested in ERPs that occur within the first 500 ms after stimulus presentation. In language studies, interesting effects often occur up to 1 s or even longer after a word is presented. An important thing to note is that these times need to be specified in <em>seconds</em> (which is a bit counter-intuitive because we commonly talk about the timing of ERPs in milliseconds).</p></li>
+</ul>
+<p>After these 5 required positional arguments, there are many kwargs we can specify. For our purposes, the defaults for most of these are fine. The one we will specify is <code class="docutils literal notranslate"><span class="pre">reject=</span></code>, which applies a threshold, in microVolts, for marking a trial as an artifact. This threshold was determined by the <code class="docutils literal notranslate"><span class="pre">get_rejection_threshold()</span></code> function earlier, and saved in the variable <code class="docutils literal notranslate"><span class="pre">reject</span></code>. This is used to remove excessive noise from the data set that can’t be corrected with ICA.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">baseline</span></code> kwarg specifies what time period to use as the baseline for each epoch. The baseline is the period before the stimulus onset, and it is used to define “zero” voltage for each trial. This is necessary because  the measured electrical potentials can drift quite a lot over the course of the experiment (even after we filter out the lowest-frequency drift). So the absolute microVolt values for any given epoch might be rather different from other ones, due to drift. By subtracting the mean amplitude over the baseline period from each trial (and for each channel), we “centre” the measurements for that trial such that the potentials after the onset of each event code reflect the deviations of our measurements from the baseline period. Put another way, the measurements of each epoch reflect any changes in electrical potential that occur after the event code, relative to the baseline period before it. We use <code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">0)</span></code> for the baseline to specify the time period from the start of the epoch to the time of the event code.</p>
+<p>We also include the <code class="docutils literal notranslate"><span class="pre">preload=True</span></code> kwarg. As with <code class="docutils literal notranslate"><span class="pre">raw</span></code> data, MNE tries to save memory by not keeping the epoched data in memory unless it is needed. However, below we will need it and so we force MNE to store this in the data here.</p>
+<p>The <a class="reference external" href="https://mne.tools/stable/generated/mne.Epochs.html"><code class="docutils literal notranslate"><span class="pre">mne.Epochs</span></code> API</a> provides details on all the available kwargs (as well as all the methods that are defined for Epochs).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load filtered raw data</span>
+<span class="n">raw_filt</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-filt-raw.fif&#39;</span><span class="p">)</span>
+
+<span class="c1"># Epoching settings</span>
+<span class="n">tmin</span> <span class="o">=</span>  <span class="o">-</span><span class="mf">.200</span>  <span class="c1"># start of each epoch (in sec)</span>
+<span class="n">tmax</span> <span class="o">=</span>  <span class="mf">1.000</span>  <span class="c1"># end of each epoch (in sec)</span>
+<span class="n">baseline</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Create epochs</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span><span class="p">(</span><span class="n">raw_filt</span><span class="p">,</span>
+                    <span class="n">events</span><span class="p">,</span> <span class="n">event_mapping</span><span class="p">,</span>
+                    <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span>
+                    <span class="n">baseline</span><span class="o">=</span><span class="n">baseline</span><span class="p">,</span> 
+                    <span class="n">preload</span><span class="o">=</span><span class="kc">True</span>
+                   <span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we ask for the value of <code class="docutils literal notranslate"><span class="pre">epochs</span></code> we get nice, tidy output with a summary of the contents of the data structure.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>538</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        <td>CorResp: 134<br>IncorResp: 11<br>Match/A: 18<br>Match/B: 18<br>Match/C: 18<br>Match/D: 18<br>Mismatch/A: 18<br>Mismatch/B: 18<br>Mismatch/C: 18<br>Mismatch/D: 18<br>PicOnset: 144<br>RespFeedback: 10<br>RespPrompt: 95<br></td>
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.200 – 1.000 sec</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.200 – 0.000 sec</td>
+    </tr>
+</table>
+</div></div>
+</div>
+<p>Epochs can be accessed in a variety of ways, all using square brackets.</p>
+<p>If we use an integer, we get the epoch at that index position (epochs are numbered from zero to the total number of epochs, in the order the event codes occurred in the raw data):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>1</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        <td>RespFeedback: 1<br></td>
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.200 – 1.000 sec</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.200 – 0.000 sec</td>
+    </tr>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>5</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        <td>CorResp: 1<br>Match/A: 1<br>Mismatch/B: 1<br>PicOnset: 1<br>RespPrompt: 1<br></td>
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.200 – 1.000 sec</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.200 – 0.000 sec</td>
+    </tr>
+</table>
+</div></div>
+</div>
+<p>We can alternatively access all of the epochs associated with a particular event code, using the label we assigned to the code using <code class="docutils literal notranslate"><span class="pre">event_mapping</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match/A&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>18</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        <td>Match/A: 18<br></td>
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.200 – 1.000 sec</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.200 – 0.000 sec</td>
+    </tr>
+</table>
+</div></div>
+</div>
+<p>These two methods can be combined to select a specific event out of those in a condition:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match/A&#39;</span><span class="p">][</span><span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>1</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        <td>Match/A: 1<br></td>
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.200 – 1.000 sec</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.200 – 0.000 sec</td>
+    </tr>
+</table>
+</div></div>
+</div>
+<p>If we pass multiple condition labels, then we will get all epochs in each of the conditions specified:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match/A&#39;</span><span class="p">,</span> <span class="s1">&#39;Match/B&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>36</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        <td>Match/A: 18<br>Match/B: 18<br></td>
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.200 – 1.000 sec</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.200 – 0.000 sec</td>
+    </tr>
+</table>
+</div></div>
+</div>
+<p>Usefully, MNE also recognizes the <code class="docutils literal notranslate"><span class="pre">/</span></code> separator for condition labels: the string before the <code class="docutils literal notranslate"><span class="pre">/</span></code> is treated as a more general category, with the string after the <code class="docutils literal notranslate"><span class="pre">/</span></code> treated as subsets of that category. What this means is that we can use only the string before the <code class="docutils literal notranslate"><span class="pre">/</span></code> to get all epochs from that category (all that have that string before the <code class="docutils literal notranslate"><span class="pre">/</span></code>):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>72</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        <td>Match/A: 18<br>Match/B: 18<br>Match/C: 18<br>Match/D: 18<br></td>
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.200 – 1.000 sec</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.200 – 0.000 sec</td>
+    </tr>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="visualize-average-erp-across-all-conditions-before-artifact-correction">
+<h3>Visualize average ERP across all conditions before artifact correction<a class="headerlink" href="#visualize-average-erp-across-all-conditions-before-artifact-correction" title="Permalink to this headline">¶</a></h3>
+<p>We do this before removing ICs, so that we can compare with post-ICA below to see the effect of artifact removal.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/erp_segmentation_31_0.png" src="../_images/erp_segmentation_31_0.png" />
+</div>
+</div>
+<p>The above plot shows strong evidence of ocular artifacts in the data: the amplitude scale is on the order of 100 µV, whereas real EEG is rarely more than 10–20 µV, and the largest amplitude values are in channels around the eyes (you can tell this by matching the colours of the lines in the plot with those of the channel locations on the inset showing the electrode layout).</p>
+</div>
+<div class="section" id="scalp-topography-maps">
+<h3>Scalp topography maps<a class="headerlink" href="#scalp-topography-maps" title="Permalink to this headline">¶</a></h3>
+<p>As we did with ICA components, we can plot the EEG potentials over the scalp using the <code class="docutils literal notranslate"><span class="pre">.plot_topomap()</span></code> method. This will confirm that the artifacts are focused over the electrodes close to the eyes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/erp_segmentation_34_0.png" src="../_images/erp_segmentation_34_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="apply-ica-correction-to-epochs">
+<h3>Apply ICA correction to epochs<a class="headerlink" href="#apply-ica-correction-to-epochs" title="Permalink to this headline">¶</a></h3>
+<p>To recap, we have created two different <code class="docutils literal notranslate"><span class="pre">Epochs</span></code> objects:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">epochs_ica</span></code>, with 1 s segments of the entire raw file, which we fit ICA on to identify artifacts</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">epochs</span></code>, with segments time-locked to each event code of experimental interest</p></li>
+</ul>
+<p>Although we fit ICA to the <code class="docutils literal notranslate"><span class="pre">epochs_ica</span></code> data, we can actually <em>apply</em> this set of independent components to the <code class="docutils literal notranslate"><span class="pre">epochs</span></code> data. This is because ICA was fitted to the entire raw data set, and <code class="docutils literal notranslate"><span class="pre">epochs</span></code> is just a subset of that original raw data — so the effects of any ICs we marked for exclusion above will be removed from <code class="docutils literal notranslate"><span class="pre">epochs</span></code> with the <code class="docutils literal notranslate"><span class="pre">ica.apply</span></code> method.</p>
+<p>As with many MNE methods (such as filtering, as we saw earlier), the <code class="docutils literal notranslate"><span class="pre">ICA</span></code> <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> method operates on data in-place, meaning it alters the data that is passed to it. In general, my preference is to make copies of data when applying transofrmations to the data, so here we chain the <code class="docutils literal notranslate"><span class="pre">.copy()</span></code> method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">read_ica</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">)</span>
+
+<span class="n">epochs_postica</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="visualize-average-erp-across-all-conditions-after-artifact-correction">
+<h3>Visualize average ERP across all conditions after artifact correction<a class="headerlink" href="#visualize-average-erp-across-all-conditions-after-artifact-correction" title="Permalink to this headline">¶</a></h3>
+<p>Compared to the previous plot, we can see that artifacts have been successfully removed adn the data look more like typical ERP data:</p>
+<ul class="simple">
+<li><p>the large-amplitude deflections, largest at frontal channels, are no longer present</p></li>
+<li><p>the amplitude scale (<em>y</em> axis) is in the range typical of ERPs</p></li>
+<li><p>a series of early peaks typical of responses to visual stimuli are present (a first, small, peak around 75 ms, followed by a larger positive peak around 150 ms and a negative peak around 225 ms)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_postica</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/erp_segmentation_38_0.png" src="../_images/erp_segmentation_38_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Scalp topography maps<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>We saw this plot above, but now the scalp distribution of the electrical potentials shouldn’t be concentrated over the eyes.</p>
+<p>We can also provide a bit more information about how these plots are drawn. We plot topo maps at 100 ms steps from the onset of the code up to the end of the epoch. The <code class="docutils literal notranslate"><span class="pre">average</span></code> kwarg specifies that each plot will reflect the average over a 50 ms time window, centered on each time point for which a plot is drawn. In other words, the plot labeled <code class="docutils literal notranslate"><span class="pre">0.100</span> <span class="pre">s</span></code> reflects the average between 50–150 ms.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">epochs_postica</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/erp_segmentation_40_0.png" src="../_images/erp_segmentation_40_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="save-epochs">
+<h2>Save epochs<a class="headerlink" href="#save-epochs" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_postica</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-epo.fif&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Overwriting existing file.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./7-eeg"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="erp_artifacts.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Artifacts in EEG Data</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="erp_rereferencing.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Re-referencing</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Aaron J Newman<br/>
+        
+            &copy; Copyright 2020-21. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
