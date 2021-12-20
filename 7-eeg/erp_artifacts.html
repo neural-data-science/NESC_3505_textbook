@@ -1211,33 +1211,8 @@
 <p>In the next lesson we will segment our EEG data into epochs time-locked to experimental events of interest. After we do that, we will apply the ICA that we computed here to remove ocular artifacts from the epochs. So for now we will save the ICA object, which includes the <code class="docutils literal notranslate"><span class="pre">bads</span></code> attribute that indicates which components to reject as ocular artifacts. <code class="docutils literal notranslate"><span class="pre">ICA</span></code> objects have a <code class="docutils literal notranslate"><span class="pre">.save()</span></code> method that will create a <code class="docutils literal notranslate"><span class="pre">.fif</span></code> file:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileExistsError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">9</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="n">fvdmxlx00z9sz6ftkrnh8dw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_3660</span><span class="o">/</span><span class="mf">2323116028.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ica</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">);</span>
-
-<span class="nn">&lt;decorator-gen-400&gt;</span> in <span class="ni">save</span><span class="nt">(self, fname, overwrite, verbose)</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/mne/preprocessing/ica.py</span> in <span class="ni">save</span><span class="nt">(self, fname, overwrite, verbose)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1894</span>         <span class="n">check_fname</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;ICA&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;-ica.fif&#39;</span><span class="p">,</span> <span class="s1">&#39;-ica.fif.gz&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1895</span>                                    <span class="s1">&#39;_ica.fif&#39;</span><span class="p">,</span> <span class="s1">&#39;_ica.fif.gz&#39;</span><span class="p">))</span>
-<span class="ne">-&gt; </span><span class="mi">1896</span>         <span class="n">fname</span> <span class="o">=</span> <span class="n">_check_fname</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1897</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1898</span>         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Writing ICA solution to </span><span class="si">%s</span><span class="s1">...&#39;</span> <span class="o">%</span> <span class="n">fname</span><span class="p">)</span>
-
-<span class="nn">~/miniforge3/envs/eeg/lib/python3.9/site-packages/mne/utils/check.py</span> in <span class="ni">_check_fname</span><span class="nt">(fname, overwrite, must_exist, name, need_dir)</span>
-<span class="g g-Whitespace">    </span><span class="mi">165</span>     <span class="k">if</span> <span class="n">op</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">166</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">167</span>             <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span><span class="s1">&#39;Destination file exists. Please use option &#39;</span>
-<span class="g g-Whitespace">    </span><span class="mi">168</span>                                   <span class="s1">&#39;&quot;overwrite=True&quot; to force overwriting.&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">169</span>         <span class="k">elif</span> <span class="n">overwrite</span> <span class="o">!=</span> <span class="s1">&#39;read&#39;</span><span class="p">:</span>
-
-<span class="ne">FileExistsError</span>: Destination file exists. Please use option &quot;overwrite=True&quot; to force overwriting.
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">,</span> 
+        <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
