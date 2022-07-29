@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Artifacts in EEG Data &#8212; Data Science for Psychology and Neuroscience — in Python</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,36 +20,35 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="http://neuraldatascience.io/7-eeg/erp_artifacts.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
@@ -72,7 +73,21 @@
                     </script>
 
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -81,9 +96,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -101,14 +117,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Welcome
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   About This Course
  </span>
@@ -515,15 +532,52 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../3-python/working_w_data.html">
-   Working with Data
+  <a class="reference internal" href="../3-python/flow_control.html">
+   Flow Control
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
   <label for="toctree-checkbox-9">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="simple">
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/for_loops.html">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       for
+      </span>
+     </code>
+     Loops
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/conditionals.html">
+     Conditionals
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../3-python/working_w_data.html">
+   Working with Data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/pandas_dataframes.html">
+     pandas DataFrames
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/looping_data_files.html">
+     Looping Over Data Files
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -630,8 +684,8 @@
   <a class="reference internal" href="../6-single_unit/single_unit_intro.html">
    Single Unit Data and Spike Trains
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-  <label for="toctree-checkbox-10">
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -657,8 +711,8 @@
   <a class="reference internal" href="../6-single_unit/intro_multielec_data.html">
    Introducing Multielectrode Data
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-  <label for="toctree-checkbox-11">
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -696,8 +750,8 @@
   <a class="reference internal" href="approaches.html">
    EEG in the Time and Frequency Domains
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-  <label for="toctree-checkbox-12">
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -728,8 +782,8 @@
   <a class="reference internal" href="erp_preprocessing.html">
    EEG-ERP Preprocessing
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-  <label for="toctree-checkbox-13">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -808,107 +862,209 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/7-eeg/erp_artifacts.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/DalPsychNeuro/NESC_3505_textbook"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2F7-eeg/erp_artifacts.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/7-eeg/erp_artifacts.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/7-eeg/erp_artifacts.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/DalPsychNeuro/NESC_3505_textbook"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2F7-eeg/erp_artifacts.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/7-eeg/erp_artifacts.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#eye-blink">
    Eye blink
@@ -970,44 +1126,121 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Artifacts in EEG Data</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#eye-blink">
+   Eye blink
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#eye-movements">
+   Eye movements
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#muscle-contractions">
+   Muscle contractions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#artifact-removal-with-independent-components-analysis-ica">
+   Artifact removal with Independent Components Analysis (ICA)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filter-data-for-ica">
+     Filter data for ICA
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#segment-data-for-ica">
+   Segment data for ICA
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fit-ica-to-data">
+     Fit ICA to data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualize-ica-components">
+     Visualize ICA components
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-ic-properties">
+     Plot IC properties
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#identify-eog-artifacts-from-ica-components">
+     Identify EOG artifacts from ICA components
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#save-ica">
+   Save ICA
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="artifacts-in-eeg-data">
-<h1>Artifacts in EEG Data<a class="headerlink" href="#artifacts-in-eeg-data" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="artifacts-in-eeg-data">
+<h1>Artifacts in EEG Data<a class="headerlink" href="#artifacts-in-eeg-data" title="Permalink to this headline">#</a></h1>
 <p>Recall that the term <strong>artifact</strong> in EEG refers to any noise in the data that can be attributed to a specific source. So eye blinks, eye movements, and muscle contractions are all types of artifacts. It is important to remove these from the data, to increase our confidence that the results we ultimately interpret are actually due to brain activity, and not these other sources.</p>
 <p>Common physiological artifacts, including eye blinks, eye movements, and muscle contractions, have highly characteristic properties in time and frequency. Examples of each are shown below:</p>
-<div class="section" id="eye-blink">
-<h2>Eye blink<a class="headerlink" href="#eye-blink" title="Permalink to this headline">¶</a></h2>
+<section id="eye-blink">
+<h2>Eye blink<a class="headerlink" href="#eye-blink" title="Permalink to this headline">#</a></h2>
 <p>There are a series of several eye blinks in the data below, the first at 242 s. You can see that the size of eye blink artifacts are typically on the order of 10x as large as ongoing EEG, which is why they are such a problem. Note that we have scaled the amplitude scale (<em>y</em> axis) of the EEG data differently than in the plots above, so that the ongoing EEG is quite flat, and the blinks stand out more clearly.</p>
 <a class="reference internal image-reference" href="../_images/eog_blink.png"><img alt="examples of blinks in EEG" class="align-left" src="../_images/eog_blink.png" style="height: 400px;" /></a>
 <p>Because the artifact originates at the eyes, is is picked up most strongly by the electrodes on the forehead, Fp1 and Fp2, as well as other frontal electrodes (the ones whose labels start with <em>F</em>, though much smaller). The electrical potential sharply increases, then decreases, over a period of about 250-300 ms for a typical blink. The artifact actually <em>inverts</em> at more posterior electrodes, for example at TP9 and TP10 in the figure above. These are the characteristic properties of an eye blink artifact, which can be used to identify them.</p>
-</div>
-<div class="section" id="eye-movements">
-<h2>Eye movements<a class="headerlink" href="#eye-movements" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="eye-movements">
+<h2>Eye movements<a class="headerlink" href="#eye-movements" title="Permalink to this headline">#</a></h2>
 <p>The neurons in the retina are organized in a highly oriented fashion, such that they form an electrical <strong>dipole</strong> — a source with positive and negative poles. This is exactly the kind of electrical source that EEG is good at detecting. As long as the eye’s position doesn’t change, the diploe created by the retina doesn’t affect EEG recordings, because it is constant (not changing). However, as the eye moves to look at different locations in space, the dipole moves, and this is detected by the electrodes on the scalp. When they eyes move to the left or right, the effect on EEG electrodes is that the electrical potential will increase at frontal electrodes on one side of the head, and decrease on the other side. Which side becomes more positive or negative depends on the direction of the movement.</p>
 <p>An example of a horizontal eye movement is shown in the figure below, overlapping the time where the vertical green line is shown (this line is an event marker, but this is irrelevant for our present purposes). At electrodes Fp1 and Fp2, the artifact looks very similar to a blink. However, note how there is a roughly “square wave” effect at electrodes F7 and F8 (and to a lesser extent, at F3 and F4), and that this goes positive at F7/F3, and negative at F8/F4. This is the hallmark of a horizontal eye movement artifact. In the example below, the horizontal eye movement is followed by two blinks. We can tell these are blinks because the polarity (direction of change) at both F7 and F8 is the same (positive/upward).</p>
 <a class="reference internal image-reference" href="../_images/eog_horiz.png"><img alt="horizontal eye movement" class="align-left" src="../_images/eog_horiz.png" style="height: 400px;" /></a>
-</div>
-<div class="section" id="muscle-contractions">
-<h2>Muscle contractions<a class="headerlink" href="#muscle-contractions" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="muscle-contractions">
+<h2>Muscle contractions<a class="headerlink" href="#muscle-contractions" title="Permalink to this headline">#</a></h2>
 <p>In the figure below, note the increase in high frequency activity starting just after 872 s, especially at channels F3, F7, and TP9. This is typical of a muscle contraction, likely of the face and/or neck. Brief contractions like this are usually not a problem, but if the participant is tense throughout the experiment, or at least for extended periods, then this high frequency noise can make it more challenging to detect ERPs. Muscle contractions typically have a fairly broad frequency range, from about 20-40 Hz, which means that this artifact will be present even after the data is band-pass filtered.</p>
 <a class="reference internal image-reference" href="../_images/eeg_muscle.png"><img alt="muscle artifact" class="align-left" src="../_images/eeg_muscle.png" style="height: 400px;" /></a>
-</div>
-<div class="section" id="artifact-removal-with-independent-components-analysis-ica">
-<h2>Artifact removal with Independent Components Analysis (ICA)<a class="headerlink" href="#artifact-removal-with-independent-components-analysis-ica" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="artifact-removal-with-independent-components-analysis-ica">
+<h2>Artifact removal with Independent Components Analysis (ICA)<a class="headerlink" href="#artifact-removal-with-independent-components-analysis-ica" title="Permalink to this headline">#</a></h2>
 <p>ICA is a <em>blind source separation</em> algorithm. In other words, it can take a complex signal and separate it into mathematically independent <em>components</em>. Note that the term “components” here is not used in the sense of ERP components (like the N170 or N400) that were discussed earlier. Rather, in ICA <em>components</em> are the individual underlying signals that were mixed together during recording. So for example, in EEG each electrode will record a mixture of brain activity (which itself may comprise multiple sources within the brain, such as the activity of different brain areas) and noise (including physiological and non-physiological artifacts). ICA is capable of separating EEG from artifacts (and separating different types of artifacts) because, over time and across all of thr recording electrodes, each signal with a different source will have different spatio-temporal properties.</p>
 <p>A nice example of using ICA, that may seem a. bit less abstract than EEG data, is audio recording. Imagine that we have two people in a room having a conversation, and there is background noise in the room such as from the ventilation system. If we have a single microphone in the room, all three signals (person A, person B, and the ventilation) will be mixed in the recording and it will be hard to separate them. However, if we have three microphones at different locations in the room, then each will pick up all three sound sources, but to different degrees depending on the location of each microphone. ICA can use the audio from all three microphones to find independent sources in the data (i.e., person A, person B, and the ventilation), based on how the sounds from each person, and the ventilation, differ systematically across the three microphones. But this only works because we have multiple independent sources (the microphones) sampling the data from different locations.</p>
 <p>Likewise with EEG, it is necessary to have multiple electrodes (the sources) to run ICA. The maximum number of ICA components  that can be derived from a data set is equal to the number of electrodes (channels) we have. However, in practice the number of independent sources in the data is lower than the number of electrodes, and we can limit the number of ICA components accordingly, as we’ll see below.</p>
 <p>In EEG, ICA has become widely used for artifact identification and removal. This is because it does a very good job of identifying ocular artifacts (blinks and eye movements), and also usually muscle artifact as well. Moreover, because the different ICA components are mathematically independent of each other, having identified which components are “noise” (such as blinks), we can remove these components from the data without affecting the other components. This means we can effectively remove the effects of ocular artifacts from the data, while preserving the EEG signals. This is usually preferable to older approaches, such as removing any trial containing an artifact from the data set completely. ICA allows us to remove artifacts while keeping all of the trials.</p>
-<div class="section" id="filter-data-for-ica">
-<h3>Filter data for ICA<a class="headerlink" href="#filter-data-for-ica" title="Permalink to this headline">¶</a></h3>
+<section id="filter-data-for-ica">
+<h3>Filter data for ICA<a class="headerlink" href="#filter-data-for-ica" title="Permalink to this headline">#</a></h3>
 <p>ICA is very good at capturing features of the data that explain the most <em>variance</em>. Recall that variance, statistically speaking, is any deviation from the mean. Blinks and eye movements are well-captured by ICA because they are so much larger than EEG, and so they contain a lot of the variance in the EEG recordings. Likewise, low-frequency drift in the data explains large amounts of variance, because of the 1/f property of EEG data discussed earlier — the lowest frequencies contain the most power. For this reason, ICA works best on data that has more low-frequency power removed than the data that we ultimately want to analyze. So we will filter the data for ICA with a 1 Hz high-pass cutoff, rather than a 0.1 Hz cutoff as we used above. A useful property of ICA is that we can compute ICA based on a more-filtered version of the data, identify the artifacts based on this, and then apply the same ICA decomposition (i.e., how ICA breaks the data down into components) to the data that were filtered as we wanted for ERP analysis. Below we do this, running the same filtering command as we did in the previous lesson, except with a different high-pass (low frequency) cut-off.</p>
 <p>First we import MNE and load the raw data:</p>
 <div class="cell docutils container">
@@ -1035,10 +1268,10 @@
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="segment-data-for-ica">
-<h2>Segment data for ICA<a class="headerlink" href="#segment-data-for-ica" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="segment-data-for-ica">
+<h2>Segment data for ICA<a class="headerlink" href="#segment-data-for-ica" title="Permalink to this headline">#</a></h2>
 <p>ICA likes to work with segments of data, rather than the continuous raw data. We call segments of EEG data <strong>epochs</strong>, a word which means “a period of time”. Typically when talking about ERPs, <em>epochs</em> refers to the segments of data that are time-locked to experimental events of interest. Here, however, we use the term more generically to refer to any segment of EEG data. So here we will segment the entire raw data recording into a series of 1 s segments, and save these as <code class="docutils literal notranslate"><span class="pre">epochs_ica</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1064,16 +1297,44 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimating rejection dictionary for eeg
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">File</span> <span class="o">~/</span><span class="n">mambaforge</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">eeg</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.10</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">autoreject</span><span class="o">/</span><span class="n">autoreject</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="k">try</span><span class="p">:</span>  <span class="c1"># for mne &lt; 1.0</span>
+<span class="ne">---&gt; </span><span class="mi">16</span>     <span class="kn">from</span> <span class="nn">mne.externals.h5io</span> <span class="kn">import</span> <span class="n">read_hdf5</span><span class="p">,</span> <span class="n">write_hdf5</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;mne.externals&#39;
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="nn">Input In [4],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="n">get_rejection_threshold</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">reject</span> <span class="o">=</span> <span class="n">get_rejection_threshold</span><span class="p">(</span><span class="n">epochs_ica</span><span class="p">);</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">reject</span>
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">mambaforge</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">eeg</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.10</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">autoreject</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="sd">&quot;&quot;&quot;Automated rejection and repair of epochs in M/EEG.&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;0.3.1&#39;</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">.autoreject</span> <span class="kn">import</span> <span class="n">_GlobalAutoReject</span><span class="p">,</span> <span class="n">_AutoReject</span><span class="p">,</span> <span class="n">AutoReject</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">.autoreject</span> <span class="kn">import</span> <span class="n">RejectLog</span><span class="p">,</span> <span class="n">read_auto_reject</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">.autoreject</span> <span class="kn">import</span> <span class="n">compute_thresholds</span><span class="p">,</span> <span class="n">validation_curve</span><span class="p">,</span> <span class="n">get_rejection_threshold</span>
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">mambaforge</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">eeg</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.10</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">autoreject</span><span class="o">/</span><span class="n">autoreject</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">18</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="kn">from</span> <span class="nn">mne.externals.h5io</span> <span class="kn">import</span> <span class="n">read_hdf5</span><span class="p">,</span> <span class="n">write_hdf5</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">18</span>     <span class="kn">from</span> <span class="nn">h5io</span> <span class="kn">import</span> <span class="n">read_hdf5</span><span class="p">,</span> <span class="n">write_hdf5</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="kn">import</span> <span class="nn">mne</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">pick_types</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;h5io&#39;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;eeg&#39;: 0.0001081797188473359}
-</pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="fit-ica-to-data">
-<h3>Fit ICA to data<a class="headerlink" href="#fit-ica-to-data" title="Permalink to this headline">¶</a></h3>
+<section id="fit-ica-to-data">
+<h3>Fit ICA to data<a class="headerlink" href="#fit-ica-to-data" title="Permalink to this headline">#</a></h3>
 <p>Running ICA on our data involves two steps:</p>
 <ol class="simple">
 <li><p>Create an <code class="docutils literal notranslate"><span class="pre">ICA</span></code> object with the parameters (kwargs) that we want to use</p></li>
@@ -1101,43 +1362,26 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">
-<table class="table table-hover table-striped table-sm table-responsive small">
-    <tr>
-        <th>Method</th>
-        <td>fastica</td>
-    </tr>
-    <tr>
-        <th>Fit</th>
-        <td>31 iterations on epochs (624747 samples)</td>
-    </tr>
-    <tr>
-        <th>ICA components</th>
-        <td>8</td>
-    </tr>
-    <tr>
-        <th>Explained variance</th>
-        <td>99.3&nbsp;%</td>
-    </tr>
-    <tr>
-        <th>Available PCA components</th>
-        <td>16</td>
-    </tr>
-    <tr>
-        <th>Channel types</th>
-        <td>eeg</td>
-    </tr>
-    <tr>
-        <th>ICA components marked for exclusion</th>
-        <td>&mdash;</td>
-    </tr>
-</table>
-</div></div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [5],</span> in <span class="ni">&lt;cell line: 9&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Fit ICA</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">ica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">ICA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">ica_n_components</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>                             <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>                             <span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">ica</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs_ica</span><span class="p">,</span>
+<span class="ne">---&gt; </span><span class="mi">10</span>         <span class="n">reject</span><span class="o">=</span><span class="n">reject</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>         <span class="n">tstep</span><span class="o">=</span><span class="n">tstep</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;reject&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> step produces the output you see above, showing some of the resulting parameters stored in <code class="docutils literal notranslate"><span class="pre">ica</span></code>.</p>
-</div>
-<div class="section" id="visualize-ica-components">
-<h3>Visualize ICA components<a class="headerlink" href="#visualize-ica-components" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="visualize-ica-components">
+<h3>Visualize ICA components<a class="headerlink" href="#visualize-ica-components" title="Permalink to this headline">#</a></h3>
 <p>Every IC (an independent component identified by ICA) is a signal that varies over time, that has a “weighting” at each channel - reflecting how strongly present that IC is in that channel. In other words, the time course of an IC is the same at all electrodes, but it is bigger at some, and smaller at others.</p>
 <p>We can visualize each component as a <strong>scalp topography map</strong>, showing where on the scalp the IC is largest. <em>Topo maps</em>, as they are often abbreviated, are a different way of visualizing EEG data than we’ve seen before. Whereas previously we’ve viewed EEG as electrical potential over time, topo maps show how the potential are distributed spatially, at a specific point in time (or averaged over a period of time). The maps use the red-blue colour map where red is positive, blue is negative, and white is zero. “Positive” and “negative” in ICA topo maps can reflect cases where a component has the same shape over time, but opposite (negative vs. positive) electrical polarity at different scalp locations. This can be seen, for example, in <code class="docutils literal notranslate"><span class="pre">ICA001</span></code> below, which reflects the opposite polarities induced by horizontal eye movements.</p>
 <p>Indeed, in the figure below we can see that a few ICs are likely ocular artifacts, because they weight most heavily around the front of the head (the top of each subplot, where the nose is drawn). In particular, <code class="docutils literal notranslate"><span class="pre">ICA000</span></code> is likely blink artifact, and <code class="docutils literal notranslate"><span class="pre">ICA001</span></code> is likely horizontal eye movement. <code class="docutils literal notranslate"><span class="pre">ICA002</span></code> may be eye movement as well.</p>
@@ -1148,12 +1392,48 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/erp_artifacts_15_0.png" src="../_images/erp_artifacts_15_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
+<span class="nn">Input In [6],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ica</span><span class="o">.</span><span class="n">plot_components</span><span class="p">()</span>
+
+<span class="nn">File ~/mambaforge/envs/eeg/lib/python3.10/site-packages/mne/preprocessing/ica.py:1935,</span> in <span class="ni">ICA.plot_components</span><span class="nt">(self, picks, ch_type, res, vmin, vmax, cmap, sensors, colorbar, title, show, outlines, contours, image_interp, inst, plot_std, topomap_args, image_args, psd_args, reject, sphere, verbose)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1927</span> <span class="nd">@copy_function_doc_to_method_doc</span><span class="p">(</span><span class="n">plot_ica_components</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1928</span> <span class="k">def</span> <span class="nf">plot_components</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ch_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1929</span>                     <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">sensors</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1933</span>                     <span class="n">image_args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psd_args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reject</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1934</span>                     <span class="n">sphere</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1935</span>     <span class="k">return</span> <span class="n">plot_ica_components</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span> <span class="n">ch_type</span><span class="o">=</span><span class="n">ch_type</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1936</span>                                <span class="n">res</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1937</span>                                <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">sensors</span><span class="o">=</span><span class="n">sensors</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1938</span>                                <span class="n">colorbar</span><span class="o">=</span><span class="n">colorbar</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="n">show</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1939</span>                                <span class="n">outlines</span><span class="o">=</span><span class="n">outlines</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="n">contours</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1940</span>                                <span class="n">image_interp</span><span class="o">=</span><span class="n">image_interp</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1941</span>                                <span class="n">inst</span><span class="o">=</span><span class="n">inst</span><span class="p">,</span> <span class="n">plot_std</span><span class="o">=</span><span class="n">plot_std</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1942</span>                                <span class="n">topomap_args</span><span class="o">=</span><span class="n">topomap_args</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1943</span>                                <span class="n">image_args</span><span class="o">=</span><span class="n">image_args</span><span class="p">,</span> <span class="n">psd_args</span><span class="o">=</span><span class="n">psd_args</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1944</span>                                <span class="n">reject</span><span class="o">=</span><span class="n">reject</span><span class="p">,</span> <span class="n">sphere</span><span class="o">=</span><span class="n">sphere</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1945</span>                                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+<span class="nn">File &lt;decorator-gen-167&gt;:12,</span> in <span class="ni">plot_ica_components</span><span class="nt">(ica, picks, ch_type, res, vmin, vmax, cmap, sensors, colorbar, title, show, outlines, contours, image_interp, inst, plot_std, topomap_args, image_args, psd_args, reject, sphere, verbose)</span>
+
+<span class="nn">File ~/mambaforge/envs/eeg/lib/python3.10/site-packages/mne/viz/topomap.py:1183,</span> in <span class="ni">plot_ica_components</span><span class="nt">(ica, picks, ch_type, res, vmin, vmax, cmap, sensors, colorbar, title, show, outlines, contours, image_interp, inst, plot_std, topomap_args, image_args, psd_args, reject, sphere, verbose)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1180</span> <span class="kn">from</span> <span class="nn">..epochs</span> <span class="kn">import</span> <span class="n">BaseEpochs</span>
+<span class="g g-Whitespace">   </span><span class="mi">1182</span> <span class="k">if</span> <span class="n">ica</span><span class="o">.</span><span class="n">info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1183</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;The ICA</span><span class="se">\&#39;</span><span class="s1">s measurement info is missing. Please &#39;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1184</span>                        <span class="s1">&#39;fit the ICA or add the corresponding info object.&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1186</span> <span class="n">topomap_args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span> <span class="k">if</span> <span class="n">topomap_args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">topomap_args</span>
+<span class="g g-Whitespace">   </span><span class="mi">1187</span> <span class="n">topomap_args</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">topomap_args</span><span class="p">)</span>
+
+<span class="ne">RuntimeError</span>: The ICA&#39;s measurement info is missing. Please fit the ICA or add the corresponding info object.
+</pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="plot-ic-properties">
-<h3>Plot IC properties<a class="headerlink" href="#plot-ic-properties" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="plot-ic-properties">
+<h3>Plot IC properties<a class="headerlink" href="#plot-ic-properties" title="Permalink to this headline">#</a></h3>
 <p>We can use the <code class="docutils literal notranslate"><span class="pre">.plot_properties()</span></code> method of the ICA class to view more details of each IC. Moving clockwise from top left, the four subplots for each IC are:</p>
 <ul class="simple">
 <li><p>topo map</p></li>
@@ -1172,19 +1452,19 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/erp_artifacts_17_0.png" src="../_images/erp_artifacts_17_0.png" />
-<img alt="../_images/erp_artifacts_17_1.png" src="../_images/erp_artifacts_17_1.png" />
-<img alt="../_images/erp_artifacts_17_2.png" src="../_images/erp_artifacts_17_2.png" />
-<img alt="../_images/erp_artifacts_17_3.png" src="../_images/erp_artifacts_17_3.png" />
-<img alt="../_images/erp_artifacts_17_4.png" src="../_images/erp_artifacts_17_4.png" />
-<img alt="../_images/erp_artifacts_17_5.png" src="../_images/erp_artifacts_17_5.png" />
-<img alt="../_images/erp_artifacts_17_6.png" src="../_images/erp_artifacts_17_6.png" />
-<img alt="../_images/erp_artifacts_17_7.png" src="../_images/erp_artifacts_17_7.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="nn">Input In [7],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ica</span><span class="o">.</span><span class="n">plot_properties</span><span class="p">(</span><span class="n">epochs_ica</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ica</span><span class="o">.</span><span class="n">n_components_</span><span class="p">),</span> <span class="n">psd_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fmax&#39;</span><span class="p">:</span> <span class="n">hi_cut</span><span class="p">})</span>
+
+<span class="ne">AttributeError</span>: &#39;ICA&#39; object has no attribute &#39;n_components_&#39;
+</pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="identify-eog-artifacts-from-ica-components">
-<h3>Identify EOG artifacts from ICA components<a class="headerlink" href="#identify-eog-artifacts-from-ica-components" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="identify-eog-artifacts-from-ica-components">
+<h3>Identify EOG artifacts from ICA components<a class="headerlink" href="#identify-eog-artifacts-from-ica-components" title="Permalink to this headline">#</a></h3>
 <p>MNE has an algorithm that attempts to automatically identify ICA components. The <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> function computes correlations between each IC and channels that the researcher has designated as <strong>EOG</strong> (electro-oculogram) channels. These are electrodes, the same as EEG electrodes, but intentionally placed close to the eyes specifically to monitor for blinks and eye movements. These are typically placed above and below one eye (to monitor blinks and vertical eye movements, as well as on the temples of the head laterally to the eyes (to monitor horizontal eye movements).</p>
 <p>In the present data set, unfortunately EOG was not recorded. However, the Fp1 and Fp2 electrodes are above the eyes, and F7 and F8 are close enough to the sides of the eyes to detect horizontal movements. <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> takes a <code class="docutils literal notranslate"><span class="pre">ch_name</span></code> kwarg to allow us to specify EEG channels that we want to use in place of EOG channels; below we use Fp1 and F8 (we only need one channel each for blinks and horizontal movements). We add another kward to override the default correlation threshold of <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> which, in my experience, does not work well for EEG data (although it does for MEG data) and use instead <em>z</em> &gt; 1.96, which corresponds to a 5% chance of a correlation that large occurring due to chance.</p>
 <p>MNE also provides a <code class="docutils literal notranslate"><span class="pre">.plot_scores()</span></code> method that will plot the correlation values for each IC, and mark any that were rejected in red.</p>
@@ -1201,13 +1481,65 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/erp_artifacts_19_0.png" src="../_images/erp_artifacts_19_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
+<span class="nn">Input In [8],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">ica_z_thresh</span> <span class="o">=</span> <span class="mf">1.96</span> 
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">eog_indices</span><span class="p">,</span> <span class="n">eog_scores</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">find_bads_eog</span><span class="p">(</span><span class="n">raw_ica</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                                             <span class="n">ch_name</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Fp1&#39;</span><span class="p">,</span> <span class="s1">&#39;F8&#39;</span><span class="p">],</span> 
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                                             <span class="n">threshold</span><span class="o">=</span><span class="n">ica_z_thresh</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">ica</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="n">eog_indices</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">ica</span><span class="o">.</span><span class="n">plot_scores</span><span class="p">(</span><span class="n">eog_scores</span><span class="p">)</span>
+
+<span class="nn">File &lt;decorator-gen-420&gt;:12,</span> in <span class="ni">find_bads_eog</span><span class="nt">(self, inst, ch_name, threshold, start, stop, l_freq, h_freq, reject_by_annotation, measure, verbose)</span>
+
+<span class="nn">File ~/mambaforge/envs/eeg/lib/python3.10/site-packages/mne/preprocessing/ica.py:1655,</span> in <span class="ni">ICA.find_bads_eog</span><span class="nt">(self, inst, ch_name, threshold, start, stop, l_freq, h_freq, reject_by_annotation, measure, verbose)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1652</span> <span class="k">elif</span> <span class="n">threshold</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span> <span class="ow">and</span> <span class="n">measure</span> <span class="o">==</span> <span class="s1">&#39;correlation&#39;</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1653</span>     <span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.9</span>
+<span class="ne">-&gt; </span><span class="mi">1655</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels_</span><span class="p">[</span><span class="s1">&#39;eog&#39;</span><span class="p">],</span> <span class="n">scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_bads_ch</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1656</span>     <span class="n">inst</span><span class="p">,</span> <span class="n">eog_chs</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1657</span>     <span class="n">l_freq</span><span class="o">=</span><span class="n">l_freq</span><span class="p">,</span> <span class="n">h_freq</span><span class="o">=</span><span class="n">h_freq</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;eog&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1658</span>     <span class="n">reject_by_annotation</span><span class="o">=</span><span class="n">reject_by_annotation</span><span class="p">,</span> <span class="n">measure</span><span class="o">=</span><span class="n">measure</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1659</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels_</span><span class="p">[</span><span class="s1">&#39;eog&#39;</span><span class="p">],</span> <span class="n">scores</span>
+
+<span class="nn">File ~/mambaforge/envs/eeg/lib/python3.10/site-packages/mne/preprocessing/ica.py:1241,</span> in <span class="ni">ICA._find_bads_ch</span><span class="nt">(self, inst, chs, threshold, start, stop, l_freq, h_freq, reject_by_annotation, prefix, measure)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1238</span>         <span class="n">target_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1240</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">target_names</span><span class="p">,</span> <span class="n">targets</span><span class="p">)):</span>
+<span class="ne">-&gt; </span><span class="mi">1241</span>     <span class="n">scores</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">score_sources</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1242</span>         <span class="n">inst</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">score_func</span><span class="o">=</span><span class="s1">&#39;pearsonr&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1243</span>         <span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span> <span class="n">l_freq</span><span class="o">=</span><span class="n">l_freq</span><span class="p">,</span> <span class="n">h_freq</span><span class="o">=</span><span class="n">h_freq</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1244</span>         <span class="n">reject_by_annotation</span><span class="o">=</span><span class="n">reject_by_annotation</span><span class="p">)]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1245</span>     <span class="c1"># pick last scores</span>
+<span class="g g-Whitespace">   </span><span class="mi">1246</span>     <span class="k">if</span> <span class="n">measure</span> <span class="o">==</span> <span class="s2">&quot;zscore&quot;</span><span class="p">:</span>
+
+<span class="nn">File &lt;decorator-gen-417&gt;:12,</span> in <span class="ni">score_sources</span><span class="nt">(self, inst, target, score_func, start, stop, l_freq, h_freq, reject_by_annotation, verbose)</span>
+
+<span class="nn">File ~/mambaforge/envs/eeg/lib/python3.10/site-packages/mne/preprocessing/ica.py:1155,</span> in <span class="ni">ICA.score_sources</span><span class="nt">(self, inst, target, score_func, start, stop, l_freq, h_freq, reject_by_annotation, verbose)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1152</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">BaseRaw</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1153</span>     <span class="n">_check_compensation_grade</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="s1">&#39;ICA&#39;</span><span class="p">,</span> <span class="s1">&#39;Raw&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1154</span>                               <span class="n">ch_names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ch_names</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1155</span>     <span class="n">sources</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform_raw</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1156</span>                                   <span class="n">reject_by_annotation</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1157</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">BaseEpochs</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1158</span>     <span class="n">_check_compensation_grade</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="s1">&#39;ICA&#39;</span><span class="p">,</span> <span class="s1">&#39;Epochs&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1159</span>                               <span class="n">ch_names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ch_names</span><span class="p">)</span>
+
+<span class="nn">File ~/mambaforge/envs/eeg/lib/python3.10/site-packages/mne/preprocessing/ica.py:901,</span> in <span class="ni">ICA._transform_raw</span><span class="nt">(self, raw, start, stop, reject_by_annotation)</span>
+<span class="g g-Whitespace">    </span><span class="mi">899</span> <span class="sd">&quot;&quot;&quot;Transform raw data.&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">900</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;mixing_matrix_&#39;</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">901</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;No fit available. Please fit ICA.&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">902</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="o">=</span> <span class="n">_check_start_stop</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">903</span> <span class="n">picks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_picks</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+
+<span class="ne">RuntimeError</span>: No fit available. Please fit ICA.
+</pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="save-ica">
-<h2>Save ICA<a class="headerlink" href="#save-ica" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="save-ica">
+<h2>Save ICA<a class="headerlink" href="#save-ica" title="Permalink to this headline">#</a></h2>
 <p>In the next lesson we will segment our EEG data into epochs time-locked to experimental events of interest. After we do that, we will apply the ICA that we computed here to remove ocular artifacts from the epochs. So for now we will save the ICA object, which includes the <code class="docutils literal notranslate"><span class="pre">bads</span></code> attribute that indicates which components to reject as ocular artifacts. <code class="docutils literal notranslate"><span class="pre">ICA</span></code> objects have a <code class="docutils literal notranslate"><span class="pre">.save()</span></code> method that will create a <code class="docutils literal notranslate"><span class="pre">.fif</span></code> file:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1216,9 +1548,35 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
+<span class="nn">Input In [9],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ica</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">2</span>         <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nn">File &lt;decorator-gen-422&gt;:12,</span> in <span class="ni">save</span><span class="nt">(self, fname, overwrite, verbose)</span>
+
+<span class="nn">File ~/mambaforge/envs/eeg/lib/python3.10/site-packages/mne/preprocessing/ica.py:1906,</span> in <span class="ni">ICA.save</span><span class="nt">(self, fname, overwrite, verbose)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1884</span> <span class="sd">&quot;&quot;&quot;Store ICA solution into a fiff file.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1885</span><span class="sd"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">1886</span><span class="sd"> Parameters</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1903</span><span class="sd"> read_ica</span>
+<span class="g g-Whitespace">   </span><span class="mi">1904</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1905</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_fit</span> <span class="o">==</span> <span class="s1">&#39;unfitted&#39;</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1906</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;No fit available. Please first fit ICA&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1908</span> <span class="n">check_fname</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;ICA&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;-ica.fif&#39;</span><span class="p">,</span> <span class="s1">&#39;-ica.fif.gz&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1909</span>                            <span class="s1">&#39;_ica.fif&#39;</span><span class="p">,</span> <span class="s1">&#39;_ica.fif.gz&#39;</span><span class="p">))</span>
+<span class="g g-Whitespace">   </span><span class="mi">1910</span> <span class="n">fname</span> <span class="o">=</span> <span class="n">_check_fname</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span>
+
+<span class="ne">RuntimeError</span>: No fit available. Please first fit ICA
+</pre></div>
 </div>
 </div>
 </div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1242,9 +1600,11 @@
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="erp_filtering.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1260,26 +1620,28 @@
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Aaron J Newman<br/>
-        
-            &copy; Copyright 2020-21. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
-      </p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Aaron J Newman<br/>
+  
+      &copy; Copyright 2020-21. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+</p>
+        </footer>
     </div>
-  </footer>
-</main>
+    
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Introduction to Plotting with Seaborn &#8212; Data Science for Psychology and Neuroscience — in Python</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,36 +20,35 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="http://neuraldatascience.io/4-viz/seaborn.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
@@ -72,7 +73,21 @@
                     </script>
 
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -81,9 +96,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -101,14 +117,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Welcome
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   About This Course
  </span>
@@ -515,15 +532,52 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../3-python/working_w_data.html">
-   Working with Data
+  <a class="reference internal" href="../3-python/flow_control.html">
+   Flow Control
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
   <label for="toctree-checkbox-9">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="simple">
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/for_loops.html">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       for
+      </span>
+     </code>
+     Loops
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/conditionals.html">
+     Conditionals
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../3-python/working_w_data.html">
+   Working with Data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/pandas_dataframes.html">
+     pandas DataFrames
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/looping_data_files.html">
+     Looping Over Data Files
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -630,8 +684,8 @@
   <a class="reference internal" href="../6-single_unit/single_unit_intro.html">
    Single Unit Data and Spike Trains
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-  <label for="toctree-checkbox-10">
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -657,8 +711,8 @@
   <a class="reference internal" href="../6-single_unit/intro_multielec_data.html">
    Introducing Multielectrode Data
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-  <label for="toctree-checkbox-11">
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -696,8 +750,8 @@
   <a class="reference internal" href="../7-eeg/approaches.html">
    EEG in the Time and Frequency Domains
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-  <label for="toctree-checkbox-12">
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -728,8 +782,8 @@
   <a class="reference internal" href="../7-eeg/erp_preprocessing.html">
    EEG-ERP Preprocessing
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-  <label for="toctree-checkbox-13">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -808,107 +862,209 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/4-viz/seaborn.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/DalPsychNeuro/NESC_3505_textbook"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2F4-viz/seaborn.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/4-viz/seaborn.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/4-viz/seaborn.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/DalPsychNeuro/NESC_3505_textbook"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2F4-viz/seaborn.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/4-viz/seaborn.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#learning-objectives">
    Learning Objectives
@@ -1026,20 +1182,153 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Introduction to Plotting with Seaborn</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#learning-objectives">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview-of-seaborn-plotting-functions">
+   Overview of Seaborn Plotting Functions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#importing-the-seaborn-package">
+   Importing the Seaborn package
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plotting-gapminder-data">
+   Plotting Gapminder data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plotting-long-format-data">
+     Plotting Long-Format Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#descriptive-statistics">
+   Descriptive statistics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examining-distributions-with-histograms">
+   Examining distributions with histograms
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tweaking-seaborn-plots">
+     Tweaking Seaborn plots
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-to-plot-on-the-histogram-y-axis">
+     What to plot on the histogram
+     <em>
+      y
+     </em>
+     axis
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kernel-density-estimate">
+     Kernel density estimate
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#viewing-the-data-by-condition">
+   Viewing the data by condition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#colour-choice">
+   Colour Choice
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#categorical-plots">
+   Categorical Plots
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#box-plots">
+     Box plots
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#drawing-box-plots-with-seaborn">
+     Drawing box plots with Seaborn
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#violin-plots">
+   Violin Plots
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#strip-and-swarm-plots">
+   Strip and Swarm plots
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bar-plots">
+   Bar plots
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#point-and-line-plots">
+   Point and Line Plots
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-plotting-with-seaborn">
-<h1>Introduction to Plotting with Seaborn<a class="headerlink" href="#introduction-to-plotting-with-seaborn" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-plotting-with-seaborn">
+<h1>Introduction to Plotting with Seaborn<a class="headerlink" href="#introduction-to-plotting-with-seaborn" title="Permalink to this headline">#</a></h1>
 <p><a class="reference external" href="https://youtu.be/851pCwAZWsY">Watch a walk-through of this lesson on YouTube</a></p>
-<div class="section" id="learning-objectives">
-<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
+<section id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Be familiar with the use-cases for Seaborn plots</p></li>
 <li><p>Generate a variety of plots in Seaborn useful for EDA</p></li>
@@ -1047,22 +1336,22 @@
 <li><p>Recognize and appropriately use strategies for visualizing continuous and categorical data</p></li>
 <li><p>Visualize and reason about the distributions of data</p></li>
 </ul>
-</div>
+</section>
 <hr class="docutils" />
-<div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
 <p><a class="reference external" href="https://seaborn.pydata.org">Seaborn</a> is a great Python plotting package that is built on top of Matplotlib. That is, it uses Matplotlib “under the hood”, but it offers the user a much simpler API (set of commands) that enable us to generate a variety of great-looking plots that are particularly useful in data science. You can check out Seaborn’s <a class="reference external" href="https://seaborn.pydata.org/examples/index.html">examples gallery</a> to see some of the cool stuff you can do (including plotting neuroscience data!). Seaborn was written by <a class="reference external" href="https://mwaskom.github.io/">Michael Waskom</a>.</p>
 <p>Comparing Seaborn to Matplotlib, you could say that Matplotlib gives you every sharp, hard-to-use tool in the shed, and you have to figure out how to learn them all without chopping off a finger. Fortunately in data science you aren’t likely to lose any fingers, but Seaborn gives you some DIY-friendly power tools to get data science jobs done easily and looking great.</p>
-</div>
-<div class="section" id="overview-of-seaborn-plotting-functions">
-<h2>Overview of Seaborn Plotting Functions<a class="headerlink" href="#overview-of-seaborn-plotting-functions" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="overview-of-seaborn-plotting-functions">
+<h2>Overview of Seaborn Plotting Functions<a class="headerlink" href="#overview-of-seaborn-plotting-functions" title="Permalink to this headline">#</a></h2>
 <p>Seaborn is organized into three categories of plot types, as shown below:</p>
 <img src=https://seaborn.pydata.org/_images/function_overview_8_0.png  alt='Seaborn overview' width=500>
 <p><em>Image source: <span class="xref myst">seaborn.pydata.org</span></em></p>
 <p>You can see that Seaborn’s functions are organized around the different types of data, and questions we typically ask of data in data science: the <code class="docutils literal notranslate"><span class="pre">relpolt</span></code> function plots relationships between different (continuous) variables; the <code class="docutils literal notranslate"><span class="pre">displot</span></code> function plots distributions of data (such as histograms), and the<code class="docutils literal notranslate"><span class="pre">catplot</span></code> function.</p>
-</div>
-<div class="section" id="importing-the-seaborn-package">
-<h2>Importing the Seaborn package<a class="headerlink" href="#importing-the-seaborn-package" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="importing-the-seaborn-package">
+<h2>Importing the Seaborn package<a class="headerlink" href="#importing-the-seaborn-package" title="Permalink to this headline">#</a></h2>
 <p>By convention, the alias we use when importing Seaborn is <code class="docutils literal notranslate"><span class="pre">sns</span></code>.</p>
 <p>We’ll also be using some other packages, so we’ll import those packages at the same time.</p>
 <div class="cell docutils container">
@@ -1075,9 +1364,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="plotting-gapminder-data">
-<h2>Plotting Gapminder data<a class="headerlink" href="#plotting-gapminder-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="plotting-gapminder-data">
+<h2>Plotting Gapminder data<a class="headerlink" href="#plotting-gapminder-data" title="Permalink to this headline">#</a></h2>
 <p>Mostly we’ll work with long-format data from here on, but since we have worked with the Gapminder data up until now, let’s see how we can generate a plot similar to what we produced in the <a class="reference internal" href="plotting.html"><span class="doc std std-doc">Introduction to Plotting with Matplotlib</span></a> lesson.</p>
 <p>First we’ll load the Ocieania GDP data, and strip the leading text off column names so that they are just the years:</p>
 <div class="cell docutils container">
@@ -1114,8 +1403,8 @@
 <img alt="../_images/seaborn_10_0.png" src="../_images/seaborn_10_0.png" />
 </div>
 </div>
-<div class="section" id="plotting-long-format-data">
-<h3>Plotting Long-Format Data<a class="headerlink" href="#plotting-long-format-data" title="Permalink to this headline">¶</a></h3>
+<section id="plotting-long-format-data">
+<h3>Plotting Long-Format Data<a class="headerlink" href="#plotting-long-format-data" title="Permalink to this headline">#</a></h3>
 <p>Let’s move to working some some data of the sort we might find in cognitive psychology. Imagine a simple <strong>lexical decision task</strong>, an experiment in which each trial involves presenting a printed string of letters to a participant, and asking them to make a response as quickly as possible: pressing one button of the word is a real word in their native language, and another button if it is not a real word. The dependent variable in the experiment is reaction time (RT) — the amount of time that passed between the onset of the word on the screen, and the button press.</p>
 <p>Lexical decision tasks are commonly used in psycholinguistics to explore properties of the real words, such as their length or how frequently they occur in normal usage. However, for our simple example, we’ll focus on the simpler fact that, on average, people are slower in responding to nonwords than real words (especially if the nonwords look plausibly like real words, for example words like <em>blorp</em> or <em>furtle</em> that follow English word formation patterns).</p>
 <p>We’ve created some data, using a random number generator, to use in our plotting examples. The data were deliberately created with certain properties, so that the expected difference between RTs. We have data from 5 hypothetical participants, stored in separate data files in the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder. The naming format for the files is <code class="docutils literal notranslate"><span class="pre">ldt_sXX_data.csv</span></code>, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> stands for the subject ID number (two digits).</p>
@@ -1161,22 +1450,16 @@
   </thead>
   <tbody>
     <tr>
-      <th>126</th>
+      <th>125</th>
       <td>ldt_s02</td>
       <td>nonword</td>
-      <td>0.823629</td>
+      <td>0.782022</td>
     </tr>
     <tr>
-      <th>121</th>
-      <td>ldt_s02</td>
-      <td>word</td>
-      <td>0.739563</td>
-    </tr>
-    <tr>
-      <th>161</th>
-      <td>ldt_s04</td>
-      <td>word</td>
-      <td>0.631413</td>
+      <th>231</th>
+      <td>ldt_s05</td>
+      <td>nonword</td>
+      <td>0.629117</td>
     </tr>
     <tr>
       <th>179</th>
@@ -1185,40 +1468,46 @@
       <td>0.957241</td>
     </tr>
     <tr>
-      <th>95</th>
-      <td>ldt_s03</td>
-      <td>nonword</td>
-      <td>0.867952</td>
+      <th>11</th>
+      <td>ldt_s01</td>
+      <td>word</td>
+      <td>0.485072</td>
     </tr>
     <tr>
-      <th>232</th>
+      <th>58</th>
+      <td>ldt_s03</td>
+      <td>word</td>
+      <td>0.438946</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>ldt_s03</td>
+      <td>word</td>
+      <td>0.567489</td>
+    </tr>
+    <tr>
+      <th>225</th>
       <td>ldt_s05</td>
       <td>nonword</td>
-      <td>0.941172</td>
+      <td>0.815493</td>
     </tr>
     <tr>
-      <th>23</th>
-      <td>ldt_s01</td>
-      <td>word</td>
-      <td>0.716234</td>
-    </tr>
-    <tr>
-      <th>130</th>
+      <th>120</th>
       <td>ldt_s02</td>
-      <td>nonword</td>
-      <td>0.947122</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>ldt_s01</td>
       <td>word</td>
-      <td>0.597285</td>
+      <td>0.673159</td>
     </tr>
     <tr>
-      <th>188</th>
-      <td>ldt_s04</td>
+      <th>36</th>
+      <td>ldt_s01</td>
       <td>nonword</td>
-      <td>0.726648</td>
+      <td>1.049282</td>
+    </tr>
+    <tr>
+      <th>105</th>
+      <td>ldt_s02</td>
+      <td>word</td>
+      <td>0.545815</td>
     </tr>
   </tbody>
 </table>
@@ -1230,10 +1519,10 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">condition</span></code> is the type of word (real or nonword)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">RT</span></code> is reaction time, measured in seconds</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="descriptive-statistics">
-<h2>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="descriptive-statistics">
+<h2>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this headline">#</a></h2>
 <p>We can use the pandas <code class="docutils literal notranslate"><span class="pre">.describe()</span></code> method to examine some basic properties of our data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1301,9 +1590,9 @@
 </div></div></div>
 </div>
 <p>Since <code class="docutils literal notranslate"><span class="pre">RT</span></code> is the only continuous variable in this DataFrame, we only get descriptive statistics for this variable.</p>
-</div>
-<div class="section" id="examining-distributions-with-histograms">
-<h2>Examining distributions with histograms<a class="headerlink" href="#examining-distributions-with-histograms" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="examining-distributions-with-histograms">
+<h2>Examining distributions with histograms<a class="headerlink" href="#examining-distributions-with-histograms" title="Permalink to this headline">#</a></h2>
 <p><strong>Histograms</strong> are a type of plot that allows us to view distributions of values. The <em>x</em> axis of a histogram represents the values in the data, and the <em>y</em> axis shows the count of how many trials had that value on the <em>x</em> axis. Values on the <em>x</em> axis are grouped into <em>bins</em> — ranges of values.</p>
 <p>In Seaborn, we use the <code class="docutils literal notranslate"><span class="pre">displot()</span></code> function to plot distributions. Histograms are one type of <code class="docutils literal notranslate"><span class="pre">displot</span></code>, but they are the default, so we can just run the following:</p>
 <div class="cell docutils container">
@@ -1318,8 +1607,8 @@
 </div>
 </div>
 <p>Comparing the range of values on the <em>x</em> axis with the <code class="docutils literal notranslate"><span class="pre">min</span></code> and <code class="docutils literal notranslate"><span class="pre">max</span></code> values from <code class="docutils literal notranslate"><span class="pre">df.describe()</span></code>, we see that the entire range of values is represented. The range of RT values have been binned into 11 categories, in order to draw the 11 bars in the histogram. We can see that the most common values of RT are between approximately 0.5 – 0.6 s, which corresponds to the median (<code class="docutils literal notranslate"><span class="pre">50%</span></code>) value shown by <code class="docutils literal notranslate"><span class="pre">pd.describe()</span></code>. We can also see that the data are slightly <em>skewed</em> — there is a wider range of values to the right than the left of the peak. Visualizing distributions is thus a useful way of examining your data, and you can likely glean more information from this plot, more quickly and easily, than from the descriptive statistics table above.</p>
-<div class="section" id="tweaking-seaborn-plots">
-<h3>Tweaking Seaborn plots<a class="headerlink" href="#tweaking-seaborn-plots" title="Permalink to this headline">¶</a></h3>
+<section id="tweaking-seaborn-plots">
+<h3>Tweaking Seaborn plots<a class="headerlink" href="#tweaking-seaborn-plots" title="Permalink to this headline">#</a></h3>
 <p>We can adjust the parameters of the histogram with a few kwargs, including adjusting <em>technical</em> aspects of how the data are treated to create the plot (like the number of bins), and <em>aesthetic</em> aspects of how it is represented visually (like the colour).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1336,9 +1625,9 @@
 </div>
 <p>In the above plot we increased the number of bins from the default to 25. You can see that the histogram looks less  smooth than it did with fewer bins — increasing the number of bins decreases the number of data points in the bins, which in turn results in greater random variability.</p>
 <p>By default (when you don’t specify a number of bins), the software makes a decision based on characteristics of the data, which usually results in sensible bin sizes.</p>
-</div>
-<div class="section" id="what-to-plot-on-the-histogram-y-axis">
-<h3>What to plot on the histogram <em>y</em> axis<a class="headerlink" href="#what-to-plot-on-the-histogram-y-axis" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="what-to-plot-on-the-histogram-y-axis">
+<h3>What to plot on the histogram <em>y</em> axis<a class="headerlink" href="#what-to-plot-on-the-histogram-y-axis" title="Permalink to this headline">#</a></h3>
 <p>By default, on the <em>y</em> axis Seaborn plots the count of the number of data points in each bin. This isn’t always the best measure. It’s fine if you just want to look at how values are distributed over the variable on the <em>x</em> axis, but if you want to compare histograms, the scale can be deceiving if the total number of data points in different plots is different. For this reason, we can <em>scale</em> the data in different ways.</p>
 <p>Particularly useful is to <strong>normalize</strong> the data. For example, you can use <code class="docutils literal notranslate"><span class="pre">stat='probability'</span></code> to make every histograms bar heights sum to 1. This means that the <em>y</em> axis now reflects the proportion (percentage) of the data in each bin.</p>
 <div class="cell docutils container">
@@ -1353,9 +1642,9 @@
 <img alt="../_images/seaborn_26_0.png" src="../_images/seaborn_26_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="kernel-density-estimate">
-<h3>Kernel density estimate<a class="headerlink" href="#kernel-density-estimate" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="kernel-density-estimate">
+<h3>Kernel density estimate<a class="headerlink" href="#kernel-density-estimate" title="Permalink to this headline">#</a></h3>
 <p>An alternative form of ditribution plot in Seaborn is the <em>kernel density estimate</em> (<code class="docutils literal notranslate"><span class="pre">kde</span></code>; often more simply called a “density plot”). This is like a histogram, but plots smooth curves over the range of values rather than bins as bars. This is another kind of normalization, but rather than making the heights of the bars sum to 1, the density estimate makes the area under the smoothed curve equal to 1.</p>
 <p>Note however that while histograms represent, literally, the number of data points in each bin, the KDEs are <em>estimates</em> of the true distribution, and are effectively smoothed and thus slightly less accurate representations of the data you have. On the other hand, KDEs are <em>models</em> that predict what the true distirbution would be, if more data was collected.</p>
 <p>In practice, the difference between histograms and KDEs is relatively small in terms of how one might interpret what they show, but this distinction between literal presentations of data and estimates meant to generalize beyond the data is an important concept that cuts through all of data science.</p>
@@ -1373,10 +1662,10 @@
 </div>
 </div>
 <p>Density plots arguably make more sense for continuous variables like reaction time, since they represent continuous variables in a more continuous fashion.</p>
-</div>
-</div>
-<div class="section" id="viewing-the-data-by-condition">
-<h2>Viewing the data by condition<a class="headerlink" href="#viewing-the-data-by-condition" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="viewing-the-data-by-condition">
+<h2>Viewing the data by condition<a class="headerlink" href="#viewing-the-data-by-condition" title="Permalink to this headline">#</a></h2>
 <p>As noted, the experiment had two conditions, words and nonwords. So far we’ve looked at the data overall, combining RTs from those two conditions. But it’s easy to look at the data broken down by condition.</p>
 <p>Firstly, we can use pandas’ <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> method to get descriptive statistics:</p>
 <div class="cell docutils container">
@@ -1474,9 +1763,9 @@
 </div>
 <p>The grey area in the plot represents overlap.</p>
 <p>You can see that Seaborn does lots of nice things to the plot automatically, that make it easy to interpret: there are meaningful labels on both axes, and a legend telling us what each colour represents.</p>
-</div>
-<div class="section" id="colour-choice">
-<h2>Colour Choice<a class="headerlink" href="#colour-choice" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="colour-choice">
+<h2>Colour Choice<a class="headerlink" href="#colour-choice" title="Permalink to this headline">#</a></h2>
 <p>Seaborn has a default <em>palette</em>, or set of colours, that it uses in sequence. You can see this with:
 sns.color_palette()</p>
 <div class="cell docutils container">
@@ -1531,20 +1820,20 @@ sns.color_palette()</p>
 <img alt="../_images/seaborn_42_0.png" src="../_images/seaborn_42_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="categorical-plots">
-<h2>Categorical Plots<a class="headerlink" href="#categorical-plots" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="categorical-plots">
+<h2>Categorical Plots<a class="headerlink" href="#categorical-plots" title="Permalink to this headline">#</a></h2>
 <p>Histograms and KDEs are used to visualize the distribution of continuous variables, like RT in our example data set.  We can also plot categorical variables, by drawing different histograms/KDEs for each category, like for word vs. nonword in the plots above. These plots are most useful for visualizing the <em>shape</em> of the distributions of the data. This is an important first step in working with data, because some ways of treating data (including statistical tests like <em>t</em>-tests and ANOVAs) assume that the data are normally distributed, (the classic “bell curve”), and may not work as well or as accurately on data that have very different distributions. On the other hand, in such cases other approaches to analyzing the data could be more appropriate.</p>
 <p>That said, once we understand the distribution of the data, we might want to focus more on assessing whether there are differences between different categories (such as experimental conditions, or groups). This is where Seaborn’s <code class="docutils literal notranslate"><span class="pre">catplot()</span></code> family of plots comes into play.</p>
 <p><code class="docutils literal notranslate"><span class="pre">sns.catplot()</span></code> has 6 different plotting options, as shown in the figure at the top of this lesson. All of them allow us to view the distribution of the data, but in different ways, and often with a focus more on showing the mean, or median. This allows us to more easily compare differences between conditions, while considering the extent to which their distributions overlap or not. We’ll show a few of them in this lesson.</p>
-<div class="section" id="box-plots">
-<h3>Box plots<a class="headerlink" href="#box-plots" title="Permalink to this headline">¶</a></h3>
+<section id="box-plots">
+<h3>Box plots<a class="headerlink" href="#box-plots" title="Permalink to this headline">#</a></h3>
 <p>Box plots (sometimes called box-and-whisker plots) are a classic and widely-used approach to comparing between categorical variables. The “box” shows the <strong>interquartile range</strong> (IQR) — the range between the 25th and 75th percentiles of the data. In other words, half of the data falls within this box. The line inside the box represents the <strong>median</strong>, or the value exactly in the middle of all the values in the data set. The whiskers (lines extending out from the box) end at ±1.5 x the IQR (more on that in a minute), and then any points plotted outside the whiskers are considered outliers. The idea behind this is that the whiskers end at what might reasonably be predicted to reflect the minimum and maximum values in the distribution, and any outliers are likely to be inaccurate measurements or other types of “noise”. Below is a figure showing how the box plot mas on to the normal distribution, which is a helpful way to think about interpreting box plots.</p>
 <p><img alt="" src="../_images/Boxplot_vs_PDF.png" /></p>
 <p><em>Image from <a class="reference external" href="https://en.wikipedia.org/wiki/User:Jhguch">Jhguch</a> and shared under the  <a class="reference external" href="https://creativecommons.org/licenses/by-sa/2.5/deed.en">Creative Commons Attribution-Share Alike 2.5 Generic</a> license</em></p>
-</div>
-<div class="section" id="drawing-box-plots-with-seaborn">
-<h3>Drawing box plots with Seaborn<a class="headerlink" href="#drawing-box-plots-with-seaborn" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="drawing-box-plots-with-seaborn">
+<h3>Drawing box plots with Seaborn<a class="headerlink" href="#drawing-box-plots-with-seaborn" title="Permalink to this headline">#</a></h3>
 <p>We use <code class="docutils literal notranslate"><span class="pre">sns.catplot()</span></code> with the <code class="docutils literal notranslate"><span class="pre">kind='box'</span></code> kwarg:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1562,10 +1851,10 @@ sns.color_palette()</p>
 </div>
 <p>We can see from this that the distributions of the two conditions appear quite different, and indeed their IQRs do not overlap at all. This gives us good confidence that RTs are probably different in the two conditions. You can also see that there are a few outliers (the diamonds outside the whiskers).</p>
 <p>Although we lose some of the details of the distribution in going from a histogram to a box plot, we gain some simplicity, and it’s easier to assess how different our different conditions are.</p>
-</div>
-</div>
-<div class="section" id="violin-plots">
-<h2>Violin Plots<a class="headerlink" href="#violin-plots" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="violin-plots">
+<h2>Violin Plots<a class="headerlink" href="#violin-plots" title="Permalink to this headline">#</a></h2>
 <p>A violin plot is in some ways the “best of both worlds”, combining a box plot with a KDE. Note that the syntax of this plot is identical to that for the box plot above, except the <code class="docutils literal notranslate"><span class="pre">kind</span></code> kwarg.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1585,9 +1874,9 @@ sns.color_palette()</p>
 <p>In adding the distribution plot to the box plot, you gain detail, but perhaps at the cost of the simplicity of a box plot, and its usefulness in making inferences about differences between conditions.</p>
 <div class="alert alert-block alert-info">
 I'll comment for the record that "violin" plot is a terrible name — if the distribution of your data was actually shaped like a violin that would be very suspicious! I prefer Salem Waligura-Newman's name for them, which is "stingray plots". But sadly, once a name is out there, it sticks so you should get used to calling them violin plots. 
-</div></div>
-<div class="section" id="strip-and-swarm-plots">
-<h2>Strip and Swarm plots<a class="headerlink" href="#strip-and-swarm-plots" title="Permalink to this headline">¶</a></h2>
+</div></section>
+<section id="strip-and-swarm-plots">
+<h2>Strip and Swarm plots<a class="headerlink" href="#strip-and-swarm-plots" title="Permalink to this headline">#</a></h2>
 <p>These are quite similar, and both plot the actual individual data points.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1618,9 +1907,9 @@ I'll comment for the record that "violin" plot is a terrible name — if the di
 <img alt="../_images/seaborn_53_0.png" src="../_images/seaborn_53_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="bar-plots">
-<h2>Bar plots<a class="headerlink" href="#bar-plots" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="bar-plots">
+<h2>Bar plots<a class="headerlink" href="#bar-plots" title="Permalink to this headline">#</a></h2>
 <p>These are classic ways of representing data, that focus more on showing and comparing means for different conditions, than on the distribution. The “error bars” (black bars at the top of each bar below) represent 95% confidence intervals, which are a way of representing variance that is better-suited for comparing between means, than for assessing the shape or breadth of the distribution. You can see below that the bar plots lose a lot of the information about the distributions of data, relative to box plots or any of the other plots above.</p>
 <p>Another limitation of bar plots is that they are “anchored” at zero. For some data this makes sense, especially if the data values relative to zero are meaningful. But in many cases — including our current RT data — this doesn’t make a lot of sense. An RT of zero would be considered invalid data, since the human nervous system can’t execute a response to a stimulus at the speed of light. So our experiment is not really concerned with how much slower than zero a person responded. As well, if your data values are far from zero, and the differences between conditions are relatively small, then bar plots make make the differences look meaninglessly small, because the <em>y</em> axis has to span the entire range from zero to the maximum value in the plot.</p>
 <div class="cell docutils container">
@@ -1637,9 +1926,9 @@ I'll comment for the record that "violin" plot is a terrible name — if the di
 <img alt="../_images/seaborn_55_0.png" src="../_images/seaborn_55_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="point-and-line-plots">
-<h2>Point and Line Plots<a class="headerlink" href="#point-and-line-plots" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="point-and-line-plots">
+<h2>Point and Line Plots<a class="headerlink" href="#point-and-line-plots" title="Permalink to this headline">#</a></h2>
 <p>Point plots generally are a better choice when you want to focus on comparing means between categories, because they simply show the means as points, with 95% confidence intervals. The scale of the plots will be more appropriate, without the visual bias that bar plots create by filling the range from zero to the mean of each condition with a big block of colour.</p>
 <p>By default, Seaborn draws lines connecting the points in a plot. This is only really appropriate if your categories are “connected” in some meaningful way, such as different time points (e.g., pre- vs. post-treatment for some intervention), or when you have multiple categorical variables.</p>
 <div class="cell docutils container">
@@ -1671,10 +1960,10 @@ I'll comment for the record that "violin" plot is a terrible name — if the di
 <img alt="../_images/seaborn_59_0.png" src="../_images/seaborn_59_0.png" />
 </div>
 </div>
-</div>
+</section>
 <hr class="docutils" />
-<div class="section" id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Seaborn makes it easy to generate plots useful for EDA</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">relplot()</span></code> is used for visualizing relationships between two continuous variables</p></li>
@@ -1684,8 +1973,8 @@ I'll comment for the record that "violin" plot is a terrible name — if the di
 <li><p>In EDA, it’s often useful to visualize the data many ways to really understand it. Even still, it’s important to have an understanding of the strengths and limitations of different kinds of plots</p></li>
 <li><p>Seaborn makes it relatively easy to generate plots and adjust properties such as colour and font size, and as well as making plots accessible to the widest range of viewers</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1709,9 +1998,11 @@ I'll comment for the record that "violin" plot is a terrible name — if the di
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="plotting_types.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1727,26 +2018,28 @@ I'll comment for the record that "violin" plot is a terrible name — if the di
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Aaron J Newman<br/>
-        
-            &copy; Copyright 2020-21. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
-      </p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Aaron J Newman<br/>
+  
+      &copy; Copyright 2020-21. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+</p>
+        </footer>
     </div>
-  </footer>
-</main>
+    
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Heat Maps &#8212; Data Science for Psychology and Neuroscience — in Python</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,36 +20,35 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="http://neuraldatascience.io/6-single_unit/heat_maps.html" />
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
@@ -72,7 +73,21 @@
                     </script>
 
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -81,9 +96,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -101,14 +117,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Welcome
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   About This Course
  </span>
@@ -515,15 +532,52 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../3-python/working_w_data.html">
-   Working with Data
+  <a class="reference internal" href="../3-python/flow_control.html">
+   Flow Control
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
   <label for="toctree-checkbox-9">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="simple">
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/for_loops.html">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       for
+      </span>
+     </code>
+     Loops
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/conditionals.html">
+     Conditionals
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../3-python/working_w_data.html">
+   Working with Data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/pandas_dataframes.html">
+     pandas DataFrames
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3-python/looping_data_files.html">
+     Looping Over Data Files
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -630,8 +684,8 @@
   <a class="reference internal" href="single_unit_intro.html">
    Single Unit Data and Spike Trains
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-  <label for="toctree-checkbox-10">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -657,8 +711,8 @@
   <a class="reference internal" href="intro_multielec_data.html">
    Introducing Multielectrode Data
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-  <label for="toctree-checkbox-11">
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -696,8 +750,8 @@
   <a class="reference internal" href="../7-eeg/approaches.html">
    EEG in the Time and Frequency Domains
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-  <label for="toctree-checkbox-12">
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -728,8 +782,8 @@
   <a class="reference internal" href="../7-eeg/erp_preprocessing.html">
    EEG-ERP Preprocessing
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-  <label for="toctree-checkbox-13">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -808,107 +862,209 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/6-single_unit/heat_maps.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/DalPsychNeuro/NESC_3505_textbook"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2F6-single_unit/heat_maps.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/6-single_unit/heat_maps.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/DalPsychNeuro/NESC_3505_textbook/master?urlpath=tree/6-single_unit/heat_maps.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/DalPsychNeuro/NESC_3505_textbook"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/DalPsychNeuro/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2F6-single_unit/heat_maps.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/6-single_unit/heat_maps.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#learning-objectives">
    Learning Objectives
@@ -1015,21 +1171,143 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Heat Maps</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#learning-objectives">
+   Learning Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-the-data">
+   Load the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#define-experimental-parameters">
+   Define experimental parameters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#format-data-as-histograms">
+   Format data as histograms
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-array-of-histograms">
+   Create array of histograms
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#draw-heat-map">
+   Draw heat map
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#format-the-heat-map">
+   Format the heat map
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#label-the-heat-map">
+   Label the heat map
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#add-a-colourbar">
+   Add a colourbar
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#clean-up-the-colourbar">
+     Clean up the colourbar
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interpretation">
+   Interpretation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#considerations-in-generating-heat-maps">
+   Considerations in generating heat maps
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filling-in-the-blanks-interpolation">
+     Filling in the blanks: Interpolation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#colour-map-choices">
+     Colour Map Choices
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#luminance">
+     Luminance
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#colourblindness">
+     Colourblindness
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#perceptual-uniformity">
+     Perceptual uniformity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#violations-of-perceptual-uniformity">
+     Violations of perceptual uniformity
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="heat-maps">
-<h1>Heat Maps<a class="headerlink" href="#heat-maps" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="heat-maps">
+<h1>Heat Maps<a class="headerlink" href="#heat-maps" title="Permalink to this headline">#</a></h1>
 <p><a class="reference external" href="https://youtu.be/0BCmWZSfyWA">Watch a walk-through of this lesson on YouTube</a></p>
 <hr class="docutils" />
-<div class="section" id="learning-objectives">
-<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
+<section id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Visualize spike train data along two dimensions using heat maps</p></li>
 <li><p>Create a 2D NumPy array of histograms to generate this plot</p></li>
@@ -1039,10 +1317,10 @@
 <li><p>Understand how colour choice can influence the interpretation of heat maps</p></li>
 <li><p>Make well-reasoned choices about colour map selection</p></li>
 </ul>
-</div>
+</section>
 <hr class="docutils" />
-<div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
 <p>Heat maps are another way of plotting spike train data. An example is below:</p>
 <p><img alt="" src="../_images/heat_map.png" /></p>
 <p>Like a PSTH, the heat map has time on the <em>x</em> axis, and plots the probability of spikes at each time point. But we’re able to show all intensity levels in a single plot, by putting intensity on the <em>y</em> axis and using colour, rather than bar height, to represent the number of spikes. Heat maps are a more condensed, information-rich, and efficient version of the PSTHs: rather than needing 10 plots to show the histograms for all 10 levels of intensity, we do so in a single plot. Heat maps allow us to plot <em>three dimensions</em> rather than only two; we have the <em>x</em> and <em>y</em> axes, and then we can plot a third variable (dimension) using colour (or intensity of colour). Think of it the above plot rotated in a plane, so that if before, you were looking at the plot from the side, now you’re looking at it from above. More intense colours indicate a higher spike probability at that time point.</p>
@@ -1056,9 +1334,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="load-the-data">
-<h2>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="load-the-data">
+<h2>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spikes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ten_intensities.csv&#39;</span><span class="p">)</span>
@@ -1066,9 +1344,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="define-experimental-parameters">
-<h2>Define experimental parameters<a class="headerlink" href="#define-experimental-parameters" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="define-experimental-parameters">
+<h2>Define experimental parameters<a class="headerlink" href="#define-experimental-parameters" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stim_on</span> <span class="o">=</span> <span class="mi">4</span>   <span class="c1"># time stimulus turned on</span>
@@ -1080,9 +1358,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="format-data-as-histograms">
-<h2>Format data as histograms<a class="headerlink" href="#format-data-as-histograms" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="format-data-as-histograms">
+<h2>Format data as histograms<a class="headerlink" href="#format-data-as-histograms" title="Permalink to this headline">#</a></h2>
 <p>Since heat maps are histograms, and <code class="docutils literal notranslate"><span class="pre">ax.imshow()</span></code> is designed to plot 2D arrays, we’ll need to first convert the data to histograms for each intensity level, and then combine these into a 2D array.</p>
 <p>Critically, here we are <em>creating</em> histograms for each intensity level in a loop, but not plotting them. That is, we will use the <code class="docutils literal notranslate"><span class="pre">np.histogram()</span></code> function to compute the histogram at each intensity level, and store it in a NumPy array. <code class="docutils literal notranslate"><span class="pre">np.histogram()</span></code> outputs two results: the histogram (a 1D array with a count of the number of spikes in each bin), and the <em>edges</em> of the bins (the values used to map the counts in each bin to positions on the <em>x</em> axis of the plot). Let’s run this function just for one intensity level (9) so that we can see what the histogram looks like as a NumPy array:</p>
 <div class="cell docutils container">
@@ -1133,9 +1411,9 @@ Bins has 22 values
 <img alt="../_images/heat_maps_9_1.png" src="../_images/heat_maps_9_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="create-array-of-histograms">
-<h2>Create array of histograms<a class="headerlink" href="#create-array-of-histograms" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="create-array-of-histograms">
+<h2>Create array of histograms<a class="headerlink" href="#create-array-of-histograms" title="Permalink to this headline">#</a></h2>
 <p>Since we don’t want a bar plot of our histogram but a heat map, we just save the histograms into a 2D array and then plot them as a heat map. The 2D array we’ll create is shaped exactly like the heat map we want to plot like the one above: with time as columns, and intensity levels as rows. Since we know in advance the dimensions of this array (10 rows and 21 columns), we can make a NumPy array of that shape (with a function called <code class="docutils literal notranslate"><span class="pre">np.zeros()</span></code>, which fills all cells with zero to start) and then fill each row as we go through the loop of intensities. Note that we’re only saving the histogram part of the <code class="docutils literal notranslate"><span class="pre">np.histogram()</span></code> function, not the bins, since the bins are the same for every histogram.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1172,9 +1450,9 @@ Bins has 22 values
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="draw-heat-map">
-<h2>Draw heat map<a class="headerlink" href="#draw-heat-map" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="draw-heat-map">
+<h2>Draw heat map<a class="headerlink" href="#draw-heat-map" title="Permalink to this headline">#</a></h2>
 <p>Now that we have our array of histograms, we simply pass it as the single argument to <code class="docutils literal notranslate"><span class="pre">plt.imshow()</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1190,9 +1468,9 @@ Bins has 22 values
 <div class="alert alert-block alert-info">
 <p>You may notice we’re using procedural plotting with <code class="docutils literal notranslate"><span class="pre">plt</span></code> functions rather than than using the object-oriented approach you’ve been encouraged to use. This is because, when we just want to show one plot and not worry about details, this approach uses only one line of code.
 </div></p>
-</div>
-<div class="section" id="format-the-heat-map">
-<h2>Format the heat map<a class="headerlink" href="#format-the-heat-map" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="format-the-heat-map">
+<h2>Format the heat map<a class="headerlink" href="#format-the-heat-map" title="Permalink to this headline">#</a></h2>
 <p>The above plot is far less pretty than the one at the top of this section! We need to pass additional arguments to <code class="docutils literal notranslate"><span class="pre">plt.imshow()</span></code>, and then add some more generic Matplotlib tweaks in order to get it to look the way we want. While we’re at it, we’ll switch to object-oriented plotting.</p>
 <p>Below, the arguments we add are:</p>
 <ul class="simple">
@@ -1223,9 +1501,9 @@ Bins has 22 values
 <img alt="../_images/heat_maps_18_0.png" src="../_images/heat_maps_18_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="label-the-heat-map">
-<h2>Label the heat map<a class="headerlink" href="#label-the-heat-map" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="label-the-heat-map">
+<h2>Label the heat map<a class="headerlink" href="#label-the-heat-map" title="Permalink to this headline">#</a></h2>
 <p>Now we can add labels that help with interpretation, such as axis labels and a title.</p>
 <p>We’ll also use <code class="docutils literal notranslate"><span class="pre">ax.avline()</span></code> to draw lines on the plot for the stimulus on and off times, because this is critical information for interpreting the figure. This method plots a vertical line spanning the whole plot, at the point on the <em>x</em> axis you specify. Note that unlike the previous lessons, we don’t want to use shading to indicate the stimulus on period, because we’re using colour in this plot to represent spike rate.</p>
 <div class="cell docutils container">
@@ -1258,9 +1536,9 @@ Bins has 22 values
 <img alt="../_images/heat_maps_20_0.png" src="../_images/heat_maps_20_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="add-a-colourbar">
-<h2>Add a colourbar<a class="headerlink" href="#add-a-colourbar" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="add-a-colourbar">
+<h2>Add a colourbar<a class="headerlink" href="#add-a-colourbar" title="Permalink to this headline">#</a></h2>
 <p>The heat map is looking great, but viewers will still not know what the colours mean! What is “red” versus “yellow” in terms of number of spikes?</p>
 <p>To convey this information, we need a colourbar, which is effectively a legend explaining what values different colours map to.</p>
 <p>In order to plot a colourbar, we need to do something new when we generate our plot with <code class="docutils literal notranslate"><span class="pre">.imshow()</span></code>: we need to assign the result of this command to a variable name (<code class="docutils literal notranslate"><span class="pre">im</span></code>). This variable then acts as a <strong>pointer</strong> to the plot, meaning we can use it to refer to the plot later. This is how the method we use to generate the colourbar will get the data from the image. We haven’t assigned the output of Matplotlib commands to variables before, because we’ve had no need to, but now we do.</p>
@@ -1298,8 +1576,8 @@ Bins has 22 values
 <img alt="../_images/heat_maps_22_0.png" src="../_images/heat_maps_22_0.png" />
 </div>
 </div>
-<div class="section" id="clean-up-the-colourbar">
-<h3>Clean up the colourbar<a class="headerlink" href="#clean-up-the-colourbar" title="Permalink to this headline">¶</a></h3>
+<section id="clean-up-the-colourbar">
+<h3>Clean up the colourbar<a class="headerlink" href="#clean-up-the-colourbar" title="Permalink to this headline">#</a></h3>
 <p>So now we have a colourbar, but it’s huge! Fortunately there’s a kwarg for that: <code class="docutils literal notranslate"><span class="pre">shrink</span></code>. We’ll also make the figure larger so that things are more visible.</p>
 <p>Also, we’re going to add a text label to explain what the numbers on the colourbar are. To do this, we need to create a pointer to the colourbar (which technically is a second subplot in the figure) and then use that pointer to set the label.</p>
 <p>If this seems convoluted, it is — at least, it reflects the power and complexity of Matplotlib. We can’t simply add a “colourbar” kwarg to <code class="docutils literal notranslate"><span class="pre">.imshow()</span></code> because the colourbar actually needs to be its own subplot, and it relies on data created when the plot is draw. Procedures like this are typically something you figure out by finding examples like this one, or other tutorials on the web.</p>
@@ -1338,17 +1616,17 @@ Bins has 22 values
 <img alt="../_images/heat_maps_24_0.png" src="../_images/heat_maps_24_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="interpretation">
-<h2>Interpretation<a class="headerlink" href="#interpretation" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="interpretation">
+<h2>Interpretation<a class="headerlink" href="#interpretation" title="Permalink to this headline">#</a></h2>
 <p>The heat map above makes a few interesting properties of the data immediately evident, more clearly and concisely than ten PSTHs or raster plots. For example, it’s clear that spiking increases with stimulus intensity, particularly after 7 ms. It’s also apparent that there is a threshold level of intensity below which very little spiking occurs, and above which there are stronger responses to the stimuli.</p>
 <p>As well, the heat map shows — perhaps even more convincingly than the individual PSTHs in the previous lesson — that as intensity increases, the latency to first spike becomes shorter (i.e., the neuron spikes sooner after a more intense stimulus).</p>
-</div>
-<div class="section" id="considerations-in-generating-heat-maps">
-<h2>Considerations in generating heat maps<a class="headerlink" href="#considerations-in-generating-heat-maps" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="filling-in-the-blanks-interpolation">
-<h3>Filling in the blanks: Interpolation<a class="headerlink" href="#filling-in-the-blanks-interpolation" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="considerations-in-generating-heat-maps">
+<h2>Considerations in generating heat maps<a class="headerlink" href="#considerations-in-generating-heat-maps" title="Permalink to this headline">#</a></h2>
+<section id="filling-in-the-blanks-interpolation">
+<h3>Filling in the blanks: Interpolation<a class="headerlink" href="#filling-in-the-blanks-interpolation" title="Permalink to this headline">#</a></h3>
 <p>For better or for worse, a consequence of the bilinear interpolation is that it takes data that were measured at discrete levels of stimulus intensity, and interpolates between those levels to provide a smoothed representation of the data. In other words, it’s making inferences about what the values would be in between the tested levels of stimulus intensity. In contrast, in the original <em>nearest neighbour</em> heat map we created, each square in the plot represented the number of spikes in one bin in a PSTH. So the nearest neighbour approach is a more literal representation of the data, but the bilinear interpolation makes inferences about the data points we didn’t measure (and also just looks nicer to most people).</p>
 <p>This is not to imply that interpolation is invalid; indeed it’s a valuable tool and interpolation methods are mathematical formulae that are reproducible and well-understood. In this heat map, the dimensions on both the <em>x</em> and <em>y</em> axes (time and light intensity) are <span class="xref myst"><strong>continuous</strong></span> values that we have <span class="xref myst"><strong>discretized</strong></span> into a set of levels for the purposes of measuring spikes in this experiment. So interpolating between the measured values makes sense, because then we are representing these variables in a more continuous fashion than just the levels that we have data for.</p>
 <p>Nonetheless, it’s important to be aware of interpolation and consider what effects it might have in some situations. On the positive side, interpolation can reduce noise in the data by smoothing it. On the other hand, if there are big gaps in your data it may not be appropriate to interpolate, because interpolation makes certain assumptions about the shape (distribution) of your data - and the differences between interpolation methods amount to the differences in assumptions that are made.</p>
@@ -1408,9 +1686,9 @@ Bins has 22 values
 <img alt="../_images/heat_maps_27_0.png" src="../_images/heat_maps_27_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="colour-map-choices">
-<h3>Colour Map Choices<a class="headerlink" href="#colour-map-choices" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="colour-map-choices">
+<h3>Colour Map Choices<a class="headerlink" href="#colour-map-choices" title="Permalink to this headline">#</a></h3>
 <p>One final comment about the heat maps above: your choice of colour map (<code class="docutils literal notranslate"><span class="pre">cmap</span></code>) matters. One way to choose a colour map is based on one’s individual intuitions about aesthetics. For example, I personally think the one used above (<code class="docutils literal notranslate"><span class="pre">hot</span></code>) is quite attractive. However, it’s important to consider the neuroscience of how humans interpret colour. Even though the colour spectrum is continuous (wavelengths of electromagnetic radiation ranging from approximately 400–700 nm), we see it as distinct colours (classically, red, orange, yellow, green, blue, indigo, and violet). Although we can discriminate different hues within each of those colours, we nonetheless see colours categorically. In other words, two equally-different values at different parts of the colour range may not be perceived as the same magnitude of difference. For example in the bottom left (<code class="docutils literal notranslate"><span class="pre">cmap='jet'</span></code>) the green areas seem to ‘pop’ relative to the blue, and there is are patches of orange that really stand out.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1453,17 +1731,17 @@ Bins has 22 values
 <img alt="../_images/heat_maps_31_0.png" src="../_images/heat_maps_31_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="luminance">
-<h3>Luminance<a class="headerlink" href="#luminance" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="luminance">
+<h3>Luminance<a class="headerlink" href="#luminance" title="Permalink to this headline">#</a></h3>
 <p>Another issue with some colour maps are that they are not always <strong>isoluminent</strong>, meaning that the luminance (brightness) of some colours may be greater than others, again making some differences appear larger than others, even when those differences are of the same numerical size.</p>
-</div>
-<div class="section" id="colourblindness">
-<h3>Colourblindness<a class="headerlink" href="#colourblindness" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="colourblindness">
+<h3>Colourblindness<a class="headerlink" href="#colourblindness" title="Permalink to this headline">#</a></h3>
 <p>A final issue, discussed earlier in this book, is that a non-negligible proportion of the population has some form of colourblindness.  Recall that the incidence of colourblindness is such that if 20 people view a graph you make, the odds are at least one of them will not see the colours in your plot as you do (unless of course you are colourblind yourself).</p>
-</div>
-<div class="section" id="perceptual-uniformity">
-<h3>Perceptual uniformity<a class="headerlink" href="#perceptual-uniformity" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="perceptual-uniformity">
+<h3>Perceptual uniformity<a class="headerlink" href="#perceptual-uniformity" title="Permalink to this headline">#</a></h3>
 <p>In other words, choosing the wrong colour map can mislead viewers in interpreting the data, and may also result in your plots being uninterpretable by some viewers. You should pick a colour map that is <strong>perceptually uniform</strong> (e.g., nearby values have similar-appearing colours across the range), and robust to colourblindness. An excellent choice is one of the <a class="reference external" href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">Viridis</a> family of colourmaps, which were explicitly designed to have these properties, and also be aesthetically appealing. The four colourmaps in the Viridis family is used below.</p>
 <div class="alert alert-block alert-info">
 <p>There is a great app that simulates different forms of colourblindness on your computer, called <a href='https://colororacle.org'>Color Oracle</a> — it’s worth checking out!</p>
@@ -1520,9 +1798,9 @@ Bins has 22 values
 <img alt="../_images/heat_maps_33_0.png" src="../_images/heat_maps_33_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="violations-of-perceptual-uniformity">
-<h3>Violations of perceptual uniformity<a class="headerlink" href="#violations-of-perceptual-uniformity" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="violations-of-perceptual-uniformity">
+<h3>Violations of perceptual uniformity<a class="headerlink" href="#violations-of-perceptual-uniformity" title="Permalink to this headline">#</a></h3>
 <p>Compare these plots to  ones above that use non-Viridis colourmaps (including the ones above, and some more examples below) and ask yourself how your perception and interpretation of the plots changes between them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1577,11 +1855,11 @@ Bins has 22 values
 </div>
 </div>
 <p>In all of these last four plots, the colour maps make continuous differences look highly <em>dis</em>continuous</p>
-</div>
-</div>
+</section>
+</section>
 <hr class="docutils" />
-<div class="section" id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Heat maps allow us to visualize the relationship between three continuous variables, using colour to represent one variable</p></li>
 <li><p>A heat map is effectively a 2D image, and can be represented by a 2D NumPy array</p></li>
@@ -1592,8 +1870,8 @@ Bins has 22 values
 <li><p>The choice of colour scales in heat maps and other images is even more important than for other types of plots, because non-linear changes in hue (colour) or intensity (luminance) can trick the human eye/brain into seeing continuous data as more discontinuous. Such distortions can interfere with correct interpretation of the data.</p></li>
 <li><p>It is best to use an isoluminant, perceptually uniform colour scale when plotting continuous data such as heat maps and other images.</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1617,9 +1895,11 @@ Bins has 22 values
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="ten_intensities.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1635,26 +1915,28 @@ Bins has 22 values
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Aaron J Newman<br/>
-        
-            &copy; Copyright 2020-21. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
-      </p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Aaron J Newman<br/>
+  
+      &copy; Copyright 2020-21. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.<br/>
+</p>
+        </footer>
     </div>
-  </footer>
-</main>
+    
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>
