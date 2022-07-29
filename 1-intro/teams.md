@@ -1,4 +1,4 @@
-```{figure} images/teams_logo.png
+```{figure} ./images/teams_logo.png
 ---
 align: left
 width: 65px
