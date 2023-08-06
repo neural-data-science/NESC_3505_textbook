@@ -6,7 +6,9 @@ The great thing about code, compared to learning a language, is that instead of 
 
 So yes, you will make errors. All the time. An important part about learning successfully in this course is accepting that these errors are a natural part of learning, and getting used to figuring out how to solve them. Here, I try to provide some tips in that regard.
 
+First off, AI assistants will significantly reduce the number of errors you make. But you will not be able to use them effectively if you can't understand the code they generate. In this way, by reading, running, and modifying AI-generated code, you will being to learn how to code. You will also learn how to recognize and correct mistakes (debugging). This is a critical skill for any coder or data scientist, and it's something you will be doing throughout this course.
 
+## How to deal with Errors
 
 Firstly, when you make an error, you will likely get some sort of error message — although it's possible your code did *something*, it just doesn't give you the right result. If you get an error message, it will probably look scary, complicated, and confusing. It may even show you way more lines of python code than you actually wrote! It's OK — often, most of the error message isn't that important. Sometimes, the first thing to do is just note *that* you got an error, and look at your code again. Many errors are due to typos. In programming, you have to be precise with things like spelling, capitalization, spaces, indents, colons, semicolons, commas, periods, even different types of brackets! It will take a while to get used to this. Often you'll catch an error just by looking at your code more closely.
 
