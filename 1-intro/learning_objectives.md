@@ -5,6 +5,8 @@ The learning outcomes for this class can be characterized as a mix of “hard”
 ## Hard Skills
 - Extract meaning from data, but also articulate the limitations of the conclusions you can draw from it
 - Write functional and efficient code in Python to perform basic data science tasks
+- Use AI tools to generate Python code to perform basic data science tasks
+- Understand, evaluate, debug, and improve AI-generated code
 - Read and write data files in common formats such as CSV and Excel
 - Organize and manipulate data structures
 - Work with continuous, discrete, and factorial data
@@ -16,12 +18,11 @@ The learning outcomes for this class can be characterized as a mix of “hard”
 - Extend your Python skills using online resources
 
 ## Soft Skills
-- demonstrate a professional work ethic
-- be effective and productive in a hybrid/remote working environment
-- work collaboratively, effectively, and productively in a distributed team
-- manage projects: manage time and human resources effectively to achieve specific objectives on a stated timeline
-- peer-review the work of other team members
-- teach others skills and solutions you discover, and communicate your approach to discovering these
-- articulate your strengths and weaknesses as a data scientist working in a team, and identify ways to improve your abilities
-- demonstrate skills you have developed using a portfolio of work, to potential supervisors/employers
-- use, and communicate the value of, open and reproducible code and data
+- Demonstrate a professional work ethic
+- Be effective and productive in a hybrid/remote working environment
+- Work collaboratively, effectively, and productively in a distributed team
+- Peer-review the work of other team members
+- Teach others skills and solutions you discover, and communicate your approach to discovering these
+- Articulate your strengths and weaknesses as a data scientist working in a team, and identify ways to improve your abilities
+- Demonstrate skills you have developed using a portfolio of work, to potential supervisors/employers
+- Use, and communicate the value of, open and reproducible code and data
