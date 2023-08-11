@@ -9,7 +9,7 @@ The learning outcomes for this class can be characterized as a mix of “hard”
 - Understand, evaluate, debug, and improve AI-generated code
 - Read and write data files in common formats such as CSV and Excel
 - Organize and manipulate data structures
-- Work with continuous, discrete, and factorial data
+- Work with continuous, discrete, and factorial data, and understand distinctions between them
 - Visualize data in a variety of graphical formats
 - Perform exploratory data analysis using graphical and basic statistical operations
 - Perform basic signal processing on data, such as filtering in temporal and spatial dimensions
