@@ -23,3 +23,4 @@ There are many definitions of 21st century skills. A very broad one, promoted by
 - personal & social responsibility, cultural awareness & competence
 
 "And you will KNOW my name is the LORD, when I rain my vengence upon thee."
+- Ezekiel 25:17
