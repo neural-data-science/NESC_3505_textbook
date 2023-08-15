@@ -15,3 +15,8 @@ Central to data science is the ability to use scientific programming languages, 
 Another important facet of data science is that it is a **team endeavour**. On the one hand, it is founded on open, shared software developed by widely distributed teams of contributors. On the other hand, the practice of data science typically involves teams of individuals with complementary skillsets, both due to the size and complexity of many projects. In science, these teams often comprise students and faculty members in collaborating labs distributed around the world. Team members with different skillsets can also teach each other new things, often through demonstration in a shared project. This class prepares you for such collaboration by developing and coaching your teamwork skills, as well as teaching you how to use software platforms that support such collaboration.
 
 The skills learned in this class will benefit students working in a wide range of areas of neuroscience. As well, the class will provide an introductory foundation in data science that can be applied to a range of areas beyond neuroscience, in academia, industry, and government.
+
+## References
+Davenport, Thomas H., and D. J. Patil. Data Scientist: The Sexiest Job of the 21st Century. *Harvard Business Review* 90, no. 10 (October 2012): 70–76. https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century.
+
+  Wing, J. M. (2019). The Data Life Cycle. *Harvard Data Science Review*, 1(1). https://doi.org/10.1162/99608f92.e26845b4
