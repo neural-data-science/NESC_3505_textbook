@@ -20,7 +20,7 @@ width: 65px
 
 ### Adding videos to Stream
 
-If you make a video for your [demos](https://dalpsychneuro.github.io/NESC_3505/syllabus#demos), you can upload it to Stream or YouTube. Done according to the instructions below, this will make your demo video visible to everyone in the class, but no one outside the class. *Please use Stream for your demo videos, rather than sharing via any other platform*. This keeps everything in one place, easy for us and your peers to find.
+If you make a video for your [demos](https://neural-data-science.github.io/NESC_3505/syllabus#demos), you can upload it to Stream or YouTube. Done according to the instructions below, this will make your demo video visible to everyone in the class, but no one outside the class. *Please use Stream for your demo videos, rather than sharing via any other platform*. This keeps everything in one place, easy for us and your peers to find.
 
 - You can make videos using the free Panopto software provided by Dalhousie, or you can use any number of other tools that allow screen (and possibly webcam) recording, including ones built into [MacOS](https://support.apple.com/en-ca/HT208721) and [Windows](https://support.microsoft.com/en-us/windows/record-a-game-clip-on-your-pc-with-xbox-game-bar-2f477001-54d4-1276-9144-b0416a307f3c).
 - Save/export the video in .mp4 format
