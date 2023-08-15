@@ -13,7 +13,7 @@ Each section of this chpater is a lesson, which will probably take you about 1-1
 
 The best way to work through this material is to have the video open in one window, and CoCalc in another, and be tying in the code to follow along with the instructor. The copies of these chapters in this textbook serve more as a reference that you can check back with later.
 
-After working through the lessons, you can get more practice with DataCamp. Refer to the course [schedule](https://dalpsychneuro.github.io/NESC_3505/schedule) to see which DataCamp lessons go with which course lessons. This chapter relates to the material taught in the first two DataCamp lessons, [Introduction to Python](https://learn.datacamp.com/courses/intro-to-python-for-data-science) and [Intermediate Python](https://learn.datacamp.com/courses/intro-to-python-for-data-science).
+After working through the lessons, you can get more practice with DataCamp. Refer to the course [schedule](https://neural-data-science.github.io/NESC_3505/schedule) to see which DataCamp lessons go with which course lessons. This chapter relates to the material taught in the first two DataCamp lessons, [Introduction to Python](https://learn.datacamp.com/courses/intro-to-python-for-data-science) and [Intermediate Python](https://learn.datacamp.com/courses/intro-to-python-for-data-science).
 
 ## Origins of this material
 
