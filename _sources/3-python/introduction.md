@@ -9,7 +9,7 @@ This chapter covers the material for about the first month of the course, which 
     - exploratory data analysis
     - basic statistical analyses of data sets
 
-Each section of this chpater is a lesson, which will probably take you about 1-1.5 hours to complete. Each lesson is a Jupyter notebook, which will also be available to you on CoCalc. As well, there are videos posted in which the instructor walks through each notebook and explains things.
+Each section of this chapter is a lesson, which will probably take you about 1-1.5 hours to complete. Each lesson is a Jupyter notebook, which you can download (clone) from GitHub. As well, there are videos posted in which the instructor walks through each notebook and explains things.
 
 The best way to work through this material is to have the video open in one window, and CoCalc in another, and be tying in the code to follow along with the instructor. The copies of these chapters in this textbook serve more as a reference that you can check back with later.
 

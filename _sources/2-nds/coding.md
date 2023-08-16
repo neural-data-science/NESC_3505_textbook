@@ -1,3 +1,3 @@
 # Coding Tools
 
-This class uses and teaching programming (coding) in Python. Beyond Python, there are a number of tools we will use, including DataCamp (a learning platform where you will do lessons) and Jupyter/CoCalc (a cloud-based environment for working with code and data).
+This class uses and teaching programming (coding) in Python. However, there are many different ways we can get and use Python (e.g., install it on our own computer, or run it in the cloud), numerous software packages and tools for writing and running Python code, and also a variety of tools for sharing and collaborating on code. In this section we will discuss the tools we will use in this class, and why we use them.
