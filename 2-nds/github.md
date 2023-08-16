@@ -40,6 +40,8 @@ GitHub builds extensively the functionality of the `git` tool in its cloud hosti
 
 This is an example of the power of open source software. The people who created GitHub and turned it into a multi-billion dollar business did not write git, and the developers of git did not share in the profits when GitHub was sold. Nonetheless, the git developers' work ultimately enabled the largest repository and distribution hub for free software in the world — something to be proud of, even if it didn't make them rich! On the other hand, had the git developers insistent on charging people to use git, then GitHub could not have offered its services to tens of millions of people for free.
 
+GitHub's data is [very well backed up](https://youtu.be/fzI9FNjXQ0o), and the company has a [**Disaster Response Team**](https://github.blog/2019-07-08-githubs-disaster-response-team/) that can be deployed to help recover data in the event of a disaster. GitHub's [**Arctic Code Vault**](https://archiveprogram.github.com/) is a project to preserve open-source software for 1,000 years, by storing it in a vault in the Arctic.
+
 GitHub's logo, seen at the top of this page, is called the **Octocat**, which has become a meme in its own right, and has its own GitHub page, the [**Octodex**](https://octodex.github.com/).
 
 ```{figure} images/mountietocat.png

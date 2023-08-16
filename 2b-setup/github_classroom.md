@@ -21,4 +21,11 @@ If you scroll down the page, you will see the contents of the README file. Read 
 
 The README file ends with a list of *Optional next steps*. You should do all of these steps, and then submit the assignment. We'll walk you through some of this, but some of it is left for you to figure out; the README provides you with all the resources you need to do all of these tasks.
 
-## Cloning the Repository to your Computer
+## Open the Repository in VS Code
+
+While still viewing the repository main page, click "Open in Visual Studio Code". This will open VS Code, and you will see a message that says something like, "Cloning into 'neural-data-science-2023-24-username'...". This means that VS Code is downloading the repository from GitHub and saving it to your computer. Once it's done, you will see a message that says "Successfully cloned 'neural-data-science-2023-24-username'". You will also see a new window open in VS Code, with the name of the repository at the top. This is the repository you just cloned from GitHub. You can now close the browser window that was open to GitHub.
+
+## Explore the Repository in VS Code
+
+The left side of VS Code contains a vertical row of icons, which is called the Activity Bar. Some of the icons there are present by default, while others represent extensions that you've installed. The top icon is the `Explorer`, which allows you to see all the files you have open. The typical way to work in VS Code is to open a particular folder (such as the folder containing a repository), in which case the Explorer will show you the files in your repository. You can click on a file to open it in the main VS Code Editor window. Click on the `README.md` file to view it in the editor.
+
