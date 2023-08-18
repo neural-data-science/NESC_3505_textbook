@@ -35,11 +35,10 @@ You should build good habits for committing and pushing right from the start. Th
 The habit you should get into is committing each time you think you've solved a problem or made meaningful progress on a project or assignment. When you're working, it would be a good idea to make a commit at least every hour, if not more frequently. If you have trouble establishing this habit, try setting a 20 minute timer on your phone, and commit every time it goes off. It doesn't hurt to push each commit as you make it.
 
 
+### Commit Your Changes to `README.md`
 
+If you look at the Source Control icon in the Activity Bar (the third icon from the top, with the three circles and two lines), you'll see that it has a number 1 beside it. This means that there is one file that has been changed, but not yet committed. Click on the Source Control icon to open the Source Control panel. You'll see a list of files that have been changed. In this case, there is only one file, `README.md`. Click  `+` icon beside the file name to "stage" it. This means that you want to commit this file. Once you've staged the file, you'll see that the number beside the Source Control icon has changed to 1+. This means that there is one file that has been staged, but not yet committed.
 
-..
-- explain save vs commit vs. push/sync
-- importance of regular commits, period pushes
 
 ## Create a New Markdown File
 One of the "next steps" at the bottom of the README file is to create a new Markdown file in the repository. To do this in VS Code, click on the `Explorer` icon in the Activity Bar. If this was already selected, then clicking will hide the list of files in the repository. Oops. If that happened, click the `Explorer` icon again to reveal the list of files. But if you already see the list of files (which is just the `README.md` file and the `.git` folder), you're good to go.
