@@ -26,6 +26,14 @@ Install each of these extensions, in this order:
 
 ---
 
+## Install the `git` Application (for Windows)
+
+If you are using Windows, you will need to install the `git` application. This is a command-line application that allows you to work with GitHub from within VS Code. To install it, go to [this page](https://git-scm.com/download/win) and download the installer. Run the installer, and accept all the default options (there are many to click through!). Once it's installed, you can close the installer.
+
+## Install the `git` Application for MacOS
+
+If you are using a Mac, you will need to install the `git` application. This is a command-line application that allows you to work with GitHub from within VS Code. To install it, go to [this page](https://git-scm.com/download/mac) and download the installer. Run the installer, and accept all the default options. Once it's installed, you can close the installer.
+
 ## Help VS Code find the git application (if necessary)
 
 While you can simply use GitHub desktop throughout this course to work with GitHub, it is also possible to work with GitHub from within VS Code. On a Mac, this requires a bit of extra work, as VS Code needs to be told where to find the `git` application that is installed with GitHub Desktop. If you are using Windows or Linux, you can skip this step. If you are using a Mac, first confirm that you need to do it: in VS Code, on the left-hand toolbar, click on the "Source Control" icon (it is usually the third icon down, and has three small circles connected by lines). If you see a message that says that you need to install git, then you need to do this step. If you see a message that includes buttons for "Open Folder" and "Clone Repository", then you're all set and you can skip this step.
