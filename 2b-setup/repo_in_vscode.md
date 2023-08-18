@@ -15,31 +15,7 @@ On your computer, by default the repository will be saved in `Documents/github-c
 ## Explore the Repository in VS Code
 The left side of VS Code contains a vertical row of icons, which is called the Activity Bar. Some of the icons there are present by default, while others represent extensions that you've installed. The top icon is the `Explorer`, which allows you to see all the files you have open. The typical way to work in VS Code is to open a particular folder (such as the folder containing a repository), in which case the Explorer will show you the files in your repository. You can click on a file to open it in the main VS Code Editor window. Click on the `README.md` file to view it in the editor.
 
-## Edit the README File
-Once you have the README file open in the VS Code editor, add some text to it. Something like `[your name] was here`. Save the modified file (File -> save from the menu, or Ctrl-S on Windows or Cmd-S on Mac). 
 
-## Make Your First Commit
-
-### What is a Commit?
-
-A git **commit** means you are "committing" the changes you've made to a file to your repository. Unlike many cloud services that automatically synchronize all your changes, `git` and GitHub require that you do this manually, and explicitly. This is a bit more work than you may be used to, but it's a good habit to get into. In software development, you might try different ways of solving a problem before you find one that works. There's no point in auto-saving a bunch of failed attempts. Moreover, the history of changes you make to your code on GitHub is important, because it allows you to go back to a previous version if you discover a mistake or bug later on. So again, you might not want that history littered with a bunch of failed attempts --- you just want to *commit* the solution you decide to use to the GitHub history. You can also add changes to a number of files in a single commit, which might be useful if those files interact with each other, so that your changes to one file were also associated with changes to other files. 
-
-Another benefit (that might feel like a hassle at first) of committing is that GitHub requires you to write a short (maximum 50 characters) **commit message** that describes the changes you've made. These become part of the history of the repository, which can be viewed by anyone with access to that repository. The message can be accompannied by a slightly longer Comment if you feel the need, but in general you only need to write a short message. Commit messages are vital to the history of a repository, because they document what changes were made when. So in general, they should be informative and descriptive. For example, if you are fixing a bug, you might write a commit message like, "Fix bug calculating mean of list". If you are adding a new feature, you might write, "New function to calculate the median of a list". If you are making a change to a file that is not code, you might write, "Add new section to README file".
-
-### Committing is Not Pushing
-
-When you commit changes to a file, these changes are **only saved to your local copy of the repository**. This is an additional "safety net" feature that ensures when you push changes to GitHub, that you are confident you really want to. Pushing is a separate step from committing, and it's important to understand the difference between committing and pushing. **Committing** is committing your changes to your local copy of the repository. *Pushing* is updating the repository on GitHub with the commits that you have made to your local copy. 
-
-You should build good habits for committing and pushing right from the start. The danger is that you do a lot of work without committing, and end up with a few challenges. One is that if you've made many changes, you may not remember them all, and regardless it would be too much to describe in a 50 character message. For another, if you made many changes before committing, your commit history becomes less helpful if you discover an error and need to backtrack. Large commits also pose challenges in pushing to GitHub --- they can take a very long time, and encouter errors. So it's best to commit often, and push regularly.
-
-The habit you should get into is committing each time you think you've solved a problem or made meaningful progress on a project or assignment. When you're working, it would be a good idea to make a commit at least every hour, if not more frequently. If you have trouble establishing this habit, try setting a 20 minute timer on your phone, and commit every time it goes off. It doesn't hurt to push each commit as you make it.
-
-
-### Commit Your Changes to `README.md`
-
-If you look at the Source Control icon in the Activity Bar (the third icon from the top, with the three circles and two lines), you'll see that it has a number 1 beside it. This means that there is one file that has been changed, but not yet committed. Click on the Source Control icon to open the Source Control panel. You'll see a list of files that have been changed, under `Changes`. In this case, there is only one file, `README.md`. Click  `+` icon beside the file name to "stage" it. This means that you want to commit this file. Once you've staged the file, it moves to the `Staged Changes` section. You can stage multiple files at once, if you want to commit them all together. Right now we just have one file to commit. 
-
-Next, write a commit Message in the box above the blue `Commit` button. Remember, this has a 50 character limit and should succinctly describe the change you made to the file. For example, you could write, "Add my name to README file". Once you've written your commit message, click the blue `Commit` button. This will commit your changes to the file, but it will not push them to GitHub. You can see that the number beside the Source Control icon has changed to 0, because there are no more changes to commit. As well, the blue button's label changes to `Sync Changes`. Clicking that button will now push your changes to GitHub. Do both your commit and push now.
 
 
 ## Create a New Markdown File
