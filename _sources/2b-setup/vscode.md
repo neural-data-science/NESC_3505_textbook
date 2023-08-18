@@ -14,31 +14,21 @@ Extensions are add-ons to VS Code that add functionality to the program. Once yo
 
 Install each of these extensions, in this order:
 - **Python**
-  - On a Mac, you may be prompted to install "Developer Tools" when you install this extension. It's important that you do this. It's a large download, so it may take a while, but it provides tools that you will need later.
+  - On a Mac, you may be prompted to install "Developer Tools" when you install this extension. It's important that you do this.
 - **Pylance**
 - **Jupyter**
 - **GitHub Classroom**
 - **GitHub Copilot**
 - **GitHub Copilot Chat** 
 - **GitHub Copilot Labs**
-- (Optional) Add a colour theme (search Extensions for `color theme`). This is personal preference, but there are many options out there and it can be fun to explore. My current faciourites are `Pop Dark` and `GitHub Coilot`. Note that a colour theme affects both the VS Code user interface, and syntax highlighting within the files you're editing.  You can change colour themes at any time, by clicking on the "cog" icon in the bottom left corner of the VS Code window, and then clicking on "Color Theme".
-- (Optional) Add an icon theme (search Extensions for `icon theme`). This affects the little icons that appear beside files in the Explorer, and also the icons in the Activity Bar. I like `Helium` and `Pop!` themes. You can change icon themes at any time, by clicking on the "cog" icon in the bottom left corner of the VS Code window, and then clicking on "File Icon Theme".
+- **Copilot Theme** (optional, but currently my favourite; search just for "theme" if you want to explore other options)
+- **Helium icon theme** (again optional, but I like it; search "icon theme" if you want to explore other options)
 
 ---
 
-## Install the `git` Application (for Windows)
+## Help VS Code find the git application (optional)
 
-If you are using Windows, you will need to install the `git` application. This is a command-line application that allows you to work with GitHub from within VS Code. To install it, go to [this page](https://git-scm.com/download/win) and download the installer. Run the installer, and accept all the default options (there are many to click through!). Once it's installed, you can close the installer.
-
-## Install the `git` Application for MacOS
-
-If you are using a Mac, you will need to install the `git` application. This is a command-line application that allows you to work with GitHub from within VS Code. To install it, go to [this page](https://git-scm.com/download/mac) and download the installer. Run the installer, and accept all the default options. Once it's installed, you can close the installer.
-
-## Help VS Code find the git application (if necessary)
-
-On a Mac, VS Code sometimes needs to be told where to find the `git` application that is installed with GitHub Desktop. If you are using Windows or Linux, you can skip this step. 
-
-If you are using a Mac, first confirm that you need to do this step: in VS Code, on the left-hand toolbar, click on the "Source Control" icon (it is usually the third icon down, and has three small circles connected by lines). If you see a message that says that you need to install git, then you need to do this step. If you see a message that includes buttons for "Open Folder" and "Clone Repository", then you're all set and you can skip this step.
+While you can simply use GitHub desktop throughout this course to work with GitHub, it is also possible to work with GitHub from within VS Code. On a Mac, this requires a bit of extra work, as VS Code needs to be told where to find the `git` application that is installed with GitHub Desktop. If you are using Windows or Linux, you can skip this step. If you are using a Mac, first confirm that you need to do it: in VS Code, on the left-hand toolbar, click on the "Source Control" icon (it is usually the third icon down, and has three small circles connected by lines). If you see a message that says that you need to install git, then you need to do this step. If you see a message that includes buttons for "Open Folder" and "Clone Repository", then you're all set and you can skip this step.
 
 Unfortunately this step is a bit complicated, but bear with us. You will want to be able to work with GitHub from within VS Code. Unfortunately, at least on a Mac, VS Code needs some help finding where the required `git` application was installed. The `git` application was installed on your Mac when you installed Developer Tools. You just need to tell VS Code where to find it.
 
