@@ -9,11 +9,20 @@ Next, write a commit Message in the box above the blue `Commit` button. Remember
 
 ## Push Your Changes to GitHub
 
-
-
-Clicking that button will now push your changes to GitHub. Do both your commit and push now.
+Pushing to GitHub is as simple as clicking that `Sync Changes` button. Do that now, and you're done!
 
 ```{note}
 GitHub has a robust system for going "back in time" through the commit history of a project that can allow you do undo changes and restore earlier versions of files. We're not going to explain it now, and we hope you don't need to do it during this course. But for now, just know it's possible and of course there are extensive resources on the Internet about how to do it.
 ```
+
+## Summary: GitHub workflow
+
+Remember that the GitHub workflow is as follows, and you should develop the habit of doing these steps regularly:
+- Make changes to a file on your computer
+- Save the file
+- Commit the file to your local copy of the repository
+- Push the file to GitHub
+- Repeat
+
+
 
