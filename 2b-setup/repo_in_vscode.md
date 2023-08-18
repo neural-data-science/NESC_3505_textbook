@@ -37,7 +37,9 @@ The habit you should get into is committing each time you think you've solved a 
 
 ### Commit Your Changes to `README.md`
 
-If you look at the Source Control icon in the Activity Bar (the third icon from the top, with the three circles and two lines), you'll see that it has a number 1 beside it. This means that there is one file that has been changed, but not yet committed. Click on the Source Control icon to open the Source Control panel. You'll see a list of files that have been changed. In this case, there is only one file, `README.md`. Click  `+` icon beside the file name to "stage" it. This means that you want to commit this file. Once you've staged the file, you'll see that the number beside the Source Control icon has changed to 1+. This means that there is one file that has been staged, but not yet committed.
+If you look at the Source Control icon in the Activity Bar (the third icon from the top, with the three circles and two lines), you'll see that it has a number 1 beside it. This means that there is one file that has been changed, but not yet committed. Click on the Source Control icon to open the Source Control panel. You'll see a list of files that have been changed, under `Changes`. In this case, there is only one file, `README.md`. Click  `+` icon beside the file name to "stage" it. This means that you want to commit this file. Once you've staged the file, it moves to the `Staged Changes` section. You can stage multiple files at once, if you want to commit them all together. Right now we just have one file to commit. 
+
+Next, write a commit Message in the box above the blue `Commit` button. Remember, this has a 50 character limit and should succinctly describe the change you made to the file. For example, you could write, "Add my name to README file". Once you've written your commit message, click the blue `Commit` button. This will commit your changes to the file, but it will not push them to GitHub. You can see that the number beside the Source Control icon has changed to 0, because there are no more changes to commit.
 
 
 ## Create a New Markdown File
