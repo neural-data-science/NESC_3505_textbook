@@ -1,3 +1,3 @@
 # Data types
 
-In this section we will introduce different *types* of data in Python (such as characters, numerical values, and collections of values), and how we can store them in memory and then use them.
+Here we start our first real Python lessons! In this section we will introduce different *types* of data in Python (such as characters, numerical values, and collections of values), and how we can store them in memory and then use them. This is the foundation of everything in Python, so it's important to understand these concepts well. For this reason, we work through the material quite slowly. If you're following oalong with the videos, though, feel free to pause them if you want to stop and reflect on a particular point, or to try something out on your own. It's good to take your time and play around. 
