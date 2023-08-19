@@ -10,12 +10,12 @@ This chapter covers the material for about the first month of the course, which 
     - exploratory data analysis
     - basic statistical analyses of data sets
 
-Each section of this chapter is a *lesson*, which will probably take you about 1-1.5 hours to complete. Each lesson is a Jupyter notebook, and you can download all of the Jupyter notebooks (and any necessary data files) for each chapter from GitHub. Video walkthroughs of each lesson are available on the course [YouTube channel](https://www.youtube.com/playlist?list=PLtfEWMIgWS22MMZjPIzBRE2cHhMcvEKwp).
+Each section of this chapter is a *lesson*, which will probably take you about 1-1.5 hours to complete. Each lesson is a Jupyter notebook, and you can download all of the Jupyter notebooks (and any necessary data files) for each chapter from [the course's GitHub page](https://github.com/neural-data-science). If you're taking the course at Dalhousie University, you can also get the notebooks from the course GitHub Classroom. Video walkthroughs of each lesson are available on the course [YouTube channel](https://www.youtube.com/playlist?list=PLtfEWMIgWS22MMZjPIzBRE2cHhMcvEKwp).
 
 The best way to work through this material is to watch the video while working through the lesson yourself in VS Code, and be [typing in the code](../1-intro/actually_write_code.md) (not cutting and pasting) to follow along with the instructor. The copies of these chapters in this textbook serve more as a reference that you can check back with later.
 
 ```{note}
-After working through the lessons, either you can keep going with the course materials, or you may want to practice and reinforce the basics you've learned. If you want more practice, try free sites like [Coding Bat](https://codingbat.com/python) or [HackerRank](https://www.hackerrank.com/domains/python).
+After working through the lessons, either you can keep going with the course materials, or you may want to practice and reinforce the basics you've learned. If you want more practice with basic Python, try free sites like [Coding Bat](https://codingbat.com/python) or [HackerRank](https://www.hackerrank.com/domains/python).
 ```
 
 ## Origins of this material
