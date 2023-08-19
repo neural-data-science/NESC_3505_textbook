@@ -7,6 +7,8 @@ width: 65px
 
 There are a number of ways that you can install Python on your own computer. In fact, most modern operating systems come with some version of Python already installed --- however, you won't want to use that for this course. Instead, we will install the **Anaconda** software package. This is what is called a *distribution* of Python, meaning that it includes both the Python programming language, and also a number of other tools and libraries that are useful for data science. Anaconda also serves as a *package manager*, which makes it easy to install additional Python libraries that you will need, such as `MNE` for EEG analysis, and `nilearn` for MRI. Anaconda is available for Windows, Mac, and Linux, and is free to download and use from [Anaconda's website](https://www.anaconda.com/). You should download and run the installer for the latest version of Python 3, before reading any further. Note that you don't need to create an account with Anaconda, nor pay anything, to install and use it.
 
+**Windows Users** can install Anconda for "just me" or for all users on the computer. Either is fine, however if your user name has a space in it, you may get a warning about this. If you do, you should install Anaconda for all users. If you don't get a warning, you can install it for just you.
+
 ## Running Anaconda
 Once you have installed Anaconda on your computer, you should find the application and launch it (if it didn't start already at the end of the install). On Windows, you can find it in the Start menu, and on Mac, you can find it in the Applications folder. On Linux, you can launch it from the command line by typing `anaconda-navigator`. 
 
