@@ -9,4 +9,4 @@ Below the tabs is the name of the repository, and then a few buttons. We'll igno
 
 If you scroll down the page, you will see the contents of the README file. Read it over, and explore some of the links if you're interested. The content is actually useful, and from here on we'll assume you've read this material and understand it.
 
-The README file ends with a list of *Optional next steps*. You should do all of these steps, and then submit the assignment. We'll walk you through some of this, but some of it is left for you to figure out; the README provides you with all the resources you need to do all of these tasks.
+The README file ends with set of tasks under the heading, **TO COMPLETE THIS ASSIGNMENT**. You should do all of these steps --- and if you're taking this as a class, finish before the due date. We'll walk you through some of the steps, but some of it is left for you to do on your own, practicing the skills you've learned. The README provides you with all the resources you need to do all of these tasks.
