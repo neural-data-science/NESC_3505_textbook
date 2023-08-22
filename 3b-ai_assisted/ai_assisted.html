@@ -234,7 +234,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Set Up for This Course</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Set Up Your Computer for Data Science</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/learning_objectives.html">Learning Objectives</a></li>
@@ -527,7 +527,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -543,6 +545,21 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisities">Prerequisities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-prompt-copilot">How to Prompt Copilot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-your-first-ai-assisted-code">Write Your First AI-Assisted Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-two-lists">Combine Two Lists</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#patience-is-a-virtue-and-sometimes-a-necessity">Patience is a Virtue (and Sometimes, a Necessity)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-data-files-and-pandas-dataframes">Working with Data Files and pandas DataFrames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-apply-combine">Split-Apply-Combine</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -554,21 +571,304 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ai-assisted-coding-with-github-copilot">
 <h1>AI-Assisted Coding with GitHub Copilot<a class="headerlink" href="#ai-assisted-coding-with-github-copilot" title="Permalink to this headline">#</a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/neural-data-science">Download all the Jupyter notebooks and other files you need to complete the lessons in this chapter (Chapter 3b)</a></p></li>
+</ul>
+<hr class="docutils" />
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+<p>In this lesson we will start exploring how to use GitHub Copilot to generate code for us. We do this by creating natural language prompts (i.e., writing instructions for what you want  the code to do, the way you would say it to another human), and sometimes starting to type a bit of code to get the process started.</p>
+<p>Because of the generative nature of LLMs like GitHub Copilot, the results will not be the same every time you give it the same prompt. Thus as you’re following along with this lesson, Copilot may generate different code that you see here. That’s normal! It also means that you may need to experiment with different ways of phrasing a prompt, to get the result you want. You can also ask Copilot to generate alternative code solutions to your prompt, by pressing <code class="docutils literal notranslate"><span class="pre">Option+[</span></code> (or <code class="docutils literal notranslate"><span class="pre">Start+[</span></code> on Windows) after you get the first code suggestion (note that you have to wait until Copilot generates a suggestion before pressing those keys).</p>
+</section>
+<section id="prerequisities">
+<h2>Prerequisities<a class="headerlink" href="#prerequisities" title="Permalink to this headline">#</a></h2>
+<p>You should already have followed all the steps in the chapter, <a class="reference internal" href="../2b-setup/introduction.html"><span class="doc std std-doc">Set Up Your Computer for Data Science</span></a>, including installing VS Code and all the recommended extensions. This includes the GitHub Copilot extension. You should also have set up your GitHub account in VS Code, and l,ogged in to the GitHub Copilot extension using your GitHub account (the extension will routinely pop up messages with a button for you to do this, if you installed the extension but didn’t connect it to your GitHub account yet).</p>
+<p>As noted earlier, GitHub Copilot is a paid add-on from GitHub. It is free for students, but you need to get access by signing up for the <a class="reference external" href="https://education.github.com/pack">GitHub Student Developer Pack</a>. Others with academic afilliations, like professors and postdocs, can also get free access to GitHub Copilot by applying for the <a class="reference external" href="https://education.github.com/teachers">GitHub Teacher Benefits</a>. If you are not affiliated with an educational institution, however, you will need to get a paid subscription to GitHub Copilot in order to use it.</p>
+<p>Once you have GitHub Copilot installed and connected to your GitHub account, you can start using it in VS Code. You may have turned it off to do the lessons in the previous chapter. If so, you can turn it back on by clicking on the GitHub Copilot icon in the bottom right of the VS Code window (if unsure, move your cursor across the bottom toolbar until you see <code class="docutils literal notranslate"><span class="pre">Activate</span> <span class="pre">Copilot</span></code>).</p>
+</section>
+<hr class="docutils" />
+<section id="how-to-prompt-copilot">
+<h2>How to Prompt Copilot<a class="headerlink" href="#how-to-prompt-copilot" title="Permalink to this headline">#</a></h2>
+<p>In a previous lesson we learned about <strong>comments</strong>, which are lines in your code that are not executed, but are there to help you and others understand what the code is doing. In Python, comments start with a <code class="docutils literal notranslate"><span class="pre">#</span></code> symbol. Python will not treat anything after the <code class="docutils literal notranslate"><span class="pre">#</span></code> symbol as code; it will ignore it.</p>
+<p>With GitHub Copilot activated, it will read your comments as prompts, and use them to generated suggested code. For example, if you type the following code into a cell in a Jupyter notebook:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a list of numbers</span>
+</pre></div>
+</div>
+<p>and then press <code class="docutils literal notranslate"><span class="pre">Enter</span></code>, Copilot will generate the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a list of numbers</span>
+<span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The suggestions appear as fainter text than code you type yourself. That’s how you can tell it’s a suggestion. You can accept the suggestion by pressing <code class="docutils literal notranslate"><span class="pre">Tab</span></code>. If you press <code class="docutils literal notranslate"><span class="pre">Tab</span></code>, the suggestion will be inserted into your code, and will appear normal brightness rather than faded. If you don’t want to accept the suggestion, you can press <code class="docutils literal notranslate"><span class="pre">Start+]</span></code> (<code class="docutils literal notranslate"><span class="pre">Option+]</span></code> on a Mac) to get an alternative suggestion (Copilot doesn’t always have alternative suggestions though). If you don’t want to accept any of the suggestions, you can just keep typing your own code.</p>
+<p>:exclamation: You can also use Copilot to generate code by typing a prompt that is not a comment. However, this is not recommended, because when you try to run the cell, Python will try to execute the prompt as code, and will give you an error.</p>
+<p>The great thing about using comments to generate code is that your code retains the prompts you used, which aids in transparency and reproducibility (to the extent that Copilot produces consistent results). It also means that for your future self, or others who might try to understand your code, the comments will be there to help them understand what the code is doing. Including comments like this has always been good practice, but often people focused on writing the code and included comments as an afterthought, if at all. With Copilot, you can write the comments first, and then use them to generate the code, which ensures a better quality of documentation.</p>
+</section>
+<section id="write-your-first-ai-assisted-code">
+<h2>Write Your First AI-Assisted Code<a class="headerlink" href="#write-your-first-ai-assisted-code" title="Permalink to this headline">#</a></h2>
+<p>In the code cell below, type the following prompt as a comment:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a list of numbers</span>
+</pre></div>
+</div>
+<p>Then press <code class="docutils literal notranslate"><span class="pre">Tab</span></code> to get a suggestion from Copilot. If you like the suggestion (which will likely be the same as what you see below), press <code class="docutils literal notranslate"><span class="pre">Tab</span></code> to accept it, and then Shift+Enter to run the Jupyter cell.</p>
+<p>:exclamation:
+Sometimes you may accidentally accept a suggestion from Copilot that you didn’t mean to. If that happens, you can undo it by pressing <code class="docutils literal notranslate"><span class="pre">Ctrl+Z</span></code> (or <code class="docutils literal notranslate"><span class="pre">Cmd+Z</span></code> on a Mac). Or, you might hit the wrong key and the suggestion will disappear. In this case, you can backspace otherwise move your cursor to the end of the prompt line, and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> again to get the suggestion back.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import pandas as pd</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a list of numbers</span>
+<span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Hopefully this didn’t generate an error, but it also didn’t generate any output — because we didn’t ask it to. Let’s add a prompt to ask it to print the list of numbers. In the code cell below, type the following two prompts as comments, then press <code class="docutils literal notranslate"><span class="pre">Tab</span></code> to get a suggestion from Copilot. If you like the suggestion, press <code class="docutils literal notranslate"><span class="pre">Tab</span></code> to accept it, and then Shift+Enter to run the Jupyter cell.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a list of numbers</span>
+<span class="c1"># print the list of numbers</span>
+</pre></div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read the file &#39;gapminder_gdp_europe.csv&#39; from the data folder into a pandas dataframe called df</span>
-<span class="c1"># print the first 5 rows of the dataframe</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a list of numbers</span>
+<span class="c1"># print the list of numbers</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+</pre></div>
+</div>
+</div>
+</div>
+<p>In my case, this generated the code you see above, which prints the list of numbers. Even though we asked it to create a list of numbers, it didn’t regenerate the code that defines the list of numbers, because it already did that in the previous cell. This is one of the many cool things about Copilot — it is sensitve to the entire <em>context</em> of your notebook (i.e., code cells above and below the cell you’re working on), and will use that context to generate suggestions. It’s even sensitive to other files in your project, as we will see soon.</p>
+</section>
+<section id="combine-two-lists">
+<h2>Combine Two Lists<a class="headerlink" href="#combine-two-lists" title="Permalink to this headline">#</a></h2>
+<p>We’re hopeful that you remembered how to create a list in Python from the previous chapter — that’s pretty fundamental. But do you remember how to combine two lists? Maybe not. It’s a bit tricky, because if you get it wrong you’ll end up with a list of lists, rather than a single list. Copilot can help with this. In the code cell below, define the two lists as shown (Copilot will probably help you with this), then type the following prompt as a comment, then press <code class="docutils literal notranslate"><span class="pre">Tab</span></code> to get a suggestion from Copilot (from here onward, we’re just going to tell you what prompts to use, and assume you’ll always remember to use <code class="docutils literal notranslate"><span class="pre">Tab</span></code> to accept a suggestion, and Shift+Enter to run the cell).</p>
+<p>:exclamation:
+You may also notice that Copilot not only generates code from prompts — *it often will generate your prompts for you! Once you get over the initial spookiness (or apparent telepathy) of this, you’ll realize that this is actually a very useful feature, because it can help you learn how to phrase prompts, and save you time typing. However, sometimes the prompts it generates are not quite what you want, so you may need to either cycle through alternative suggestions (<code class="docutils literal notranslate"><span class="pre">Option+[</span></code> or <code class="docutils literal notranslate"><span class="pre">Start+[</span></code>), or just type the prompt you actually want.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">participant_1_data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="n">participant_2_data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="c1"># Combine the above two lists into a new list called all_participant_data</span>
+<span class="n">all_participant_data</span> <span class="o">=</span> <span class="n">participant_1_data</span> <span class="o">+</span> <span class="n">participant_2_data</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp_europe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1"># print the list all_participant_data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">all_participant_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 3, 5, 7, 9, 2, 4, 6, 8, 10]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, how was it that we sort a list? We did that in the previous chapter, but it’s not something you do every day, so you might not remember. Copilot can help with that too. In the code cell below, write a prompt to ask for the <code class="docutils literal notranslate"><span class="pre">all_participant_data</span></code> to print out, sorted.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print the values in all_participant_data, sorted from smallest to largest</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">all_participant_data</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+</pre></div>
+</div>
+</div>
+</div>
+<p>When I started tying the prompt above, Copilot had a couple of suggestions, but neither of them are what I wanted to do. So I just typed the prompt I wanted, and Copilot generated the code you see above.</p>
+</section>
+<section id="patience-is-a-virtue-and-sometimes-a-necessity">
+<h2>Patience is a Virtue (and Sometimes, a Necessity)<a class="headerlink" href="#patience-is-a-virtue-and-sometimes-a-necessity" title="Permalink to this headline">#</a></h2>
+<p>Copilot operates pretty fast, normally – especially with relatively simple prompts like these. However, sometimes it takes longer, but it is working. Other times, it’s not actively trying to generate code for you. This is typically because it doesn’t realize you’re waiting for it to generate something. This is still an emerging technology!</p>
+<p>The way you can determine whether Copilot is trying to generate code or not is to look at the Copilot icon in the bottom right of the VS Code window (the same icon you use to activate/deactivate copilot). If it looks like a face, Copilot is waiting for you. However, if it looks like a spinning circle, Copilot is still trying to generate something for you. Be patient.</p>
+</section>
+<section id="working-with-data-files-and-pandas-dataframes">
+<h2>Working with Data Files and pandas DataFrames<a class="headerlink" href="#working-with-data-files-and-pandas-dataframes" title="Permalink to this headline">#</a></h2>
+<p>Let’s try a more complex example. In the previous chapter, we worked with the Gapminder dataset, which is a CSV file. We used the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library to read the CSV file into a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, and then used the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to do some analysis. Let’s do that again, but this time we’ll use Copilot to help us.</p>
+<p>First, let’s prompt Copilot to read the CSV file containing the data for Europe. I’ve deliberately started with a very minimal prompt, to help illustrate how the wording of the prompt can affect the results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read the gapminder data file for Europe</span>
+<span class="n">gapminder_europe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;gapminder_gdp_europe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># read the gapminder data file for Europe</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">gapminder_europe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;gapminder_gdp_europe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>That generated a scary looking error message! This is human error, not AI error. But before we sort that out, let’s marvel at what Copilot did there. We gave it a pretty poor prompt (“the gapminder data for europe”), and it guessed that the file was named <code class="docutils literal notranslate"><span class="pre">gapminder_europe.csv</span></code>. It also guessed that we wanted to use the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library (<code class="docutils literal notranslate"><span class="pre">pd</span></code>) to read the CSV file into a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. That’s pretty impressive!</p>
+<p>Fortunately, the error is pretty self-explanatory. If we want to work with pandas, we always need to first import the pandas library. By convention we give it the alias <code class="docutils literal notranslate"><span class="pre">pd</span></code>. So let’s add that to our prompt, and see what happens. Note that Copilot may generate code one line at a time, so you may have to accept the suggestion for the first line of code before it generates the next line of code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the pandas library as pd and then read the gapminder data file for Europe</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">gapminder_europe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;gapminder_gdp_europe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># import the pandas library as pd and then read the gapminder data file for Europe</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">gapminder_europe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;gapminder_gdp_europe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/io/parsers/readers.py:912,</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)</span>
+<span class="g g-Whitespace">    </span><span class="mi">899</span> <span class="n">kwds_defaults</span> <span class="o">=</span> <span class="n">_refine_defaults_read</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">900</span>     <span class="n">dialect</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">901</span>     <span class="n">delimiter</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">908</span>     <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">909</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">910</span> <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">912</span> <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/io/parsers/readers.py:577,</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">574</span> <span class="n">_validate_names</span><span class="p">(</span><span class="n">kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;names&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">576</span> <span class="c1"># Create the parser.</span>
+<span class="ne">--&gt; </span><span class="mi">577</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">579</span> <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">580</span>     <span class="k">return</span> <span class="n">parser</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/io/parsers/readers.py:1407,</span> in <span class="ni">TextFileReader.__init__</span><span class="nt">(self, f, engine, **kwds)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1404</span>     <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1406</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="ne">-&gt; </span><span class="mi">1407</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/io/parsers/readers.py:1661,</span> in <span class="ni">TextFileReader._make_engine</span><span class="nt">(self, f, engine)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1659</span>     <span class="k">if</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mode</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1660</span>         <span class="n">mode</span> <span class="o">+=</span> <span class="s2">&quot;b&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1661</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1662</span>     <span class="n">f</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1663</span>     <span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1664</span>     <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1665</span>     <span class="n">compression</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;compression&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1666</span>     <span class="n">memory_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;memory_map&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1667</span>     <span class="n">is_text</span><span class="o">=</span><span class="n">is_text</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1668</span>     <span class="n">errors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding_errors&quot;</span><span class="p">,</span> <span class="s2">&quot;strict&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1669</span>     <span class="n">storage_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;storage_options&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1670</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1671</span> <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="g g-Whitespace">   </span><span class="mi">1672</span> <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="o">.</span><span class="n">handle</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/io/common.py:859,</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">854</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">855</span>     <span class="c1"># Check whether the filename is to be opened in binary mode.</span>
+<span class="g g-Whitespace">    </span><span class="mi">856</span>     <span class="c1"># Binary mode does not support &#39;encoding&#39; and &#39;newline&#39;.</span>
+<span class="g g-Whitespace">    </span><span class="mi">857</span>     <span class="k">if</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">and</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">858</span>         <span class="c1"># Encoding</span>
+<span class="ne">--&gt; </span><span class="mi">859</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">860</span>             <span class="n">handle</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">861</span>             <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">862</span>             <span class="n">encoding</span><span class="o">=</span><span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">863</span>             <span class="n">errors</span><span class="o">=</span><span class="n">errors</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">864</span>             <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">865</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">866</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">867</span>         <span class="c1"># Binary mode</span>
+<span class="g g-Whitespace">    </span><span class="mi">868</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;gapminder_gdp_europe.csv&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>More scary error messages! This time, the last line is the most informative. It’s telling us that it can’t find the file we asked it to read. That’s because we haven’t told it where to look for the file. WHen we just list the name of a file, <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> assumes that the file is in the same directory as the notebook. But in this case, the file is in a subdirectory called <code class="docutils literal notranslate"><span class="pre">data</span></code>. So let’s add that to our prompt, and see what happens.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the pandas library as pd and then read the gapminder data file for Europe. </span>
+<span class="c1"># The file is in a subfolder called data</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">gapminder_europe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp_europe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we’re getting somewhere! Let’s view the first few lines of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to make sure it looks right.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show me the first few lines of the gapminder europe data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gapminder_europe</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                        gdpPercap_1952  gdpPercap_1957  gdpPercap_1962  \
+country                                                                  
+Albania                    1601.056136     1942.284244     2312.888958   
+Austria                    6137.076492     8842.598030    10750.721110   
+Belgium                    8343.105127     9714.960623    10991.206760   
+Bosnia and Herzegovina      973.533195     1353.989176     1709.683679   
+Bulgaria                   2444.286648     3008.670727     4254.337839   
+
+                        gdpPercap_1967  gdpPercap_1972  gdpPercap_1977  \
+country                                                                  
+Albania                    2760.196931     3313.422188     3533.003910   
+Austria                   12834.602400    16661.625600    19749.422300   
+Belgium                   13149.041190    16672.143560    19117.974480   
+Bosnia and Herzegovina     2172.352423     2860.169750     3528.481305   
+Bulgaria                   5577.002800     6597.494398     7612.240438   
+
+                        gdpPercap_1982  gdpPercap_1987  gdpPercap_1992  \
+country                                                                  
+Albania                    3630.880722     3738.932735     2497.437901   
+Austria                   21597.083620    23687.826070    27042.018680   
+Belgium                   20979.845890    22525.563080    25575.570690   
+Bosnia and Herzegovina     4126.613157     4314.114757     2546.781445   
+Bulgaria                   8224.191647     8239.854824     6302.623438   
+
+                        gdpPercap_1997  gdpPercap_2002  gdpPercap_2007  
+country                                                                 
+Albania                    3193.054604     4604.211737     5937.029526  
+Austria                   29095.920660    32417.607690    36126.492700  
+Belgium                   27561.196630    30485.883750    33692.605080  
+Bosnia and Herzegovina     4766.355904     6018.975239     7446.298803  
+Bulgaria                   5970.388760     7696.777725    10680.792820  
+</pre></div>
+</div>
+</div>
+</div>
+<p>Again, we used a pretty minimal prompt to get the output. That is, we didn’t need to use the exact name of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> (<code class="docutils literal notranslate"><span class="pre">gapminder_europe</span></code>), nor the exact name of the method (<code class="docutils literal notranslate"><span class="pre">head()</span></code>).</p>
+<p>However, the output of passing a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to <code class="docutils literal notranslate"><span class="pre">print()</span></code> is not formatted as nicely as if we ask the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to print itself. So let’s try that.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show me the first few lines of the gapminder europe data</span>
+<span class="c1"># format the table nicely</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gapminder_europe</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                        gdpPercap_1952  gdpPercap_1957  gdpPercap_1962  gdpPercap_1967  gdpPercap_1972  gdpPercap_1977  gdpPercap_1982  gdpPercap_1987  gdpPercap_1992  gdpPercap_1997  gdpPercap_2002  gdpPercap_2007
+country                                                                                                                                                                                                               
+Albania                    1601.056136     1942.284244     2312.888958     2760.196931     3313.422188     3533.003910     3630.880722     3738.932735     2497.437901     3193.054604     4604.211737     5937.029526
+Austria                    6137.076492     8842.598030    10750.721110    12834.602400    16661.625600    19749.422300    21597.083620    23687.826070    27042.018680    29095.920660    32417.607690    36126.492700
+Belgium                    8343.105127     9714.960623    10991.206760    13149.041190    16672.143560    19117.974480    20979.845890    22525.563080    25575.570690    27561.196630    30485.883750    33692.605080
+Bosnia and Herzegovina      973.533195     1353.989176     1709.683679     2172.352423     2860.169750     3528.481305     4126.613157     4314.114757     2546.781445     4766.355904     6018.975239     7446.298803
+Bulgaria                   2444.286648     3008.670727     4254.337839     5577.002800     6597.494398     7612.240438     8224.191647     8239.854824     6302.623438     5970.388760     7696.777725    10680.792820
+</pre></div>
+</div>
+</div>
+</div>
+<p>Still not what we wanted (athough at least each row in the DataFrame is now one row in the output) — and Copilot didn’t have any alternative suggestions. This is where prompt engineering becomes important. Let’s try a different prompt.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show me the first few lines of the gapminder europe data</span>
+<span class="c1"># the output should be a table</span>
+<span class="n">gapminder_europe</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -700,61 +1000,124 @@ document.write(`
 </table>
 </div></div></div>
 </div>
+<p>That did it! We just needed to be a bit more specific about what we wanted to do, by asking for the output as a table.</p>
+</section>
+<section id="split-apply-combine">
+<h2>Split-Apply-Combine<a class="headerlink" href="#split-apply-combine" title="Permalink to this headline">#</a></h2>
+<p>In the previous chapter, we learned about the split-apply-combine strategy for data analysis. That’s when we split the data into different groups (e.g., according to a paricular variable), apply an operation to each group separately, and then combine the results back into a single table. Let’s try that again, but this time we’ll use Copilot to help us.</p>
+<p>Let’s replicate the split-apply-combine analysis we did in the previous chapter, where we  calculate the average gdp per capita for each of four regions in Europe: Northern Europe, Southern Europe, Eastern Europe, and Western Europe. We’ll start with a very high-level prompt, and see if we get what we want. Note that in the code cell below, I only typed the first three-line prompt. Copilot generated the rest of the code, including a series of prompts (comments) to help me fill in the details. In order to get it to generate additiona prompts and code, I had to hit enter twice after the first prompt. Apparently Copilot is insistent that your code be nicely formatted, with empty lines between different sections of code that do different steps. This is a good thing, but if you forget to hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> twice, you may get nothing an think Copilot isn’t working. Just hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> twice, and you should get the prompts you need. Otherwise, try going back to the end of your prompt and hitting <code class="docutils literal notranslate"><span class="pre">Enter</span></code> again.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a new column in df that labels each country in Europse as &#39;northern&#39;, &#39;southern&#39;, &#39;eastern&#39;, or &#39;western&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># use split-apply-combine to calculate the average gdp per capita </span>
+<span class="c1"># for each of four regions in Europe: Northern Europe, Southern Europe, </span>
+<span class="c1"># Eastern Europe, and Western Europe</span>
 
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;northern&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;United Kingdom&#39;</span><span class="p">,</span> <span class="s1">&#39;Denmark&#39;</span><span class="p">,</span> <span class="s1">&#39;Sweden&#39;</span><span class="p">,</span> <span class="s1">&#39;Norway&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;southern&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Portugal&#39;</span><span class="p">,</span> <span class="s1">&#39;Spain&#39;</span><span class="p">,</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="s1">&#39;Italy&#39;</span><span class="p">,</span> <span class="s1">&#39;Greece&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;eastern&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Poland&#39;</span><span class="p">,</span> <span class="s1">&#39;Czech Republic&#39;</span><span class="p">,</span> <span class="s1">&#39;Hungary&#39;</span><span class="p">,</span> <span class="s1">&#39;Slovakia&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;western&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]]</span>
+<span class="c1"># split the data into four regions</span>
+<span class="n">regions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Northern Europe&#39;</span><span class="p">,</span> <span class="s1">&#39;Southern Europe&#39;</span><span class="p">,</span> <span class="s1">&#39;Eastern Europe&#39;</span><span class="p">,</span> <span class="s1">&#39;Western Europe&#39;</span><span class="p">]</span>
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">gapminder_europe</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">])</span>
+
+<span class="c1"># apply the mean function to calculate the average gdp per capita for each region</span>
+<span class="n">gdp_per_capita</span> <span class="o">=</span> <span class="n">grouped</span><span class="p">[</span><span class="s1">&#39;gdpPercap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># combine the results into a new table</span>
+<span class="n">gdp_per_capita</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3653,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3652</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># use split-apply-combine to calculate the average gdp per capita </span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># for each of four regions in Europe: Northern Europe, Southern Europe, </span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># Eastern Europe, and Western Europe</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># split the data into four regions</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">regions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Northern Europe&#39;</span><span class="p">,</span> <span class="s1">&#39;Southern Europe&#39;</span><span class="p">,</span> <span class="s1">&#39;Eastern Europe&#39;</span><span class="p">,</span> <span class="s1">&#39;Western Europe&#39;</span><span class="p">]</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">grouped</span> <span class="o">=</span> <span class="n">gapminder_europe</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># apply the mean function to calculate the average gdp per capita for each region</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">gdp_per_capita</span> <span class="o">=</span> <span class="n">grouped</span><span class="p">[</span><span class="s1">&#39;gdpPercap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:147,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/frame.py:8252,</span> in <span class="ni">DataFrame.groupby</span><span class="nt">(self, by, axis, level, as_index, sort, group_keys, observed, dropna)</span>
+<span class="g g-Whitespace">   </span><span class="mi">8249</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You have to supply one of &#39;by&#39; and &#39;level&#39;&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">8250</span> <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_axis_number</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">8252</span> <span class="k">return</span> <span class="n">DataFrameGroupBy</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">8253</span>     <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">8254</span>     <span class="n">keys</span><span class="o">=</span><span class="n">by</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">8255</span>     <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">8256</span>     <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">8257</span>     <span class="n">as_index</span><span class="o">=</span><span class="n">as_index</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">8258</span>     <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">8259</span>     <span class="n">group_keys</span><span class="o">=</span><span class="n">group_keys</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">8260</span>     <span class="n">observed</span><span class="o">=</span><span class="n">observed</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">8261</span>     <span class="n">dropna</span><span class="o">=</span><span class="n">dropna</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">8262</span> <span class="p">)</span>
 
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:176,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/groupby/groupby.py:931,</span> in <span class="ni">GroupBy.__init__</span><span class="nt">(self, obj, keys, axis, level, grouper, exclusions, selection, as_index, sort, group_keys, observed, dropna)</span>
+<span class="g g-Whitespace">    </span><span class="mi">928</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropna</span> <span class="o">=</span> <span class="n">dropna</span>
+<span class="g g-Whitespace">    </span><span class="mi">930</span> <span class="k">if</span> <span class="n">grouper</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">931</span>     <span class="n">grouper</span><span class="p">,</span> <span class="n">exclusions</span><span class="p">,</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">get_grouper</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">932</span>         <span class="n">obj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">933</span>         <span class="n">keys</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">934</span>         <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">935</span>         <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">936</span>         <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">937</span>         <span class="n">observed</span><span class="o">=</span><span class="n">observed</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">938</span>         <span class="n">dropna</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dropna</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">939</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">941</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span>
+<span class="g g-Whitespace">    </span><span class="mi">942</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_get_axis_number</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
 
-<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7080,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/groupby/grouper.py:985,</span> in <span class="ni">get_grouper</span><span class="nt">(obj, key, axis, level, sort, observed, validate, dropna)</span>
+<span class="g g-Whitespace">    </span><span class="mi">983</span>         <span class="n">in_axis</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">gpr</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">gpr</span><span class="p">,</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">984</span>     <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">985</span>         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">gpr</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">986</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gpr</span><span class="p">,</span> <span class="n">Grouper</span><span class="p">)</span> <span class="ow">and</span> <span class="n">gpr</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">987</span>     <span class="c1"># Add key to exclusions</span>
+<span class="g g-Whitespace">    </span><span class="mi">988</span>     <span class="n">exclusions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
 
-<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7088,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="ne">KeyError</span>: &#39;country&#39;
-
-<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
-
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># create a new column in df that labels each country in Europse as &#39;northern&#39;, &#39;southern&#39;, &#39;eastern&#39;, or &#39;western&#39;</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;northern&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;United Kingdom&#39;</span><span class="p">,</span> <span class="s1">&#39;Denmark&#39;</span><span class="p">,</span> <span class="s1">&#39;Sweden&#39;</span><span class="p">,</span> <span class="s1">&#39;Norway&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;southern&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Portugal&#39;</span><span class="p">,</span> <span class="s1">&#39;Spain&#39;</span><span class="p">,</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="s1">&#39;Italy&#39;</span><span class="p">,</span> <span class="s1">&#39;Greece&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;eastern&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Poland&#39;</span><span class="p">,</span> <span class="s1">&#39;Czech Republic&#39;</span><span class="p">,</span> <span class="s1">&#39;Hungary&#39;</span><span class="p">,</span> <span class="s1">&#39;Slovakia&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;western&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]]</span>
-
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/frame.py:3761,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3759</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3760</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">3761</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3762</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3763</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
-
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3655,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">3655</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
-<span class="g g-Whitespace">   </span><span class="mi">3656</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3657</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3658</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3659</span>     <span class="c1">#  the TypeError.</span>
-<span class="g g-Whitespace">   </span><span class="mi">3660</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="ne">KeyError</span>: &#39;country&#39;
+<span class="ne">KeyError</span>: &#39;group&#39;
 </pre></div>
 </div>
 </div>
 </div>
+<p>Can you figure out why this error happened? Ideally, you should be able to do this by re-reading the code the Copilot generated. But, the error message also provides guidance, because it tells us there is an error on line 7 (this information is near the top of the error message), and the error is <code class="docutils literal notranslate"><span class="pre">KeyError:</span> <span class="pre">'group'</span></code>. That means that <code class="docutils literal notranslate"><span class="pre">gapminder_europe</span></code> doesn’t have a column named <code class="docutils literal notranslate"><span class="pre">group</span></code>. Indeed, if we look at line 7 we see it’s attempting to group the data by two columns, <code class="docutils literal notranslate"><span class="pre">year</span></code> and <code class="docutils literal notranslate"><span class="pre">group</span></code>. But <code class="docutils literal notranslate"><span class="pre">gapminder_europe</span></code> doesn’t have a column named <code class="docutils literal notranslate"><span class="pre">group</span></code>, which is why we got an error.</p>
+<p>There are actually a few problems with this code. Not only does <code class="docutils literal notranslate"><span class="pre">group</span></code> not exist as a column, but it’s not a great name for a column, because the column should indicate region of Europe. So a better name would be <code class="docutils literal notranslate"><span class="pre">region</span></code>. Another issue is that the <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> method was given another variable, <code class="docutils literal notranslate"><span class="pre">year</span></code>. But our instructions didn’t say anything about year, so we don’t want to group by year. We just want to group by region.</p>
+<p>Let’s try fix those issues through better prompt engineering. One thing you’ll encounter frequently is that you give Copilot too big a job, and doing what you’re asking will require a number of internediate steps. Copilot isn’t great about long-term planning. Remember that LLMs are just advanced versions of the same kind of language model that suggests words when you’re typing on your phone. It’s often good at predicting the next word you want to type, but if you keep just picking the “best” suggestion, you will get a sentence of gibberish more times than not. The same is true with Copilot. If you give it a big job, it will often generate code that doesn’t work, because it’s trying to do too much at once.</p>
+<p>So you need to break the job down into smaller steps. In this case, we’re doing split-apply-combine, so let’s try writing our own prompts for each of those conceptual stepss. So let’s start with the first step, ‘split’, and see if we can get Copilot to generate the code to group the data by region.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a new column in the gapminder_europe data frame called &#39;region&#39;. </span>
+<span class="c1"># Label each country as belonging to &#39;Northern Europe&#39;, &#39;Southern Europe&#39;,</span>
+<span class="c1"># &#39;Eastern Europe&#39;, or &#39;Western Europe&#39;</span>
+
+<span class="c1"># create a new column in the gapminder_europe data frame called &#39;region&#39;.</span>
+<span class="c1"># Label each country as belonging to &#39;Northern Europe&#39;, &#39;Southern Europe&#39;,  </span>
+<span class="c1"># &#39;Eastern Europe&#39;, or &#39;Western Europe&#39;</span>
+<span class="n">gapminder_europe</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Western Europe&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>AI may be seeming less magical now. Firstly, it largely regenerated my prompt before generating any code. Secondly, it has labelled every country as <code class="docutils literal notranslate"><span class="pre">Western</span> <span class="pre">Europe</span></code>, which is wrong. In the previous chapter, we had to manually create lists for each region label, containing the names of each country in that region. We could do that here to help Copilot along, but hopefully AI is smart enough to know what geographical region each European country is in. This is a reasonable prediction in this case, especailly because the open-source Gapminder dataset is widely used in teaching data science, so there should be many versions of this specific example in Copilot’s training set. We just need to figure out how to get our prompting right.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create four lists, called &#39;northern&#39;, &#39;southern&#39;, &#39;eastern&#39;, and &#39;western&#39;.</span>
+<span class="c1"># the value of each list should be the names of the countries in the gapminder_europe </span>
+<span class="c1"># data frame that belong to that geographical region</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a list called &quot;northern&quot; and in it, list the names of all the countries </span>
+<span class="c1"># in the gapminder_europe data frame that are considered to be in northern Europe</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -815,6 +1178,27 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisities">Prerequisities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-prompt-copilot">How to Prompt Copilot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-your-first-ai-assisted-code">Write Your First AI-Assisted Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-two-lists">Combine Two Lists</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#patience-is-a-virtue-and-sometimes-a-necessity">Patience is a Virtue (and Sometimes, a Necessity)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-data-files-and-pandas-dataframes">Working with Data Files and pandas DataFrames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-apply-combine">Split-Apply-Combine</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
