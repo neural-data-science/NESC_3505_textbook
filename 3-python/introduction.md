@@ -14,6 +14,11 @@ Each section of this chapter is a *lesson*, which will probably take you about 1
 
 The best way to work through this material is to watch the video while working through the lesson yourself in VS Code, and be [typing in the code](../1-intro/actually_write_code.md) (not cutting and pasting) to follow along with the instructor. The copies of these chapters in this textbook serve more as a reference that you can check back with later.
 
+## Deactivate AI for Now
+If you followed the instructions in the previous chapter, you will have set up VS Code to use the GitHub Copilot AI assistant. However, for these first lessons we recommend that you turn off Copilot. This is because the first lessons are designed to teach you the fundamentals of Python, and we want you to be typing in the code yourself, taking the time to understand it, and even making errors that you need to debug. This is how you learn. If you use Copilot, you will be tempted to just cut and paste the code, and you won't learn as much. At best, it will just ]be generating a lot of suggested code that distracts you from the code you're trying to write.
+
+You can turn off Copilot by clicking on the Copilot icon (which looks kind of like a cute alien face) in the bottom left corner of the VS Code window, and then clicking on the "Turn off" button. If you're not sure which button this is, just slowly move your cursor over the bottom right icons until you see `Deactivate Copilot` You can turn it back on again later, when you want to, by clicking that same icon again.
+
 ```{note}
 After working through the lessons, either you can keep going with the course materials, or you may want to practice and reinforce the basics you've learned. If you want more practice with basic Python, try free sites like [Coding Bat](https://codingbat.com/python) or [HackerRank](https://www.hackerrank.com/domains/python).
 ```
