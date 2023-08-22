@@ -17,6 +17,7 @@ Install each of these extensions, in this order:
   - On a Mac, you may be prompted to install "Developer Tools" when you install this extension. It's important that you do this. It's a large download, so it may take a while, but it provides tools that you will need later.
 - **Pylance**
 - **Jupyter**
+- **Data Wrangler**
 - **GitHub Classroom**
 - **GitHub Copilot**
 - **GitHub Copilot Chat** 
