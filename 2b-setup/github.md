@@ -18,8 +18,7 @@ GitHub offers students a valuable range of products and services that they would
 
 Copilot Labs is a project that provides users with "preview" access to experimental features associated with the GitHub Copilot AI coding assistant that we will use in this course. At the present time, you need to sign up for Copilot Labs to get on the wait list, and after some time you will get an email notification that you are "in". This is a free service, and you will not be charged for anything. You should sign up now so that you can get access to Copilot Labs when you need it (in my experience, it takes about a week to get access, but this may vary).
 
-service that allows you to create and host Jupyter notebooks online. We will be using this service for some of our assignments. To sign up, go to [Copilot Labs](https://copilot-labs.com/) and click the **Sign Up** button. You will be asked to sign in with your GitHub account. Once you do this, you will be asked to create a Copilot Labs account. You can use the same username and password as your GitHub account, or you can create a new one. Once you've created your account, you will be asked to verify your email address. Once you've done this, you're ready to go!
-
+To sign up, go to [Copilot Labs](https://githubnext.com/projects/copilot-labs/) and click the **Sign Up** button. You will be asked to sign in with your GitHub account. 
 
 ## Create your GitHub Profile
 Once you've set up your GitHub account, you should create a profile. This is a good way to introduce yourself to the teaching team and other students in the class, and more generally the world (including and potential employers or supervisors). 
