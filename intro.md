@@ -1,6 +1,6 @@
 # Neural Data Science in Python
 
-This online textbook is aimed primarily at students and researchers in neuroscience and cognitive psychology who want to learn how to analyze data using Python. It is also suitable for students with a background in computer science who want to learn how to apply their skills to neuroscience. The textbook assumes no prior knowledge of Python, or any other programming language. If you do have prior knowledge of Python and want to lear how to apply it to neuroscience, you can skip the first few chapters and start with [Chapter 4](./4-viz/introduction.md).
+Welcome! This online textbook is aimed primarily at students and researchers in neuroscience and cognitive psychology who want to learn how to analyze data using Python. It is also suitable for students with a background in computer science who want to learn how to apply their skills to neuroscience. The textbook assumes no prior knowledge of Python, or any other programming language. If you do have prior knowledge of Python and want to lear how to apply it to neuroscience, you can skip the first few chapters and start with [Chapter 4](./4-viz/introduction.md).
 
 This book will teach you the fundamentals of Python, and how to use the GitHub Copilot AI assistant to help you learn to code, and write code for you. From there, we learn additional Python in the context of using it for data science, including data visualization, and working with different types of neuroscience data, including single unit recordings, EEG, and fMRI.
 
