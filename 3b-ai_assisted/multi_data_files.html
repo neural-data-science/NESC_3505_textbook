@@ -565,13 +565,22 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data-and-what-to-do-with-it">The Data and What to Do With It</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-approach-this-exercise">How to Approach This Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-copilot-assistant">Using the Copilot Assistant</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-generated-code-for-the-above">Copilot-Generated Code for the Above</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-copilot-generated-code">Debugging Copilot-Generated Code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-error">Finding the Error</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-copilot-to-diagnose-and-fix-errors">Using Copilot to Diagnose and Fix Errors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-explain-this">Copilot <code class="docutils literal notranslate"><span class="pre">Explain</span> <span class="pre">This</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-fix-this">Copilot <code class="docutils literal notranslate"><span class="pre">Fix</span> <span class="pre">This</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat">Copilot <code class="docutils literal notranslate"><span class="pre">Chat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-error">Finding the error</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continue-coding">Continue Coding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-the-output-nicely">Formatting the output nicely</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-copilot-did">What Copilot Did</a></li>
 </ul>
             </nav>
         </div>
@@ -604,13 +613,22 @@ document.write(`
 <li><p>the 95% confidence intervals for the mean RT for each participant</p></li>
 <li><p>the 95% confidence intervals for the mean RT across all participants</p></li>
 </ul>
-<p>Print all of the above results to the screen, with accompanying text that indicates what each result is.</p>
+<p>Print all of the above results to the screen, rounded to 2 decimal places and with accompanying text that indicates what each result is. Be sure that it is clear that RT is in seconds.</p>
 <p>As well, generate a plot of the mean RT for each participant, with error bars showing the 95% confidence intervals.</p>
+</section>
+<section id="how-to-approach-this-exercise">
+<h3>How to Approach This Exercise<a class="headerlink" href="#how-to-approach-this-exercise" title="Permalink to this headline">#</a></h3>
+<p>A critical skill to develop in coding is <strong>problem decomposition</strong> – in other words, breaking down a task into smaller and smaller components, so that you can write the code to perform each step in the logical sequence. The instructions above are written in a sequential way, so you should be able to identify each individual step that  you need to take.</p>
+<p>It is good practice, when working in Jupyter notebooks, to write the code for each step in a separate cell. This makes it easier to test each step, and to go back and change things if you need to. It also makes it easier to see what you’ve done, and understand what the code is doing. As well, it’s sometime helpful to put Markdown cells in between code cells, to provide longer explanations than might be appropriate for a comment in the code itself. You can also make notes about things you might want to change later, or interpretations of the output of the code.</p>
+</section>
+<section id="using-the-copilot-assistant">
+<h3>Using the Copilot Assistant<a class="headerlink" href="#using-the-copilot-assistant" title="Permalink to this headline">#</a></h3>
+<p>As noted above, we encourage you to try writing the code for each step of the instructions above. Coding is a <em>procedural</em> skill that you only learn by doing — and the more you learn the better you will be at solving the bugs that Copilot-generated code will inevitably have. But, if you get stuck, or encounter an instruction that you haven’t yet learned how to perform in Python, then by all means use Copilot. Just like writing your own code, it is best if you use a separate notebook cell for each Copilot prompt. That way, if you need to edit the code, you can do so without having to re-run all of the code that Copilot generated. It’s also easier to debug because you can see the output of each cell and now exactly which line generated the error.</p>
 </section>
 </section>
 <section id="copilot-generated-code-for-the-above">
 <h2>Copilot-Generated Code for the Above<a class="headerlink" href="#copilot-generated-code-for-the-above" title="Permalink to this headline">#</a></h2>
-<p>The code below was generated by Copilot, based on the instructions above. It generates the error message that you see below the cell. Take a look at that, and then read on below that cell for an explanation.</p>
+<p>The cells below all reflect prompts written on the basis of the instructions above, and code generated entirely by Copilot. As you will see, it takes some trial and error – and critical thinking – to generate prompts that produce the code you want. But, it’s a good way to learn how to use Copilot effectively. And if you do it right, you will learn a lot about Python along the way.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read in three files from the data folder, whose names start with &quot;s&quot; and end in &quot;csv&quot;</span>
@@ -619,60 +637,125 @@ document.write(`
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">glob</span>
 
+
 <span class="c1"># get a list of all the files in the data folder that start with &quot;s&quot; and end with &quot;csv&quot;</span>
 <span class="n">file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/s*.csv&#39;</span><span class="p">)</span>
 
+
 <span class="c1"># read in the files and concatenate them into one dataframe</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">])</span>
-
-<span class="c1"># print the first 5 rows of the dataframe</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print the first 5 rows of the dataframe</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="c1"># Check that the dataframe has 30 rows and 3 columns</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participantID</th>
+      <th>trial</th>
+      <th>RT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s2</td>
+      <td>1</td>
+      <td>0.433094</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s2</td>
+      <td>2</td>
+      <td>0.392526</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s2</td>
+      <td>3</td>
+      <td>0.396831</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s2</td>
+      <td>4</td>
+      <td>0.417988</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s2</td>
+      <td>5</td>
+      <td>0.371810</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check that the dataframe has 30 rows and 3 columns</span>
 <span class="n">df</span><span class="o">.</span><span class="n">shape</span>
-
-<span class="c1"># raise an error if the dataframe does not have 30 rows and 3 columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(30, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># raise an error if the dataframe does not have 30 rows and 3 columns</span>
 <span class="k">assert</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">&quot;The dataframe does not have 30 rows and 3 columns&quot;</span>
-
-<span class="c1"># save the dataframe as a csv file named &quot;all_subjects.csv&quot; in the data folder</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save the dataframe as a csv file named &quot;all_subjects.csv&quot; in the data folder</span>
 <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/all_subjects.csv&#39;</span><span class="p">)</span>
-
-<span class="c1"># calculate mean rt for each subject</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean rt for each subject</span>
 <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-
-<span class="c1"># calculate mean rt across subjects</span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-
-<span class="c1"># calculate 95% confidence intervals for each subject</span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span>
-
-<span class="c1"># calculate 95% confidence intervals across subjects</span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span>
-
-<span class="c1"># print all of the above results in a nice format</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean RT for each subject:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Mean RT across subjects:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">95</span><span class="si">% c</span><span class="s1">onfidence intervals for each subject:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">95</span><span class="si">% c</span><span class="s1">onfidence intervals across subjects:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">)</span>
-
-<span class="c1"># plots mean RT for each subject, with 95% confidence intervals</span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yerr</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">26</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/all_subjects.csv&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="c1"># calculate mean rt for each subject</span>
-<span class="ne">---&gt; </span><span class="mi">26</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">28</span> <span class="c1"># calculate mean rt across subjects</span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># calculate mean rt for each subject</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
 <span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/frame.py:8252,</span> in <span class="ni">DataFrame.groupby</span><span class="nt">(self, by, axis, level, as_index, sort, group_keys, observed, dropna)</span>
 <span class="g g-Whitespace">   </span><span class="mi">8249</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You have to supply one of &#39;by&#39; and &#39;level&#39;&quot;</span><span class="p">)</span>
@@ -721,45 +804,53 @@ document.write(`
 <section id="debugging-copilot-generated-code">
 <h2>Debugging Copilot-Generated Code<a class="headerlink" href="#debugging-copilot-generated-code" title="Permalink to this headline">#</a></h2>
 <p>Typically, when you get a long, scary error message like the one above, you can ignore a lof of what is in the middle. The most important parts are the last line, which tells you what the error is, and the first lines, which usually indicate what line in the code you tried to run caused the error.</p>
-<p>In this case, we see a <code class="docutils literal notranslate"><span class="pre">KeyError:</span> <span class="pre">'subject'</span></code> at the bottom of the error message. Recall that Python dictionaries are sets of key-value pairs. The keys are the names of the columns, and the values are the data in those columns. You can think of a pandas DataFrame as a dictionary in which the column names are keys, and the values in that column are its values. So the error message above indicates that the code tried to access a column called <code class="docutils literal notranslate"><span class="pre">subject</span></code> in the DataFrame, but that column doesn’t exist. We can see at the top of the error message that the code that caused the error is: <code class="docutils literal notranslate"><span class="pre">---&gt;</span> <span class="pre">26</span> <span class="pre">df.groupby('subject').mean()</span></code>. This means it’s line 26 of the cell above that caused the error.</p>
+<p>In this case, we see a <code class="docutils literal notranslate"><span class="pre">KeyError:</span> <span class="pre">'subject'</span></code> at the bottom of the error message. Recall that Python dictionaries are sets of <strong>key</strong>-value pairs. The keys are the names of the columns, and the values are the data in those columns.</p>
+<p>You can think of a pandas DataFrame as a dictionary in which the column names are keys, and the values in that column are its values. So the error message above indicates that the code tried to access a column called <code class="docutils literal notranslate"><span class="pre">subject</span></code> in the DataFrame, but that column doesn’t exist. We can see at the top of the error message that the code that caused the error is: <code class="docutils literal notranslate"><span class="pre">---&gt;</span> <span class="pre">2</span> <span class="pre">df.groupby('subject').mean()</span></code>. This means it’s line 2 of the cell above that caused the error.</p>
+<p>As a novice coder, however, you might not know or remember that pandas DataFrames represent column names and data as dictionary key-value pairs. If you don’t understand what an error means, you can use Copilot to help you!</p>
+<section id="using-copilot-to-diagnose-and-fix-errors">
+<h3>Using Copilot to Diagnose and Fix Errors<a class="headerlink" href="#using-copilot-to-diagnose-and-fix-errors" title="Permalink to this headline">#</a></h3>
+<p>Copilot has a few features that can help you diagnose and fix your code. If you right-click in a code cell, you will see <code class="docutils literal notranslate"><span class="pre">Copilot</span></code> within the menu that pops up. Under that heading there are a number of options, including <code class="docutils literal notranslate"><span class="pre">Explain</span> <span class="pre">This</span></code> and <code class="docutils literal notranslate"><span class="pre">Fix</span> <span class="pre">This</span></code>.</p>
+</section>
+<section id="copilot-explain-this">
+<h3>Copilot <code class="docutils literal notranslate"><span class="pre">Explain</span> <span class="pre">This</span></code><a class="headerlink" href="#copilot-explain-this" title="Permalink to this headline">#</a></h3>
+<p>A great place to start in diagnosing errors is <code class="docutils literal notranslate"><span class="pre">Explain</span> <span class="pre">This</span></code>. Intuitively, you might go straight for <code class="docutils literal notranslate"><span class="pre">Fix</span> <span class="pre">This</span></code>. However, it’s probably instructive to see what Copilot thinks your code is doing, and if that is what <em>you</em> think your code is doing. Copilot’s explanation might give you insight into the error. Below is the output from selecting <code class="docutils literal notranslate"><span class="pre">Explain</span> <span class="pre">This</span></code> for the line of code that caused the error above:</p>
+<blockquote>
+<div><p>This code is designed to calculate the mean reaction time (RT) for each subject in a dataframe. The code uses the groupby() method to group the data by the ‘subject’ column and then calculates the mean for each group using the mean() method.</p>
+<p>The resulting dataframe contains the mean RT for each subject. The index of the dataframe is the unique values in the ‘subject’ column, and the columns are the other numerical columns in the original dataframe.</p>
+<p>This code is useful when working with data that has multiple subjects and you want to calculate summary statistics for each subject. By using the groupby() method, you can easily calculate summary statistics for each group without having to manually subset the data.</p>
+<p>One possible way to improve this code would be to specify the column to calculate the mean for, rather than calculating the mean for all numerical columns. This would make the code more specific and reduce the risk of errors. Additionally, the code could be modified to calculate other summary statistics, such as the standard deviation or median, by using the appropriate method instead of the mean() method.</p>
+</div></blockquote>
+<p>First off, this shows how Copilot can be a great learning tool. It’s giving us a clear explanation of what the code is doing, and teaching us a bit about how the <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> method works. It also suggests some improvements to the code, which we can take or leave.</p>
+<p>None of this explanation tells us directly why the code generates an error, but at least we have an explanation of what the code is actually doing, which we can use to help us figure out what is going wrong.</p>
+<p>The first paragraph of Copilot’s explanation notes that the code is grouping the data by the <code class="docutils literal notranslate"><span class="pre">subject</span></code> column. This could be a clue to us, since the error message also references <code class="docutils literal notranslate"><span class="pre">subject</span></code>.</p>
+</section>
+<section id="copilot-fix-this">
+<h3>Copilot <code class="docutils literal notranslate"><span class="pre">Fix</span> <span class="pre">This</span></code><a class="headerlink" href="#copilot-fix-this" title="Permalink to this headline">#</a></h3>
+<p>If you select <code class="docutils literal notranslate"><span class="pre">Fix</span> <span class="pre">This</span></code> from the Copilot menu, you will see what’s called a <strong>diff</strong>, as shown below. A diff is a way of showing the difference between two pieces of code. The code on the left (with a pink background) is the code you wrote, and the code on the right (with a green background) is the code that Copilot suggests. In this case, the suggested “fix” would not fix the problem.</p>
+<p><img alt="" src="../_images/copilot_fix_this.png" /></p>
+<p>The suggested code is doing two things differently from the original code. Firstly, it’s suggesting that you assign the output of the command to a variable, and then print the variable. Assigning output to a variable and then printing it is in general good coding style, because we may want to use that variable again later in our code. But that won’t fix the error. A</p>
+<p>The other difference – which is subtle to a novice coder – is that the new code is referencing the column <code class="docutils literal notranslate"><span class="pre">Subject</span></code> rather than <code class="docutils literal notranslate"><span class="pre">subject</span></code>. Recall that Python is <strong>case-sensitive</strong>, meaning that <code class="docutils literal notranslate"><span class="pre">Subject</span></code> and <code class="docutils literal notranslate"><span class="pre">subject</span></code> are not the same thing. Copilot seems to be guessing that the error might be cause by a common mistake, which is to refer to a variable using the wrong case.</p>
+<p>You can click the <code class="docutils literal notranslate"><span class="pre">Discard</span></code> button to reject Copilot’s suggestion, and the <code class="docutils literal notranslate"><span class="pre">Escape</span></code> key to exit the diff view.</p>
 <div class="alert alert-info">
-VS Code doesn't show line numbers in cells by default. You can turn them on by right-clicking the area to the left of the code cell (under the triangle that executes the cell), and selecting `Show Cell Line Numbers`. Alternatively, if the code cell is in command (not edit) mode, you can press the `l` key to toggle line numbers on and off.
-</div>
-<p>In order to fix this error, you should figure out what the names of the columns in your data actually are.</p>
-<p>When you’re debugging a code cell that contains a lot of different commands, like the one above, it can be a bit challenging to narrow down where the error is. One way to do this is to click inside the cell, and look for the small toolbar that appears in the top right corner of the cell. If you mouse over the first (left) button in that toolbar, it will say <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">by</span> <span class="pre">line</span></code>. Click this and the cell will execute up to and including the first command (after any <code class="docutils literal notranslate"><span class="pre">import</span></code> statements). So in the cell above, this would execute up to and including the line <code class="docutils literal notranslate"><span class="pre">file_list</span> <span class="pre">=</span> <span class="pre">glob.glob('data/s*.csv')</span></code>. The next line of code will be highlighted, with a pointer beside it. This tells you what is next to run. Clicking the same button again will run the highlighted line, and so on.</p>
-<p>You can do this up until right before the line you know generated an error. Then, without running the “bad” line, create a new cell below the cell you’re debugging, and you can run other code to inspect the variables that you have in memory. For example, you can ask for a list of the names of columns, and the first few lines of the DataFrame.</p>
-<p>Another option, rather than running the cell line-by-line, is to select all of the code from the line that’s generating the error to the bottom of the cell, cut it, and paste it into a new cell below. Then you can run the code up to the line that’s generating the error, and inspect the variables in memory. Sometimes this is easier, especially if you have a lot of code in the cell.</p>
-<p>So, in the cell below, we’ve done this. We’ve cut the code from the line that’s generating the error to the bottom of the cell, and pasted it into a new cell below. Let’s execute the cell below, and then inspect the variables in memory.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read in three files from the data folder, whose names start with &quot;s&quot; and end in &quot;csv&quot;</span>
-<span class="c1"># concatenate them into one dataframe</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-
-<span class="c1"># get a list of all the files in the data folder that start with &quot;s&quot; and end with &quot;csv&quot;</span>
-<span class="n">file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/s*.csv&#39;</span><span class="p">)</span>
-
-<span class="c1"># read in the files and concatenate them into one dataframe</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">])</span>
-
-<span class="c1"># print the first 5 rows of the dataframe</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-
-<span class="c1"># Check that the dataframe has 30 rows and 3 columns</span>
-<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
-
-<span class="c1"># raise an error if the dataframe does not have 30 rows and 3 columns</span>
-<span class="k">assert</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">&quot;The dataframe does not have 30 rows and 3 columns&quot;</span>
-
-<span class="c1"># save the dataframe as a csv file named &quot;all_subjects.csv&quot; in the data folder</span>
-<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/all_subjects.csv&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>To inspect the variables in memory, we can do it in a couple of different ways using prompts to generate code. For instance, let’s see what the column names are in the DataFrame:</p>
+Copilot does not generate the same code every time you type the same prompt. This is the nature of the type of generative AI that Copilot uses. So, when working through this lesson, you may get different outputs than what is shown in the lesson. Try to use the processes explained here for interpreting error messages and Copilot's descriptions and suggested code. It's much more important to get familiar with engaging in the process of debugging through the thought processes explained here, than to worry about getting different suggestions from Copilot.</section>
+<section id="copilot-chat">
+<h3>Copilot <code class="docutils literal notranslate"><span class="pre">Chat</span></code><a class="headerlink" href="#copilot-chat" title="Permalink to this headline">#</a></h3>
+<p><img alt="" src="../_images/chat_icon.png" /> Another, really useful option is the <code class="docutils literal notranslate"><span class="pre">Chat</span></code> option, which you can option by clicking the <code class="docutils literal notranslate"><span class="pre">Chat</span></code> icon in the Activity Bar (left side of VS Code). This allows you to have a conversation with Copilot about what you want to do. If you’ve used Chat-GPT before, this will be familiar to you.</p>
+<p>There are different approaches to using Copilot Chat to help fix an error. One is to click in the cell that generates the error, and then clicking in the Copilot Chat input box, and typing: <code class="docutils literal notranslate"><span class="pre">the</span> <span class="pre">selected</span> <span class="pre">cell</span> <span class="pre">generates</span> <span class="pre">an</span> <span class="pre">error.</span> <span class="pre">how</span> <span class="pre">can</span> <span class="pre">i</span> <span class="pre">fix</span> <span class="pre">this</span> <span class="pre">error?</span></code> In response to this prompt for the present error, I got the following response:</p>
+<blockquote>
+<div><p>If you are getting an error with the selected cell, there could be a few reasons why. Here are some possible solutions:</p>
+<ol class="arabic simple">
+<li><p>Check that the ‘subject’ column is present in the dataframe. You can do this by printing out the dataframe using the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function and checking that the ‘subject’ column is present.</p></li>
+<li><p>Check that the ‘subject’ column is spelled correctly. If the column is misspelled, you will get a “KeyError” when trying to group by that column.</p></li>
+<li><p>Check that the ‘subject’ column is of the correct data type. If the ‘subject’ column is not a string or categorical data type, you may need to convert it using the <code class="docutils literal notranslate"><span class="pre">astype()</span></code> method.</p></li>
+<li><p>Check that the dataframe contains numerical columns. If the dataframe only contains non-numerical columns, you will get a “DataError” when trying to calculate the mean.</p></li>
+<li><p>Check that the dataframe does not contain missing values. If the dataframe contains missing values, you may need to remove them using the <code class="docutils literal notranslate"><span class="pre">dropna()</span></code> method before calculating the mean.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="finding-the-error">
+<h3>Finding the error<a class="headerlink" href="#finding-the-error" title="Permalink to this headline">#</a></h3>
+<p>These are actually really good responses, and provided in a logical order to go through in debugging. The first thing to do is to check that the column exists, and is spelled correctly. So let’s start with that. Do you remember how to check the names of the columns in a pandas DataFrame? If not, you can write a Copilot prompt to help you out. In the cell below, write a prompt that will print the names of the columns in the DataFrame. Then run the cell, and see what happens.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print the column names of the dataframe</span>
@@ -843,10 +934,7 @@ VS Code doesn't show line numbers in cells by default. You can turn them on by r
 <p>Another option, when using Jupyter notebooks with VS Code, is to click on the <code class="docutils literal notranslate"><span class="pre">Variables</span></code> button in the toolbar at the top of the notebook window. This will pop up a variable viewer in sub-window below your notebook. You can click on the variable names to see their values. For DataFrames, it actually shows a list of the columns in the window, and you can double-click on the variable name to see the contents of the DataFrame in another window, the Data Viewer. This view is similar to a spreadsheet. In fact, you can directly edit values in the Data Viewer. <em>You should never directly edit values like this</em>, however. Any steps you do manually are not documented in your code, and are not reproducible.</p>
 <p>The screenshot below shows the variables and Data Viewer for the current context.</p>
 <p><img alt="" src="../_images/inspectors.png" /></p>
-<section id="finding-the-error">
-<h3>Finding the Error<a class="headerlink" href="#finding-the-error" title="Permalink to this headline">#</a></h3>
-<p>If we look at the column names, we see that they are <code class="docutils literal notranslate"><span class="pre">participantID</span></code>, <code class="docutils literal notranslate"><span class="pre">trial</span></code>, and <code class="docutils literal notranslate"><span class="pre">RT</span></code>. The code that generated the error was trying to access a column called <code class="docutils literal notranslate"><span class="pre">subject</span></code>, which doesn’t exist. It should be <code class="docutils literal notranslate"><span class="pre">participantID</span></code>. So we need to change the code to access the correct column name.</p>
-<p>To work just on that line of code, we’ll paste it into its own cell below, and change <code class="docutils literal notranslate"><span class="pre">subject</span></code> to <code class="docutils literal notranslate"><span class="pre">participantID</span></code>, then run it.</p>
+<p>If we look at the column names, we see that they are <code class="docutils literal notranslate"><span class="pre">participantID</span></code>, <code class="docutils literal notranslate"><span class="pre">trial</span></code>, and <code class="docutils literal notranslate"><span class="pre">RT</span></code>. The code that generated the error was trying to access a column called <code class="docutils literal notranslate"><span class="pre">subject</span></code>, which doesn’t exist. It should be <code class="docutils literal notranslate"><span class="pre">participantID</span></code>. So we need to change the code to access the correct column name:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean rt for each subject</span>
@@ -902,44 +990,166 @@ VS Code doesn't show line numbers in cells by default. You can turn them on by r
 </table>
 </div></div></div>
 </div>
-<p>That worked! Great. Now you can either try simply running the cell below and see what happens, or inspect it to see if the same error occurred repeatedly. Given that the error was a column name, and many of the additional operations we want to perform involve grouping data either by or across participants, it’s likely that we’ll have to change the column name in other places. So let’s inspect the code below, and see if there are any other instances of <code class="docutils literal notranslate"><span class="pre">subject</span></code> that we need to change.</p>
+<p>This loks good, however the code is providing means for both columns in the DataFrame, not just for <code class="docutils literal notranslate"><span class="pre">RT</span></code>. We can add to our prompt to tell it not to include trial in the output:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean rt for each subject</span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean rt for each subject. Do not show the mean for trial </span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;trial&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="c1"># calculate mean rt across subjects</span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="c1"># calculate 95% confidence intervals for each subject</span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span>
-
-<span class="c1"># calculate 95% confidence intervals across subjects</span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span>
-
-<span class="c1"># print all of the above results in a nice format</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean RT for each subject:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Mean RT across subjects:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">95</span><span class="si">% c</span><span class="s1">onfidence intervals for each subject:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">95</span><span class="si">% c</span><span class="s1">onfidence intervals across subjects:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">)</span>
-
-<span class="c1"># plots mean RT for each subject, with 95% confidence intervals</span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yerr</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">)</span>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RT</th>
+    </tr>
+    <tr>
+      <th>participantID</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>s1</th>
+      <td>0.389548</td>
+    </tr>
+    <tr>
+      <th>s2</th>
+      <td>0.444785</td>
+    </tr>
+    <tr>
+      <th>s3</th>
+      <td>0.446009</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The above generated code does what we want. However, from the perspectives of coding style and efficiency, it’s not optimal. It seems unnecessary to compute the mean for <code class="docutils literal notranslate"><span class="pre">trial</span></code> and then drop it. We can modify the prompt in a way that generates more efficient code:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean for each subject using the RT column</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>participantID
+s1    0.389548
+s2    0.444785
+s3    0.446009
+Name: RT, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+One thing you may notice is that the above code prints the DataFrame in a less "pretty", formatted manner than the one before. This is not really important here, but it's worth understanding why the difference occurs. When you call a pandas DataFrame it prints in a nicely formatted output. However, when you call a pandas Series, it prints in a less formatted way. The output of the `groupby()` method on a single column (`RT`) is a Series, whereas the output of `.groupby()` on multiple columns (`trial` and `RT` is a DataFrame. In the first case, the code created a DataFrame and then dropped the `trial` column, but as such it remained a DataFrame. In contrast the output of using the `mean()` method on a single column is a Series.
+<p><p>
+We'll worry about the formatting later, but it's good to understand why it happens.
+</div></section>
+</section>
+<section id="continue-coding">
+<h2>Continue Coding<a class="headerlink" href="#continue-coding" title="Permalink to this headline">#</a></h2>
+<p>Having fixed that error, we can now move on with the steps in the instructions. The next one was to calculate the mean RT across subjects. Do that below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate the mean rt across all subjects</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># calculate mean rt for each subject</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># calculate mean rt across subjects</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3653,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3652</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:147,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:176,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7080,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7088,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: &#39;rt&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># calculate the mean rt across all subjects</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/frame.py:3761,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3759</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3760</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3761</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3762</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3763</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3655,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3655</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">3656</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3657</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3658</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3659</span>     <span class="c1">#  the TypeError.</span>
+<span class="g g-Whitespace">   </span><span class="mi">3660</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="ne">KeyError</span>: &#39;rt&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>When I tried this, I got another <code class="docutils literal notranslate"><span class="pre">key</span> <span class="pre">Error</span></code>, this time for <code class="docutils literal notranslate"><span class="pre">RT</span></code>. This is because the code is trying to access a column called <code class="docutils literal notranslate"><span class="pre">rt</span></code>, but the column name is actually <code class="docutils literal notranslate"><span class="pre">rt</span></code>. AGain, let’s start by trying to fix this ourselves, and then use Copilot if we get stuck.</p>
+<p>The code above selects the column in <code class="docutils literal notranslate"><span class="pre">df</span></code> called <code class="docutils literal notranslate"><span class="pre">rt</span></code> and computes its mean. However, if you look back to the listing of column names that we generated earlier, you’ll see that the column name is actually <code class="docutils literal notranslate"><span class="pre">RT</span></code>. Python is <strong>case sensitive</strong>, meaning that capitalization matters: <code class="docutils literal notranslate"><span class="pre">RT</span></code> and <code class="docutils literal notranslate"><span class="pre">rt</span></code> are not the same. So we need to change the code to access the correct column name:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4267806816333334
+</pre></div>
+</div>
+</div>
+</div>
+<p>Having fixed that error, let’s move on to the next step, which is to calculate the 95% confidence intervals for the mean RT for each participant:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate 95% confidence intervals for each subject</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># calculate 95% confidence intervals for each subject</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/frame.py:8252,</span> in <span class="ni">DataFrame.groupby</span><span class="nt">(self, by, axis, level, as_index, sort, group_keys, observed, dropna)</span>
 <span class="g g-Whitespace">   </span><span class="mi">8249</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You have to supply one of &#39;by&#39; and &#39;level&#39;&quot;</span><span class="p">)</span>
@@ -980,6 +1190,257 @@ VS Code doesn't show line numbers in cells by default. You can turn them on by r
 <span class="g g-Whitespace">    </span><span class="mi">988</span>     <span class="n">exclusions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
 
 <span class="ne">KeyError</span>: &#39;subject&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Again we get <code class="docutils literal notranslate"><span class="pre">Key</span> <span class="pre">Error:</span> <span class="pre">'subject'</span></code>, which is the same as the first error above. So again, Copilot is labelling the column incorrectly. We know that we can fix this by replacing <code class="docutils literal notranslate"><span class="pre">subject</span></code> with <code class="docutils literal notranslate"><span class="pre">participantID</span></code>, but it’s a bit annoying that Copilot keeps making this error. On the other hand, many errors are actually human errors. We are prompting Copilot to do something for each  “subject”, which then requires Copilot to know that by “subject” we really mean the column called <code class="docutils literal notranslate"><span class="pre">participantID</span></code>. Maybe we could engineer our prompt to be better instead, by referring to the column name directly. Let’s try that:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate 95% confidence intervals for each participantid</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>participantID
+s1    5.008243
+s2    4.954111
+s3    4.952911
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is a frightening example of a Copilot hallucination. The above code generates what you might think is a plausible result. However, if you look back at the mean RT for each participant, they were in the range of .339 – .449. Confidence intervals reflect the range of possible true values for the mean, given the sample data. The 95% CIs reflect the range within which it is 95% likely that the true mean lines. So for our confidence intervals to have values around 5 s seems implausible, given the mean RTs. This highlights the importance of understanding not only what your code is doing, but what you are asking it to do. You should always check the output of your code to make sure it makes sense, and also make sure you understand what you are supposed to be doing with the code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>participantID
+s1    0.464545
+s2    0.538650
+s3    0.573625
+Name: RT, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s use the same approach for the next step, calculating 95% CIs across all participants:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate 95% confidence intervals across participantid</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3653,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3652</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:147,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:176,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7080,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7088,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: &#39;rt&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># calculate 95% confidence intervals across participantid</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/frame.py:3761,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3759</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3760</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3761</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3762</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3763</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3655,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3655</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">3656</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3657</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3658</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3659</span>     <span class="c1">#  the TypeError.</span>
+<span class="g g-Whitespace">   </span><span class="mi">3660</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="ne">KeyError</span>: &#39;rt&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we’re back to the <code class="docutils literal notranslate"><span class="pre">rt</span></code> Key Error we saw before, which was due to the case-sensitivity of Python. We can fix it manually, or think about how to make our prompts more precise, to reduce the chance of Copilot making this error. Let’s try the latter:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate 95% confidence intervals for RT across participantid</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.45911120518780957
+</pre></div>
+</div>
+</div>
+</div>
+<p>So yes, by explicitly providing the correctly-capitalized name of the column we want, we can avoid the error. But we can also see that Copilot is not very good at understanding our prompts in the specific context of the notebook file or active kernel that we’re working in. It would be nice if Copilot were more sensitive to the names of variables that are actually defined in our kernel, and that will probably come in the future. But for now, we need to be careful about how we write our prompts, to be as explicit as we can about what we actually want. Often this requires you to think a bit more deeply about the structure of your data, and what you want to do with it, and be more <em>precise</em> in the phrasing of your prompts. Over time, developing this skill leads to better critical and analytical thinking, and makes you a better data scientist.</p>
+</section>
+<section id="formatting-the-output-nicely">
+<h2>Formatting the output nicely<a class="headerlink" href="#formatting-the-output-nicely" title="Permalink to this headline">#</a></h2>
+<p>The next instruction is to “Print all of the above results to the screen, rounded to 2 decimal places and with accompanying text that indicates what each result is. Be sure that it is clear that RT is in seconds.”. In a typical workflow, we might want to get each of the above calculations working correctly, and then modify the code in those cells further to get nice-looking output. However, for explanatory purposes we will keep the above ones as they are, and copy the working prompts from above so that we can add instructions for formatting.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean RT for each participantid rounded to 2 decimal places</span>
+<span class="c1"># and provide accompanying text that indicates what each result is,</span>
+<span class="c1"># and that RT is in seconds</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; seconds&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>participantID
+s1    trial    5.50\nRT       0.39\nName: s1, dtype:...
+s2    trial    5.50\nRT       0.44\nName: s2, dtype:...
+s3    trial    5.50\nRT       0.45\nName: s3, dtype:...
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>This seems almost right, but there are weird extra characters in there: <code class="docutils literal notranslate"><span class="pre">\n</span></code>. As well, it is outputting the means for both <code class="docutils literal notranslate"><span class="pre">RT</span></code> and <code class="docutils literal notranslate"><span class="pre">trial</span></code>, even though we only asked for <code class="docutils literal notranslate"><span class="pre">RT</span></code>.</p>
+<p>At this point, we could try to fix this ourselves, which would involve some Web searching to first understand what this line of code is actually doing (if you’re not already familiar with the extended chain of methods and functions in this complex command), and then figuring out how to generate better output. But again, we can use Copilot to expedite this process.</p>
+<p><img alt="" src="../_images/chat_icon.png" /> Click again on the Copilot Chat icon in the Activity Bar. Let’s first ask for an explanation of the code. This is a complex line of code with four operations chained together, including an embedded <code class="docutils literal notranslate"><span class="pre">lambda()</span></code> function, which we haven’t learned about yet.</p>
+<p>To get an explanation of the code, I first selected the entire line of code with muy curor. Then, in the Copilot Chat window, I typed <code class="docutils literal notranslate"><span class="pre">explain</span> <span class="pre">the</span> <span class="pre">highlighted</span> <span class="pre">line</span> <span class="pre">of</span> <span class="pre">code</span></code>. In response, I got the following explanation:</p>
+<blockquote>
+<div><p>The highlighted line of code calculates the mean of all numerical columns in the dataframe <code class="docutils literal notranslate"><span class="pre">df</span></code> for each unique value in the ‘participantID’ column. The resulting dataframe contains the mean for each numerical column, with the index being the unique values in the ‘participantID’ column.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> method is used to group the data by the ‘participantID’ column, and the <code class="docutils literal notranslate"><span class="pre">mean()</span></code> method is used to calculate the mean for each group. The resulting dataframe contains the mean for each numerical column, with the index being the unique values in the ‘participantID’ column.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">round()</span></code> method is used to round the mean values to two decimal places, and the <code class="docutils literal notranslate"><span class="pre">apply()</span></code> method is used to add the string ‘ seconds’ to each value in the dataframe. The <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> parameter specifies that the function should be applied to each row of the dataframe.</p>
+<p>This code is useful when working with data that has multiple participants and you want to calculate summary statistics for each participant. By using the <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> method, you can easily calculate summary statistics for each group without having to manually subset the data.</p>
+<p>The resulting dataframe can be used to create a summary table or plot of the mean values for each participant. The <code class="docutils literal notranslate"><span class="pre">apply()</span></code> method can be modified to add different strings or formatting to the mean values, depending on the desired output.</p>
+</div></blockquote>
+<p>This is a good explanation of what the code is doing. But it doesn’t provide a lot of insight into why the formatting is off, or why <code class="docutils literal notranslate"><span class="pre">trial</span></code> is included. So let’s try asking Copilot a more specific question about the things we don’t like about the code. I tried this prompt: <code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">seems</span> <span class="pre">almost</span> <span class="pre">right,</span> <span class="pre">but</span> <span class="pre">there</span> <span class="pre">are</span> <span class="pre">weird</span> <span class="pre">extra</span> <span class="pre">characters</span> <span class="pre">in</span> <span class="pre">there:</span> </code>\n<code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">As</span> <span class="pre">well,</span> <span class="pre">it</span> <span class="pre">is</span> <span class="pre">outputting</span> <span class="pre">the</span> <span class="pre">means</span> <span class="pre">for</span> <span class="pre">both</span> </code>RT<code class="docutils literal notranslate"><span class="pre">and</span></code>trial<code class="docutils literal notranslate"><span class="pre">,</span> <span class="pre">even</span> <span class="pre">though</span> <span class="pre">we</span> <span class="pre">only</span> <span class="pre">asked</span> <span class="pre">for</span> </code>RT`.</p>
+<p>At this point, we could try to fix this ourselves, which would involve some Web searching to first understand what this line of code is actually doing (if you’re not already familiar with the extended chain of methods and functions in this complex command), and then figuring out how to generate better output. But again, we can use Copilot to expedite this process.</p>
+<p><img alt="" src="../_images/chat_icon.png" /> Click again on the Copilot Chat icon in the Activity Bar. Let’s first ask for an explanation of the code. This is a complex line of code with four operations chained together, including an embedded <code class="docutils literal notranslate"><span class="pre">lambda()</span></code> function, which we haven’t learned about yet.</p>
+<p>To get an explanation of the code, I first selected the entire line of code with muy curor. Then, in the Copilot Chat window, I typed <code class="docutils literal notranslate"><span class="pre">explain</span> <span class="pre">the</span> <span class="pre">highlighted</span> <span class="pre">line</span> <span class="pre">of</span> <span class="pre">code</span></code>. In response, I got the following explanation:</p>
+<blockquote>
+<div><p>The highlighted line of code calculates the mean of all numerical columns in the dataframe <code class="docutils literal notranslate"><span class="pre">df</span></code> for each unique value in the ‘participantID’ column. The resulting dataframe contains the mean for each numerical column, with the index being the unique values in the ‘participantID’ column.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> method is used to group the data by the ‘participantID’ column, and the <code class="docutils literal notranslate"><span class="pre">mean()</span></code> method is used to calculate the mean for each group. The resulting dataframe contains the mean for each numerical column, with the index being the unique values in the ‘participantID’ column.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">round()</span></code> method is used to round the mean values to two decimal places, and the <code class="docutils literal notranslate"><span class="pre">apply()</span></code> method is used to add the string ‘ seconds’ to each value in the dataframe. The <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> parameter specifies that the function should be applied to each row of the dataframe.</p>
+<p>This code is useful when working with data that has multiple participants and you want to calculate summary statistics for each participant. By using the <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> method, you can easily calculate summary statistics for each group without having to manually subset the data.</p>
+<p>The resulting dataframe can be used to create a summary table or plot of the mean values for each participant. The <code class="docutils literal notranslate"><span class="pre">apply()</span></code> method can be modified to add different strings or formatting to the mean values, depending on the desired output.</p>
+</div></blockquote>
+<p>This is a good explanation of what the code is doing. But it doesn’t provide a lot of insight into why the formatting is off, or why <code class="docutils literal notranslate"><span class="pre">trial</span></code> is included. So let’s try asking Copilot a more specific question about the things we don’t like about the code. I tried this prompt: <code class="docutils literal notranslate"><span class="pre">the</span> <span class="pre">highlighted</span> <span class="pre">code</span> <span class="pre">prints</span> <span class="pre">meants</span> <span class="pre">for</span> <span class="pre">both</span> <span class="pre">trial</span> <span class="pre">and</span> <span class="pre">RT,</span> <span class="pre">but</span> <span class="pre">I</span> <span class="pre">want</span> <span class="pre">it</span> <span class="pre">to</span> <span class="pre">only</span> <span class="pre">print</span> <span class="pre">the</span> <span class="pre">mean</span> <span class="pre">RT</span> <span class="pre">for</span> <span class="pre">each</span> <span class="pre">participantid.</span> <span class="pre">suggest</span> <span class="pre">code</span> <span class="pre">to</span> <span class="pre">do</span> <span class="pre">what</span> <span class="pre">I</span> <span class="pre">want</span></code>. In response, I got the following:</p>
+<blockquote>
+<div><p>To print only the mean RT for each participantID, you can modify the existing code to select only the ‘RT’ column before calling the <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> and <code class="docutils literal notranslate"><span class="pre">mean()</span></code> methods. Here’s an example:</p>
+</div></blockquote>
+<blockquote>
+<div><p>In this code, the <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> method is used to group the data by the ‘participantID’ column, and the <code class="docutils literal notranslate"><span class="pre">mean()</span></code> method is used to calculate the mean of the ‘RT’ column for each group. The resulting dataframe contains the mean RT for each unique value in the ‘participantID’ column.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">round()</span></code> method is used to round the mean values to two decimal places, and the <code class="docutils literal notranslate"><span class="pre">apply()</span></code> method is used to add the string ‘ seconds’ to each value in the dataframe. The resulting series contains the mean RT for each unique value in the ‘participantID’ column, with the index being the unique values in the ‘participantID’ column.</p>
+<p>This code should give you the desired output of only the mean RT for each participantID, rounded to two decimal places and with the string ‘ seconds’ added to each value.`. In response, I got the following:</p>
+</div></blockquote>
+<blockquote>
+<div><p>To print only the mean RT for each participantID, you can modify the existing code to select only the ‘RT’ column before calling the <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> and <code class="docutils literal notranslate"><span class="pre">mean()</span></code> methods. Here’s an example:</p>
+</div></blockquote>
+<blockquote>
+<div><p>In this code, the <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> method is used to group the data by the ‘participantID’ column, and the <code class="docutils literal notranslate"><span class="pre">mean()</span></code> method is used to calculate the mean of the ‘RT’ column for each group. The resulting dataframe contains the mean RT for each unique value in the ‘participantID’ column.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">round()</span></code> method is used to round the mean values to two decimal places, and the <code class="docutils literal notranslate"><span class="pre">apply()</span></code> method is used to add the string ‘ seconds’ to each value in the dataframe. The resulting series contains the mean RT for each unique value in the ‘participantID’ column, with the index being the unique values in the ‘participantID’ column.</p>
+<p>This code should give you the desired output of only the mean RT for each participantID, rounded to two decimal places and with the string ‘ seconds’ added to each value.</p>
+</div></blockquote>
+<p>Let’s try that suggested code and see what we get:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; seconds&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>participantID
+s1    0.39 seconds
+s2    0.44 seconds
+s3    0.45 seconds
+Name: RT, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is great - now we have exactly what we want, and the code is even conveniently telling use that the units are seconds.</p>
+<p>Next we want to print the mean across all participants, formatted as above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean RT across participantid rounded to 2 decimal places</span>
+<span class="c1"># and provide accompanying text that indicates what each result is,</span>
+<span class="c1"># and that RT is in seconds</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; seconds&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">21</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># calculate mean RT across participantid rounded to 2 decimal places</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># and provide accompanying text that indicates what each result is,</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># and that RT is in seconds</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; seconds&#39;</span><span class="p">)</span>
+
+<span class="ne">AttributeError</span>: &#39;numpy.float64&#39; object has no attribute &#39;apply&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>I tried right-clicking, gooing to Copilot, and then selecting <code class="docutils literal notranslate"><span class="pre">Fix</span> <span class="pre">This</span></code>. This generated the following code:</p>
+<p>This reflects a phenomenon that seems to happen regularly with Copilot, which is that it repeats itself. Note that the last two lines of code are identical to the two lines before them. This is a bit annoying, but it’s not a big deal. We can just delete the last two lines of code, and we’re good to go.</p>
+<p>Also, look closely at the code: there’s another bug! This time, Copilot has made a mistake in the code it generated. It’s trying to group by <code class="docutils literal notranslate"><span class="pre">participantid</span></code>, but the column name is actually <code class="docutils literal notranslate"><span class="pre">participantID</span></code>. AGain, you need to be paying close attention to the code, and details like capitalization. In this case, I was being sloppy with capitalization in my prompts. Even though I already realized that I had to use <code class="docutils literal notranslate"><span class="pre">RT</span></code> and not <code class="docutils literal notranslate"><span class="pre">rt</span></code>, Copilot initially let me get away with lazily typing <code class="docutils literal notranslate"><span class="pre">participantid</span></code> and not <code class="docutils literal notranslate"><span class="pre">participantID</span></code>. But now it’s come back to bite me.</p>
+<p>Since I think I understand where the error is coming from, it’s more expedient to fix it myself, so I copy and paste the code from above, and then edit it to capitalize <code class="docutils literal notranslate"><span class="pre">ID</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean RT across participantid rounded to 2 decimal places</span>
+<span class="c1"># and provide accompanying text that indicates what each result is,</span>
+<span class="c1"># and that RT is in seconds</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">result_text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">mean_rt</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; seconds is the mean RT across participantID&#39;</span>
+<span class="n">result_text</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.43 seconds is the mean RT across participantID&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that that is fixed, let’s move on to the next step, which is to calculate the 95% confidence intervals for the mean RT for each participant:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate 95% confidence intervals for each participantid rounded to 2 decimal places</span>
+<span class="c1"># and provide accompanying text that indicates what each result is,</span>
+<span class="c1"># and that RT is in seconds</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; seconds&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>participantID
+s1    5.01 seconds
+s2    4.95 seconds
+s3    4.95 seconds
+dtype: object
 </pre></div>
 </div>
 </div>
@@ -1047,8 +1508,287 @@ dtype: float64
 <img alt="../_images/6881bc1c89cf65169cea5bcc754e687116b492fa37d6c4136d81083d17b1c2ab.png" src="../_images/6881bc1c89cf65169cea5bcc754e687116b492fa37d6c4136d81083d17b1c2ab.png" />
 </div>
 </div>
-<p>The code above does most of what we want, but it does generate another message – this time a warning, not an error. Warnings are worth looking at as well, because they can indicate that something is not quite right. Sometimes they are things like “deprecation notices”, which occur when a package has changed, and the old way of doing something is no longer supported. However, this warning reads, <code class="docutils literal notranslate"><span class="pre">UserWarning:</span> <span class="pre">Warning:</span> <span class="pre">converting</span> <span class="pre">a</span> <span class="pre">masked</span> <span class="pre">element</span> <span class="pre">to</span> <span class="pre">nan.</span></code> What does this mean?</p>
 </section>
+<section id="what-copilot-did">
+<h2>What Copilot Did<a class="headerlink" href="#what-copilot-did" title="Permalink to this headline">#</a></h2>
+<p>To fix the code to only show the mean RT, you need to modify the code to only select the ‘rt’ column before calculating the mean. You can do this by changing the first line of code to:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;participantID&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3653,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3652</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:147,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:176,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7080,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7088,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: &#39;rt&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;participantID&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/frame.py:3761,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3759</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3760</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3761</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3762</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3763</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3655,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3655</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">3656</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3657</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3658</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3659</span>     <span class="c1">#  the TypeError.</span>
+<span class="g g-Whitespace">   </span><span class="mi">3660</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="ne">KeyError</span>: &#39;rt&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>This code selects only the ‘rt’ column using the indexing operator and then groups the data by ‘participantID’ before calculating the mean. This will give you the mean RT for each participantID.</p>
+<p>You can then modify the rest of the code to use this new dataframe. Here is the modified code:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean rt for each participantID</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;participantID&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># calculate mean rt across participantIDs</span>
+<span class="n">mean_rt_all</span> <span class="o">=</span> <span class="n">mean_rt</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># calculate 95% confidence intervals for each participantID</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">mean_rt</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span>
+
+<span class="c1"># calculate 95% confidence intervals across participantIDs</span>
+<span class="n">ci_rt_all</span> <span class="o">=</span> <span class="n">mean_rt_all</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span>
+
+<span class="c1"># print all of the above results in a nice format</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean RT for each participantID:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mean_rt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Mean RT across participantIDs:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mean_rt_all</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">95</span><span class="si">% c</span><span class="s1">onfidence intervals for each participantID:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_rt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">95</span><span class="si">% c</span><span class="s1">onfidence intervals across participantIDs:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_rt_all</span><span class="p">)</span>
+
+<span class="c1"># plots mean RT across subjects, with 95% confidence intervals</span>
+<span class="n">mean_rt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yerr</span><span class="o">=</span><span class="n">ci_rt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3653,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3652</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:147,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:176,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7080,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7088,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: &#39;rt&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">26</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># calculate mean rt for each participantID</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;participantID&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># calculate mean rt across participantIDs</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">mean_rt_all</span> <span class="o">=</span> <span class="n">mean_rt</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/frame.py:3761,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3759</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3760</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3761</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3762</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3763</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3655,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3655</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">3656</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3657</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3658</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3659</span>     <span class="c1">#  the TypeError.</span>
+<span class="g g-Whitespace">   </span><span class="mi">3660</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="ne">KeyError</span>: &#39;rt&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>This code will now only calculate the mean RT and will print and plot the results accordingly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean rt for each participantID</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;participantID&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># calculate mean rt across participantIDs</span>
+<span class="n">mean_rt_all</span> <span class="o">=</span> <span class="n">mean_rt</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># calculate 95% confidence intervals for each participantID</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">mean_rt</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span>
+
+<span class="c1"># calculate 95% confidence intervals across participantIDs</span>
+<span class="n">ci_rt_all</span> <span class="o">=</span> <span class="n">mean_rt_all</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span>
+
+<span class="c1"># print all of the above results in a nice format</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean RT for each participantID:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mean_rt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Mean RT across participantIDs:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mean_rt_all</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">95</span><span class="si">% c</span><span class="s1">onfidence intervals for each participantID:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_rt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">95</span><span class="si">% c</span><span class="s1">onfidence intervals across participantIDs:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_rt_all</span><span class="p">)</span>
+
+<span class="c1"># plots mean RT across subjects, with 95% confidence intervals</span>
+<span class="n">mean_rt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yerr</span><span class="o">=</span><span class="n">ci_rt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3653,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3652</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:147,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:176,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7080,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7088,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: &#39;rt&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">27</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># calculate mean rt for each participantID</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;participantID&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># calculate mean rt across participantIDs</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">mean_rt_all</span> <span class="o">=</span> <span class="n">mean_rt</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/frame.py:3761,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3759</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3760</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3761</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3762</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3763</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3655,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3655</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">3656</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3657</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3658</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3659</span>     <span class="c1">#  the TypeError.</span>
+<span class="g g-Whitespace">   </span><span class="mi">3660</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="ne">KeyError</span>: &#39;rt&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participantID</th>
+      <th>trial</th>
+      <th>RT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s2</td>
+      <td>1</td>
+      <td>0.433094</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s2</td>
+      <td>2</td>
+      <td>0.392526</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s2</td>
+      <td>3</td>
+      <td>0.396831</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s2</td>
+      <td>4</td>
+      <td>0.417988</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s2</td>
+      <td>5</td>
+      <td>0.371810</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The code above does most of what we want, but it does generate another message – this time a warning, not an error. Warnings are worth looking at as well, because they can indicate that something is not quite right. Sometimes they are things like “deprecation notices”, which occur when a package has changed, and the old way of doing something is no longer supported. However, this warning reads, <code class="docutils literal notranslate"><span class="pre">UserWarning:</span> <span class="pre">Warning:</span> <span class="pre">converting</span> <span class="pre">a</span> <span class="pre">masked</span> <span class="pre">element</span> <span class="pre">to</span> <span class="pre">nan.</span></code> What does this mean?</p>
 </section>
 </section>
 
@@ -1121,13 +1861,22 @@ dtype: float64
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data-and-what-to-do-with-it">The Data and What to Do With It</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-approach-this-exercise">How to Approach This Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-copilot-assistant">Using the Copilot Assistant</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-generated-code-for-the-above">Copilot-Generated Code for the Above</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-copilot-generated-code">Debugging Copilot-Generated Code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-error">Finding the Error</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-copilot-to-diagnose-and-fix-errors">Using Copilot to Diagnose and Fix Errors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-explain-this">Copilot <code class="docutils literal notranslate"><span class="pre">Explain</span> <span class="pre">This</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-fix-this">Copilot <code class="docutils literal notranslate"><span class="pre">Fix</span> <span class="pre">This</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat">Copilot <code class="docutils literal notranslate"><span class="pre">Chat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-error">Finding the error</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continue-coding">Continue Coding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-the-output-nicely">Formatting the output nicely</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-copilot-did">What Copilot Did</a></li>
 </ul>
   </nav></div>
 
