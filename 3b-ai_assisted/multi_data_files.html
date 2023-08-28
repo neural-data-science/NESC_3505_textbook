@@ -571,7 +571,6 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-generated-code-for-the-above">Copilot-Generated Code for the Above</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-copilot-generated-code">Debugging Copilot-Generated Code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-copilot-to-diagnose-and-fix-errors">Using Copilot to Diagnose and Fix Errors</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-explain-this">Copilot <code class="docutils literal notranslate"><span class="pre">Explain</span> <span class="pre">This</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-fix-this">Copilot <code class="docutils literal notranslate"><span class="pre">Fix</span> <span class="pre">This</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat">Copilot <code class="docutils literal notranslate"><span class="pre">Chat</span></code></a></li>
@@ -579,6 +578,12 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continue-coding">Continue Coding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pink-elephants">Pink Elephants</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat-to-the-rescue">Copilot Chat to the Rescue</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-check-copilot-s-code-with-other-sources">Cross-Check Copilot’s Code with Other Sources</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carrying-on-stopped-here">Carrying On – STOPPED HERE</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-the-output-nicely">Formatting the output nicely</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-copilot-did">What Copilot Did</a></li>
 </ul>
@@ -807,10 +812,7 @@ document.write(`
 <p>In this case, we see a <code class="docutils literal notranslate"><span class="pre">KeyError:</span> <span class="pre">'subject'</span></code> at the bottom of the error message. Recall that Python dictionaries are sets of <strong>key</strong>-value pairs. The keys are the names of the columns, and the values are the data in those columns.</p>
 <p>You can think of a pandas DataFrame as a dictionary in which the column names are keys, and the values in that column are its values. So the error message above indicates that the code tried to access a column called <code class="docutils literal notranslate"><span class="pre">subject</span></code> in the DataFrame, but that column doesn’t exist. We can see at the top of the error message that the code that caused the error is: <code class="docutils literal notranslate"><span class="pre">---&gt;</span> <span class="pre">2</span> <span class="pre">df.groupby('subject').mean()</span></code>. This means it’s line 2 of the cell above that caused the error.</p>
 <p>As a novice coder, however, you might not know or remember that pandas DataFrames represent column names and data as dictionary key-value pairs. If you don’t understand what an error means, you can use Copilot to help you!</p>
-<section id="using-copilot-to-diagnose-and-fix-errors">
-<h3>Using Copilot to Diagnose and Fix Errors<a class="headerlink" href="#using-copilot-to-diagnose-and-fix-errors" title="Permalink to this headline">#</a></h3>
 <p>Copilot has a few features that can help you diagnose and fix your code. If you right-click in a code cell, you will see <code class="docutils literal notranslate"><span class="pre">Copilot</span></code> within the menu that pops up. Under that heading there are a number of options, including <code class="docutils literal notranslate"><span class="pre">Explain</span> <span class="pre">This</span></code> and <code class="docutils literal notranslate"><span class="pre">Fix</span> <span class="pre">This</span></code>.</p>
-</section>
 <section id="copilot-explain-this">
 <h3>Copilot <code class="docutils literal notranslate"><span class="pre">Explain</span> <span class="pre">This</span></code><a class="headerlink" href="#copilot-explain-this" title="Permalink to this headline">#</a></h3>
 <p>A great place to start in diagnosing errors is <code class="docutils literal notranslate"><span class="pre">Explain</span> <span class="pre">This</span></code>. Intuitively, you might go straight for <code class="docutils literal notranslate"><span class="pre">Fix</span> <span class="pre">This</span></code>. However, it’s probably instructive to see what Copilot thinks your code is doing, and if that is what <em>you</em> think your code is doing. Copilot’s explanation might give you insight into the error. Below is the output from selecting <code class="docutils literal notranslate"><span class="pre">Explain</span> <span class="pre">This</span></code> for the line of code that caused the error above:</p>
@@ -990,7 +992,7 @@ Copilot does not generate the same code every time you type the same prompt. Thi
 </table>
 </div></div></div>
 </div>
-<p>This loks good, however the code is providing means for both columns in the DataFrame, not just for <code class="docutils literal notranslate"><span class="pre">RT</span></code>. We can add to our prompt to tell it not to include trial in the output:</p>
+<p>This looks good, however the code is providing means for both columns in the DataFrame, not just for <code class="docutils literal notranslate"><span class="pre">RT</span></code>. We can add to our prompt to tell it not to include trial in the output:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean rt for each subject. Do not show the mean for trial </span>
@@ -1212,24 +1214,99 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>This is a frightening example of a Copilot hallucination. The above code generates what you might think is a plausible result. However, if you look back at the mean RT for each participant, they were in the range of .339 – .449. Confidence intervals reflect the range of possible true values for the mean, given the sample data. The 95% CIs reflect the range within which it is 95% likely that the true mean lines. So for our confidence intervals to have values around 5 s seems implausible, given the mean RTs. This highlights the importance of understanding not only what your code is doing, but what you are asking it to do. You should always check the output of your code to make sure it makes sense, and also make sure you understand what you are supposed to be doing with the code.</p>
+</section>
+<section id="pink-elephants">
+<h2>Pink Elephants<a class="headerlink" href="#pink-elephants" title="Permalink to this headline">#</a></h2>
+<p>This is a frightening example of a Copilot <strong>hallucination</strong>. The above code generates what you might think is a plausible result. However, there are a couple of problems. Firstly, confidence intervals (CIs) are typically reported as a pair of values. The 95% CIs reflect the range within which it is 95% likely that the true mean lines, so we need an upper and lower range of these values. These are typically the same amount plus or minus from the mean. So we need to modify the code to generate the upper and lower values of the CIs.</p>
+<p>Secondly, if you look back at the mean RT for each participant, they were in the range of .339 – .449. Confidence intervals reflect the range of possible true values for the mean, given the sample data.  So for our confidence intervals to have values around 5 s seems implausible, given the mean RTs are &lt; 500 ms. We would expect the CIs to be perhaps 100-200 ms. So it seems like Copilot is actually calculating the CIs incorrectly.</p>
+<p>This highlights the critical importance of understanding not only what your code is doing, but what you are asking it to do. You should always check the output of your code to make sure it makes sense, and also make sure you understand what you are supposed to be doing with the code.</p>
+</section>
+<section id="copilot-chat-to-the-rescue">
+<h2>Copilot Chat to the Rescue<a class="headerlink" href="#copilot-chat-to-the-rescue" title="Permalink to this headline">#</a></h2>
+<p>We can use Copilot Chat to help us figure out what is going on. If we click on the <code class="docutils literal notranslate"><span class="pre">Chat</span></code> icon in the Activity Bar, we can type in a question to Copilot. In this case, I asked Copilot the following:</p>
+<blockquote>
+<div><p>the highlighted code is supposed to compute the 95% confidence intervals of mean RT. However, the output values are incorrect. Can you please suggest code that correctly calculates the 95% confidence intervals, and provides both the upper and lower CIs in a table</p>
+</div></blockquote>
+<p>Copilot provided the answer below:</p>
+<blockquote>
+<div><blockquote>
+<div><p>To correctly calculate the 95% confidence intervals for the mean RT and provide both the upper and lower CIs in a table, you can modify the existing code as follows:</p>
+</div></blockquote>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># calculate mean and standard error of the mean for each participant</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span>
+
+<span class="c1"># calculate 95% confidence intervals for the mean RT</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+
+<span class="c1"># calculate upper and lower CIs</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span>
+
+<span class="c1"># create a table of the upper and lower CIs</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">})</span>
+
+<span class="c1"># print the table of CIs</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><blockquote>
+<div><p>In this code, the <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> method is used to group the data by the ‘participantID’ column, and the <code class="docutils literal notranslate"><span class="pre">mean()</span></code> and <code class="docutils literal notranslate"><span class="pre">sem()</span></code> methods are used to calculate the mean and standard error of the mean for the ‘RT’ column for each group. The resulting series contains the mean and SEM for each unique value in the ‘participantID’ column.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ci_rt</span></code> variable calculates the 95% confidence intervals for the mean RT using the formula <code class="docutils literal notranslate"><span class="pre">SEM</span> <span class="pre">*</span> <span class="pre">1.96</span></code>, where <code class="docutils literal notranslate"><span class="pre">SEM</span></code> is the standard error of the mean.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">upper_ci</span></code> and <code class="docutils literal notranslate"><span class="pre">lower_ci</span></code> variables calculate the upper and lower CIs by adding and subtracting the <code class="docutils literal notranslate"><span class="pre">ci_rt</span></code> value from the <code class="docutils literal notranslate"><span class="pre">mean_rt</span></code> value, respectively.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ci_table</span></code> variable creates a table of the upper and lower CIs using the <code class="docutils literal notranslate"><span class="pre">pd.DataFrame()</span></code> function.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function is used to print the table of CIs.</p>
+<p>This code should give you the desired output of a table containing the upper and lower CIs for the mean RT for each participant.</p>
+</div></blockquote>
+</div></blockquote>
+<p>If you move your cursor over the code that Copilot generated, you will see a <code class="docutils literal notranslate"><span class="pre">Copy</span></code> button appear. Clicking this will copy the code to your clipboard, so you can paste it into your notebook. We’ll run this code below:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># calculate mean and standard error of the mean for each participant</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span>
+
+<span class="c1"># calculate 95% confidence intervals for the mean RT</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+
+<span class="c1"># calculate upper and lower CIs</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span>
+
+<span class="c1"># create a table of the upper and lower CIs</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">})</span>
+
+<span class="c1"># print the table of CIs</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>participantID
-s1    0.464545
-s2    0.538650
-s3    0.573625
-Name: RT, dtype: float64
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Upper CI  Lower CI
+participantID                    
+s1             0.430626  0.348470
+s2             0.496197  0.393373
+s3             0.515907  0.376111
 </pre></div>
 </div>
 </div>
 </div>
+<p>OK, this is great progress. We now have our output in a table with both upper and lower CIs, and we can see that the CIs are in the range we would expect. It wouldn’t hurt to cross-check the formula that Copilot is using against a textbook or online resource.</p>
+<section id="cross-check-copilot-s-code-with-other-sources">
+<h3>Cross-Check Copilot’s Code with Other Sources<a class="headerlink" href="#cross-check-copilot-s-code-with-other-sources" title="Permalink to this headline">#</a></h3>
+<p>Consistent results from a number of top hits on a Web search for <code class="docutils literal notranslate"><span class="pre">confidence</span> <span class="pre">interval</span> <span class="pre">formula</span></code> indicate that the formula for calculating the 95% CI for the mean is:</p>
+<p>where <code class="docutils literal notranslate"><span class="pre">mean</span></code> is the mean of the data, <code class="docutils literal notranslate"><span class="pre">std</span></code> is the standard deviation of the data, and <code class="docutils literal notranslate"><span class="pre">n</span></code> is the number of observations.</p>
+<p>However, Copilot’s code multiplied 1.96 by <code class="docutils literal notranslate"><span class="pre">sem_rt</span></code>, which is the standard error of the mean. But if you look up the formula for standard error, you will find that it is the standard deviation of the data divided by the square root of the number of observations. So, Copilot’s code is correct, but it’s using a different formula than the one I found online. But at least now we can be confident that the code is doing what we want it to do.</p>
+</section>
+</section>
+<section id="carrying-on-stopped-here">
+<h2>Carrying On – STOPPED HERE<a class="headerlink" href="#carrying-on-stopped-here" title="Permalink to this headline">#</a></h2>
 <p>Let’s use the same approach for the next step, calculating 95% CIs across all participants:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1867,7 +1944,6 @@ dtype: float64
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-generated-code-for-the-above">Copilot-Generated Code for the Above</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-copilot-generated-code">Debugging Copilot-Generated Code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-copilot-to-diagnose-and-fix-errors">Using Copilot to Diagnose and Fix Errors</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-explain-this">Copilot <code class="docutils literal notranslate"><span class="pre">Explain</span> <span class="pre">This</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-fix-this">Copilot <code class="docutils literal notranslate"><span class="pre">Fix</span> <span class="pre">This</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat">Copilot <code class="docutils literal notranslate"><span class="pre">Chat</span></code></a></li>
@@ -1875,6 +1951,12 @@ dtype: float64
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continue-coding">Continue Coding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pink-elephants">Pink Elephants</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat-to-the-rescue">Copilot Chat to the Rescue</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-check-copilot-s-code-with-other-sources">Cross-Check Copilot’s Code with Other Sources</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carrying-on-stopped-here">Carrying On – STOPPED HERE</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-the-output-nicely">Formatting the output nicely</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-copilot-did">What Copilot Did</a></li>
 </ul>
