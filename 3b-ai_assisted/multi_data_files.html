@@ -1234,6 +1234,26 @@ dtype: float64
 <div><p>To correctly calculate the 95% confidence intervals for the mean RT and provide both the upper and lower CIs in a table, you can modify the existing code as follows:</p>
 </div></blockquote>
 </div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># calculate mean and standard error of the mean for each participant</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span>
+
+<span class="c1"># calculate 95% confidence intervals for the mean RT</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+
+<span class="c1"># calculate upper and lower CIs</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span>
+
+<span class="c1"># create a table of the upper and lower CIs</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">})</span>
+
+<span class="c1"># print the table of CIs</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
+</pre></div>
+</div>
 <blockquote>
 <div><blockquote>
 <div><p>In this code, the <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> method is used to group the data by the ‘participantID’ column, and the <code class="docutils literal notranslate"><span class="pre">mean()</span></code> and <code class="docutils literal notranslate"><span class="pre">sem()</span></code> methods are used to calculate the mean and standard error of the mean for the ‘RT’ column for each group. The resulting series contains the mean and SEM for each unique value in the ‘participantID’ column.</p>
