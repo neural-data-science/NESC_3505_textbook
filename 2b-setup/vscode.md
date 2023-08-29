@@ -33,7 +33,7 @@ Install each of these extensions, in this order:
 
 ## Install the `git` Application for MacOS
 
-`git` is a command-line application that must be installed in order to work with GitHub from within VS Code. To install it, go to [this page](https://sourceforge.net/projects/git-osx-installer/files/git-2.23.0-intel-universal-mavericks.dmg/download?use_mirror=autoselect) and download the installer. Run the installer, and accept all the default options. Once it's installed, you can close the installer.
+`git` is a command-line application that must be installed in order to work with GitHub from within VS Code. To install it, go to [this page](https://sourceforge.net/projects/git-osx-installer/) and download the installer. Run the installer, and accept all the default options. Once it's installed, you can close the installer.
 
 ## Help VS Code find the git application (if necessary)
 
