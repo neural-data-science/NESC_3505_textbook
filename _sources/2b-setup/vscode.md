@@ -14,7 +14,7 @@ Extensions are add-ons to VS Code that add functionality to the program. Once yo
 
 Install each of these extensions, in this order:
 - **Python**
-  - On a Mac, you may be prompted to install "Developer Tools" when you install this extension. It's important that you do this. It's a large download, so it may take a while, but it provides tools that you will need later.
+  - On a Mac, you may be prompted to install "Developer Tools" when you install this extension. You can probably get away with not installing it, but if you have trouble installing the extension, you may need to install the Developer Tools.
 - **Pylance**
 - **Jupyter**
 - **Data Wrangler**
@@ -29,21 +29,21 @@ Install each of these extensions, in this order:
 
 ## Install the `git` Application (for Windows)
 
-If you are using Windows, you will need to install the `git` application. This is a command-line application that allows you to work with GitHub from within VS Code. To install it, go to [this page](https://git-scm.com/download/win) and download the installer. Run the installer, and accept all the default options (there are many to click through!). Once it's installed, you can close the installer.
+`git` is a command-line application that must be installed in order to work with GitHub from within VS Code. To install it, go to [this page](https://git-scm.com/download/win) and download the installer. Run the installer, and accept all the default options (there are many to click through!). Once it's installed, you can close the installer.
 
 ## Install the `git` Application for MacOS
 
-If you are using a Mac, you will need to install the `git` application. This is a command-line application that allows you to work with GitHub from within VS Code. To install it, go to [this page](https://git-scm.com/download/mac) and download the installer. Run the installer, and accept all the default options. Once it's installed, you can close the installer.
+`git` is a command-line application that must be installed in order to work with GitHub from within VS Code. To install it, go to [this page](https://sourceforge.net/projects/git-osx-installer) and download the installer. Run the installer, and accept all the default options. Once it's installed, you can close the installer.
 
 ## Help VS Code find the git application (if necessary)
 
 On a Mac, VS Code sometimes needs to be told where to find the `git` application that is installed with GitHub Desktop. If you are using Windows or Linux, you can skip this step. 
 
-If you are using a Mac, first confirm that you need to do this step: in VS Code, on the left-hand toolbar, click on the "Source Control" icon (it is usually the third icon down, and has three small circles connected by lines). If you see a message that says that you need to install git, then you need to do this step. If you see a message that includes buttons for "Open Folder" and "Clone Repository", then you're all set and you can skip this step.
+If you are using a Mac, first confirm that you need to do this step: in VS Code, on the left-hand toolbar, click on the "Source Control" icon (it is usually the third icon down, and has three small circles connected by lines). If you see a message that says that you need to install git, then you need to follow the instructions below. If you see a message that includes buttons for "Open Folder" and "Clone Repository", then you're all set, and you can skip this step.
 
-Unfortunately this step is a bit complicated, but bear with us. You will want to be able to work with GitHub from within VS Code. Unfortunately, at least on a Mac, VS Code needs some help finding where the required `git` application was installed. The `git` application was installed on your Mac when you installed Developer Tools. You just need to tell VS Code where to find it.
+Unfortunately this step is a bit complicated, but bear with us. You need to be able to work with GitHub from within VS Code, and this `git` installation is a necessary part of that. 
 
-In VS Code, click on the "cog" icon in the bottom left, and choose "Settings". Click on "Search settings" at the top of the window that opens, and type `git path`. The first result should be the `Git: Path` setting; click on the `Edit in settings.json` link. YOu will see something like this:
+In VS Code, click on the "cog" icon in the bottom left, and choose "Settings". Click on "Search settings" at the top of the window that opens, and type `git path`. The first result should be the `Git: Path` setting; click on the `Edit in settings.json` link. You will see something like this:
 ```json
 {
     "git.path": ""
