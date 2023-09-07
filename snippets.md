@@ -1,0 +1,3 @@
+<div class="alert alert-info">
+Although with smaller cells it's not as much of a problem, VS Code doesn't show line numbers in cells by default. You can turn them on by right-clicking the area to the left of the code cell (under the triangle that executes the cell), and selecting `Show Cell Line Numbers`. Alternatively, if the code cell is in command (not edit) mode, you can press the `l` key to toggle line numbers on and off.
+</div>
