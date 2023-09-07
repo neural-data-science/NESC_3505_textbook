@@ -1,9 +1,9 @@
 # Putting It All Together
 
-OK, so that's a lot of tech! Your head may be spinning right now. That's OK. We'll try to keep things organized. Assignment 1 for this course will actually take you through getting set up on CoCalc and going with many aspects of the course.
+OK, so that's a lot of tech! Your head may be spinning right now. That's OK. We'll try to keep things organized. Assignment 1 for this course will actually take you through getting set up on Visual Studio Code and going with many aspects of the course.
 
-Your central hub for the course is the Teams site. When in doubt, go there. The course Teams site has links to everything you need, including the syllabus, course schedule, DataCamp, videos, textbook, CoCalc, and assignments. Teams is also where you can ask questions, using the chat features, and where you can join synchronous class meetings or start video chats with the teaching team or classmates. You should check out the course Teams site now, if you haven't already!
+Your central hub for the course is the Brightspace site. When in doubt, go there. You'll find links to everything you need, including the syllabus, course schedule, videos, textbook, and assignments. You should check out the course Brightspace site now, if you haven't already!
 
-## Suggestions
+## Questions and Suggestions
 
-If you have suggestions for ways to improve this course, we are very happy to hear them. You can let us know through your self-evaluations, messages on Teams, or in a class check-in.
+If you have any questions about this course, and/or suggestions for ways to improve it, we are always happy to hear them. You can let us know via email, through your self-evaluations, or in a class check-in.
