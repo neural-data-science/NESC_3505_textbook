@@ -1,2 +1,2 @@
 # Introduction
-This is a stub
+This chapter is still in development...

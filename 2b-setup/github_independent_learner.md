@@ -1,0 +1,5 @@
+# Getting the Course Materials as an Independent Learner
+
+If you are an independent learner, you can get the course materials by cloning them from GitHub. The Jupyter notebooks of the lessons, and any data files you need, are on the course's [GitHub repository](https://github.com/neural-data-science). 
+
+If you're already familiar with GitHub, you can just explore the repositories at the above link. If you're new to GitHub, you can follow the instructions in [Clone Your First Repository](./clone.md) and work through the lessons. The only difference is that, rather than obtaining your first repository via a GitHub classroom, you should [clone it from the book's main repository](https://github.com/new?owner=neural-data-science&template_name=github-starter-course&template_owner=neural-data-science).
