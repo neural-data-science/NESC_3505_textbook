@@ -1,0 +1,1059 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Working With Multiple Data Files, Part 3 &#8212; Neural Data Science in Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-1SNTM6T50K"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-1SNTM6T50K');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '3b-ai_assisted/multi_data_files_3';</script>
+    <link rel="canonical" href="http://neuraldatascience.io/3b-ai_assisted/multi_data_files_3.html" />
+    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Introduction to Data Visualization" href="../4-viz/introduction.html" />
+    <link rel="prev" title="Working With Multiple Data Files, Part 2" href="multi_data_files_2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/NESC3505_icon.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/NESC3505_icon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Neural Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">About This Course</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../1-intro/why.html">Start with why</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-intro/learning_objectives.html">Learning Objectives for this Course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../syllabus.html">Syllabus</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/learning_approach.html">How to Approach this Course</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/actually_write_code.html">Actually Write Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/mindset.html">Mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/flipped_classroom.html">Flipped Classroom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/errors_debugging.html">Errors and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/ai.html">Artificial Intelligence-Assisted Coding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/teamwork.html">Collaboration and Teamwork</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/pedagogy.html">Pedagogy</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/teaching_approach.html">Teaching Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/authenticity.html">Authenticity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/21st_cen_skills.html">21st Century Skills</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/constructivism.html">Constructivism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/connectivism.html">Connectivism</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/open.html">Open Resources</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/software.html">Free Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/free_licenses.html">Free and Open-Source Software Licenses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/open_science.html">Open Science</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/peer_review.html">Peer Review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/for_profit.html">For-Profit Publishing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/impact_factors.html">Impact Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/novelty.html">Novelty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/open_publishing.html">Open Publishing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/preregistration.html">Preregistration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/open_methods.html">Open Methods and Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/oer.html">Open Educational Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/oer_this_course.html">OERs in the Context of this Course</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/licenses.html">Licenses</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../2-nds/introduction.html">Getting Started with the Course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2-nds/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/what_is_nds.html">What is Data Science?</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/data.html">What is Data?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/where.html">Where Does Neural Data Come From?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/data_science.html">Data Science</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/data_cleaning.html">Data Cleaning</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/tools_for_nds.html">Tools for Neural Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/spreadsheets.html">Spreadsheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/spreadsheets_limits.html">Limitations of Spreadsheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/reproducibility.html">Reproducibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/sci_prog_lang.html">Scientific Programming Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/which_lang.html">Which language to use?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/libs.html">Libraries and packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/why_python.html">Why Python for this Course?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/coding.html">Coding Tools</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/python.html">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/terminal.html">The Terminal and Command Line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/jupyter.html">Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/vscode.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/github.html">GitHub</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Set Up Your Computer for Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/install_tools.html">Install Tools for Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github.html">Get on GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/anaconda.html">Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/vscode.html">VS Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github_classroom.html">GitHub Classroom</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/first_repo.html">Your First GitHub Repository</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github_repo.html">Exploring the GitHub Repository view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/repo_in_vscode.html">Open the Repository in VS Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/edit_commit_push.html">Editing, Pushing, and Committing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/edit_readme.html">Edit the README File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/new_markdown_file.html">Create a New Markdown File</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/getting_help.html">Getting Help on an Assignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/submitting_assignments.html">Submitting Assignments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../3-python/introduction.html">Introducing Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3-python/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/preliminaries.html">Preliminaries</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../3-python/jupyter_vscode.html">Introduction to Jupyter Notebooks in VS Code</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../3-python/getting_help.html">Getting Help with Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/data_types.html">Data types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../3-python/variables_assignment.html">Variables and Assignment</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../3-python/types_conversion.html">Data Types and Conversion</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../3-python/builtin.html">Python Built-Ins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3-python/lists.html">Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3-python/dictionaries.html">Dictionaries</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/flow_control.html">Flow Control</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../3-python/for_loops.html"><code class="docutils literal notranslate"><span class="pre">for</span></code> Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3-python/conditionals.html">Conditionals</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/working_w_data.html">Working with Data</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../3-python/pandas_dataframes.html">pandas DataFrames</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../3-python/looping_data_files.html">Looping Over Data Files</a></li>
+
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">AI-Assisted Coding</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">AI-Assisted Coding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ai_assisted.html">Introduction to GitHub Copilot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rt_data.html">Exercises – Reaction Time Data</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="multi_data_files.html">Working With Multiple Data Files Using Copilot</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="multi_data_files_1.html">Working With Multiple Data Files, Part 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_data_files_2.html">Working With Multiple Data Files, Part 2</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Working With Multiple Data Files, Part 3</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualizing Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/introduction.html">Introduction to Data Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/plotting.html">Introduction to Plotting with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/proc_vs_oo.html">Procedural versus Object-Oriented Plotting in Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/subplots.html">Subplots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/plotting_types.html">Thinking About Data for Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/seaborn.html">Data Science Plots with Seaborn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/human_factors.html">Accessibility and Human Factors in Plotting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exploratory Data Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../5-eda/introduction.html">Introduction to EDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5-eda/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5-eda/repeated_measures.html">Working with Repeated Measures Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5-eda/data_cleaning.html">Data Cleaning - Dealing with Outliers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5-eda/ttests.html">Basic Statistics in Python: <em>t</em> tests with SciPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Single Unit Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../6-single_unit/introduction.html">Introduction to Single Unit Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6-single_unit/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/single_unit_intro.html">Single Unit Data and Spike Trains</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../6-single_unit/intro_spike_trains.html">Introduction to Spike Train Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../6-single_unit/ten_intensities.html">Effects of Light Intensity on Spike Rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../6-single_unit/heat_maps.html">Heat Maps</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/intro_multielec_data.html">Introducing Multielectrode Data</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../6-single_unit/pandas_multielec.html">Working with Multielectrode Data in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../6-single_unit/corr_spike_trains.html">Correlating spike trains</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">EEG Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../7-eeg/introduction.html">Introduction to EEG/ERP Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-eeg/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/approaches.html">EEG in the Time and Frequency Domains</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/time_freq.html">Time and Frequency Domains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erps.html">Event-Related Potentials (ERPs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/components.html">ERP Components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../7-eeg/mne_python.html">MNE-Python</a></li>
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_preprocessing.html">EEG-ERP Preprocessing</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_filtering.html">Filtering EEG Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_artifacts.html">Artifacts in EEG Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_segmentation.html">Segmentation into ERP epochs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_rereferencing.html">Re-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_averaging.html">Averaging ERPs: Creating MNE Evoked objects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MRI Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../8-mri/introduction.html">Introduction to MRI Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../8-mri/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../8-mri/read_viz.html">Reading and Visualizing Structural MRI Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../8-mri/nifti.html">Working with NIfTI images</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../9-machine_learning/introduction.html">Introduction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../zrefs.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/neural-data-science/NESC_3505_textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/neural-data-science/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2F3b-ai_assisted/multi_data_files_3.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/3b-ai_assisted/multi_data_files_3.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Working With Multiple Data Files, Part 3</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-the-output-nicely">Formatting the output nicely</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="working-with-multiple-data-files-part-3">
+<h1>Working With Multiple Data Files, Part 3<a class="headerlink" href="#working-with-multiple-data-files-part-3" title="Permalink to this headline">#</a></h1>
+<p>This continues the previous lesson, which got a bit long for one lesson. Recall that our task was to
+read three data files in the <code class="docutils literal notranslate"><span class="pre">data</span></code> directory, each RT data from a different participant, and combine them in a DataFrame named <code class="docutils literal notranslate"><span class="pre">df</span></code>. In the previous lessons we computed means and 95% CIs for individual participants and the group. In this final lesson in the series, we will print a table that includes all of the results: with columns for mean RT, lower 95% CI, and upper 95% CI, and with one row for each participant and the bottom row showing the mean and CIs across participants.</p>
+<p>Since this is a new notebook file, we need to import the libraries we will use, and import the data. To do this, we’ve copied and pasted the code from the previous lesson into the code cell below (a few lines were deleted for simplicity).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read in three files from the data folder, whose names start with &quot;s&quot; and end in &quot;csv&quot;</span>
+<span class="c1"># concatenate them into one dataframe</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+<span class="c1"># use glob to get all the files that start with &quot;s&quot; and end with &quot;csv&quot;</span>
+<span class="c1"># glob returns a list of file names</span>
+<span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;data/s*.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># read in the files and concatenate them into one dataframe</span>
+<span class="n">dataframes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+    <span class="n">dataframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dataframes</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="formatting-the-output-nicely">
+<h2>Formatting the output nicely<a class="headerlink" href="#formatting-the-output-nicely" title="Permalink to this headline">#</a></h2>
+<p>The final instruction was, “Finally, show a table that includes all of the results: with columns for mean RT, lower 95% CI, and upper 95% CI, and with one row for each participant and the bottom row showing the mean and CIs across participants.”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show a table that has columns for mean RT, lower 95% CI, and upper 95% CI, </span>
+<span class="c1"># each rounded to 2 decimal places,</span>
+<span class="c1"># with one row for each participantID, </span>
+<span class="c1"># and the final row for the mean across all participantIDD</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Mean RT  Lower CI  Upper CI
+participantID                             
+s1                0.39    0.3508    0.4292
+s2                0.44    0.3812    0.4988
+s3                0.45    0.3716    0.5284
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is a decent first pass, but the CIs are rounded to 4, not 2, decimal places, and the table is missing the mean across participants. These are two different problems, so let’s try to solve them one at a time. We’ll start with rounding. Our prompt above was pretty specific in asking Copilot to round each of the stated values to 2 decimal places, so maybe instead of prompt engineering we can ask Chat for help. Let’s try this prompt in Copilot Chat: <code class="docutils literal notranslate"><span class="pre">modify</span> <span class="pre">the</span> <span class="pre">code</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">selected</span> <span class="pre">cell</span> <span class="pre">so</span> <span class="pre">that</span> <span class="pre">the</span> <span class="pre">CIs</span> <span class="pre">are</span> <span class="pre">rounded</span> <span class="pre">to</span> <span class="pre">2</span> <span class="pre">decimal</span> <span class="pre">places</span></code>. The result is:</p>
+<blockquote>
+<div><p>To modify the code to round the CIs to 2 decimal places, you can change the <code class="docutils literal notranslate"><span class="pre">round()</span></code> method to round to 2 decimal places instead of the default 4 decimal places. Here’s the modified code:</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>In this code, the <code class="docutils literal notranslate"><span class="pre">round()</span></code> method is used to round the mean RT and SEM values to 2 decimal places, and the <code class="docutils literal notranslate"><span class="pre">round()</span></code> method is also used to round the upper and lower CI values to 2 decimal places.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">upper_ci</span></code> and <code class="docutils literal notranslate"><span class="pre">lower_ci</span></code> variables calculate the upper and lower CIs by adding and subtracting the <code class="docutils literal notranslate"><span class="pre">ci_rt</span></code> value from the <code class="docutils literal notranslate"><span class="pre">mean_rt</span></code> value, respectively. The <code class="docutils literal notranslate"><span class="pre">round()</span></code> method is used to round the resulting values to 2 decimal places.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">ci_table</span></code> variable creates a table of the mean RT, lower CI, and upper CI values using the <code class="docutils literal notranslate"><span class="pre">pd.DataFrame()</span></code> function, and the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function is used to print the table.</p>
+<p>This code should give you the desired output of a table containing the mean RT, lower CI, and upper CI values rounded to 2 decimal places.</p>
+</div></blockquote>
+<p>And indeed, as you can see below, it works!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Mean RT  Lower CI  Upper CI
+participantID                             
+s1                0.39      0.35      0.43
+s2                0.44      0.38      0.50
+s3                0.45      0.37      0.53
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s address the problem of the missing mean across participants. Based on what we learned earlier in the course, this might not be surprising. While we can use <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> to split the data by participantID, or simply <code class="docutils literal notranslate"><span class="pre">.mean()</span></code> to get the average across participantIDs, there is no way of generating both split and averaged data using the same command.</p>
+<p>Instead, what we could try doing is create the across-subject data as a separate table, and then merge that table with the by-participant table. In writing the prompt below I also tried a slightly different way of asking for rounding to 2 decimal places, which turns out to be effective:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show a table with columns for mean RT, lower 95% CI, and upper 95% CI,</span>
+<span class="c1"># averaged across all participant ID</span>
+<span class="c1"># round all values in the table to 2 decimal places</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Mean RT  Lower CI  Upper CI
+RT     0.43      0.39      0.47
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we want to merge the two tables. In the cell below, I only had to type the first one-line prompt, and Copilot generated all the subsequent code and prompts/comments. However, I had to hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> twice after the first prompt, and after some other lines (where you see blank lines below) to get all the code. I would tell when Copilot had finished because it started regenerating the same prompts and code it had already generated.</p>
+<p>Unfortunately when we try to run the cell below we get an error:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># merge the two tables that are the output of each of the two code cells above</span>
+
+<span class="c1"># calculate the mean RT for each participantID</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># calculate the 95% confidence intervals for the mean RT for each participantID</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
+
+<span class="c1"># calculate the mean RT across all participantID</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># calculate the 95% confidence intervals for the mean RT across all participantID</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">])</span>
+
+<span class="c1"># merge the two tables</span>
+<span class="n">ci_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ci_table2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="nn">/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_50728/2646225902.py</span> in <span class="ni">?</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="n">ci_table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">])</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> 
+<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="c1"># merge the two tables</span>
+<span class="ne">---&gt; </span><span class="mi">24</span> <span class="n">ci_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ci_table2</span><span class="p">)</span>
+
+<span class="nn">~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/generic.py</span> in <span class="ni">?</span><span class="nt">(self, name)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5985</span>             <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_accessors</span>
+<span class="g g-Whitespace">   </span><span class="mi">5986</span>             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info_axis</span><span class="o">.</span><span class="n">_can_hold_identifiers_and_holds_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5987</span>         <span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">5988</span>             <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+<span class="ne">-&gt; </span><span class="mi">5989</span>         <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="ne">AttributeError</span>: &#39;DataFrame&#39; object has no attribute &#39;append&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>The error message is that <code class="docutils literal notranslate"><span class="pre">'DataFrame'</span> <span class="pre">object</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">attribute</span> <span class="pre">'append'</span></code>. This means that the code is trying to append the across-subject table to the by-participant table, but that the <code class="docutils literal notranslate"><span class="pre">append()</span></code> method doesn’t exist for DataFrames.</p>
+<p>If you do a Web search for “pandas dataframe append”, you may find this error puzzling, because there are many descriptions of how to use this method, including in the official pandas documentation. However, what’s not immediately obvious is that the <code class="docutils literal notranslate"><span class="pre">.append()</span></code> method in pandas was <strong>depricated</strong> in <a class="reference external" href="https://github.com/pandas-dev/pandas/pull/44539">November, 2021</a>. “Depricated” in a programming language means that a feature/function/method/etc. was made obsolete — typically replaced by a newer feature, or perhaps because it was already redundant with another way of doing the same thing. Since Copilot is trained on a vast amount of code, this will inevitably include <strong>legacy code</strong> that is no longer used.</p>
+<p>We’ll ask Copilot Chat for help again, this time telling it what the error message is, and asking how to fix it:</p>
+<p><code class="docutils literal notranslate"><span class="pre">the</span> <span class="pre">selected</span> <span class="pre">cell</span> <span class="pre">generates</span> <span class="pre">an</span> <span class="pre">error:</span> <span class="pre">&quot;'DatFrame'</span> <span class="pre">object</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">attribute</span> <span class="pre">'append'&quot;.</span> <span class="pre">how</span> <span class="pre">can</span> <span class="pre">i</span> <span class="pre">fix</span> <span class="pre">this</span> <span class="pre">error?</span></code></p>
+<p>The response is:</p>
+<blockquote>
+<div><p>The error message “‘DataFrame’ object has no attribute ‘append’” suggests that the <code class="docutils literal notranslate"><span class="pre">append()</span></code> method is not available for the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object in the code.</p>
+<p>To fix this error, you can use the <code class="docutils literal notranslate"><span class="pre">concat()</span></code> function instead of the <code class="docutils literal notranslate"><span class="pre">append()</span></code> method to concatenate the two dataframes vertically. Here’s the modified code:</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># merge the two tables that are the output of each of the two code cells above</span>
+
+<span class="c1"># calculate the mean RT for each participantID</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># calculate the 95% confidence intervals for the mean RT for each participantID</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
+
+<span class="c1"># calculate the mean RT across all participantID</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># calculate the 95% confidence intervals for the mean RT across all participantID</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">])</span>
+
+<span class="c1"># concatenate the two tables vertically</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ci_table</span><span class="p">,</span> <span class="n">ci_table2</span><span class="p">])</span>
+
+<span class="c1"># print the merged table</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>In this code, the <code class="docutils literal notranslate"><span class="pre">concat()</span></code> function is used to concatenate the two dataframes <code class="docutils literal notranslate"><span class="pre">ci_table</span></code> and <code class="docutils literal notranslate"><span class="pre">ci_table2</span></code> vertically. The resulting dataframe contains the rows of both dataframes stacked on top of each other.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function is used to print the merged table.</p>
+<p>This code should fix the error and give you the desired output of a merged table containing the mean RT, lower CI, and upper CI values for each participant, as well as the mean RT, lower CI, and upper CI values across all participants.</p>
+</div></blockquote>
+<p>When we try this, it works. The only lingering issue is that the last row is labelled <code class="docutils literal notranslate"><span class="pre">RT</span></code>, which does not tell us the values represent the mean across all participants:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># merge the two tables that are the output of each of the two code cells above</span>
+
+<span class="c1"># calculate the mean RT for each participantID</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># calculate the 95% confidence intervals for the mean RT for each participantID</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
+
+<span class="c1"># calculate the mean RT across all participantID</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># calculate the 95% confidence intervals for the mean RT across all participantID</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">])</span>
+
+<span class="c1"># concatenate the two tables vertically</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ci_table</span><span class="p">,</span> <span class="n">ci_table2</span><span class="p">])</span>
+
+<span class="c1"># print the merged table</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Mean RT  Lower CI  Upper CI
+s1     0.39      0.35      0.43
+s2     0.44      0.38      0.50
+s3     0.45      0.37      0.53
+RT     0.43      0.39      0.47
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can as Chat to do this for us: <code class="docutils literal notranslate"><span class="pre">modify</span> <span class="pre">the</span> <span class="pre">code</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">selected</span> <span class="pre">cell</span> <span class="pre">so</span> <span class="pre">that</span> <span class="pre">the</span> <span class="pre">last</span> <span class="pre">row</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">final</span> <span class="pre">dataframe</span> <span class="pre">is</span> <span class="pre">labelled</span> <span class="pre">&quot;Average&quot;</span></code></p>
+<blockquote>
+<div><p>To modify the code to label the last row in the final dataframe as “Average”, you can change the index label of the last row in the <code class="docutils literal notranslate"><span class="pre">ci_table2</span></code> dataframe to “Average” before concatenating the two dataframes. Here’s the modified code:</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># merge the two tables that are the output of each of the two code cells above</span>
+
+<span class="c1"># calculate the mean RT for each participantID</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># calculate the 95% confidence intervals for the mean RT for each participantID</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
+
+<span class="c1"># calculate the mean RT across all participantID</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># calculate the 95% confidence intervals for the mean RT across all participantID</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Average&#39;</span><span class="p">])</span>
+
+<span class="c1"># concatenate the two tables vertically</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ci_table</span><span class="p">,</span> <span class="n">ci_table2</span><span class="p">])</span>
+
+<span class="c1"># print the merged table</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>In this code, the <code class="docutils literal notranslate"><span class="pre">index</span></code> parameter of the <code class="docutils literal notranslate"><span class="pre">pd.DataFrame()</span></code> function is used to set the index label of the last row in the <code class="docutils literal notranslate"><span class="pre">ci_table2</span></code> dataframe to “Average”.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">concat()</span></code> function is then used to concatenate the two dataframes <code class="docutils literal notranslate"><span class="pre">ci_table</span></code> and <code class="docutils literal notranslate"><span class="pre">ci_table2</span></code> vertically. The resulting dataframe contains the rows of both dataframes stacked on top of each other.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function is used to print the merged table.</p>
+<p>This code should give you the desired output of a merged table containing the mean RT, lower CI, and upper CI values for each participant, as well as the mean RT, lower CI, and upper CI values across all participants, with the last row labelled as “Average”.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># merge the two tables that are the output of each of the two code cells above</span>
+
+<span class="c1"># calculate the mean RT for each participantID</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># calculate the 95% confidence intervals for the mean RT for each participantID</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
+
+<span class="c1"># calculate the mean RT across all participantID</span>
+<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># calculate the 95% confidence intervals for the mean RT across all participantID</span>
+<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ci_table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Average&#39;</span><span class="p">])</span>
+
+<span class="c1"># concatenate the two tables vertically</span>
+<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ci_table</span><span class="p">,</span> <span class="n">ci_table2</span><span class="p">])</span>
+
+<span class="c1"># print the merged table</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         Mean RT  Lower CI  Upper CI
+s1          0.39      0.35      0.43
+s2          0.44      0.38      0.50
+s3          0.45      0.37      0.53
+Average     0.43      0.39      0.47
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>We’ve now completed the task of calculating the mean RT and 95% CIs for each participant, and for all participants. We’ve also learned a lot about how to use Copilot to help us write code, and how to use Copilot Chat to help us understand errors and fix them.</p>
+<p>As you’ve seen, the process of using AI to generate code isn’t always smooth, nor are the results always accurate. It’s critical to critically assess the outputs you see, and to understand what you are asking Copilot to do — as well as what the code it generates is doing. In this lesson, for the sake of expediency and length we did not provide detailed explanations of what the code was doing every step of the way. However, you’ve seen that Copilot can be useful at explaining code for you.</p>
+<p>There were also many points in this lesson where, as an experienced coder, I knew what the problem was and how to fix it. However, I deliberately did not fix the problems myself, because I recognize that as a novice coder you may not know how to fix the problems. Hopefully this lesson has shown you how to use Copilot effectively, but also underscored the value of actually knowing Python and being able to read and debug code yourself.</p>
+<p>The best approach to learning to use Python for data science is to write code yourself when you can,  because this helps build and reinforce your knowledge (remember, coding is a procedural skill that you only learn by doing — and you lose the knowledge if you don’t use it). But, when you encounter a problem you’ve never solved before, or are getting errors in your Code, Copilot can be a huge help to deepen your knowledge and solve problems. As we’ve seen, Copilot Chat can be much more useful in this regard than simply writing prompts in code cells of your notebook, because it gives you both code, and detailed explanations of what that code is doing.</p>
+<div class="alert alert-info">
+<h2>Copilot in Later Chapters of this Book</h2>
+<p>Throughout most of the rest of this book, we focus on teaching you to write code yourself, rather than using Copilot. We believe — and feel this lesson has demonstrated — that learning to write code yourself is the best way to learn to code. However, whether you’re taking this course for credit and have assignments that Copilot may be useful in helping with, or simply using this book to learn how to apply Python to your own data, we recognize that Copilot can be a useful tool. We hope this chapter has given you a good introduction to how to use Copilot effectively, and that you will continue to use it on your coding journey.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./3b-ai_assisted"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="multi_data_files_2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Working With Multiple Data Files, Part 2</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../4-viz/introduction.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Introduction to Data Visualization</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-the-output-nicely">Formatting the output nicely</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Aaron J Newman
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2020-23. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
