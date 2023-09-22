@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Working With Multiple Data Files, Part 1 &#8212; Neural Data Science in Python</title>
+    <title>Reading Data Files with pandas &#8212; Neural Data Science in Python</title>
   
   
   
@@ -72,7 +72,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Working With Multiple Data Files, Part 2" href="multi_data_files_2.html" />
+    <link rel="next" title="Computing Mean Reaction Times and Confidence Intervals" href="multi_data_files_2.html" />
     <link rel="prev" title="Working With Multiple Data Files Using Copilot" href="multi_data_files.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
@@ -296,9 +296,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="ai_assisted.html">Introduction to GitHub Copilot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rt_data.html">Exercises – Reaction Time Data</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="multi_data_files.html">Working With Multiple Data Files Using Copilot</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Working With Multiple Data Files, Part 1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="multi_data_files_2.html">Working With Multiple Data Files, Part 2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="multi_data_files_3.html">Working With Multiple Data Files, Part 3</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Reading Data Files with pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_data_files_2.html">Computing Mean Reaction Times and Confidence Intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi_data_files_3.html">Formatting the Output in a Table</a></li>
 </ul>
 </li>
 </ul>
@@ -557,7 +557,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Working With Multiple Data Files, Part 1</h1>
+    <h1>Reading Data Files with pandas</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -567,7 +567,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data-and-what-to-do-with-it">The Data and What to Do With It</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-in-the-data">Read in the Data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-test">Test Your Test</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-mean-rt-for-each-participant-and-our-first-bug">Calculating the Mean RT for Each Participant… and Our First Bug</a></li>
@@ -594,13 +593,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="working-with-multiple-data-files-part-1">
-<h1>Working With Multiple Data Files, Part 1<a class="headerlink" href="#working-with-multiple-data-files-part-1" title="Permalink to this headline">#</a></h1>
-<section id="the-data-and-what-to-do-with-it">
-<h2>The Data and What to Do With It<a class="headerlink" href="#the-data-and-what-to-do-with-it" title="Permalink to this headline">#</a></h2>
-<p>There are three data files  Each file contains the reaction times (RTs) from 10 trials of a relatively simple task in which participants had to indicate which direction a briefly-presented arrow was pointing. The RTs are in seconds (s). Each file contains the RTs from a different participant. In each file there are three columns. You can determine what the columns are by looking at the first row (header) of each file.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="reading-data-files-with-pandas">
+<h1>Reading Data Files with pandas<a class="headerlink" href="#reading-data-files-with-pandas" title="Permalink to this headline">#</a></h1>
+<p>There are three data files. Each file contains the reaction times (RTs) from 10 trials of a relatively simple task in which participants had to indicate which direction a briefly-presented arrow was pointing. The RTs are in seconds (s). Each file contains the RTs from a different participant. In each file there are three columns. You can determine what the columns are by looking at the first row (header) of each file.</p>
 <p>In this exercise, we will read in the data from the three files in the <code class="docutils literal notranslate"><span class="pre">data</span></code> directory: <code class="docutils literal notranslate"><span class="pre">s1.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">s2.csv</span></code>, and <code class="docutils literal notranslate"><span class="pre">s3.csv</span></code>, and combine them into a single DataFrame. We will save that DataFrame, and then then calculate the mean RT for each participant.</p>
-</section>
 <section id="read-in-the-data">
 <h2>Read in the Data<a class="headerlink" href="#read-in-the-data" title="Permalink to this headline">#</a></h2>
 <p>The cells below all reflect prompts written on the basis of the instructions above, and code generated entirely by Copilot. While your experience may be different, in writing this lesson we only had to type the first 2-line prompt, and Copilot generated not only the code but the other prompts/comments.</p>
@@ -1199,7 +1195,7 @@ We'll worry about the formatting later, but it's good to understand why it happe
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Working With Multiple Data Files, Part 2</p>
+        <p class="prev-next-title">Computing Mean Reaction Times and Confidence Intervals</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1221,7 +1217,6 @@ We'll worry about the formatting later, but it's good to understand why it happe
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data-and-what-to-do-with-it">The Data and What to Do With It</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-in-the-data">Read in the Data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-test">Test Your Test</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-mean-rt-for-each-participant-and-our-first-bug">Calculating the Mean RT for Each Participant… and Our First Bug</a></li>
