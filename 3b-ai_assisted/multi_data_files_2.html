@@ -567,6 +567,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-mean-rt-across-participants">Compute Mean RT Across Participants</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cis-for-each-participant">95% CIs for Each Participant</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pink-elephants">Pink Elephants</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat-to-the-rescue">Copilot Chat to the Rescue</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-check-copilot-s-code-with-other-sources">Cross-Check Copilot’s Code with Other Sources</a></li>
@@ -610,69 +612,92 @@ document.write(`
 <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
     <span class="n">dataframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dataframes</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Our next task is to calculate the mean RT across subjects, so let’s write a prompt for that:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate the mean rt across all subjects</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3653,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3652</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:147,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/_libs/index.pyx:176,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
-
-<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7080,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7088,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="ne">KeyError</span>: &#39;rt&#39;
-
-<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
-
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># calculate the mean rt across all subjects</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/frame.py:3761,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3759</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3760</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">3761</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3762</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3763</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
-
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/indexes/base.py:3655,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3653</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3654</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">3655</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
-<span class="g g-Whitespace">   </span><span class="mi">3656</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3657</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3658</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3659</span>     <span class="c1">#  the TypeError.</span>
-<span class="g g-Whitespace">   </span><span class="mi">3660</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="ne">KeyError</span>: &#39;rt&#39;
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>participantID</th>
+      <th>trial</th>
+      <th>RT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s2</td>
+      <td>1</td>
+      <td>0.433094</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s2</td>
+      <td>2</td>
+      <td>0.392526</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s2</td>
+      <td>3</td>
+      <td>0.396831</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s2</td>
+      <td>4</td>
+      <td>0.417988</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s2</td>
+      <td>5</td>
+      <td>0.371810</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="compute-mean-rt-across-participants">
+<h2>Compute Mean RT Across Participants<a class="headerlink" href="#compute-mean-rt-across-participants" title="Permalink to this headline">#</a></h2>
+<p>Our next task is to calculate the mean RT across subjects, so let’s write a prompt for that. We learned in the last lesson that we should be specific about variable names and capitalization, so let’s try the prompt:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate the mean RT across all participantID</span>
 </pre></div>
 </div>
+<p>Copilot generated two possible lines of code in response to the prompt, which we can see by typing <code class="docutils literal notranslate"><span class="pre">Option-[</span></code> (Mac) or <code class="docutils literal notranslate"><span class="pre">Alt-[</span></code> (Windows). The options are:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate the mean RT across all participantID</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;participantID&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
 </div>
+<p>and</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate the mean RT across all participantID</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;participantID&quot;</span><span class="p">)[</span><span class="s2">&quot;RT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
 </div>
-<p>We get another <code class="docutils literal notranslate"><span class="pre">key</span> <span class="pre">Error</span></code>, this time for <code class="docutils literal notranslate"><span class="pre">rt</span></code>. The code above selects the column in <code class="docutils literal notranslate"><span class="pre">df</span></code> called <code class="docutils literal notranslate"><span class="pre">rt</span></code> and computes its mean. However, if you look back to the listing of column names that we generated in the previous lesson (or do it now with <code class="docutils literal notranslate"><span class="pre">df.head()</span></code>), you’ll see that the column name is actually <code class="docutils literal notranslate"><span class="pre">RT</span></code>. Remember that Python is <strong>case sensitive</strong>, meaning that capitalization matters: <code class="docutils literal notranslate"><span class="pre">RT</span></code> and <code class="docutils literal notranslate"><span class="pre">rt</span></code> are not the same. So we need to change the code to access the correct column name. Since that’s a simple and obvious fix let’s start by copying and pasting the code above into the cell below, and manually editing it to reference <code class="docutils literal notranslate"><span class="pre">RT</span></code> instead of <code class="docutils literal notranslate"><span class="pre">rt</span></code>:</p>
+<p>Rather than trying either of these, let’s first analyze them to try to understand what each is doing. The first option uses the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method to group the data by the <code class="docutils literal notranslate"><span class="pre">participantID</span></code> column, and then calculates the mean for each group. However, we don’t want to calculate the mean for each group, we want to calculate the mean for all groups. Secondly, the command does not specify that we want the mean only for the reaction time column.</p>
+<p>The second option is essentially the same command, except it’s an improvement in that it does specify the column name <code class="docutils literal notranslate"><span class="pre">[&quot;RT&quot;]</span></code>. However, it still calculates the mean for each group, rather than for all groups.</p>
+<p>At this point, we could use Copilot Chat again, but it might be more efficient to try writing the code ourselves, by adapting the second Copilot suggestion. The command is an example of <strong>chaining</strong>, in which several methods are applied in sequence to the same object. In this case, the object is the DataFrame <code class="docutils literal notranslate"><span class="pre">df</span></code>, and the methods are <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> and <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>, which would be executed in sequence, from left to right. So what if we simply remove the <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> method? Let’s try that; we’ll copy and past the command (and its comment) into the code cell below, and then edit it. We need to be sure to keep the <code class="docutils literal notranslate"><span class="pre">[&quot;RT&quot;]</span></code> part though!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate the mean RT across all participantID</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;RT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -682,66 +707,11 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Having fixed that error, let’s move on to the next step, which is to calculate the 95% confidence intervals for the mean RT for each participant:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate 95% confidence intervals for each subject</span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># calculate 95% confidence intervals for each subject</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/frame.py:8252,</span> in <span class="ni">DataFrame.groupby</span><span class="nt">(self, by, axis, level, as_index, sort, group_keys, observed, dropna)</span>
-<span class="g g-Whitespace">   </span><span class="mi">8249</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You have to supply one of &#39;by&#39; and &#39;level&#39;&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">8250</span> <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_axis_number</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">8252</span> <span class="k">return</span> <span class="n">DataFrameGroupBy</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">8253</span>     <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">8254</span>     <span class="n">keys</span><span class="o">=</span><span class="n">by</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">8255</span>     <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">8256</span>     <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">8257</span>     <span class="n">as_index</span><span class="o">=</span><span class="n">as_index</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">8258</span>     <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">8259</span>     <span class="n">group_keys</span><span class="o">=</span><span class="n">group_keys</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">8260</span>     <span class="n">observed</span><span class="o">=</span><span class="n">observed</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">8261</span>     <span class="n">dropna</span><span class="o">=</span><span class="n">dropna</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">8262</span> <span class="p">)</span>
-
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/groupby/groupby.py:931,</span> in <span class="ni">GroupBy.__init__</span><span class="nt">(self, obj, keys, axis, level, grouper, exclusions, selection, as_index, sort, group_keys, observed, dropna)</span>
-<span class="g g-Whitespace">    </span><span class="mi">928</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropna</span> <span class="o">=</span> <span class="n">dropna</span>
-<span class="g g-Whitespace">    </span><span class="mi">930</span> <span class="k">if</span> <span class="n">grouper</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">931</span>     <span class="n">grouper</span><span class="p">,</span> <span class="n">exclusions</span><span class="p">,</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">get_grouper</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">932</span>         <span class="n">obj</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">933</span>         <span class="n">keys</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">934</span>         <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">935</span>         <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">936</span>         <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">937</span>         <span class="n">observed</span><span class="o">=</span><span class="n">observed</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">938</span>         <span class="n">dropna</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dropna</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">939</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">941</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span>
-<span class="g g-Whitespace">    </span><span class="mi">942</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_get_axis_number</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
-
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/groupby/grouper.py:985,</span> in <span class="ni">get_grouper</span><span class="nt">(obj, key, axis, level, sort, observed, validate, dropna)</span>
-<span class="g g-Whitespace">    </span><span class="mi">983</span>         <span class="n">in_axis</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">gpr</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">gpr</span><span class="p">,</span> <span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">984</span>     <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">985</span>         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">gpr</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">986</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gpr</span><span class="p">,</span> <span class="n">Grouper</span><span class="p">)</span> <span class="ow">and</span> <span class="n">gpr</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">987</span>     <span class="c1"># Add key to exclusions</span>
-<span class="g g-Whitespace">    </span><span class="mi">988</span>     <span class="n">exclusions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
-
-<span class="ne">KeyError</span>: &#39;subject&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<p>Again we get <code class="docutils literal notranslate"><span class="pre">Key</span> <span class="pre">Error:</span> <span class="pre">'subject'</span></code>, which is the same as the first error above. So again, Copilot is labelling the column incorrectly. We know that we can fix this by replacing <code class="docutils literal notranslate"><span class="pre">subject</span></code> with <code class="docutils literal notranslate"><span class="pre">participantID</span></code>.</p>
-<p>It’s a bit annoying that Copilot keeps making this error. But in fact, many errors are actually human errors. We are prompting Copilot to do something for each “subject”, which requires Copilot to know that by “subject” we really mean the column called <code class="docutils literal notranslate"><span class="pre">participantID</span></code>. That’s a big (and very specific to this context) leap for AI. Maybe we could engineer our prompt to be better instead, by referring to the column name directly. Let’s try that:</p>
+</section>
+<section id="cis-for-each-participant">
+<h2>95% CIs for Each Participant<a class="headerlink" href="#cis-for-each-participant" title="Permalink to this headline">#</a></h2>
+<p>Let’s move on to the next step, which is to calculate the 95% confidence intervals for the mean RT for each participant.</p>
+<p>If you are trying this yourself, our experience is that you may get a number of very different solutions from Copilot. We tried several, and all had errors! So, if you get a different error than the one we work through below, you can follow the same process with Copilot Chat to solve your particular problem.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate 95% confidence intervals for each participantID</span>
@@ -759,6 +729,7 @@ dtype: float64
 </div>
 </div>
 </div>
+</section>
 <section id="pink-elephants">
 <h2>Pink Elephants<a class="headerlink" href="#pink-elephants" title="Permalink to this headline">#</a></h2>
 <p>This is a frightening example of a Copilot <strong>hallucination</strong>. The above code generates a table of numbers, one for each participantID.  You might think this is a plausible result. However, there are a couple of problems. Firstly, confidence intervals (CIs) are typically reported as a pair of values. The 95% CIs reflect the <em>range</em> within which it is 95% likely that the true mean lies, so we need an upper <em>and</em> lower limits of the CI. These are typically the same amount plus or minus the mean (e.g., if the mean is 2, the 95% CIs might be 1.5 and 2.5). So given a conceptual understanding of what CIs are, we recognize that we need to modify the code to generate the upper and lower values of the CIs.</p>
@@ -1053,20 +1024,36 @@ RT     0.43      0.39      0.47
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+
 <span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="nn">/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_52062/2646225902.py</span> in <span class="ni">?</span><span class="nt">()</span>
+
+<span class="nn">/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_31762/2646225902.py</span> in <span class="ni">?</span><span class="nt">()</span>
+
 <span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
 <span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="n">ci_table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">])</span>
+
 <span class="g g-Whitespace">     </span><span class="mi">22</span> 
+
 <span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="c1"># merge the two tables</span>
+
 <span class="ne">---&gt; </span><span class="mi">24</span> <span class="n">ci_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ci_table2</span><span class="p">)</span>
 
+
+
 <span class="nn">~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/generic.py</span> in <span class="ni">?</span><span class="nt">(self, name)</span>
+
 <span class="g g-Whitespace">   </span><span class="mi">5985</span>             <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_accessors</span>
+
 <span class="g g-Whitespace">   </span><span class="mi">5986</span>             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info_axis</span><span class="o">.</span><span class="n">_can_hold_identifiers_and_holds_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
 <span class="g g-Whitespace">   </span><span class="mi">5987</span>         <span class="p">):</span>
+
 <span class="g g-Whitespace">   </span><span class="mi">5988</span>             <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+
 <span class="ne">-&gt; </span><span class="mi">5989</span>         <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+
 
 <span class="ne">AttributeError</span>: &#39;DataFrame&#39; object has no attribute &#39;append&#39;
 </pre></div>
@@ -1321,6 +1308,8 @@ Average     0.43      0.39      0.47
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-mean-rt-across-participants">Compute Mean RT Across Participants</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cis-for-each-participant">95% CIs for Each Participant</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pink-elephants">Pink Elephants</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat-to-the-rescue">Copilot Chat to the Rescue</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-check-copilot-s-code-with-other-sources">Cross-Check Copilot’s Code with Other Sources</a></li>
