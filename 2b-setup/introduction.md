@@ -1,3 +1,4 @@
-# Introduction
+# Some Assembly Required
 
+There are some cloud platforms, like Google Collab,  Azure Notebooks, that allow you to run Python code in the cloud.  These are great for learning, but they are not great for doing real work.  In this course, we will be using a combination of local and cloud-based tools to do our work.  This will give you the flexibility to work on your own computer, or on a cloud-based computer, depending on your needs.
 This is our first hands-on chapter, where you will set up the necessary accounts, and install the necessary software, to get up and running with the tools you will need in this course.
