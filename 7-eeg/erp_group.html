@@ -298,9 +298,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/ai_assisted.html">Introduction to GitHub Copilot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/rt_data.html">Exercises – Reaction Time Data</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../3b-ai_assisted/multi_data_files.html">Working With Multiple Data Files Using Copilot</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_1.html">Working With Multiple Data Files, Part 1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_2.html">Working With Multiple Data Files, Part 2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_3.html">Working With Multiple Data Files, Part 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_1.html">Reading Data Files with pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_2.html">Computing Mean Reaction Times and Confidence Intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_3.html">Formatting the Output in a Table</a></li>
 </ul>
 </li>
 </ul>
@@ -1127,16 +1127,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.     , 0.99976, 1.     , 0.46312, 0.49908, 0.67214, 1.     ,
-       0.98582, 0.17414, 0.14026, 1.     , 0.99446, 0.13506, 0.0616 ,
-       0.24416, 1.     , 0.85646, 0.21086, 0.038  , 0.0512 , 0.22414,
-       1.     , 0.0861 , 0.04488, 0.11464, 0.37422, 0.98616, 1.     ,
-       0.92514, 0.9957 , 0.99882, 1.     , 1.     , 0.83338, 0.97404,
-       1.     , 1.     , 0.34246, 0.23048, 0.99982, 1.     , 1.     ,
-       0.34476, 0.24734, 1.     , 1.     , 0.53684, 0.21722, 0.0651 ,
-       0.83032, 0.96232, 0.02264, 0.02982, 0.03666, 0.99846, 0.03768,
-       0.03422, 0.07168, 0.29794, 0.41454, 0.23238, 0.56308, 0.39888,
-       0.99996])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.     , 0.99976, 1.     , 0.4636 , 0.4995 , 0.67058, 1.     ,
+       0.98492, 0.17382, 0.14026, 1.     , 0.99364, 0.13556, 0.06156,
+       0.2441 , 1.     , 0.8525 , 0.21224, 0.03856, 0.0522 , 0.22496,
+       1.     , 0.08606, 0.04562, 0.1159 , 0.37468, 0.98512, 1.     ,
+       0.92292, 0.9951 , 0.99898, 1.     , 1.     , 0.83022, 0.9728 ,
+       1.     , 1.     , 0.34432, 0.2316 , 0.99984, 1.     , 1.     ,
+       0.34702, 0.24716, 1.     , 1.     , 0.53824, 0.21832, 0.06466,
+       0.82728, 0.96052, 0.02306, 0.02962, 0.0373 , 0.9985 , 0.0384 ,
+       0.03496, 0.0718 , 0.29828, 0.41404, 0.23302, 0.56272, 0.39818,
+       0.99998])
 </pre></div>
 </div>
 </div>
@@ -1167,7 +1167,7 @@ document.write(`
   self._figure.tight_layout(*args, **kwargs)
 </pre></div>
 </div>
-<img alt="../_images/d27e1e75788060a6524da4772bfa3ed51ebe92f08faf1b7735a39f1f47870143.png" src="../_images/d27e1e75788060a6524da4772bfa3ed51ebe92f08faf1b7735a39f1f47870143.png" />
+<img alt="../_images/a1b573f45dd6108c023ff5e89218ef1308c4766d9a523a4aa13f2a67d9843569.png" src="../_images/a1b573f45dd6108c023ff5e89218ef1308c4766d9a523a4aa13f2a67d9843569.png" />
 </div>
 </div>
 <p>We can use a function <code class="docutils literal notranslate"><span class="pre">np.argpartition()</span></code> to sort the <code class="docutils literal notranslate"><span class="pre">H0</span></code> values and split them at a particular cutoff. This is specified in terms of indexes in the NumPy array, so if we want the top 5% of <em>t</em> values, we have to compute the split as the number of permutations (the length of <code class="docutils literal notranslate"><span class="pre">H0</span></code>) multiplied by .05, which will tell as that 5% of 50,000 is 2500. (If you want to understand the details of this code, see <a class="reference external" href="https://stackoverflow.com/questions/6910641/how-do-i-get-indices-of-n-maximum-values-in-a-numpy-array">this StackExchange post</a> and the <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.argpartition.html">API for <code class="docutils literal notranslate"><span class="pre">np.argpartition()</span></code></a>.)</p>
@@ -1188,7 +1188,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.3195614683785593
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.3277944546937914
 </pre></div>
 </div>
 </div>
@@ -1207,7 +1207,7 @@ document.write(`
   self._figure.tight_layout(*args, **kwargs)
 </pre></div>
 </div>
-<img alt="../_images/160d2dc88ce39e3b355c7247368c90d90f6e47021c078658b18b990f6cd25ccb.png" src="../_images/160d2dc88ce39e3b355c7247368c90d90f6e47021c078658b18b990f6cd25ccb.png" />
+<img alt="../_images/e8915830065476e8ad92e2c4d5ebeb4c70508325bb02e4bfae2747ee9802bc74.png" src="../_images/e8915830065476e8ad92e2c4d5ebeb4c70508325bb02e4bfae2747ee9802bc74.png" />
 </div>
 </div>
 <p>We can apply a mask to the <em>t</em> values from each electrode to see which ones are significant at our threshold. We need to put the <code class="docutils literal notranslate"><span class="pre">-</span></code> sign in front of <code class="docutils literal notranslate"><span class="pre">t_thresh</span></code> since we are predicting negative <em>t</em> values.</p>

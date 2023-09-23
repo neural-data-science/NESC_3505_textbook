@@ -296,9 +296,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/ai_assisted.html">Introduction to GitHub Copilot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/rt_data.html">Exercises – Reaction Time Data</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../3b-ai_assisted/multi_data_files.html">Working With Multiple Data Files Using Copilot</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_1.html">Working With Multiple Data Files, Part 1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_2.html">Working With Multiple Data Files, Part 2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_3.html">Working With Multiple Data Files, Part 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_1.html">Reading Data Files with pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_2.html">Computing Mean Reaction Times and Confidence Intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_3.html">Formatting the Output in a Table</a></li>
 </ul>
 </li>
 </ul>
@@ -1522,6 +1522,22 @@ document.write(`
   </thead>
   <tbody>
     <tr>
+      <th>0</th>
+      <td>Albania</td>
+      <td>1601.056136</td>
+      <td>1942.284244</td>
+      <td>2312.888958</td>
+      <td>2760.196931</td>
+      <td>3313.422188</td>
+      <td>3533.00391</td>
+      <td>3630.880722</td>
+      <td>3738.932735</td>
+      <td>2497.437901</td>
+      <td>3193.054604</td>
+      <td>4604.211737</td>
+      <td>5937.029526</td>
+    </tr>
+    <tr>
       <th>29</th>
       <td>United Kingdom</td>
       <td>9979.508487</td>
@@ -1529,7 +1545,7 @@ document.write(`
       <td>12477.177070</td>
       <td>14142.850890</td>
       <td>15895.116410</td>
-      <td>17428.748460</td>
+      <td>17428.74846</td>
       <td>18232.424520</td>
       <td>21664.787670</td>
       <td>22705.092540</td>
@@ -1538,20 +1554,20 @@ document.write(`
       <td>33203.261280</td>
     </tr>
     <tr>
-      <th>0</th>
-      <td>Albania</td>
-      <td>1601.056136</td>
-      <td>1942.284244</td>
-      <td>2312.888958</td>
-      <td>2760.196931</td>
-      <td>3313.422188</td>
-      <td>3533.003910</td>
-      <td>3630.880722</td>
-      <td>3738.932735</td>
-      <td>2497.437901</td>
-      <td>3193.054604</td>
-      <td>4604.211737</td>
-      <td>5937.029526</td>
+      <th>25</th>
+      <td>Spain</td>
+      <td>3834.034742</td>
+      <td>4564.802410</td>
+      <td>5693.843879</td>
+      <td>7993.512294</td>
+      <td>10638.751310</td>
+      <td>13236.92117</td>
+      <td>13926.169970</td>
+      <td>15764.983130</td>
+      <td>18603.064520</td>
+      <td>20445.298960</td>
+      <td>24835.471660</td>
+      <td>28821.063700</td>
     </tr>
     <tr>
       <th>17</th>
@@ -1561,29 +1577,13 @@ document.write(`
       <td>12790.849560</td>
       <td>15363.251360</td>
       <td>18794.745670</td>
-      <td>21209.059200</td>
+      <td>21209.05920</td>
       <td>21399.460460</td>
       <td>23651.323610</td>
       <td>26790.949610</td>
       <td>30246.130630</td>
       <td>33724.757780</td>
       <td>36797.933320</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>Montenegro</td>
-      <td>2647.585601</td>
-      <td>3682.259903</td>
-      <td>4649.593785</td>
-      <td>5907.850937</td>
-      <td>7778.414017</td>
-      <td>9595.929905</td>
-      <td>11222.587620</td>
-      <td>11732.510170</td>
-      <td>7003.339037</td>
-      <td>6465.613349</td>
-      <td>6557.194282</td>
-      <td>9253.896111</td>
     </tr>
     <tr>
       <th>6</th>
@@ -1593,7 +1593,7 @@ document.write(`
       <td>10136.867130</td>
       <td>11399.444890</td>
       <td>13108.453600</td>
-      <td>14800.160620</td>
+      <td>14800.16062</td>
       <td>15377.228550</td>
       <td>16310.443400</td>
       <td>14297.021220</td>
@@ -1602,20 +1602,20 @@ document.write(`
       <td>22833.308510</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>Croatia</td>
-      <td>3119.236520</td>
-      <td>4338.231617</td>
-      <td>5477.890018</td>
-      <td>6960.297861</td>
-      <td>9164.090127</td>
-      <td>11305.385170</td>
-      <td>13221.821840</td>
-      <td>13822.583940</td>
-      <td>8447.794873</td>
-      <td>9875.604515</td>
-      <td>11628.388950</td>
-      <td>14619.222720</td>
+      <th>26</th>
+      <td>Sweden</td>
+      <td>8527.844662</td>
+      <td>9911.878226</td>
+      <td>12329.441920</td>
+      <td>15258.296970</td>
+      <td>17832.024640</td>
+      <td>18855.72521</td>
+      <td>20667.381250</td>
+      <td>23586.929270</td>
+      <td>23880.016830</td>
+      <td>25266.594990</td>
+      <td>29341.630930</td>
+      <td>33859.748350</td>
     </tr>
     <tr>
       <th>27</th>
@@ -1625,7 +1625,7 @@ document.write(`
       <td>20431.092700</td>
       <td>22966.144320</td>
       <td>27195.113040</td>
-      <td>26982.290520</td>
+      <td>26982.29052</td>
       <td>28397.715120</td>
       <td>30281.704590</td>
       <td>31871.530300</td>
@@ -1634,36 +1634,20 @@ document.write(`
       <td>37506.419070</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>Belgium</td>
-      <td>8343.105127</td>
-      <td>9714.960623</td>
-      <td>10991.206760</td>
-      <td>13149.041190</td>
-      <td>16672.143560</td>
-      <td>19117.974480</td>
-      <td>20979.845890</td>
-      <td>22525.563080</td>
-      <td>25575.570690</td>
-      <td>27561.196630</td>
-      <td>30485.883750</td>
-      <td>33692.605080</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Bosnia and Herzegovina</td>
-      <td>973.533195</td>
-      <td>1353.989176</td>
-      <td>1709.683679</td>
-      <td>2172.352423</td>
-      <td>2860.169750</td>
-      <td>3528.481305</td>
-      <td>4126.613157</td>
-      <td>4314.114757</td>
-      <td>2546.781445</td>
-      <td>4766.355904</td>
-      <td>6018.975239</td>
-      <td>7446.298803</td>
+      <th>23</th>
+      <td>Slovak Republic</td>
+      <td>5074.659104</td>
+      <td>6093.262980</td>
+      <td>7481.107598</td>
+      <td>8412.902397</td>
+      <td>9674.167626</td>
+      <td>10922.66404</td>
+      <td>11348.545850</td>
+      <td>12037.267580</td>
+      <td>9498.467723</td>
+      <td>12126.230650</td>
+      <td>13638.778370</td>
+      <td>18678.314350</td>
     </tr>
     <tr>
       <th>9</th>
@@ -1673,13 +1657,29 @@ document.write(`
       <td>10560.485530</td>
       <td>12999.917660</td>
       <td>16107.191710</td>
-      <td>18292.635140</td>
+      <td>18292.63514</td>
       <td>20293.897460</td>
       <td>22066.442140</td>
       <td>24703.796150</td>
       <td>25889.784870</td>
       <td>28926.032340</td>
       <td>30470.016700</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Norway</td>
+      <td>10095.421720</td>
+      <td>11653.973040</td>
+      <td>13450.401510</td>
+      <td>16361.876470</td>
+      <td>18965.055510</td>
+      <td>23311.34939</td>
+      <td>26298.635310</td>
+      <td>31540.974800</td>
+      <td>33965.661150</td>
+      <td>41283.164330</td>
+      <td>44683.975250</td>
+      <td>49357.190170</td>
     </tr>
   </tbody>
 </table>
