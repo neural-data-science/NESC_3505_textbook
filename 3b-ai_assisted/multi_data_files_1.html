@@ -236,7 +236,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Set Up Your Computer for Data Science</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Some Assembly Required</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/learning_objectives.html">Learning Objectives</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/install_tools.html">Install Tools for Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/github.html">Get on GitHub</a></li>
@@ -292,7 +292,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">AI-Assisted Coding</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">AI-Assisted Coding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introducing GitHub Copilot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ai_assisted.html">Introduction to GitHub Copilot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rt_data.html">Exercises – Reaction Time Data</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="multi_data_files.html">Working With Multiple Data Files Using Copilot</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
@@ -576,7 +576,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-copilot-to-explain-errors-and-suggest-fixes">Using Copilot to Explain Errors and Suggest Fixes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat">  Copilot Chat</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-error-with-copilot-s-help">Finding the Error with Copilot’s Help</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-that-the-subject-column-is-present-in-the-dataframe">Check that the ‘subject’ Column is Present in the DataFrame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-that-the-participant-column-is-present-in-the-dataframe">Check that the ‘participant’ Column is Present in the DataFrame</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-solution">The Solution</a></li>
 </ul>
 </li>
@@ -724,7 +724,7 @@ document.write(`
 <section id="test-your-test">
 <h3>Test Your Test<a class="headerlink" href="#test-your-test" title="Permalink to this headline">#</a></h3>
 <p>This generates no output. This is a Good Thing, because it means that the number of rows and columns is correct. However, it’s a bit dangerous to assume no news is good news, because no news could also mean your code is not working. So, we should test that the error message is generated if we change the expected number of rows or columns.</p>
-<p>We don’t want to actually remove any rows from the DataFrame, but we can use slicing to create a view of the DataFrame that has fewer rows:</p>
+<p>We don’t want to actually remove any rows from the DataFrame, but we can use <strong>slicing</strong> to create a view of the DataFrame that has fewer rows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a slice of df that contains 29 rows, </span>
@@ -780,17 +780,21 @@ document.write(`
 <p>Our next instruction is to calculate the mean RT for each participant. Let’s prompt Copilot to do that:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean rt for each subject</span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean rt for each participant</span>
+<span class="c1"># use the groupby method to group by participant</span>
+<span class="c1"># use the mean method to calculate the mean rt for each participant</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participant&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># calculate mean rt for each subject</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># calculate mean rt for each participant</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># use the groupby method to group by participant</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># use the mean method to calculate the mean rt for each participant</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participant&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
 <span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/frame.py:8252,</span> in <span class="ni">DataFrame.groupby</span><span class="nt">(self, by, axis, level, as_index, sort, group_keys, observed, dropna)</span>
 <span class="g g-Whitespace">   </span><span class="mi">8249</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You have to supply one of &#39;by&#39; and &#39;level&#39;&quot;</span><span class="p">)</span>
@@ -830,7 +834,7 @@ document.write(`
 <span class="g g-Whitespace">    </span><span class="mi">987</span>     <span class="c1"># Add key to exclusions</span>
 <span class="g g-Whitespace">    </span><span class="mi">988</span>     <span class="n">exclusions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
 
-<span class="ne">KeyError</span>: &#39;subject&#39;
+<span class="ne">KeyError</span>: &#39;participant&#39;
 </pre></div>
 </div>
 </div>
@@ -840,8 +844,8 @@ document.write(`
 <section id="debugging-copilot-generated-code">
 <h2>Debugging Copilot-Generated Code<a class="headerlink" href="#debugging-copilot-generated-code" title="Permalink to this headline">#</a></h2>
 <p>Typically, when you get a long, scary error message like the one above, you can ignore a lof of what is in the middle. The most important parts are the last line, which tells you what the error is, and the first lines, which usually indicate what line in the code you tried to run caused the error. What’s in between is the <em>stack trace</em>, which is a list of all the functions that were called in the process of trying to run the code. But most of the time, the error is a result of the code you wrote (the first lines), not the code in the underlying Python functions that your code called (the middle lines).</p>
-<p>In this case, we see a <code class="docutils literal notranslate"><span class="pre">KeyError:</span> <span class="pre">'subject'</span></code> at the bottom of the error message. Recall that Python dictionaries are sets of <strong>key</strong>-value pairs. The keys are the names of the columns, and the values are the data in those columns.</p>
-<p>You can think of a pandas DataFrame as a dictionary in which the column names are keys, and the values in that column are its values. This is a common way that pandas functions refer to column names and their values. So the error message above indicates that the code tried to access a column called <code class="docutils literal notranslate"><span class="pre">subject</span></code> in the DataFrame, but that column doesn’t exist. We can see at the top of the error message that the code that caused the error is: <code class="docutils literal notranslate"><span class="pre">---&gt;</span> <span class="pre">2</span> <span class="pre">df.groupby('subject').mean()</span></code>. This means it’s line 2 of the cell above that caused the error.</p>
+<p>In this case, we see a <code class="docutils literal notranslate"><span class="pre">KeyError:</span> <span class="pre">'participant'</span></code> at the bottom of the error message. Recall that Python dictionaries are sets of <strong>key</strong>-value pairs. The keys are the names of the columns, and the values are the data in those columns.</p>
+<p>You can think of a pandas DataFrame as a dictionary in which the column names are keys, and the values in that column are its values. This is a common way that pandas functions refer to column names and their values. So the error message above indicates that the code tried to access a column called <code class="docutils literal notranslate"><span class="pre">subject</span></code> in the DataFrame, but that column doesn’t exist. We can see at the top of the error message that the code that caused the error is: <code class="docutils literal notranslate"><span class="pre">---&gt;</span> <span class="pre">2</span> <span class="pre">df.groupby('participant').mean()</span></code>. This means it’s line 2 of the cell above that caused the error.</p>
 <p>As a novice coder, however, you might not know or remember that pandas DataFrames represent column names and data as dictionary key-value pairs. If you don’t understand what an error means, you can use Copilot to help you!</p>
 <section id="using-copilot-to-explain-errors-and-suggest-fixes">
 <h3>Using Copilot to Explain Errors and Suggest Fixes<a class="headerlink" href="#using-copilot-to-explain-errors-and-suggest-fixes" title="Permalink to this headline">#</a></h3>
@@ -859,9 +863,9 @@ document.write(`
 <blockquote>
 <div><p>If you are getting an error with the selected cell, there could be a few reasons why. Here are some possible solutions:</p>
 <ol class="arabic simple">
-<li><p>Check that the ‘subject’ column is present in the dataframe. You can do this by printing out the dataframe using the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function and checking that the ‘subject’ column is present.</p></li>
-<li><p>Check that the ‘subject’ column is spelled correctly. If the column is misspelled, you will get a “KeyError” when trying to group by that column.</p></li>
-<li><p>Check that the ‘subject’ column is of the correct data type. If the ‘subject’ column is not a string or categorical data type, you may need to convert it using the <code class="docutils literal notranslate"><span class="pre">astype()</span></code> method.</p></li>
+<li><p>Check that the ‘participant’ column is present in the dataframe. You can do this by printing out the dataframe using the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function and checking that the ‘participant’ column is present.</p></li>
+<li><p>Check that the ‘participant’ column is spelled correctly. If the column is misspelled, you will get a “KeyError” when trying to group by that column.</p></li>
+<li><p>Check that the ‘participant’ column is of the correct data type. If the ‘participant’ column is not a string or categorical data type, you may need to convert it using the <code class="docutils literal notranslate"><span class="pre">astype()</span></code> method.</p></li>
 <li><p>Check that the dataframe contains numerical columns. If the dataframe only contains non-numerical columns, you will get a “DataError” when trying to calculate the mean.</p></li>
 <li><p>Check that the dataframe does not contain missing values. If the dataframe contains missing values, you may need to remove them using the <code class="docutils literal notranslate"><span class="pre">dropna()</span></code> method before calculating the mean.</p></li>
 </ol>
@@ -871,8 +875,8 @@ document.write(`
 <h3>Finding the Error with Copilot’s Help<a class="headerlink" href="#finding-the-error-with-copilot-s-help" title="Permalink to this headline">#</a></h3>
 <p>These are actually really good responses, and they are provided in a logical order to go through in debugging. We could work through them in order, but — spoiler alert — the first suggestion actually leads to a solution.</p>
 </section>
-<section id="check-that-the-subject-column-is-present-in-the-dataframe">
-<h3>Check that the ‘subject’ Column is Present in the DataFrame<a class="headerlink" href="#check-that-the-subject-column-is-present-in-the-dataframe" title="Permalink to this headline">#</a></h3>
+<section id="check-that-the-participant-column-is-present-in-the-dataframe">
+<h3>Check that the ‘participant’ Column is Present in the DataFrame<a class="headerlink" href="#check-that-the-participant-column-is-present-in-the-dataframe" title="Permalink to this headline">#</a></h3>
 <p>The first thing to do is to check that the column exists, and is spelled correctly. So let’s start with that. Do you remember how to check the names of the columns in a pandas DataFrame? If not, you can write a Copilot prompt to help you out. In the cell below, write a prompt that will print the names of the columns in the DataFrame. Then run the cell, and see what happens.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -960,8 +964,10 @@ document.write(`
 </section>
 <section id="the-solution">
 <h3>The Solution<a class="headerlink" href="#the-solution" title="Permalink to this headline">#</a></h3>
-<p>Using any of the three approaches above, when we look at the column names, we see that they are <code class="docutils literal notranslate"><span class="pre">participantID</span></code>, <code class="docutils literal notranslate"><span class="pre">trial</span></code>, and <code class="docutils literal notranslate"><span class="pre">RT</span></code>. The code that generated the error was trying to access a column called <code class="docutils literal notranslate"><span class="pre">subject</span></code>, which doesn’t exist. It should be <code class="docutils literal notranslate"><span class="pre">participantID</span></code>. So we need to change the code to access the correct column name. Or, engineer our prompt to do so:</p>
-<div class="cell docutils container">
+<p>Using any of the three approaches above, when we look at the column names, we see that they are <code class="docutils literal notranslate"><span class="pre">participantID</span></code>, <code class="docutils literal notranslate"><span class="pre">trial</span></code>, and <code class="docutils literal notranslate"><span class="pre">RT</span></code>. The code that generated the error was trying to access a column called <code class="docutils literal notranslate"><span class="pre">participant</span></code>, which doesn’t exist. It should be <code class="docutils literal notranslate"><span class="pre">participantID</span></code>. So we need to change the code to access the correct column name. Or, engineer our prompt to do so.</p>
+<div class="alert alert-block alert-info">
+This is an important lesson on prompt engineering. You're more likely to get working code if you use the actual variable names in the prompt, rather than expecting Copilot to make inferences about what variable you're referring to based on the context.
+</div><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean rt for each participantID</span>
 <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -1019,8 +1025,8 @@ document.write(`
 <p>This looks good, however the code is providing means for both columns in the DataFrame (<code class="docutils literal notranslate"><span class="pre">trial</span></code> and <code class="docutils literal notranslate"><span class="pre">RT</span></code>), not just for <code class="docutils literal notranslate"><span class="pre">RT</span></code> (sometimes the same prompt actually does select only <code class="docutils literal notranslate"><span class="pre">RT</span></code> but we’ll explore when it doesn’t). We can add to our prompt to tell it not to include <code class="docutils literal notranslate"><span class="pre">trial</span></code> in the output:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean rt for each subject. Do not show the mean for trial </span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;trial&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean rt for each participantID. Do not show the mean for trial</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;trial&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1224,7 +1230,7 @@ We'll worry about the formatting later, but it's good to understand why it happe
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-copilot-to-explain-errors-and-suggest-fixes">Using Copilot to Explain Errors and Suggest Fixes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat">  Copilot Chat</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-error-with-copilot-s-help">Finding the Error with Copilot’s Help</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-that-the-subject-column-is-present-in-the-dataframe">Check that the ‘subject’ Column is Present in the DataFrame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-that-the-participant-column-is-present-in-the-dataframe">Check that the ‘participant’ Column is Present in the DataFrame</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-solution">The Solution</a></li>
 </ul>
 </li>

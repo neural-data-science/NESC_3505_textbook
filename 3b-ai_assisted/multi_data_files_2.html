@@ -236,7 +236,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Set Up Your Computer for Data Science</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Some Assembly Required</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/learning_objectives.html">Learning Objectives</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/install_tools.html">Install Tools for Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/github.html">Get on GitHub</a></li>
@@ -292,7 +292,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">AI-Assisted Coding</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">AI-Assisted Coding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introducing GitHub Copilot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ai_assisted.html">Introduction to GitHub Copilot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rt_data.html">Exercises – Reaction Time Data</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="multi_data_files.html">Working With Multiple Data Files Using Copilot</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
@@ -573,11 +573,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat-to-the-rescue">Copilot Chat to the Rescue</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-check-copilot-s-code-with-other-sources">Cross-Check Copilot’s Code with Other Sources</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cis-across-all-participants">95% CIs across all participants</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-the-output-nicely">Formatting the output nicely</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-in-later-chapters-of-this-book">Copilot in Later Chapters of this Book</a></li>
 </ul>
 </li>
 </ul>
@@ -881,7 +876,7 @@ RT  0.459111   0.39445
 <p>Another prompt that also works is below; note that the output is formatted differently, but the values are the same:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate the upper and lower 95% confidence interval limits for RT across participantid</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate the upper and lower 95% confidence interval limits for RT across participantID</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.96</span>
 </pre></div>
 </div>
@@ -893,350 +888,6 @@ RT  0.459111   0.39445
 </div>
 </div>
 <p>This code illustrates a feature of Python that we haven’t seen before: using a comma to separate two commands. This is a way of executing two commands in a single line of code. It’s not a very common way of writing code, but as you can see in this example, it can be useful: the output is a Python <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, which is an immutable, ordered collection of values. This is a good type to use when you have a pair of values that belong together, and the immutable nature of tuples means that you can’t accidentally change one of the values. Furthermore, the ordering means you can access the values by their position in the tuple, which is useful in this case because, using this prompt, Copilot will always put the upper CI first and the lower CI second.</p>
-</section>
-</section>
-<hr class="docutils" />
-<section id="formatting-the-output-nicely">
-<h2>Formatting the output nicely<a class="headerlink" href="#formatting-the-output-nicely" title="Permalink to this headline">#</a></h2>
-<p>The final instruction was, “Finally, show a table that includes all of the results: with columns for mean RT, lower 95% CI, and upper 95% CI, and with one row for each participant and the bottom row showing the mean and CIs across participants.”</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show a table that has columns for mean RT, lower 95% CI, and upper 95% CI, </span>
-<span class="c1"># each rounded to 2 decimal places,</span>
-<span class="c1"># with one row for each participantID, </span>
-<span class="c1"># and the final row for the mean across all participantIDD</span>
-<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span>
-<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Mean RT  Lower CI  Upper CI
-participantID                             
-s1                0.39    0.3508    0.4292
-s2                0.44    0.3812    0.4988
-s3                0.45    0.3716    0.5284
-</pre></div>
-</div>
-</div>
-</div>
-<p>This is a decent first pass, but the CIs are rounded to 4, not 2, decimal places, and the table is missing the mean across participants. These are two different problems, so let’s try to solve them one at a time. We’ll start with rounding. Our prompt above was pretty specific in asking Copilot to round each of the stated values to 2 decimal places, so maybe instead of prompt engineering we can ask Chat for help. Let’s try this prompt in Copilot Chat: <code class="docutils literal notranslate"><span class="pre">modify</span> <span class="pre">the</span> <span class="pre">code</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">selected</span> <span class="pre">cell</span> <span class="pre">so</span> <span class="pre">that</span> <span class="pre">the</span> <span class="pre">CIs</span> <span class="pre">are</span> <span class="pre">rounded</span> <span class="pre">to</span> <span class="pre">2</span> <span class="pre">decimal</span> <span class="pre">places</span></code>. The result is:</p>
-<blockquote>
-<div><p>To modify the code to round the CIs to 2 decimal places, you can change the <code class="docutils literal notranslate"><span class="pre">round()</span></code> method to round to 2 decimal places instead of the default 4 decimal places. Here’s the modified code:</p>
-</div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>In this code, the <code class="docutils literal notranslate"><span class="pre">round()</span></code> method is used to round the mean RT and SEM values to 2 decimal places, and the <code class="docutils literal notranslate"><span class="pre">round()</span></code> method is also used to round the upper and lower CI values to 2 decimal places.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">upper_ci</span></code> and <code class="docutils literal notranslate"><span class="pre">lower_ci</span></code> variables calculate the upper and lower CIs by adding and subtracting the <code class="docutils literal notranslate"><span class="pre">ci_rt</span></code> value from the <code class="docutils literal notranslate"><span class="pre">mean_rt</span></code> value, respectively. The <code class="docutils literal notranslate"><span class="pre">round()</span></code> method is used to round the resulting values to 2 decimal places.</p>
-<p>Finally, the <code class="docutils literal notranslate"><span class="pre">ci_table</span></code> variable creates a table of the mean RT, lower CI, and upper CI values using the <code class="docutils literal notranslate"><span class="pre">pd.DataFrame()</span></code> function, and the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function is used to print the table.</p>
-<p>This code should give you the desired output of a table containing the mean RT, lower CI, and upper CI values rounded to 2 decimal places.</p>
-</div></blockquote>
-<p>And indeed, as you can see below, it works!</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Mean RT  Lower CI  Upper CI
-participantID                             
-s1                0.39      0.35      0.43
-s2                0.44      0.38      0.50
-s3                0.45      0.37      0.53
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now let’s address the problem of the missing mean across participants. Based on what we learned earlier in the course, this might not be surprising. While we can use <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> to split the data by participantID, or simply <code class="docutils literal notranslate"><span class="pre">.mean()</span></code> to get the average across participantIDs, there is no way of generating both split and averaged data using the same command.</p>
-<p>Instead, what we could try doing is create the across-subject data as a separate table, and then merge that table with the by-participant table. In writing the prompt below I also tried a slightly different way of asking for rounding to 2 decimal places, which turns out to be effective:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show a table with columns for mean RT, lower 95% CI, and upper 95% CI,</span>
-<span class="c1"># averaged across all participant ID</span>
-<span class="c1"># round all values in the table to 2 decimal places</span>
-<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Mean RT  Lower CI  Upper CI
-RT     0.43      0.39      0.47
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now we want to merge the two tables. In the cell below, I only had to type the first one-line prompt, and Copilot generated all the subsequent code and prompts/comments. However, I had to hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> twice after the first prompt, and after some other lines (where you see blank lines below) to get all the code. I would tell when Copilot had finished because it started regenerating the same prompts and code it had already generated.</p>
-<p>Unfortunately when we try to run the cell below we get an error:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># merge the two tables that are the output of each of the two code cells above</span>
-
-<span class="c1"># calculate the mean RT for each participantID</span>
-<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># calculate the 95% confidence intervals for the mean RT for each participantID</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
-
-<span class="c1"># calculate the mean RT across all participantID</span>
-<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># calculate the 95% confidence intervals for the mean RT across all participantID</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">])</span>
-
-<span class="c1"># merge the two tables</span>
-<span class="n">ci_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ci_table2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-
-<span class="nn">/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_31762/2646225902.py</span> in <span class="ni">?</span><span class="nt">()</span>
-
-<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="n">ci_table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">])</span>
-
-<span class="g g-Whitespace">     </span><span class="mi">22</span> 
-
-<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="c1"># merge the two tables</span>
-
-<span class="ne">---&gt; </span><span class="mi">24</span> <span class="n">ci_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ci_table2</span><span class="p">)</span>
-
-
-
-<span class="nn">~/mambaforge/envs/ncil/lib/python3.10/site-packages/pandas/core/generic.py</span> in <span class="ni">?</span><span class="nt">(self, name)</span>
-
-<span class="g g-Whitespace">   </span><span class="mi">5985</span>             <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_accessors</span>
-
-<span class="g g-Whitespace">   </span><span class="mi">5986</span>             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info_axis</span><span class="o">.</span><span class="n">_can_hold_identifiers_and_holds_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-
-<span class="g g-Whitespace">   </span><span class="mi">5987</span>         <span class="p">):</span>
-
-<span class="g g-Whitespace">   </span><span class="mi">5988</span>             <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-
-<span class="ne">-&gt; </span><span class="mi">5989</span>         <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-
-
-
-<span class="ne">AttributeError</span>: &#39;DataFrame&#39; object has no attribute &#39;append&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<p>The error message is that <code class="docutils literal notranslate"><span class="pre">'DataFrame'</span> <span class="pre">object</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">attribute</span> <span class="pre">'append'</span></code>. This means that the code is trying to append the across-subject table to the by-participant table, but that the <code class="docutils literal notranslate"><span class="pre">append()</span></code> method doesn’t exist for DataFrames.</p>
-<p>If you do a Web search for “pandas dataframe append”, you may find this error puzzling, because there are many descriptions of how to use this method, including in the official pandas documentation. However, what’s not immediately obvious is that the <code class="docutils literal notranslate"><span class="pre">.append()</span></code> method in pandas was <strong>depricated</strong> in <a class="reference external" href="https://github.com/pandas-dev/pandas/pull/44539">November, 2021</a>. “Depricated” in a programming language means that a feature/function/method/etc. was made obsolete — typically replaced by a newer feature, or perhaps because it was already redundant with another way of doing the same thing. Since Copilot is trained on a vast amount of code, this will inevitably include <strong>legacy code</strong> that is no longer used.</p>
-<p>We’ll ask Copilot Chat for help again, this time telling it what the error message is, and asking how to fix it:</p>
-<p><code class="docutils literal notranslate"><span class="pre">the</span> <span class="pre">selected</span> <span class="pre">cell</span> <span class="pre">generates</span> <span class="pre">an</span> <span class="pre">error:</span> <span class="pre">&quot;'DatFrame'</span> <span class="pre">object</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">attribute</span> <span class="pre">'append'&quot;.</span> <span class="pre">how</span> <span class="pre">can</span> <span class="pre">i</span> <span class="pre">fix</span> <span class="pre">this</span> <span class="pre">error?</span></code></p>
-<p>The response is:</p>
-<blockquote>
-<div><p>The error message “‘DataFrame’ object has no attribute ‘append’” suggests that the <code class="docutils literal notranslate"><span class="pre">append()</span></code> method is not available for the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object in the code.</p>
-<p>To fix this error, you can use the <code class="docutils literal notranslate"><span class="pre">concat()</span></code> function instead of the <code class="docutils literal notranslate"><span class="pre">append()</span></code> method to concatenate the two dataframes vertically. Here’s the modified code:</p>
-</div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># merge the two tables that are the output of each of the two code cells above</span>
-
-<span class="c1"># calculate the mean RT for each participantID</span>
-<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># calculate the 95% confidence intervals for the mean RT for each participantID</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
-
-<span class="c1"># calculate the mean RT across all participantID</span>
-<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># calculate the 95% confidence intervals for the mean RT across all participantID</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">])</span>
-
-<span class="c1"># concatenate the two tables vertically</span>
-<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ci_table</span><span class="p">,</span> <span class="n">ci_table2</span><span class="p">])</span>
-
-<span class="c1"># print the merged table</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>In this code, the <code class="docutils literal notranslate"><span class="pre">concat()</span></code> function is used to concatenate the two dataframes <code class="docutils literal notranslate"><span class="pre">ci_table</span></code> and <code class="docutils literal notranslate"><span class="pre">ci_table2</span></code> vertically. The resulting dataframe contains the rows of both dataframes stacked on top of each other.</p>
-<p>Finally, the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function is used to print the merged table.</p>
-<p>This code should fix the error and give you the desired output of a merged table containing the mean RT, lower CI, and upper CI values for each participant, as well as the mean RT, lower CI, and upper CI values across all participants.</p>
-</div></blockquote>
-<p>When we try this, it works. The only lingering issue is that the last row is labelled <code class="docutils literal notranslate"><span class="pre">RT</span></code>, which does not tell us the values represent the mean across all participants:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># merge the two tables that are the output of each of the two code cells above</span>
-
-<span class="c1"># calculate the mean RT for each participantID</span>
-<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># calculate the 95% confidence intervals for the mean RT for each participantID</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
-
-<span class="c1"># calculate the mean RT across all participantID</span>
-<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># calculate the 95% confidence intervals for the mean RT across all participantID</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">])</span>
-
-<span class="c1"># concatenate the two tables vertically</span>
-<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ci_table</span><span class="p">,</span> <span class="n">ci_table2</span><span class="p">])</span>
-
-<span class="c1"># print the merged table</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Mean RT  Lower CI  Upper CI
-s1     0.39      0.35      0.43
-s2     0.44      0.38      0.50
-s3     0.45      0.37      0.53
-RT     0.43      0.39      0.47
-</pre></div>
-</div>
-</div>
-</div>
-<p>We can as Chat to do this for us: <code class="docutils literal notranslate"><span class="pre">modify</span> <span class="pre">the</span> <span class="pre">code</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">selected</span> <span class="pre">cell</span> <span class="pre">so</span> <span class="pre">that</span> <span class="pre">the</span> <span class="pre">last</span> <span class="pre">row</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">final</span> <span class="pre">dataframe</span> <span class="pre">is</span> <span class="pre">labelled</span> <span class="pre">&quot;Average&quot;</span></code></p>
-<blockquote>
-<div><p>To modify the code to label the last row in the final dataframe as “Average”, you can change the index label of the last row in the <code class="docutils literal notranslate"><span class="pre">ci_table2</span></code> dataframe to “Average” before concatenating the two dataframes. Here’s the modified code:</p>
-</div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># merge the two tables that are the output of each of the two code cells above</span>
-
-<span class="c1"># calculate the mean RT for each participantID</span>
-<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># calculate the 95% confidence intervals for the mean RT for each participantID</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
-
-<span class="c1"># calculate the mean RT across all participantID</span>
-<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># calculate the 95% confidence intervals for the mean RT across all participantID</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Average&#39;</span><span class="p">])</span>
-
-<span class="c1"># concatenate the two tables vertically</span>
-<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ci_table</span><span class="p">,</span> <span class="n">ci_table2</span><span class="p">])</span>
-
-<span class="c1"># print the merged table</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>In this code, the <code class="docutils literal notranslate"><span class="pre">index</span></code> parameter of the <code class="docutils literal notranslate"><span class="pre">pd.DataFrame()</span></code> function is used to set the index label of the last row in the <code class="docutils literal notranslate"><span class="pre">ci_table2</span></code> dataframe to “Average”.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">concat()</span></code> function is then used to concatenate the two dataframes <code class="docutils literal notranslate"><span class="pre">ci_table</span></code> and <code class="docutils literal notranslate"><span class="pre">ci_table2</span></code> vertically. The resulting dataframe contains the rows of both dataframes stacked on top of each other.</p>
-<p>Finally, the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function is used to print the merged table.</p>
-<p>This code should give you the desired output of a merged table containing the mean RT, lower CI, and upper CI values for each participant, as well as the mean RT, lower CI, and upper CI values across all participants, with the last row labelled as “Average”.</p>
-</div></blockquote>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># merge the two tables that are the output of each of the two code cells above</span>
-
-<span class="c1"># calculate the mean RT for each participantID</span>
-<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># calculate the 95% confidence intervals for the mean RT for each participantID</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">})</span>
-
-<span class="c1"># calculate the mean RT across all participantID</span>
-<span class="n">mean_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># calculate the 95% confidence intervals for the mean RT across all participantID</span>
-<span class="n">sem_rt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_rt</span> <span class="o">=</span> <span class="n">sem_rt</span> <span class="o">*</span> <span class="mf">1.96</span>
-<span class="n">upper_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">+</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">lower_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_rt</span> <span class="o">-</span> <span class="n">ci_rt</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ci_table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Mean RT&#39;</span><span class="p">:</span> <span class="n">mean_rt</span><span class="p">,</span> <span class="s1">&#39;Lower CI&#39;</span><span class="p">:</span> <span class="n">lower_ci</span><span class="p">,</span> <span class="s1">&#39;Upper CI&#39;</span><span class="p">:</span> <span class="n">upper_ci</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Average&#39;</span><span class="p">])</span>
-
-<span class="c1"># concatenate the two tables vertically</span>
-<span class="n">ci_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ci_table</span><span class="p">,</span> <span class="n">ci_table2</span><span class="p">])</span>
-
-<span class="c1"># print the merged table</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ci_table</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         Mean RT  Lower CI  Upper CI
-s1          0.39      0.35      0.43
-s2          0.44      0.38      0.50
-s3          0.45      0.37      0.53
-Average     0.43      0.39      0.47
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
-<p>We’ve now completed the task of calculating the mean RT and 95% CIs for each participant, and for all participants. We’ve also learned a lot about how to use Copilot to help us write code, and how to use Copilot Chat to help us understand errors and fix them.</p>
-<p>As you’ve seen, the process of using AI to generate code isn’t always smooth, nor are the results always accurate. It’s critical to critically assess the outputs you see, and to understand what you are asking Copilot to do — as well as what the code it generates is doing. In this lesson, for the sake of expediency and length we did not provide detailed explanations of what the code was doing every step of the way. However, you’ve seen that Copilot can be useful at explaining code for you.</p>
-<p>There were also many points in this lesson where, as an experienced coder, I knew what the problem was and how to fix it. However, I deliberately did not fix the problems myself, because I recognize that as a novice coder you may not know how to fix the problems. Hopefully this lesson has shown you how to use Copilot effectively, but also underscored the value of actually knowing Python and being able to read and debug code yourself.</p>
-<p>The best approach to learning to use Python for data science is to write code yourself when you can,  because this helps build and reinforce your knowledge (remember, coding is a procedural skill that you only learn by doing — and you lose the knowledge if you don’t use it). But, when you encounter a problem you’ve never solved before, or are getting errors in your Code, Copilot can be a huge help to deepen your knowledge and solve problems. As we’ve seen, Copilot Chat can be much more useful in this regard than simply writing prompts in code cells of your notebook, because it gives you both code, and detailed explanations of what that code is doing.</p>
-<section id="copilot-in-later-chapters-of-this-book">
-<h3>Copilot in Later Chapters of this Book<a class="headerlink" href="#copilot-in-later-chapters-of-this-book" title="Permalink to this headline">#</a></h3>
-<p>Throughout most of the rest of this book, we focus on teaching you to write code yourself, rather than using Copilot. We believe — and feel this lesson has demonstrated — that learning to write code yourself is the best way to learn to code. However, whether you’re taking this course for credit and have assignments that Copilot may be useful in helping with, or simply using this book to learn how to apply Python to your own data, we recognize that Copilot can be a useful tool. We hope this chapter has given you a good introduction to how to use Copilot effectively, and that you will continue to use it on your coding journey.</p>
 </section>
 </section>
 </section>
@@ -1314,11 +965,6 @@ Average     0.43      0.39      0.47
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat-to-the-rescue">Copilot Chat to the Rescue</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-check-copilot-s-code-with-other-sources">Cross-Check Copilot’s Code with Other Sources</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cis-across-all-participants">95% CIs across all participants</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-the-output-nicely">Formatting the output nicely</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-in-later-chapters-of-this-book">Copilot in Later Chapters of this Book</a></li>
 </ul>
 </li>
 </ul>
