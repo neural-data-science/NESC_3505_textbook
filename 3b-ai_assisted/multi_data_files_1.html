@@ -295,6 +295,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introducing GitHub Copilot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ai_assisted.html">Introduction to GitHub Copilot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rt_data.html">Exercises – Reaction Time Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas_copilot.html">Data Files and pandas DataFrames</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="multi_data_files.html">Working With Multiple Data Files Using Copilot</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Reading Data Files with pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="multi_data_files_2.html">Computing Mean Reaction Times and Confidence Intervals</a></li>
@@ -597,9 +598,19 @@ document.write(`
 <p>In this exercise, we will read in the data from the three files in the <code class="docutils literal notranslate"><span class="pre">data</span></code> directory: <code class="docutils literal notranslate"><span class="pre">s1.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">s2.csv</span></code>, and <code class="docutils literal notranslate"><span class="pre">s3.csv</span></code>, and combine them into a single DataFrame. We will save that DataFrame, and then then calculate the mean RT for each participant.</p>
 <section id="read-in-the-data">
 <h2>Read in the Data<a class="headerlink" href="#read-in-the-data" title="Permalink to this headline">#</a></h2>
+<p>To start the process, I typed the first two lines of the prompt below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># read in three files from the data folder, whose names start with &quot;s&quot; and end in &quot;csv&quot;</span>
+<span class="c1"># concatenate them into one dataframe</span>
+</pre></div>
+</div>
+<p>After I hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code>, Copilot suggested the third line of the prompt, which I accepted by hitting <code class="docutils literal notranslate"><span class="pre">Tab</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># write the result to a csv file</span>
+</pre></div>
+</div>
 <p>The cells below all reflect prompts written on the basis of the instructions above, and code generated entirely by Copilot. While your experience may be different, in writing this lesson we only had to type the first 2-line prompt, and Copilot generated not only the code but the other prompts/comments.</p>
 <p>However, you have to get used to the flow of working with Copilot. Copilot encourages a good coding style, and so it will sometimes only generate code if you hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> twice, so that there’s an empty line between your prompt and the code. The same is true <em>after</em> a line of code: Copilot may force you to hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> twice before it generates the next prompt or line of code.</p>
 <p>After I typed the first two lines of the prompt below, and accepted the third line of the prompt (which was suggested by Copilot), I had to hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> twice to get the first line of code (<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pandas</span> <span class="pre">as</span> <span class="pre">pd</span></code>) generated.</p>
+<p>Although we intended to only read and combine the data files, after I typed the first two lines of the prompt and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code>, Copilot added a third suggested line to the prompt after I hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> the first time, which was to <code class="docutils literal notranslate"><span class="pre">write</span> <span class="pre">the</span> <span class="pre">dataframe</span> <span class="pre">to</span> <span class="pre">a</span> <span class="pre">csv</span> <span class="pre">file</span></code>. This is pretty cool, since that was also part of the instructions above! Is Copilot a mind-reader? No, it’s just a very good predictor of what you might want to do next, based on the prompt you’ve written. It’s a pretty common task in data science to read in a set of individual data files, concatenate them into a single DataFrame, and then save that DataFrame to a file for later use. So, Copilot is just doing what it’s trained to do, which is to predict what you might want to do next, based on the prompt you’ve written.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read in three files from the data folder, whose names start with &quot;s&quot; and end in &quot;csv&quot;</span>
@@ -630,8 +641,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Although we intended to only read and combine the data files, after I typed the first two lines of the prompt and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code>, Copilot added a third suggested line to the prompt after I hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> the first time, which was to <code class="docutils literal notranslate"><span class="pre">write</span> <span class="pre">the</span> <span class="pre">dataframe</span> <span class="pre">to</span> <span class="pre">a</span> <span class="pre">csv</span> <span class="pre">file</span></code>. This is pretty cool, since that was also part of the instructions above! Is Copilot a mind-reader? No, it’s just a very good predictor of what you might want to do next, based on the prompt you’ve written. It’s a pretty common task in data science to read in a set of individual data files, concatenate them into a single DataFrame, and then save that DataFrame to a file for later use. So, Copilot is just doing what it’s trained to do, which is to predict what you might want to do next, based on the prompt you’ve written.</p>
-<p>Anyway, the code ran without errors, but we didn’t ask for any output. Next we’ll to some checks to confirm that the code ran correctly, as described in the instructions. We’ll start by checking the number of columns in the DataFrame:</p>
+<p>The code ran without errors, but we didn’t ask for any output. Next we’ll to some checks to confirm that the code ran correctly, as described in the instructions. We’ll start by checking the number of columns in the DataFrame. As noted above, there should be three columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print the first 5 rows of the dataframe</span>
@@ -698,7 +708,7 @@ document.write(`
 </table>
 </div></div></div>
 </div>
-<p>We see that the DataFrame has 3 columns, as expected. Next, we’ll check that we get the expected number of rows and columns:</p>
+<p>We see that the DataFrame has 3 columns, as expected. Next, we’ll check that we get the expected number of rows (30) and columns (3):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check that the dataframe has 30 rows and 3 columns</span>
