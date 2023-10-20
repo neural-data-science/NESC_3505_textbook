@@ -580,17 +580,11 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#be-careful-about-order-of-data-values">Be careful about order of data values</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensure-pandas-indexing-is-used-in-t-tests">Ensure pandas indexing is used in <em>t</em> tests</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-could-go-wrong">What could go wrong?</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-1-use-dataframe-columns-rather-than-extracting-series">Solution 1: Use DataFrame columns rather than extracting Series</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-1-use-dataframe-columns-rather-than-extracting-series">Solution 1: Use DataFrame columns rather than extracting Series</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-2-use-sort-index-to-ensure-paired-data-are-aligned">Solution 2: Use <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> to ensure paired data are aligned</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-differences-one-sample-t-tests">Testing differences: one-sample <em>t</em> tests</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-sample-t-tests">One-sample <em>t</em> tests</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paired-vs-1-sample-t-tests">Paired vs. 1-sample <em>t</em> tests?</a></li>
 </ul>
 </li>
@@ -696,7 +690,7 @@ Name: flankers, Length: 81, dtype: bool
 <p>We embed this inside another selector <code class="docutils literal notranslate"><span class="pre">df_avg[df_avg['flankers']</span> <span class="pre">==</span> <span class="pre">'congruent']</span></code>, which applies the Boolean mask to the DataFrame, essentially saying, “select from <code class="docutils literal notranslate"><span class="pre">df_avg</span></code> all the columns associated with congruent trials”.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_avg</span><span class="p">[</span><span class="n">df_avg</span><span class="p">[</span><span class="s1">&#39;flankers&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;congruent&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_avg</span><span class="p">[</span><span class="n">df_avg</span><span class="p">[</span><span class="s1">&#39;flankers&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;congruent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -755,138 +749,6 @@ Name: flankers, Length: 81, dtype: bool
       <td>congruent</td>
       <td>0.419096</td>
     </tr>
-    <tr>
-      <th>15</th>
-      <td>s14</td>
-      <td>congruent</td>
-      <td>0.437178</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>s15</td>
-      <td>congruent</td>
-      <td>0.548638</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>s16</td>
-      <td>congruent</td>
-      <td>0.433748</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>s17</td>
-      <td>congruent</td>
-      <td>0.437577</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>s18</td>
-      <td>congruent</td>
-      <td>0.488892</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>s19</td>
-      <td>congruent</td>
-      <td>0.539020</td>
-    </tr>
-    <tr>
-      <th>33</th>
-      <td>s2</td>
-      <td>congruent</td>
-      <td>0.438167</td>
-    </tr>
-    <tr>
-      <th>36</th>
-      <td>s20</td>
-      <td>congruent</td>
-      <td>0.462935</td>
-    </tr>
-    <tr>
-      <th>39</th>
-      <td>s21</td>
-      <td>congruent</td>
-      <td>0.417553</td>
-    </tr>
-    <tr>
-      <th>42</th>
-      <td>s22</td>
-      <td>congruent</td>
-      <td>0.410191</td>
-    </tr>
-    <tr>
-      <th>45</th>
-      <td>s23</td>
-      <td>congruent</td>
-      <td>0.549622</td>
-    </tr>
-    <tr>
-      <th>48</th>
-      <td>s24</td>
-      <td>congruent</td>
-      <td>0.568396</td>
-    </tr>
-    <tr>
-      <th>51</th>
-      <td>s25</td>
-      <td>congruent</td>
-      <td>0.450102</td>
-    </tr>
-    <tr>
-      <th>54</th>
-      <td>s26</td>
-      <td>congruent</td>
-      <td>0.528508</td>
-    </tr>
-    <tr>
-      <th>57</th>
-      <td>s27</td>
-      <td>congruent</td>
-      <td>0.439243</td>
-    </tr>
-    <tr>
-      <th>60</th>
-      <td>s3</td>
-      <td>congruent</td>
-      <td>0.570766</td>
-    </tr>
-    <tr>
-      <th>63</th>
-      <td>s4</td>
-      <td>congruent</td>
-      <td>0.401993</td>
-    </tr>
-    <tr>
-      <th>66</th>
-      <td>s5</td>
-      <td>congruent</td>
-      <td>0.462927</td>
-    </tr>
-    <tr>
-      <th>69</th>
-      <td>s6</td>
-      <td>congruent</td>
-      <td>0.446840</td>
-    </tr>
-    <tr>
-      <th>72</th>
-      <td>s7</td>
-      <td>congruent</td>
-      <td>0.628185</td>
-    </tr>
-    <tr>
-      <th>75</th>
-      <td>s8</td>
-      <td>congruent</td>
-      <td>0.428642</td>
-    </tr>
-    <tr>
-      <th>78</th>
-      <td>s9</td>
-      <td>congruent</td>
-      <td>0.431829</td>
-    </tr>
   </tbody>
 </table>
 </div></div></div>
@@ -894,7 +756,7 @@ Name: flankers, Length: 81, dtype: bool
 <p>Finally, we add <code class="docutils literal notranslate"><span class="pre">['rt']</span></code> to the end to indicate that, having selected the incongruent rows, we actually only want the column with the RT values, because those are what we want to perform the <em>t</em> test on. The second line does the same thing for incongruent trials.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_avg</span><span class="p">[</span><span class="n">df_avg</span><span class="p">[</span><span class="s1">&#39;flankers&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;congruent&#39;</span><span class="p">][</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_avg</span><span class="p">[</span><span class="n">df_avg</span><span class="p">[</span><span class="s1">&#39;flankers&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;congruent&#39;</span><span class="p">][</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -904,81 +766,21 @@ Name: flankers, Length: 81, dtype: bool
 6     0.417540
 9     0.429758
 12    0.419096
-15    0.437178
-18    0.548638
-21    0.433748
-24    0.437577
-27    0.488892
-30    0.539020
-33    0.438167
-36    0.462935
-39    0.417553
-42    0.410191
-45    0.549622
-48    0.568396
-51    0.450102
-54    0.528508
-57    0.439243
-60    0.570766
-63    0.401993
-66    0.462927
-69    0.446840
-72    0.628185
-75    0.428642
-78    0.431829
 Name: rt, dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
 <p>This last result is what we assign to <code class="docutils literal notranslate"><span class="pre">congr</span></code> (note, by the way, that this is a pandas Series, not a DataFrame).</p>
-<p>Likewise, <code class="docutils literal notranslate"><span class="pre">incongr</span></code> is a Series of the same length (the number of participants):</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">incongr</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1     0.471838
-4     0.499031
-7     0.473012
-10    0.506722
-13    0.478367
-16    0.453524
-19    0.591644
-22    0.492921
-25    0.504452
-28    0.527152
-31    0.591181
-34    0.518216
-37    0.507257
-40    0.507033
-43    0.474612
-46    0.554172
-49    0.595977
-52    0.513179
-55    0.565531
-58    0.501069
-61    0.591022
-64    0.428867
-67    0.530722
-70    0.490298
-73    0.650769
-76    0.494878
-79    0.437926
-Name: rt, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section id="run-the-t-test">
 <h3>Run the <em>t</em> test<a class="headerlink" href="#run-the-t-test" title="Permalink to this headline">#</a></h3>
-<p>Now we just pass <code class="docutils literal notranslate"><span class="pre">congr</span></code> and <code class="docutils literal notranslate"><span class="pre">incongr</span></code> as the first (and only) two arguments to <code class="docutils literal notranslate"><span class="pre">ttest_rel()</span></code>, and print the results out with some explanatory text. Note that we have to write <code class="docutils literal notranslate"><span class="pre">stats.ttest_rel()</span></code>, because we imported the library as <code class="docutils literal notranslate"><span class="pre">stats</span></code>.</p>
+<p>Now we just pass <code class="docutils literal notranslate"><span class="pre">congr</span></code> and <code class="docutils literal notranslate"><span class="pre">incongr</span></code> as the first (and only) two arguments to <code class="docutils literal notranslate"><span class="pre">ttest_rel()</span></code>, and print the results out with some explanatory text. Note that we have to write <code class="docutils literal notranslate"><span class="pre">stats.ttest_rel()</span></code>, because we imported the library as <code class="docutils literal notranslate"><span class="pre">stats</span></code> and <code class="docutils literal notranslate"><span class="pre">ttest_rel()</span></code> is a function within <code class="docutils literal notranslate"><span class="pre">stats</span></code>.</p>
+<p>If you were to look at the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_rel.html">API</a> for <code class="docutils literal notranslate"><span class="pre">ttest_rel</span></code>, you’d see that the function returns <em>two</em> values: the first is the <em>t</em> value, and the second is the <em>p</em> value. Therefore, on the left side of the assignment operator, we need to list two variables for outputs, which we call <code class="docutils literal notranslate"><span class="pre">t</span></code> and <code class="docutils literal notranslate"><span class="pre">p</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_rel</span><span class="p">(</span><span class="n">congr</span><span class="p">,</span> <span class="n">incongr</span><span class="p">)</span>
+<span class="c1"># Print the results with explanatory text</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Congruent vs. Incongruent t = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s1">&#39; p = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -1002,12 +804,12 @@ Name: rt, dtype: float64
 </div>
 </div>
 </div>
-<p>Now that’s a results any researcher would be happy to see! The <em>p</em> value is not actually zero by the way, but note in the original output the <em>p</em> value was reported in scientific notation, ending in <code class="docutils literal notranslate"><span class="pre">e-10</span></code>. This means that the <em>p</em> value is actually 0.00000000013739. We would typically report this as <em>p</em> &lt; .0001, since we rounded to 4 decimal places (which is fairly typical for reporting <em>p</em> values).</p>
+<p>Now that’s a results any researcher would be happy to see! The <em>p</em> value is not actually zero by the way, but note in the original output the <em>p</em> value was reported in scientific notation, ending in <code class="docutils literal notranslate"><span class="pre">e-10</span></code>. This means that the <em>p</em> value is actually 0.00000000013739. We would typically report this as <em>p</em> &lt; .0001, since we rounded to 4 decimal places (which is fairly typical for reporting <em>p</em> values), but Python simply rounds the value as we asked.</p>
 </section>
 <section id="tailed-vs-2-tailed-p-values">
 <h3>1-tailed vs. 2-tailed <em>p</em> values<a class="headerlink" href="#tailed-vs-2-tailed-p-values" title="Permalink to this headline">#</a></h3>
-<p>By default, SciPy’s <code class="docutils literal notranslate"><span class="pre">ttest_</span></code> functions return <strong>2-tailed <em>p</em> values</strong>. This means that the <em>p</em> value considers both possible directions of difference between the two conditions. In the present example, that means <em>either</em> RTs for congruent are faster than incongruent, <em>or</em> they are slower for congruent than incongruent. In contrast, a <strong>1-tailed <em>p</em> value</strong> should be used if we have a specific prediction of a “direction” of the difference. Using a 1-tailed <em>p</em> value will tend to be less conservative, i.e., more likely to find a significant effect. This is because, for a given <em>p</em> threshold (e.g., <span class="math notranslate nohighlight">\(\alpha = .05\)</span>), a 2-tailed test effectively splits the <em>p</em> in half, and reflects a probability of 2.5% that the result occurred by chance in one direction (e.g., congruent slower) and a 2.5% probability of getting the revser result (e.g., congruent faster) by chance. In contrast, a 1-tailed test allocates all of the 5% chance probability to the likelihood of a difference in one direction (e.g., congruent faster).</p>
-<p>Practically speaking, 2-tailed tests should be used by default, but if you have a specific a priori hypothesis regarding the direction of the difference, you can use a 1-tailed test. For example, for the flanker experiment we’re working with here, previous research would lead us to the congruent-faster hypothesis.</p>
+<p>By default, SciPy’s <code class="docutils literal notranslate"><span class="pre">ttest_</span></code> functions return <strong>2-tailed <em>p</em> values</strong>. This means that the <em>p</em> value considers both possible directions of difference between the two conditions. In the present example, that means <em>either</em> RTs for congruent are faster than incongruent, <em>or</em> they are slower for congruent than incongruent. In contrast, a <strong>1-tailed <em>p</em> value</strong> should be used if we have a specific prediction of a “direction” of the difference. Using a 1-tailed <em>p</em> value will tend to be less conservative, i.e., more likely to find a significant effect. This is because, for a given <em>p</em> threshold (e.g., <span class="math notranslate nohighlight">\(\alpha = .05\)</span>), a 2-tailed test effectively splits the <em>p</em> in half, and reflects a probability of 2.5% that the result occurred by chance in one direction (e.g., congruent slower) and a 2.5% probability of getting the reverse result (e.g., congruent faster) by chance. In contrast, a 1-tailed test allocates all of the 5% chance probability to the likelihood of a difference in one direction (e.g., congruent faster).</p>
+<p>If you have a specific a priori hypothesis regarding the direction of the difference, you should use a 1-tailed test, because you increase your sensitivity to the predicted effect. For example, for the flanker experiment we’re working with here, previous research would lead us to the congruent-faster hypothesis. A 2-tailed test is more appropriate in exploratory analyses, if you don’t have a clear prediction as to which direction the difference might be in.</p>
 <p>In the present example, it really doesn’t matter since the two-tailed <em>p</em> value is wildly significant. However, if you want to convert to one-tailed <em>p</em> values, you just need to divide <em>p</em> in half:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1026,167 +828,9 @@ Name: rt, dtype: float64
 <hr class="docutils" />
 <section id="be-careful-about-order-of-data-values">
 <h2>Be careful about order of data values<a class="headerlink" href="#be-careful-about-order-of-data-values" title="Permalink to this headline">#</a></h2>
-<p>The above paired <em>t</em> test worked properly because in our pandas DataFrame, participants are listed in a consistent order. So when we create separate Series for congruent and incongruent, the same rows of the two Series belong to the same participant. However, this isn’t always guaranteed, and so it’s good practice to do things in a way that ensures proper pairing of participants between data sets.</p>
-<p>pandas indexing allows us to do this. Recall that indexes are row labels. By default, when we read a CSV file to a DataFrame, the rows are indexed numerically starting from zero. Indeed, if you look back above at the contents of <code class="docutils literal notranslate"><span class="pre">congr</span></code> and <code class="docutils literal notranslate"><span class="pre">incongr</span></code>, you’ll see the indexes in the left column are discontinuous and different between the two, because each data point came from a separate row. To ensure alignment of each participant’s data across the two series, we can first use the participant ID as the index of <code class="docutils literal notranslate"><span class="pre">df_avg</span></code>, and then create separate Series for each condition:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_avg</span> <span class="o">=</span> <span class="n">df_avg</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;participant&#39;</span><span class="p">)</span>
-<span class="n">congr</span> <span class="o">=</span> <span class="n">df_avg</span><span class="p">[</span><span class="n">df_avg</span><span class="p">[</span><span class="s1">&#39;flankers&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;congruent&#39;</span><span class="p">][</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span>
-<span class="n">incongr</span> <span class="o">=</span> <span class="n">df_avg</span><span class="p">[</span><span class="n">df_avg</span><span class="p">[</span><span class="s1">&#39;flankers&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;incongruent&#39;</span><span class="p">][</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now when we look at the resulting Series, we see that the participant indexes are preserved:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">congr</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>participant
-s1     0.455259
-s10    0.471231
-s11    0.417540
-s12    0.429758
-s13    0.419096
-s14    0.437178
-s15    0.548638
-s16    0.433748
-s17    0.437577
-s18    0.488892
-s19    0.539020
-s2     0.438167
-s20    0.462935
-s21    0.417553
-s22    0.410191
-s23    0.549622
-s24    0.568396
-s25    0.450102
-s26    0.528508
-s27    0.439243
-s3     0.570766
-s4     0.401993
-s5     0.462927
-s6     0.446840
-s7     0.628185
-s8     0.428642
-s9     0.431829
-Name: rt, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">incongr</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>participant
-s1     0.471838
-s10    0.499031
-s11    0.473012
-s12    0.506722
-s13    0.478367
-s14    0.453524
-s15    0.591644
-s16    0.492921
-s17    0.504452
-s18    0.527152
-s19    0.591181
-s2     0.518216
-s20    0.507257
-s21    0.507033
-s22    0.474612
-s23    0.554172
-s24    0.595977
-s25    0.513179
-s26    0.565531
-s27    0.501069
-s3     0.591022
-s4     0.428867
-s5     0.530722
-s6     0.490298
-s7     0.650769
-s8     0.494878
-s9     0.437926
-Name: rt, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<section id="ensure-pandas-indexing-is-used-in-t-tests">
-<h3>Ensure pandas indexing is used in <em>t</em> tests<a class="headerlink" href="#ensure-pandas-indexing-is-used-in-t-tests" title="Permalink to this headline">#</a></h3>
-<section id="what-could-go-wrong">
-<h4>What could go wrong?<a class="headerlink" href="#what-could-go-wrong" title="Permalink to this headline">#</a></h4>
-<p>It turns out that SciPy’s <code class="docutils literal notranslate"><span class="pre">ttest</span></code> functions ignore pandas indexes, so indexing on its own won’t ensure that the <em>t</em> test compares data points from the same individuals. We can see that by randomizing the order of the rows of the <code class="docutils literal notranslate"><span class="pre">incongr2</span></code> series, while preserving the relationship between indexes (participant IDs) and RTs (you can compare with above data to confirm that the same RT values are associated with the same IDs as in the original <code class="docutils literal notranslate"><span class="pre">incongr</span></code> Series):</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_avg</span> <span class="o">=</span> <span class="n">df_avg</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="n">inc_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df_avg</span><span class="p">[</span><span class="n">df_avg</span><span class="p">[</span><span class="s1">&#39;flankers&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;incongruent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">inc_arr</span><span class="p">)</span>
-<span class="n">incongr2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">inc_arr</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;participant&#39;</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;participant&#39;</span><span class="p">)</span>
-<span class="n">incongr2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">incongr2</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">])</span>
-<span class="n">incongr2</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>participant
-s13    0.478367
-s12    0.506722
-s3     0.591022
-s14    0.453524
-s10    0.499031
-s22    0.474612
-s19    0.591181
-s20    0.507257
-s9     0.437926
-s17    0.504452
-s4     0.428867
-s24    0.595977
-s6     0.490298
-s18    0.527152
-s8     0.494878
-s27    0.501069
-s1     0.471838
-s15    0.591644
-s7     0.650769
-s16    0.492921
-s23    0.554172
-s11    0.473012
-s26    0.565531
-s21    0.507033
-s5     0.530722
-s25    0.513179
-s2     0.518216
-Name: rt, dtype: object
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now when we run the <em>t</em> test, the <em>t</em> value doesn’t match the <em>t</em> value that we got above with the properly-paired data, and in fact if you run the code below multiple times, you will get diferent <em>t</em> and <em>p</em> values each time due to the random shuffling.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_rel</span><span class="p">(</span><span class="n">congr</span><span class="p">,</span> <span class="n">incongr2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Congruent vs. Incongruent t = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="s1">&#39; p = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Congruent vs. Incongruent t =  -3.23  p =  0.0033
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
+<p>Paired <em>t</em> tests are meant to compare two sets of data that are paired in some way. In our case, the data are paired because they come from the same participants. It’s important when passing the two sets of data to the <em>t</em> test function that the order of the data points is the same in both sets. The above paired <em>t</em> test worked properly because <code class="docutils literal notranslate"><span class="pre">congr</span></code> and <code class="docutils literal notranslate"><span class="pre">incongr</span></code> were extracted from a pandas DataFrame, in which each row holds data from a particular participant. So the order of the data points was the same in <code class="docutils literal notranslate"><span class="pre">congr</span></code> and <code class="docutils literal notranslate"><span class="pre">incongr</span></code>. This is an important consideration to keep in mind though — it’s always a very good idea to ensure your data are stored with indexes that ensure your pairings of data values are correct.</p>
 <section id="solution-1-use-dataframe-columns-rather-than-extracting-series">
-<h2>Solution 1: Use DataFrame columns rather than extracting Series<a class="headerlink" href="#solution-1-use-dataframe-columns-rather-than-extracting-series" title="Permalink to this headline">#</a></h2>
+<h3>Solution 1: Use DataFrame columns rather than extracting Series<a class="headerlink" href="#solution-1-use-dataframe-columns-rather-than-extracting-series" title="Permalink to this headline">#</a></h3>
 <p>Above, we extracted the two data sets we wanted to compare with a <em>t</em> test from a DataFrame (df) to two pandas Series, <code class="docutils literal notranslate"><span class="pre">congr</span></code> and <code class="docutils literal notranslate"><span class="pre">incongr</span></code>. On the one hand, this simplifies the syntax of the <em>t</em> test command, but on the other hand we lose the structure of the pandas DataFrame. That is, in the DataFrame, the values from each participant are in the same row, and so we don’t have to worry about the order of the data values. We can run the <em>t</em> test on two columns of the pandas DataFrame, the code is just a little more complex to look at:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1208,12 +852,13 @@ Name: rt, dtype: object
 <li><p>It uses less memory resources, because we aren’t copying columns of our DataFrame to new Series/vairables.</p></li>
 </ol>
 <p>It may in fact seem overly convoluted to have first demonstrated the extract-to-Series approach, then explain that it’s not the ideal way to do things! However, for many people, it’s intuitive to extract subsets of data to perform further processing on. One point of this lesson was to illustrate how that can create problems, even though it might seem like a logical approach.</p>
+</section>
 <section id="solution-2-use-sort-index-to-ensure-paired-data-are-aligned">
 <h3>Solution 2: Use <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> to ensure paired data are aligned<a class="headerlink" href="#solution-2-use-sort-index-to-ensure-paired-data-are-aligned" title="Permalink to this headline">#</a></h3>
-<p>If you do choose to work with a pair of Series, the way we can ensure that the indexes of the two data sets align this is by <em>re-ordering</em> the data in both Series that we’re comparing (<code class="docutils literal notranslate"><span class="pre">congr</span></code> and <code class="docutils literal notranslate"><span class="pre">incongr2</span></code> in this case), using pandas <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> method:</p>
+<p>If you do choose to work with a pair of Series, the way we can ensure that the indexes of the two data sets align this is by <em>re-ordering</em> the data in both Series that we’re comparing (<code class="docutils literal notranslate"><span class="pre">congr</span></code> and <code class="docutils literal notranslate"><span class="pre">incongr_rand</span></code> in this case), using pandas <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_rel</span><span class="p">(</span><span class="n">congr</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(),</span> <span class="n">incongr2</span><span class="o">.</span><span class="n">sort_index</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_rel</span><span class="p">(</span><span class="n">congr</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(),</span> <span class="n">incongr</span><span class="o">.</span><span class="n">sort_index</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Congruent vs. Incongruent t = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="s1">&#39; p = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
 </pre></div>
 </div>
@@ -1228,9 +873,10 @@ Name: rt, dtype: object
 </section>
 </section>
 <hr class="docutils" />
-<section id="testing-differences-one-sample-t-tests">
-<h2>Testing differences: one-sample <em>t</em> tests<a class="headerlink" href="#testing-differences-one-sample-t-tests" title="Permalink to this headline">#</a></h2>
-<p>An alternative way to compare the congruent and incongruent conditions is to compute the difference in mean RTs between the two conditions for each participant (since it is a paired design), and then run a <em>t</em> test on the differences. In this case, we use a <strong>one sample</strong> <em>t</em> test, in which we compare the data set to zero. In other words, is the difference between the conditions basically zero, or is it significantly different from zero (i.e., a believable difference)?</p>
+<section id="one-sample-t-tests">
+<h2>One-sample <em>t</em> tests<a class="headerlink" href="#one-sample-t-tests" title="Permalink to this headline">#</a></h2>
+<p>An alternative way to compare the congruent and incongruent conditions is to first compute the difference in mean RTs between the two conditions for each participant (since it is a paired design), and then run a <em>t</em> test on the differences. In this case, we use a <strong>one sample</strong> <em>t</em> test, in which we compare the data set to zero. In other words, is the difference between the conditions basically zero, or is it significantly different from zero (i.e., a believable difference)?</p>
+<p>Effectively, this is not different from a paired <em>t</em> test. However, there may be situations where your data are already stored as differences, and you want to know if the mean of those differences is significantly different from zero. In that case, you would use a one-sample <em>t</em> test.</p>
 <p>We can compute the difference between two pandas Series easily just using the <code class="docutils literal notranslate"><span class="pre">-</span></code> (minus) operator, so in this case we could use <code class="docutils literal notranslate"><span class="pre">congr</span> <span class="pre">-</span> <span class="pre">incongr</span></code></p>
 <p>Note that this subtraction <em>only</em> works if the two Series are indexed by participant ID (or in some way that preserves the alignment of values between the two data sets). However, because we are subtracting two pandas objects, pandas recognizes the indexes in each and aligns them, even if the indexes aren’t in the same order in the two input Series. So we don’t have to worry about using <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> as we did above for paired <em>t</em> tests.</p>
 <div class="cell docutils container">
@@ -1242,15 +888,15 @@ Name: rt, dtype: object
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Congruent vs. Incongruent t =  -10.21  p =  0.0
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Congruent vs. Incongruent t =  nan  p =  nan
 </pre></div>
 </div>
 </div>
 </div>
-<p>Note that we get the same result from the 1 sample <em>t</em> test if we perform the subtraction on the two Series that have the same order of indexes, as when we perform the subtraction using <code class="docutils literal notranslate"><span class="pre">incongr2</span></code>, which has a randomly shuffled order of indexes. We don’t need to explicitly <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> in this case:</p>
+<p>Note that we get the same result from the 1 sample <em>t</em> test if we perform the subtraction on the two Series that have the same order of indexes, as when we perform the subtraction using <code class="docutils literal notranslate"><span class="pre">incongr_rand</span></code>, which has a randomly shuffled order of indexes. We don’t need to explicitly <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> in this case:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">congr_vs_incongr</span> <span class="o">=</span> <span class="n">congr</span> <span class="o">-</span> <span class="n">incongr2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">congr_vs_incongr</span> <span class="o">=</span> <span class="n">congr</span> <span class="o">-</span> <span class="n">incongr_rand</span>
 <span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">congr_vs_incongr</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Congruent vs. Incongruent t = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="s1">&#39; p = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
 </pre></div>
@@ -1258,50 +904,13 @@ Name: rt, dtype: object
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">congr_vs_incongr</span> <span class="o">=</span> <span class="n">congr</span> <span class="o">-</span> <span class="n">incongr2</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">congr_vs_incongr</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">congr_vs_incongr</span> <span class="o">=</span> <span class="n">congr</span> <span class="o">-</span> <span class="n">incongr_rand</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">congr_vs_incongr</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Congruent vs. Incongruent t = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="s1">&#39; p = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
 
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/scipy/stats/_axis_nan_policy.py:523,</span> in <span class="ni">_axis_nan_policy_factory.&lt;locals&gt;.axis_nan_policy_decorator.&lt;locals&gt;.axis_nan_policy_wrapper</span><span class="nt">(***failed resolving arguments***)</span>
-<span class="g g-Whitespace">    </span><span class="mi">521</span> <span class="k">if</span> <span class="n">sentinel</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">522</span>     <span class="n">samples</span> <span class="o">=</span> <span class="n">_remove_sentinel</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">paired</span><span class="p">,</span> <span class="n">sentinel</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">523</span> <span class="n">res</span> <span class="o">=</span> <span class="n">hypotest_fun_out</span><span class="p">(</span><span class="o">*</span><span class="n">samples</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">524</span> <span class="n">res</span> <span class="o">=</span> <span class="n">result_to_tuple</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">525</span> <span class="n">res</span> <span class="o">=</span> <span class="n">_add_reduced_axes</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">reduced_axes</span><span class="p">,</span> <span class="n">keepdims</span><span class="p">)</span>
-
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/scipy/stats/_stats_py.py:6931,</span> in <span class="ni">ttest_1samp</span><span class="nt">(a, popmean, axis, nan_policy, alternative)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6929</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`popmean.shape[axis]` must equal 1.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
-<span class="g g-Whitespace">   </span><span class="mi">6930</span> <span class="n">d</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">-</span> <span class="n">popmean</span>
-<span class="ne">-&gt; </span><span class="mi">6931</span> <span class="n">v</span> <span class="o">=</span> <span class="n">_var</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6932</span> <span class="n">denom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6934</span> <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
-
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/scipy/stats/_stats_py.py:1100,</span> in <span class="ni">_var</span><span class="nt">(x, axis, ddof, mean)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1098</span> <span class="k">def</span> <span class="nf">_var</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1099</span>     <span class="c1"># Calculate variance of sample, warning if precision is lost</span>
-<span class="ne">-&gt; </span><span class="mi">1100</span>     <span class="n">var</span> <span class="o">=</span> <span class="n">_moment</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="n">mean</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1101</span>     <span class="k">if</span> <span class="n">ddof</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1102</span>         <span class="n">n</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="k">if</span> <span class="n">axis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span>
-
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/scipy/stats/_stats_py.py:1072,</span> in <span class="ni">_moment</span><span class="nt">(a, moment, axis, mean)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1068</span> <span class="n">mean</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">mean</span> <span class="ow">is</span> <span class="kc">None</span>
-<span class="g g-Whitespace">   </span><span class="mi">1069</span>         <span class="k">else</span> <span class="n">dtype</span><span class="p">(</span><span class="n">mean</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1070</span> <span class="n">a_zero_mean</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">mean</span>
-<span class="ne">-&gt; </span><span class="mi">1072</span> <span class="n">eps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">a_zero_mean</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">resolution</span> <span class="o">*</span> <span class="mi">10</span>
-<span class="g g-Whitespace">   </span><span class="mi">1073</span> <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1074</span>     <span class="n">rel_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">a_zero_mean</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1075</span>                       <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mean</span><span class="p">)</span>
-
-<span class="nn">File ~/mambaforge/envs/ncil/lib/python3.10/site-packages/numpy/core/getlimits.py:492,</span> in <span class="ni">finfo.__new__</span><span class="nt">(cls, dtype)</span>
-<span class="g g-Whitespace">    </span><span class="mi">490</span>     <span class="n">dtype</span> <span class="o">=</span> <span class="n">newdtype</span>
-<span class="g g-Whitespace">    </span><span class="mi">491</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">numeric</span><span class="o">.</span><span class="n">inexact</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">492</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;data type </span><span class="si">%r</span><span class="s2"> not inexact&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">dtype</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">493</span> <span class="n">obj</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_finfo_cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">494</span> <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-
-<span class="ne">ValueError</span>: data type &lt;class &#39;numpy.object_&#39;&gt; not inexact
+<span class="ne">NameError</span>: name &#39;incongr_rand&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1414,17 +1023,11 @@ Name: rt, dtype: object
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#be-careful-about-order-of-data-values">Be careful about order of data values</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensure-pandas-indexing-is-used-in-t-tests">Ensure pandas indexing is used in <em>t</em> tests</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-could-go-wrong">What could go wrong?</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-1-use-dataframe-columns-rather-than-extracting-series">Solution 1: Use DataFrame columns rather than extracting Series</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-1-use-dataframe-columns-rather-than-extracting-series">Solution 1: Use DataFrame columns rather than extracting Series</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-2-use-sort-index-to-ensure-paired-data-are-aligned">Solution 2: Use <code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> to ensure paired data are aligned</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-differences-one-sample-t-tests">Testing differences: one-sample <em>t</em> tests</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-sample-t-tests">One-sample <em>t</em> tests</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paired-vs-1-sample-t-tests">Paired vs. 1-sample <em>t</em> tests?</a></li>
 </ul>
 </li>
