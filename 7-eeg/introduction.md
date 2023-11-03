@@ -22,8 +22,11 @@ One important distinction between EEG and other types of data we have worked wit
 The image below shows a 10 s sample of continuous, raw EEG data. Each horizontal trace is the data from one electrode (channel). The coloured vertical lines, which have labels at the top, represent specific events of experimental interest (e.g., stimulus onsets or participant responses). The large deflections, particularly evident in channels Fp1, F7, and Fp2, are artifacts (sources of noise) caused by eye blinks. As we'll see in the following sections, removing artifacts is a key part of the EEG data processing pipeline.
 
 
-```{image} images/eeg_raw_continuous.jpg
-:alt: Sample EEG data from 16 electrodes, over a period of 10 s.
-:width: 400px
-:align: center
+```{figure} images/eeg_raw_continuous.jpg
+
+---
+align: center
+width: 500px
+---
+Sample EEG data from 16 electrodes, over a period of 10 s.
 ```
