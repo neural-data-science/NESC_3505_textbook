@@ -2,13 +2,15 @@
 
 EEG, or **electroencephalography**, is a technique that records electrical activity from the brain. Typically, it is recorded non-invasively, from electrodes placed on the scalp, although it can also be recorded from electrodes placed directly on the surface of the brain (typically for clinical neurological purposes). EEG typically involves the use of between 1–250 electrodes; even at the upper end of that range, clearly there are far fewer electrodes than the estimated 80 billion or so neurons in the brain. As well, the skull is a poor conductor of electricity. This means that what we record with EEG is inevitably the aggregated activity of large numbers of neurons working together.
 
-The image below shows an example of an EEG system. The person is wearing an EEG cap with electrodes plugged into it. The wires from the electrodes lead to the amplifier, which transmits the data to a computer for storage. The screen on the left presents stimuli to the person, while the screen on the right shows the EEG data in real time. Image courtesy [Brain Vision LLC](https://brainvision.com/).
+The image below shows an example of an EEG system. The person is wearing an EEG cap with electrodes plugged into it. The wires from the electrodes lead to the amplifier, which transmits the data to a computer for storage. The screen on the left presents stimuli to the person, while the screen on the right shows the EEG data in real time. 
 
 
-```{image} images/EEG_system.jpg
-:alt: An EEG system
-:width: 400px
-:align: center
+```{figure} images/EEG_system.jpg
+---
+width: 400px
+align: center
+---
+An EEG system. Image courtesy [Brain Vision LLC](https://brainvision.com/).
 ```
 
 EEG can be a bit challenging for people to get their heads around at first (pun intended), because there are some non-intuitive features of the data. One of the most important considerations is that EEG is *not* a good technique for localizing *where* activity occurs in the brain. Because the electrodes are placed on the outside of the scalp, and because the brain and its encasing cerebrospinal fluid are very good electrical conductors, a signal that originates in one location in the brain will propagate throughout the brain. In other words, in principle any signal inside the brain should be detectable by an electrode placed anywhere on the outside of the brain. Add to this consideration of the fact that, inevitably, many brain areas will be active simultaneously (or in rapid but overlapping succession), and it becomes clear that any signal recorded outside the scalp is a mixture of the signals from multiple active parts of the brain — at least, those that generate a strong and coherent enough signal to pass through the poorly-conducting skull. For this reason, **source localization** with EEG is described as an **inverse problem** (finding the sources on the inside, given the data from the outside, of the head). Mathematically, the inverse problem is **ill-posed**, meaning that there are essentially an infinite number of possible solutions. This is not to say source localization is always impossible. Indeed, it can work quite well, especially for signals like early sensory responses, where the location of the neural generators of the signal are focal and well-known (e.g., primary visual or auditory cortex). However, there are better techniques for localizing  activity in the brain. The real value of EEG in cognitive neuroscience lies elsewhere.
