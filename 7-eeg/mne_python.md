@@ -15,7 +15,9 @@ MNE is very well-documented. [The MNE website](https://mne.tools/stable/index.ht
 
 # Organization of the MNE package
 
-One useful thing to know at the outset is that there are a lot of tools (functions, classes, methods, etc.) included with MNE-Python, all of which are documented in the [API](https://mne.tools/stable/python_reference.html). These are organized into *submodules* according to their functions. For example, there are many different functions for importing data in a wide range of formats (since most neuroimaging equipment manufacturers use unique, proprietary data formats), as well as for saving data after it's been processed by MNE-Python. These are all organized within the `mne.io` submodule ("io" standing for "input-output"). While this organization is useful, it does mean that when using an MNE function, you might need to type a relatively long bit of text. You are already familiar with specifying the package along with the name of the function in that package you want to run. For example, to create a NumPy array, you would first import the package:
+One useful thing to know at the outset is that there are a lot of tools (functions, classes, methods, etc.) included with MNE-Python, all of which are documented in the [API](https://mne.tools/stable/python_reference.html). These are organized into *submodules* according to their functions. MNE is not the only package that does this; many Python packages do — this is just the first time we've encountered it in this course. 
+
+For example, there are many different functions for importing data in a wide range of formats (since most neuroimaging equipment manufacturers use unique, proprietary data formats), as well as for saving data after it's been processed by MNE-Python. These are all organized within the `mne.io` submodule ("io" standing for "input-output"). While this organization is useful, it does mean that when using an MNE function, you might need to type a relatively long bit of text. You are already familiar with specifying the package along with the name of the function in that package you want to run. For example, to create a NumPy array, you would first import the package:
 
     import numpy as np
 
@@ -26,9 +28,14 @@ and then run the command:
 In other words, you can't just type `array` because Python needs to know what package that function is part of. With MNE submodules, you often will need to use a chain of `module.submodule.function` specifications, such as
 
     import mne
-    mne.io.read_raw_brainvision()
+    mne.io.read_raw_brainvision('my_EEG_file.vhdr')
 
-to import a data file saved in the BrainVision format.
+In this example, we want to run a function called `read_raw_brainvision()` (which reads raw EEG data from the BrainVision file format). However, that function is part of the `mne.io` submodule, which is part of the `mne` package. So we need to specify `mne.io.read_raw_brainvision()`. 
+
+Sometimes, if you only want to use one function in a submodule, you can import it directly. For example, if you only want to use the `read_raw_brainvision()` function, you could import it directly and then run it without specifying the submodule:
+
+    from mne.io import read_raw_brainvision
+    read_raw_brainvision('my_EEG_file.vhdr')
 
 # MNE classes
 
@@ -38,7 +45,9 @@ Working with MNE, you will be working with Python *classes*. We've already worke
 
 `raw` is thus an instance of the `mne.io.Raw` class (again pay attention to the fact that the *class* uses upper-case naming but the *instance* uses lower-case, which is a Python standard).
 
-While this may sound a bit arcane at first, it's important to understand because classes are special, and understanding the properties of classes helps you understand how to work with data in MNE. Classes specify **attributes** that an instance of that class can have. Attributes are "states" of the instance — which in the case of an MNE data class are usually properties of that data. So one critical attribute of the `mne.io.Raw` class is `_data`, which contains the actual data values (e.g., microvolt values at each time point, for each electrode, in an EEG data set). But others include `info`, which includes meta-data about the data set, such as the number of electrodes, labels of the electrodes, and the sampling rate (how many times per second EEG data was recorded). The attributes of a class instance are accessed via dot-notation, so to see the data for the raw file we imported in the example above, we'd run:
+While this may sound a bit arcane at first, it's important to understand because classes are special, and understanding the properties of classes helps you understand how to work with data in MNE. Classes specify **attributes** that an instance of that class can have. Attributes are "states" of the instance — which in the case of an MNE data class are usually properties of that data. So one critical attribute of the `mne.io.Raw` class is `_data`, which contains the actual data values (e.g., microvolt values at each time point, for each electrode, in an EEG data set). But others include `info`, which includes meta-data about the data set, such as the number of electrodes, labels of the electrodes, their positions on the scalp, and the sampling rate (how many times per second EEG data was recorded). 
+
+The attributes of a class instance are accessed via dot-notation, so to see the data for the raw file we imported in the example above, we'd run:
 
     raw._data
 
