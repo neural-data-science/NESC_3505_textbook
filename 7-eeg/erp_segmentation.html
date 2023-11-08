@@ -625,6 +625,7 @@ document.write(`
 <span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;N400_dataset_14&#39;</span>
 <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
 
+<span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span> <span class="s1">&#39;data/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;.vhdr&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">raw_filt</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-filt-raw.fif&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -680,7 +681,8 @@ A modern replacement for TTL signals is the [**Lab Streaming Layer**](https://la
 </div></section>
 <section id="the-event-dictionary">
 <h3>The Event Dictionary<a class="headerlink" href="#the-event-dictionary" title="Permalink to this heading">#</a></h3>
-<p>When MNE reads the event codes from a raw data file, it does a step that isn’t always intuitive. Event codes in raw data files can take a variety of forms, depending on the software that was used to record the data. MNE searches through the raw data, and finds each unique event code (keeping in mind that event codes typically indicate a category of stimuli, or experimental condition, not the identity of individual stimuli or trials). MNE then assigns each unique event code an integer value. Depending on the data format, these may match the original numerical codes, or they may be a new set of integers. In the present data, MNE preserves the original code values. But in the latter case, MNE assigns integers starting at 1 for the first event code it finds in the file — regardless of what that original code was. The mapping between the original event codes and the new integer values is stored in a dictionary, which we assign to <code class="docutils literal notranslate"><span class="pre">events_dict</span></code>. This can mean that the event codes in MNE are different from the ones that the experimenter used in the experiment — which is very non-intuitive! The <code class="docutils literal notranslate"><span class="pre">events_dict</span></code> dictionary is critical to understanding the mapping between the original event codes and the ones used in an MNE data file.</p>
+<p>When MNE reads the event codes from a raw data file, it does a step that isn’t always intuitive. Event codes in raw data files can take a variety of forms, depending on the software that was used to record the data. MNE searches through the raw data, and finds each unique event code (keeping in mind that event codes typically indicate a category of stimuli, or experimental condition, not the identity of individual stimuli or trials). MNE then assigns each unique event code an integer value. Depending on the data format, these may match the original numerical codes, or they may be a new set of integers. In the present data, MNE created new code values — it assigned integers starting at 1 for the first event code it found in the file — regardless of what that original code was. The mapping between the original event codes and the new integer values is stored in a dictionary, which we assign to <code class="docutils literal notranslate"><span class="pre">events_dict</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">events_dict</span></code> dictionary is critical to understanding the mapping between the original event codes and the ones used in an MNE data file.</p>
 <p>Let’s view the contents of the <code class="docutils literal notranslate"><span class="pre">events_dict</span></code> dictionary:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -709,7 +711,35 @@ A modern replacement for TTL signals is the [**Lab Streaming Layer**](https://la
 </div>
 </div>
 </div>
-<p>In the above dictionary, the original event codes are the dictionary keys (on the left of the colons). You can see that the first two entries are not of experimental interest, but simply note the start of recording. The other event codes were originally numeric, but the recording software pre-pended <code class="docutils literal notranslate"><span class="pre">Stimulus/S</span></code> to the start of each one. But MNE is familiar with this data format, and extracts the numerical part of each event code and stores it as the dictionary value. However, what is not encoded in the raw EEG file is what each numerical code means in terms of the experiment. We will need to create our own dictionary of mappings between the integer event codes and meaningful names based on the design of our experiment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">events</span><span class="p">,</span> <span class="n">events_dict</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">events_from_annotations</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+<span class="n">events_dict</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Comment/actiCAP Data On&#39;: 10001,
+ &#39;New Segment/&#39;: 99999,
+ &#39;Stimulus/S  1&#39;: 1,
+ &#39;Stimulus/S  2&#39;: 2,
+ &#39;Stimulus/S  3&#39;: 3,
+ &#39;Stimulus/S  4&#39;: 4,
+ &#39;Stimulus/S  5&#39;: 5,
+ &#39;Stimulus/S  7&#39;: 7,
+ &#39;Stimulus/S101&#39;: 101,
+ &#39;Stimulus/S102&#39;: 102,
+ &#39;Stimulus/S111&#39;: 111,
+ &#39;Stimulus/S112&#39;: 112,
+ &#39;Stimulus/S201&#39;: 201,
+ &#39;Stimulus/S202&#39;: 202,
+ &#39;Stimulus/S211&#39;: 211,
+ &#39;Stimulus/S212&#39;: 212}
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the above dictionary, the original event codes are the dictionary keys (on the left of the colons). You can see that the first two entries are not of experimental interest, but simply note the start of recording. The other event codes were originally numeric, but the recording software pre-pended <code class="docutils literal notranslate"><span class="pre">Stimulus/S</span></code> to the start of each one. MNE has simply matched each one to an integer, so the events codes used in MNE don’t match the original event codes. This is why <code class="docutils literal notranslate"><span class="pre">events_dict</span></code> is critical to ensuring that you map the right event codes to the each event of experimental interest. Another step is required, though, because we need a way of mapping from the the codes that MNE is using in the data, to the labels for the events that make sense to us in terms of the experiment (e.g., different stimulus types, response onsets, etc.).</p>
 </section>
 <section id="background-on-the-experiment-that-generated-these-data">
 <h3>Background on the Experiment that Generated These Data<a class="headerlink" href="#background-on-the-experiment-that-generated-these-data" title="Permalink to this heading">#</a></h3>
@@ -722,10 +752,79 @@ A modern replacement for TTL signals is the [**Lab Streaming Layer**](https://la
 <p>We can define a dictionary that maps labels onto each event code of interest. As you can see below, there are 4 event codes associated with Match trials, and 4 associated with Mismatch trials. Later we will merge them before examining the ERPs, but for now we will label each one separately. This preserves the more detailed information, in case later we decide we want to break the data down in a more fine-grained fashion.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">event_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PicOnset&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;RespPrompt&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;CorResp&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;IncorResp&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;RespFeedback&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>             
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">event_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PicOnset&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;RespPrompt&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;CorResp&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;IncorResp&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;RespFeedback&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;unused&#39;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span>          
                  <span class="s1">&#39;Match/A&#39;</span><span class="p">:</span><span class="mi">111</span><span class="p">,</span> <span class="s1">&#39;Match/B&#39;</span><span class="p">:</span><span class="mi">211</span><span class="p">,</span> <span class="s1">&#39;Match/C&#39;</span><span class="p">:</span><span class="mi">112</span><span class="p">,</span> <span class="s1">&#39;Match/D&#39;</span><span class="p">:</span><span class="mi">212</span><span class="p">,</span>
                  <span class="s1">&#39;Mismatch/A&#39;</span><span class="p">:</span><span class="mi">101</span><span class="p">,</span> <span class="s1">&#39;Mismatch/B&#39;</span><span class="p">:</span><span class="mi">201</span><span class="p">,</span> <span class="s1">&#39;Mismatch/C&#39;</span><span class="p">:</span><span class="mi">102</span><span class="p">,</span> <span class="s1">&#39;Mismatch/D&#39;</span><span class="p">:</span><span class="mi">202</span>
                 <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now need to map between <code class="docutils literal notranslate"><span class="pre">events_dict</span></code> and <code class="docutils literal notranslate"><span class="pre">event_mapping</span></code>. The trick is that we need to extract the numerical event codes from the keys in <code class="docutils literal notranslate"><span class="pre">events_dict</span></code> (e.g., the<code class="docutils literal notranslate"><span class="pre">'1'</span></code> in <code class="docutils literal notranslate"><span class="pre">'Stimulus/S</span>&#160; <span class="pre">1':</span> <span class="pre">3</span></code>). We only need to do this for event codes that start with <code class="docutils literal notranslate"><span class="pre">'Stimulus/S</span>&#160; </code>, so we can select only the keys in <code class="docutils literal notranslate"><span class="pre">events_dict</span></code> that match this string, then strip it from each key to get the numerical event code. We can then use this numerical code to index into <code class="docutils literal notranslate"><span class="pre">event_mapping</span></code> to get the label for that event code. We can then assign the label to the <code class="docutils literal notranslate"><span class="pre">name</span></code> key in <code class="docutils literal notranslate"><span class="pre">events_dict</span></code> for that event code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># swap keys and values in event_mapping</span>
+<span class="n">event_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">event_mapping</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="n">event_mapping</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{1: &#39;PicOnset&#39;,
+ 2: &#39;RespPrompt&#39;,
+ 3: &#39;CorResp&#39;,
+ 4: &#39;IncorResp&#39;,
+ 5: &#39;RespFeedback&#39;,
+ 7: &#39;unused&#39;,
+ 111: &#39;Match/A&#39;,
+ 211: &#39;Match/B&#39;,
+ 112: &#39;Match/C&#39;,
+ 212: &#39;Match/D&#39;,
+ 101: &#39;Mismatch/A&#39;,
+ 201: &#39;Mismatch/B&#39;,
+ 102: &#39;Mismatch/C&#39;,
+ 202: &#39;Mismatch/D&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make a new dictionary to map experiment labels to MNE&#39;s event codes</span>
+<span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># select only the keys in `events_dict` that match this string, then strip it from each key to get the numerical event code. We can then use this numerical code to index into `event_mapping` to get the label for that event code. We can then assign the label to the `name` key in `events_dict` for that event code.</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">events_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s1">&#39;Stimulus/S&#39;</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+        <span class="n">orig_event_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/S&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">mne_event_code</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">event_id</span><span class="p">[</span><span class="n">event_mapping</span><span class="p">[</span><span class="n">orig_event_code</span><span class="p">]]</span> <span class="o">=</span> <span class="n">mne_event_code</span>
+ 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">event_id</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;PicOnset&#39;: 1,
+ &#39;RespPrompt&#39;: 2,
+ &#39;CorResp&#39;: 3,
+ &#39;IncorResp&#39;: 4,
+ &#39;RespFeedback&#39;: 5,
+ &#39;unused&#39;: 7,
+ &#39;Mismatch/A&#39;: 101,
+ &#39;Mismatch/C&#39;: 102,
+ &#39;Match/A&#39;: 111,
+ &#39;Match/C&#39;: 112,
+ &#39;Mismatch/B&#39;: 201,
+ &#39;Mismatch/D&#39;: 202,
+ &#39;Match/B&#39;: 211,
+ &#39;Match/D&#39;: 212}
 </pre></div>
 </div>
 </div>
@@ -740,7 +839,7 @@ A modern replacement for TTL signals is the [**Lab Streaming Layer**](https://la
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
 
-<span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">],</span>  
+<span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">raw_filt</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">],</span>  
                     <span class="n">event_id</span><span class="o">=</span><span class="n">event_mapping</span><span class="p">,</span>                    
                     <span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -748,16 +847,36 @@ A modern replacement for TTL signals is the [**Lab Streaming Layer**](https://la
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/viz/misc.py:821: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+  if this_event not in unique_events:
+</pre></div>
+</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">],</span>  
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">raw_filt</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">],</span>  
 <span class="g g-Whitespace">      </span><span class="mi">4</span>                     <span class="n">event_id</span><span class="o">=</span><span class="n">event_mapping</span><span class="p">,</span>                    
 <span class="g g-Whitespace">      </span><span class="mi">5</span>                     <span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<span class="nn">File &lt;decorator-gen-158&gt;:12,</span> in <span class="ni">plot_events</span><span class="nt">(events, sfreq, first_samp, color, event_id, axes, equal_spacing, show, on_missing, verbose)</span>
+
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/viz/misc.py:823,</span> in <span class="ni">plot_events</span><span class="nt">(events, sfreq, first_samp, color, event_id, axes, equal_spacing, show, on_missing, verbose)</span>
+<span class="g g-Whitespace">    </span><span class="mi">821</span>     <span class="k">if</span> <span class="n">this_event</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_events</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">822</span>         <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">this_event</span><span class="si">}</span><span class="s2"> from event_id is not present in events.&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">823</span>         <span class="n">_on_missing</span><span class="p">(</span><span class="n">on_missing</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">824</span>         <span class="n">keep</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="g g-Whitespace">    </span><span class="mi">825</span> <span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="n">cond</span> <span class="k">for</span> <span class="n">cond</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">conditions</span><span class="p">,</span> <span class="n">keep</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span><span class="p">]</span>
+
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/utils/check.py:1153,</span> in <span class="ni">_on_missing</span><span class="nt">(on_missing, msg, name, error_klass)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1151</span> <span class="n">on_missing</span> <span class="o">=</span> <span class="s2">&quot;warn&quot;</span> <span class="k">if</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="s2">&quot;warning&quot;</span> <span class="k">else</span> <span class="n">on_missing</span>
+<span class="g g-Whitespace">   </span><span class="mi">1152</span> <span class="k">if</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="s2">&quot;raise&quot;</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1153</span>     <span class="k">raise</span> <span class="n">error_klass</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1154</span> <span class="k">elif</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="s2">&quot;warn&quot;</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1155</span>     <span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+<span class="ne">ValueError</span>: CorResp from event_id is not present in events.
 </pre></div>
 </div>
 <img alt="../_images/8466c18f109ecbe0b5bdae84d6b1792bc8aeff8b683cbe4c48b27196eced620b.png" src="../_images/8466c18f109ecbe0b5bdae84d6b1792bc8aeff8b683cbe4c48b27196eced620b.png" />
@@ -803,8 +922,8 @@ It's worth noting that subtracting the baseline like this is not always necessar
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">baseline</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Create epochs</span>
 <span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">epochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span><span class="p">(</span><span class="n">raw_filt</span><span class="p">,</span>
@@ -847,24 +966,34 @@ It's worth noting that subtracting the baseline like this is not always necessar
 
 <span class="nn">File &lt;decorator-gen-272&gt;:12,</span> in <span class="ni">__init__</span><span class="nt">(self, info, data, events, event_id, tmin, tmax, baseline, raw, picks, reject, flat, decim, reject_tmin, reject_tmax, detrend, proj, on_missing, preload_at_end, selection, drop_log, filename, metadata, event_repeated, raw_sfreq, annotations, verbose)</span>
 
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/epochs.py:502,</span> in <span class="ni">BaseEpochs.__init__</span><span class="nt">(***failed resolving arguments***)</span>
-<span class="g g-Whitespace">    </span><span class="mi">497</span>     <span class="k">if</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">events</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">498</span>         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No matching events found for </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="s2">&quot;(event id </span><span class="si">%i</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">499</span>             <span class="n">key</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">500</span>             <span class="n">val</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">501</span>         <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">502</span>         <span class="n">_on_missing</span><span class="p">(</span><span class="n">on_missing</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">504</span> <span class="c1"># ensure metadata matches original events size</span>
-<span class="g g-Whitespace">    </span><span class="mi">505</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">))</span>
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/epochs.py:491,</span> in <span class="ni">BaseEpochs.__init__</span><span class="nt">(self, info, data, events, event_id, tmin, tmax, baseline, raw, picks, reject, flat, decim, reject_tmin, reject_tmax, detrend, proj, on_missing, preload_at_end, selection, drop_log, filename, metadata, event_repeated, raw_sfreq, annotations, verbose)</span>
+<span class="g g-Whitespace">    </span><span class="mi">486</span>     <span class="k">if</span> <span class="n">events_max</span> <span class="o">&gt;</span> <span class="n">INT32_MAX</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">487</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">488</span>             <span class="sa">f</span><span class="s2">&quot;events array values must not exceed </span><span class="si">{</span><span class="n">INT32_MAX</span><span class="si">}</span><span class="s2">, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">489</span>             <span class="sa">f</span><span class="s2">&quot;got </span><span class="si">{</span><span class="n">events_max</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span>         <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">491</span> <span class="n">event_id</span> <span class="o">=</span> <span class="n">_check_event_id</span><span class="p">(</span><span class="n">event_id</span><span class="p">,</span> <span class="n">events</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">492</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_id</span> <span class="o">=</span> <span class="n">event_id</span>
+<span class="g g-Whitespace">    </span><span class="mi">493</span> <span class="k">del</span> <span class="n">event_id</span>
 
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/utils/check.py:1153,</span> in <span class="ni">_on_missing</span><span class="nt">(on_missing, msg, name, error_klass)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1151</span> <span class="n">on_missing</span> <span class="o">=</span> <span class="s2">&quot;warn&quot;</span> <span class="k">if</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="s2">&quot;warning&quot;</span> <span class="k">else</span> <span class="n">on_missing</span>
-<span class="g g-Whitespace">   </span><span class="mi">1152</span> <span class="k">if</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="s2">&quot;raise&quot;</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1153</span>     <span class="k">raise</span> <span class="n">error_klass</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1154</span> <span class="k">elif</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="s2">&quot;warn&quot;</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1155</span>     <span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/utils/check.py:210,</span> in <span class="ni">_check_event_id</span><span class="nt">(event_id, events)</span>
+<span class="g g-Whitespace">    </span><span class="mi">208</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event_id</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">209</span>     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">event_id</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="ne">--&gt; </span><span class="mi">210</span>         <span class="n">_validate_type</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Event names&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">211</span>     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span>
+<span class="nn">    212         key: _ensure_int(val, &quot;event_id[%s]&quot; % key) for key, val</span> in <span class="ni">event_id.items</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">213</span>     <span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">214</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event_id</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
 
-<span class="ne">ValueError</span>: No matching events found for Match/A (event id 111)
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/utils/check.py:592,</span> in <span class="ni">_validate_type</span><span class="nt">(item, types, item_name, type_name, extra)</span>
+<span class="g g-Whitespace">    </span><span class="mi">590</span>         <span class="n">type_name</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">type_name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">591</span> <span class="n">_item_name</span> <span class="o">=</span> <span class="s2">&quot;Item&quot;</span> <span class="k">if</span> <span class="n">item_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">item_name</span>
+<span class="ne">--&gt; </span><span class="mi">592</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">593</span>     <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_item_name</span><span class="si">}</span><span class="s2"> must be an instance of </span><span class="si">{</span><span class="n">type_name</span><span class="si">}{</span><span class="n">extra</span><span class="si">}</span><span class="s2">, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">594</span>     <span class="sa">f</span><span class="s2">&quot;got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="si">}</span><span class="s2"> instead.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">595</span> <span class="p">)</span>
+
+<span class="ne">TypeError</span>: Event names must be an instance of str, got &lt;class &#39;int&#39;&gt; instead.
 </pre></div>
 </div>
 </div>
@@ -879,7 +1008,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span>
 
 <span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
@@ -887,8 +1016,8 @@ It's worth noting that subtracting the baseline like this is not always necessar
 </div>
 </div>
 </div>
-<p>Epochs can be accessed in a variety of ways, all using square brackets.</p>
-<p>If we use an integer, we get the epoch at that index position (epochs are numbered from zero to the total number of epochs, in the order the event codes occurred in the raw data):</p>
+<p>Epochs can be accessed in a variety of ways, all using square brackets <code class="docutils literal notranslate"><span class="pre">epochs[]</span></code>.</p>
+<p>If we use an integer, we get the epoch at that index position (epochs are numbered from zero to the total number of epochs, in the order that the event codes occurred in the raw data):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -898,7 +1027,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
@@ -915,7 +1044,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span>
 
 <span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
@@ -923,7 +1052,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 </div>
 </div>
 </div>
-<p>We can alternatively access all of the epochs associated with a particular event code, using the label we assigned to the code using <code class="docutils literal notranslate"><span class="pre">event_mapping</span></code>:</p>
+<p>Alternatively, we can access all of the epochs associated with a particular event code, using the label we assigned to the code using <code class="docutils literal notranslate"><span class="pre">event_mapping</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match/A&#39;</span><span class="p">]</span>
@@ -933,7 +1062,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match/A&#39;</span><span class="p">]</span>
 
 <span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
@@ -951,7 +1080,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match/A&#39;</span><span class="p">][</span><span class="mi">8</span><span class="p">]</span>
 
 <span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
@@ -969,7 +1098,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match/A&#39;</span><span class="p">,</span> <span class="s1">&#39;Match/B&#39;</span><span class="p">]</span>
 
 <span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
@@ -977,7 +1106,24 @@ It's worth noting that subtracting the baseline like this is not always necessar
 </div>
 </div>
 </div>
-<p>Usefully, MNE also recognizes the <code class="docutils literal notranslate"><span class="pre">/</span></code> separator for condition labels: the string before the <code class="docutils literal notranslate"><span class="pre">/</span></code> is treated as a more general category, with the string after the <code class="docutils literal notranslate"><span class="pre">/</span></code> treated as subsets of that category. What this means is that we can use only the string before the <code class="docutils literal notranslate"><span class="pre">/</span></code> to get all epochs from that category (all that have that string before the <code class="docutils literal notranslate"><span class="pre">/</span></code>):</p>
+<p>MNE also recognizes the <code class="docutils literal notranslate"><span class="pre">/</span></code> separator for condition labels: the string before the <code class="docutils literal notranslate"><span class="pre">/</span></code> is treated as a more general category, with the string after the <code class="docutils literal notranslate"><span class="pre">/</span></code> treated as subsets of that category. What this means is that we can use only the string before the <code class="docutils literal notranslate"><span class="pre">/</span></code> to get all epochs from that category (all that have that string before the <code class="docutils literal notranslate"><span class="pre">/</span></code>):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
+
+<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span>
@@ -987,7 +1133,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span>
 
 <span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
@@ -1009,7 +1155,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 
 <span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
@@ -1034,7 +1180,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">21</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
 <span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
@@ -1065,7 +1211,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">22</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">ica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">read_ica</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">)</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">epochs_postica</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
 
@@ -1092,7 +1238,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">23</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs_postica</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 
 <span class="ne">NameError</span>: name &#39;epochs_postica&#39; is not defined
@@ -1117,7 +1263,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">24</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
 <span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">epochs_postica</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
@@ -1140,7 +1286,7 @@ It's worth noting that subtracting the baseline like this is not always necessar
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs_postica</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-epo.fif&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="ne">NameError</span>: name &#39;epochs_postica&#39; is not defined
