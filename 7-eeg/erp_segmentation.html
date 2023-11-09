@@ -586,14 +586,14 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mne-s-events-structure">MNE’s events structure</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#about-event-codes">About Event Codes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-event-dictionary">The Event Dictionary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-event-codes">Label Event Codes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-event-codes-mapping-between-dictionaries">Label Event Codes – Mapping Between Dictionaries</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-events-over-time">Plot Events Over Time</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#segment-the-data-into-epochs">Segment the data into epochs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-and-indexing-epochs">Viewing and Indexing Epochs</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-average-erp-across-all-conditions-before-artifact-correction">Visualize average ERP across all conditions before artifact correction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalp-topography-maps">Scalp topography maps</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-ica-correction-to-epochs">Apply ICA correction to epochs</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-average-erp-across-all-conditions-after-artifact-correction">Visualize average ERP across all conditions after artifact correction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Scalp topography maps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalp-topography-maps">Scalp topography maps</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-epochs">Save epochs</a></li>
@@ -625,7 +625,6 @@ document.write(`
 <span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;N400_dataset_14&#39;</span>
 <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
 
-<span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span> <span class="s1">&#39;data/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;.vhdr&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">raw_filt</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-filt-raw.fif&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -748,8 +747,8 @@ document.write(`
 <p>Although there were really only two experimental conditions in this experiment (match and mismatch), as you  there are a lot more than two event codes in the <code class="docutils literal notranslate"><span class="pre">events</span></code> array and <code class="docutils literal notranslate"><span class="pre">events_dict</span></code> dictionary above! This is because in this study, the experimenters coded details of the stimuli in great detail. This is common in research, where we have one central research question, but perhaps other questions relating to more fine-grained details of the stimuli. As well, the stimuli may vary in ways that are not of experimental interest, but are properties that we would like to control for. For now we will label each event code.</p>
 </div>
 </section>
-<section id="label-event-codes">
-<h3>Label Event Codes<a class="headerlink" href="#label-event-codes" title="Permalink to this heading">#</a></h3>
+<section id="label-event-codes-mapping-between-dictionaries">
+<h3>Label Event Codes – Mapping Between Dictionaries<a class="headerlink" href="#label-event-codes-mapping-between-dictionaries" title="Permalink to this heading">#</a></h3>
 <p>We can define a dictionary that maps labels onto each event code of interest. As you can see below, there are 4 event codes associated with Match trials, and 4 associated with Mismatch trials. Later we will merge them before examining the ERPs, but for now we will label each one separately. This preserves the more detailed information, in case later we decide we want to break the data down in a more fine-grained fashion.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -804,14 +803,8 @@ document.write(`
         <span class="c1"># we map this value to a key that corresponds to the original event code, </span>
         <span class="c1"># and add this key:value pair to event_id</span>
         <span class="n">event_id</span><span class="p">[</span><span class="n">event_mapping</span><span class="p">[</span><span class="n">orig_event_code</span><span class="p">]]</span> <span class="o">=</span> <span class="n">value</span>
- 
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">event_id</span>
+        
+<span class="n">event_id</span> 
 </pre></div>
 </div>
 </div>
@@ -837,7 +830,7 @@ document.write(`
 </section>
 <section id="plot-events-over-time">
 <h3>Plot Events Over Time<a class="headerlink" href="#plot-events-over-time" title="Permalink to this heading">#</a></h3>
-<p>MNE provides a useful function, <code class="docutils literal notranslate"><span class="pre">mne.viz.plot_events()</span></code>, which will read an events array and plot the timing of event codes over the time, with different rows and colors for each event type. We have to pass the sampling rate (<code class="docutils literal notranslate"><span class="pre">raw.info['sfreq']</span></code>) as the second argument so that MNE knows how to convert the samples in the <code class="docutils literal notranslate"><span class="pre">events</span></code> array to units of time. We also pass <code class="docutils literal notranslate"><span class="pre">event_mapping</span></code> so that the plot has a meaningful legend.</p>
+<p>MNE provides a useful function, <code class="docutils literal notranslate"><span class="pre">mne.viz.plot_events()</span></code>, which will read an events array and plot the timing of event codes over the time, with different rows and colors for each event type. We have to pass the sampling rate (<code class="docutils literal notranslate"><span class="pre">raw.info['sfreq']</span></code>) as the second argument so that MNE knows how to convert the samples in the <code class="docutils literal notranslate"><span class="pre">events</span></code> array to units of time. We also pass the mapping between labels and event codes (<code class="docutils literal notranslate"><span class="pre">event_id</span></code>) so that the plot has a meaningful legend.</p>
 <p>This plot can be very useful to understand the timeline of an experiment, and also to confirm that the types and timing of event codes Control what was expected based on the design of the experiment. In the present experiment, all three sentence types were randomly intermixed, so the plot below is consistent with this.</p>
 <p>Note that it’s not necessary to use <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code> before running any MNE plot routine. However, in some cases, such as this one, MNE’s default plot size is not optimal for what is being plotted, so <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code> allows us to specify the figure size. Note that when we run the MNE plot command, we don’t apply a Matplotlib axis method, but instead pass the <code class="docutils literal notranslate"><span class="pre">ax</span></code> pointer to the subplot to MNE’s plot command using the <code class="docutils literal notranslate"><span class="pre">axes=</span></code> kwarg. Many of MNE’s plotting commands support this kwarg, but not all (since some MNE plots actually create figures with multiple subplots).</p>
 <div class="cell docutils container">
@@ -845,46 +838,14 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
 
 <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">raw_filt</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">],</span>  
-                    <span class="n">event_id</span><span class="o">=</span><span class="n">event_mapping</span><span class="p">,</span>                    
+                    <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>                    
                     <span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/viz/misc.py:821: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
-  if this_event not in unique_events:
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">raw_filt</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">],</span>  
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                     <span class="n">event_id</span><span class="o">=</span><span class="n">event_mapping</span><span class="p">,</span>                    
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                     <span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nn">File &lt;decorator-gen-158&gt;:12,</span> in <span class="ni">plot_events</span><span class="nt">(events, sfreq, first_samp, color, event_id, axes, equal_spacing, show, on_missing, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/viz/misc.py:823,</span> in <span class="ni">plot_events</span><span class="nt">(events, sfreq, first_samp, color, event_id, axes, equal_spacing, show, on_missing, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">821</span>     <span class="k">if</span> <span class="n">this_event</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_events</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">822</span>         <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">this_event</span><span class="si">}</span><span class="s2"> from event_id is not present in events.&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">823</span>         <span class="n">_on_missing</span><span class="p">(</span><span class="n">on_missing</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">824</span>         <span class="n">keep</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="g g-Whitespace">    </span><span class="mi">825</span> <span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="n">cond</span> <span class="k">for</span> <span class="n">cond</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">conditions</span><span class="p">,</span> <span class="n">keep</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span><span class="p">]</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/utils/check.py:1153,</span> in <span class="ni">_on_missing</span><span class="nt">(on_missing, msg, name, error_klass)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1151</span> <span class="n">on_missing</span> <span class="o">=</span> <span class="s2">&quot;warn&quot;</span> <span class="k">if</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="s2">&quot;warning&quot;</span> <span class="k">else</span> <span class="n">on_missing</span>
-<span class="g g-Whitespace">   </span><span class="mi">1152</span> <span class="k">if</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="s2">&quot;raise&quot;</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1153</span>     <span class="k">raise</span> <span class="n">error_klass</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1154</span> <span class="k">elif</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="s2">&quot;warn&quot;</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1155</span>     <span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-
-<span class="ne">ValueError</span>: CorResp from event_id is not present in events.
-</pre></div>
-</div>
-<img alt="../_images/8466c18f109ecbe0b5bdae84d6b1792bc8aeff8b683cbe4c48b27196eced620b.png" src="../_images/8466c18f109ecbe0b5bdae84d6b1792bc8aeff8b683cbe4c48b27196eced620b.png" />
+<img alt="../_images/f8b8eb6b26c27f2bc2b6d13472232d66e352f324af13154ff81cf75513320044.png" src="../_images/f8b8eb6b26c27f2bc2b6d13472232d66e352f324af13154ff81cf75513320044.png" />
 </div>
 </div>
 <p>This plot of event codes over time can be very useful in ensuring that the event codes in your experiment occurred as expected. This is especially important to check when you’re first pilot-testing an experiment, before you collect data from lots of participants. It’s also useful simply to visualize and understand the structure of an experiment.</p>
@@ -903,22 +864,23 @@ document.write(`
 <li><p>the fourth and fifth arguments are the start and end times of each epoch (<code class="docutils literal notranslate"><span class="pre">timn</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code>), relative to the event code. Typically the minimum (start) time is a negative number, because for reasons explained below we want a <em>baseline</em> period to compare to the activity after the event code (typically 50-200 ms, but sometimes longer). The end time depends on the timing of the ERP components you expect to occur. Some types of stimuli and experiments (such as studies of attention, or face processing) may only be interested in ERPs that occur within, say, the first 500 ms after stimulus presentation. In language studies, interesting effects often occur up to 1 s or even longer after a word is presented. An important thing to note is that  times in MNE are always specified in <em>seconds</em> (which is a bit counter-intuitive because we commonly talk about the timing of ERPs in milliseconds).</p></li>
 </ul>
 <p>After these 5 required positional arguments, there are many kwargs we can specify. For our purposes, the defaults for most of these are fine. However, we will specify two additional kwargs:</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">baseline</span></code> kwarg specifies what time period to use as the baseline for each epoch. The baseline is the period before the stimulus onset, and it is used to define “zero” voltage for each trial. This is necessary because the measured electrical potentials can drift quite a lot over the course of the experiment (even after we filter out the lowest-frequency drift), and artifacts can affect absolute microVolt values as well. So the absolute microVolt values for any given epoch might be rather different from other epochs, due to drift. By subtracting the mean amplitude over the baseline period from each trial (and for each channel), we “centre” the measurements for that trial such that the potentials after the onset of each event code reflect the deviations of our measurements from the baseline period. Put another way, the measurements of each epoch reflect any changes in electrical potential that occur after the event code, relative to the baseline period before it. We use <code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">0)</span></code> for the baseline to specify the time period from the start of the epoch to the time of the event code.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">baseline</span></code> kwarg specifies what time period to use as the baseline for each epoch. The baseline is the period before the stimulus onset, and it is used to define “zero” voltage for each trial. This is necessary because the measured electrical potentials can drift quite a lot over the course of the experiment (even after we filter out the lowest-frequency drift), and artifacts can affect absolute microVolt values as well. So the absolute microVolt values for any given epoch might be rather different from other epochs, due to drift. By subtracting the mean amplitude over the baseline period from each trial (and for each channel), we “center” the measurements for that trial such that the potentials after the onset of each event code reflect the deviations of our measurements from the baseline period. Put another way, the measurements of each epoch reflect any changes in electrical potential that occur after the event code, relative to the baseline period before it. We use <code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">0)</span></code> for the baseline to specify the time period from the start of the epoch to the time of the event code.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>It’s worth noting that subtracting the baseline like this is not always necessary, or desirable. Another approach is to leave the baseline untouched at the epoching stage, and worry about it later. In particular, there is an approach called <em>baseline regression</em> (<a href="https://onlinelibrary.wiley.com/doi/10.1111/psyp.13451">Alday, 2019</a>) in which the mean amplitude of the baseline on each trial is used as a predictor in a regression model, which allows one to “regress out” the baseline on a trial-by-trial basis rather than subtracting it. This can be particularly useful in certain cases, such as when the baseline period isn’t actually “silent” but contains some activity of interest (e.g., a previous word when reading a sentence or listening to a story; see e.g., <a href="https://dx.doi.org/10.3389/fpsyg.2022.668276">Andersson et al., 2022</a>). However, the standard baseline subtraction approach is valid in most cases and we will use it here. :::</p>
-<p>We also include the <code class="docutils literal notranslate"><span class="pre">preload=True</span></code> kwarg. As with <code class="docutils literal notranslate"><span class="pre">raw</span></code> data, MNE tries to save memory by not keeping the epoched data in memory unless it is needed. However, below we will need it and so we force MNE to store this in the data here.</p>
+<p>Subtracting the baseline like this is not always necessary, or desirable. Another approach is to leave the baseline untouched at the epoching stage, and worry about it later. In particular, there is an approach called <em>baseline regression</em> (<a href="https://onlinelibrary.wiley.com/doi/10.1111/psyp.13451">Alday, 2019</a>) in which the mean amplitude of the baseline on each trial is used as a predictor in a regression model, which allows one to “regress out” the baseline on a trial-by-trial basis rather than subtracting it. This can be particularly useful in certain cases, such as when the baseline period isn’t actually “silent” but contains some activity of interest (e.g., a previous word when reading a sentence or listening to a story; see e.g., <a href="https://dx.doi.org/10.3389/fpsyg.2022.668276">Sayehli et al., 2022</a>). However, the standard baseline subtraction approach is valid in most cases and we will use it here.</p>
 </div>
+<p>To make these important parameter choices easy to find and modify in our code, we will assign each value to a variable name, and in <code class="docutils literal notranslate"><span class="pre">mne.Epochs</span></code> we’ll use those variables.</p>
+<p>We also include the <code class="docutils literal notranslate"><span class="pre">preload=True</span></code> kwarg. As with <code class="docutils literal notranslate"><span class="pre">raw</span></code> data, MNE tries to save memory by not keeping the epoched data in memory unless it is needed. However, below we will need it and so we force MNE to store this in the data here.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Epoching settings</span>
-<span class="n">tmin</span> <span class="o">=</span>  <span class="o">-</span><span class="mf">.200</span>  <span class="c1"># start of each epoch (in sec)</span>
+<span class="n">tmin</span> <span class="o">=</span>  <span class="o">-</span><span class="mf">.100</span>  <span class="c1"># start of each epoch (in sec)</span>
 <span class="n">tmax</span> <span class="o">=</span>  <span class="mf">1.000</span>  <span class="c1"># end of each epoch (in sec)</span>
 <span class="n">baseline</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># Create epochs</span>
 <span class="n">epochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span><span class="p">(</span><span class="n">raw_filt</span><span class="p">,</span>
-                    <span class="n">events</span><span class="p">,</span> <span class="n">event_mapping</span><span class="p">,</span>
+                    <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span>
                     <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span>
                     <span class="n">baseline</span><span class="o">=</span><span class="n">baseline</span><span class="p">,</span> 
                     <span class="n">preload</span><span class="o">=</span><span class="kc">True</span>
@@ -926,84 +888,10 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">baseline</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Create epochs</span>
-<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">epochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span><span class="p">(</span><span class="n">raw_filt</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>                     <span class="n">events</span><span class="p">,</span> <span class="n">event_mapping</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>                     <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span>                     <span class="n">baseline</span><span class="o">=</span><span class="n">baseline</span><span class="p">,</span> 
-<span class="g g-Whitespace">     </span><span class="mi">11</span>                     <span class="n">preload</span><span class="o">=</span><span class="kc">True</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span>                    <span class="p">)</span> 
-
-<span class="nn">File &lt;decorator-gen-286&gt;:12,</span> in <span class="ni">__init__</span><span class="nt">(self, raw, events, event_id, tmin, tmax, baseline, picks, preload, reject, flat, proj, decim, reject_tmin, reject_tmax, detrend, on_missing, reject_by_annotation, metadata, event_repeated, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/epochs.py:3087,</span> in <span class="ni">Epochs.__init__</span><span class="nt">(self, raw, events, event_id, tmin, tmax, baseline, picks, preload, reject, flat, proj, decim, reject_tmin, reject_tmax, detrend, on_missing, reject_by_annotation, metadata, event_repeated, verbose)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3084</span> <span class="n">raw_sfreq</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;sfreq&quot;</span><span class="p">]</span>
-<span class="g g-Whitespace">   </span><span class="mi">3086</span> <span class="c1"># call BaseEpochs constructor</span>
-<span class="ne">-&gt; </span><span class="mi">3087</span> <span class="nb">super</span><span class="p">(</span><span class="n">Epochs</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">3088</span>     <span class="n">info</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3089</span>     <span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3090</span>     <span class="n">events</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3091</span>     <span class="n">event_id</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3092</span>     <span class="n">tmin</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3093</span>     <span class="n">tmax</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3094</span>     <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3095</span>     <span class="n">baseline</span><span class="o">=</span><span class="n">baseline</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3096</span>     <span class="n">raw</span><span class="o">=</span><span class="n">raw</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3097</span>     <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3098</span>     <span class="n">reject</span><span class="o">=</span><span class="n">reject</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3099</span>     <span class="n">flat</span><span class="o">=</span><span class="n">flat</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3100</span>     <span class="n">decim</span><span class="o">=</span><span class="n">decim</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3101</span>     <span class="n">reject_tmin</span><span class="o">=</span><span class="n">reject_tmin</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3102</span>     <span class="n">reject_tmax</span><span class="o">=</span><span class="n">reject_tmax</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3103</span>     <span class="n">detrend</span><span class="o">=</span><span class="n">detrend</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3104</span>     <span class="n">proj</span><span class="o">=</span><span class="n">proj</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3105</span>     <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3106</span>     <span class="n">preload_at_end</span><span class="o">=</span><span class="n">preload</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3107</span>     <span class="n">event_repeated</span><span class="o">=</span><span class="n">event_repeated</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3108</span>     <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3109</span>     <span class="n">raw_sfreq</span><span class="o">=</span><span class="n">raw_sfreq</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3110</span>     <span class="n">annotations</span><span class="o">=</span><span class="n">raw</span><span class="o">.</span><span class="n">annotations</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3111</span> <span class="p">)</span>
-
-<span class="nn">File &lt;decorator-gen-272&gt;:12,</span> in <span class="ni">__init__</span><span class="nt">(self, info, data, events, event_id, tmin, tmax, baseline, raw, picks, reject, flat, decim, reject_tmin, reject_tmax, detrend, proj, on_missing, preload_at_end, selection, drop_log, filename, metadata, event_repeated, raw_sfreq, annotations, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/epochs.py:491,</span> in <span class="ni">BaseEpochs.__init__</span><span class="nt">(self, info, data, events, event_id, tmin, tmax, baseline, raw, picks, reject, flat, decim, reject_tmin, reject_tmax, detrend, proj, on_missing, preload_at_end, selection, drop_log, filename, metadata, event_repeated, raw_sfreq, annotations, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">486</span>     <span class="k">if</span> <span class="n">events_max</span> <span class="o">&gt;</span> <span class="n">INT32_MAX</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">487</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">488</span>             <span class="sa">f</span><span class="s2">&quot;events array values must not exceed </span><span class="si">{</span><span class="n">INT32_MAX</span><span class="si">}</span><span class="s2">, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">489</span>             <span class="sa">f</span><span class="s2">&quot;got </span><span class="si">{</span><span class="n">events_max</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">490</span>         <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">491</span> <span class="n">event_id</span> <span class="o">=</span> <span class="n">_check_event_id</span><span class="p">(</span><span class="n">event_id</span><span class="p">,</span> <span class="n">events</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">492</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_id</span> <span class="o">=</span> <span class="n">event_id</span>
-<span class="g g-Whitespace">    </span><span class="mi">493</span> <span class="k">del</span> <span class="n">event_id</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/utils/check.py:210,</span> in <span class="ni">_check_event_id</span><span class="nt">(event_id, events)</span>
-<span class="g g-Whitespace">    </span><span class="mi">208</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event_id</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">209</span>     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">event_id</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-<span class="ne">--&gt; </span><span class="mi">210</span>         <span class="n">_validate_type</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Event names&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">211</span>     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span>
-<span class="nn">    212         key: _ensure_int(val, &quot;event_id[%s]&quot; % key) for key, val</span> in <span class="ni">event_id.items</span><span class="nt">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">213</span>     <span class="p">}</span>
-<span class="g g-Whitespace">    </span><span class="mi">214</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event_id</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/utils/check.py:592,</span> in <span class="ni">_validate_type</span><span class="nt">(item, types, item_name, type_name, extra)</span>
-<span class="g g-Whitespace">    </span><span class="mi">590</span>         <span class="n">type_name</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">type_name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">591</span> <span class="n">_item_name</span> <span class="o">=</span> <span class="s2">&quot;Item&quot;</span> <span class="k">if</span> <span class="n">item_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">item_name</span>
-<span class="ne">--&gt; </span><span class="mi">592</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">593</span>     <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_item_name</span><span class="si">}</span><span class="s2"> must be an instance of </span><span class="si">{</span><span class="n">type_name</span><span class="si">}{</span><span class="n">extra</span><span class="si">}</span><span class="s2">, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">594</span>     <span class="sa">f</span><span class="s2">&quot;got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="si">}</span><span class="s2"> instead.&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">595</span> <span class="p">)</span>
-
-<span class="ne">TypeError</span>: Event names must be an instance of str, got &lt;class &#39;int&#39;&gt; instead.
-</pre></div>
 </div>
-</div>
-</div>
+</section>
+<section id="viewing-and-indexing-epochs">
+<h3>Viewing and Indexing Epochs<a class="headerlink" href="#viewing-and-indexing-epochs" title="Permalink to this heading">#</a></h3>
 <p>If we ask for the value of <code class="docutils literal notranslate"><span class="pre">epochs</span></code> we get nice, tidy output with a summary of the contents of the data structure.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1012,15 +900,26 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>539</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>CorResp: 134<br/>IncorResp: 11<br/>Match/A: 18<br/>Match/B: 18<br/>Match/C: 18<br/>Match/D: 18<br/>Mismatch/A: 18<br/>Mismatch/B: 18<br/>Mismatch/C: 18<br/>Mismatch/D: 18<br/>PicOnset: 144<br/>RespFeedback: 10<br/>RespPrompt: 95<br/>unused: 1</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 <p>Epochs can be accessed in a variety of ways, all using square brackets <code class="docutils literal notranslate"><span class="pre">epochs[]</span></code>.</p>
 <p>If we use an integer, we get the epoch at that index position (epochs are numbered from zero to the total number of epochs, in the order that the event codes occurred in the raw data):</p>
@@ -1031,15 +930,26 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>1</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>RespFeedback: 1</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1048,15 +958,26 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>5</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>CorResp: 1<br/>Match/A: 1<br/>Mismatch/B: 1<br/>PicOnset: 1<br/>RespPrompt: 1</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 <p>Alternatively, we can access all of the epochs associated with a particular event code, using the label we assigned to the code using <code class="docutils literal notranslate"><span class="pre">event_mapping</span></code>:</p>
 <div class="cell docutils container">
@@ -1066,15 +987,26 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match/A&#39;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>18</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>Match/A: 18</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 <p>These two methods can be combined to select a specific event out of those in a condition:</p>
 <div class="cell docutils container">
@@ -1084,15 +1016,26 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match/A&#39;</span><span class="p">][</span><span class="mi">8</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>1</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>Match/A: 1</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 <p>If we pass multiple condition labels, then we will get all epochs in each of the conditions specified:</p>
 <div class="cell docutils container">
@@ -1102,34 +1045,28 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match/A&#39;</span><span class="p">,</span> <span class="s1">&#39;Match/B&#39;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>36</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>Match/A: 18<br/>Match/B: 18</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
-</div>
-</div>
-<p>MNE also recognizes the <code class="docutils literal notranslate"><span class="pre">/</span></code> separator for condition labels: the string before the <code class="docutils literal notranslate"><span class="pre">/</span></code> is treated as a more general category, with the string after the <code class="docutils literal notranslate"><span class="pre">/</span></code> treated as subsets of that category. What this means is that we can use only the string before the <code class="docutils literal notranslate"><span class="pre">/</span></code> to get all epochs from that category (all that have that string before the <code class="docutils literal notranslate"><span class="pre">/</span></code>):</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
+<p>MNE also recognizes the <code class="docutils literal notranslate"><span class="pre">/</span></code> separator for condition labels (e.g., in <code class="docutils literal notranslate"><span class="pre">'Match/A'</span></code>): the string before the <code class="docutils literal notranslate"><span class="pre">/</span></code> is treated as a more general category, with the string after the <code class="docutils literal notranslate"><span class="pre">/</span></code> treated as subsets of that category. So we can see allof the Match trials by passing <code class="docutils literal notranslate"><span class="pre">'Match'</span></code> as the condition label:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span>
@@ -1137,91 +1074,88 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>72</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>Match/A: 18<br/>Match/B: 18<br/>Match/C: 18<br/>Match/D: 18</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
+</div>
+<p>Likewise, we can see all of the epochs in the <code class="docutils literal notranslate"><span class="pre">A</span></code> condition by passing <code class="docutils literal notranslate"><span class="pre">'A'</span></code> as the condition label:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>36</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>Match/A: 18<br/>Mismatch/A: 18</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 </section>
 <section id="visualize-average-erp-across-all-conditions-before-artifact-correction">
 <h3>Visualize average ERP across all conditions before artifact correction<a class="headerlink" href="#visualize-average-erp-across-all-conditions-before-artifact-correction" title="Permalink to this heading">#</a></h3>
-<p>Here we create a plot averaged across all trials, and showing all electrodes on a single axis. Plotting all electrodes on one axis is called a <strong>butterfly plot</strong>; the name may seem strange but when you use it to plot data from lots of sensors (especially MEG data), it does <a class="reference external" href="https://mne.tools/dev/_images/sphx_glr_90_phantom_4DBTi_001.png">look somewhat like a butterfly</a>.</p>
-<p>We do this before removing ICs, so that we can compare with post-ICA below to see the effect of artifact removal.</p>
+<p>While it’s useful to see the summary of the epochs object, it’s more interesting to visualize the data. The <code class="docutils literal notranslate"><span class="pre">Epochs</span></code> class has a <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method to do this. Since <code class="docutils literal notranslate"><span class="pre">Epochs</span></code> contains each individual trial, if we try to plot multiple epochs (e.g., <code class="docutils literal notranslate"><span class="pre">epochs['Match'].plot()</span></code>) we will get an interactive plot (like we saw previously for scrolling through the raw data). Typically what we want to see is the <em>average</em> across all trials of a condition. This is central to ERPs — the data on each individual trial is noisy, but when we average across many trials, the noise tends to cancel out, leaving the ERP component of interest. So we need to chain the <code class="docutils literal notranslate"><span class="pre">.average()</span></code> method with <code class="docutils literal notranslate"><span class="pre">.plot()</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span> <span class="c1"># remember the semicolon prevents a duplicated plot</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
+<img alt="../_images/1227be36295d20ec8a448e0745f63a658ca84671f62de06987147a29c79cf6a4.png" src="../_images/1227be36295d20ec8a448e0745f63a658ca84671f62de06987147a29c79cf6a4.png" />
 </div>
 </div>
-</div>
-<p>The above plot shows strong evidence of ocular artifacts in the data: the amplitude scale is on the order of 100 µV, whereas real EEG is rarely more than 10–20 µV, and the largest amplitude values are in channels around the eyes (you can tell this by matching the colours of the lines in the plot with those of the channel locations on the inset showing the electrode layout).</p>
-</section>
-<section id="scalp-topography-maps">
-<h3>Scalp topography maps<a class="headerlink" href="#scalp-topography-maps" title="Permalink to this heading">#</a></h3>
-<p>As we did with ICA components, we can plot the EEG potentials over the scalp using the <code class="docutils literal notranslate"><span class="pre">.plot_topomap()</span></code> method. This will confirm that the artifacts are focused over the electrodes close to the eyes.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
-<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-
-<span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">21</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<p>Here we create a plot averaged across all trials, and showing all electrodes on a single axis. The color of the lines indicates where ont he head the channel was located, as shown in the inset head plot. The above plot shows strong evidence of ocular artifacts in the data: the amplitude scale is on the order of 100 µV, whereas real EEG is rarely more than 10–20 µV, and the largest amplitude values are in channels around the eyes (you can tell this by matching the colors of the lines in the plot with those of the channel locations on the inset showing the electrode layout). Remember that we created these epochs from teh filtered raw data, from which we have not yet removed artifacts.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Plotting all electrodes on one axis is called a <strong>butterfly plot</strong>. The name may seem strange but when you use it to plot data from lots of sensors (especially MEG data), it does look somewhat like a butterfly:</p>
+<p><img alt="butterfly plot of MEG data containing 245 channels" src="https://mne.tools/dev/_images/sphx_glr_90_phantom_4DBTi_001.png" />.</p>
 </div>
 </section>
 <section id="apply-ica-correction-to-epochs">
 <h3>Apply ICA correction to epochs<a class="headerlink" href="#apply-ica-correction-to-epochs" title="Permalink to this heading">#</a></h3>
-<p>To recap, we have created two different <code class="docutils literal notranslate"><span class="pre">Epochs</span></code> objects:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">epochs_ica</span></code>, with 1 s segments of the entire raw file, which we fit ICA on to identify artifacts</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">epochs</span></code>, with segments time-locked to each event code of experimental interest</p></li>
-</ul>
-<p>Although we fit ICA to the <code class="docutils literal notranslate"><span class="pre">epochs_ica</span></code> data, we can actually <em>apply</em> this set of independent components to the <code class="docutils literal notranslate"><span class="pre">epochs</span></code> data. This is because ICA was fitted to the entire raw data set, and <code class="docutils literal notranslate"><span class="pre">epochs</span></code> is just a subset of that original raw data — so the effects of any ICs we marked for exclusion above will be removed from <code class="docutils literal notranslate"><span class="pre">epochs</span></code> with the <code class="docutils literal notranslate"><span class="pre">ica.apply</span></code> method.</p>
-<p>As with many MNE methods (such as filtering, as we saw earlier), the <code class="docutils literal notranslate"><span class="pre">ICA</span></code> <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> method operates on data in-place, meaning it alters the data that is passed to it. In general, my preference is to make copies of data when applying transofrmations to the data, so here we chain the <code class="docutils literal notranslate"><span class="pre">.copy()</span></code> method.</p>
+<p>Recall that in the previous lesson, we created <code class="docutils literal notranslate"><span class="pre">epochs_ica</span></code>, with 1 s segments of the entire raw file, which we fit ICA on to identify artifacts. We then saved the indices of the ICs to <code class="docutils literal notranslate"><span class="pre">ica.exclude</span></code>, and saved the ICA decomposition to a file. Here, we can load that file and apply the ICA decomposition – and the exclusion of ICs – to the <code class="docutils literal notranslate"><span class="pre">epochs</span></code> data that we just created in the present lesson — i.e., the ERP data time-locked to events of interest. This works because what is stored in the <code class="docutils literal notranslate"><span class="pre">ica</span></code> object is not the original data that ICA was applied to, but a formula for applying a mathematical transformation to data. So we can apply that same transformation to any data that has the same number of channels as the original data.</p>
+<p>As with many MNE methods (such as filtering, as we saw earlier), the <code class="docutils literal notranslate"><span class="pre">ICA</span></code> <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> method operates on data in-place, meaning it alters the data that is passed to it. In general, it’s good practice to make copies of data when applying transformations (this is especially useful when developing your own code, in case what you try doesn’t work the first time. It’s nice not to have to redo preivous steps to re-create your Epochs). So here we use the <code class="docutils literal notranslate"><span class="pre">.copy()</span></code> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">read_ica</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read the previously-saved ICA decomposition</span>
+<span class="n">ica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">read_ica</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">)</span>
 
-<span class="n">epochs_postica</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">22</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">ica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">read_ica</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">epochs_postica</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
+<span class="c1"># apply the ICA decomposition (excluding the marked ICs) to the epochs</span>
+<span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -1231,71 +1165,56 @@ document.write(`
 <h3>Visualize average ERP across all conditions after artifact correction<a class="headerlink" href="#visualize-average-erp-across-all-conditions-after-artifact-correction" title="Permalink to this heading">#</a></h3>
 <p>We create the same butterfly plot that we did above, prior to artifact removal, so that we can see if and how the data were cleaned up. Compared to the previous plot, we can see that artifacts have been successfully removed, and the data look more like typical ERP data:</p>
 <ul class="simple">
-<li><p>the large-amplitude deflections, largest at frontal channels, are no longer present</p></li>
+<li><p>the large-amplitude deflections seen above, largest at frontal channels, are no longer present</p></li>
 <li><p>the amplitude scale (<em>y</em> axis) is in the range typical of ERPs</p></li>
-<li><p>a series of early peaks typical of responses to visual stimuli are present (a first, small, peak around 75 ms, followed by a larger positive peak around 150 ms and a negative peak around 225 ms)</p></li>
+<li><p>a series of early peaks typical of sensory ERPs are present</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_postica</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_clean</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">23</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs_postica</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;epochs_postica&#39; is not defined
+<img alt="../_images/3abfbf62796d6603dff1d7a39933299a573efbabf15bd0c938b7b612cd6074a3.png" src="../_images/3abfbf62796d6603dff1d7a39933299a573efbabf15bd0c938b7b612cd6074a3.png" />
+</div>
+</div>
+<p>Since we plotted <code class="docutils literal notranslate"><span class="pre">epochs_clean</span></code>, the above plot reflects the average across all trials, which includes visual stimuli, auditory stimuli, and responses. Each of these conditions is typically associated with distinct ERP waveforms, so the plot is not very useful, other than showing clean data relative to the previous plot. But we can use the selection method described earlier to plot the average ERP for each condition separately. We’ll do more of this in a later lesson, but for now let’s plot the average just across all the <code class="docutils literal notranslate"><span class="pre">Match</span></code> trials:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/d33575f56ae902eb586d3a91e66df8d6b19b94fe0415dd72b47504d5a026a278.png" src="../_images/d33575f56ae902eb586d3a91e66df8d6b19b94fe0415dd72b47504d5a026a278.png" />
+</div>
 </div>
 </section>
-<section id="id1">
-<h3>Scalp topography maps<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
-<p>We saw this plot above, but now the scalp distribution of the electrical potentials shouldn’t be concentrated over the eyes.</p>
-<p>We can also provide a bit more information about how these plots are drawn. We plot topo maps at 100 ms steps from the onset of the code up to the end of the epoch. The <code class="docutils literal notranslate"><span class="pre">average</span></code> kwarg specifies that each plot will reflect the average over a 50 ms time window, centered on each time point for which a plot is drawn. In other words, the plot labeled <code class="docutils literal notranslate"><span class="pre">0.100</span> <span class="pre">s</span></code> reflects the average between 50–150 ms.</p>
+<section id="scalp-topography-maps">
+<h3>Scalp topography maps<a class="headerlink" href="#scalp-topography-maps" title="Permalink to this heading">#</a></h3>
+<p>As we did with ICA components, we can plot the EEG potentials over the scalp, using the <code class="docutils literal notranslate"><span class="pre">.plot_topomap()</span></code> method. The code below generates a scalp map every 100 ms, which reflects the electrical potentials averaged over a 50 ms window centered on each time point. The time range over which each plot is averaged are shown in the labels above each scalp plot; the numbers are not precisely 50 ms ranges, because the sampling rate was 500 Hz, meaning that samples were acquired every 2 ms. So we have data at, e.g., .024 and .026 s, but not at .025.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
 <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
 
-<span class="n">epochs_postica</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
+<span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">24</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">epochs_postica</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;epochs_postica&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/0981ecfcb59098351e6c68c3524d5cf172bf41dafc96e2069f355a70d7e22337.png" src="../_images/0981ecfcb59098351e6c68c3524d5cf172bf41dafc96e2069f355a70d7e22337.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="save-epochs">
 <h2>Save epochs<a class="headerlink" href="#save-epochs" title="Permalink to this heading">#</a></h2>
+<p>Finally, we’ll save our cleaned epochs for use in later lessons:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_postica</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-epo.fif&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs_postica</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-epo.fif&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;epochs_postica&#39; is not defined
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_clean</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-epo.fif&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1370,14 +1289,14 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mne-s-events-structure">MNE’s events structure</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#about-event-codes">About Event Codes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-event-dictionary">The Event Dictionary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-event-codes">Label Event Codes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#label-event-codes-mapping-between-dictionaries">Label Event Codes – Mapping Between Dictionaries</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-events-over-time">Plot Events Over Time</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#segment-the-data-into-epochs">Segment the data into epochs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-and-indexing-epochs">Viewing and Indexing Epochs</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-average-erp-across-all-conditions-before-artifact-correction">Visualize average ERP across all conditions before artifact correction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalp-topography-maps">Scalp topography maps</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-ica-correction-to-epochs">Apply ICA correction to epochs</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-average-erp-across-all-conditions-after-artifact-correction">Visualize average ERP across all conditions after artifact correction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Scalp topography maps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalp-topography-maps">Scalp topography maps</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-epochs">Save epochs</a></li>
