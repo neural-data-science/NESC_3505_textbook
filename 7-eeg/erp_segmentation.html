@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/myadmonitions.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -740,16 +739,16 @@ document.write(`
 </div>
 </div>
 <p>In practice it would make sense to read in the original raw file here to get the event codes. However, we will continue with the filtered data, because it provides an opportunity to demonstrate how to re-map information between two Python dictionaries, which is a useful thing to learn about.</p>
+</section>
+<section id="label-event-codes-mapping-between-dictionaries">
+<h3>Label Event Codes – Mapping Between Dictionaries<a class="headerlink" href="#label-event-codes-mapping-between-dictionaries" title="Permalink to this heading">#</a></h3>
 <div class="admonition-background-on-the-experiment-that-generated-these-data admonition">
 <p class="admonition-title">Background on the Experiment that Generated These Data</p>
 <p>This data set was collected while the participant viewed a series of pictures of objects on a computer screen. One second after each picture was presented, a spoken word was played over a speaker. The word was either the name of the pictured object, or some other word. Based on prior research, we predicted an <strong>N400</strong> ERP component for the mismatch trials relative to those on which the picture and word matched. In other words, the experimental contrast we are interested in is between <strong>Match</strong> and <strong>Mismatch</strong> trials.</p>
 <p>The N400 is a component first discovered by <a class="reference external" href="https://dx.doi.org/10.1126/science.7350657">Kutas &amp; Hillyard (1980)</a>, in response to sentences that ended in a word whose meaning was not predicted given the preceding words in the sentence. For example, the sentence <em>I take my coffee with milk and dog.</em> would elicit an N400 at the word <em>dog</em>. More than 40 years of subsequent research has shown that the N400 is a marker of brain processes involved in integrating new information into an ongoing context that people maintain of words and concepts — or in technical terms, <em>semantic integration</em>. Violations of expectations related to the meaning of stimuli evoke an N400 response. In the present experiment, we did not use sentences, however each picture created a context and the subsequent word either fit (matched) or did not fit (mismatched) that context.</p>
 <p>Although there were really only two experimental conditions in this experiment (match and mismatch), as you  there are a lot more than two event codes in the <code class="docutils literal notranslate"><span class="pre">events</span></code> array and <code class="docutils literal notranslate"><span class="pre">events_dict</span></code> dictionary above! This is because in this study, the experimenters coded details of the stimuli in great detail. This is common in research, where we have one central research question, but perhaps other questions relating to more fine-grained details of the stimuli. As well, the stimuli may vary in ways that are not of experimental interest, but are properties that we would like to control for. For now we will label each event code.</p>
 </div>
-</section>
-<section id="label-event-codes-mapping-between-dictionaries">
-<h3>Label Event Codes – Mapping Between Dictionaries<a class="headerlink" href="#label-event-codes-mapping-between-dictionaries" title="Permalink to this heading">#</a></h3>
-<p>We can define a dictionary that maps labels onto each event code of interest. As you can see below, there are 4 event codes associated with Match trials, and 4 associated with Mismatch trials. Later we will merge them before examining the ERPs, but for now we will label each one separately. This preserves the more detailed information, in case later we decide we want to break the data down in a more fine-grained fashion.</p>
+<p>We can define a dictionary that maps labels onto each (original) event code of interest:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">event_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PicOnset&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;RespPrompt&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;CorResp&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;IncorResp&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;RespFeedback&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;unused&#39;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span>          
@@ -1066,7 +1065,7 @@ document.write(`
     </tr>
 </table></div></div>
 </div>
-<p>MNE also recognizes the <code class="docutils literal notranslate"><span class="pre">/</span></code> separator for condition labels (e.g., in <code class="docutils literal notranslate"><span class="pre">'Match/A'</span></code>): the string before the <code class="docutils literal notranslate"><span class="pre">/</span></code> is treated as a more general category, with the string after the <code class="docutils literal notranslate"><span class="pre">/</span></code> treated as subsets of that category. So we can see allof the Match trials by passing <code class="docutils literal notranslate"><span class="pre">'Match'</span></code> as the condition label:</p>
+<p>MNE also recognizes the <code class="docutils literal notranslate"><span class="pre">/</span></code> separator for condition labels (e.g., in <code class="docutils literal notranslate"><span class="pre">'Match/A'</span></code>): the string before the <code class="docutils literal notranslate"><span class="pre">/</span></code> is treated as a more general category, with the string after the <code class="docutils literal notranslate"><span class="pre">/</span></code> treated as subsets of that category. So we can see all of the Match trials (<code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">C</span></code>, &amp; <code class="docutils literal notranslate"><span class="pre">D</span></code>) by passing <code class="docutils literal notranslate"><span class="pre">'Match'</span></code> as the condition label:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span>
@@ -1095,7 +1094,7 @@ document.write(`
     </tr>
 </table></div></div>
 </div>
-<p>Likewise, we can see all of the epochs in the <code class="docutils literal notranslate"><span class="pre">A</span></code> condition by passing <code class="docutils literal notranslate"><span class="pre">'A'</span></code> as the condition label:</p>
+<p>Likewise, we can see all of the epochs in the <code class="docutils literal notranslate"><span class="pre">A</span></code> condition (<code class="docutils literal notranslate"><span class="pre">Match</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">Mismatch</span></code>) by passing <code class="docutils literal notranslate"><span class="pre">'A'</span></code> as the condition label:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
