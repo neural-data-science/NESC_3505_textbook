@@ -595,7 +595,11 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-ica-components">Visualize ICA components</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-ic-properties">Plot IC properties</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-eog-artifacts-from-ica-components">Identify EOG Artifacts from ICA Components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-eog-artifacts-from-ica-components">Identify EOG Artifacts from ICA Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-right-threshold">Finding the Right Threshold</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-ic-correlations">View IC Correlations</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-ica">Save ICA</a></li>
 </ul>
             </nav>
@@ -813,8 +817,8 @@ document.write(`
 <section id="visualize-ica-components">
 <h2>Visualize ICA components<a class="headerlink" href="#visualize-ica-components" title="Permalink to this heading">#</a></h2>
 <p>Every IC (an independent component identified by ICA) is a signal that varies over time, that has a “weighting” at each channel - reflecting how strongly present that IC is in that channel. In other words, the time course of an IC is the same at all electrodes, but it is bigger at some, and smaller at others.</p>
-<p>We can visualize each component as a <strong>scalp topography map</strong>, showing where on the scalp the IC is largest. <em>Topo maps</em>, as they are often abbreviated, are a different way of visualizing EEG data than we’ve seen before. Whereas previously we’ve viewed EEG as electrical potential over time, topo maps show how the potential are distributed spatially, at a specific point in time (or averaged over a period of time). The maps use the red-blue colour map where red is positive, blue is negative, and white is zero. “Positive” and “negative” in ICA topo maps can reflect cases where a component has the same shape over time, but opposite (negative vs. positive) electrical polarity at different scalp locations. This can be seen, for example, in <code class="docutils literal notranslate"><span class="pre">ICA001</span></code> below, which reflects the opposite polarities induced by horizontal eye movements.</p>
-<p>Indeed, in the figure below we can see that a few ICs are likely ocular artifacts, because they weight most heavily around the front of the head (the top of each subplot, where the nose is drawn). In particular, <code class="docutils literal notranslate"><span class="pre">ICA000</span></code> is likely blink artifact, and <code class="docutils literal notranslate"><span class="pre">ICA002</span></code> is likely horizontal eye movement.</p>
+<p>We can visualize each component as a <strong>scalp topography map</strong>, showing where on the scalp the IC is largest. <em>Topo maps</em>, as they are often abbreviated, are a different way of visualizing EEG data than we’ve seen before. Whereas previously we’ve viewed EEG as electrical potential over time, topo maps show how the potentials are distributed <em>spatially</em>, at a specific point in time (or averaged over a period of time). The maps use the red-blue color map where red is positive, blue is negative, and white is zero. “Positive” and “negative” in ICA topo maps can reflect cases where a component has the same shape over time, but opposite (negative vs. positive) electrical polarity at different scalp locations. This can be seen, for example, in <code class="docutils literal notranslate"><span class="pre">ICA001</span></code> below, which reflects the opposite polarities induced by horizontal eye movements.</p>
+<p>Indeed, in the figure below we can see that a few ICs are likely ocular artifacts, because they weight most heavily around the front of the head (the top of each subplot, where the nose is drawn). In particular, <code class="docutils literal notranslate"><span class="pre">ICA000</span></code> is likely blink artifacts, and <code class="docutils literal notranslate"><span class="pre">ICA002</span></code> is likely horizontal eye movements.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica</span><span class="o">.</span><span class="n">plot_components</span><span class="p">();</span>
@@ -830,8 +834,8 @@ document.write(`
 <h2>Plot IC properties<a class="headerlink" href="#plot-ic-properties" title="Permalink to this heading">#</a></h2>
 <p>We can use the <code class="docutils literal notranslate"><span class="pre">.plot_properties()</span></code> method of the ICA class to view more details of each IC. Moving clockwise from top left, the four subplots for each IC are:</p>
 <ul class="simple">
-<li><p>topo map</p></li>
-<li><p>raster plot of how the IC weights on each trial. Artifacts like blinks should appear as “streaks” lasting about 200-300 ms, on relatively few trials. Components reflecting brain activity are typically present across many epochs (although remember that these data are segmented into 1 s epochs across the entire raw data set, so we would not expect to see time-locked activity here)</p></li>
+<li><p>The topo map</p></li>
+<li><p>A <em>raster plot</em> of how the IC weights on each trial. Artifacts like blinks should appear as “streaks” lasting about 200-300 ms, on relatively few trials. Components reflecting brain activity are typically present across many epochs (although remember that these data are segmented into 1 s epochs across the entire raw data set, so we would not expect to see time-locked activity here)</p></li>
 <li><p>Variance of the component, across channels and time. The <em>x</em> axis is epochs (effectively, time across the experiment), and the <em>y</em> axis is the variance of the IC across channels. Noise typically manifests as high variance on a low number of trials, and low variance on most trials, or lots of variability in the values on the <em>y</em> axis over epochs. True brain activity usually appears as consistently similar — and low — variance across epochs.</p></li>
 <li><p>The PSD (phase spectral density) of the IC. EOG (eye) artifacts will typically have a peak at the low frequency end of the spectrum (the left side of the <em>x</em> axis), and muscle artifact will tend to show increasing power at the high end of the frequency spectrum (the right side of the <em>x</em> axis).</p></li>
 </ul>
@@ -864,15 +868,16 @@ document.write(`
 <section id="identify-eog-artifacts-from-ica-components">
 <h2>Identify EOG Artifacts from ICA Components<a class="headerlink" href="#identify-eog-artifacts-from-ica-components" title="Permalink to this heading">#</a></h2>
 <p>MNE has an algorithm that attempts to automatically identify ICA components. The <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> function computes correlations between each IC and channels that the researcher has designated as <strong>EOG</strong> (electro-oculogram) channels. These are electrodes, the same as EEG electrodes, but intentionally placed close to the eyes specifically to monitor for blinks and eye movements. These are typically placed above and below one eye (to monitor blinks and vertical eye movements, as well as on the temples of the head laterally to the eyes (to monitor horizontal eye movements).</p>
-<p>In the present data set, the system had 16 scalp electrodes but no EOG electrodes, so EOG was not recorded. However, the Fp1 and Fp2 electrodes are above the eyes, and F7 and F8 are close enough to the sides of the eyes to detect horizontal movements. <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> takes a <code class="docutils literal notranslate"><span class="pre">ch_name</span></code> kwarg to allow us to specify EEG channels that we want to use in place of EOG channels.</p>
-<p>ADD EXPLANATION OF DYNAMIC THRESHOLD</p>
-<p>MNE also provides a <code class="docutils literal notranslate"><span class="pre">.plot_scores()</span></code> method that will plot the correlation values for each IC, and mark any that were rejected in red.</p>
+<p>In the present data set, the system had 16 scalp electrodes but no EOG electrodes, so EOG was not recorded. However, the Fp1 and Fp2 electrodes are above the eyes, and F7 and F8 are close enough to the sides of the eyes to detect horizontal movements. <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> takes a <code class="docutils literal notranslate"><span class="pre">ch_name</span></code> kwarg to allow us to specify a list of EEG channels that we want to use in place of EOG channels.</p>
+<section id="finding-the-right-threshold">
+<h3>Finding the Right Threshold<a class="headerlink" href="#finding-the-right-threshold" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> also takes a <code class="docutils literal notranslate"><span class="pre">threshold</span></code> kwarg, which is the correlation threshold that will be used to identify ICs that are likely ocular artifacts. The default value is <code class="docutils literal notranslate"><span class="pre">3.0</span></code>, but in my experience the optimal threshold — i.e., the one that correctly identifies blinks and horizontal eye movement ICs, but not other ICs — is highly variable across data sets. So below we use a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop to iterate over a range of threshold values, starting from a relatively high value of <code class="docutils literal notranslate"><span class="pre">3.5</span></code> and stepping down in increments of <code class="docutils literal notranslate"><span class="pre">0.1</span></code>, until at least 2 ICs are identified. Since we expect both blinks and horizontal eye movements in the data, we expect at least 2 ICs to be identified as artifacts, and these should be the two that have the highest correlation values with the channels around the eyes. This algorithm is not perfect; it is possible that it will identify other ICs as artifacts, so it is important to cross-reference .</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">num_excl</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">max_ic</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">z_thresh</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">z_thresh</span> <span class="o">=</span> <span class="mf">3.5</span>
 <span class="n">z_step</span> <span class="o">=</span> <span class="mf">.1</span>
 
 <span class="k">while</span> <span class="n">num_excl</span> <span class="o">&lt;</span> <span class="n">max_ic</span><span class="p">:</span>
@@ -883,20 +888,34 @@ document.write(`
     <span class="n">num_excl</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">eog_indices</span><span class="p">)</span>
     <span class="n">z_thresh</span> <span class="o">-=</span> <span class="n">z_step</span> <span class="c1"># won&#39;t impact things if num_excl is ≥ n_max_eog </span>
 
+<span class="c1"># assign the bad EOG components to the ICA.exclude attribute so they can be removed later</span>
 <span class="n">ica</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="n">eog_indices</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;z threshold = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">z_thresh</span><span class="p">))</span>
-<span class="n">ica</span><span class="o">.</span><span class="n">plot_scores</span><span class="p">(</span><span class="n">eog_scores</span><span class="p">);</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Final z threshold = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">z_thresh</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>z threshold = 2.099999999999999
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Final z threshold = 2.1
 </pre></div>
 </div>
+</div>
+</div>
+</section>
+<section id="view-ic-correlations">
+<h3>View IC Correlations<a class="headerlink" href="#view-ic-correlations" title="Permalink to this heading">#</a></h3>
+<p>MNE also provides a <code class="docutils literal notranslate"><span class="pre">.plot_scores()</span></code> method that will plot the correlation values for each IC, and mark any that were rejected in red:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica</span><span class="o">.</span><span class="n">plot_scores</span><span class="p">(</span><span class="n">eog_scores</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
 <img alt="../_images/248c098443daa7a43ad9088018c6037dc00e12f1a3186f408b14dda891ef725b.png" src="../_images/248c098443daa7a43ad9088018c6037dc00e12f1a3186f408b14dda891ef725b.png" />
 </div>
 </div>
+</section>
 </section>
 <section id="save-ica">
 <h2>Save ICA<a class="headerlink" href="#save-ica" title="Permalink to this heading">#</a></h2>
@@ -989,7 +1008,11 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-ica-components">Visualize ICA components</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-ic-properties">Plot IC properties</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-eog-artifacts-from-ica-components">Identify EOG Artifacts from ICA Components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-eog-artifacts-from-ica-components">Identify EOG Artifacts from ICA Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-right-threshold">Finding the Right Threshold</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-ic-correlations">View IC Correlations</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-ica">Save ICA</a></li>
 </ul>
   </nav></div>

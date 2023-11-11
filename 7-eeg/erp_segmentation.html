@@ -591,12 +591,14 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-events-over-time">Plot Events Over Time</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segment-the-data-into-epochs">Segment the data into epochs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-and-indexing-epochs">Viewing and Indexing Epochs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-average-erp-across-all-conditions-before-artifact-correction">Visualize Average ERP Across All Conditions – Before Artifact Correction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-average-erp-across-conditions-of-interest-before-artifact-correction">Visualize Average ERP Across Conditions of Interest – Before Artifact Correction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-ica-correction-to-epochs">Apply ICA correction to epochs</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-average-erp-after-ica-artifact-removal">Visualize Average ERP After ICA Artifact Removal</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoreject-for-final-data-cleaning">AutoReject for Final Data Cleaning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-autoreject-s-effects">View AutoReject’s Effects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-average-erp-after-autoreject">Visualize Average ERP After AutoReject</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalp-topography-maps">Scalp topography maps</a></li>
 </ul>
 </li>
@@ -626,69 +628,10 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># Participant ID code</span>
-<span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;N400_dataset_14&#39;</span>
+<span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;sub-001&#39;</span>
 <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
 
 <span class="n">raw_filt</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-filt-raw.fif&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">10</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;N400_dataset_14&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="n">raw_filt</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-filt-raw.fif&#39;</span><span class="p">)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/fiff/raw.py:546,</span> in <span class="ni">read_raw_fif</span><span class="nt">(fname, allow_maxshield, preload, on_split_missing, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">505</span> <span class="nd">@fill_doc</span>
-<span class="g g-Whitespace">    </span><span class="mi">506</span> <span class="k">def</span> <span class="nf">read_raw_fif</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">507</span>     <span class="n">fname</span><span class="p">,</span> <span class="n">allow_maxshield</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">on_split_missing</span><span class="o">=</span><span class="s2">&quot;raise&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">508</span> <span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">509</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Reader function for Raw FIF data.</span>
-<span class="g g-Whitespace">    </span><span class="mi">510</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">511</span><span class="sd">     Parameters</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">544</span><span class="sd">     are updated accordingly.</span>
-<span class="g g-Whitespace">    </span><span class="mi">545</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">546</span>     <span class="k">return</span> <span class="n">Raw</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">547</span>         <span class="n">fname</span><span class="o">=</span><span class="n">fname</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">548</span>         <span class="n">allow_maxshield</span><span class="o">=</span><span class="n">allow_maxshield</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">549</span>         <span class="n">preload</span><span class="o">=</span><span class="n">preload</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">550</span>         <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">551</span>         <span class="n">on_split_missing</span><span class="o">=</span><span class="n">on_split_missing</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">552</span>     <span class="p">)</span>
-
-<span class="nn">File &lt;decorator-gen-269&gt;:12,</span> in <span class="ni">__init__</span><span class="nt">(self, fname, allow_maxshield, preload, on_split_missing, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/fiff/raw.py:99,</span> in <span class="ni">Raw.__init__</span><span class="nt">(self, fname, allow_maxshield, preload, on_split_missing, verbose)</span>
-<span class="g g-Whitespace">     </span><span class="mi">97</span> <span class="n">next_fname</span> <span class="o">=</span> <span class="n">fname</span>
-<span class="g g-Whitespace">     </span><span class="mi">98</span> <span class="k">while</span> <span class="n">next_fname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">99</span>     <span class="n">raw</span><span class="p">,</span> <span class="n">next_fname</span><span class="p">,</span> <span class="n">buffer_size_sec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_raw_file</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">100</span>         <span class="n">next_fname</span><span class="p">,</span> <span class="n">allow_maxshield</span><span class="p">,</span> <span class="n">preload</span><span class="p">,</span> <span class="n">do_check_ext</span>
-<span class="g g-Whitespace">    </span><span class="mi">101</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">102</span>     <span class="n">do_check_ext</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="g g-Whitespace">    </span><span class="mi">103</span>     <span class="n">raws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-
-<span class="nn">File &lt;decorator-gen-270&gt;:12,</span> in <span class="ni">_read_raw_file</span><span class="nt">(self, fname, allow_maxshield, preload, do_check_ext, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/fiff/raw.py:181,</span> in <span class="ni">Raw._read_raw_file</span><span class="nt">(self, fname, allow_maxshield, preload, do_check_ext, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">179</span>     <span class="n">check_fname</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;raw&quot;</span><span class="p">,</span> <span class="n">endings</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">180</span> <span class="c1"># filename</span>
-<span class="ne">--&gt; </span><span class="mi">181</span> <span class="n">fname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">_check_fname</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;read&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;fname&quot;</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">182</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">fname</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">183</span> <span class="n">whole_file</span> <span class="o">=</span> <span class="n">preload</span> <span class="k">if</span> <span class="s2">&quot;.gz&quot;</span> <span class="ow">in</span> <span class="n">ext</span> <span class="k">else</span> <span class="kc">False</span>
-
-<span class="nn">File &lt;decorator-gen-0&gt;:12,</span> in <span class="ni">_check_fname</span><span class="nt">(fname, overwrite, must_exist, name, need_dir, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/utils/check.py:261,</span> in <span class="ni">_check_fname</span><span class="nt">(fname, overwrite, must_exist, name, need_dir, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">259</span>             <span class="k">raise</span> <span class="ne">PermissionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> does not have read permissions: </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">260</span> <span class="k">elif</span> <span class="n">must_exist</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">261</span>     <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> does not exist: &quot;</span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">263</span> <span class="k">return</span> <span class="n">fname</span>
-
-<span class="ne">FileNotFoundError</span>: fname does not exist: &quot;/Users/aaron/3505/NESC_3505_textbook/7-eeg/data/N400_dataset_14-filt-raw.fif&quot;
 </pre></div>
 </div>
 </div>
@@ -704,16 +647,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">events</span><span class="p">,</span> <span class="n">events_dict</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">events_from_annotations</span><span class="p">(</span><span class="n">raw_filt</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;raw_filt&#39; is not defined
-</pre></div>
-</div>
-</div>
 </div>
 <p>We can view the first 10 rows of the <code class="docutils literal notranslate"><span class="pre">events</span></code> array:</p>
 <div class="cell docutils container">
@@ -723,12 +656,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">events</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;events&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[    0,     0,     2],
+       [    0,     0,     1],
+       [25550,     0,     7],
+       [25553,     0,     3],
+       [26099,     0,    13],
+       [26144,     0,     4],
+       [29582,     0,     5],
+       [33283,     0,     3],
+       [33781,     0,    15],
+       [34932,     0,     5]])
 </pre></div>
 </div>
 </div>
@@ -756,12 +693,22 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">events_dict</span>
-
-<span class="ne">NameError</span>: name &#39;events_dict&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Comment/actiCAP Data On&#39;: 1,
+ &#39;New Segment/&#39;: 2,
+ &#39;Stimulus/S  1&#39;: 3,
+ &#39;Stimulus/S  2&#39;: 4,
+ &#39;Stimulus/S  3&#39;: 5,
+ &#39;Stimulus/S  4&#39;: 6,
+ &#39;Stimulus/S  5&#39;: 7,
+ &#39;Stimulus/S  7&#39;: 8,
+ &#39;Stimulus/S101&#39;: 9,
+ &#39;Stimulus/S102&#39;: 10,
+ &#39;Stimulus/S111&#39;: 11,
+ &#39;Stimulus/S112&#39;: 12,
+ &#39;Stimulus/S201&#39;: 13,
+ &#39;Stimulus/S202&#39;: 14,
+ &#39;Stimulus/S211&#39;: 15,
+ &#39;Stimulus/S212&#39;: 16}
 </pre></div>
 </div>
 </div>
@@ -778,72 +725,22 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span> <span class="s1">&#39;data/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;.vhdr&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">events_raw</span><span class="p">,</span> <span class="n">events_dict_raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">events_from_annotations</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">events_dict_raw</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:956,</span> in <span class="ni">read_raw_brainvision</span><span class="nt">(vhdr_fname, eog, misc, scale, preload, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">916</span> <span class="nd">@fill_doc</span>
-<span class="g g-Whitespace">    </span><span class="mi">917</span> <span class="k">def</span> <span class="nf">read_raw_brainvision</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">918</span>     <span class="n">vhdr_fname</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">923</span>     <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">924</span> <span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">925</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Reader for Brain Vision EEG file.</span>
-<span class="g g-Whitespace">    </span><span class="mi">926</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">927</span><span class="sd">     Parameters</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">954</span><span class="sd">     mne.io.Raw : Documentation of attributes and methods of RawBrainVision.</span>
-<span class="g g-Whitespace">    </span><span class="mi">955</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">956</span>     <span class="k">return</span> <span class="n">RawBrainVision</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">957</span>         <span class="n">vhdr_fname</span><span class="o">=</span><span class="n">vhdr_fname</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">958</span>         <span class="n">eog</span><span class="o">=</span><span class="n">eog</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">959</span>         <span class="n">misc</span><span class="o">=</span><span class="n">misc</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">960</span>         <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">961</span>         <span class="n">preload</span><span class="o">=</span><span class="n">preload</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">962</span>         <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">963</span>     <span class="p">)</span>
-
-<span class="nn">File &lt;decorator-gen-247&gt;:12,</span> in <span class="ni">__init__</span><span class="nt">(self, vhdr_fname, eog, misc, scale, preload, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:90,</span> in <span class="ni">RawBrainVision.__init__</span><span class="nt">(self, vhdr_fname, eog, misc, scale, preload, verbose)</span>
-<span class="g g-Whitespace">     </span><span class="mi">79</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="n">ahdr_format</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;.ahdr&quot;</span> <span class="k">else</span> <span class="kc">False</span>
-<span class="g g-Whitespace">     </span><span class="mi">81</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">82</span>     <span class="n">info</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">83</span>     <span class="n">data_fname</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">84</span>     <span class="n">fmt</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="n">order</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="n">n_samples</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="n">mrk_fname</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">88</span>     <span class="n">montage</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">89</span>     <span class="n">orig_units</span><span class="p">,</span>
-<span class="ne">---&gt; </span><span class="mi">90</span> <span class="p">)</span> <span class="o">=</span> <span class="n">_get_hdr_info</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">,</span> <span class="n">eog</span><span class="p">,</span> <span class="n">misc</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">92</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_fname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">93</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>  <span class="c1"># ASCII, this will be slow :(</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:512,</span> in <span class="ni">_get_hdr_info</span><span class="nt">(hdr_fname, eog, misc, scale)</span>
-<span class="g g-Whitespace">    </span><span class="mi">506</span> <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;.vhdr&quot;</span><span class="p">,</span> <span class="s2">&quot;.ahdr&quot;</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">507</span>     <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">508</span>         <span class="s2">&quot;The header file must be given to read the data, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">509</span>         <span class="s2">&quot;not a file with extension &#39;</span><span class="si">%s</span><span class="s2">&#39;.&quot;</span> <span class="o">%</span> <span class="n">ext</span>
-<span class="g g-Whitespace">    </span><span class="mi">510</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">512</span> <span class="n">settings</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">cinfostr</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">_aux_hdr_info</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">513</span> <span class="n">info</span><span class="o">.</span><span class="n">_unlocked</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="g g-Whitespace">    </span><span class="mi">515</span> <span class="n">order</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cinfostr</span><span class="p">,</span> <span class="s2">&quot;DataOrientation&quot;</span><span class="p">)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:409,</span> in <span class="ni">_aux_hdr_info</span><span class="nt">(hdr_fname)</span>
-<span class="g g-Whitespace">    </span><span class="mi">407</span> <span class="k">def</span> <span class="nf">_aux_hdr_info</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">408</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Aux function for _get_hdr_info.&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">409</span>     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">410</span>         <span class="c1"># extract the first section to resemble a cfg</span>
-<span class="g g-Whitespace">    </span><span class="mi">411</span>         <span class="n">header</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">412</span>         <span class="n">codepage</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/Users/aaron/3505/NESC_3505_textbook/7-eeg/data/N400_dataset_14.vhdr&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Comment/actiCAP Data On&#39;: 10001,
+ &#39;New Segment/&#39;: 99999,
+ &#39;Stimulus/S  1&#39;: 1,
+ &#39;Stimulus/S  2&#39;: 2,
+ &#39;Stimulus/S  3&#39;: 3,
+ &#39;Stimulus/S  4&#39;: 4,
+ &#39;Stimulus/S  5&#39;: 5,
+ &#39;Stimulus/S  7&#39;: 7,
+ &#39;Stimulus/S101&#39;: 101,
+ &#39;Stimulus/S102&#39;: 102,
+ &#39;Stimulus/S111&#39;: 111,
+ &#39;Stimulus/S112&#39;: 112,
+ &#39;Stimulus/S201&#39;: 201,
+ &#39;Stimulus/S202&#39;: 202,
+ &#39;Stimulus/S211&#39;: 211,
+ &#39;Stimulus/S212&#39;: 212}
 </pre></div>
 </div>
 </div>
@@ -919,18 +816,20 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># make a new dictionary to map experiment labels to MNE&#39;s event codes</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">events_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="c1"># select only the keys in `events_dict` that match this string</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="k">if</span> <span class="s1">&#39;Stimulus/S&#39;</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>         <span class="c1"># strip the leading text from the key to get the numerical event code</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>         <span class="n">orig_event_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/S&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
-
-<span class="ne">NameError</span>: name &#39;events_dict&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;PicOnset&#39;: 3,
+ &#39;RespPrompt&#39;: 4,
+ &#39;CorResp&#39;: 5,
+ &#39;IncorResp&#39;: 6,
+ &#39;RespFeedback&#39;: 7,
+ &#39;unused&#39;: 8,
+ &#39;Mismatch/A&#39;: 9,
+ &#39;Mismatch/C&#39;: 10,
+ &#39;Match/A&#39;: 11,
+ &#39;Match/C&#39;: 12,
+ &#39;Mismatch/B&#39;: 13,
+ &#39;Mismatch/D&#39;: 14,
+ &#39;Match/B&#39;: 15,
+ &#39;Match/D&#39;: 16}
 </pre></div>
 </div>
 </div>
@@ -953,19 +852,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">raw_filt</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">],</span>  
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                     <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>                    
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                     <span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;events&#39; is not defined
-</pre></div>
-</div>
-<img alt="../_images/8466c18f109ecbe0b5bdae84d6b1792bc8aeff8b683cbe4c48b27196eced620b.png" src="../_images/8466c18f109ecbe0b5bdae84d6b1792bc8aeff8b683cbe4c48b27196eced620b.png" />
+<img alt="../_images/1eeec6006fff7a1ae4b3936d9c8a12704a8fc27b6f305841031769352e787a0f.png" src="../_images/1eeec6006fff7a1ae4b3936d9c8a12704a8fc27b6f305841031769352e787a0f.png" />
 </div>
 </div>
 <p>This plot of event codes over time can be very useful in ensuring that the event codes in your experiment occurred as expected. This is especially important to check when you’re first pilot-testing an experiment, before you collect data from lots of participants. It’s also useful simply to visualize and understand the structure of an experiment.</p>
@@ -1008,23 +895,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">baseline</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Create epochs</span>
-<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">epochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span><span class="p">(</span><span class="n">raw_filt</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>                     <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>                     <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span>                     <span class="n">baseline</span><span class="o">=</span><span class="n">baseline</span><span class="p">,</span> 
-<span class="g g-Whitespace">     </span><span class="mi">11</span>                     <span class="n">preload</span><span class="o">=</span><span class="kc">True</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span>                    <span class="p">)</span> 
-
-<span class="ne">NameError</span>: name &#39;raw_filt&#39; is not defined
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="viewing-and-indexing-epochs">
@@ -1037,15 +907,26 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>531</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>CorResp: 144<br/>IncorResp: 1<br/>Match/A: 18<br/>Match/B: 18<br/>Match/C: 18<br/>Match/D: 18<br/>Mismatch/A: 18<br/>Mismatch/B: 18<br/>Mismatch/C: 18<br/>Mismatch/D: 18<br/>PicOnset: 144<br/>RespFeedback: 1<br/>RespPrompt: 96<br/>unused: 1</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 <p>Epochs can be accessed in a variety of ways, all using square brackets <code class="docutils literal notranslate"><span class="pre">epochs[]</span></code>.</p>
 <p>If we use an integer, we get the epoch at that index position (epochs are numbered from zero to the total number of epochs, in the order that the event codes occurred in the raw data):</p>
@@ -1056,15 +937,26 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>1</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>RespFeedback: 1</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1073,15 +965,26 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>5</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>CorResp: 2<br/>Match/A: 1<br/>PicOnset: 1<br/>RespPrompt: 1</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 <p>Alternatively, we can access all of the epochs associated with a particular event code, using the label we assigned to the code using <code class="docutils literal notranslate"><span class="pre">event_mapping</span></code>:</p>
 <div class="cell docutils container">
@@ -1091,15 +994,26 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match/A&#39;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>18</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>Match/A: 18</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 <p>These two methods can be combined to select a specific event out of those in a condition:</p>
 <div class="cell docutils container">
@@ -1109,15 +1023,26 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match/A&#39;</span><span class="p">][</span><span class="mi">8</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>1</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>Match/A: 1</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 <p>If we pass multiple condition labels, then we will get all epochs in each of the conditions specified:</p>
 <div class="cell docutils container">
@@ -1127,15 +1052,26 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match/A&#39;</span><span class="p">,</span> <span class="s1">&#39;Match/B&#39;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>36</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>Match/A: 18<br/>Match/B: 18</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 <p>MNE also recognizes the <code class="docutils literal notranslate"><span class="pre">/</span></code> separator for condition labels (e.g., in <code class="docutils literal notranslate"><span class="pre">'Match/A'</span></code>): the string before the <code class="docutils literal notranslate"><span class="pre">/</span></code> is treated as a more general category, with the string after the <code class="docutils literal notranslate"><span class="pre">/</span></code> treated as subsets of that category. So we can see all of the Match trials (<code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">C</span></code>, &amp; <code class="docutils literal notranslate"><span class="pre">D</span></code>) by passing <code class="docutils literal notranslate"><span class="pre">'Match'</span></code> as the condition label:</p>
 <div class="cell docutils container">
@@ -1145,15 +1081,26 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>72</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>Match/A: 18<br/>Match/B: 18<br/>Match/C: 18<br/>Match/D: 18</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 <p>Likewise, we can see all of the epochs in the <code class="docutils literal notranslate"><span class="pre">A</span></code> condition (<code class="docutils literal notranslate"><span class="pre">Match</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">Mismatch</span></code>) by passing <code class="docutils literal notranslate"><span class="pre">'A'</span></code> as the condition label:</p>
 <div class="cell docutils container">
@@ -1163,39 +1110,46 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>36</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>Match/A: 18<br/>Mismatch/A: 18</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
 </div>
 </section>
-<section id="visualize-average-erp-across-all-conditions-before-artifact-correction">
-<h2>Visualize Average ERP Across All Conditions – Before Artifact Correction<a class="headerlink" href="#visualize-average-erp-across-all-conditions-before-artifact-correction" title="Permalink to this heading">#</a></h2>
-<p>While it’s useful to see the summary of the epochs object, it’s more interesting to visualize the data. The <code class="docutils literal notranslate"><span class="pre">Epochs</span></code> class has a <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method to do this. Since <code class="docutils literal notranslate"><span class="pre">Epochs</span></code> contains each individual trial, if we try to plot multiple epochs (e.g., <code class="docutils literal notranslate"><span class="pre">epochs['Match'].plot()</span></code>) we will get an interactive plot (like we saw previously for scrolling through the raw data). Typically what we want to see is the <em>average</em> across all trials of a condition. This is central to ERPs — the data on each individual trial is noisy, but when we average across many trials, the noise tends to cancel out, leaving the ERP component of interest. So we need to chain the <code class="docutils literal notranslate"><span class="pre">.average()</span></code> method with <code class="docutils literal notranslate"><span class="pre">.plot()</span></code>:</p>
+<section id="visualize-average-erp-across-conditions-of-interest-before-artifact-correction">
+<h2>Visualize Average ERP Across Conditions of Interest – Before Artifact Correction<a class="headerlink" href="#visualize-average-erp-across-conditions-of-interest-before-artifact-correction" title="Permalink to this heading">#</a></h2>
+<p>While it’s useful to see the summary of the epochs object, it’s more interesting to visualize the data. The <code class="docutils literal notranslate"><span class="pre">Epochs</span></code> class has a <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method to do this. Since <code class="docutils literal notranslate"><span class="pre">Epochs</span></code> contains each individual trial, if we try to plot multiple epochs (e.g., <code class="docutils literal notranslate"><span class="pre">epochs.plot()</span></code>) we will get an interactive plot (like we saw previously for scrolling through the raw data). Typically what we want to see is the <em>average</em> across all trials of a condition. This is central to ERPs — the data on each individual trial is noisy, but when we average across many trials, the noise tends to cancel out, leaving the ERP component of interest. So we need to chain the <code class="docutils literal notranslate"><span class="pre">.average()</span></code> method with <code class="docutils literal notranslate"><span class="pre">.plot()</span></code>. Here we’ll average across Match and Mismatch epochs; even though ultimately we want to compare these two, for the purposes of assessing data quality we’ll average them together:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span> <span class="c1"># remember the semicolon prevents a duplicated plot</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span> <span class="c1"># remember the semicolon prevents a duplicated plot</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span> <span class="c1"># remember the semicolon prevents a duplicated plot</span>
-
-<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
-</pre></div>
+<img alt="../_images/286b4ebe07f67e4fc5f044371ad2c435e173558b3b2eca30d374def74f189ce1.png" src="../_images/286b4ebe07f67e4fc5f044371ad2c435e173558b3b2eca30d374def74f189ce1.png" />
 </div>
 </div>
-</div>
-<p>Here we create a plot averaged across all trials, and showing all electrodes on a single axis. The color of the lines indicates where ont he head the channel was located, as shown in the inset head plot. The above plot shows strong evidence of ocular artifacts in the data: the amplitude scale is on the order of 100 µV, whereas real EEG is rarely more than 10–20 µV, and the largest amplitude values are in channels around the eyes (you can tell this by matching the colors of the lines in the plot with those of the channel locations on the inset showing the electrode layout). Remember that we created these epochs from teh filtered raw data, from which we have not yet removed artifacts.</p>
-<div class="admonition note">
+<p>The above <em>butterfly plot</em> shows all electrodes on a single axis. The color of the lines indicates where ont he head the channel was located, as shown in the inset head plot.</p>
+<body textcolor="red">
+<em>No longer true:</em>
+The above plot shows strong evidence of ocular artifacts in the data: the amplitude scale is on the order of 100 µV, whereas real EEG is rarely more than 10–20 µV, and the largest amplitude values are in channels around the eyes (you can tell this by matching the colors of the lines in the plot with those of the channel locations on the inset showing the electrode layout). Remember that we created these epochs from the filtered raw data, from which we have not yet removed artifacts. 
+</body><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Plotting all electrodes on one axis is called a <strong>butterfly plot</strong>. The name may seem strange but when you use it to plot data from lots of sensors (especially MEG data), it does look somewhat like a butterfly:</p>
 <p><img alt="butterfly plot of MEG data containing 245 channels" src="https://mne.tools/dev/_images/sphx_glr_90_phantom_4DBTi_001.png" />.</p>
@@ -1211,51 +1165,7 @@ document.write(`
 <span class="n">ica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">read_ica</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">)</span>
 
 <span class="c1"># apply the ICA decomposition (excluding the marked ICs) to the epochs</span>
-<span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># read the previously-saved ICA decomposition</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">ica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">read_ica</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># apply the ICA decomposition (excluding the marked ICs) to the epochs</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-
-<span class="nn">File &lt;decorator-gen-461&gt;:12,</span> in <span class="ni">read_ica</span><span class="nt">(fname, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/preprocessing/ica.py:3012,</span> in <span class="ni">read_ica</span><span class="nt">(fname, verbose)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3009</span> <span class="n">check_fname</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;ICA&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;-ica.fif&quot;</span><span class="p">,</span> <span class="s2">&quot;-ica.fif.gz&quot;</span><span class="p">,</span> <span class="s2">&quot;_ica.fif&quot;</span><span class="p">,</span> <span class="s2">&quot;_ica.fif.gz&quot;</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">3011</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Reading </span><span class="si">%s</span><span class="s2"> ...&quot;</span> <span class="o">%</span> <span class="n">fname</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">3012</span> <span class="n">fid</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">fiff_open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3014</span> <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3015</span>     <span class="c1"># we used to store bads that weren&#39;t part of the info...</span>
-<span class="g g-Whitespace">   </span><span class="mi">3016</span>     <span class="n">info</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">read_meas_info</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">clean_bads</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nn">File &lt;decorator-gen-10&gt;:12,</span> in <span class="ni">fiff_open</span><span class="nt">(fname, preload, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/open.py:124,</span> in <span class="ni">fiff_open</span><span class="nt">(fname, preload, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">100</span> <span class="nd">@verbose</span>
-<span class="g g-Whitespace">    </span><span class="mi">101</span> <span class="k">def</span> <span class="nf">fiff_open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">102</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Open a FIF file.</span>
-<span class="g g-Whitespace">    </span><span class="mi">103</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">104</span><span class="sd">     Parameters</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">122</span><span class="sd">         A list of tags.</span>
-<span class="g g-Whitespace">    </span><span class="mi">123</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">124</span>     <span class="n">fid</span> <span class="o">=</span> <span class="n">_fiff_get_fid</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">125</span>     <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">126</span>         <span class="k">return</span> <span class="n">_fiff_open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">fid</span><span class="p">,</span> <span class="n">preload</span><span class="p">)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/open.py:52,</span> in <span class="ni">_fiff_get_fid</span><span class="nt">(fname)</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span>     <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">51</span>         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Using normal I/O&quot;</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">52</span>         <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span>  <span class="c1"># Open in binary mode</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="k">return</span> <span class="n">fid</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;data/N400_dataset_14-ica.fif&#39;
+<span class="n">epochs_postica</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -1270,19 +1180,12 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_clean</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_postica</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">21</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs_clean</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;epochs_clean&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/a535f89bbc5eecc05c4a706e57b18a801e9b46580cc247805c5a20e953a5c41c.png" src="../_images/a535f89bbc5eecc05c4a706e57b18a801e9b46580cc247805c5a20e953a5c41c.png" />
 </div>
 </div>
 </section>
@@ -1291,24 +1194,88 @@ document.write(`
 <h2>AutoReject for Final Data Cleaning<a class="headerlink" href="#autoreject-for-final-data-cleaning" title="Permalink to this heading">#</a></h2>
 <p>ICA correction removed the ocular (blink and eye movement) artifacts. However, there are potentially other sources of noise remaining in the data, including muscle noise, “paroxysmal” artifacts (sudden, large-amplitude deflections), and other sources. Sometimes as well, individual channels contain noise either over the entire recording, or in specific segments. We can use the AutoReject algorithm to automatically detect and remove bad epochs and channels. Any channels that are removed are then replaced using interpolation – essentially averaging the data from surrounding channels to estimate the data from the noisy channel.</p>
 <p>You may recall that we used AutoReject earlier, prior to running ICA. At that point, we used AutoReject to identify and exclude any particularly noisy segments of data from the ICA decomposition. But we didn’t actually remove those segments from teh data set, we just told ICA to ignore them. Here, we will use AutoReject to identify <em>and</em> exclude any particularly noisy epochs, and correct noisy channels through interpolation.</p>
-<p>Since we plotted <code class="docutils literal notranslate"><span class="pre">epochs_clean</span></code>, the above plot reflects the average across all trials, which includes visual stimuli, auditory stimuli, and responses. Each of these conditions is typically associated with distinct ERP waveforms, so the plot is not very useful, other than showing clean data relative to the previous plot. But we can use the selection method described earlier to plot the average ERP for each condition separately. We’ll do more of this in a later lesson, but for now let’s plot the average just across all the <code class="docutils literal notranslate"><span class="pre">Match</span></code> trials:</p>
+<p>Here we run the same code we used prior to ICA, except that we fit it to the <code class="docutils literal notranslate"><span class="pre">epochs_clean</span></code> data that has been cleaned with ICA. Another difference is that previously, we used the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> method to fit the AutoReject algorithm to the data, and then used the information stored in the fit to exclude noisy epochs from ICA. Here instead, we apply the <code class="docutils literal notranslate"><span class="pre">fit_transform()</span></code> method, which both fits the model, and <em>applies</em> the “transformation” (i.e., the exclusion of bad epochs and interpolation of bad channels) to the data. We include a kwarg asking the method to output a log of the steps that AutoReject took to clean the data. We can use this log to see what AutoReject did. We assign the output of this method to two variables, <code class="docutils literal notranslate"><span class="pre">epochs_clean</span></code> and <code class="docutils literal notranslate"><span class="pre">reject_log_clean</span></code>. The first is the cleaned data, and the second is the log.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Remember that AutoReject can take a long time to run. Just be patient and let it run. You’ll know when it’s done because you’ll see a description of the cleaned epochs printed below.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="n">AutoReject</span>
+
+<span class="n">ar</span> <span class="o">=</span> <span class="n">AutoReject</span><span class="p">(</span><span class="n">n_interpolate</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                <span class="n">picks</span><span class="o">=</span><span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">epochs_postica</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> 
+                                     <span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                     <span class="n">eog</span><span class="o">=</span><span class="kc">False</span>
+                                    <span class="p">),</span>
+                <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> 
+                <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span>
+
+<span class="n">epochs_clean</span><span class="p">,</span> <span class="n">reject_log_clean</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">epochs_postica</span><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">epochs_clean</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">22</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
-
-<span class="ne">NameError</span>: name &#39;epochs_clean&#39; is not defined
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Number of events</th>
+        <td>490</td>
+    </tr>
+    <tr>
+        <th>Events</th>
+        
+        <td>CorResp: 130<br/>IncorResp: 0<br/>Match/A: 18<br/>Match/B: 18<br/>Match/C: 17<br/>Match/D: 16<br/>Mismatch/A: 18<br/>Mismatch/B: 17<br/>Mismatch/C: 15<br/>Mismatch/D: 18<br/>PicOnset: 133<br/>RespFeedback: 1<br/>RespPrompt: 89<br/>unused: 0</td>
+        
+    </tr>
+    <tr>
+        <th>Time range</th>
+        <td>-0.100 – 1.000 s</td>
+    </tr>
+    <tr>
+        <th>Baseline</th>
+        <td>-0.100 – 0.000 s</td>
+    </tr>
+</table></div></div>
+</div>
+<section id="view-autoreject-s-effects">
+<h3>View AutoReject’s Effects<a class="headerlink" href="#view-autoreject-s-effects" title="Permalink to this heading">#</a></h3>
+<p>We can plot the rejection log to see which epochs were rejected, and which channels were interpolated:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">reject_log_clean</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/4964fafe88d3fab53896b9bd3f32840c2af39219c02db7e58e0f15b912e9998e.png" src="../_images/4964fafe88d3fab53896b9bd3f32840c2af39219c02db7e58e0f15b912e9998e.png" />
 </div>
+</div>
+</section>
+<section id="visualize-average-erp-after-autoreject">
+<h3>Visualize Average ERP After AutoReject<a class="headerlink" href="#visualize-average-erp-after-autoreject" title="Permalink to this heading">#</a></h3>
+<p>Let’s again plot the average ERPs across all Match and Mismatch trials, after AutoReject has been applied. We’ll create a figure with two subplots so we can compare the average before and after data cleaning with ICA + AutoReject:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+
+<span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> <span class="c1"># remember the semicolon prevents a duplicated plot</span>
+<span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/297cced48ad371a7bf9cb93f42c8e719e8a6920da8aec0ae68ded801ac48e8d6.png" src="../_images/297cced48ad371a7bf9cb93f42c8e719e8a6920da8aec0ae68ded801ac48e8d6.png" />
+</div>
+</div>
+<p>The data look very similar in the two panels, but there are some differences. In particular, the variability in amplitude across channels is larger prior to artifact removal. Notably, the anterior channels (shown in green/yellow hues) seem to cluster together, and are different in amplitude from other channels. This suggests that there were some ocular artifacts in the later portion of some of the epochs — since ocular artifacts are much larger over anterior than posterior channels. After cleaning, the differences between channels are decreased, providing evidence that the cleaning process had an effect.</p>
+<p>It’s also insightful to note here that, in the average across nearly 150 epochs, the ocular artifacts do not look like a “canonical” blink or horizontal eye movement artifact, like the examples shown in the previous lesson. Since ocular artifacts typically don’t occur at the same time relative to stimulus onset, and occur on a (hopefully) small number of trials, in the average their influence is more subtle. However, they can still have a large effect on the data, as we can see here.</p>
+</section>
 <section id="scalp-topography-maps">
 <h3>Scalp topography maps<a class="headerlink" href="#scalp-topography-maps" title="Permalink to this heading">#</a></h3>
 <p>As we did with ICA components, we can plot the EEG potentials over the scalp, using the <code class="docutils literal notranslate"><span class="pre">.plot_topomap()</span></code> method. The code below generates a scalp map every 100 ms, which reflects the electrical potentials averaged over a 50 ms window centered on each time point. The time range over which each plot is averaged are shown in the labels above each scalp plot; the numbers are not precisely 50 ms ranges, because the sampling rate was 500 Hz, meaning that samples were acquired every 2 ms. So we have data at, e.g., .024 and .026 s, but not at .025.</p>
@@ -1322,18 +1289,41 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">23</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;epochs_clean&#39; is not defined
+<img alt="../_images/b9a474ca306b6e58e1b515475c2e659c4c148f04034dc4aefad4494298fe34aa.png" src="../_images/b9a474ca306b6e58e1b515475c2e659c4c148f04034dc4aefad4494298fe34aa.png" />
+</div>
+</div>
+<p>We can plot the Mismatch trials separately from the Match trials, to see if there are any differences in the scalp topography of the ERPs between the two conditions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/e445423f5fc7fb2985a6acb1b97264727f47d5b8d5e9e4f11e66bb9a5f253f2b.png" src="../_images/e445423f5fc7fb2985a6acb1b97264727f47d5b8d5e9e4f11e66bb9a5f253f2b.png" />
 </div>
+</div>
+<p>There do seem to be differences, but be careful: look at the range of microVolt values in the colorbars for each plot. They are different. By default, MNE scales the range of the colorbar in topo plots to the range of values in each data object that is passed to it. This is useful bin visualizing the scalp distribution of effects in any particular condition, but it makes it impossible to compare between conditions. But to compare between two plots, we need to ensure that the colorbar ranges are the same for both. We can use the <code class="docutils literal notranslate"><span class="pre">vlim</span></code> kwarg to specify the range of values to use for the <em>y</em> axis and colorbar. Here we use the same range for both conditions, so that we can compare them. Since one plot’s range is ±10 µV, and the other is ±6 µV, we use ±8 as a compromise</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Always use a symmetrical pair of values for the <code class="docutils literal notranslate"><span class="pre">vlim</span></code> argument to <code class="docutils literal notranslate"><span class="pre">plot_topomap()</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">(-10,</span> <span class="pre">10)</span></code>, but not <code class="docutils literal notranslate"><span class="pre">(-10,</span> <span class="pre">5)</span></code>). The red-blue color scale that is used assumes that the values are symmetrical, so that values close to zero appear white, positive values are read, and negative values are blue. This is quite intuitive for most viewers to interpret. However, if you use an asymmetric range, then white will not be centered on zero, and the color scale will be misleading.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">,</span> <span class="n">vlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">));</span>
+<span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">,</span> <span class="n">vlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/f18ab932a6b94045b10245921287c0a4748ee9b5a4a619a7678fc2eb387d6a75.png" src="../_images/f18ab932a6b94045b10245921287c0a4748ee9b5a4a619a7678fc2eb387d6a75.png" />
+<img alt="../_images/b5aba3644d5eeaa7a7c48046dbf008ccbf1c0ecdc7c20df6f07a00733f2a1005.png" src="../_images/b5aba3644d5eeaa7a7c48046dbf008ccbf1c0ecdc7c20df6f07a00733f2a1005.png" />
+</div>
+</div>
+<p>The differences between conditions appear smaller now, however some differences are still visible. In the next lesson we’ll explore how to visualize differences between conditions in more detail.</p>
 </section>
 </section>
 <section id="save-epochs">
@@ -1342,16 +1332,6 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_clean</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-epo.fif&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">24</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs_clean</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-epo.fif&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;epochs_clean&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1432,12 +1412,14 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-events-over-time">Plot Events Over Time</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segment-the-data-into-epochs">Segment the data into epochs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-and-indexing-epochs">Viewing and Indexing Epochs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-average-erp-across-all-conditions-before-artifact-correction">Visualize Average ERP Across All Conditions – Before Artifact Correction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-average-erp-across-conditions-of-interest-before-artifact-correction">Visualize Average ERP Across Conditions of Interest – Before Artifact Correction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-ica-correction-to-epochs">Apply ICA correction to epochs</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-average-erp-after-ica-artifact-removal">Visualize Average ERP After ICA Artifact Removal</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoreject-for-final-data-cleaning">AutoReject for Final Data Cleaning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-autoreject-s-effects">View AutoReject’s Effects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-average-erp-after-autoreject">Visualize Average ERP After AutoReject</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalp-topography-maps">Scalp topography maps</a></li>
 </ul>
 </li>
