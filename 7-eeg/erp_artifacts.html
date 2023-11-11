@@ -608,26 +608,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%HTML</span>
-<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
-<span class="w">    </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nv">--vscode-font-family</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BW Nista Grotesk&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><style>
-    body {
-        --vscode-font-family: "BW Nista Grotesk"
-    }
-</style>
-</div></div>
-</div>
-<section class="tex2jax_ignore mathjax_ignore" id="artifacts-in-eeg-data">
+  <section class="tex2jax_ignore mathjax_ignore" id="artifacts-in-eeg-data">
 <h1>Artifacts in EEG Data<a class="headerlink" href="#artifacts-in-eeg-data" title="Permalink to this heading">#</a></h1>
 <p>Recall that the term <strong>artifact</strong> in EEG refers to any noise in the data that can be attributed to a specific source. So eye blinks, eye movements, and muscle contractions are all types of artifacts. It is important to remove these from the data, to increase our confidence that the results we ultimately interpret are actually due to brain activity, and not these other sources.</p>
 <p>Common physiological artifacts, including eye blinks, eye movements, and muscle contractions, have highly characteristic properties in time and frequency. Examples of each are shown below:</p>
@@ -883,22 +864,37 @@ document.write(`
 <section id="identify-eog-artifacts-from-ica-components">
 <h2>Identify EOG Artifacts from ICA Components<a class="headerlink" href="#identify-eog-artifacts-from-ica-components" title="Permalink to this heading">#</a></h2>
 <p>MNE has an algorithm that attempts to automatically identify ICA components. The <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> function computes correlations between each IC and channels that the researcher has designated as <strong>EOG</strong> (electro-oculogram) channels. These are electrodes, the same as EEG electrodes, but intentionally placed close to the eyes specifically to monitor for blinks and eye movements. These are typically placed above and below one eye (to monitor blinks and vertical eye movements, as well as on the temples of the head laterally to the eyes (to monitor horizontal eye movements).</p>
-<p>In the present data set, the system had 16 scalp electrodes but no EOG electrodes, so EOG was not recorded. However, the Fp1 and Fp2 electrodes are above the eyes, and F7 and F8 are close enough to the sides of the eyes to detect horizontal movements. <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> takes a <code class="docutils literal notranslate"><span class="pre">ch_name</span></code> kwarg to allow us to specify EEG channels that we want to use in place of EOG channels; below we use Fp1 and F8 (we only need one channel each for blinks and horizontal movements). We add another kward to override the default correlation threshold of <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> which, in my experience, does not work well for EEG data (although it does for MEG data) and use instead <em>z</em> &gt; 1.96, which corresponds to a 5% chance of a correlation that large occurring due to chance.</p>
+<p>In the present data set, the system had 16 scalp electrodes but no EOG electrodes, so EOG was not recorded. However, the Fp1 and Fp2 electrodes are above the eyes, and F7 and F8 are close enough to the sides of the eyes to detect horizontal movements. <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> takes a <code class="docutils literal notranslate"><span class="pre">ch_name</span></code> kwarg to allow us to specify EEG channels that we want to use in place of EOG channels.</p>
+<p>ADD EXPLANATION OF DYNAMIC THRESHOLD</p>
 <p>MNE also provides a <code class="docutils literal notranslate"><span class="pre">.plot_scores()</span></code> method that will plot the correlation values for each IC, and mark any that were rejected in red.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica_z_thresh</span> <span class="o">=</span> <span class="mf">1.96</span>
-<span class="n">eog_indices</span><span class="p">,</span> <span class="n">eog_scores</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">find_bads_eog</span><span class="p">(</span><span class="n">raw_ica</span><span class="p">,</span> 
-                                            <span class="n">ch_name</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Fp1&#39;</span><span class="p">,</span> <span class="s1">&#39;F8&#39;</span><span class="p">],</span> 
-                                            <span class="n">threshold</span><span class="o">=</span><span class="n">ica_z_thresh</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">num_excl</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">max_ic</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">z_thresh</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">z_step</span> <span class="o">=</span> <span class="mf">.1</span>
+
+<span class="k">while</span> <span class="n">num_excl</span> <span class="o">&lt;</span> <span class="n">max_ic</span><span class="p">:</span>
+    <span class="n">eog_indices</span><span class="p">,</span> <span class="n">eog_scores</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">find_bads_eog</span><span class="p">(</span><span class="n">epochs_ica</span><span class="p">,</span>
+                                                <span class="n">ch_name</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Fp1&#39;</span><span class="p">,</span> <span class="s1">&#39;Fp2&#39;</span><span class="p">,</span> <span class="s1">&#39;F7&#39;</span><span class="p">,</span> <span class="s1">&#39;F8&#39;</span><span class="p">],</span> 
+                                                <span class="n">threshold</span><span class="o">=</span><span class="n">z_thresh</span>
+                                                <span class="p">)</span>
+    <span class="n">num_excl</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">eog_indices</span><span class="p">)</span>
+    <span class="n">z_thresh</span> <span class="o">-=</span> <span class="n">z_step</span> <span class="c1"># won&#39;t impact things if num_excl is ≥ n_max_eog </span>
+
 <span class="n">ica</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="n">eog_indices</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;z threshold = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">z_thresh</span><span class="p">))</span>
 <span class="n">ica</span><span class="o">.</span><span class="n">plot_scores</span><span class="p">(</span><span class="n">eog_scores</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/266c68713281fe66f49f4c23f090cb73af600393cfcfd982ea737900d2d24ef9.png" src="../_images/266c68713281fe66f49f4c23f090cb73af600393cfcfd982ea737900d2d24ef9.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>z threshold = 2.099999999999999
+</pre></div>
+</div>
+<img alt="../_images/248c098443daa7a43ad9088018c6037dc00e12f1a3186f408b14dda891ef725b.png" src="../_images/248c098443daa7a43ad9088018c6037dc00e12f1a3186f408b14dda891ef725b.png" />
 </div>
 </div>
 </section>
