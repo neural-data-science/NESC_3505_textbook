@@ -584,17 +584,18 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eye-blink">Eye blink</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eye-movements">Eye movements</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#muscle-contractions">Muscle contractions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#artifact-removal-with-independent-components-analysis-ica">Artifact removal with Independent Components Analysis (ICA)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-data-for-ica">Filter data for ICA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#artifact-removal-with-independent-components-analysis-ica">Artifact removal with Independent Components Analysis (ICA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-the-raw-data">Read the Raw Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-the-data-for-ica">Filter the Data for ICA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segment-data-for-ica">Segment data for ICA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-clean-data-for-ica">Pre-Clean Data for ICA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-ica-to-the-data">Fit ICA to the Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-yet-repeatable">Random Yet Repeatable</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segment-data-for-ica">Segment data for ICA</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-ica-to-data">Fit ICA to data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-ica-components">Visualize ICA components</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-ic-properties">Plot IC properties</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-eog-artifacts-from-ica-components">Identify EOG artifacts from ICA components</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-ica-components">Visualize ICA components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-ic-properties">Plot IC properties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-eog-artifacts-from-ica-components">Identify EOG Artifacts from ICA Components</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-ica">Save ICA</a></li>
 </ul>
             </nav>
@@ -607,7 +608,26 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="artifacts-in-eeg-data">
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%HTML</span>
+<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nv">--vscode-font-family</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BW Nista Grotesk&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+    body {
+        --vscode-font-family: "BW Nista Grotesk"
+    }
+</style>
+</div></div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="artifacts-in-eeg-data">
 <h1>Artifacts in EEG Data<a class="headerlink" href="#artifacts-in-eeg-data" title="Permalink to this heading">#</a></h1>
 <p>Recall that the term <strong>artifact</strong> in EEG refers to any noise in the data that can be attributed to a specific source. So eye blinks, eye movements, and muscle contractions are all types of artifacts. It is important to remove these from the data, to increase our confidence that the results we ultimately interpret are actually due to brain activity, and not these other sources.</p>
 <p>Common physiological artifacts, including eye blinks, eye movements, and muscle contractions, have highly characteristic properties in time and frequency. Examples of each are shown below:</p>
@@ -620,7 +640,7 @@ document.write(`
 <p><span class="caption-number">Fig. 13 </span><span class="caption-text">Examples of blink artifacts in EEG data.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Because the artifact originates at the eyes, is is picked up most strongly by the electrodes on the forehead, Fp1 and Fp2, as well as other frontal electrodes (the ones whose labels start with <em>F</em>, though much smaller). The electrical potential sharply increases, then decreases, over a period of about 250-300 ms for a typical blink. The artifact actually <em>inverts</em> at more posterior electrodes, for example at TP9 and TP10 in the figure above. These are the characteristic properties of an eye blink artifact, which can be used to identify them.</p>
+<p>Because the artifact originates at the eyes, is is picked up most strongly by the electrodes on the forehead, Fp1 and Fp2, as well as other frontal electrodes (the ones whose labels start with <em>F</em>), though much smaller. The electrical potential sharply increases, then decreases, over a period of about 250-300 ms for a typical blink. The artifact actually <em>inverts</em> at more posterior electrodes, for example at TP9 and TP10 in the figure above. These are the characteristic properties of an eye blink artifact, which can be used to identify them.</p>
 </section>
 <section id="eye-movements">
 <h2>Eye movements<a class="headerlink" href="#eye-movements" title="Permalink to this heading">#</a></h2>
@@ -649,28 +669,33 @@ document.write(`
 <p>A nice example of using ICA, that may seem a. bit less abstract than EEG data, is audio recording. Imagine that we have two people in a room having a conversation, and there is background noise in the room such as from the ventilation system. If we have a single microphone in the room, all three signals (person A, person B, and the ventilation) will be mixed in the recording and it will be hard to separate them. However, if we have three microphones at different locations in the room, then each will pick up all three sound sources, but to different degrees depending on the location of each microphone. ICA can use the audio from all three microphones to find independent sources in the data (i.e., person A, person B, and the ventilation), based on how the sounds from each person, and the ventilation, differ systematically across the three microphones. But this only works because we have multiple independent sources (the microphones) sampling the data from different locations.</p>
 <p>Likewise with EEG, it is necessary to have multiple electrodes (the sources) to run ICA. The maximum number of ICA components  that can be derived from a data set is equal to the number of electrodes (channels) we have. However, in practice the number of independent sources in the data is lower than the number of electrodes, and we can limit the number of ICA components accordingly, as we’ll see below.</p>
 <p>In EEG, ICA has become widely used for artifact identification and removal. This is because it does a very good job of identifying ocular artifacts (blinks and eye movements), and also usually muscle artifact as well. Moreover, because the different ICA components are mathematically independent of each other, having identified which components are “noise” (such as blinks), we can remove these components from the data without affecting the other components. This means we can effectively remove the effects of ocular artifacts from the data, while preserving the EEG signals. This is usually preferable to older approaches, such as removing any trial containing an artifact from the data set completely. ICA allows us to remove artifacts while keeping all of the trials.</p>
-<section id="filter-data-for-ica">
-<h3>Filter data for ICA<a class="headerlink" href="#filter-data-for-ica" title="Permalink to this heading">#</a></h3>
-<p>ICA is very good at capturing features of the data that explain the most <em>variance</em>. Recall that variance, statistically speaking, is any deviation from the mean. Blinks and eye movements are well-captured by ICA because they are so much larger than EEG, and so they contain a lot of the variance in the EEG recordings. Likewise, low-frequency drift in the data explains large amounts of variance, because of the 1/f property of EEG data discussed earlier — the lowest frequencies contain the most power. For this reason, ICA works best on data that has more low-frequency power removed than the data that we ultimately want to analyze. So we will filter the data for ICA with a 1 Hz high-pass cutoff, rather than a 0.1 Hz cutoff as we used above. A useful property of ICA is that we can compute ICA based on a more-filtered version of the data, identify the artifacts based on this, and then apply the same ICA decomposition (i.e., how ICA breaks the data down into components) to the data that were filtered as we wanted for ERP analysis. Below we do this, running the same filtering command as we did in the previous lesson, except with a different high-pass (low frequency) cut-off.</p>
-<p>First we import MNE and load the raw data:</p>
+</section>
+<section id="read-the-raw-data">
+<h2>Read the Raw Data<a class="headerlink" href="#read-the-raw-data" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
 <span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>  <span class="c1"># reduce extraneous MNE output</span>
 
 <span class="c1"># Participant ID code</span>
-<span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;N400_dataset_14&#39;</span>
+<span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;sub-001&#39;</span>
 <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
 
+<span class="c1"># Read the Raw Data</span>
 <span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-raw.fif&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="filter-the-data-for-ica">
+<h2>Filter the Data for ICA<a class="headerlink" href="#filter-the-data-for-ica" title="Permalink to this heading">#</a></h2>
+<p>ICA is very good at capturing features of the data that explain the most <em>variance</em>. Recall that variance, statistically speaking, is any deviation from the mean. Blinks and eye movements are well-captured by ICA because they are so much larger than EEG, and so they contain a lot of the variance in the EEG recordings. Likewise, low-frequency drift in the data explains large amounts of variance, because of the 1/f property of EEG data discussed earlier — the lowest frequencies contain the most power.</p>
+<p>For this reason, ICA works best on data that has more low-frequency power removed than the data that we ultimately want to analyze. So we will filter the data for ICA with a <strong>1 Hz</strong> high-pass cutoff, rather than the 0.1 Hz cutoff as we used in the filtering lesson (which is a more typical cutoff for ERP data). We can compute ICA based on the 1 Hz filtered version of the data, identify the artifacts based on this, and then apply the same ICA decomposition (i.e., how ICA breaks the data down into components) to the data that were filtered as we wanted for ERP analysis. This allows us to filter the data optimally for ICA, and then apply the artifact correction to data filtered the way it should be for ERPs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter settings</span>
-<span class="n">ica_low_cut</span> <span class="o">=</span> <span class="mf">1.0</span>       <span class="c1"># For ICA, we filter out more low-frequency power</span>
+<span class="n">ica_low_cut</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="c1"># For ICA, we filter out more low-frequency power</span>
 <span class="n">hi_cut</span>  <span class="o">=</span> <span class="mi">30</span>
 
 <span class="n">raw_ica</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ica_low_cut</span><span class="p">,</span> <span class="n">hi_cut</span><span class="p">)</span>
@@ -679,10 +704,9 @@ document.write(`
 </div>
 </div>
 </section>
-</section>
 <section id="segment-data-for-ica">
 <h2>Segment data for ICA<a class="headerlink" href="#segment-data-for-ica" title="Permalink to this heading">#</a></h2>
-<p>ICA likes to work with segments of data, rather than the continuous raw data. We call segments of EEG data <strong>epochs</strong>, a word which means “a period of time”. Typically when talking about ERPs, <em>epochs</em> refers to the segments of data that are time-locked to experimental events of interest. Here, however, we use the term more generically to refer to any segment of EEG data. So here we will segment the entire raw data recording into a series of consecutive 1 s segments (ignoring the event markers for now), and save these as <code class="docutils literal notranslate"><span class="pre">epochs_ica</span></code>.</p>
+<p>ICA works best with segments of data, rather than the continuous raw data. We call segments of EEG data <strong>epochs</strong>, a word which means “a period of time”. Typically when talking about ERPs, <em>epochs</em> refers to the segments of data that are time-locked to experimental events of interest. Here, however, we use the term more generically to refer to any segment of EEG data. So here we will segment the entire raw data recording into a series of consecutive 1 s segments (i.e., 0-1 s, 1-2 s, etc.), ignoring the event markers for now. We save this series of epochs as <code class="docutils literal notranslate"><span class="pre">epochs_ica</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Break raw data into 1 s epochs</span>
@@ -696,37 +720,68 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Next we run a function from the <a class="reference external" href="https://autoreject.github.io/stable/index.html"><code class="docutils literal notranslate"><span class="pre">autoreject</span></code></a> package (an add-on to MNE) that will look at the data and automatically determine a threshold to use to find sections of the data that are excessively noisy. This can occur, for example, if a participant scratches their head during a recording, or sneezes, or for various other reasons. These “one-off” (or <em>paroxysmal</em> if you like fancy words) sources of noise can create large artifacts in the data. Since large amplitudes mean high variance, the presence of these artifacts can interfere with ICA’s finding more frequent artifacts like blinks — since blinks are larger than EEG data, but smaller than these one-off sources of noise.</p>
+</section>
+<section id="pre-clean-data-for-ica">
+<h2>Pre-Clean Data for ICA<a class="headerlink" href="#pre-clean-data-for-ica" title="Permalink to this heading">#</a></h2>
+<p>Next we run a function from the <a class="reference external" href="https://autoreject.github.io/stable/index.html"><code class="docutils literal notranslate"><span class="pre">AutoReject</span></code></a> package (an add-on to MNE) that will look at the data and automatically determine a threshold to use to find sections of the data that are excessively noisy. This can occur, for example, if a participant scratches their head during a recording, or sneezes, or for various other reasons. These “one-off” (or <em>paroxysmal</em> if you like fancy words) sources of noise can create large artifacts in the data. Since large amplitudes mean high variance, the presence of these artifacts can interfere with ICA’s finding more frequent artifacts like blinks — since blinks are larger than EEG data, but smaller than these one-off sources of noise.</p>
+<p><code class="docutils literal notranslate"><span class="pre">AutoReject</span></code>, as the name implies, is an automated and data-driven way of determining a threshold to distinguish between “noisy” and “clean” channels and epochs in the data. It is an iterative process that repeatedly takes sub-samples of the entire data set, and computes the variance of each channel and epoch. It then computes a threshold for each channel and epoch, based on the distribution of variances across the entire data set. It then rejects any channels or epochs that exceed the threshold.</p>
+<p>ICA is able to clean up some of the artifacts identified with AutoReject, so here we will compute the AutoReject threshold and use it to <em>mark</em> (but not reject) major artifacts. Then we’ll run ICA on only the clean subset of data, and apply ICA correction to remove artifacts. After that, we’ll run AutoReject again, but this time we will actually use it to also <em>correct</em> any remaining artifacts that ICA did not fix.</p>
+<p>To run AutoReject, we first import the function and then create an AutoReject object, which we call <code class="docutils literal notranslate"><span class="pre">ar</span></code>. Recall that objects are essentially specialized Python data structures that store information in specifically-named fields. We then run the <code class="docutils literal notranslate"><span class="pre">fit</span></code> method of the object on the <code class="docutils literal notranslate"><span class="pre">epochs_ica</span></code> data. This will compute the threshold for each channel and epoch, and store it in the <code class="docutils literal notranslate"><span class="pre">ar</span></code> object. We save the list of rejected epochs and channels to <code class="docutils literal notranslate"><span class="pre">reject_log</span></code>.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>AutoReject is a computationally-intensive algorithm, meaning it can take a long time to run — possibly several minutes or even longer, unless you have a powerful computer. Just be patient and let it run.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="n">get_rejection_threshold</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="n">AutoReject</span>
 
-<span class="n">reject</span> <span class="o">=</span> <span class="n">get_rejection_threshold</span><span class="p">(</span><span class="n">epochs_ica</span><span class="p">);</span>
-<span class="n">reject</span>
+<span class="n">ar</span> <span class="o">=</span> <span class="n">AutoReject</span><span class="p">(</span><span class="n">n_interpolate</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                <span class="n">picks</span><span class="o">=</span><span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">epochs_ica</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> 
+                                     <span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                     <span class="n">eog</span><span class="o">=</span><span class="kc">False</span>
+                                    <span class="p">),</span>
+                <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> 
+                <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span>
+
+<span class="n">ar</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs_ica</span><span class="p">)</span>
+
+<span class="n">reject_log</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">get_reject_log</span><span class="p">(</span><span class="n">epochs_ica</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>AutoReject provides a <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method for visualizing the results of the fit. This is shown below, where the <em>y</em> axis is the channels, and the <em>x</em> axis is epochs. Green areas are “good” data. The red vertical lines indicate epochs that were marked as “bad” by AutoReject. The blue lines indicate that specific channels that were marked as “bad” on epochs where most of the channels were considered “good”. In these cases, AutoReject has interpolated the data from those bad channels, based on the data from surrounding channels, rather than rejecting the entire epoch based on one or a small number of bad channels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">reject_log</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimating rejection dictionary for eeg
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;eeg&#39;: 0.00010817971884733591}
-</pre></div>
+<img alt="../_images/5443f967a9f4bb695f299d463564e1fbc3ce05500e13bd10d6e95504ff32889a.png" src="../_images/5443f967a9f4bb695f299d463564e1fbc3ce05500e13bd10d6e95504ff32889a.png" />
 </div>
 </div>
-</div>
-<section id="fit-ica-to-data">
-<h3>Fit ICA to data<a class="headerlink" href="#fit-ica-to-data" title="Permalink to this heading">#</a></h3>
-<p>Running ICA on our data involves two steps:</p>
+</section>
+<section id="fit-ica-to-the-data">
+<h2>Fit ICA to the Data<a class="headerlink" href="#fit-ica-to-the-data" title="Permalink to this heading">#</a></h2>
+<p>Now that we’ve marked bad epochs to exclude from ICA, we can run ICA itself.</p>
+<p>Running ICA on our data involves two steps, similar to AutoReject:</p>
 <ol class="arabic simple">
-<li><p>Create an <code class="docutils literal notranslate"><span class="pre">ICA</span></code> object with the parameters (kwargs) that we want to use</p></li>
+<li><p>Create an <code class="docutils literal notranslate"><span class="pre">ICA</span></code> object with the parameters (passed as kwargs) that we want to use</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">fit</span></code> this object to the data — which effectively runs the algorithm on the data, using the parameters set in step 1</p></li>
 </ol>
 <p>This may seem overly complex — why define and object and then apply a <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> method, rather than having a method that we just apply to the data in a single step/line of code?</p>
-<p>The reason relates to the nature of object-oriented languages. By creating an <code class="docutils literal notranslate"><span class="pre">ICA</span></code> object, we have a data structure — separate from the EEG data itself — that stores important information about this preprocessing step. After we fit the <code class="docutils literal notranslate"><span class="pre">ICA</span></code> object to the data, the object contains the values that were estimated from the data. In other words, running <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> on the data <em>doesn’t change the data itself</em>, only the <code class="docutils literal notranslate"><span class="pre">ICA</span></code> object. That way, this step is “non-destructive” in the sense that if we aren’t happy with the results, we don’t need to worry about re-loading our data — we can simply modify parameters of the <code class="docutils literal notranslate"><span class="pre">ICA</span></code> object and re-fit it. We’ll do this for ICA as well; later in the course we’ll see that this is actually the primary way in which machine learning and statistical models are fit to data sets in Python.</p>
+<p>The reason relates to the nature of object-oriented languages. By creating an <code class="docutils literal notranslate"><span class="pre">ICA</span></code> object, we have a data structure — separate from the EEG data itself — that stores important information about this preprocessing step. After we fit the <code class="docutils literal notranslate"><span class="pre">ICA</span></code> object to the data, the object contains the results of the fit — the set of values that were estimated from the data. In other words, running <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> on the data <em>doesn’t change the data itself</em>, only the <code class="docutils literal notranslate"><span class="pre">ICA</span></code> object. That way, this step is “non-destructive” in the sense that if we aren’t happy with the results, we don’t need to worry about re-loading our data — we can simply modify parameters of the <code class="docutils literal notranslate"><span class="pre">ICA</span></code> object and re-fit it. We’ll do this for ICA as well; later in the course we’ll see that this is actually the primary way in which machine learning and statistical models are fit to data sets in Python.</p>
 <p>The first parameter that we want to specify is the number of independent components we want. Recall that by default, ICA will compute as many components as there are channels in the data, but this is typically more than is necessary or useful. The <code class="docutils literal notranslate"><span class="pre">n_components</span></code> parameter of ICA can be specified in one of two ways. One is to provide an integer specifying the actual number of components desired. An optimal number for this, however, is hard to know in advance. The other way is to specify a floating point number ≤ 1, which represents the percentage of data that the ICA components should, collectively, explain. Here we use <code class="docutils literal notranslate"><span class="pre">.99</span></code>, which means we want as many independent components as needed to explain 99% of the variance in the data. Typically this is a good value to use.</p>
+<section id="random-yet-repeatable">
+<h3>Random Yet Repeatable<a class="headerlink" href="#random-yet-repeatable" title="Permalink to this heading">#</a></h3>
 <p>The other parameter is <code class="docutils literal notranslate"><span class="pre">random_state</span></code>. We use this because ICA is an <em>iterative</em> algorithm that starts with a set of random parameters, and then over a series of fitting steps computes the optimal values of these parameters. The set of random parameters it starts with determines the results to some extent. That is, if you fit ICA repeatedly to the data, you will generally get very similar, but not identical, results each time, because of the different random starting points. By specifying a <code class="docutils literal notranslate"><span class="pre">random_state</span></code>, we ensure that the same “random” parameters are used each time, meaning that our results will be replicable. The value 42 is used by convention, because it is the “Answer to the Ultimate Question of Life, the Universe, and Everything” in <em>The Hitchhiker’s Guide to the Galaxy</em> (Adams, 1979).</p>
-<p>In fitting ICA to the data, we include a couple of other parameters, which were defined earlier. <code class="docutils literal notranslate"><span class="pre">reject</span></code> comes from <code class="docutils literal notranslate"><span class="pre">get_rejection_threshold</span></code>, and <code class="docutils literal notranslate"><span class="pre">tstep</span></code> is the 1 s intervals that we segmented our data in.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ICA parameters</span>
@@ -737,9 +792,7 @@ document.write(`
 <span class="n">ica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">ICA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">ica_n_components</span><span class="p">,</span>
                             <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
                             <span class="p">)</span>
-<span class="n">ica</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs_ica</span><span class="p">,</span>
-        <span class="n">reject</span><span class="o">=</span><span class="n">reject</span><span class="p">,</span>
-        <span class="n">tstep</span><span class="o">=</span><span class="n">tstep</span><span class="p">)</span>
+<span class="n">ica</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs_ica</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -751,12 +804,12 @@ document.write(`
     </tr>
     <tr>
         <th>Fit</th>
-        <td>31 iterations on epochs (624747 samples)</td>
+        <td>31 iterations on epochs (409317 samples)</td>
     </tr>
     
     <tr>
         <th>ICA components</th>
-        <td>8</td>
+        <td>12</td>
     </tr>
     <tr>
         <th>Available PCA components</th>
@@ -775,11 +828,12 @@ document.write(`
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> step produces the output you see above, showing some of the resulting parameters stored in <code class="docutils literal notranslate"><span class="pre">ica</span></code>.</p>
 </section>
+</section>
 <section id="visualize-ica-components">
-<h3>Visualize ICA components<a class="headerlink" href="#visualize-ica-components" title="Permalink to this heading">#</a></h3>
+<h2>Visualize ICA components<a class="headerlink" href="#visualize-ica-components" title="Permalink to this heading">#</a></h2>
 <p>Every IC (an independent component identified by ICA) is a signal that varies over time, that has a “weighting” at each channel - reflecting how strongly present that IC is in that channel. In other words, the time course of an IC is the same at all electrodes, but it is bigger at some, and smaller at others.</p>
 <p>We can visualize each component as a <strong>scalp topography map</strong>, showing where on the scalp the IC is largest. <em>Topo maps</em>, as they are often abbreviated, are a different way of visualizing EEG data than we’ve seen before. Whereas previously we’ve viewed EEG as electrical potential over time, topo maps show how the potential are distributed spatially, at a specific point in time (or averaged over a period of time). The maps use the red-blue colour map where red is positive, blue is negative, and white is zero. “Positive” and “negative” in ICA topo maps can reflect cases where a component has the same shape over time, but opposite (negative vs. positive) electrical polarity at different scalp locations. This can be seen, for example, in <code class="docutils literal notranslate"><span class="pre">ICA001</span></code> below, which reflects the opposite polarities induced by horizontal eye movements.</p>
-<p>Indeed, in the figure below we can see that a few ICs are likely ocular artifacts, because they weight most heavily around the front of the head (the top of each subplot, where the nose is drawn). In particular, <code class="docutils literal notranslate"><span class="pre">ICA000</span></code> is likely blink artifact, and <code class="docutils literal notranslate"><span class="pre">ICA001</span></code> is likely horizontal eye movement. <code class="docutils literal notranslate"><span class="pre">ICA002</span></code> may be eye movement as well.</p>
+<p>Indeed, in the figure below we can see that a few ICs are likely ocular artifacts, because they weight most heavily around the front of the head (the top of each subplot, where the nose is drawn). In particular, <code class="docutils literal notranslate"><span class="pre">ICA000</span></code> is likely blink artifact, and <code class="docutils literal notranslate"><span class="pre">ICA002</span></code> is likely horizontal eye movement.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica</span><span class="o">.</span><span class="n">plot_components</span><span class="p">();</span>
@@ -787,12 +841,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/112a9ff81da0d20e18b81dc846c0e27ccd4092e44fa639bde614998484ae5cec.png" src="../_images/112a9ff81da0d20e18b81dc846c0e27ccd4092e44fa639bde614998484ae5cec.png" />
+<img alt="../_images/508d47f8277f9ea128566131393184473fc9d4ce69311dab04ca093e58430863.png" src="../_images/508d47f8277f9ea128566131393184473fc9d4ce69311dab04ca093e58430863.png" />
 </div>
 </div>
 </section>
 <section id="plot-ic-properties">
-<h3>Plot IC properties<a class="headerlink" href="#plot-ic-properties" title="Permalink to this heading">#</a></h3>
+<h2>Plot IC properties<a class="headerlink" href="#plot-ic-properties" title="Permalink to this heading">#</a></h2>
 <p>We can use the <code class="docutils literal notranslate"><span class="pre">.plot_properties()</span></code> method of the ICA class to view more details of each IC. Moving clockwise from top left, the four subplots for each IC are:</p>
 <ul class="simple">
 <li><p>topo map</p></li>
@@ -811,25 +865,29 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f7f01359ac4a046b03ef229763d06ff549c678694b79e8f09abc0fad67418e74.png" src="../_images/f7f01359ac4a046b03ef229763d06ff549c678694b79e8f09abc0fad67418e74.png" />
-<img alt="../_images/d5cd0c6b9cd2a6d9c12c80a514c824255b4e23e43dcc4c60429b528f71222374.png" src="../_images/d5cd0c6b9cd2a6d9c12c80a514c824255b4e23e43dcc4c60429b528f71222374.png" />
-<img alt="../_images/2b32fc34b62ba2c02b465d77f17d696fe9b75aa6e3714a4c82f43fecccd2596e.png" src="../_images/2b32fc34b62ba2c02b465d77f17d696fe9b75aa6e3714a4c82f43fecccd2596e.png" />
-<img alt="../_images/9899ac95d8464b84cf78a04720a36edfafa278d988da4389d1be4fd037778c20.png" src="../_images/9899ac95d8464b84cf78a04720a36edfafa278d988da4389d1be4fd037778c20.png" />
-<img alt="../_images/58eae3cdcb0181e0ede6ed4c7a03755b183676371334200f3477df6f2552569e.png" src="../_images/58eae3cdcb0181e0ede6ed4c7a03755b183676371334200f3477df6f2552569e.png" />
-<img alt="../_images/42cb78b5ab377662a272f73a50ce7ca67955f935676e8e3c4eb164073f5894c2.png" src="../_images/42cb78b5ab377662a272f73a50ce7ca67955f935676e8e3c4eb164073f5894c2.png" />
-<img alt="../_images/82a1b9d98b4911eb9b2d1f5429efe6720421c4572f5a9b9d77fbeded8406c572.png" src="../_images/82a1b9d98b4911eb9b2d1f5429efe6720421c4572f5a9b9d77fbeded8406c572.png" />
-<img alt="../_images/e61f6c70d76daa711490fcf21a0647a76bdd1b081412f770dd532f3dce78da90.png" src="../_images/e61f6c70d76daa711490fcf21a0647a76bdd1b081412f770dd532f3dce78da90.png" />
+<img alt="../_images/fb6dee25b8b885e78aca2fb218bd9e94b22463bb8bac6a54892ac5bc20d32bee.png" src="../_images/fb6dee25b8b885e78aca2fb218bd9e94b22463bb8bac6a54892ac5bc20d32bee.png" />
+<img alt="../_images/e13b8e74169925bb9ea1f0257dbb12f5c5470077d176ec9b67644765ab186d36.png" src="../_images/e13b8e74169925bb9ea1f0257dbb12f5c5470077d176ec9b67644765ab186d36.png" />
+<img alt="../_images/c92e4cc65debaa5407921026a58b41784d9e303b3fd470cc01bdd2193d98ef97.png" src="../_images/c92e4cc65debaa5407921026a58b41784d9e303b3fd470cc01bdd2193d98ef97.png" />
+<img alt="../_images/5f89f56f7c256abae69f1771ac49cc6a314fa482560599ebbb451122ed0698c5.png" src="../_images/5f89f56f7c256abae69f1771ac49cc6a314fa482560599ebbb451122ed0698c5.png" />
+<img alt="../_images/244bdfc7c1912a49297b1768dfe76a0b74cf5e42b8d1ce3f00d5c59184fc8695.png" src="../_images/244bdfc7c1912a49297b1768dfe76a0b74cf5e42b8d1ce3f00d5c59184fc8695.png" />
+<img alt="../_images/ec708de7cfd9b04162f55d2e6ff3d98f0decb9cf956c0ad2a8fe70223e927183.png" src="../_images/ec708de7cfd9b04162f55d2e6ff3d98f0decb9cf956c0ad2a8fe70223e927183.png" />
+<img alt="../_images/325c9d22faedae2b0c42c66a38fbaf7786bf4476d2f30f51b17f00563ac59dc6.png" src="../_images/325c9d22faedae2b0c42c66a38fbaf7786bf4476d2f30f51b17f00563ac59dc6.png" />
+<img alt="../_images/f30867cb5b4f41f2044ba5e7d18b4ca6d99d879731010d3ca5e2d3d022ac4db1.png" src="../_images/f30867cb5b4f41f2044ba5e7d18b4ca6d99d879731010d3ca5e2d3d022ac4db1.png" />
+<img alt="../_images/40f2208687c62ad2d7b7fdb1b623fc7551e32e3b664d074ed8cac7e0912ddb37.png" src="../_images/40f2208687c62ad2d7b7fdb1b623fc7551e32e3b664d074ed8cac7e0912ddb37.png" />
+<img alt="../_images/2a3a7074da15e94a136872549c66c6ab37f998e76fbd23006001722546c33686.png" src="../_images/2a3a7074da15e94a136872549c66c6ab37f998e76fbd23006001722546c33686.png" />
+<img alt="../_images/b929b39f04028af917166f1eda839cc9652ccb7faac1ee58e1dac16a961142b7.png" src="../_images/b929b39f04028af917166f1eda839cc9652ccb7faac1ee58e1dac16a961142b7.png" />
+<img alt="../_images/819ff317f05d59e81153c29e7679b476c26bd40f066fc2601f4e5bbb8c88daea.png" src="../_images/819ff317f05d59e81153c29e7679b476c26bd40f066fc2601f4e5bbb8c88daea.png" />
 </div>
 </div>
 </section>
 <section id="identify-eog-artifacts-from-ica-components">
-<h3>Identify EOG artifacts from ICA components<a class="headerlink" href="#identify-eog-artifacts-from-ica-components" title="Permalink to this heading">#</a></h3>
+<h2>Identify EOG Artifacts from ICA Components<a class="headerlink" href="#identify-eog-artifacts-from-ica-components" title="Permalink to this heading">#</a></h2>
 <p>MNE has an algorithm that attempts to automatically identify ICA components. The <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> function computes correlations between each IC and channels that the researcher has designated as <strong>EOG</strong> (electro-oculogram) channels. These are electrodes, the same as EEG electrodes, but intentionally placed close to the eyes specifically to monitor for blinks and eye movements. These are typically placed above and below one eye (to monitor blinks and vertical eye movements, as well as on the temples of the head laterally to the eyes (to monitor horizontal eye movements).</p>
-<p>In the present data set, unfortunately EOG was not recorded. However, the Fp1 and Fp2 electrodes are above the eyes, and F7 and F8 are close enough to the sides of the eyes to detect horizontal movements. <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> takes a <code class="docutils literal notranslate"><span class="pre">ch_name</span></code> kwarg to allow us to specify EEG channels that we want to use in place of EOG channels; below we use Fp1 and F8 (we only need one channel each for blinks and horizontal movements). We add another kward to override the default correlation threshold of <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> which, in my experience, does not work well for EEG data (although it does for MEG data) and use instead <em>z</em> &gt; 1.96, which corresponds to a 5% chance of a correlation that large occurring due to chance.</p>
+<p>In the present data set, the system had 16 scalp electrodes but no EOG electrodes, so EOG was not recorded. However, the Fp1 and Fp2 electrodes are above the eyes, and F7 and F8 are close enough to the sides of the eyes to detect horizontal movements. <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> takes a <code class="docutils literal notranslate"><span class="pre">ch_name</span></code> kwarg to allow us to specify EEG channels that we want to use in place of EOG channels; below we use Fp1 and F8 (we only need one channel each for blinks and horizontal movements). We add another kward to override the default correlation threshold of <code class="docutils literal notranslate"><span class="pre">find_bads_eog()</span></code> which, in my experience, does not work well for EEG data (although it does for MEG data) and use instead <em>z</em> &gt; 1.96, which corresponds to a 5% chance of a correlation that large occurring due to chance.</p>
 <p>MNE also provides a <code class="docutils literal notranslate"><span class="pre">.plot_scores()</span></code> method that will plot the correlation values for each IC, and mark any that were rejected in red.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica_z_thresh</span> <span class="o">=</span> <span class="mf">1.96</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica_z_thresh</span> <span class="o">=</span> <span class="mf">1.96</span>
 <span class="n">eog_indices</span><span class="p">,</span> <span class="n">eog_scores</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">find_bads_eog</span><span class="p">(</span><span class="n">raw_ica</span><span class="p">,</span> 
                                             <span class="n">ch_name</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Fp1&#39;</span><span class="p">,</span> <span class="s1">&#39;F8&#39;</span><span class="p">],</span> 
                                             <span class="n">threshold</span><span class="o">=</span><span class="n">ica_z_thresh</span><span class="p">)</span>
@@ -840,10 +898,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d1bebf13b289cfe86e3b7eec01ebfc90c1b001e20ce3b26d55ce8721e7903380.png" src="../_images/d1bebf13b289cfe86e3b7eec01ebfc90c1b001e20ce3b26d55ce8721e7903380.png" />
+<img alt="../_images/266c68713281fe66f49f4c23f090cb73af600393cfcfd982ea737900d2d24ef9.png" src="../_images/266c68713281fe66f49f4c23f090cb73af600393cfcfd982ea737900d2d24ef9.png" />
 </div>
 </div>
-</section>
 </section>
 <section id="save-ica">
 <h2>Save ICA<a class="headerlink" href="#save-ica" title="Permalink to this heading">#</a></h2>
@@ -925,17 +982,18 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eye-blink">Eye blink</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eye-movements">Eye movements</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#muscle-contractions">Muscle contractions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#artifact-removal-with-independent-components-analysis-ica">Artifact removal with Independent Components Analysis (ICA)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-data-for-ica">Filter data for ICA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#artifact-removal-with-independent-components-analysis-ica">Artifact removal with Independent Components Analysis (ICA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-the-raw-data">Read the Raw Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-the-data-for-ica">Filter the Data for ICA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segment-data-for-ica">Segment data for ICA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-clean-data-for-ica">Pre-Clean Data for ICA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-ica-to-the-data">Fit ICA to the Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-yet-repeatable">Random Yet Repeatable</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segment-data-for-ica">Segment data for ICA</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-ica-to-data">Fit ICA to data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-ica-components">Visualize ICA components</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-ic-properties">Plot IC properties</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-eog-artifacts-from-ica-components">Identify EOG artifacts from ICA components</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-ica-components">Visualize ICA components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-ic-properties">Plot IC properties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-eog-artifacts-from-ica-components">Identify EOG Artifacts from ICA Components</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-ica">Save ICA</a></li>
 </ul>
   </nav></div>
