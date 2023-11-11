@@ -583,8 +583,10 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-reference-to-select-in-preprocessing">What reference to select in preprocessing?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#average-reference">Average reference</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-reference-was-used-in-our-data-set">What reference was used in our data set?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Average reference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-reference-was-used-in-our-data-set">What reference was used in our data set?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Average reference</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-reference-the-data-to-mastoids">Re-Reference the data to mastoids</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-re-referenced-data">Save re-referenced data</a></li>
 </ul>
@@ -619,193 +621,92 @@ document.write(`
 <p>However, even in such less-than-ideal situations the average reference can be a good choice, because then the electrical potential at each scalp location still reflects what is unique to that position on the head relative to all other positions (from which we have recordings). There are a few limitations of average reference to keep in mind though.</p>
 <p>For one, if the experiment is designed to elicit an ERP component that is known to be quite large and extensive over the head, the average reference may not be a good choice. For instance, some components such as the P3 and N400 tend to be largest over the top of the head, but extend outward across many more channels. So if the same component is present at all or most of the channels used, then an average reference will effectively subtract that component from the data.</p>
 <p>A related consideration is the number of electrodes used during recording, and their locations. Average reference will work best when more electrodes used, and when more of the surface area of the head is covered by these electrodes. More electrodes both allow for more extensive scalp coverage, and ensure that the average is not biased by a few electrodes that have large potentials — including electrodes that may contain noise. Noisy electrodes are an issue for average reference because if there is high noise in a single electrode it will effectively be introduced into every other electrode by the averaging procedure, when it is used as a reference. More extensive coverage will mean that there is less likelihood that a widely-distributed component is subtracted in the average (because there will be more electrodes that aren’t located over scalp regions where the component is present).</p>
-</section>
-<section id="what-reference-was-used-in-our-data-set">
-<h2>What reference was used in our data set?<a class="headerlink" href="#what-reference-was-used-in-our-data-set" title="Permalink to this heading">#</a></h2>
-<p>Unfortunately, by default the reference location is not recorded in the raw data file, and so it is not something we can find in one of the attributes of the <code class="docutils literal notranslate"><span class="pre">Raw</span></code> data set. However, we know (since this data was collected in my lab, and we are always careful to document our procedures) that the reference electrode was located at the International 10-20 System position FCz, which is located along the midline of the scalp, halfway between electrodes Fz and Cz. The recording montage is shown below to allow you to visualize where this would be:</p>
+<p>We’ll read in the cleaned data that we saved at the end of the last lesson:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
 <span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>  <span class="c1"># reduce extraneous MNE output</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="c1"># Participant ID code</span>
-<span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;N400_dataset_14&#39;</span>
+<span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;sub-001&#39;</span>
 <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
 
-<span class="n">epochs_postica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">read_epochs</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-epo.fif&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">8</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;N400_dataset_14&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">epochs_postica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">read_epochs</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-epo.fif&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nn">File &lt;decorator-gen-290&gt;:12,</span> in <span class="ni">read_epochs</span><span class="nt">(fname, proj, preload, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/epochs.py:3722,</span> in <span class="ni">read_epochs</span><span class="nt">(fname, proj, preload, verbose)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3704</span> <span class="nd">@verbose</span>
-<span class="g g-Whitespace">   </span><span class="mi">3705</span> <span class="k">def</span> <span class="nf">read_epochs</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3706</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Read epochs from a fif file.</span>
-<span class="g g-Whitespace">   </span><span class="mi">3707</span><span class="sd"> </span>
-<span class="g g-Whitespace">   </span><span class="mi">3708</span><span class="sd">     Parameters</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3720</span><span class="sd">         The epochs.</span>
-<span class="g g-Whitespace">   </span><span class="mi">3721</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">3722</span>     <span class="k">return</span> <span class="n">EpochsFIF</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">proj</span><span class="p">,</span> <span class="n">preload</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
-
-<span class="nn">File &lt;decorator-gen-291&gt;:12,</span> in <span class="ni">__init__</span><span class="nt">(self, fname, proj, preload, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/epochs.py:3771,</span> in <span class="ni">EpochsFIF.__init__</span><span class="nt">(self, fname, proj, preload, verbose)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3765</span> <span class="k">if</span> <span class="n">_path_like</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3766</span>     <span class="n">check_fname</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">3767</span>         <span class="n">fname</span><span class="o">=</span><span class="n">fname</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3768</span>         <span class="n">filetype</span><span class="o">=</span><span class="s2">&quot;epochs&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3769</span>         <span class="n">endings</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;-epo.fif&quot;</span><span class="p">,</span> <span class="s2">&quot;-epo.fif.gz&quot;</span><span class="p">,</span> <span class="s2">&quot;_epo.fif&quot;</span><span class="p">,</span> <span class="s2">&quot;_epo.fif.gz&quot;</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">3770</span>     <span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">3771</span>     <span class="n">fname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">_check_fname</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">fname</span><span class="p">,</span> <span class="n">must_exist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="s2">&quot;read&quot;</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">3772</span> <span class="k">elif</span> <span class="ow">not</span> <span class="n">preload</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3773</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;preload must be used with file-like objects&quot;</span><span class="p">)</span>
-
-<span class="nn">File &lt;decorator-gen-0&gt;:12,</span> in <span class="ni">_check_fname</span><span class="nt">(fname, overwrite, must_exist, name, need_dir, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/utils/check.py:261,</span> in <span class="ni">_check_fname</span><span class="nt">(fname, overwrite, must_exist, name, need_dir, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">259</span>             <span class="k">raise</span> <span class="ne">PermissionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> does not have read permissions: </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">260</span> <span class="k">elif</span> <span class="n">must_exist</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">261</span>     <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> does not exist: &quot;</span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">263</span> <span class="k">return</span> <span class="n">fname</span>
-
-<span class="ne">FileNotFoundError</span>: File does not exist: &quot;/Users/aaron/3505/NESC_3505_textbook/7-eeg/data/N400_dataset_14-epo.fif&quot;
+<span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">read_epochs</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-epo.fif&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="what-reference-was-used-in-our-data-set">
+<h2>What reference was used in our data set?<a class="headerlink" href="#what-reference-was-used-in-our-data-set" title="Permalink to this heading">#</a></h2>
+<p>We can plot the locations of all of the channels on the head like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_postica</span><span class="o">.</span><span class="n">plot_sensors</span><span class="p">(</span><span class="n">show_names</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_clean</span><span class="o">.</span><span class="n">plot_sensors</span><span class="p">(</span><span class="n">show_names</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs_postica</span><span class="o">.</span><span class="n">plot_sensors</span><span class="p">(</span><span class="n">show_names</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;epochs_postica&#39; is not defined
-</pre></div>
+<img alt="../_images/75e3415a4b264b9914237f15be3c15ab59ef9927146f9c6dfc1ea9ae2a9299e6.png" src="../_images/75e3415a4b264b9914237f15be3c15ab59ef9927146f9c6dfc1ea9ae2a9299e6.png" />
 </div>
 </div>
-</div>
-<p>The fact that the reference electrode was positioned between Fz and Cz explains why, in the raw data (re-plotted below), the traces for these electrodes are so much flatter than all the other electrodes - the difference in measured electrical activity between these recording electrodes and the reference are very small, because they are measuring almost the same brain activity:</p>
+<p>Unfortunately, by default the reference location is not recorded in the raw data file, and so it is not something we can find in one of the attributes of the <code class="docutils literal notranslate"><span class="pre">Raw</span></code> data set, or show on the montage. However, we know (since this data was collected in my lab, and we are always careful to document our procedures) that the reference electrode was located at the International 10-20 System position FCz, which is located along the midline of the scalp, halfway between electrodes Fz and Cz. We can plot all of the channels in the International 10-20 system like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span> <span class="s1">&#39;data/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;.vhdr&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">raw</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">5</span><span class="p">);</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">std_montage</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">channels</span><span class="o">.</span><span class="n">make_standard_montage</span><span class="p">(</span><span class="s2">&quot;standard_1020&quot;</span><span class="p">)</span>
+<span class="n">std_montage</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span> <span class="s1">&#39;data/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;.vhdr&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">raw</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">5</span><span class="p">);</span> 
+<img alt="../_images/d0fd64e85251dc00f1b064389b616870261ecb85d3886f7090726d722e9a9523.png" src="../_images/d0fd64e85251dc00f1b064389b616870261ecb85d3886f7090726d722e9a9523.png" />
+</div>
+</div>
+<p>The fact that the reference electrode was positioned between Fz and Cz means that we would expect the EEG at those two channels to be quite flat, since they are measuring nearly the same electrical activity. If we plot each of the midline channels, we can see that this is indeed the case:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the channels we want plots for</span>
+<span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Fz&#39;</span><span class="p">,</span> <span class="s1">&#39;Cz&#39;</span><span class="p">,</span> <span class="s1">&#39;Pz&#39;</span><span class="p">,</span> <span class="s1">&#39;Oz&#39;</span><span class="p">]</span>
 
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:956,</span> in <span class="ni">read_raw_brainvision</span><span class="nt">(vhdr_fname, eog, misc, scale, preload, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">916</span> <span class="nd">@fill_doc</span>
-<span class="g g-Whitespace">    </span><span class="mi">917</span> <span class="k">def</span> <span class="nf">read_raw_brainvision</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">918</span>     <span class="n">vhdr_fname</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">923</span>     <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">924</span> <span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">925</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Reader for Brain Vision EEG file.</span>
-<span class="g g-Whitespace">    </span><span class="mi">926</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">927</span><span class="sd">     Parameters</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">954</span><span class="sd">     mne.io.Raw : Documentation of attributes and methods of RawBrainVision.</span>
-<span class="g g-Whitespace">    </span><span class="mi">955</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">956</span>     <span class="k">return</span> <span class="n">RawBrainVision</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">957</span>         <span class="n">vhdr_fname</span><span class="o">=</span><span class="n">vhdr_fname</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">958</span>         <span class="n">eog</span><span class="o">=</span><span class="n">eog</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">959</span>         <span class="n">misc</span><span class="o">=</span><span class="n">misc</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">960</span>         <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">961</span>         <span class="n">preload</span><span class="o">=</span><span class="n">preload</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">962</span>         <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">963</span>     <span class="p">)</span>
+<span class="c1"># create a figure with 4 subplots</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 
-<span class="nn">File &lt;decorator-gen-247&gt;:12,</span> in <span class="ni">__init__</span><span class="nt">(self, vhdr_fname, eog, misc, scale, preload, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:90,</span> in <span class="ni">RawBrainVision.__init__</span><span class="nt">(self, vhdr_fname, eog, misc, scale, preload, verbose)</span>
-<span class="g g-Whitespace">     </span><span class="mi">79</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="n">ahdr_format</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;.ahdr&quot;</span> <span class="k">else</span> <span class="kc">False</span>
-<span class="g g-Whitespace">     </span><span class="mi">81</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">82</span>     <span class="n">info</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">83</span>     <span class="n">data_fname</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">84</span>     <span class="n">fmt</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="n">order</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="n">n_samples</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="n">mrk_fname</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">88</span>     <span class="n">montage</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">89</span>     <span class="n">orig_units</span><span class="p">,</span>
-<span class="ne">---&gt; </span><span class="mi">90</span> <span class="p">)</span> <span class="o">=</span> <span class="n">_get_hdr_info</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">,</span> <span class="n">eog</span><span class="p">,</span> <span class="n">misc</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">92</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_fname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">93</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>  <span class="c1"># ASCII, this will be slow :(</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:512,</span> in <span class="ni">_get_hdr_info</span><span class="nt">(hdr_fname, eog, misc, scale)</span>
-<span class="g g-Whitespace">    </span><span class="mi">506</span> <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;.vhdr&quot;</span><span class="p">,</span> <span class="s2">&quot;.ahdr&quot;</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">507</span>     <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">508</span>         <span class="s2">&quot;The header file must be given to read the data, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">509</span>         <span class="s2">&quot;not a file with extension &#39;</span><span class="si">%s</span><span class="s2">&#39;.&quot;</span> <span class="o">%</span> <span class="n">ext</span>
-<span class="g g-Whitespace">    </span><span class="mi">510</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">512</span> <span class="n">settings</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">cinfostr</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">_aux_hdr_info</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">513</span> <span class="n">info</span><span class="o">.</span><span class="n">_unlocked</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="g g-Whitespace">    </span><span class="mi">515</span> <span class="n">order</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cinfostr</span><span class="p">,</span> <span class="s2">&quot;DataOrientation&quot;</span><span class="p">)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:409,</span> in <span class="ni">_aux_hdr_info</span><span class="nt">(hdr_fname)</span>
-<span class="g g-Whitespace">    </span><span class="mi">407</span> <span class="k">def</span> <span class="nf">_aux_hdr_info</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">408</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Aux function for _get_hdr_info.&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">409</span>     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">410</span>         <span class="c1"># extract the first section to resemble a cfg</span>
-<span class="g g-Whitespace">    </span><span class="mi">411</span>         <span class="n">header</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">412</span>         <span class="n">codepage</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/Users/aaron/3505/NESC_3505_textbook/7-eeg/data/N400_dataset_14.vhdr&#39;
+<span class="c1"># plot each channel in a separate subplot</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">chan</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">channels</span><span class="p">):</span>
+    <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">(</span><span class="n">epochs_clean</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">average</span><span class="p">(),</span> 
+                                <span class="n">picks</span><span class="o">=</span><span class="n">chan</span><span class="p">,</span>
+                                <span class="n">combine</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> 
+                                <span class="n">ylim</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;eeg&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)},</span>
+                                <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span>
+                                <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="n">idx</span><span class="p">],</span>
+                                <span class="n">show</span><span class="o">=</span><span class="kc">False</span>
+                                <span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2fa93953d8f6f343eb49dcbb10d3b2af44398c91e8da2b3c4a865bc5830d9ab1.png" src="../_images/2fa93953d8f6f343eb49dcbb10d3b2af44398c91e8da2b3c4a865bc5830d9ab1.png" />
 </div>
 </div>
 <p>The FCz reference location also explains why, in the scalp topography maps (re-plotted below), the area between electrodes Fz and Cz is white, or very close to it, at most time points. As indicated on the color bar below, white represents a value of zero. The values aren’t exactly zero/white in the plots below, because in generating these plots, MNE interpolates values in between the electrodes. In other words, we only have voltage measurements at each electrode (the dots in the plots), and the colours at every other location are determined by mathematical estimates of what the voltage values likely would have been, based on the values at the electrodes we do have. Since both Fz and Cz measure slightly different locations than the reference, they are not zero, and the estimated values between them may also not be zero due to noise.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
-<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">epochs_postica</span><span class="o">.</span><span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">epochs_clean</span><span class="o">.</span><span class="n">times</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">)</span>
 
-<span class="n">epochs_postica</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
+<span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">epochs_postica</span><span class="o">.</span><span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">epochs_postica</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;epochs_postica&#39; is not defined
-</pre></div>
+<img alt="../_images/b9a474ca306b6e58e1b515475c2e659c4c148f04034dc4aefad4494298fe34aa.png" src="../_images/b9a474ca306b6e58e1b515475c2e659c4c148f04034dc4aefad4494298fe34aa.png" />
 </div>
 </div>
-</div>
-</section>
 <section id="id1">
-<h2>Average reference<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<h3>Average reference<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>As noted above, the average mastoids are a common choice for N400 studies and we will use these below. But first we will demonstrate how to re-reference, and what the average reference looks like for this data set, as a way of understanding the effects of different reference location choices. Scalp topography maps are the best way to visualize the effects of re-referencing, since this procedure primarily affects the distribution of electrical potentials over the scalp.</p>
 <p>MNE provides a <code class="docutils literal notranslate"><span class="pre">.set_eeg_reference()</span></code> method for this purpose. Here we chain this with a few other methods:</p>
 <ul class="simple">
@@ -816,44 +717,30 @@ document.write(`
 <p>Since we won’t be using this data later, we don’t assign the re-referenced data to a variable name, we just compute the average reference and plot it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_postica</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">set_eeg_reference</span><span class="p">(</span><span class="n">ref_channels</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">.050</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">set_eeg_reference</span><span class="p">(</span><span class="n">ref_channels</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">.050</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs_postica</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">set_eeg_reference</span><span class="p">(</span><span class="n">ref_channels</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">.050</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;epochs_postica&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/d4956709221685485065762e2c43100d1c10e32b122d4c36ad4418a49888745e.png" src="../_images/d4956709221685485065762e2c43100d1c10e32b122d4c36ad4418a49888745e.png" />
 </div>
 </div>
 <p>Compared to the previous set of topomaps above, we can see that the average reference shows a large negative potential over the top of the head, especially around electrodes Fz and Cz. Notably, however, the overall distribution of electrical activity is similar between the original and average-referenced data. For example, the voltage at the back of the head is still positive relative to the top/centre of the scalp.</p>
+</section>
 </section>
 <section id="re-reference-the-data-to-mastoids">
 <h2>Re-Reference the data to mastoids<a class="headerlink" href="#re-reference-the-data-to-mastoids" title="Permalink to this heading">#</a></h2>
 <p>Now we will re-reference to the average of the mastoid electrodes (whose labels are Tp9 and TP10 in the 10-20 system — refer back to the plot of channel locations). Since this is the reference that we will want to work with, we assign the result to a new <code class="docutils literal notranslate"><span class="pre">Epochs</span></code> object, called <code class="docutils literal notranslate"><span class="pre">epochs_mastoidref</span></code>, and then plot it in a separate step.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_mastoidref</span> <span class="o">=</span> <span class="n">epochs_postica</span><span class="o">.</span><span class="n">set_eeg_reference</span><span class="p">(</span><span class="n">ref_channels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TP9&#39;</span><span class="p">,</span> <span class="s1">&#39;TP10&#39;</span><span class="p">]);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_mastoidref</span> <span class="o">=</span> <span class="n">epochs_clean</span><span class="o">.</span><span class="n">set_eeg_reference</span><span class="p">(</span><span class="n">ref_channels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TP9&#39;</span><span class="p">,</span> <span class="s1">&#39;TP10&#39;</span><span class="p">]);</span>
 
-<span class="n">epochs_mastoidref</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">.050</span><span class="p">);</span>
+<span class="n">epochs_mastoidref</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">.050</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs_mastoidref</span> <span class="o">=</span> <span class="n">epochs_postica</span><span class="o">.</span><span class="n">set_eeg_reference</span><span class="p">(</span><span class="n">ref_channels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TP9&#39;</span><span class="p">,</span> <span class="s1">&#39;TP10&#39;</span><span class="p">]);</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">epochs_mastoidref</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">.050</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;epochs_postica&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/36e4091179075dfa2bb270ec976c46753833d06b51ef7e2f8b084df6634b7635.png" src="../_images/36e4091179075dfa2bb270ec976c46753833d06b51ef7e2f8b084df6634b7635.png" />
 </div>
 </div>
 <p>Again, the relative distribution of electrical potentials across the scalp is similar to the original and average-referenced data. However, now the white, “zero voltage” area overlaps the locations behind the ears, and the top/centre electrodes (extending to more frontal electrodes) are more negative than when other references were used.</p>
@@ -864,17 +751,6 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_mastoidref</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-mstd-epo.fif&#39;</span><span class="p">,</span>
                       <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">epochs_mastoidref</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-mstd-epo.fif&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>                       <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;epochs_mastoidref&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -947,8 +823,10 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-reference-to-select-in-preprocessing">What reference to select in preprocessing?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#average-reference">Average reference</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-reference-was-used-in-our-data-set">What reference was used in our data set?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Average reference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-reference-was-used-in-our-data-set">What reference was used in our data set?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Average reference</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-reference-the-data-to-mastoids">Re-Reference the data to mastoids</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-re-referenced-data">Save re-referenced data</a></li>
 </ul>
