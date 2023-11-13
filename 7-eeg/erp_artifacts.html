@@ -368,10 +368,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="erp_filtering.html">Filtering EEG Data</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Artifacts in EEG Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="erp_segmentation.html">Segmentation into ERP epochs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="erp_rereferencing.html">Re-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="erp_avg_reref.html">Averaging and Re-Referencing ERPs</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="erp_averaging.html">Averaging ERPs: Creating MNE Evoked objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="erp_group.html">Group Analysis of ERP Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">MRI Data</span></p>
@@ -664,10 +663,10 @@ document.write(`
 
 <span class="c1"># Participant ID code</span>
 <span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;sub-001&#39;</span>
-<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
 
 <span class="c1"># Read the Raw Data</span>
-<span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-raw.fif&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-raw.fif&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -922,7 +921,7 @@ document.write(`
 <p>In the next lesson we will segment our EEG data into epochs time-locked to experimental events of interest. After we do that, we will apply the ICA that we computed here to remove ocular artifacts from the epochs. So for now we will save the ICA object, which includes the <code class="docutils literal notranslate"><span class="pre">bads</span></code> attribute that indicates which components to reject as ocular artifacts. <code class="docutils literal notranslate"><span class="pre">ICA</span></code> objects have a <code class="docutils literal notranslate"><span class="pre">.save()</span></code> method that will create a <code class="docutils literal notranslate"><span class="pre">.fif</span></code> file:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">,</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">,</span> 
         <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>

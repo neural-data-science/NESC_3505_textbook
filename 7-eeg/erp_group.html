@@ -77,7 +77,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Introduction to MRI Data" href="../8-mri/introduction.html" />
-    <link rel="prev" title="Averaging ERPs: Creating MNE Evoked objects" href="erp_averaging.html" />
+    <link rel="prev" title="Averaging and Re-Referencing ERPs" href="erp_avg_reref.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -370,10 +370,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="erp_filtering.html">Filtering EEG Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="erp_artifacts.html">Artifacts in EEG Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="erp_segmentation.html">Segmentation into ERP epochs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="erp_rereferencing.html">Re-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="erp_avg_reref.html">Averaging and Re-Referencing ERPs</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="erp_averaging.html">Averaging ERPs: Creating MNE Evoked objects</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Group Analysis of ERP Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">MRI Data</span></p>
@@ -649,32 +648,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;data/sentence_n400_p22-ave.fif&#39;,
- &#39;data/sentence_n400_p14-ave.fif&#39;,
- &#39;data/sentence_n400_p04-ave.fif&#39;,
- &#39;data/sentence_n400_p05-ave.fif&#39;,
- &#39;data/sentence_n400_p15-ave.fif&#39;,
- &#39;data/sentence_n400_p23-ave.fif&#39;,
- &#39;data/sentence_n400_p17-ave.fif&#39;,
- &#39;data/sentence_n400_p07-ave.fif&#39;,
- &#39;data/sentence_n400_p21-ave.fif&#39;,
- &#39;data/sentence_n400_p20-ave.fif&#39;,
- &#39;data/sentence_n400_p06-ave.fif&#39;,
- &#39;data/sentence_n400_p16-ave.fif&#39;,
- &#39;data/sentence_n400_p13-ave.fif&#39;,
- &#39;data/sentence_n400_p03-ave.fif&#39;,
- &#39;data/sentence_n400_p25-ave.fif&#39;,
- &#39;data/sentence_n400_p24-ave.fif&#39;,
- &#39;data/sentence_n400_p02-ave.fif&#39;,
- &#39;data/sentence_n400_p12-ave.fif&#39;,
- &#39;data/sentence_n400_p26-ave.fif&#39;,
- &#39;data/sentence_n400_p09-ave.fif&#39;,
- &#39;data/sentence_n400_p19-ave.fif&#39;,
- &#39;data/sentence_n400_p10-ave.fif&#39;,
- &#39;data/sentence_n400_p01-ave.fif&#39;,
- &#39;data/sentence_n400_p11-ave.fif&#39;,
- &#39;data/sentence_n400_p18-ave.fif&#39;,
- &#39;data/sentence_n400_p08-ave.fif&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
 </pre></div>
 </div>
 </div>
@@ -698,58 +672,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Control&#39;: [&lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=35), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=41), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=33), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=34), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=32), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=31), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=10), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=35), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=27), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=34), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=41), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=41), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Control&#39; (average, N=29), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;],
- &#39;Violation&#39;: [&lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=36), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=33), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=34), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=32), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=35), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=36), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=10), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=33), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=26), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=25), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=36), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
-  &lt;Evoked | &#39;Violation&#39; (average, N=29), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;]}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Control&#39;: [], &#39;Violation&#39;: []}
 </pre></div>
 </div>
 </div>
@@ -781,7 +704,37 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ade7ba1a279ae774d7f8f9e67613b18d955e8343cf100b1497e1939d23cfe988.png" src="../_images/ade7ba1a279ae774d7f8f9e67613b18d955e8343cf100b1497e1939d23cfe988.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">9</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">color_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Control&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;Violation&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">}</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">linestyle_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Control&#39;</span><span class="p">:</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;Violation&#39;</span><span class="p">:</span><span class="s1">&#39;--&#39;</span><span class="p">}</span>
+<span class="ne">----&gt; </span><span class="mi">9</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">(</span><span class="n">evokeds</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>                              <span class="n">combine</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>                              <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>                              <span class="n">picks</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>                              <span class="n">colors</span><span class="o">=</span><span class="n">color_dict</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>                              <span class="n">linestyles</span><span class="o">=</span><span class="n">linestyle_dict</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>                              <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Violation vs. Control Waveforms&#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>                             <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/viz/evoked.py:2877,</span> in <span class="ni">plot_compare_evokeds</span><span class="nt">(evokeds, picks, colors, linestyles, styles, cmap, vlines, ci, truncate_yaxis, truncate_xaxis, ylim, invert_y, show_sensors, legend, split_legend, axes, title, show, combine, sphere, time_unit)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2875</span> <span class="c1"># ensure same channels and times across all evokeds</span>
+<span class="g g-Whitespace">   </span><span class="mi">2876</span> <span class="n">all_evoked</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">evokeds</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="p">[])</span>
+<span class="ne">-&gt; </span><span class="mi">2877</span> <span class="n">_check_evokeds_ch_names_times</span><span class="p">(</span><span class="n">all_evoked</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2878</span> <span class="k">del</span> <span class="n">all_evoked</span>
+<span class="g g-Whitespace">   </span><span class="mi">2880</span> <span class="c1"># get some representative info</span>
+
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/evoked.py:1401,</span> in <span class="ni">_check_evokeds_ch_names_times</span><span class="nt">(all_evoked)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1400</span> <span class="k">def</span> <span class="nf">_check_evokeds_ch_names_times</span><span class="p">(</span><span class="n">all_evoked</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1401</span>     <span class="n">evoked</span> <span class="o">=</span> <span class="n">all_evoked</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1402</span>     <span class="n">ch_names</span> <span class="o">=</span> <span class="n">evoked</span><span class="o">.</span><span class="n">ch_names</span>
+<span class="g g-Whitespace">   </span><span class="mi">1403</span>     <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">ev</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_evoked</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+
+<span class="ne">IndexError</span>: list index out of range
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -803,32 +756,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;Evoked | &#39;Violation - Control&#39; (average, N=20.0), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=17.74647887323944), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=18.986842105263158), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.0), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.9875), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=16.5), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=18.37837837837838), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.487179487179485), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=16.484848484848484), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.746835443037973), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=16.716417910447763), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=16.65671641791045), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=5.0), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=20.0), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=17.442857142857143), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=14.918032786885247), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=12.98076923076923), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=17.718309859154928), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.246753246753247), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=20.24691358024691), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.746835443037973), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.5), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=18.246575342465754), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.22077922077922), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.72151898734177), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
- &lt;Evoked | &#39;Violation - Control&#39; (average, N=14.5), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
 </pre></div>
 </div>
 </div>
@@ -854,7 +782,33 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5ab2f1b7312f84a513ee0f3465986cea670022756179b550c2b54655d2ff19be.png" src="../_images/5ab2f1b7312f84a513ee0f3465986cea670022756179b550c2b54655d2ff19be.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">contrast</span> <span class="o">=</span> <span class="s1">&#39;Violation-Control&#39;</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">({</span><span class="n">contrast</span><span class="p">:</span><span class="n">diff_waves</span><span class="p">},</span> <span class="n">combine</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                             <span class="n">legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                             <span class="n">picks</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                             <span class="n">title</span><span class="o">=</span><span class="n">contrast</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                             <span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/viz/evoked.py:2877,</span> in <span class="ni">plot_compare_evokeds</span><span class="nt">(evokeds, picks, colors, linestyles, styles, cmap, vlines, ci, truncate_yaxis, truncate_xaxis, ylim, invert_y, show_sensors, legend, split_legend, axes, title, show, combine, sphere, time_unit)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2875</span> <span class="c1"># ensure same channels and times across all evokeds</span>
+<span class="g g-Whitespace">   </span><span class="mi">2876</span> <span class="n">all_evoked</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">evokeds</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="p">[])</span>
+<span class="ne">-&gt; </span><span class="mi">2877</span> <span class="n">_check_evokeds_ch_names_times</span><span class="p">(</span><span class="n">all_evoked</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2878</span> <span class="k">del</span> <span class="n">all_evoked</span>
+<span class="g g-Whitespace">   </span><span class="mi">2880</span> <span class="c1"># get some representative info</span>
+
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/evoked.py:1401,</span> in <span class="ni">_check_evokeds_ch_names_times</span><span class="nt">(all_evoked)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1400</span> <span class="k">def</span> <span class="nf">_check_evokeds_ch_names_times</span><span class="p">(</span><span class="n">all_evoked</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1401</span>     <span class="n">evoked</span> <span class="o">=</span> <span class="n">all_evoked</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1402</span>     <span class="n">ch_names</span> <span class="o">=</span> <span class="n">evoked</span><span class="o">.</span><span class="n">ch_names</span>
+<span class="g g-Whitespace">   </span><span class="mi">1403</span>     <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">ev</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_evoked</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+
+<span class="ne">IndexError</span>: list index out of range
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -875,7 +829,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_evoked_topomap</span><span class="p">(</span><span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">),</span> 
 <span class="g g-Whitespace">      </span><span class="mi">2</span>                             <span class="n">times</span><span class="o">=</span><span class="mf">.500</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.200</span><span class="p">,</span> 
@@ -884,7 +838,14 @@ document.write(`
 <span class="g g-Whitespace">      </span><span class="mi">5</span>                            <span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="ne">TypeError</span>: plot_evoked_topomap() got an unexpected keyword argument &#39;title&#39;
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/utils/numerics.py:586,</span> in <span class="ni">grand_average</span><span class="nt">(all_inst, interpolate_bads, drop_bads)</span>
+<span class="g g-Whitespace">    </span><span class="mi">583</span> <span class="kn">from</span> <span class="nn">..channels.channels</span> <span class="kn">import</span> <span class="n">equalize_channels</span>
+<span class="g g-Whitespace">    </span><span class="mi">585</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">all_inst</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">586</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please pass a list of Evoked or AverageTFR objects.&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">587</span> <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_inst</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">588</span>     <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Only a single dataset was passed to mne.grand_average().&quot;</span><span class="p">)</span>
+
+<span class="ne">ValueError</span>: Please pass a list of Evoked or AverageTFR objects.
 </pre></div>
 </div>
 </div>
@@ -909,7 +870,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_evoked_topomap</span><span class="p">(</span><span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">),</span> 
 <span class="g g-Whitespace">      </span><span class="mi">2</span>                             <span class="n">times</span><span class="o">=</span><span class="mf">.500</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.200</span><span class="p">,</span> 
@@ -919,7 +880,14 @@ document.write(`
 <span class="g g-Whitespace">      </span><span class="mi">6</span>                             <span class="n">size</span><span class="o">=</span><span class="mi">4</span>
 <span class="g g-Whitespace">      </span><span class="mi">7</span>                            <span class="p">);</span>
 
-<span class="ne">TypeError</span>: plot_evoked_topomap() got an unexpected keyword argument &#39;title&#39;
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/utils/numerics.py:586,</span> in <span class="ni">grand_average</span><span class="nt">(all_inst, interpolate_bads, drop_bads)</span>
+<span class="g g-Whitespace">    </span><span class="mi">583</span> <span class="kn">from</span> <span class="nn">..channels.channels</span> <span class="kn">import</span> <span class="n">equalize_channels</span>
+<span class="g g-Whitespace">    </span><span class="mi">585</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">all_inst</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">586</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please pass a list of Evoked or AverageTFR objects.&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">587</span> <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_inst</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">588</span>     <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Only a single dataset was passed to mne.grand_average().&quot;</span><span class="p">)</span>
+
+<span class="ne">ValueError</span>: Please pass a list of Evoked or AverageTFR objects.
 </pre></div>
 </div>
 </div>
@@ -961,7 +929,20 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Difference t =  -2.93 p =  0.0071
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/ncil/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/Users/aaron/miniforge3/envs/ncil/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span> 
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">t</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">evoked_data</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Difference t = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">)),</span> <span class="s1">&#39;p = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pval</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">)))</span>
+
+<span class="ne">IndexError</span>: invalid index to scalar variable.
 </pre></div>
 </div>
 </div>
@@ -1001,6 +982,31 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">n_permutations</span> <span class="o">=</span> <span class="mi">50000</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">T0</span><span class="p">,</span> <span class="n">p_values</span><span class="p">,</span> <span class="n">H0</span> <span class="o">=</span> <span class="n">permutation_t_test</span><span class="p">(</span><span class="n">evoked_data</span><span class="p">,</span> <span class="n">n_permutations</span><span class="p">,</span> <span class="n">tail</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nn">File &lt;decorator-gen-365&gt;:12,</span> in <span class="ni">permutation_t_test</span><span class="nt">(X, n_permutations, tail, n_jobs, seed, verbose)</span>
+
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/stats/permutations.py:79,</span> in <span class="ni">permutation_t_test</span><span class="nt">(X, n_permutations, tail, n_jobs, seed, verbose)</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;One sample/paired sample permutation test based on a t-statistic.</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span><span class="sd"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span><span class="sd"> This function can perform the test on one variable or</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span><span class="sd"> .. footbibliography::</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span> <span class="kn">from</span> <span class="nn">.cluster_level</span> <span class="kn">import</span> <span class="n">_get_1samp_orders</span>
+<span class="ne">---&gt; </span><span class="mi">79</span> <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_tests</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="n">X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># precompute moments</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span> <span class="n">mu0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="ne">ValueError</span>: not enough values to unpack (expected 2, got 1)
+</pre></div>
+</div>
+</div>
 </div>
 <p>The result of <code class="docutils literal notranslate"><span class="pre">permutation_t_test()</span></code> is three NumPY arrays:</p>
 <ul class="simple">
@@ -1015,19 +1021,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.57080358, -0.78438487,  0.34835262, -2.11381352, -2.05960118,
-       -1.80485844,  0.70287527, -1.09101426, -2.71791099, -2.83404371,
-       -0.32752973, -0.99348145, -2.85223302, -3.22648929, -2.52654325,
-        0.38805246, -1.5039293 , -2.60796913, -3.44881633, -3.30694221,
-       -2.57367496,  1.5039293 , -3.0754765 , -3.36663645, -2.93349562,
-       -2.26302196, -1.08830748, -0.52104647, -1.34525076, -0.9639556 ,
-       -0.85953252, -0.6152627 , -0.07731113, -1.54813276, -1.1683513 ,
-       -0.29418639, -0.45670357, -2.32021222, -2.55827164, -0.7602541 ,
-        1.10853944,  0.25464935, -2.31532559, -2.51929001,  0.91885973,
-        2.34076753, -2.00110272, -2.59168734, -3.20453629, -1.55360864,
-       -1.22215648, -3.67798169, -3.55926501, -3.46564789, -0.88086133,
-       -3.45152841, -3.49481003, -3.15971938, -2.40859398, -2.19467569,
-       -2.55486174, -1.96350269, -2.22094286, -0.70239699])
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">T0</span>
+
+<span class="ne">NameError</span>: name &#39;T0&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1039,16 +1038,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.     , 0.99978, 1.     , 0.46178, 0.49798, 0.67036, 1.     ,
-       0.9856 , 0.1715 , 0.13788, 1.     , 0.99452, 0.13278, 0.06042,
-       0.24118, 1.     , 0.85528, 0.20958, 0.03682, 0.05032, 0.22282,
-       1.     , 0.08444, 0.0444 , 0.11276, 0.37284, 0.98584, 1.     ,
-       0.92504, 0.99598, 0.99906, 1.     , 1.     , 0.83136, 0.9742 ,
-       1.     , 1.     , 0.34082, 0.22894, 0.99986, 1.     , 1.     ,
-       0.34342, 0.24416, 1.     , 1.     , 0.53688, 0.2155 , 0.06366,
-       0.82894, 0.963  , 0.02196, 0.02864, 0.03554, 0.99874, 0.0366 ,
-       0.03334, 0.07026, 0.29464, 0.41212, 0.23046, 0.56242, 0.3973 ,
-       0.99996])
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">p_values</span>
+
+<span class="ne">NameError</span>: name &#39;p_values&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1060,7 +1055,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50000,)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">H0</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="ne">NameError</span>: name &#39;H0&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1075,7 +1075,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/263f12a6d596a8c6cd66f431cb932de8fd742e4884602df9c3cc189771a0629e.png" src="../_images/263f12a6d596a8c6cd66f431cb932de8fd742e4884602df9c3cc189771a0629e.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">H0</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;H0&#39; is not defined
+</pre></div>
+</div>
 </div>
 </div>
 <p>We can use a function <code class="docutils literal notranslate"><span class="pre">np.argpartition()</span></code> to sort the <code class="docutils literal notranslate"><span class="pre">H0</span></code> values and split them at a particular cutoff. This is specified in terms of indexes in the NumPy array, so if we want the top 5% of <em>t</em> values, we have to compute the split as the number of permutations (the length of <code class="docutils literal notranslate"><span class="pre">H0</span></code>) multiplied by .05, which will tell as that 5% of 50,000 is 2500. (If you want to understand the details of this code, see <a class="reference external" href="https://stackoverflow.com/questions/6910641/how-do-i-get-indices-of-n-maximum-values-in-a-numpy-array">this StackExchange post</a> and the <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.argpartition.html">API for <code class="docutils literal notranslate"><span class="pre">np.argpartition()</span></code></a>.)</p>
@@ -1083,6 +1092,17 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thresh</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">n_permutations</span> <span class="o">*</span> <span class="mf">.05</span><span class="p">)</span>
 <span class="n">split</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argpartition</span><span class="p">(</span><span class="n">H0</span><span class="p">,</span> <span class="o">-</span><span class="n">thresh</span><span class="p">)[</span><span class="o">-</span><span class="n">thresh</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">thresh</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">n_permutations</span> <span class="o">*</span> <span class="mf">.05</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">split</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argpartition</span><span class="p">(</span><span class="n">H0</span><span class="p">,</span> <span class="o">-</span><span class="n">thresh</span><span class="p">)[</span><span class="o">-</span><span class="n">thresh</span><span class="p">:]</span>
+
+<span class="ne">NameError</span>: name &#39;H0&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1096,7 +1116,13 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.3092680764811573
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">t_thresh</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">H0</span><span class="p">[</span><span class="n">split</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">t_thresh</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;H0&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1111,7 +1137,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c57aeae5113634f8186d596b150e12bb8d44e8f416393717e0c6934afe589d80.png" src="../_images/c57aeae5113634f8186d596b150e12bb8d44e8f416393717e0c6934afe589d80.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">21</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">H0</span><span class="p">[</span><span class="n">split</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1600</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;H0&#39; is not defined
+</pre></div>
+</div>
 </div>
 </div>
 <p>We can apply a mask to the <em>t</em> values from each electrode to see which ones are significant at our threshold. We need to put the <code class="docutils literal notranslate"><span class="pre">-</span></code> sign in front of <code class="docutils literal notranslate"><span class="pre">t_thresh</span></code> since we are predicting negative <em>t</em> values.</p>
@@ -1122,14 +1157,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([False, False, False, False, False, False, False, False, False,
-       False, False, False, False, False, False, False, False, False,
-        True, False, False, False, False,  True, False, False, False,
-       False, False, False, False, False, False, False, False, False,
-       False, False, False, False, False, False, False, False, False,
-       False, False, False, False, False, False,  True,  True,  True,
-       False,  True,  True, False, False, False, False, False, False,
-       False])
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">22</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">T0</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">t_thresh</span>
+
+<span class="ne">NameError</span>: name &#39;T0&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1144,11 +1177,32 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">23</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">evoked_p</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">EvokedArray</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">p_values</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>                          <span class="n">evokeds</span><span class="p">[</span><span class="n">conditions</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;p_values&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <p>To highlight the significant electrodes, we will need a mask like the one above that is True where the <em>t</em> test was significant, and False elsewhere. We use <code class="docutils literal notranslate"><span class="pre">p_values[:,</span> <span class="pre">np.newaxis]</span></code> rather than just <code class="docutils literal notranslate"><span class="pre">p_values</span></code>, so that the mask is a 2D (1 x n_channels) array with the values in a single column, because this is how the <code class="docutils literal notranslate"><span class="pre">plot_topomap()</span></code> function requires the mask to be formatted. <code class="docutils literal notranslate"><span class="pre">np.newaxis</span></code> is a <a class="reference external" href="https://numpy.org/doc/stable/reference/constants.html#numpy.newaxis">tool in NumPy</a> for increasing the number of dimensions in an array.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span> <span class="o">=</span> <span class="n">p_values</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.05</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">24</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">p_values</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.05</span>
+
+<span class="ne">NameError</span>: name &#39;p_values&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1176,7 +1230,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">evoked_p</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
 <span class="g g-Whitespace">      </span><span class="mi">2</span>                     <span class="n">scalings</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -1187,7 +1241,7 @@ document.write(`
 <span class="g g-Whitespace">      </span><span class="mi">7</span>                     <span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="ne">TypeError</span>: Evoked.plot_topomap() got an unexpected keyword argument &#39;vmin&#39;
+<span class="ne">NameError</span>: name &#39;evoked_p&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1227,12 +1281,12 @@ document.write(`
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="erp_averaging.html"
+       href="erp_avg_reref.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Averaging ERPs: Creating MNE Evoked objects</p>
+        <p class="prev-next-title">Averaging and Re-Referencing ERPs</p>
       </div>
     </a>
     <a class="right-next"

@@ -74,7 +74,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Re-referencing" href="erp_rereferencing.html" />
+    <link rel="next" title="Averaging and Re-Referencing ERPs" href="erp_avg_reref.html" />
     <link rel="prev" title="Artifacts in EEG Data" href="erp_artifacts.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -368,10 +368,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="erp_filtering.html">Filtering EEG Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="erp_artifacts.html">Artifacts in EEG Data</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Segmentation into ERP epochs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="erp_rereferencing.html">Re-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="erp_avg_reref.html">Averaging and Re-Referencing ERPs</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="erp_averaging.html">Averaging ERPs: Creating MNE Evoked objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="erp_group.html">Group Analysis of ERP Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">MRI Data</span></p>
@@ -585,6 +584,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mne-s-events-structure">MNE’s events structure</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#about-event-codes">About Event Codes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-event-dictionary">The Event Dictionary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-mne-interprets-event-codes">How MNE Interprets Event Codes</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#label-event-codes-mapping-between-dictionaries">Label Event Codes – Mapping Between Dictionaries</a></li>
@@ -629,9 +629,9 @@ document.write(`
 
 <span class="c1"># Participant ID code</span>
 <span class="n">p_id</span> <span class="o">=</span> <span class="s1">&#39;sub-001&#39;</span>
-<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
 
-<span class="n">raw_filt</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-filt-raw.fif&#39;</span><span class="p">)</span>
+<span class="n">raw_filt</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-filt-raw.fif&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -714,11 +714,14 @@ document.write(`
 </div>
 </div>
 <p>In the above dictionary, the original event codes are the dictionary keys (on the left of the colons). You can see that the first two entries are not of experimental interest, but simply note the start of recording. The other event codes were originally numeric, but the recording software pre-pended <code class="docutils literal notranslate"><span class="pre">Stimulus/S</span></code> to the start of each one. MNE has simply matched each one to an integer, so the event codes used in MNE don’t match the original event codes. This is why <code class="docutils literal notranslate"><span class="pre">events_dict</span></code> is critical to ensuring that you map the right event codes to the each event of experimental interest. Another step is required, though, because we need a way of mapping from the the codes that MNE is using in the data, to the labels for the events that make sense to us in terms of the experiment (e.g., different stimulus types, response onsets, etc.).</p>
+</section>
+<section id="how-mne-interprets-event-codes">
+<h3>How MNE Interprets Event Codes<a class="headerlink" href="#how-mne-interprets-event-codes" title="Permalink to this heading">#</a></h3>
 <p>There is actually a workaround for this. In the present case, we imported the filtered data that we created in a previous lesson. If instead we had applied <code class="docutils literal notranslate"><span class="pre">mne.events_from_annotations()</span></code> to the original <code class="docutils literal notranslate"><span class="pre">raw</span></code> data file, MNE would be able to parse the event codes, and will assign them the same integer values that they had in the original data file. This is because the original data file was in the BrainVision format, which stores the event codes in a way that MNE can read. However, if you apply <code class="docutils literal notranslate"><span class="pre">mne.events_from_annotations()</span></code> to the <code class="docutils literal notranslate"><span class="pre">raw_filt</span></code> data file, MNE will not be able to parse the event codes, because the data file is in the <code class="docutils literal notranslate"><span class="pre">.fif</span></code> format, which stores the event codes differently. In this case, MNE will assign new integer values to the event codes, starting at 1 for the first event code it finds in the file, as we see here.</p>
 <p>For reference, let’s see the difference when we read the original raw file. Since we only want the event codes, and not the data,  we can speed the process up by setting the kwarg <code class="docutils literal notranslate"><span class="pre">preload=False</span></code>. This tells MNE to read the metadata from the file, but not the data itself. This also saves memory.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span> <span class="s1">&#39;data/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;.vhdr&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;.vhdr&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">events_raw</span><span class="p">,</span> <span class="n">events_dict_raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">events_from_annotations</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
 <span class="n">events_dict_raw</span>
 </pre></div>
@@ -1149,8 +1152,8 @@ document.write(`
 <body textcolor="red">
 <em>No longer true:</em>
 The above plot shows strong evidence of ocular artifacts in the data: the amplitude scale is on the order of 100 µV, whereas real EEG is rarely more than 10–20 µV, and the largest amplitude values are in channels around the eyes (you can tell this by matching the colors of the lines in the plot with those of the channel locations on the inset showing the electrode layout). Remember that we created these epochs from the filtered raw data, from which we have not yet removed artifacts. 
-</body><div class="admonition note">
-<p class="admonition-title">Note</p>
+</body><div class="admonition-butterflies-and-rainbows admonition">
+<p class="admonition-title">Butterflies and Rainbows</p>
 <p>Plotting all electrodes on one axis is called a <strong>butterfly plot</strong>. The name may seem strange but when you use it to plot data from lots of sensors (especially MEG data), it does look somewhat like a butterfly:</p>
 <p><img alt="butterfly plot of MEG data containing 245 channels" src="https://mne.tools/dev/_images/sphx_glr_90_phantom_4DBTi_001.png" />.</p>
 </div>
@@ -1162,7 +1165,7 @@ The above plot shows strong evidence of ocular artifacts in the data: the amplit
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read the previously-saved ICA decomposition</span>
-<span class="n">ica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">read_ica</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">)</span>
+<span class="n">ica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">read_ica</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-ica.fif&#39;</span><span class="p">)</span>
 
 <span class="c1"># apply the ICA decomposition (excluding the marked ICs) to the epochs</span>
 <span class="n">epochs_postica</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
@@ -1313,13 +1316,22 @@ The above plot shows strong evidence of ocular artifacts in the data: the amplit
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
 <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Match&#39;</span><span class="p">)</span>
 <span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">,</span> <span class="n">vlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">));</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">)</span>
 <span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">,</span> <span class="n">vlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Match
+</pre></div>
+</div>
 <img alt="../_images/f18ab932a6b94045b10245921287c0a4748ee9b5a4a619a7678fc2eb387d6a75.png" src="../_images/f18ab932a6b94045b10245921287c0a4748ee9b5a4a619a7678fc2eb387d6a75.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch
+</pre></div>
+</div>
 <img alt="../_images/b5aba3644d5eeaa7a7c48046dbf008ccbf1c0ecdc7c20df6f07a00733f2a1005.png" src="../_images/b5aba3644d5eeaa7a7c48046dbf008ccbf1c0ecdc7c20df6f07a00733f2a1005.png" />
 </div>
 </div>
@@ -1331,7 +1343,7 @@ The above plot shows strong evidence of ocular artifacts in the data: the amplit
 <p>Finally, we’ll save our cleaned epochs for use in later lessons. MNE requires the <code class="docutils literal notranslate"><span class="pre">-epo</span></code> suffix for .fif files storing epochs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_clean</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-epo.fif&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_clean</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-epo.fif&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1379,11 +1391,11 @@ The above plot shows strong evidence of ocular artifacts in the data: the amplit
       </div>
     </a>
     <a class="right-next"
-       href="erp_rereferencing.html"
+       href="erp_avg_reref.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Re-referencing</p>
+        <p class="prev-next-title">Averaging and Re-Referencing ERPs</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1406,6 +1418,7 @@ The above plot shows strong evidence of ocular artifacts in the data: the amplit
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mne-s-events-structure">MNE’s events structure</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#about-event-codes">About Event Codes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-event-dictionary">The Event Dictionary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-mne-interprets-event-codes">How MNE Interprets Event Codes</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#label-event-codes-mapping-between-dictionaries">Label Event Codes – Mapping Between Dictionaries</a></li>

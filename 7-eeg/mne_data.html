@@ -368,10 +368,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="erp_filtering.html">Filtering EEG Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="erp_artifacts.html">Artifacts in EEG Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="erp_segmentation.html">Segmentation into ERP epochs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="erp_rereferencing.html">Re-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="erp_avg_reref.html">Averaging and Re-Referencing ERPs</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="erp_averaging.html">Averaging ERPs: Creating MNE Evoked objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="erp_group.html">Group Analysis of ERP Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">MRI Data</span></p>
@@ -654,21 +653,8 @@ document.write(`
 </div></section>
 <section id="import-raw-data">
 <h2>Import raw data<a class="headerlink" href="#import-raw-data" title="Permalink to this heading">#</a></h2>
-<p>For EEG, raw data is typically stored in a single file containing continuous EEG data. There are many different file formats for EEG data; most of these are developed by the manufacturer or a particular EEG system. Fortunately, MNE provides functions to import data from most common EEG systems.</p>
-<p>In the present case, we are working with data from a system sold by Brain Products, whose software is called <em>Brain Vision</em>. So we will use MNE’s <code class="docutils literal notranslate"><span class="pre">read_raw_brainvision()</span></code> function. The Brain Vision format actually specifies <em>three files</em> for any given data set, as we can see if we look for all the file names in the <code class="docutils literal notranslate"><span class="pre">data</span></code> subfolder that start with the subject ID code for our data set, <code class="docutils literal notranslate"><span class="pre">P4</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/N400_dataset_04*&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
-</pre></div>
-</div>
-</div>
-</div>
-<p>The three files are all created at the time that the EEG data is acquired, and it’s important to ensure that all three are copied when moving them around. The files are as follows:</p>
+<p>For EEG, raw data is typically stored in a one or more files containing continuous EEG data. There are many different proprietary file formats for EEG data; most of these are developed by the manufacturer of a particular EEG system, since an integral part of an EEG system is software to save the data for later analysis. Fortunately, MNE provides functions to import data from most common EEG systems.</p>
+<p>In the present case, we are working with data from a system sold by Brain Products, whose software is called <em>Brain Vision</em>. So we will use MNE’s <code class="docutils literal notranslate"><span class="pre">read_raw_brainvision()</span></code> function. The Brain Vision format actually specifies <em>three files</em> for any given data set. The three files are all created at the time that the EEG data is acquired, and it’s important to ensure that all three are copied when moving them around. The files are as follows:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">*.eeg</span></code> is the actual EEG data (electrical potential measurements for all electrodes, at all time points). This is stored in a compressed (binary) format</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">*.vmrk</span></code> is a text file containing all of the markers (<em>trigger codes</em>) that were sent to the EEG system during data collection, by the stimulus computer. These typically encode the onset of various stimuli, and times of any responses by the participant, as well as and what each stimulus/response was.</p></li>
@@ -678,75 +664,7 @@ document.write(`
 <p>As described previously, many of MNE’s functions are nested inside subfolders (modules); for example, all of the file input-output (I/O) routines are in the module <code class="docutils literal notranslate"><span class="pre">mne.io</span></code>. So when we call the <code class="docutils literal notranslate"><span class="pre">read_raw_brainvision()</span></code> function, we have to do so as <code class="docutils literal notranslate"><span class="pre">mne.io.read_raw_brainvision()</span></code>. The one required argument for this function is the file name, and that’s all we need for now:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span><span class="s1">&#39;data/N400_dataset_04.vhdr&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span><span class="s1">&#39;data/N400_dataset_04.vhdr&#39;</span><span class="p">)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:956,</span> in <span class="ni">read_raw_brainvision</span><span class="nt">(vhdr_fname, eog, misc, scale, preload, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">916</span> <span class="nd">@fill_doc</span>
-<span class="g g-Whitespace">    </span><span class="mi">917</span> <span class="k">def</span> <span class="nf">read_raw_brainvision</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">918</span>     <span class="n">vhdr_fname</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">923</span>     <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">924</span> <span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">925</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Reader for Brain Vision EEG file.</span>
-<span class="g g-Whitespace">    </span><span class="mi">926</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">927</span><span class="sd">     Parameters</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">954</span><span class="sd">     mne.io.Raw : Documentation of attributes and methods of RawBrainVision.</span>
-<span class="g g-Whitespace">    </span><span class="mi">955</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">956</span>     <span class="k">return</span> <span class="n">RawBrainVision</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">957</span>         <span class="n">vhdr_fname</span><span class="o">=</span><span class="n">vhdr_fname</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">958</span>         <span class="n">eog</span><span class="o">=</span><span class="n">eog</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">959</span>         <span class="n">misc</span><span class="o">=</span><span class="n">misc</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">960</span>         <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">961</span>         <span class="n">preload</span><span class="o">=</span><span class="n">preload</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">962</span>         <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">963</span>     <span class="p">)</span>
-
-<span class="nn">File &lt;decorator-gen-247&gt;:12,</span> in <span class="ni">__init__</span><span class="nt">(self, vhdr_fname, eog, misc, scale, preload, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:90,</span> in <span class="ni">RawBrainVision.__init__</span><span class="nt">(self, vhdr_fname, eog, misc, scale, preload, verbose)</span>
-<span class="g g-Whitespace">     </span><span class="mi">79</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="n">ahdr_format</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;.ahdr&quot;</span> <span class="k">else</span> <span class="kc">False</span>
-<span class="g g-Whitespace">     </span><span class="mi">81</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">82</span>     <span class="n">info</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">83</span>     <span class="n">data_fname</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">84</span>     <span class="n">fmt</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="n">order</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="n">n_samples</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="n">mrk_fname</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">88</span>     <span class="n">montage</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">89</span>     <span class="n">orig_units</span><span class="p">,</span>
-<span class="ne">---&gt; </span><span class="mi">90</span> <span class="p">)</span> <span class="o">=</span> <span class="n">_get_hdr_info</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">,</span> <span class="n">eog</span><span class="p">,</span> <span class="n">misc</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">92</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_fname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">93</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>  <span class="c1"># ASCII, this will be slow :(</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:512,</span> in <span class="ni">_get_hdr_info</span><span class="nt">(hdr_fname, eog, misc, scale)</span>
-<span class="g g-Whitespace">    </span><span class="mi">506</span> <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;.vhdr&quot;</span><span class="p">,</span> <span class="s2">&quot;.ahdr&quot;</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">507</span>     <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">508</span>         <span class="s2">&quot;The header file must be given to read the data, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">509</span>         <span class="s2">&quot;not a file with extension &#39;</span><span class="si">%s</span><span class="s2">&#39;.&quot;</span> <span class="o">%</span> <span class="n">ext</span>
-<span class="g g-Whitespace">    </span><span class="mi">510</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">512</span> <span class="n">settings</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">cinfostr</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">_aux_hdr_info</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">513</span> <span class="n">info</span><span class="o">.</span><span class="n">_unlocked</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="g g-Whitespace">    </span><span class="mi">515</span> <span class="n">order</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cinfostr</span><span class="p">,</span> <span class="s2">&quot;DataOrientation&quot;</span><span class="p">)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:409,</span> in <span class="ni">_aux_hdr_info</span><span class="nt">(hdr_fname)</span>
-<span class="g g-Whitespace">    </span><span class="mi">407</span> <span class="k">def</span> <span class="nf">_aux_hdr_info</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">408</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Aux function for _get_hdr_info.&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">409</span>     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">410</span>         <span class="c1"># extract the first section to resemble a cfg</span>
-<span class="g g-Whitespace">    </span><span class="mi">411</span>         <span class="n">header</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">412</span>         <span class="n">codepage</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/Users/aaron/3505/NESC_3505_textbook/7-eeg/data/N400_dataset_04.vhdr&#39;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span><span class="s1">&#39;data/sub-001/sub-001.vhdr&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -761,15 +679,65 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Measurement date</th>
+        
+        <td>January 20, 2015  13:15:58 GMT</td>
+        
+    </tr>
+    <tr>
+        <th>Experimenter</th>
+        
+        <td>Unknown</td>
+        
+    </tr>
+        <th>Participant</th>
+        
+        <td>Unknown</td>
+        
+    </tr>
+    <tr>
+        <th>Digitized points</th>
+        
+        <td>Not available</td>
+        
+    </tr>
+    <tr>
+        <th>Good channels</th>
+        <td>16 EEG</td>
+    </tr>
+    <tr>
+        <th>Bad channels</th>
+        <td>None</td>
+    </tr>
+    <tr>
+        <th>EOG channels</th>
+        <td>Not available</td>
+    </tr>
+    <tr>
+        <th>ECG channels</th>
+        <td>Not available</td>
+    
+    <tr>
+        <th>Sampling frequency</th>
+        <td>500.00 Hz</td>
+    </tr>
+    
+    
+    <tr>
+        <th>Highpass</th>
+        <td>0.01 Hz</td>
+    </tr>
+    
+    
+    <tr>
+        <th>Lowpass</th>
+        <td>80.00 Hz</td>
+    </tr>
+    
+    
+</table></div></div>
 </div>
 <p>Although some of the information is not available, this shows us a few important things about our data set, including that there are 16 EEG channels (each channel contains the data from one EEG electrode), that the sampling rate is 500 Hz (i.e., EEG data were sampled 500 times per second, so we have a data point every 2 ms), and that the data were filtered during data collection between 0.01–80 Hz (more on filtering below).</p>
 <p>The information provided above is actually a subset of the information stored in the <code class="docutils literal notranslate"><span class="pre">Raw</span></code> object’s <code class="docutils literal notranslate"><span class="pre">info</span></code>. We can use the <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> method to see all of the fields available in <code class="docutils literal notranslate"><span class="pre">info</span></code>:</p>
@@ -780,12 +748,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;acq_pars&#39;, &#39;acq_stim&#39;, &#39;ctf_head_t&#39;, &#39;description&#39;, &#39;dev_ctf_t&#39;, &#39;dig&#39;, &#39;experimenter&#39;, &#39;utc_offset&#39;, &#39;device_info&#39;, &#39;file_id&#39;, &#39;highpass&#39;, &#39;hpi_subsystem&#39;, &#39;kit_system_id&#39;, &#39;helium_info&#39;, &#39;line_freq&#39;, &#39;lowpass&#39;, &#39;meas_date&#39;, &#39;meas_id&#39;, &#39;proj_id&#39;, &#39;proj_name&#39;, &#39;subject_info&#39;, &#39;xplotter_layout&#39;, &#39;gantry_angle&#39;, &#39;bads&#39;, &#39;chs&#39;, &#39;comps&#39;, &#39;events&#39;, &#39;hpi_meas&#39;, &#39;hpi_results&#39;, &#39;projs&#39;, &#39;proc_history&#39;, &#39;custom_ref_applied&#39;, &#39;sfreq&#39;, &#39;dev_head_t&#39;, &#39;ch_names&#39;, &#39;nchan&#39;])
 </pre></div>
 </div>
 </div>
@@ -798,12 +761,22 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Fp1&#39;,
+ &#39;F3&#39;,
+ &#39;F7&#39;,
+ &#39;C3&#39;,
+ &#39;P3&#39;,
+ &#39;TP9&#39;,
+ &#39;Fz&#39;,
+ &#39;Cz&#39;,
+ &#39;Fp2&#39;,
+ &#39;F4&#39;,
+ &#39;F8&#39;,
+ &#39;C4&#39;,
+ &#39;P4&#39;,
+ &#39;TP10&#39;,
+ &#39;Pz&#39;,
+ &#39;Oz&#39;]
 </pre></div>
 </div>
 </div>
@@ -816,12 +789,64 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="vm">__dict__</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;preload&#39;: False,
+ &#39;_last_samps&#39;: array([408639]),
+ &#39;_first_samps&#39;: array([0]),
+ &#39;info&#39;: &lt;Info | 7 non-empty values
+  bads: []
+  ch_names: Fp1, F3, F7, C3, P3, TP9, Fz, Cz, Fp2, F4, F8, C4, P4, TP10, Pz, Oz
+  chs: 16 EEG
+  custom_ref_applied: False
+  highpass: 0.0 Hz
+  lowpass: 80.0 Hz
+  meas_date: 2015-01-20 13:15:58 UTC
+  nchan: 16
+  projs: []
+  sfreq: 500.0 Hz
+ &gt;,
+ &#39;buffer_size_sec&#39;: 1.0,
+ &#39;_cals&#39;: array([4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08,
+        4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08,
+        4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08,
+        4.88281e-08]),
+ &#39;_raw_extras&#39;: [{&#39;offsets&#39;: None,
+   &#39;fmt&#39;: &#39;single&#39;,
+   &#39;order&#39;: &#39;F&#39;,
+   &#39;n_samples&#39;: 408640,
+   &#39;orig_nchan&#39;: 16}],
+ &#39;_read_picks&#39;: [array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15])],
+ &#39;_read_comp_grade&#39;: None,
+ &#39;_comp&#39;: None,
+ &#39;_filenames&#39;: [&#39;/Users/aaron/3505/NESC_3505_textbook/7-eeg/data/sub-001/sub-001.eeg&#39;],
+ &#39;orig_format&#39;: &#39;single&#39;,
+ &#39;_orig_units&#39;: {&#39;Fp1&#39;: &#39;µV&#39;,
+  &#39;F3&#39;: &#39;µV&#39;,
+  &#39;F7&#39;: &#39;µV&#39;,
+  &#39;C3&#39;: &#39;µV&#39;,
+  &#39;P3&#39;: &#39;µV&#39;,
+  &#39;TP9&#39;: &#39;µV&#39;,
+  &#39;Fz&#39;: &#39;µV&#39;,
+  &#39;Cz&#39;: &#39;µV&#39;,
+  &#39;Fp2&#39;: &#39;µV&#39;,
+  &#39;F4&#39;: &#39;µV&#39;,
+  &#39;F8&#39;: &#39;µV&#39;,
+  &#39;C4&#39;: &#39;µV&#39;,
+  &#39;P4&#39;: &#39;µV&#39;,
+  &#39;TP10&#39;: &#39;µV&#39;,
+  &#39;Pz&#39;: &#39;µV&#39;,
+  &#39;Oz&#39;: &#39;µV&#39;},
+ &#39;_projectors&#39;: [],
+ &#39;_projector&#39;: None,
+ &#39;_dtype_&#39;: numpy.float64,
+ &#39;_annotations&#39;: &lt;Annotations | 533 segments: Comment/actiCAP Data On (1), New Segment/ ...&gt;,
+ &#39;_cropped_samp&#39;: 0,
+ &#39;_init_kwargs&#39;: {&#39;vhdr_fname&#39;: &#39;data/sub-001/sub-001.vhdr&#39;,
+  &#39;eog&#39;: (&#39;HEOGL&#39;, &#39;HEOGR&#39;, &#39;VEOGb&#39;),
+  &#39;misc&#39;: &#39;auto&#39;,
+  &#39;scale&#39;: 1.0,
+  &#39;preload&#39;: False,
+  &#39;verbose&#39;: None},
+ &#39;impedances&#39;: {}}
 </pre></div>
 </div>
 </div>
@@ -834,7 +859,7 @@ document.write(`
 <p>We can force MNE to load in the data when we read the file, with the <code class="docutils literal notranslate"><span class="pre">preload</span></code> kwarg. We’ll do this now so that we can look at the data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span><span class="s1">&#39;data/N400_dataset_04.vhdr&#39;</span><span class="p">,</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span><span class="s1">&#39;data/sub-001/sub-001.vhdr&#39;</span><span class="p">,</span> 
                                   <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">raw</span><span class="o">.</span><span class="vm">__dict__</span>
@@ -842,72 +867,77 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span><span class="s1">&#39;data/N400_dataset_04.vhdr&#39;</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">2</span>                                   <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">raw</span><span class="o">.</span><span class="vm">__dict__</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:956,</span> in <span class="ni">read_raw_brainvision</span><span class="nt">(vhdr_fname, eog, misc, scale, preload, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">916</span> <span class="nd">@fill_doc</span>
-<span class="g g-Whitespace">    </span><span class="mi">917</span> <span class="k">def</span> <span class="nf">read_raw_brainvision</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">918</span>     <span class="n">vhdr_fname</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">923</span>     <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">924</span> <span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">925</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Reader for Brain Vision EEG file.</span>
-<span class="g g-Whitespace">    </span><span class="mi">926</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">927</span><span class="sd">     Parameters</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">954</span><span class="sd">     mne.io.Raw : Documentation of attributes and methods of RawBrainVision.</span>
-<span class="g g-Whitespace">    </span><span class="mi">955</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">956</span>     <span class="k">return</span> <span class="n">RawBrainVision</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">957</span>         <span class="n">vhdr_fname</span><span class="o">=</span><span class="n">vhdr_fname</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">958</span>         <span class="n">eog</span><span class="o">=</span><span class="n">eog</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">959</span>         <span class="n">misc</span><span class="o">=</span><span class="n">misc</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">960</span>         <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">961</span>         <span class="n">preload</span><span class="o">=</span><span class="n">preload</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">962</span>         <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">963</span>     <span class="p">)</span>
-
-<span class="nn">File &lt;decorator-gen-247&gt;:12,</span> in <span class="ni">__init__</span><span class="nt">(self, vhdr_fname, eog, misc, scale, preload, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:90,</span> in <span class="ni">RawBrainVision.__init__</span><span class="nt">(self, vhdr_fname, eog, misc, scale, preload, verbose)</span>
-<span class="g g-Whitespace">     </span><span class="mi">79</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="n">ahdr_format</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;.ahdr&quot;</span> <span class="k">else</span> <span class="kc">False</span>
-<span class="g g-Whitespace">     </span><span class="mi">81</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">82</span>     <span class="n">info</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">83</span>     <span class="n">data_fname</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">84</span>     <span class="n">fmt</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="n">order</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="n">n_samples</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="n">mrk_fname</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">88</span>     <span class="n">montage</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">89</span>     <span class="n">orig_units</span><span class="p">,</span>
-<span class="ne">---&gt; </span><span class="mi">90</span> <span class="p">)</span> <span class="o">=</span> <span class="n">_get_hdr_info</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">,</span> <span class="n">eog</span><span class="p">,</span> <span class="n">misc</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">92</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_fname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">93</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>  <span class="c1"># ASCII, this will be slow :(</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:512,</span> in <span class="ni">_get_hdr_info</span><span class="nt">(hdr_fname, eog, misc, scale)</span>
-<span class="g g-Whitespace">    </span><span class="mi">506</span> <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;.vhdr&quot;</span><span class="p">,</span> <span class="s2">&quot;.ahdr&quot;</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">507</span>     <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">508</span>         <span class="s2">&quot;The header file must be given to read the data, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">509</span>         <span class="s2">&quot;not a file with extension &#39;</span><span class="si">%s</span><span class="s2">&#39;.&quot;</span> <span class="o">%</span> <span class="n">ext</span>
-<span class="g g-Whitespace">    </span><span class="mi">510</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">512</span> <span class="n">settings</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">cinfostr</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">_aux_hdr_info</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">513</span> <span class="n">info</span><span class="o">.</span><span class="n">_unlocked</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="g g-Whitespace">    </span><span class="mi">515</span> <span class="n">order</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cinfostr</span><span class="p">,</span> <span class="s2">&quot;DataOrientation&quot;</span><span class="p">)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/io/brainvision/brainvision.py:409,</span> in <span class="ni">_aux_hdr_info</span><span class="nt">(hdr_fname)</span>
-<span class="g g-Whitespace">    </span><span class="mi">407</span> <span class="k">def</span> <span class="nf">_aux_hdr_info</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">408</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Aux function for _get_hdr_info.&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">409</span>     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">hdr_fname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">410</span>         <span class="c1"># extract the first section to resemble a cfg</span>
-<span class="g g-Whitespace">    </span><span class="mi">411</span>         <span class="n">header</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">412</span>         <span class="n">codepage</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/Users/aaron/3505/NESC_3505_textbook/7-eeg/data/N400_dataset_04.vhdr&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;_last_samps&#39;: array([408639]),
+ &#39;_first_samps&#39;: array([0]),
+ &#39;info&#39;: &lt;Info | 7 non-empty values
+  bads: []
+  ch_names: Fp1, F3, F7, C3, P3, TP9, Fz, Cz, Fp2, F4, F8, C4, P4, TP10, Pz, Oz
+  chs: 16 EEG
+  custom_ref_applied: False
+  highpass: 0.0 Hz
+  lowpass: 80.0 Hz
+  meas_date: 2015-01-20 13:15:58 UTC
+  nchan: 16
+  projs: []
+  sfreq: 500.0 Hz
+ &gt;,
+ &#39;buffer_size_sec&#39;: 1.0,
+ &#39;_cals&#39;: array([4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08,
+        4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08,
+        4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08, 4.88281e-08,
+        4.88281e-08]),
+ &#39;_raw_extras&#39;: [{&#39;offsets&#39;: None,
+   &#39;fmt&#39;: &#39;single&#39;,
+   &#39;order&#39;: &#39;F&#39;,
+   &#39;n_samples&#39;: 408640,
+   &#39;orig_nchan&#39;: 16}],
+ &#39;_read_picks&#39;: [array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15])],
+ &#39;_read_comp_grade&#39;: None,
+ &#39;_comp&#39;: None,
+ &#39;_filenames&#39;: [&#39;/Users/aaron/3505/NESC_3505_textbook/7-eeg/data/sub-001/sub-001.eeg&#39;],
+ &#39;orig_format&#39;: &#39;single&#39;,
+ &#39;_orig_units&#39;: {&#39;Fp1&#39;: &#39;µV&#39;,
+  &#39;F3&#39;: &#39;µV&#39;,
+  &#39;F7&#39;: &#39;µV&#39;,
+  &#39;C3&#39;: &#39;µV&#39;,
+  &#39;P3&#39;: &#39;µV&#39;,
+  &#39;TP9&#39;: &#39;µV&#39;,
+  &#39;Fz&#39;: &#39;µV&#39;,
+  &#39;Cz&#39;: &#39;µV&#39;,
+  &#39;Fp2&#39;: &#39;µV&#39;,
+  &#39;F4&#39;: &#39;µV&#39;,
+  &#39;F8&#39;: &#39;µV&#39;,
+  &#39;C4&#39;: &#39;µV&#39;,
+  &#39;P4&#39;: &#39;µV&#39;,
+  &#39;TP10&#39;: &#39;µV&#39;,
+  &#39;Pz&#39;: &#39;µV&#39;,
+  &#39;Oz&#39;: &#39;µV&#39;},
+ &#39;_projectors&#39;: [],
+ &#39;_projector&#39;: None,
+ &#39;_dtype_&#39;: numpy.float64,
+ &#39;_annotations&#39;: &lt;Annotations | 533 segments: Comment/actiCAP Data On (1), New Segment/ ...&gt;,
+ &#39;_cropped_samp&#39;: 0,
+ &#39;_data&#39;: array([[ 3.90319624e-05,  4.00207315e-05,  3.93859662e-05, ...,
+         -3.61236387e-05, -3.68530085e-05, -3.70727349e-05],
+        [-7.43865586e-06, -8.24279363e-06, -9.04845728e-06, ...,
+         -6.24503770e-05, -6.34910258e-05, -6.46072057e-05],
+        [-3.61812406e-05, -3.63311582e-05, -3.82491870e-05, ...,
+         -2.71751265e-05, -2.62847766e-05, -2.64377459e-05],
+        ...,
+        [-2.27813604e-06, -4.87746943e-06, -5.93185121e-06, ...,
+          2.44406003e-04,  2.46452778e-04,  2.48580042e-04],
+        [ 1.42735408e-05,  1.42221378e-05,  1.44631312e-05, ...,
+         -1.72385127e-05, -1.69773969e-05, -1.79483322e-05],
+        [-3.00623740e-05, -3.05631481e-05, -3.14957457e-05, ...,
+         -1.21160445e-05, -1.18659912e-05, -1.28832751e-05]]),
+ &#39;preload&#39;: True,
+ &#39;_init_kwargs&#39;: {&#39;vhdr_fname&#39;: &#39;data/sub-001/sub-001.vhdr&#39;,
+  &#39;eog&#39;: (&#39;HEOGL&#39;, &#39;HEOGR&#39;, &#39;VEOGb&#39;),
+  &#39;misc&#39;: &#39;auto&#39;,
+  &#39;scale&#39;: 1.0,
+  &#39;preload&#39;: True,
+  &#39;verbose&#39;: None},
+ &#39;impedances&#39;: {}}
 </pre></div>
 </div>
 </div>
@@ -921,13 +951,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">_data</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;numpy.ndarray&#39;&gt;
+(16, 408640)
 </pre></div>
 </div>
 </div>
@@ -941,13 +966,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">scan_durn</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Duration of EEG recording = &#39;</span><span class="p">,</span> <span class="n">scan_durn</span><span class="p">,</span> <span class="s1">&#39;s, or&#39;</span><span class="p">,</span> <span class="n">scan_durn</span> <span class="o">/</span> <span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;min.&#39;</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duration of EEG recording =  817.28 s, or 13.621333333333332 min.
 </pre></div>
 </div>
 </div>
@@ -963,12 +982,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="p">:])</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-3.00623740e-05 -3.05631481e-05 -3.14957457e-05 ... -1.21160445e-05
+ -1.18659912e-05 -1.28832751e-05]
 </pre></div>
 </div>
 </div>
@@ -981,12 +996,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="p">:</span><span class="mi">11</span><span class="p">])</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-4.93835196e-05 -4.81761686e-05 -4.84195461e-05 -5.00270587e-05
+ -5.21609993e-05 -5.30959811e-05 -5.19294473e-05 -4.96509298e-05
+ -4.78400939e-05 -4.80251066e-05 -5.11104322e-05]
 </pre></div>
 </div>
 </div>
@@ -1002,15 +1014,44 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">chan</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># set channel we want</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">start_time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="mi">1500</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">*</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">])</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">end_time</span>   <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="mi">1800</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">*</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">])</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">raw</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">chan</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span><span class="n">end_time</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-9.13302908e-05, -9.18307788e-05, -9.17853839e-05, -9.21187883e-05,
+       -9.22908310e-05, -9.23224930e-05, -9.34958933e-05, -9.52785004e-05,
+       -9.58583341e-05, -9.48539248e-05, -9.33444499e-05, -9.24033646e-05,
+       -9.23968796e-05, -9.33967112e-05, -9.52228059e-05, -9.64583857e-05,
+       -9.60719570e-05, -9.55131042e-05, -9.62554439e-05, -9.79255175e-05,
+       -9.92305248e-05, -9.94594065e-05, -9.93850199e-05, -9.99019111e-05,
+       -1.01450296e-04, -1.04130882e-04, -1.06779425e-04, -1.07941382e-04,
+       -1.07481329e-04, -1.06372397e-04, -1.05549949e-04, -1.05243629e-04,
+       -1.05647224e-04, -1.06534522e-04, -1.06436866e-04, -1.04910606e-04,
+       -1.03152794e-04, -1.01938195e-04, -1.02014871e-04, -1.03243203e-04,
+       -1.03858513e-04, -1.03524346e-04, -1.03244347e-04, -1.03178734e-04,
+       -1.03326745e-04, -1.03440423e-04, -1.02868218e-04, -1.01674982e-04,
+       -9.99453987e-05, -9.78160357e-05, -9.67200738e-05, -9.77778888e-05,
+       -9.99736274e-05, -1.01523920e-04, -1.01680322e-04, -1.01023813e-04,
+       -1.00325342e-04, -9.90527600e-05, -9.73426320e-05, -9.70340232e-05,
+       -9.74658467e-05, -9.60139737e-05, -9.35637949e-05, -9.30411816e-05,
+       -9.42973608e-05, -9.49958315e-05, -9.43812841e-05, -9.41955084e-05,
+       -9.62993129e-05, -9.96737924e-05, -1.01394220e-04, -1.00503107e-04,
+       -9.83905288e-05, -9.53612793e-05, -9.07325280e-05, -8.68251356e-05,
+       -8.73267680e-05, -9.14470204e-05, -9.47444431e-05, -9.48523989e-05,
+       -9.30953503e-05, -9.19665819e-05, -9.26768782e-05, -9.47616092e-05,
+       -9.69710807e-05, -9.82032273e-05, -9.81376145e-05, -9.68837242e-05,
+       -9.52167023e-05, -9.48955050e-05, -9.65075952e-05, -9.79724382e-05,
+       -9.78820300e-05, -9.73960378e-05, -9.69493370e-05, -9.60284695e-05,
+       -9.52064027e-05, -9.49679842e-05, -9.48894015e-05, -9.49256411e-05,
+       -9.60097775e-05, -9.84740707e-05, -1.00869699e-04, -1.02107568e-04,
+       -1.03004784e-04, -1.04006905e-04, -1.04416603e-04, -1.04617637e-04,
+       -1.05661338e-04, -1.07101767e-04, -1.07631628e-04, -1.06975882e-04,
+       -1.06355613e-04, -1.06709998e-04, -1.07222693e-04, -1.07017844e-04,
+       -1.06305640e-04, -1.05921119e-04, -1.06549399e-04, -1.07573263e-04,
+       -1.08006231e-04, -1.07735006e-04, -1.07466452e-04, -1.07750265e-04,
+       -1.07961599e-04, -1.07903235e-04, -1.08541433e-04, -1.10108891e-04,
+       -1.11840000e-04, -1.13333835e-04, -1.14231814e-04, -1.14172686e-04,
+       -1.13785495e-04, -1.13179721e-04, -1.11955585e-04, -1.10762349e-04,
+       -1.10128346e-04, -1.10277119e-04, -1.11621037e-04, -1.13520373e-04,
+       -1.14588488e-04, -1.15114153e-04, -1.16450059e-04, -1.17957246e-04,
+       -1.18096100e-04, -1.17239320e-04, -1.16820466e-04, -1.16744172e-04,
+       -1.15996874e-04, -1.15161837e-04])
 </pre></div>
 </div>
 </div>
@@ -1028,13 +1069,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw_data</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">raw_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(16, 408640)
 </pre></div>
 </div>
 </div>
@@ -1047,12 +1082,106 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Fz&#39;</span><span class="p">,</span> <span class="s1">&#39;Cz&#39;</span><span class="p">],</span> <span class="n">tmin</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 5.92765505e-06,  4.62608101e-06,  3.92951764e-06,
+         3.86695664e-06,  4.05120642e-06,  4.61921455e-06,
+         4.97245534e-06,  4.67681645e-06,  4.18739104e-06,
+         4.11796359e-06,  4.73937746e-06,  5.15174602e-06,
+         4.63485480e-06,  4.31899803e-06,  5.07659652e-06,
+         6.21184985e-06,  6.59675260e-06,  5.41076383e-06,
+         3.07082973e-06,  1.31683282e-06,  1.56555096e-06,
+         3.17878560e-06,  3.98139750e-06,  3.20701435e-06,
+         1.96113486e-06,  8.17489205e-07, -5.12695050e-07,
+        -2.09998977e-06, -3.21578815e-06, -2.47344844e-06,
+        -1.14059390e-07,  1.43775866e-06,  8.93783112e-07,
+        -8.02993363e-07, -2.22892647e-06, -2.77480937e-06,
+        -2.83241127e-06, -2.80227518e-06, -2.62069568e-06,
+        -2.08511246e-06, -1.27906734e-06, -7.61413184e-07,
+        -8.44192073e-07, -1.43432544e-06, -2.81448220e-06,
+        -4.33540122e-06, -3.97872721e-06, -1.51367110e-06,
+         1.20963988e-06,  2.42843504e-06,  1.42974780e-06,
+        -5.95473938e-07, -1.79595855e-06, -1.97753805e-06,
+        -1.96685690e-06, -2.29339482e-06, -2.88276525e-06,
+        -2.90031285e-06, -2.69393783e-06, -3.52477847e-06,
+        -4.23316739e-06, -3.02810514e-06, -8.16726266e-07,
+         7.29369744e-07,  1.42555164e-06,  1.82151701e-06,
+         1.97334189e-06,  1.01051279e-06, -1.24359067e-06,
+        -3.04145657e-06, -2.97317353e-06, -1.51100081e-06,
+        -7.20977414e-08,  5.42449673e-07,  7.75909027e-07,
+         7.39287952e-07, -9.53673828e-09, -1.04484505e-06,
+        -1.29280024e-06, -2.30407597e-07,  1.36756827e-06,
+         2.12325941e-06,  1.61285318e-06,  2.76946880e-07,
+        -1.48353501e-06, -3.24706865e-06, -4.48112258e-06,
+        -4.41093219e-06, -2.64739855e-06, -7.36617665e-07,
+        -6.99615120e-07, -1.57241741e-06, -1.25579770e-06,
+        -4.26482936e-07, -2.29263188e-07,  1.29318171e-07,
+         9.18197162e-07,  1.38282705e-06,  1.28555232e-06,
+         6.30569135e-07, -6.98470712e-07, -2.22968941e-06,
+        -2.62679919e-06, -1.91459558e-06, -1.63803017e-06,
+        -1.53617780e-06, -7.88116052e-07, -7.80486661e-07,
+        -2.49023310e-06, -4.60242989e-06, -5.67741103e-06,
+        -5.60378741e-06, -5.20210000e-06, -4.84733333e-06,
+        -4.30412072e-06, -4.12673739e-06, -4.81834165e-06,
+        -5.78422250e-06, -6.42318397e-06, -6.45179418e-06,
+        -6.06650996e-06, -5.70678419e-06, -5.24444312e-06,
+        -4.52918774e-06, -3.62701230e-06, -3.26576066e-06,
+        -4.52689893e-06, -6.50901461e-06, -7.33985525e-06,
+        -6.88933973e-06, -5.80100716e-06, -4.63866950e-06,
+        -3.80401417e-06, -3.21731403e-06, -3.32336256e-06,
+        -4.25147793e-06, -5.15060161e-06, -5.45158107e-06,
+        -4.91714226e-06, -4.06951696e-06, -3.88183395e-06,
+        -4.67986821e-06, -6.40678078e-06, -8.03336686e-06,
+        -8.17641793e-06, -7.10563296e-06, -5.86776433e-06,
+        -4.93888602e-06, -4.32662742e-06, -3.91540327e-06],
+       [ 1.63165963e-05,  1.59688868e-05,  1.60106577e-05,
+         1.59490504e-05,  1.58630290e-05,  1.65782844e-05,
+         1.74844652e-05,  1.74056918e-05,  1.65498649e-05,
+         1.64365684e-05,  1.75983339e-05,  1.85815716e-05,
+         1.84148694e-05,  1.76208406e-05,  1.70507344e-05,
+         1.72185810e-05,  1.78331284e-05,  1.79634002e-05,
+         1.70040044e-05,  1.55647198e-05,  1.48836060e-05,
+         1.53037947e-05,  1.63722908e-05,  1.75214678e-05,
+         1.77896409e-05,  1.67100821e-05,  1.52561110e-05,
+         1.42824100e-05,  1.40029836e-05,  1.50628966e-05,
+         1.70038136e-05,  1.76963716e-05,  1.64976036e-05,
+         1.46024629e-05,  1.28265315e-05,  1.16567552e-05,
+         1.17303788e-05,  1.27735073e-05,  1.33418969e-05,
+         1.33060387e-05,  1.39345098e-05,  1.47382661e-05,
+         1.46942063e-05,  1.45133898e-05,  1.42917560e-05,
+         1.35299613e-05,  1.33249215e-05,  1.46119997e-05,
+         1.68046865e-05,  1.83359052e-05,  1.75348192e-05,
+         1.50121612e-05,  1.31885461e-05,  1.28419810e-05,
+         1.29829340e-05,  1.28127986e-05,  1.27397472e-05,
+         1.37496878e-05,  1.45889208e-05,  1.29905634e-05,
+         1.02725930e-05,  9.15965565e-06,  9.73414876e-06,
+         1.08669225e-05,  1.18266999e-05,  1.20077072e-05,
+         1.14417971e-05,  1.07023184e-05,  9.54055298e-06,
+         8.12549175e-06,  8.01906175e-06,  9.88769025e-06,
+         1.21669707e-05,  1.29896097e-05,  1.25719006e-05,
+         1.17431580e-05,  1.06729453e-05,  9.97123208e-06,
+         1.01987787e-05,  1.14351214e-05,  1.33455208e-05,
+         1.52147215e-05,  1.65847693e-05,  1.68525610e-05,
+         1.52852934e-05,  1.26626904e-05,  1.10736790e-05,
+         1.15083636e-05,  1.31418161e-05,  1.44756243e-05,
+         1.46058961e-05,  1.41256260e-05,  1.39221120e-05,
+         1.34496620e-05,  1.25013287e-05,  1.21782241e-05,
+         1.22987684e-05,  1.19398056e-05,  1.14080371e-05,
+         1.09973851e-05,  1.06370871e-05,  1.07191031e-05,
+         1.14595355e-05,  1.22747358e-05,  1.25574048e-05,
+         1.24927457e-05,  1.24008115e-05,  1.22823652e-05,
+         1.23617109e-05,  1.27063686e-05,  1.27426082e-05,
+         1.20498596e-05,  1.11514988e-05,  1.09323446e-05,
+         1.12615528e-05,  1.13885821e-05,  1.13807620e-05,
+         1.16432130e-05,  1.19111954e-05,  1.17620408e-05,
+         1.12520160e-05,  1.10782567e-05,  1.18692337e-05,
+         1.33521965e-05,  1.49366302e-05,  1.55656735e-05,
+         1.44376681e-05,  1.28946238e-05,  1.24607022e-05,
+         1.28559047e-05,  1.39562535e-05,  1.56797329e-05,
+         1.66974936e-05,  1.61477960e-05,  1.47981568e-05,
+         1.40073705e-05,  1.38013769e-05,  1.33386544e-05,
+         1.30224161e-05,  1.31927423e-05,  1.31185464e-05,
+         1.25434811e-05,  1.16001070e-05,  1.05470603e-05,
+         1.00896784e-05,  1.04490227e-05,  1.09861318e-05,
+         1.14580096e-05,  1.22089323e-05,  1.30334787e-05]])
 </pre></div>
 </div>
 </div>
@@ -1076,18 +1205,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">start_time</span> <span class="o">=</span> <span class="mi">15</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">end_time</span> <span class="o">=</span> <span class="mi">16</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="s1">&#39;Oz&#39;</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="n">start_time</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="n">end_time</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
-</pre></div>
-</div>
-<img alt="../_images/8466c18f109ecbe0b5bdae84d6b1792bc8aeff8b683cbe4c48b27196eced620b.png" src="../_images/8466c18f109ecbe0b5bdae84d6b1792bc8aeff8b683cbe4c48b27196eced620b.png" />
+<img alt="../_images/13a4aaa5fa1b4946a32e2b63d04e5eaef31eb3d54308bff0c8d1dbe82c8b136d.png" src="../_images/13a4aaa5fa1b4946a32e2b63d04e5eaef31eb3d54308bff0c8d1dbe82c8b136d.png" />
 </div>
 </div>
 </section>
@@ -1102,17 +1220,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># be sure to include the semicolon at the end of the line. We&#39;ll learn why later.</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">raw</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>  
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
-</pre></div>
-</div>
-</div>
 </div>
 <p>Note carefully that there are two <em>x</em> axes in the plot. The top one (closer to the plot itself) are the time units of the data (in seconds). The bottom axis shows the timeline of the entire raw EEG recording, with a dark vertical bar near the start indicating the position in the file that is currently plotted, and a drag bar to scroll through the data.</p>
 </section>
@@ -1122,8 +1229,10 @@ document.write(`
 <p>One thing that can be useful at this stage is visualizing the electrode positions on the head. Typically, EEG studies try to position electrode in a fairly evenly-spaced way over the top of the head. However, the locations can depend someone on what ERP <a class="reference internal" href="components.html"><span class="doc std std-doc">components</span></a> are predicted for the study, and how many electrodes are available.</p>
 <p>MNE provides a <code class="docutils literal notranslate"><span class="pre">.plot_sensors()</span></code> method for visualizing sensor locations. However, by default although our raw data contains the <em>names</em> of each channel, it does not contain information regarding where each channel was located. Fortunately, in this and most EEG studies, the electrode positions were based on the International 10-20 system. This was first introduced as a way of standardizing EEG electrode placement in clinical neurology, and is so-named because electrode positions are determined by first measuring the anterior-posterior and left-right dimensions of the participant’s head, and then placing electrodes at positions determined by 10 and 20% increments of those measurements (E.g., electrode Cz is placed 50% of the anterior-posterior and left-right measurements). More recently, <a class="reference external" href="https://doi.org/10.1016/S1388-2457(00)00527-7">Oostenveld and Praamstra (2001)</a> published an extension of this called the 10-5 system, that allows for a larger number of electrodes based on 5% increments. You can read more about this system and its variants on <a class="reference external" href="https://robertoostenveld.nl/electrode/#oostenveld2001">Oostenveld’s blog</a>.</p>
 <p>Long story short, we have to first run an MNE method to look up the locations of each electrode based on its 10-20 system name, and set the positions in the raw file. We do this with <code class="docutils literal notranslate"><span class="pre">.set_montage()</span></code>, and as an argument use MNE’s built-in list of 10-5 system electrode names and locations.</p>
-<div class="alert alert-block alert-info">
-<p><strong>Note:</strong> <em>Montage</em> is a common word used to describe the arrangement of EEG electrodes on a head, or in an EEG cap. In more general usage, <em>montage</em> means “a collection of elements”.</div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>Montage</em> is a common word used to describe the arrangement of EEG electrodes on a head, or in an EEG cap. In more general usage, <em>montage</em> means “a collection of elements”.</div></p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
@@ -1131,15 +1240,75 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Measurement date</th>
+        
+        <td>January 20, 2015  13:15:58 GMT</td>
+        
+    </tr>
+    <tr>
+        <th>Experimenter</th>
+        
+        <td>Unknown</td>
+        
+    </tr>
+        <th>Participant</th>
+        
+        <td>Unknown</td>
+        
+    </tr>
+    <tr>
+        <th>Digitized points</th>
+        
+        <td>19 points</td>
+        
+    </tr>
+    <tr>
+        <th>Good channels</th>
+        <td>16 EEG</td>
+    </tr>
+    <tr>
+        <th>Bad channels</th>
+        <td>None</td>
+    </tr>
+    <tr>
+        <th>EOG channels</th>
+        <td>Not available</td>
+    </tr>
+    <tr>
+        <th>ECG channels</th>
+        <td>Not available</td>
+    
+    <tr>
+        <th>Sampling frequency</th>
+        <td>500.00 Hz</td>
+    </tr>
+    
+    
+    <tr>
+        <th>Highpass</th>
+        <td>0.01 Hz</td>
+    </tr>
+    
+    
+    <tr>
+        <th>Lowpass</th>
+        <td>80.00 Hz</td>
+    </tr>
+    
+    
+    
+    <tr>
+        <th>Filenames</th>
+        <td>sub-001.eeg</td>
+    </tr>
+    
+    <tr>
+        <th>Duration</th>
+        <td>00:13:38 (HH:MM:SS)</td>
+    </tr>
+</table></div></div>
 </div>
 <p>MNE prints out the <code class="docutils literal notranslate"><span class="pre">info</span></code> for the <code class="docutils literal notranslate"><span class="pre">Raw</span></code> object again, and if you compare this output to that from earlier, you’ll see that the <em>Digitized points</em> field has changed from “Not available” to “19 points”. This terminology is a bit strange - “digitized points” seems more general and nonspecific than “electrode locations”, for example. The reason for this is that in some cases, researchers will actually use a device to digitize the locations of electrodes when they are on a person’s head, rather than relying on standard positions. Anyway, this information is stored under the <code class="docutils literal notranslate"><span class="pre">dig</span></code> attribute, which we can view with:</p>
 <div class="cell docutils container">
@@ -1149,12 +1318,25 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;dig&#39;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;DigPoint |        LPA : (-82.5, 0.0, 0.0) mm      : head frame&gt;,
+ &lt;DigPoint |     Nasion : (-0.0, 114.0, 0.0) mm     : head frame&gt;,
+ &lt;DigPoint |        RPA : (82.5, -0.0, -0.0) mm     : head frame&gt;,
+ &lt;DigPoint |     EEG #1 : (-30.9, 114.6, 27.9) mm   : head frame&gt;,
+ &lt;DigPoint |     EEG #3 : (28.4, 115.3, 27.7) mm    : head frame&gt;,
+ &lt;DigPoint |    EEG #16 : (-71.9, 73.1, 25.8) mm    : head frame&gt;,
+ &lt;DigPoint |    EEG #18 : (-51.8, 86.7, 78.7) mm    : head frame&gt;,
+ &lt;DigPoint |    EEG #20 : (-1.2, 93.3, 102.6) mm    : head frame&gt;,
+ &lt;DigPoint |    EEG #22 : (50.3, 87.4, 77.3) mm     : head frame&gt;,
+ &lt;DigPoint |    EEG #24 : (71.4, 74.5, 25.1) mm     : head frame&gt;,
+ &lt;DigPoint |    EEG #40 : (-67.1, 23.4, 104.5) mm   : head frame&gt;,
+ &lt;DigPoint |    EEG #42 : (-1.4, 27.6, 140.2) mm    : head frame&gt;,
+ &lt;DigPoint |    EEG #44 : (65.3, 23.6, 103.7) mm    : head frame&gt;,
+ &lt;DigPoint |    EEG #48 : (-87.6, -17.6, -3.4) mm   : head frame&gt;,
+ &lt;DigPoint |    EEG #58 : (84.2, -18.8, -3.5) mm    : head frame&gt;,
+ &lt;DigPoint |    EEG #62 : (-55.0, -44.2, 99.9) mm   : head frame&gt;,
+ &lt;DigPoint |    EEG #64 : (-1.7, -45.2, 126.7) mm   : head frame&gt;,
+ &lt;DigPoint |    EEG #66 : (53.6, -44.3, 100.5) mm   : head frame&gt;,
+ &lt;DigPoint |    EEG #82 : (-2.1, -82.8, 60.7) mm    : head frame&gt;]
 </pre></div>
 </div>
 </div>
@@ -1169,12 +1351,22 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Fp1&#39;,
+ &#39;F3&#39;,
+ &#39;F7&#39;,
+ &#39;C3&#39;,
+ &#39;P3&#39;,
+ &#39;TP9&#39;,
+ &#39;Fz&#39;,
+ &#39;Cz&#39;,
+ &#39;Fp2&#39;,
+ &#39;F4&#39;,
+ &#39;F8&#39;,
+ &#39;C4&#39;,
+ &#39;P4&#39;,
+ &#39;TP10&#39;,
+ &#39;Pz&#39;,
+ &#39;Oz&#39;]
 </pre></div>
 </div>
 </div>
@@ -1190,14 +1382,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">21</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">plot_sensors</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/0759b108f255c16376cf063bf6aa6c92270b3a888c8ef267fb13711f9e12bf0f.png" src="../_images/0759b108f255c16376cf063bf6aa6c92270b3a888c8ef267fb13711f9e12bf0f.png" />
+<img alt="../_images/0759b108f255c16376cf063bf6aa6c92270b3a888c8ef267fb13711f9e12bf0f.png" src="../_images/0759b108f255c16376cf063bf6aa6c92270b3a888c8ef267fb13711f9e12bf0f.png" />
 </div>
 </div>
 </section>
@@ -1214,14 +1400,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">22</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">plot_sensors</span><span class="p">();</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/0759b108f255c16376cf063bf6aa6c92270b3a888c8ef267fb13711f9e12bf0f.png" src="../_images/0759b108f255c16376cf063bf6aa6c92270b3a888c8ef267fb13711f9e12bf0f.png" />
 </div>
 </div>
 </section>
@@ -1236,15 +1415,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">23</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">plot_sensors</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/0759b108f255c16376cf063bf6aa6c92270b3a888c8ef267fb13711f9e12bf0f.png" src="../_images/0759b108f255c16376cf063bf6aa6c92270b3a888c8ef267fb13711f9e12bf0f.png" />
 </div>
 </div>
 </section>
@@ -1259,15 +1430,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">24</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">plot_sensors</span><span class="p">(</span><span class="n">show_names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/75e3415a4b264b9914237f15be3c15ab59ef9927146f9c6dfc1ea9ae2a9299e6.png" src="../_images/75e3415a4b264b9914237f15be3c15ab59ef9927146f9c6dfc1ea9ae2a9299e6.png" />
 </div>
 </div>
 </section>
@@ -1283,12 +1446,29 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mne</span><span class="o">.</span><span class="n">events_from_annotations</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([[     0,      0,  99999],
+        [     0,      0,  10001],
+        [ 25550,      0,      5],
+        ...,
+        [397701,      0,      3],
+        [402068,      0,      7],
+        [402073,      0,      4]]),
+ {&#39;Comment/actiCAP Data On&#39;: 10001,
+  &#39;New Segment/&#39;: 99999,
+  &#39;Stimulus/S  1&#39;: 1,
+  &#39;Stimulus/S  2&#39;: 2,
+  &#39;Stimulus/S  3&#39;: 3,
+  &#39;Stimulus/S  4&#39;: 4,
+  &#39;Stimulus/S  5&#39;: 5,
+  &#39;Stimulus/S  7&#39;: 7,
+  &#39;Stimulus/S101&#39;: 101,
+  &#39;Stimulus/S102&#39;: 102,
+  &#39;Stimulus/S111&#39;: 111,
+  &#39;Stimulus/S112&#39;: 112,
+  &#39;Stimulus/S201&#39;: 201,
+  &#39;Stimulus/S202&#39;: 202,
+  &#39;Stimulus/S211&#39;: 211,
+  &#39;Stimulus/S212&#39;: 212})
 </pre></div>
 </div>
 </div>
@@ -1305,14 +1485,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">26</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_dict</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">events_from_annotations</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">events</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">events</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">500</span> <span class="o">*</span> <span class="mi">1000</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">events</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[    0,     0, 99999],
+       [    0,     0, 10001],
+       [51100,     0,     5],
+       [51106,     0,     1],
+       [52198,     0,   201],
+       [52288,     0,     2],
+       [59164,     0,     3],
+       [66566,     0,     1],
+       [67562,     0,   211],
+       [69864,     0,     3]])
 </pre></div>
 </div>
 </div>
