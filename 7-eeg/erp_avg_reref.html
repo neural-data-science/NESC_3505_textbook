@@ -608,9 +608,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#my-head-is-blowing-up-are-erps-even-real">My Head is Blowing Up. Are ERPs Even Real?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-evokeds-to-file">Save Evokeds to File</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-evoked-objects-to-file">Write Evoked Objects to File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-difference-waves-to-file">Save Difference Waves to File</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-difference-waves-to-file">Save Difference Waves to File</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
             </nav>
@@ -757,7 +757,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_46148/2894479327.py:19: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_46459/2894479327.py:19: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 </pre></div>
 </div>
@@ -810,7 +810,9 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">evokeds_avgref</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="n">evokeds</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">set_eeg_reference</span><span class="p">(</span><span class="n">ref_channels</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">evokeds</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">evokeds_avgref</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="n">evokeds</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">set_eeg_reference</span><span class="p">(</span><span class="n">ref_channels</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">)</span> 
+                  <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">evokeds</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                  <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -855,7 +857,7 @@ Mismatch (average reference)
 </div>
 </div>
 </div>
-<p>There are clear differences in the scalp topography between the original and averaged references. The patterns potentials across the scalp are similar — for instance, note the relatively strong positive potential over the posterior right scalp in the last time window, with a more negative potential over the anterior scalp. At the same time, the actual electrical potential values are quite different, in ways that could impact interpretation of teh data. Note how the right anterior negativity appears stronger and more focal in the average reference, while the right posterior positivity appears stronger in the original reference.</p>
+<p>There are clear differences in the scalp topography between the original and averaged references. The patterns potentials across the scalp are similar — for instance, note the relatively strong positive potential over the posterior right scalp in the last time window, with a more negative potential over the anterior scalp. At the same time, the actual electrical potential values are quite different, in ways that could impact interpretation of the data. Note how the right anterior negativity appears stronger and more focal in the average reference, while the right posterior positivity appears stronger in the original reference.</p>
 </section>
 <section id="view-waveform-plots-at-midline-channels-with-average-reference">
 <h3>View Waveform Plots at Midline Channels with Average Reference<a class="headerlink" href="#view-waveform-plots-at-midline-channels-with-average-reference" title="Permalink to this heading">#</a></h3>
@@ -881,7 +883,7 @@ Mismatch (average reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_46148/4097726861.py:14: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_46459/4097726861.py:14: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 </pre></div>
 </div>
@@ -895,7 +897,12 @@ Mismatch (average reference)
 <p>Now we will re-reference to the average of the mastoid electrodes (whose labels are TP9 and TP10 in the 10-20 system — refer back to the plot of channel locations to see these on the montage). Note that we need to pass a <em>list</em> of channel locations to the <code class="docutils literal notranslate"><span class="pre">ref_channels</span></code> kwarg since there is more than one value to pass.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">evokeds_mastoidref</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="n">evokeds</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">set_eeg_reference</span><span class="p">(</span><span class="n">ref_channels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TP9&#39;</span><span class="p">,</span> <span class="s1">&#39;TP10&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">evokeds</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">evokeds_mastoidref</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="n">evokeds</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">set_eeg_reference</span><span class="p">(</span><span class="n">ref_channels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TP9&#39;</span><span class="p">,</span> 
+                                                                          <span class="s1">&#39;TP10&#39;</span>
+                                                                          <span class="p">]</span>
+                                                            <span class="p">)</span> 
+                      <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">evokeds</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                      <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -975,7 +982,7 @@ Mismatch (mastoid reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_46148/3537764921.py:14: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_46459/3537764921.py:14: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 </pre></div>
 </div>
@@ -1016,7 +1023,7 @@ Mismatch (mastoid reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_46148/1736682494.py:22: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_46459/1736682494.py:22: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 </pre></div>
 </div>
@@ -1082,7 +1089,7 @@ Mismatch (mastoid reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_46148/3944117805.py:18: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_46459/3944117805.py:18: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 </pre></div>
 </div>
@@ -1151,7 +1158,13 @@ Mismatch (mastoid reference)
     <span class="n">evokeds_mastoidref</span><span class="p">[</span><span class="n">condition</span><span class="p">]</span><span class="o">.</span><span class="n">comment</span> <span class="o">=</span> <span class="n">condition</span>
 
 <span class="c1"># view the results</span>
-<span class="c1"># evokeds_mastoidref</span>
+<span class="n">evokeds_mastoidref</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Match&#39;: &lt;Evoked | &#39;Match&#39; (average, N=69), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~95 kB&gt;,
+ &#39;Mismatch&#39;: &lt;Evoked | &#39;Mismatch&#39; (average, N=68), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~95 kB&gt;}
 </pre></div>
 </div>
 </div>
@@ -1172,9 +1185,8 @@ Mismatch (mastoid reference)
 </div>
 </div>
 </section>
-</section>
 <section id="save-difference-waves-to-file">
-<h2>Save Difference Waves to File<a class="headerlink" href="#save-difference-waves-to-file" title="Permalink to this heading">#</a></h2>
+<h3>Save Difference Waves to File<a class="headerlink" href="#save-difference-waves-to-file" title="Permalink to this heading">#</a></h3>
 <p>Although we have only one contrast of interest in this study, it’s still good practice to save every difference wave as a separate file, if you have more than one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1186,6 +1198,7 @@ Mismatch (mastoid reference)
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
@@ -1286,9 +1299,9 @@ Mismatch (mastoid reference)
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#my-head-is-blowing-up-are-erps-even-real">My Head is Blowing Up. Are ERPs Even Real?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-evokeds-to-file">Save Evokeds to File</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-evoked-objects-to-file">Write Evoked Objects to File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-difference-waves-to-file">Save Difference Waves to File</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-difference-waves-to-file">Save Difference Waves to File</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
   </nav></div>
