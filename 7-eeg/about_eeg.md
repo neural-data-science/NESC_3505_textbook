@@ -51,7 +51,7 @@ At rest, the inside of a neuron's cell body has a resting negative potential. Th
 align: center
 width: 600px
 ---
-Left panel: An electrical dipole, which is a model of any source of EEG activity located at a particular point in the brain. Image adapted from Geek3, CC BY-SA 4.0, via Wikimedia Commons. 
+Left panel: An electrical dipole, which is a model of any source of EEG activity located at a particular point in the brain. Image adapted from [Geek3](https://commons.wikimedia.org/wiki/File:VFPt_dipoles_electric.svg), CC BY-SA 4.0, via Wikimedia Commons. 
 Right panel: Models of the EEG scalp potentials that would be recorded if a single electrical dipole (shown as a red circle, with a line extending in the direction of the positive pole) were active inside the head. Red lines show positive potentials and blue lines show negative potentials. Each of the four panels shows the distribution of potentials over the scalp for a different orientation of the dipole, with the location of the dipole held constant. Images generated using [BESA Simulator software](https://www.besa.de). 
 ```
 
