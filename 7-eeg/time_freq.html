@@ -588,28 +588,28 @@ document.write(`
 <figure class="align-center" id="id1">
 <a class="reference internal image-reference" href="../_images/eeg_raw_continuous_30s.jpg"><img alt="../_images/eeg_raw_continuous_30s.jpg" src="../_images/eeg_raw_continuous_30s.jpg" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7 </span><span class="caption-text">A 30 s sample of continuous EEG data, visualized in the time domain.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">A 30 s sample of continuous EEG data, visualized in the time domain.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Alternatively, EEG can be viewed in the <strong>frequency domain</strong>. This is done by applying a mathematical transformation, typically a <a class="reference external" href="https://en.wikipedia.org/wiki/Fast_Fourier_transform"><strong>fast Fourier transform</strong></a> (<strong>FFT</strong>). The FFT is based on a principle that any time-varying signal can be created from (or broken down into) a set of sine waves of varying frequencies and amplitudes, added together. Sine waves are regularly oscillating waveforms, such as this:</p>
 <figure class="align-center" id="id2">
 <a class="reference internal image-reference" href="../_images/sine_wave.png"><img alt="../_images/sine_wave.png" src="../_images/sine_wave.png" style="height: 75px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 8 </span><span class="caption-text">A sine wave.</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">A sine wave.</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Clearly, an EEG signal such as the one shown in the top figure is much more complicated than a simple sine wave! The amplitude (deflection on the <em>y</em> axis) varies over time, as does the frequency (the spacing between the peaks and troughs over time)  But, by combining a large number of sine waves of different frequencies, each with a specific amplitude, we can mathematically describe even a complex EEG waveform. The figure below shows a very simple example, composed of a limited set of since waves:</p>
 <figure class="align-center" id="id3">
 <a class="reference internal image-reference" href="../_images/fourier_series_td.png"><img alt="../_images/fourier_series_td.png" src="../_images/fourier_series_td.png" style="height: 350px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 9 </span><span class="caption-text">A Fourier series — a set of sine waves of varying frequencies and amplitudes, along with their sum (bottom panel).</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">A Fourier series — a set of sine waves of varying frequencies and amplitudes, along with their sum (bottom panel).</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Applying an FFT to EEG data generates a representation of the data in the <strong>frequency domain</strong>. The FFT estimates the amplitudes of each of a wide range of sine waves (many more than shown in the figure above), and the frequency domain data represent these amplitudes, with their corresponding frequencies. The results can be plotted in the frequency domain, i.e., with frequency on the <em>x</em> axis, rather than time, and amplitude on the <em>y</em> axis. Note that in the frequency domain, the amplitude of each frequency is generally referred to as <strong>power</strong>, not amplitude.</p>
 <figure class="align-center" id="id4">
 <a class="reference internal image-reference" href="../_images/fourier_series_fd.png"><img alt="../_images/fourier_series_fd.png" src="../_images/fourier_series_fd.png" style="height: 200px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 10 </span><span class="caption-text">The summed Fourier series shown in the bottom panel of the previous figure, but plotted in the frequency domain. The peaks correspond to the frequencies of sine waves used in the series. A frequency domain plot like this is often referred to as a <strong>power spectrum</strong>.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">The summed Fourier series shown in the bottom panel of the previous figure, but plotted in the frequency domain. The peaks correspond to the frequencies of sine waves used in the series. A frequency domain plot like this is often referred to as a <strong>power spectrum</strong>.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>One important thing to note about the frequency domain representation of the data is that we lose temporal information. The power at each frequency in the figure above is the average power across the entire time frame of the data we provided. We don’t necessarily have to use the entire time range of our data to compute a FFT and generate frequency domain data. Indeed, a common approach to EEG analysis is <strong>time-frequency analysis</strong> (TFA), in which the power at each frequency is computed separately at a sequence of time points.</p>
