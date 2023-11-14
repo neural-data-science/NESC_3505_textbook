@@ -49,7 +49,7 @@ At rest, the inside of a neuron's cell body has a resting negative potential. Th
 ```{figure} images/dipole_head.svg
 ---
 align: center
-width: 600px
+width: 400px
 ---
 Left panel: A model of a single electrical dipole located inside a head. The dipole is indicated by the arrow, whose point represents the positive pole of the dipole. The read shading indicates where positive electrical signals would propagate from this dipole, through the head and outward to the scalp. Electrodes placed on scalp areas over the blue shading would record positive potential. The decreasing color represents how the strength of the positive signal would drop with distance. It can be see that one area near the top of the head would show a stronger positive signal (darker color) than the rest of the "positive" area of the scalp. Likewise, the blue shading represents the propagation of the signal from the negative pole of the dipole. Electrodes placed on scalp areas over the blue shading would record negative potential. Image adapted from [Geek3](https://commons.wikimedia.org/wiki/File:DipoleContourPoint.svg), CC BY-SA 4.0, via Wikimedia Commons. 
 ```
