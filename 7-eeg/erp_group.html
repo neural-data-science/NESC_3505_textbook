@@ -594,7 +594,9 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-priori-t-test">A priori <em>t</em> test</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-t-test-and-multiple-comparison-correction">Permutation <em>t</em> test and multiple comparison correction</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-testing">Statistical Testing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-multiple-comparisons">The Problem of Multiple Comparisons</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-t-test-and-multiple-comparison-correction">Permutation <em>t</em> Test and Multiple Comparison Correction</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performing-a-permutation-t-test">Performing a permutation <em>t</em> test</a></li>
 </ul>
 </li>
@@ -641,14 +643,39 @@ document.write(`
 <p>We list all the <code class="docutils literal notranslate"><span class="pre">-ave.fif</span></code> files (<code class="docutils literal notranslate"><span class="pre">Evoked</span></code> data sets) associated with this experiment:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
-<span class="n">data_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/sentence_n400_p*-ave.fif&#39;</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data/group_data/&#39;</span>
+<span class="n">data_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;sentence_n400_p*-ave.fif&#39;</span> <span class="p">)</span>
 <span class="n">data_files</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;data/group_data/sentence_n400_p22-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p14-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p04-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p05-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p15-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p23-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p17-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p07-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p21-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p20-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p06-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p16-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p13-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p03-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p25-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p24-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p02-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p12-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p26-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p09-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p19-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p10-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p01-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p11-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p18-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p08-ave.fif&#39;]
 </pre></div>
 </div>
 </div>
@@ -672,7 +699,58 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Control&#39;: [], &#39;Violation&#39;: []}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Control&#39;: [&lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=35), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=41), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=33), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=34), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=32), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=31), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=10), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=35), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=27), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=34), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=41), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=41), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=29), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;],
+ &#39;Violation&#39;: [&lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=36), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=33), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=34), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=32), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=35), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=36), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=10), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=33), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=26), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=25), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=36), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=29), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;]}
 </pre></div>
 </div>
 </div>
@@ -687,9 +765,9 @@ document.write(`
 <span class="n">roi</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;C3&#39;</span><span class="p">,</span> <span class="s1">&#39;Cz&#39;</span><span class="p">,</span> <span class="s1">&#39;C4&#39;</span><span class="p">,</span> 
        <span class="s1">&#39;P3&#39;</span><span class="p">,</span> <span class="s1">&#39;Pz&#39;</span><span class="p">,</span> <span class="s1">&#39;P4&#39;</span><span class="p">]</span>
 
+<span class="c1"># set custom line colors and styles</span>
 <span class="n">color_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Control&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;Violation&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">}</span>
 <span class="n">linestyle_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Control&#39;</span><span class="p">:</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;Violation&#39;</span><span class="p">:</span><span class="s1">&#39;--&#39;</span><span class="p">}</span>
-
 
 <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">(</span><span class="n">evokeds</span><span class="p">,</span>
                              <span class="n">combine</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
@@ -704,37 +782,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">9</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">color_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Control&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;Violation&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">}</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">linestyle_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Control&#39;</span><span class="p">:</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;Violation&#39;</span><span class="p">:</span><span class="s1">&#39;--&#39;</span><span class="p">}</span>
-<span class="ne">----&gt; </span><span class="mi">9</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">(</span><span class="n">evokeds</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span>                              <span class="n">combine</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span>                              <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span>                              <span class="n">picks</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span>                              <span class="n">colors</span><span class="o">=</span><span class="n">color_dict</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>                              <span class="n">linestyles</span><span class="o">=</span><span class="n">linestyle_dict</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span>                              <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Violation vs. Control Waveforms&#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span>                             <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/viz/evoked.py:2877,</span> in <span class="ni">plot_compare_evokeds</span><span class="nt">(evokeds, picks, colors, linestyles, styles, cmap, vlines, ci, truncate_yaxis, truncate_xaxis, ylim, invert_y, show_sensors, legend, split_legend, axes, title, show, combine, sphere, time_unit)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2875</span> <span class="c1"># ensure same channels and times across all evokeds</span>
-<span class="g g-Whitespace">   </span><span class="mi">2876</span> <span class="n">all_evoked</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">evokeds</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="p">[])</span>
-<span class="ne">-&gt; </span><span class="mi">2877</span> <span class="n">_check_evokeds_ch_names_times</span><span class="p">(</span><span class="n">all_evoked</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2878</span> <span class="k">del</span> <span class="n">all_evoked</span>
-<span class="g g-Whitespace">   </span><span class="mi">2880</span> <span class="c1"># get some representative info</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/evoked.py:1401,</span> in <span class="ni">_check_evokeds_ch_names_times</span><span class="nt">(all_evoked)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1400</span> <span class="k">def</span> <span class="nf">_check_evokeds_ch_names_times</span><span class="p">(</span><span class="n">all_evoked</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1401</span>     <span class="n">evoked</span> <span class="o">=</span> <span class="n">all_evoked</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1402</span>     <span class="n">ch_names</span> <span class="o">=</span> <span class="n">evoked</span><span class="o">.</span><span class="n">ch_names</span>
-<span class="g g-Whitespace">   </span><span class="mi">1403</span>     <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">ev</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_evoked</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
-
-<span class="ne">IndexError</span>: list index out of range
-</pre></div>
-</div>
+<img alt="../_images/bb1a44fdf093090e4862c04356fa6c9e6002d9dc71d95db188010de3ebac0ae0.png" src="../_images/bb1a44fdf093090e4862c04356fa6c9e6002d9dc71d95db188010de3ebac0ae0.png" />
 </div>
 </div>
 </section>
@@ -756,7 +804,32 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;Evoked | &#39;Violation - Control&#39; (average, N=20.0), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=17.74647887323944), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=18.986842105263158), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.0), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.9875), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=16.5), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=18.37837837837838), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.487179487179485), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=16.484848484848484), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.746835443037973), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=16.716417910447763), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=16.65671641791045), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=5.0), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=20.0), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=17.442857142857143), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=14.918032786885247), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=12.98076923076923), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=17.718309859154928), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.246753246753247), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=20.24691358024691), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.746835443037973), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.5), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=18.246575342465754), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.22077922077922), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.72151898734177), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=14.5), -0.19922 – 1 s, baseline off, 64 ch, ~388 kB&gt;]
 </pre></div>
 </div>
 </div>
@@ -764,11 +837,11 @@ document.write(`
 </section>
 <section id="plot-difference-waveform">
 <h2>Plot difference waveform<a class="headerlink" href="#plot-difference-waveform" title="Permalink to this heading">#</a></h2>
-<p>In making the difference waveform above, we simply created a list of <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects. We didn’t create a dictionary since there is only one contrast (<em>Violation-Control</em>), so no need to have informative dictionary keys for a set of different items (contrasts). This is fine, however MNE’s  <code class="docutils literal notranslate"><span class="pre">plot_compare_evokeds()</span></code> is a bit picky when it comes to its inputs, and whether it draws CIs or not. Specifically, the <a class="reference external" href="https://mne.tools/stable/generated/mne.viz.plot_compare_evokeds.html">API</a> reads:</p>
+<p>In making the difference waveform above, we simply created a list of <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects. We didn’t create a dictionary since there is only one contrast (<em>Violation-Control</em>), so no need to have informative dictionary keys for a set of different items (contrasts). This is fine, however MNE’s <code class="docutils literal notranslate"><span class="pre">plot_compare_evokeds()</span></code> has some complicated behavior when it comes to its inputs, and whether it draws CIs or not. Specifically, the <a class="reference external" href="https://mne.tools/stable/generated/mne.viz.plot_compare_evokeds.html">API</a> reads:</p>
 <blockquote>
 <div><p>If a list of Evokeds, the contents are plotted with their .comment attributes used as condition labels… If a dict whose values are Evoked objects, the contents are plotted as single time series each and the keys are used as labels. If a [dict/list] of lists, the unweighted mean is plotted as a time series and the parametric confidence interval is plotted as a shaded area.</p>
 </div></blockquote>
-<p>In other words, when the function gets a list of <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects as input, it will draw each object as a separate waveform, but if it gets a dictionary in which each entry is a list of <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects, if will average them together and draw CIs. Since we desire the latter behaviour here, in the command below we create a dictionary “on the fly” inside the plotting command, with a key corresponding to the label we want, and the value being the list of difference waves.</p>
+<p>In other words, when the function gets a <em>list</em> of <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects as input, it will draw each object as a separate waveform, but if it gets a <em>dictionary</em> in which each entry is a list of <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects, if will average them together and draw CIs. Since we desire the latter behavior here, in the command below we create a dictionary “on the fly” inside the plotting command, with a key corresponding to the label we want, and the value being the list of difference waves.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">contrast</span> <span class="o">=</span> <span class="s1">&#39;Violation-Control&#39;</span>
@@ -782,35 +855,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">contrast</span> <span class="o">=</span> <span class="s1">&#39;Violation-Control&#39;</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">({</span><span class="n">contrast</span><span class="p">:</span><span class="n">diff_waves</span><span class="p">},</span> <span class="n">combine</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>                             <span class="n">legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                             <span class="n">picks</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                             <span class="n">title</span><span class="o">=</span><span class="n">contrast</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>                             <span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/viz/evoked.py:2877,</span> in <span class="ni">plot_compare_evokeds</span><span class="nt">(evokeds, picks, colors, linestyles, styles, cmap, vlines, ci, truncate_yaxis, truncate_xaxis, ylim, invert_y, show_sensors, legend, split_legend, axes, title, show, combine, sphere, time_unit)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2875</span> <span class="c1"># ensure same channels and times across all evokeds</span>
-<span class="g g-Whitespace">   </span><span class="mi">2876</span> <span class="n">all_evoked</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">evokeds</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="p">[])</span>
-<span class="ne">-&gt; </span><span class="mi">2877</span> <span class="n">_check_evokeds_ch_names_times</span><span class="p">(</span><span class="n">all_evoked</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2878</span> <span class="k">del</span> <span class="n">all_evoked</span>
-<span class="g g-Whitespace">   </span><span class="mi">2880</span> <span class="c1"># get some representative info</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/evoked.py:1401,</span> in <span class="ni">_check_evokeds_ch_names_times</span><span class="nt">(all_evoked)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1400</span> <span class="k">def</span> <span class="nf">_check_evokeds_ch_names_times</span><span class="p">(</span><span class="n">all_evoked</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1401</span>     <span class="n">evoked</span> <span class="o">=</span> <span class="n">all_evoked</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1402</span>     <span class="n">ch_names</span> <span class="o">=</span> <span class="n">evoked</span><span class="o">.</span><span class="n">ch_names</span>
-<span class="g g-Whitespace">   </span><span class="mi">1403</span>     <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">ev</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_evoked</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
-
-<span class="ne">IndexError</span>: list index out of range
-</pre></div>
+<img alt="../_images/ad2c7977171c2f6d1df18c3fa86f79dcc78fd74cc00c480b864977a1b91a710c.png" src="../_images/ad2c7977171c2f6d1df18c3fa86f79dcc78fd74cc00c480b864977a1b91a710c.png" />
 </div>
 </div>
-</div>
+<p>The nice thing about 95% CIs is that they provide an easy visual aid for interpreting the results. If the CI overlaps zero, then the difference between conditions is not statistically significant. If the CI does not overlap zero, then the difference can be considered statistically significant. In this case, the CI largely does not overlap zero between ~400–600 ms, so we can conclude that the difference between conditions is statistically significant in that time window.</p>
 </section>
 <section id="scalp-topographic-map">
 <h2>Scalp topographic map<a class="headerlink" href="#scalp-topographic-map" title="Permalink to this heading">#</a></h2>
@@ -820,7 +868,6 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_evoked_topomap</span><span class="p">(</span><span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">),</span> 
                             <span class="n">times</span><span class="o">=</span><span class="mf">.500</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.200</span><span class="p">,</span> 
-                            <span class="n">title</span><span class="o">=</span><span class="n">contrast</span><span class="p">,</span>
                             <span class="n">size</span><span class="o">=</span><span class="mi">3</span>
                            <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -828,26 +875,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_evoked_topomap</span><span class="p">(</span><span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">),</span> 
-<span class="g g-Whitespace">      </span><span class="mi">2</span>                             <span class="n">times</span><span class="o">=</span><span class="mf">.500</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.200</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span>                             <span class="n">title</span><span class="o">=</span><span class="n">contrast</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                             <span class="n">size</span><span class="o">=</span><span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                            <span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/utils/numerics.py:586,</span> in <span class="ni">grand_average</span><span class="nt">(all_inst, interpolate_bads, drop_bads)</span>
-<span class="g g-Whitespace">    </span><span class="mi">583</span> <span class="kn">from</span> <span class="nn">..channels.channels</span> <span class="kn">import</span> <span class="n">equalize_channels</span>
-<span class="g g-Whitespace">    </span><span class="mi">585</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">all_inst</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">586</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please pass a list of Evoked or AverageTFR objects.&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">587</span> <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_inst</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">588</span>     <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Only a single dataset was passed to mne.grand_average().&quot;</span><span class="p">)</span>
-
-<span class="ne">ValueError</span>: Please pass a list of Evoked or AverageTFR objects.
-</pre></div>
-</div>
+<img alt="../_images/8ebfed52ab8cc776630921b3080dc80c60f99fac53288e9709e41765d0658492.png" src="../_images/8ebfed52ab8cc776630921b3080dc80c60f99fac53288e9709e41765d0658492.png" />
 </div>
 </div>
 <p>We can add a few enhancements to the plot to make it more interpretable:</p>
@@ -860,7 +888,6 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_evoked_topomap</span><span class="p">(</span><span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">),</span> 
                             <span class="n">times</span><span class="o">=</span><span class="mf">.500</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.200</span><span class="p">,</span> 
-                            <span class="n">title</span><span class="o">=</span><span class="n">contrast</span><span class="p">,</span>
                             <span class="n">show_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="n">contours</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                             <span class="n">size</span><span class="o">=</span><span class="mi">4</span>
@@ -869,27 +896,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_evoked_topomap</span><span class="p">(</span><span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">),</span> 
-<span class="g g-Whitespace">      </span><span class="mi">2</span>                             <span class="n">times</span><span class="o">=</span><span class="mf">.500</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.200</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span>                             <span class="n">title</span><span class="o">=</span><span class="n">contrast</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                             <span class="n">show_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                             <span class="n">contours</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>                             <span class="n">size</span><span class="o">=</span><span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>                            <span class="p">);</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/utils/numerics.py:586,</span> in <span class="ni">grand_average</span><span class="nt">(all_inst, interpolate_bads, drop_bads)</span>
-<span class="g g-Whitespace">    </span><span class="mi">583</span> <span class="kn">from</span> <span class="nn">..channels.channels</span> <span class="kn">import</span> <span class="n">equalize_channels</span>
-<span class="g g-Whitespace">    </span><span class="mi">585</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">all_inst</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">586</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please pass a list of Evoked or AverageTFR objects.&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">587</span> <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_inst</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">588</span>     <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Only a single dataset was passed to mne.grand_average().&quot;</span><span class="p">)</span>
-
-<span class="ne">ValueError</span>: Please pass a list of Evoked or AverageTFR objects.
-</pre></div>
-</div>
+<img alt="../_images/09e784583ef796db0df14fa903ee2591233df43b292bd0b286f69571091f6f6d.png" src="../_images/09e784583ef796db0df14fa903ee2591233df43b292bd0b286f69571091f6f6d.png" />
 </div>
 </div>
 </section>
@@ -929,33 +936,31 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/ncil/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/Users/aaron/miniforge3/envs/ncil/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">t</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">evoked_data</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Difference t = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">)),</span> <span class="s1">&#39;p = &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pval</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">)))</span>
-
-<span class="ne">IndexError</span>: invalid index to scalar variable.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Difference t =  -2.93 p =  0.0071
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section id="permutation-t-test-and-multiple-comparison-correction">
-<h2>Permutation <em>t</em> test and multiple comparison correction<a class="headerlink" href="#permutation-t-test-and-multiple-comparison-correction" title="Permalink to this heading">#</a></h2>
-<p>Another approach is to perform a <em>t</em> test at <em>every</em> electrode, so that we can visualize a statistical map of values across the scalp. This has the advantage of potentially revealing the true scalp distribution of an experimental effect, rather than being limited to the channel(s) predicted a priori to show the effect.</p>
+<section id="statistical-testing">
+<h2>Statistical Testing<a class="headerlink" href="#statistical-testing" title="Permalink to this heading">#</a></h2>
+<p>There are a number of approaches to performing statistical tests on ERPs. As noted above, we can infer a significant difference between conditions from the 95% CIs around the difference waveform plot. However, typically for a scientific publication we want to report detailed statistics, such as <em>t</em> and <em>p</em> values. As well, we might want to consider all of the channels individually, or in clusters, rather than just one or a few channels as shown in the plot above.</p>
+<p>A conventional approach to ERP statistics is to measure the amplitude of each component of interest, averaged over a time window. For instance, we could compute the mean amplitude of the N400 at each channel from 300–500 ms. Then we could use these values in a statistical test such as a <em>t</em> test, ANOVA, or linear mixed effects model.</p>
+<p>The spatio-temporal nature of EEG data presents some challenges however. If we compute a mean amplitude over a time window as described above, then we have “collapsed” over time so we don’t need to worry about that dimension. However, in the present data we have 64 channels so we need to worry about how the ERP differences vary over space. One approach would be to define a <em>region of interest</em> (ROI) and average over the channels in that ROI. This is what we did to plot the waveforms above. We could also define a number of ROIs (e.g., dividing the scalp into a 3 x 3 grid), if we wanted to test for differences across the scalp.</p>
+<p>A challenge with picking time windows and ROIs in advance, however, is how to pick these in a way that accurately captures the time and scalp distribution of the ERP effects of interest. Defining an ROI(s) runs the risk that a component’s scalp distribution might only partly overlap a particular ROIs. Typically all statistical analysis choices should be made a priori (before looking at your data), so we can’t just look at the data and decide which channels to include in each ROI. Selecting a subset of data points to use in statistical analysis, based on looking at the data, is poor practice because it artificially inflates the likelihood of finding a significant result. When we apply statistics (at least in conventional approaches), we are testing hypotheses. Hypotheses are predictions about the outcome of the experiment that you should make before conducting the experiment. If you look at the data and then decide which channels to include in your ROI, you are effectively making a prediction about the data after you have seen it, which is not a valid test of your hypothesis. This is a form of <strong>HARKing</strong> (Hypothesizing After the Results are Known), which is a form of <strong>p-hacking</strong> (trying different analyses until you find one that produces a significant result). HARKing and p-hacking were discussed in the <a class="reference internal" href="../1-intro/novelty.html"><span class="doc std std-doc">Introduction</span></a>. An excellent paper on this topic is <a class="reference external" href="https://doi.org/10.1111/psyp.12639">Luck and Gaspelin (2017)</a>, <em>How to get statistically significant effects in any ERP experiment (and why you shouldn’t)</em>.</p>
+<p>On the other hand, in most ERP experiments the hypotheses center around components that have been characterized in previous studies, so we can often make pretty accurate predictions as to which time windows and ROIs will be most relevant. For instance, in the present case we predicted an N400, which we knew from previous studies with similar stimuli would likely be largest between 300-500 ms at channels centered around Cz and Pz. So we could perform our statistical test on this combination of time and channels. However, there is a chance that we miss a true effect, if the timing or scalp distribution is not as predicted, or if there is a difference that we did not predict. For these reasons, it’s good to also consider <em>data-driven</em> statistical approaches.</p>
+<section id="the-problem-of-multiple-comparisons">
+<h3>The Problem of Multiple Comparisons<a class="headerlink" href="#the-problem-of-multiple-comparisons" title="Permalink to this heading">#</a></h3>
+<p>In the data- approach is to perform a <em>t</em> test at <em>every</em> electrode, so that we can visualize a statistical map of values across the scalp. This has the advantage of potentially revealing the true scalp distribution of an experimental effect, rather than being limited to the channel(s) predicted a priori to show the effect.</p>
 <p>However, this increases our risk of false positives (Type I error). This is because when we perform a <em>t</em> test and use the resulting <em>p</em> value to determine statistical significance, we typically pick a threshold for significance (alpha, or <span class="math notranslate nohighlight">\(\alpha\)</span>) based on the probability of finding a result by chance, if no experimental effect were actually present. In other words, if we use an <span class="math notranslate nohighlight">\(\alpha\)</span> of .05, this means there is on average a 5% probability of finding that result by chance.  However, that is based on the assumption that we ran only one statistical test. If we run multiple statistical tests, and use <em>p</em> ≤ .05 as our threshold, then we increase the odds of finding at least one “significant” result by chance. Most intuitively, if we perform 100 statistical tests and use <em>p</em> ≤ .05 on each, then we are likely to end up with 5 of those results being incorrect (5/100 = 5%).</p>
 <p>In the present data we have data from 64 electrodes for each participant. One way to correct for multiple comparisons is the <strong>Bonferroni</strong> method, which involves simply dividing the desired <span class="math notranslate nohighlight">\(\alpha\)</span> value for the experiment (i.e., across all tests) by the number of tests. For this data set that would mean <span class="math notranslate nohighlight">\(.05 / 64 = 0.00078\)</span>. However, the Bonferroni correction assumes that each statistical test is independent of the others, which is not true for multiple channels of EEG data — nearby channels can be predicted to have similar values, since they are measuring activity from nearby scalp locations.</p>
+</section>
+<section id="permutation-t-test-and-multiple-comparison-correction">
+<h3>Permutation <em>t</em> Test and Multiple Comparison Correction<a class="headerlink" href="#permutation-t-test-and-multiple-comparison-correction" title="Permalink to this heading">#</a></h3>
 <p>There are several alternative ways of controlling for multiple comparisons. One is to perform a <strong>permutation</strong> <em>t</em> test. Widely introduced to the field of neuroimaging by <a class="reference external" href="https://doi.org/10.1002/hbm.1058">Nichols and Holmes (2001)</a>permutation is a well-established approach in the field of statistics. The basic concepts in permutation testing are <em>exchangability</em> and <em>randomization</em>. If we have multiple data points from two sets of experimental conditions (e.g., <em>Violation</em> and <em>Control</em>), and there is no true difference between the conditions, then it should not matter if we perform a <em>t</em> test between the data points using the correct condition labels, or if we randomly re-label the condition of each data point (i.e., <em>exchange</em> the labels among data points). In other words, if ERP amplitude in the <em>Violation</em> and <em>Control</em> conditions are not truly different, then if we scramble which data points we call <em>Violation</em> and which ones we call <em>Control</em>, and perform the <em>t</em> test again, the results of that <em>t</em> test should not be too different from the “correct” <em>t</em> test. On the other hand, if there is a true experimental effect, then randomizing the labels of each data point should result in consistently lower <em>t</em> values than the true labeling. The reason this approach is called <em>permutation</em> testing is that we perform the random exchange of labels and data points many times, each with a different reassignment (i.e., a different permutation of labels and data points). Typically this is done thousands of times, in order to get a reliable estimate of the <em>null distribution</em> — that is, the distribution of <em>t</em> scores across different permutations that we know don’t match the true label-to-data-point mapping.</p>
 <p>This approach doesn’t in and of itself correct for multiple comparisons. However, when permutation tests are performed over a number of different sets of data (such as a separate <em>t</em> test on the data from each individual electrode), can can use this to correct for multiple comparisons. This is called the <strong>maximal statistic</strong> method. It is based on the recognition that the distribution of <em>t</em> (and associated <em>p</em>) values across thousands of random permutations of labels actually reflects the “chance” that our use <em>p</em> values are based on. In other words, in conventional <em>t</em> tests if we use an <span class="math notranslate nohighlight">\(\alpha\)</span> of .05, then we are saying that we accept a 5% chance that over many replications of the experiment we would get a “significant” result by chance. Since our permutation distribution actually <em>is</em> thousands of replications of an “experiment” in which there is no true effect, we can say that the top 5% of the <em>t</em> values we obtain from the permutations are what we consider “significant”. We can provide even better control for multiple comparisons by looking at the maximum <em>t</em> values not just at each electrode separately, but across all the electrodes. We can set the critical <em>t</em> value (i.e., the <em>t</em> threshold for significance) to be <span class="math notranslate nohighlight">\((\alpha * N) + 1\)</span>, where <span class="math notranslate nohighlight">\(N\)</span> is the number of electrodes. That is, our <em>t</em> threshold is set so that just under 5% of the randomly-obtained <em>t</em> values are greater than this threshold.</p>
+</section>
 <section id="performing-a-permutation-t-test">
 <h3>Performing a permutation <em>t</em> test<a class="headerlink" href="#performing-a-permutation-t-test" title="Permalink to this heading">#</a></h3>
 <p>MNE provides a <code class="docutils literal notranslate"><span class="pre">permutation_t_test()</span></code> function which we import here.</p>
@@ -982,31 +987,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">n_permutations</span> <span class="o">=</span> <span class="mi">50000</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">T0</span><span class="p">,</span> <span class="n">p_values</span><span class="p">,</span> <span class="n">H0</span> <span class="o">=</span> <span class="n">permutation_t_test</span><span class="p">(</span><span class="n">evoked_data</span><span class="p">,</span> <span class="n">n_permutations</span><span class="p">,</span> <span class="n">tail</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="nn">File &lt;decorator-gen-365&gt;:12,</span> in <span class="ni">permutation_t_test</span><span class="nt">(X, n_permutations, tail, n_jobs, seed, verbose)</span>
-
-<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/stats/permutations.py:79,</span> in <span class="ni">permutation_t_test</span><span class="nt">(X, n_permutations, tail, n_jobs, seed, verbose)</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;One sample/paired sample permutation test based on a t-statistic.</span>
-<span class="g g-Whitespace">     </span><span class="mi">28</span><span class="sd"> </span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span><span class="sd"> This function can perform the test on one variable or</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">     </span><span class="mi">75</span><span class="sd"> .. footbibliography::</span>
-<span class="g g-Whitespace">     </span><span class="mi">76</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">77</span> <span class="kn">from</span> <span class="nn">.cluster_level</span> <span class="kn">import</span> <span class="n">_get_1samp_orders</span>
-<span class="ne">---&gt; </span><span class="mi">79</span> <span class="n">n_samples</span><span class="p">,</span> <span class="n">n_tests</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="n">X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># precompute moments</span>
-<span class="g g-Whitespace">     </span><span class="mi">81</span> <span class="n">mu0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="ne">ValueError</span>: not enough values to unpack (expected 2, got 1)
-</pre></div>
-</div>
-</div>
 </div>
 <p>The result of <code class="docutils literal notranslate"><span class="pre">permutation_t_test()</span></code> is three NumPY arrays:</p>
 <ul class="simple">
@@ -1021,12 +1001,19 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">T0</span>
-
-<span class="ne">NameError</span>: name &#39;T0&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.57080358, -0.78438487,  0.34835262, -2.11381352, -2.05960118,
+       -1.80485844,  0.70287527, -1.09101426, -2.71791099, -2.83404371,
+       -0.32752973, -0.99348145, -2.85223302, -3.22648929, -2.52654325,
+        0.38805246, -1.5039293 , -2.60796913, -3.44881633, -3.30694221,
+       -2.57367496,  1.5039293 , -3.0754765 , -3.36663645, -2.93349562,
+       -2.26302196, -1.08830748, -0.52104647, -1.34525076, -0.9639556 ,
+       -0.85953252, -0.6152627 , -0.07731113, -1.54813276, -1.1683513 ,
+       -0.29418639, -0.45670357, -2.32021222, -2.55827164, -0.7602541 ,
+        1.10853944,  0.25464935, -2.31532559, -2.51929001,  0.91885973,
+        2.34076753, -2.00110272, -2.59168734, -3.20453629, -1.55360864,
+       -1.22215648, -3.67798169, -3.55926501, -3.46564789, -0.88086133,
+       -3.45152841, -3.49481003, -3.15971938, -2.40859398, -2.19467569,
+       -2.55486174, -1.96350269, -2.22094286, -0.70239699])
 </pre></div>
 </div>
 </div>
@@ -1038,12 +1025,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">p_values</span>
-
-<span class="ne">NameError</span>: name &#39;p_values&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.     , 0.99964, 1.     , 0.46068, 0.49572, 0.66946, 1.     ,
+       0.98548, 0.1713 , 0.1363 , 1.     , 0.99442, 0.13098, 0.06114,
+       0.2426 , 1.     , 0.85236, 0.21002, 0.03698, 0.05102, 0.22328,
+       1.     , 0.08236, 0.0449 , 0.11132, 0.37452, 0.9859 , 1.     ,
+       0.92356, 0.99586, 0.99888, 0.99998, 1.     , 0.829  , 0.97366,
+       1.     , 1.     , 0.34282, 0.2298 , 0.99976, 1.     , 1.     ,
+       0.3453 , 0.24606, 1.     , 1.     , 0.5365 , 0.2162 , 0.06388,
+       0.82618, 0.96092, 0.02206, 0.0293 , 0.03586, 0.9986 , 0.03684,
+       0.03402, 0.06982, 0.2968 , 0.41246, 0.23112, 0.561  , 0.39746,
+       0.99992])
 </pre></div>
 </div>
 </div>
@@ -1055,12 +1046,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">H0</span><span class="o">.</span><span class="n">shape</span>
-
-<span class="ne">NameError</span>: name &#39;H0&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50000,)
 </pre></div>
 </div>
 </div>
@@ -1075,16 +1061,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">H0</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;H0&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/1806613ace26004075cafc9492f311d38546c02b46b89a2f2c6fc0f506dd4f5a.png" src="../_images/1806613ace26004075cafc9492f311d38546c02b46b89a2f2c6fc0f506dd4f5a.png" />
 </div>
 </div>
 <p>We can use a function <code class="docutils literal notranslate"><span class="pre">np.argpartition()</span></code> to sort the <code class="docutils literal notranslate"><span class="pre">H0</span></code> values and split them at a particular cutoff. This is specified in terms of indexes in the NumPy array, so if we want the top 5% of <em>t</em> values, we have to compute the split as the number of permutations (the length of <code class="docutils literal notranslate"><span class="pre">H0</span></code>) multiplied by .05, which will tell as that 5% of 50,000 is 2500. (If you want to understand the details of this code, see <a class="reference external" href="https://stackoverflow.com/questions/6910641/how-do-i-get-indices-of-n-maximum-values-in-a-numpy-array">this StackExchange post</a> and the <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.argpartition.html">API for <code class="docutils literal notranslate"><span class="pre">np.argpartition()</span></code></a>.)</p>
@@ -1092,17 +1069,6 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thresh</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">n_permutations</span> <span class="o">*</span> <span class="mf">.05</span><span class="p">)</span>
 <span class="n">split</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argpartition</span><span class="p">(</span><span class="n">H0</span><span class="p">,</span> <span class="o">-</span><span class="n">thresh</span><span class="p">)[</span><span class="o">-</span><span class="n">thresh</span><span class="p">:]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">thresh</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">n_permutations</span> <span class="o">*</span> <span class="mf">.05</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">split</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argpartition</span><span class="p">(</span><span class="n">H0</span><span class="p">,</span> <span class="o">-</span><span class="n">thresh</span><span class="p">)[</span><span class="o">-</span><span class="n">thresh</span><span class="p">:]</span>
-
-<span class="ne">NameError</span>: name &#39;H0&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1116,13 +1082,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">t_thresh</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">H0</span><span class="p">[</span><span class="n">split</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">t_thresh</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;H0&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.3152584516354566
 </pre></div>
 </div>
 </div>
@@ -1137,16 +1097,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">21</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">H0</span><span class="p">[</span><span class="n">split</span><span class="p">])</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1600</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;H0&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/3bc8e624d4468cc3865bef3c7ef1617765dfda6ec517c9fd7c29b122a15921cd.png" src="../_images/3bc8e624d4468cc3865bef3c7ef1617765dfda6ec517c9fd7c29b122a15921cd.png" />
 </div>
 </div>
 <p>We can apply a mask to the <em>t</em> values from each electrode to see which ones are significant at our threshold. We need to put the <code class="docutils literal notranslate"><span class="pre">-</span></code> sign in front of <code class="docutils literal notranslate"><span class="pre">t_thresh</span></code> since we are predicting negative <em>t</em> values.</p>
@@ -1157,12 +1108,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">22</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">T0</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">t_thresh</span>
-
-<span class="ne">NameError</span>: name &#39;T0&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+        True, False, False, False, False,  True, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False, False, False, False,
+       False, False, False, False, False, False,  True,  True,  True,
+       False,  True,  True, False, False, False, False, False, False,
+       False])
 </pre></div>
 </div>
 </div>
@@ -1177,32 +1130,11 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">23</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">evoked_p</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">EvokedArray</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">p_values</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>                          <span class="n">evokeds</span><span class="p">[</span><span class="n">conditions</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;p_values&#39; is not defined
-</pre></div>
-</div>
-</div>
 </div>
 <p>To highlight the significant electrodes, we will need a mask like the one above that is True where the <em>t</em> test was significant, and False elsewhere. We use <code class="docutils literal notranslate"><span class="pre">p_values[:,</span> <span class="pre">np.newaxis]</span></code> rather than just <code class="docutils literal notranslate"><span class="pre">p_values</span></code>, so that the mask is a 2D (1 x n_channels) array with the values in a single column, because this is how the <code class="docutils literal notranslate"><span class="pre">plot_topomap()</span></code> function requires the mask to be formatted. <code class="docutils literal notranslate"><span class="pre">np.newaxis</span></code> is a <a class="reference external" href="https://numpy.org/doc/stable/reference/constants.html#numpy.newaxis">tool in NumPy</a> for increasing the number of dimensions in an array.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span> <span class="o">=</span> <span class="n">p_values</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.05</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">24</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">p_values</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.05</span>
-
-<span class="ne">NameError</span>: name &#39;p_values&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1220,7 +1152,6 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">evoked_p</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
                     <span class="n">scalings</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                     <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> 
-                    <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                     <span class="n">units</span><span class="o">=</span><span class="s1">&#39;-log10(p)&#39;</span><span class="p">,</span> 
                     <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
                     <span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
@@ -1229,21 +1160,89 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">evoked_p</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">2</span>                     <span class="n">scalings</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>                     <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                     <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                     <span class="n">units</span><span class="o">=</span><span class="s1">&#39;-log10(p)&#39;</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">6</span>                     <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>                     <span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;evoked_p&#39; is not defined
+<img alt="../_images/ec4c25c88e6d5e0f5f6c99d14aebce4b00694d7382779500d30b66ccb154385a.png" src="../_images/ec4c25c88e6d5e0f5f6c99d14aebce4b00694d7382779500d30b66ccb154385a.png" />
+</div>
+</div>
+<p>We can alternatively overlay the statistically-significant channels on a topo map of the ERP difference wave. We can do this by creating a mask of the <em>t</em> values that are significant, and then using the <code class="docutils literal notranslate"><span class="pre">mask</span></code> kwarg in <code class="docutils literal notranslate"><span class="pre">plot_topomap()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">)</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="mf">.400</span><span class="p">,</span> 
+                                            <span class="c1"># scalings=1,</span>
+                                            <span class="c1"># cmap=&#39;Reds&#39;, </span>
+                                            <span class="n">units</span><span class="o">=</span><span class="s1">&#39;-log10(p)&#39;</span><span class="p">,</span> 
+                                            <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
+                                            <span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">26</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">)</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="mf">.400</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">2</span>                                             <span class="c1"># scalings=1,</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                                             <span class="c1"># cmap=&#39;Reds&#39;, </span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                                             <span class="n">units</span><span class="o">=</span><span class="s1">&#39;-log10(p)&#39;</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                                             <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                                             <span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/evoked.py:620,</span> in <span class="ni">Evoked.plot_topomap</span><span class="nt">(self, times, average, ch_type, scalings, proj, sensors, show_names, mask, mask_params, contours, outlines, sphere, image_interp, extrapolate, border, res, size, cmap, vlim, cnorm, colorbar, cbar_fmt, units, axes, time_unit, time_format, nrows, ncols, show)</span>
+<span class="g g-Whitespace">    </span><span class="mi">586</span> <span class="nd">@copy_function_doc_to_method_doc</span><span class="p">(</span><span class="n">plot_evoked_topomap</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">587</span> <span class="k">def</span> <span class="nf">plot_topomap</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">588</span>     <span class="bp">self</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">618</span>     <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">619</span> <span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">620</span>     <span class="k">return</span> <span class="n">plot_evoked_topomap</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">621</span>         <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">622</span>         <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">623</span>         <span class="n">ch_type</span><span class="o">=</span><span class="n">ch_type</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">624</span>         <span class="n">vlim</span><span class="o">=</span><span class="n">vlim</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">625</span>         <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">626</span>         <span class="n">cnorm</span><span class="o">=</span><span class="n">cnorm</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">627</span>         <span class="n">sensors</span><span class="o">=</span><span class="n">sensors</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">628</span>         <span class="n">colorbar</span><span class="o">=</span><span class="n">colorbar</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">629</span>         <span class="n">scalings</span><span class="o">=</span><span class="n">scalings</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">630</span>         <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">631</span>         <span class="n">res</span><span class="o">=</span><span class="n">res</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">632</span>         <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">633</span>         <span class="n">cbar_fmt</span><span class="o">=</span><span class="n">cbar_fmt</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">634</span>         <span class="n">time_unit</span><span class="o">=</span><span class="n">time_unit</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">635</span>         <span class="n">time_format</span><span class="o">=</span><span class="n">time_format</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">636</span>         <span class="n">proj</span><span class="o">=</span><span class="n">proj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">637</span>         <span class="n">show</span><span class="o">=</span><span class="n">show</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">638</span>         <span class="n">show_names</span><span class="o">=</span><span class="n">show_names</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">639</span>         <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">640</span>         <span class="n">mask_params</span><span class="o">=</span><span class="n">mask_params</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">641</span>         <span class="n">outlines</span><span class="o">=</span><span class="n">outlines</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">642</span>         <span class="n">contours</span><span class="o">=</span><span class="n">contours</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">643</span>         <span class="n">image_interp</span><span class="o">=</span><span class="n">image_interp</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">644</span>         <span class="n">average</span><span class="o">=</span><span class="n">average</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">645</span>         <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">646</span>         <span class="n">extrapolate</span><span class="o">=</span><span class="n">extrapolate</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">647</span>         <span class="n">sphere</span><span class="o">=</span><span class="n">sphere</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">648</span>         <span class="n">border</span><span class="o">=</span><span class="n">border</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">649</span>         <span class="n">nrows</span><span class="o">=</span><span class="n">nrows</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">650</span>         <span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">651</span>     <span class="p">)</span>
+
+<span class="nn">File ~/miniforge3/envs/ncil/lib/python3.11/site-packages/mne/viz/topomap.py:2239,</span> in <span class="ni">plot_evoked_topomap</span><span class="nt">(***failed resolving arguments***)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2235</span>         <span class="n">mask_</span> <span class="o">=</span> <span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2236</span>             <span class="n">mask</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">picks</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="n">time_idx</span><span class="p">)]</span> <span class="o">|</span> <span class="n">mask</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">picks</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">],</span> <span class="n">time_idx</span><span class="p">)]</span>
+<span class="g g-Whitespace">   </span><span class="mi">2237</span>         <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2238</span>     <span class="k">else</span><span class="p">:</span>  <span class="c1"># mag, eeg, planar1, planar2</span>
+<span class="ne">-&gt; </span><span class="mi">2239</span>         <span class="n">mask_</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">picks</span><span class="p">,</span> <span class="n">time_idx</span><span class="p">)]</span>
+<span class="g g-Whitespace">   </span><span class="mi">2240</span> <span class="c1"># set up colormap</span>
+<span class="g g-Whitespace">   </span><span class="mi">2241</span> <span class="n">_vlim</span> <span class="o">=</span> <span class="p">[</span>
+<span class="nn">   2242     _setup_vmin_vmax(data[:, i], *vlim, norm=merge_channels) for i</span> in <span class="ni">range</span><span class="nt">(n_times)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2243</span> <span class="p">]</span>
+
+<span class="ne">IndexError</span>: index 307 is out of bounds for axis 1 with size 1
+</pre></div>
+</div>
+<img alt="../_images/711486d601ccacacaa5e2e379d8529cb8b91c5ad29ee22fb75fab1e8357468cf.png" src="../_images/711486d601ccacacaa5e2e379d8529cb8b91c5ad29ee22fb75fab1e8357468cf.png" />
 </div>
 </div>
 </section>
@@ -1325,7 +1324,9 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-priori-t-test">A priori <em>t</em> test</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-t-test-and-multiple-comparison-correction">Permutation <em>t</em> test and multiple comparison correction</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-testing">Statistical Testing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-multiple-comparisons">The Problem of Multiple Comparisons</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-t-test-and-multiple-comparison-correction">Permutation <em>t</em> Test and Multiple Comparison Correction</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performing-a-permutation-t-test">Performing a permutation <em>t</em> test</a></li>
 </ul>
 </li>
