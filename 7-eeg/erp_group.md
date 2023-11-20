@@ -1,0 +1,3 @@
+# Group Analysis of ERP Data
+
+As we've seen, each individual participant's data set requires a sophisticated set of preprocessing steps to help reduce noise, and increase our sensitivity to any true experimental effects that may be present in the data. Once we have preprocessed all of the individual participants' data, we can perform group-level statistical analyses. This section shows how we combine, visualize, and analyze ERP data across participants.
