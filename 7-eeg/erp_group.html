@@ -788,7 +788,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b31d20fdd37d1cd50498bd164e1452cff620813842be4ed62f3bc5d223597b9c.png" src="../_images/b31d20fdd37d1cd50498bd164e1452cff620813842be4ed62f3bc5d223597b9c.png" />
+<img alt="../_images/4b7b7d09e80739df65464afe48de9d8671027ea18b86cbeecbbbf66c84385bc6.png" src="../_images/4b7b7d09e80739df65464afe48de9d8671027ea18b86cbeecbbbf66c84385bc6.png" />
 </div>
 </div>
 </section>
@@ -861,7 +861,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3331553c8d2fd2e372cacf64b857b507e28e69aa103d124bbada7a62c0fda59c.png" src="../_images/3331553c8d2fd2e372cacf64b857b507e28e69aa103d124bbada7a62c0fda59c.png" />
+<img alt="../_images/cfd7d42374f6f35dec24830c832fc9b0c354122daf6b7101a7fe840781a6c7da.png" src="../_images/cfd7d42374f6f35dec24830c832fc9b0c354122daf6b7101a7fe840781a6c7da.png" />
 </div>
 </div>
 <p>The nice thing about 95% CIs is that they provide an easy visual aid for interpreting the results. If the CI overlaps zero, then the difference between conditions is not statistically significant. If the CI does not overlap zero, then the difference can be considered statistically significant. In this case, the CI largely does not overlap zero between ~400–600 ms, so we can conclude that the difference between conditions is statistically significant in that time window.</p>
@@ -1043,11 +1043,11 @@ document.write(`
 <img alt="../_images/c79f9c150ce169b833c2c16001b9f4bfdf33de4b5d2191667f746fe20d28317c.png" src="../_images/c79f9c150ce169b833c2c16001b9f4bfdf33de4b5d2191667f746fe20d28317c.png" />
 </div>
 </div>
-<p>Now we run the test. We set an <code class="docutils literal notranslate"><span class="pre">n_perm</span></code> variable that controls the number of permutations (random samples) of the data that will be used to estimate the null distribution (). We set this to 50,000, which is a large number of permutations, and will take a few minutes to run even on a powerful laptop. But in order for the results to be reliable (i.e., likely to get the same or very similar results with another sample of random permutations), we need to run lots of permutations. By default (which we won’t change), the function uses an <span class="math notranslate nohighlight">\(\alpha\)</span> of .05, and uses the maximal statistic method to correct for multiple comparisons.</p>
+<p>Now we run the test. We set an <code class="docutils literal notranslate"><span class="pre">n_perm</span></code> variable that controls the number of permutations (random samples) of the data that will be used to estimate the null distribution (). We would ideally set this to 50,000, but for the purposes of demonstration we use fewer to speed things up. But in order for the results to be reliable (i.e., likely to get the same or very similar results with another sample of random permutations), we need to run lots of permutations. By default (which we won’t change), the function uses an <span class="math notranslate nohighlight">\(\alpha\)</span> of .05, and uses the maximal statistic method to correct for multiple comparisons.</p>
 <p>Note the formatting of the code here: because we have 4 output variables and a long function name, we wrap all the lines so that they are only indented one level rather than all the way out where the function name is. This makes it easier to read the code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e4</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e2</span>
 
 <span class="n">t_obs</span><span class="p">,</span> <span class="n">clusters</span><span class="p">,</span> <span class="n">cluster_pv</span><span class="p">,</span> <span class="n">H0</span> <span class="o">=</span> <span class="n">spatio_temporal_cluster_1samp_test</span><span class="p">(</span> 
     <span class="n">y</span><span class="p">,</span> 
@@ -1055,38 +1055,117 @@ document.write(`
     <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> 
     <span class="n">out_type</span><span class="o">=</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span>
     <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
-    <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;Info&#39;</span>
+    <span class="c1"># verbose=&#39;Info&#39;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We used the <code class="docutils literal notranslate"><span class="pre">verbose='Info'</span></code> kwarg to see some information about the results of the clustering, as well as a progress bar. The output indicates we ended up with 56 clusters. That’s a lot of clusters to look at, so we’ll combine them into one array that we can use to visualize which channels and time points were significant across all the clusters.</p>
+<p>One of the kwargs we specified above was <code class="docutils literal notranslate"><span class="pre">out_type='mask'</span></code>, which overrides the default format. The <code class="docutils literal notranslate"><span class="pre">mask</span></code> format creates a set of NumPy arrays, one for each cluster. Each array the same shape as the data, but with 1s where the data are significant, and 0s where they are not. We can use this to plot the significant clusters in various ways by <em>masking</em> the data. That is, we show the data only at significant channels and time points, and hide it everywhere else.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># find significant points across all clusters</span>
+<span class="n">mask_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cluster_pv</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="p">[</span><span class="n">clusters</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">mask_idx</span><span class="p">]</span>
+
+<span class="c1"># stats output is time X chan, but ERP data is chan X time, so transpose</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can view the results on a <strong>raster plot</strong>, where the rows are channels and the columns are time. We use the mask to only show the µV values of the Violation–Control difference at significant channels/time points.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mne.channels</span> <span class="kn">import</span> <span class="n">find_ch_adjacency</span><span class="p">,</span> <span class="n">make_1020_channel_selections</span>
+
+<span class="c1"># Create ROIs by checking channel labels</span>
+<span class="n">selections</span> <span class="o">=</span> <span class="n">make_1020_channel_selections</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">midline</span><span class="o">=</span><span class="s2">&quot;12z&quot;</span><span class="p">)</span>
+<span class="n">time_unit</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">time_unit</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="p">{</span><span class="n">sel</span><span class="p">:</span> <span class="n">ax</span> <span class="k">for</span> <span class="n">sel</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">selections</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">())}</span>
+<span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">)</span><span class="o">.</span><span class="n">plot_image</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
+                            <span class="n">group_by</span><span class="o">=</span><span class="n">selections</span><span class="p">,</span>
+                            <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                            <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                            <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
+                            <span class="n">show_names</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span>
+                            <span class="n">titles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="o">**</span><span class="n">time_unit</span><span class="p">,</span>
+                            <span class="n">clim</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+                            <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="s2">&quot;Left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;µV&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/3936f9665206388137bf16ae3198ed51bf23bb395fd7c4a39f225e5d240b2b3e.png" src="../_images/3936f9665206388137bf16ae3198ed51bf23bb395fd7c4a39f225e5d240b2b3e.png" />
+</div>
+</div>
+</section>
+<section id="plot-topomap-of-n400-time-window">
+<h3>Plot Topomap of N400 time window<a class="headerlink" href="#plot-topomap-of-n400-time-window" title="Permalink to this heading">#</a></h3>
+<p>All of the clusters seem to fall roughly in the 400–600 ms time window we expected, although the effect seems to start a bit later than 400 ms and extend until about 650 ms. It’s also present across a much larger number of channels than just the three in our ROI above. This demonstrates the value of a data-driven approach in characterizing the actual effects in your data, without being constrained by too-narrow hypotheses.</p>
+<p>We can visualize the effect across the scalp more easily them by plotting a topographic map of the group mean difference wave, with the data masked to only show the significant channels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">)</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="mf">.500</span><span class="p">,</span>
+                                             <span class="n">average</span><span class="o">=</span><span class="mf">0.200</span><span class="p">,</span>
+                                             <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
+                                             <span class="n">contours</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                             <span class="n">sensors</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                             <span class="n">size</span><span class="o">=</span><span class="mi">4</span>
+                                            <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fad476b1cd0a85741291c897611bf1afe2438632b39e8cd47c850f9444a4fbc5.png" src="../_images/fad476b1cd0a85741291c897611bf1afe2438632b39e8cd47c850f9444a4fbc5.png" />
+</div>
+</div>
+</section>
+<section id="threshold-free-cluster-enhancement">
+<h3>Threshold-Free Cluster Enhancement<a class="headerlink" href="#threshold-free-cluster-enhancement" title="Permalink to this heading">#</a></h3>
+<p>The permutation cluster <em>t</em> test is a powerful approach to correcting for multiple comparisons, but it is computationally intensive. An alternative approach is <strong>threshold-free cluster enhancement</strong> (TFCE). This approach is based on the recognition that the <em>t</em> value at a single channel and time point is not very informative, because it is only a single data point. However, if we look at a cluster of nearby channels and time points, then the <em>t</em> values at each of those points can be combined to provide a more informative measure of the strength of the effect.</p>
+<p>How TFCE differs from the clustering approach described above is in how it determines the significance threshold for the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e2</span>
+<span class="n">threshold_tfce</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">t_tfce</span><span class="p">,</span> <span class="n">clusters_tfce</span><span class="p">,</span> <span class="n">cluster_pv_tfce</span><span class="p">,</span> <span class="n">H0_tfce</span> <span class="o">=</span> <span class="n">spatio_temporal_cluster_1samp_test</span><span class="p">(</span> 
+    <span class="n">y</span><span class="p">,</span> 
+    <span class="n">threshold</span><span class="o">=</span><span class="n">threshold_tfce</span><span class="p">,</span>
+    <span class="n">adjacency</span><span class="o">=</span><span class="n">adjacency</span><span class="p">,</span>
+    <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> 
+    <span class="n">out_type</span><span class="o">=</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
+    <span class="c1"># verbose=&#39;Info&#39;</span>
     <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using a threshold of 2.059539
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>stat_fun(H1): min=-5.136169 max=5.136169
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running initial clustering …
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 56 clusters
-</pre></div>
-</div>
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "31e05a83ba2d4cab82f9c2c44c8d8812"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e4</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">t_obs</span><span class="p">,</span> <span class="n">clusters</span><span class="p">,</span> <span class="n">cluster_pv</span><span class="p">,</span> <span class="n">H0</span> <span class="o">=</span> <span class="n">spatio_temporal_cluster_1samp_test</span><span class="p">(</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">y</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">adjacency</span><span class="o">=</span><span class="n">adjacency</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">out_type</span><span class="o">=</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;Info&#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="p">)</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e2</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">threshold_tfce</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">t_tfce</span><span class="p">,</span> <span class="n">clusters_tfce</span><span class="p">,</span> <span class="n">cluster_pv_tfce</span><span class="p">,</span> <span class="n">H0_tfce</span> <span class="o">=</span> <span class="n">spatio_temporal_cluster_1samp_test</span><span class="p">(</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">y</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">threshold</span><span class="o">=</span><span class="n">threshold_tfce</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">adjacency</span><span class="o">=</span><span class="n">adjacency</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">out_type</span><span class="o">=</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
+<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="c1"># verbose=&#39;Info&#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="p">)</span>
 
-<span class="nn">File &lt;decorator-gen-368&gt;:10,</span> in <span class="ni">spatio_temporal_cluster_1samp_test</span><span class="nt">(X, threshold, n_permutations, tail, stat_fun, adjacency, n_jobs, seed, max_step, spatial_exclude, step_down_p, t_power, out_type, check_disjoint, buffer_size, verbose)</span>
+<span class="nn">File &lt;decorator-gen-368&gt;:12,</span> in <span class="ni">spatio_temporal_cluster_1samp_test</span><span class="nt">(X, threshold, n_permutations, tail, stat_fun, adjacency, n_jobs, seed, max_step, spatial_exclude, step_down_p, t_power, out_type, check_disjoint, buffer_size, verbose)</span>
 
 <span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.11/site-packages/mne/stats/cluster_level.py:1464,</span> in <span class="ni">spatio_temporal_cluster_1samp_test</span><span class="nt">(X, threshold, n_permutations, tail, stat_fun, adjacency, n_jobs, seed, max_step, spatial_exclude, step_down_p, t_power, out_type, check_disjoint, buffer_size, verbose)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1462</span> <span class="k">else</span><span class="p">:</span>
@@ -1199,103 +1278,6 @@ document.write(`
 </div>
 </div>
 </div>
-<p>We used the <code class="docutils literal notranslate"><span class="pre">verbose='Info'</span></code> kwarg to see some information about the results of the clustering, as well as a progress bar. The output indicates we ended up with 56 clusters. That’s a lot of clusters to look at, so we’ll combine them into one array that we can use to visualize which channels and time points were significant across all the clusters.</p>
-<p>One of the kwargs we specified above was <code class="docutils literal notranslate"><span class="pre">out_type='mask'</span></code>, which overrides the default format. The <code class="docutils literal notranslate"><span class="pre">mask</span></code> format creates a set of NumPy arrays, one for each cluster. Each array the same shape as the data, but with 1s where the data are significant, and 0s where they are not. We can use this to plot the significant clusters in various ways by <em>masking</em> the data. That is, we show the data only at significant channels and time points, and hide it everywhere else.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># find significant points across all clusters</span>
-<span class="n">mask_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cluster_pv</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">mask</span> <span class="o">=</span> <span class="p">[</span><span class="n">clusters</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">mask_idx</span><span class="p">]</span>
-
-<span class="c1"># stats output is time X chan, but ERP data is chan X time, so transpose</span>
-<span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now we can view the results on a <strong>raster plot</strong>, where the rows are channels and the columns are time. We use the mask to only show the µV values of the Violation–Control difference at significant channels/time points.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mne.channels</span> <span class="kn">import</span> <span class="n">find_ch_adjacency</span><span class="p">,</span> <span class="n">make_1020_channel_selections</span>
-
-<span class="c1"># Create ROIs by checking channel labels</span>
-<span class="n">selections</span> <span class="o">=</span> <span class="n">make_1020_channel_selections</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">midline</span><span class="o">=</span><span class="s2">&quot;12z&quot;</span><span class="p">)</span>
-<span class="n">time_unit</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">time_unit</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">axes</span> <span class="o">=</span> <span class="p">{</span><span class="n">sel</span><span class="p">:</span> <span class="n">ax</span> <span class="k">for</span> <span class="n">sel</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">selections</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">())}</span>
-<span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">)</span><span class="o">.</span><span class="n">plot_image</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
-                            <span class="n">group_by</span><span class="o">=</span><span class="n">selections</span><span class="p">,</span>
-                            <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                            <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                            <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
-                            <span class="n">show_names</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span>
-                            <span class="n">titles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                            <span class="o">**</span><span class="n">time_unit</span><span class="p">,</span>
-                            <span class="n">clim</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-                            <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="s2">&quot;Left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;µV&quot;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/3936f9665206388137bf16ae3198ed51bf23bb395fd7c4a39f225e5d240b2b3e.png" src="../_images/3936f9665206388137bf16ae3198ed51bf23bb395fd7c4a39f225e5d240b2b3e.png" />
-</div>
-</div>
-</section>
-<section id="plot-topomap-of-n400-time-window">
-<h3>Plot Topomap of N400 time window<a class="headerlink" href="#plot-topomap-of-n400-time-window" title="Permalink to this heading">#</a></h3>
-<p>All of the clusters seem to fall roughly in the 400–600 ms time window we expected, although the effect seems to start a bit later than 400 ms and extend until about 650 ms. It’s also present across a much larger number of channels than just the three in our ROI above. This demonstrates the value of a data-driven approach in characterizing the actual effects in your data, without being constrained by too-narrow hypotheses.</p>
-<p>We can visualize the effect across the scalp more easily them by plotting a topographic map of the group mean difference wave, with the data masked to only show the significant channels.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">)</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="mf">.500</span><span class="p">,</span>
-                                             <span class="n">average</span><span class="o">=</span><span class="mf">0.200</span><span class="p">,</span>
-                                             <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
-                                             <span class="n">contours</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                             <span class="n">sensors</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                             <span class="n">size</span><span class="o">=</span><span class="mi">4</span>
-                                            <span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/fad476b1cd0a85741291c897611bf1afe2438632b39e8cd47c850f9444a4fbc5.png" src="../_images/fad476b1cd0a85741291c897611bf1afe2438632b39e8cd47c850f9444a4fbc5.png" />
-</div>
-</div>
-</section>
-<section id="threshold-free-cluster-enhancement">
-<h3>Threshold-Free Cluster Enhancement<a class="headerlink" href="#threshold-free-cluster-enhancement" title="Permalink to this heading">#</a></h3>
-<p>The permutation cluster <em>t</em> test is a powerful approach to correcting for multiple comparisons, but it is computationally intensive. An alternative approach is <strong>threshold-free cluster enhancement</strong> (TFCE). This approach is based on the recognition that the <em>t</em> value at a single channel and time point is not very informative, because it is only a single data point. However, if we look at a cluster of nearby channels and time points, then the <em>t</em> values at each of those points can be combined to provide a more informative measure of the strength of the effect.</p>
-<p>How TFCE differs from the clustering approach described above is in how it determines the significance threshold for the data.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e3</span>
-<span class="n">threshold_tfce</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-
-<span class="n">t_tfce</span><span class="p">,</span> <span class="n">clusters_tfce</span><span class="p">,</span> <span class="n">cluster_pv_tfce</span><span class="p">,</span> <span class="n">H0_tfce</span> <span class="o">=</span> <span class="n">spatio_temporal_cluster_1samp_test</span><span class="p">(</span> 
-    <span class="n">y</span><span class="p">,</span> 
-    <span class="n">threshold</span><span class="o">=</span><span class="n">threshold_tfce</span><span class="p">,</span>
-    <span class="n">adjacency</span><span class="o">=</span><span class="n">adjacency</span><span class="p">,</span>
-    <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> 
-    <span class="n">out_type</span><span class="o">=</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span>
-    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
-    <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;Info&#39;</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>stat_fun(H1): min=-5.136169 max=5.136169
-Running initial clustering …
-Using 26 thresholds from 0.00 to 5.00 for TFCE computation (h_power=2.00, e_power=0.50)
-Found 39360 clusters
-</pre></div>
-</div>
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9efbaeb3223f49248ea8a1006aecd501", "version_major": 2, "version_minor": 0}</script></div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># stats output is time X chan, but ERP data is chan X time, so transpose</span>
@@ -1327,7 +1309,7 @@ Found 39360 clusters
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7a4a1200d3acbe5ea8f1ebe2c2b328ff3ce69bfbce273b4b0d71ddf64b6abfe6.png" src="../_images/7a4a1200d3acbe5ea8f1ebe2c2b328ff3ce69bfbce273b4b0d71ddf64b6abfe6.png" />
+<img alt="../_images/f84974a340fb6cf9be4887551ab4b1880b999dc0442c634774f29aef79247d16.png" src="../_images/f84974a340fb6cf9be4887551ab4b1880b999dc0442c634774f29aef79247d16.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1343,7 +1325,7 @@ Found 39360 clusters
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d3a3447f83efd1ef7a805627fa014aa8dbd504a6962cff830963d04ca0e4e7ad.png" src="../_images/d3a3447f83efd1ef7a805627fa014aa8dbd504a6962cff830963d04ca0e4e7ad.png" />
+<img alt="../_images/e52207b73c6e559310b68f415cf767c9c066ca66a313a236987f71908ed9f96b.png" src="../_images/e52207b73c6e559310b68f415cf767c9c066ca66a313a236987f71908ed9f96b.png" />
 </div>
 </div>
 </section>
