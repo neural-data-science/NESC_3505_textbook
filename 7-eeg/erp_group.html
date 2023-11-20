@@ -622,6 +622,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
+<span class="kn">from</span> <span class="nn">mne.channels</span> <span class="kn">import</span> <span class="n">find_ch_adjacency</span><span class="p">,</span> <span class="n">make_1020_channel_selections</span>
+
 <span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>  <span class="c1"># reduce extraneous MNE output</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -786,7 +788,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/12d049b7fcbb713d893b850e7225875624a5bfc2e015307ea1230a222c053af9.png" src="../_images/12d049b7fcbb713d893b850e7225875624a5bfc2e015307ea1230a222c053af9.png" />
+<img alt="../_images/b31d20fdd37d1cd50498bd164e1452cff620813842be4ed62f3bc5d223597b9c.png" src="../_images/b31d20fdd37d1cd50498bd164e1452cff620813842be4ed62f3bc5d223597b9c.png" />
 </div>
 </div>
 </section>
@@ -859,7 +861,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/34cc0da7d307a6fca48ee285bb8a5a37285cecf21fd3f45a6787c21429d7d420.png" src="../_images/34cc0da7d307a6fca48ee285bb8a5a37285cecf21fd3f45a6787c21429d7d420.png" />
+<img alt="../_images/3331553c8d2fd2e372cacf64b857b507e28e69aa103d124bbada7a62c0fda59c.png" src="../_images/3331553c8d2fd2e372cacf64b857b507e28e69aa103d124bbada7a62c0fda59c.png" />
 </div>
 </div>
 <p>The nice thing about 95% CIs is that they provide an easy visual aid for interpreting the results. If the CI overlaps zero, then the difference between conditions is not statistically significant. If the CI does not overlap zero, then the difference can be considered statistically significant. In this case, the CI largely does not overlap zero between ~400–600 ms, so we can conclude that the difference between conditions is statistically significant in that time window.</p>
@@ -1038,15 +1040,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">adjacency</span><span class="p">,</span> <span class="n">ch_names</span> <span class="o">=</span> <span class="n">find_ch_adjacency</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">ch_type</span><span class="o">=</span><span class="s1">&#39;eeg&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_ch_adjacency</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">adjacency</span><span class="p">,</span> <span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;find_ch_adjacency&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/c79f9c150ce169b833c2c16001b9f4bfdf33de4b5d2191667f746fe20d28317c.png" src="../_images/c79f9c150ce169b833c2c16001b9f4bfdf33de4b5d2191667f746fe20d28317c.png" />
 </div>
 </div>
 <p>Now we run the test. We set an <code class="docutils literal notranslate"><span class="pre">n_perm</span></code> variable that controls the number of permutations (random samples) of the data that will be used to estimate the null distribution (). We set this to 50,000, which is a large number of permutations, and will take a few minutes to run even on a powerful laptop. But in order for the results to be reliable (i.e., likely to get the same or very similar results with another sample of random permutations), we need to run lots of permutations. By default (which we won’t change), the function uses an <span class="math notranslate nohighlight">\(\alpha\)</span> of .05, and uses the maximal statistic method to correct for multiple comparisons.</p>
@@ -1067,20 +1061,140 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using a threshold of 2.059539
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>stat_fun(H1): min=-5.136169 max=5.136169
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running initial clustering …
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 56 clusters
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "31e05a83ba2d4cab82f9c2c44c8d8812"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e4</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">t_obs</span><span class="p">,</span> <span class="n">clusters</span><span class="p">,</span> <span class="n">cluster_pv</span><span class="p">,</span> <span class="n">H0</span> <span class="o">=</span> <span class="n">spatio_temporal_cluster_1samp_test</span><span class="p">(</span> 
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">t_obs</span><span class="p">,</span> <span class="n">clusters</span><span class="p">,</span> <span class="n">cluster_pv</span><span class="p">,</span> <span class="n">H0</span> <span class="o">=</span> <span class="n">spatio_temporal_cluster_1samp_test</span><span class="p">(</span> 
 <span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">y</span><span class="p">,</span> 
-<span class="ne">----&gt; </span><span class="mi">5</span>     <span class="n">adjacency</span><span class="o">=</span><span class="n">adjacency</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">adjacency</span><span class="o">=</span><span class="n">adjacency</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> 
 <span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">out_type</span><span class="o">=</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
 <span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;Info&#39;</span>
 <span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="p">)</span>
 
-<span class="ne">NameError</span>: name &#39;adjacency&#39; is not defined
+<span class="nn">File &lt;decorator-gen-368&gt;:10,</span> in <span class="ni">spatio_temporal_cluster_1samp_test</span><span class="nt">(X, threshold, n_permutations, tail, stat_fun, adjacency, n_jobs, seed, max_step, spatial_exclude, step_down_p, t_power, out_type, check_disjoint, buffer_size, verbose)</span>
+
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.11/site-packages/mne/stats/cluster_level.py:1464,</span> in <span class="ni">spatio_temporal_cluster_1samp_test</span><span class="nt">(X, threshold, n_permutations, tail, stat_fun, adjacency, n_jobs, seed, max_step, spatial_exclude, step_down_p, t_power, out_type, check_disjoint, buffer_size, verbose)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1462</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1463</span>     <span class="n">exclude</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="ne">-&gt; </span><span class="mi">1464</span> <span class="k">return</span> <span class="n">permutation_cluster_1samp_test</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1465</span>     <span class="n">X</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1466</span>     <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1467</span>     <span class="n">stat_fun</span><span class="o">=</span><span class="n">stat_fun</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1468</span>     <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1469</span>     <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_permutations</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1470</span>     <span class="n">adjacency</span><span class="o">=</span><span class="n">adjacency</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1471</span>     <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1472</span>     <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1473</span>     <span class="n">max_step</span><span class="o">=</span><span class="n">max_step</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1474</span>     <span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1475</span>     <span class="n">step_down_p</span><span class="o">=</span><span class="n">step_down_p</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1476</span>     <span class="n">t_power</span><span class="o">=</span><span class="n">t_power</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1477</span>     <span class="n">out_type</span><span class="o">=</span><span class="n">out_type</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1478</span>     <span class="n">check_disjoint</span><span class="o">=</span><span class="n">check_disjoint</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1479</span>     <span class="n">buffer_size</span><span class="o">=</span><span class="n">buffer_size</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1480</span> <span class="p">)</span>
+
+<span class="nn">File &lt;decorator-gen-367&gt;:12,</span> in <span class="ni">permutation_cluster_1samp_test</span><span class="nt">(X, threshold, n_permutations, tail, stat_fun, adjacency, n_jobs, seed, max_step, exclude, step_down_p, t_power, out_type, check_disjoint, buffer_size, verbose)</span>
+
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.11/site-packages/mne/stats/cluster_level.py:1367,</span> in <span class="ni">permutation_cluster_1samp_test</span><span class="nt">(X, threshold, n_permutations, tail, stat_fun, adjacency, n_jobs, seed, max_step, exclude, step_down_p, t_power, out_type, check_disjoint, buffer_size, verbose)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1295</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Non-parametric cluster-level paired t-test.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1296</span><span class="sd"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">1297</span><span class="sd"> For details, see :footcite:p:`MarisOostenveld2007,Sassenhagen2019`.</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1364</span><span class="sd"> .. footbibliography::</span>
+<span class="g g-Whitespace">   </span><span class="mi">1365</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1366</span> <span class="n">stat_fun</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">=</span> <span class="n">_check_fun</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">stat_fun</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">tail</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1367</span> <span class="k">return</span> <span class="n">_permutation_cluster_test</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1368</span>     <span class="n">X</span><span class="o">=</span><span class="p">[</span><span class="n">X</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1369</span>     <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1370</span>     <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_permutations</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1371</span>     <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1372</span>     <span class="n">stat_fun</span><span class="o">=</span><span class="n">stat_fun</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1373</span>     <span class="n">adjacency</span><span class="o">=</span><span class="n">adjacency</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1374</span>     <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1375</span>     <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1376</span>     <span class="n">max_step</span><span class="o">=</span><span class="n">max_step</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1377</span>     <span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1378</span>     <span class="n">step_down_p</span><span class="o">=</span><span class="n">step_down_p</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1379</span>     <span class="n">t_power</span><span class="o">=</span><span class="n">t_power</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1380</span>     <span class="n">out_type</span><span class="o">=</span><span class="n">out_type</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1381</span>     <span class="n">check_disjoint</span><span class="o">=</span><span class="n">check_disjoint</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1382</span>     <span class="n">buffer_size</span><span class="o">=</span><span class="n">buffer_size</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1383</span> <span class="p">)</span>
+
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.11/site-packages/mne/stats/cluster_level.py:1085,</span> in <span class="ni">_permutation_cluster_test</span><span class="nt">(***failed resolving arguments***)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1080</span>     <span class="n">this_include</span> <span class="o">=</span> <span class="n">step_down_include</span>
+<span class="g g-Whitespace">   </span><span class="mi">1082</span> <span class="k">with</span> <span class="n">ProgressBar</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1083</span>     <span class="n">iterable</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">orders</span><span class="p">)),</span> <span class="n">mesg</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Permuting</span><span class="si">{</span><span class="n">extra</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1084</span> <span class="p">)</span> <span class="k">as</span> <span class="n">progress_bar</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1085</span>     <span class="n">H0</span> <span class="o">=</span> <span class="n">parallel</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1086</span>         <span class="n">my_do_perm_func</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1087</span>             <span class="n">X_full</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1088</span>             <span class="n">slices</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1089</span>             <span class="n">threshold</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1090</span>             <span class="n">tail</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1091</span>             <span class="n">adjacency</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1092</span>             <span class="n">stat_fun</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1093</span>             <span class="n">max_step</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1094</span>             <span class="n">this_include</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1095</span>             <span class="n">partitions</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1096</span>             <span class="n">t_power</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1097</span>             <span class="n">order</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1098</span>             <span class="n">sample_shape</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1099</span>             <span class="n">buffer_size</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1100</span>             <span class="n">progress_bar</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="n">idx</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1101</span>         <span class="p">)</span>
+<span class="nn">   1102         for idx, order</span> in <span class="ni">split_list</span><span class="nt">(orders, n_jobs, idx=True)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1103</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1104</span> <span class="c1"># include original (true) ordering</span>
+<span class="g g-Whitespace">   </span><span class="mi">1105</span> <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>  <span class="c1"># up tail</span>
+
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.11/site-packages/joblib/parallel.py:1952,</span> in <span class="ni">Parallel.__call__</span><span class="nt">(self, iterable)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1946</span> <span class="c1"># The first item from the output is blank, but it makes the interpreter</span>
+<span class="g g-Whitespace">   </span><span class="mi">1947</span> <span class="c1"># progress until it enters the Try/Except block of the generator and</span>
+<span class="g g-Whitespace">   </span><span class="mi">1948</span> <span class="c1"># reach the first `yield` statement. This starts the aynchronous</span>
+<span class="g g-Whitespace">   </span><span class="mi">1949</span> <span class="c1"># dispatch of the tasks to the workers.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1950</span> <span class="nb">next</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1952</span> <span class="k">return</span> <span class="n">output</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_generator</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.11/site-packages/joblib/parallel.py:1595,</span> in <span class="ni">Parallel._get_outputs</span><span class="nt">(self, iterator, pre_dispatch)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1592</span>     <span class="k">yield</span>
+<span class="g g-Whitespace">   </span><span class="mi">1594</span>     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">retrieval_context</span><span class="p">():</span>
+<span class="ne">-&gt; </span><span class="mi">1595</span>         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retrieve</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1597</span> <span class="k">except</span> <span class="ne">GeneratorExit</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1598</span>     <span class="c1"># The generator has been garbage collected before being fully</span>
+<span class="g g-Whitespace">   </span><span class="mi">1599</span>     <span class="c1"># consumed. This aborts the remaining tasks if possible and warn</span>
+<span class="g g-Whitespace">   </span><span class="mi">1600</span>     <span class="c1"># the user if necessary.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1601</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_exception</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.11/site-packages/joblib/parallel.py:1707,</span> in <span class="ni">Parallel._retrieve</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1702</span> <span class="c1"># If the next job is not ready for retrieval yet, we just wait for</span>
+<span class="g g-Whitespace">   </span><span class="mi">1703</span> <span class="c1"># async callbacks to progress.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1704</span> <span class="k">if</span> <span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_jobs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span>
+<span class="g g-Whitespace">   </span><span class="mi">1705</span>     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_jobs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1706</span>         <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span> <span class="o">==</span> <span class="n">TASK_PENDING</span><span class="p">)):</span>
+<span class="ne">-&gt; </span><span class="mi">1707</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1708</span>     <span class="k">continue</span>
+<span class="g g-Whitespace">   </span><span class="mi">1710</span> <span class="c1"># We need to be careful: the job list can be filling up as</span>
+<span class="g g-Whitespace">   </span><span class="mi">1711</span> <span class="c1"># we empty it and Python list are not thread-safe by</span>
+<span class="g g-Whitespace">   </span><span class="mi">1712</span> <span class="c1"># default hence the use of the lock</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
@@ -1095,19 +1209,6 @@ document.write(`
 
 <span class="c1"># stats output is time X chan, but ERP data is chan X time, so transpose</span>
 <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># find significant points across all clusters</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">mask_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cluster_pv</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">mask</span> <span class="o">=</span> <span class="p">[</span><span class="n">clusters</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">mask_idx</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># stats output is time X chan, but ERP data is chan X time, so transpose</span>
-
-<span class="ne">NameError</span>: name &#39;cluster_pv&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1140,28 +1241,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">13</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">axes</span> <span class="o">=</span> <span class="p">{</span><span class="n">sel</span><span class="p">:</span> <span class="n">ax</span> <span class="k">for</span> <span class="n">sel</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">selections</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">())}</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">)</span><span class="o">.</span><span class="n">plot_image</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span>                             <span class="n">group_by</span><span class="o">=</span><span class="n">selections</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span>                             <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span>                             <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="ne">---&gt; </span><span class="mi">13</span>                             <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>                             <span class="n">show_names</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span>                             <span class="n">titles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span>                             <span class="o">**</span><span class="n">time_unit</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span>                             <span class="n">clim</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span>                             <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="s2">&quot;Left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;µV&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;mask&#39; is not defined
-</pre></div>
-</div>
-<img alt="../_images/899c5ad5c2707f1692409d099b8abc1615ef483b8e0f90e8e5b23dfe14bf28d9.png" src="../_images/899c5ad5c2707f1692409d099b8abc1615ef483b8e0f90e8e5b23dfe14bf28d9.png" />
+<img alt="../_images/3936f9665206388137bf16ae3198ed51bf23bb395fd7c4a39f225e5d240b2b3e.png" src="../_images/3936f9665206388137bf16ae3198ed51bf23bb395fd7c4a39f225e5d240b2b3e.png" />
 </div>
 </div>
 </section>
@@ -1182,20 +1262,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">)</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="mf">.500</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>                                              <span class="n">average</span><span class="o">=</span><span class="mf">0.200</span><span class="p">,</span>
-<span class="ne">----&gt; </span><span class="mi">3</span>                                              <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                                              <span class="n">contours</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                                              <span class="n">sensors</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>                                              <span class="n">size</span><span class="o">=</span><span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>                                             <span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;mask&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/fad476b1cd0a85741291c897611bf1afe2438632b39e8cd47c850f9444a4fbc5.png" src="../_images/fad476b1cd0a85741291c897611bf1afe2438632b39e8cd47c850f9444a4fbc5.png" />
 </div>
 </div>
 </section>
@@ -1221,41 +1288,18 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e3</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">threshold_tfce</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">t_tfce</span><span class="p">,</span> <span class="n">clusters_tfce</span><span class="p">,</span> <span class="n">cluster_pv_tfce</span><span class="p">,</span> <span class="n">H0_tfce</span> <span class="o">=</span> <span class="n">spatio_temporal_cluster_1samp_test</span><span class="p">(</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">y</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">threshold</span><span class="o">=</span><span class="n">threshold_tfce</span><span class="p">,</span>
-<span class="ne">----&gt; </span><span class="mi">7</span>     <span class="n">adjacency</span><span class="o">=</span><span class="n">adjacency</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">out_type</span><span class="o">=</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
-<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;Info&#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;adjacency&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>stat_fun(H1): min=-5.136169 max=5.136169
+Running initial clustering …
+Using 26 thresholds from 0.00 to 5.00 for TFCE computation (h_power=2.00, e_power=0.50)
+Found 39360 clusters
 </pre></div>
 </div>
-</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9efbaeb3223f49248ea8a1006aecd501", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># stats output is time X chan, but ERP data is chan X time, so transpose</span>
 <span class="n">mask</span> <span class="o">=</span> <span class="n">cluster_pv_tfce</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">t_tfce</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">&lt;</span> <span class="mf">.05</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># stats output is time X chan, but ERP data is chan X time, so transpose</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">cluster_pv_tfce</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">t_tfce</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">&lt;</span> <span class="mf">.05</span>
-
-<span class="ne">NameError</span>: name &#39;cluster_pv_tfce&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1283,28 +1327,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">21</span><span class="p">],</span> <span class="n">line</span> <span class="mi">9</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">axes</span> <span class="o">=</span> <span class="p">{</span><span class="n">sel</span><span class="p">:</span> <span class="n">ax</span> <span class="k">for</span> <span class="n">sel</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">selections</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">())}</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">)</span><span class="o">.</span><span class="n">plot_image</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>                             <span class="n">group_by</span><span class="o">=</span><span class="n">selections</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>                             <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>                             <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="ne">----&gt; </span><span class="mi">9</span>                             <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span>                             <span class="n">show_names</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span>                             <span class="n">titles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span>                             <span class="o">**</span><span class="n">time_unit</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span>                             <span class="n">clim</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>                             <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="s2">&quot;Left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;µV&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;mask&#39; is not defined
-</pre></div>
-</div>
-<img alt="../_images/899c5ad5c2707f1692409d099b8abc1615ef483b8e0f90e8e5b23dfe14bf28d9.png" src="../_images/899c5ad5c2707f1692409d099b8abc1615ef483b8e0f90e8e5b23dfe14bf28d9.png" />
+<img alt="../_images/7a4a1200d3acbe5ea8f1ebe2c2b328ff3ce69bfbce273b4b0d71ddf64b6abfe6.png" src="../_images/7a4a1200d3acbe5ea8f1ebe2c2b328ff3ce69bfbce273b4b0d71ddf64b6abfe6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1320,20 +1343,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">22</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">)</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="mf">.500</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>                                              <span class="n">average</span><span class="o">=</span><span class="mf">0.200</span><span class="p">,</span>
-<span class="ne">----&gt; </span><span class="mi">3</span>                                              <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                                              <span class="n">contours</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                                              <span class="n">sensors</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>                                              <span class="n">size</span><span class="o">=</span><span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>                                             <span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;mask&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/d3a3447f83efd1ef7a805627fa014aa8dbd504a6962cff830963d04ca0e4e7ad.png" src="../_images/d3a3447f83efd1ef7a805627fa014aa8dbd504a6962cff830963d04ca0e4e7ad.png" />
 </div>
 </div>
 </section>
