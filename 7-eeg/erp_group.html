@@ -790,7 +790,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c8f3ab85095a3e10853aeb5985269361c6904b8a17e53d369b899d51ee47f864.png" src="../_images/c8f3ab85095a3e10853aeb5985269361c6904b8a17e53d369b899d51ee47f864.png" />
+<img alt="../_images/26edcd15c10fc949aa2a03504db1e1faa0d976ee1b69a9586c3db5a2c82dc61b.png" src="../_images/26edcd15c10fc949aa2a03504db1e1faa0d976ee1b69a9586c3db5a2c82dc61b.png" />
 </div>
 </div>
 </section>
@@ -863,7 +863,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/dfebe266acb23d24178fa5e7c2ec09072c3296f5913d909171fe2599477458fe.png" src="../_images/dfebe266acb23d24178fa5e7c2ec09072c3296f5913d909171fe2599477458fe.png" />
+<img alt="../_images/5a7b5771f064742fa641dde9a2c53dfe1bf2d0f5d8be19ec464e44da1dd1caee.png" src="../_images/5a7b5771f064742fa641dde9a2c53dfe1bf2d0f5d8be19ec464e44da1dd1caee.png" />
 </div>
 </div>
 <p>The nice thing about 95% CIs is that they provide an easy visual aid for interpreting the results. If the CI overlaps zero, then the difference between conditions is not statistically significant. If the CI does not overlap zero, then the difference can be considered statistically significant. In this case, the CI largely does not overlap zero between ~400–600 ms, so we can conclude that the difference between conditions is statistically significant in that time window.</p>
@@ -1052,18 +1052,6 @@ document.write(`
 <p>Note the formatting of the code here: because we have 4 output variables and a long function name, we wrap all the lines so that they are only indented one level rather than all the way out where the function name is. This makes it easier to read the code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">15</span> <span class="o">*</span> <span class="mi">60</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>900
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e4</span>
 
 <span class="n">t_obs</span><span class="p">,</span> <span class="n">clusters</span><span class="p">,</span> <span class="n">cluster_pv</span><span class="p">,</span> <span class="n">H0</span> <span class="o">=</span> <span class="n">spatio_temporal_cluster_1samp_test</span><span class="p">(</span> 
@@ -1090,7 +1078,7 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 56 clusters
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "d104095480074f1abee1f4b3aa596f35"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "074c90f82b844653a19708ebae731863"}</script></div>
 </div>
 <p>We used the <code class="docutils literal notranslate"><span class="pre">verbose='Info'</span></code> kwarg to see some information about the results of the clustering, as well as a progress bar. The output indicates we ended up with 56 clusters. That’s a lot of clusters to look at, so we’ll combine them into one array that we can use to visualize which channels and time points were significant across all the clusters.</p>
 <p>One of the kwargs we specified above was <code class="docutils literal notranslate"><span class="pre">out_type='mask'</span></code>, which overrides the default format. The <code class="docutils literal notranslate"><span class="pre">mask</span></code> format creates a set of NumPy arrays, one for each cluster. Each array the same shape as the data, but with 1s where the data are significant, and 0s where they are not. We can use this to plot the significant clusters in various ways by <em>masking</em> the data. That is, we show the data only at significant channels and time points, and hide it everywhere else.</p>
@@ -1109,7 +1097,8 @@ document.write(`
 </section>
 <section id="visualize-the-results">
 <h3>Visualize the Results<a class="headerlink" href="#visualize-the-results" title="Permalink to this heading">#</a></h3>
-<p>Now we can view the results on a <strong>raster plot</strong>, where the rows are channels and the columns are time. We use the mask to only show the µV values of the Violation–Control difference at significant channels/time points.</p>
+<p>Now we can view the results on a <strong>raster plot</strong>, where the rows are channels and the columns are time. MNE’s <code class="docutils literal notranslate"><span class="pre">make_1020_channel_selections</span></code>
+We use the mask to only show the microVolt values of the Violation–Control difference at significant channels/time points. Thus non-significant areas are grey, and the blue areas indicate where the difference between conditions is significantly different from zero, in th negative direction (Violation–Control). There are no red areas, indicating that there are no significant differences in the positive direction (Control–Violation).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mne.channels</span> <span class="kn">import</span> <span class="n">find_ch_adjacency</span><span class="p">,</span> <span class="n">make_1020_channel_selections</span>
@@ -1197,9 +1186,9 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 39360 clusters
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "3b6e6ae3af2c420587c3bf59d372684e"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "8e00cdbce8a947e5ab793d40b9623fb7"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e4</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">threshold_tfce</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 <span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">t_tfce</span><span class="p">,</span> <span class="n">clusters_tfce</span><span class="p">,</span> <span class="n">cluster_pv_tfce</span><span class="p">,</span> <span class="n">H0_tfce</span> <span class="o">=</span> <span class="n">spatio_temporal_cluster_1samp_test</span><span class="p">(</span> 
