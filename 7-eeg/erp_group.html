@@ -595,15 +595,17 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mass-univariate-analysis">Mass Univariate Analysis</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-multiple-comparisons">The Problem of Multiple Comparisons</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-t-test-for-multiple-comparison-correction">Permutation <em>t</em> Test for Multiple Comparison Correction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-multiple-comparisons">The Problem of Multiple Comparisons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-t-test-for-multiple-comparison-correction">Permutation <em>t</em> Test for Multiple Comparison Correction</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performing-a-spatio-temporal-permutation-cluster-t-test">Performing a Spatio-Temporal Permutation Cluster <em>t</em> Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-the-data-for-mass-univariate-analysis">Prepare the Data for Mass Univariate Analysis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-adjacency-matrix">Create Adjacency Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-spatial-temporal-permutation-cluster-test">Run the Spatial-Temporal Permutation Cluster Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-results">Visualize the Results</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-topomap-of-n400-time-window">Plot Topomap of N400 time window</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#threshold-free-cluster-enhancement">Threshold-Free Cluster Enhancement</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#threshold-free-cluster-enhancement">Threshold-Free Cluster Enhancement</a></li>
 </ul>
             </nav>
         </div>
@@ -788,7 +790,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4b7b7d09e80739df65464afe48de9d8671027ea18b86cbeecbbbf66c84385bc6.png" src="../_images/4b7b7d09e80739df65464afe48de9d8671027ea18b86cbeecbbbf66c84385bc6.png" />
+<img alt="../_images/c8f3ab85095a3e10853aeb5985269361c6904b8a17e53d369b899d51ee47f864.png" src="../_images/c8f3ab85095a3e10853aeb5985269361c6904b8a17e53d369b899d51ee47f864.png" />
 </div>
 </div>
 </section>
@@ -861,7 +863,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cfd7d42374f6f35dec24830c832fc9b0c354122daf6b7101a7fe840781a6c7da.png" src="../_images/cfd7d42374f6f35dec24830c832fc9b0c354122daf6b7101a7fe840781a6c7da.png" />
+<img alt="../_images/dfebe266acb23d24178fa5e7c2ec09072c3296f5913d909171fe2599477458fe.png" src="../_images/dfebe266acb23d24178fa5e7c2ec09072c3296f5913d909171fe2599477458fe.png" />
 </div>
 </div>
 <p>The nice thing about 95% CIs is that they provide an easy visual aid for interpreting the results. If the CI overlaps zero, then the difference between conditions is not statistically significant. If the CI does not overlap zero, then the difference can be considered statistically significant. In this case, the CI largely does not overlap zero between ~400–600 ms, so we can conclude that the difference between conditions is statistically significant in that time window.</p>
@@ -985,19 +987,19 @@ document.write(`
 <p>Performing so many independent <em>t</em>-tests (“independent” meaning that the outcome of one test does depend on outcome of any other test) increases our chances of finding a significant result by chance. Statistical significance is typically determined based on a <em>p</em> value, which is the probability of finding a result as or more extreme than the one we found, if the null hypothesis were true (i.e., if there was no real difference between conditions). In other words, if we find a <em>p</em> value of .05, this means the probability of finding this result by chance is 1 / 100, or 5%. Thus if we perform 39,360 independent <em>t</em>-tests, and we use a threshold for significance (alpha, or <span class="math notranslate nohighlight">\(\alpha\)</span>) of <em>p</em> &lt; .05, then we can expect to find 1,968 significant results by chance (39,360 * .05 = 1,968). In other words, we are likely to find nearly 2,000 time point/channel combinations that show a “significant” difference between conditions, even if there is no real difference between conditions. This is called the <strong>problem of multiple comparisons</strong>.</p>
 <p>There are a number of ways to address the problem of multiple comparisons. One is to simply use a more stringent threshold for significance. For instance, we could use <em>p</em> &lt; .01, which would mean we would expect to find only 394 significant results by chance (39,360 * .01 = 394). However, this is a bit arbitrary, and it doesn’t address the fact that we are performing a large number of tests.</p>
 <p>Another way to correct for multiple comparisons is the <strong>Bonferroni</strong> method, which involves simply dividing the desired <span class="math notranslate nohighlight">\(\alpha\)</span> value for the experiment (i.e., across all tests) by the number of tests. For this data set that would mean <span class="math notranslate nohighlight">\(.05 / 64 * 615 = .000001\)</span>. This is a very stringent threshold, and would likely result in no significant results. However, the Bonferroni method is actually inappropriate for ERP data. It assumes that each statistical test is statistically independent of the others, which is not true for multiple channels of EEG data — nearby channels can be predicted to have similar values, since they are measuring activity from nearby scalp locations. There are, however, other multiple comparisons correction methods that are appropriate for EEG data, such as the <strong>cluster-based permutation test</strong>.</p>
+</section>
 <section id="permutation-t-test-for-multiple-comparison-correction">
-<h3>Permutation <em>t</em> Test for Multiple Comparison Correction<a class="headerlink" href="#permutation-t-test-for-multiple-comparison-correction" title="Permalink to this heading">#</a></h3>
+<h2>Permutation <em>t</em> Test for Multiple Comparison Correction<a class="headerlink" href="#permutation-t-test-for-multiple-comparison-correction" title="Permalink to this heading">#</a></h2>
 <p>One popular multiple comparison correciton method for EEG data is a <strong>permutation</strong> <em>t</em> test. Widely introduced to the field of neuroimaging by <a class="reference external" href="https://doi.org/10.1002/hbm.1058">Nichols and Holmes (2001)</a>permutation is a well-established approach in the field of statistics. The basic concepts in permutation testing are <em>exchangability</em> and <em>randomization</em>. If we have multiple data points from two sets of experimental conditions (e.g., <em>Violation</em> and <em>Control</em>), and there is no true difference between the conditions, then it should not matter if we perform a <em>t</em> test between the data points using the correct condition labels, or if we randomly re-label the condition of each data point (i.e., <em>exchange</em> the labels among data points). In other words, if ERP amplitude in the <em>Violation</em> and <em>Control</em> conditions are not truly different, then if we scramble which data points we call <em>Violation</em> and which ones we call <em>Control</em>, and perform the <em>t</em> test again, the results of that <em>t</em> test should not be too different from the <em>t</em> test based on the correct labels.</p>
 <p>On the other hand, if there is a true experimental effect, then randomizing the labels of each data point should result in consistently lower <em>t</em> values than the true labeling. The reason this approach is called <em>permutation</em> testing is that we perform the random exchange of labels and data points many times, each with a different reassignment (i.e., a different permutation of labels and data points). Typically this is done thousands of times, in order to get a reliable estimate of the <em>null distribution</em> — that is, the distribution of <em>t</em> scores across different permutations that we know don’t match the true label-to-data-point mapping.</p>
 <p>This approach doesn’t in and of itself correct for multiple comparisons. However, when permutation tests are performed over a number of different sets of data (such as a separate <em>t</em> test on the data from each individual electrode), can can use this to correct for multiple comparisons. This is called the <strong>maximal statistic</strong> method. It is based on the recognition that the distribution of <em>t</em> (and associated <em>p</em>) values across thousands of random permutations of labels actually reflects the “chance” that our use <em>p</em> values are based on. In other words, in conventional <em>t</em> tests if we use an <span class="math notranslate nohighlight">\(\alpha\)</span> of .05, then we are saying that we accept a 5% chance that over many replications of the experiment we would get a “significant” result by chance. Since our permutation distribution actually <em>is</em> thousands of replications of an “experiment” in which there is no true effect, we can say that the top 5% of the <em>t</em> values we obtain from the permutations are what we consider “significant”. We can provide even better control for multiple comparisons by looking at the maximum <em>t</em> values not just at each electrode separately, but across all the electrodes. We can set the critical <em>t</em> value (i.e., the <em>t</em> threshold for significance) to be <span class="math notranslate nohighlight">\((\alpha * N) + 1\)</span>, where <span class="math notranslate nohighlight">\(N\)</span> is the number of electrodes. That is, our <em>t</em> threshold is set so that just under 5% of the randomly-obtained <em>t</em> values are greater than this threshold.</p>
-</section>
 <section id="clustering">
 <h3>Clustering<a class="headerlink" href="#clustering" title="Permalink to this heading">#</a></h3>
 <p>An additional multiple comparison correction that can be applied is <strong>clustering</strong>. This is based on the recognition that the ERP is a spatio-temporal signal, and that any real ERP effect of interest is likely to be present not at a single channel and time point, but at a cluster of nearby channels and time points. For instance, the N400 is typically largest at midline channels Cz, CPz, and Pz, but it is also present at nearby channels such as FCz and C1. Likewise, it is typically largest between 400–600 ms, but it is also present at nearby time points such as 350 and 650 ms.</p>
 <p>The clustering approach involves first performing a <em>t</em> test at every channel and time point, over many permutations, as described above. But then we threshold the resulting set of <em>t</em> values (in this case the <em>t</em> value that corresponds to <span class="math notranslate nohighlight">\(p &lt; .05\)</span>) and find clusters — cases where adjacent channels and/or time points also have above-threshold <em>t</em> values (and with the same sign, meaning that we don’t cluster positive potential differences with negative potential differences). Then, just as we built the null distribution of <em>t</em> values across permutations, we can build a null distribution of the size of the largest cluster in each permutation. We can use that to determine the <em>p</em> value for each cluster in the <em>t</em> test with the correct labels, based on the proportion of permutations that have a cluster of that size or larger.</p>
 </section>
-<section id="performing-a-spatio-temporal-permutation-cluster-t-test">
-<h3>Performing a Spatio-Temporal Permutation Cluster <em>t</em> Test<a class="headerlink" href="#performing-a-spatio-temporal-permutation-cluster-t-test" title="Permalink to this heading">#</a></h3>
+<section id="prepare-the-data-for-mass-univariate-analysis">
+<h3>Prepare the Data for Mass Univariate Analysis<a class="headerlink" href="#prepare-the-data-for-mass-univariate-analysis" title="Permalink to this heading">#</a></h3>
 <p>MNE provides a <code class="docutils literal notranslate"><span class="pre">spatio_temporal_cluster_1samp_test()</span></code> function which we import here.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1043,11 +1045,26 @@ document.write(`
 <img alt="../_images/c79f9c150ce169b833c2c16001b9f4bfdf33de4b5d2191667f746fe20d28317c.png" src="../_images/c79f9c150ce169b833c2c16001b9f4bfdf33de4b5d2191667f746fe20d28317c.png" />
 </div>
 </div>
-<p>Now we run the test. We set an <code class="docutils literal notranslate"><span class="pre">n_perm</span></code> variable that controls the number of permutations (random samples) of the data that will be used to estimate the null distribution (). We would ideally set this to 50,000, but for the purposes of demonstration we use fewer to speed things up. But in order for the results to be reliable (i.e., likely to get the same or very similar results with another sample of random permutations), we need to run lots of permutations. By default (which we won’t change), the function uses an <span class="math notranslate nohighlight">\(\alpha\)</span> of .05, and uses the maximal statistic method to correct for multiple comparisons.</p>
+</section>
+<section id="run-the-spatial-temporal-permutation-cluster-test">
+<h3>Run the Spatial-Temporal Permutation Cluster Test<a class="headerlink" href="#run-the-spatial-temporal-permutation-cluster-test" title="Permalink to this heading">#</a></h3>
+<p>Now we run the test. We set an <code class="docutils literal notranslate"><span class="pre">n_perm</span></code> variable that controls the number of permutations (random samples) of the data that will be used to estimate the null distribution. We set this to 50,000,which can take a long time to run. But in order for the results to be reliable (i.e., likely to get the same or very similar results with another sample of random permutations), we need to run lots of permutations. By default (which we won’t change), the function uses an <span class="math notranslate nohighlight">\(\alpha\)</span> of .05, and uses the maximal statistic method to correct for multiple comparisons.</p>
 <p>Note the formatting of the code here: because we have 4 output variables and a long function name, we wrap all the lines so that they are only indented one level rather than all the way out where the function name is. This makes it easier to read the code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">15</span> <span class="o">*</span> <span class="mi">60</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>900
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e4</span>
 
 <span class="n">t_obs</span><span class="p">,</span> <span class="n">clusters</span><span class="p">,</span> <span class="n">cluster_pv</span><span class="p">,</span> <span class="n">H0</span> <span class="o">=</span> <span class="n">spatio_temporal_cluster_1samp_test</span><span class="p">(</span> 
     <span class="n">y</span><span class="p">,</span> 
@@ -1055,11 +1072,25 @@ document.write(`
     <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> 
     <span class="n">out_type</span><span class="o">=</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span>
     <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
-    <span class="c1"># verbose=&#39;Info&#39;</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;Info&#39;</span>
     <span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using a threshold of 2.059539
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>stat_fun(H1): min=-5.136169 max=5.136169
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running initial clustering …
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 56 clusters
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "d104095480074f1abee1f4b3aa596f35"}</script></div>
 </div>
 <p>We used the <code class="docutils literal notranslate"><span class="pre">verbose='Info'</span></code> kwarg to see some information about the results of the clustering, as well as a progress bar. The output indicates we ended up with 56 clusters. That’s a lot of clusters to look at, so we’ll combine them into one array that we can use to visualize which channels and time points were significant across all the clusters.</p>
 <p>One of the kwargs we specified above was <code class="docutils literal notranslate"><span class="pre">out_type='mask'</span></code>, which overrides the default format. The <code class="docutils literal notranslate"><span class="pre">mask</span></code> format creates a set of NumPy arrays, one for each cluster. Each array the same shape as the data, but with 1s where the data are significant, and 0s where they are not. We can use this to plot the significant clusters in various ways by <em>masking</em> the data. That is, we show the data only at significant channels and time points, and hide it everywhere else.</p>
@@ -1075,6 +1106,9 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<section id="visualize-the-results">
+<h3>Visualize the Results<a class="headerlink" href="#visualize-the-results" title="Permalink to this heading">#</a></h3>
 <p>Now we can view the results on a <strong>raster plot</strong>, where the rows are channels and the columns are time. We use the mask to only show the µV values of the Violation–Control difference at significant channels/time points.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1128,13 +1162,14 @@ document.write(`
 </div>
 </div>
 </section>
+</section>
 <section id="threshold-free-cluster-enhancement">
-<h3>Threshold-Free Cluster Enhancement<a class="headerlink" href="#threshold-free-cluster-enhancement" title="Permalink to this heading">#</a></h3>
+<h2>Threshold-Free Cluster Enhancement<a class="headerlink" href="#threshold-free-cluster-enhancement" title="Permalink to this heading">#</a></h2>
 <p>The permutation cluster <em>t</em> test is a powerful approach to correcting for multiple comparisons, but it is computationally intensive. An alternative approach is <strong>threshold-free cluster enhancement</strong> (TFCE). This approach is based on the recognition that the <em>t</em> value at a single channel and time point is not very informative, because it is only a single data point. However, if we look at a cluster of nearby channels and time points, then the <em>t</em> values at each of those points can be combined to provide a more informative measure of the strength of the effect.</p>
 <p>How TFCE differs from the clustering approach described above is in how it determines the significance threshold for the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e4</span>
 <span class="n">threshold_tfce</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 
 <span class="n">t_tfce</span><span class="p">,</span> <span class="n">clusters_tfce</span><span class="p">,</span> <span class="n">cluster_pv_tfce</span><span class="p">,</span> <span class="n">H0_tfce</span> <span class="o">=</span> <span class="n">spatio_temporal_cluster_1samp_test</span><span class="p">(</span> 
@@ -1144,16 +1179,28 @@ document.write(`
     <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> 
     <span class="n">out_type</span><span class="o">=</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span>
     <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
-    <span class="c1"># verbose=&#39;Info&#39;</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;Info&#39;</span>
     <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>stat_fun(H1): min=-5.136169 max=5.136169
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running initial clustering …
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using 26 thresholds from 0.00 to 5.00 for TFCE computation (h_power=2.00, e_power=0.50)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 39360 clusters
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "3b6e6ae3af2c420587c3bf59d372684e"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e2</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">n_perm</span> <span class="o">=</span> <span class="mf">5e4</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">threshold_tfce</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 <span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">t_tfce</span><span class="p">,</span> <span class="n">clusters_tfce</span><span class="p">,</span> <span class="n">cluster_pv_tfce</span><span class="p">,</span> <span class="n">H0_tfce</span> <span class="o">=</span> <span class="n">spatio_temporal_cluster_1samp_test</span><span class="p">(</span> 
 <span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">y</span><span class="p">,</span> 
@@ -1162,10 +1209,10 @@ document.write(`
 <span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> 
 <span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">out_type</span><span class="o">=</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span>
 <span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
-<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="c1"># verbose=&#39;Info&#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;Info&#39;</span>
 <span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="p">)</span>
 
-<span class="nn">File &lt;decorator-gen-368&gt;:12,</span> in <span class="ni">spatio_temporal_cluster_1samp_test</span><span class="nt">(X, threshold, n_permutations, tail, stat_fun, adjacency, n_jobs, seed, max_step, spatial_exclude, step_down_p, t_power, out_type, check_disjoint, buffer_size, verbose)</span>
+<span class="nn">File &lt;decorator-gen-368&gt;:10,</span> in <span class="ni">spatio_temporal_cluster_1samp_test</span><span class="nt">(X, threshold, n_permutations, tail, stat_fun, adjacency, n_jobs, seed, max_step, spatial_exclude, step_down_p, t_power, out_type, check_disjoint, buffer_size, verbose)</span>
 
 <span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.11/site-packages/mne/stats/cluster_level.py:1464,</span> in <span class="ni">spatio_temporal_cluster_1samp_test</span><span class="nt">(X, threshold, n_permutations, tail, stat_fun, adjacency, n_jobs, seed, max_step, spatial_exclude, step_down_p, t_power, out_type, check_disjoint, buffer_size, verbose)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1462</span> <span class="k">else</span><span class="p">:</span>
@@ -1330,7 +1377,6 @@ document.write(`
 </div>
 </section>
 </section>
-</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1408,15 +1454,17 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mass-univariate-analysis">Mass Univariate Analysis</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-multiple-comparisons">The Problem of Multiple Comparisons</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-t-test-for-multiple-comparison-correction">Permutation <em>t</em> Test for Multiple Comparison Correction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-multiple-comparisons">The Problem of Multiple Comparisons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-t-test-for-multiple-comparison-correction">Permutation <em>t</em> Test for Multiple Comparison Correction</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performing-a-spatio-temporal-permutation-cluster-t-test">Performing a Spatio-Temporal Permutation Cluster <em>t</em> Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-the-data-for-mass-univariate-analysis">Prepare the Data for Mass Univariate Analysis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-adjacency-matrix">Create Adjacency Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-spatial-temporal-permutation-cluster-test">Run the Spatial-Temporal Permutation Cluster Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-results">Visualize the Results</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-topomap-of-n400-time-window">Plot Topomap of N400 time window</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#threshold-free-cluster-enhancement">Threshold-Free Cluster Enhancement</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#threshold-free-cluster-enhancement">Threshold-Free Cluster Enhancement</a></li>
 </ul>
   </nav></div>
 
