@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Group Analysis of ERP Data &#8212; Neural Data Science in Python</title>
+    <title>Grand Averages and Visualization &#8212; Neural Data Science in Python</title>
   
   
   
@@ -74,8 +74,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Introduction to MRI Data" href="../8-mri/introduction.html" />
-    <link rel="prev" title="Statistical Analysis of ERP Data" href="erp_group_stats.html" />
+    <link rel="next" title="Statistical Analysis of ERP Data" href="erp_group_stats.html" />
+    <link rel="prev" title="Group Analysis of ERP Data" href="erp_group.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -372,8 +372,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="erp_group.html">Group Analysis of ERP Data</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Grand Averages and Visualization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="erp_group_stats.html">Statistical Analysis of ERP Data</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Group Analysis of ERP Data</a></li>
 </ul>
 </li>
 </ul>
@@ -574,7 +574,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Group Analysis of ERP Data</h1>
+    <h1>Grand Averages and Visualization</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -604,8 +604,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="group-analysis-of-erp-data">
-<h1>Group Analysis of ERP Data<a class="headerlink" href="#group-analysis-of-erp-data" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="grand-averages-and-visualization">
+<h1>Grand Averages and Visualization<a class="headerlink" href="#grand-averages-and-visualization" title="Permalink to this heading">#</a></h1>
+<p>In this lesson and the next, we’ll work with data from a group of participants, with the aim of testing an experimental hypothesis. The present data do not come from the same experiment as generated the individual participant ERP data we’ve worked with so far. However, they come from another experiment in which an N400 was also predicted. In this experiment, people read sentences that ended in either a semantically congruent word (e.g., <em>I take my coffee with milk and sugar</em>), or an incongruent word (e.g., <em>I take my coffee with milk and glass.</em>). But, similar to the previous experiment, we still predicted an N400 effect, with more negative ERPs for incongruent words than congruent words. Our hypothesis was that there would be a significantly greater negativity, between 400–600 ms, largest over midline central-posterior channels (Cz, CPz, Pz), for incongruent words than congruent words.</p>
+<p>The data set comprises preprocessed data files in MNE’s <code class="docutils literal notranslate"><span class="pre">.fif</span></code> format, one for each participant. The data were preprocessed using the same steps as in the previous lesson, and the data files are named according to the experiment and participant number. For example, the data file for participant 1 is named <code class="docutils literal notranslate"><span class="pre">sentence_n400_p01-ave.fif</span></code>. Each data set contains data from approximately 80 trials (40 each of Violation and Control) and 64 channels.</p>
+<p>The first thing we want to do, when working with ERP data at the group level, is to load in each individual’s preprocessed data, and then calculate the <strong>grand average</strong> (an average across a group of participants). We will then plot the grand average ERPs, as waveforms and topo plots, to see how the conditions vary at the group level.</p>
 <section id="load-packages">
 <h2>Load packages<a class="headerlink" href="#load-packages" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -775,7 +778,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/92b919f0a403eb00768fece539a6ab6de37b7f3b1f0191f9bef187121c382f17.png" src="../_images/92b919f0a403eb00768fece539a6ab6de37b7f3b1f0191f9bef187121c382f17.png" />
+<img alt="../_images/8e00d09c9d538f19ed70897cff8dde19375461304824ca2eb8344796c7aa63e0.png" src="../_images/8e00d09c9d538f19ed70897cff8dde19375461304824ca2eb8344796c7aa63e0.png" />
 </div>
 </div>
 </section>
@@ -848,7 +851,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/abd2047ceec23f3e8f1f4ddebfdd9c3381698caeaf00ff1dfad8e0b801e8b26f.png" src="../_images/abd2047ceec23f3e8f1f4ddebfdd9c3381698caeaf00ff1dfad8e0b801e8b26f.png" />
+<img alt="../_images/88248a0d45543f1886cc9763523dfff2587696a009d1be4bc4a60605c1fac23e.png" src="../_images/88248a0d45543f1886cc9763523dfff2587696a009d1be4bc4a60605c1fac23e.png" />
 </div>
 </div>
 <p>The nice thing about 95% CIs is that they provide an easy visual aid for interpreting the results. If the CI overlaps zero, then the difference between conditions is not statistically significant. If the CI does not overlap zero, then the difference can be considered statistically significant. In this case, the CI largely does not overlap zero between ~400–600 ms, so we can conclude that the difference between conditions is statistically significant in that time window.</p>
@@ -930,20 +933,20 @@ document.write(`
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="erp_group_stats.html"
+       href="erp_group.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Statistical Analysis of ERP Data</p>
+        <p class="prev-next-title">Group Analysis of ERP Data</p>
       </div>
     </a>
     <a class="right-next"
-       href="../8-mri/introduction.html"
+       href="erp_group_stats.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Introduction to MRI Data</p>
+        <p class="prev-next-title">Statistical Analysis of ERP Data</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
