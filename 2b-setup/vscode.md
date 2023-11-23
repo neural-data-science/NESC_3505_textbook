@@ -4,7 +4,7 @@ As described [earlier](../2-nds/vscode.md), [Visual Studio Code](https://code.vi
 Once you have installed VS Code, open it. You will see a welcome screen that looks like this:
 ![](./images/vscode_welcome.png)
 
-THe first important step is to choose your preferred colour scheme! I like to use a dark theme, but it's entirely personal preference. To change the theme, click on the gear icon in the bottom left corner of the window, and then click on "Color Theme". You can then choose from a variety of themes. You can also install additional themes by clicking on the "Install Additional Color Themes" button at the bottom of the list.
+THe first important step is to choose your preferred color scheme! I like to use a dark theme, but it's entirely personal preference. To change the theme, click on the gear icon in the bottom left corner of the window, and then click on "Color Theme". You can then choose from a variety of themes. You can also install additional themes by clicking on the "Install Additional Color Themes" button at the bottom of the list.
 
 ## Sign in to GitHub within VS Code
 Since VS Code and GitHub are Microsoft products, they integrate very well. You can sign in to your GitHub account from within VS Code, which will allow you to sync your code with GitHub and access features such as the **GitHub Copilot** AI assistant. To do this, click on icon near the bottom left of the screen that looks like a person's head and shoulders. Then click on "Turn on Settings Sync...". Now at the *top* of the VS Code window, you should see a message that says "Sign in to and Turn on". Click on this button, and then click on "Sign in with GitHub". You will be prompted to sign in to your GitHub account. Once you have done this, allow the authorizations that are requested. you should see a message at the top of the VS Code window that says "Sync is turned on". You can now close the "Welcome" tab.
@@ -22,7 +22,7 @@ Install each of these extensions, in this order:
 - **GitHub Copilot**
 - **GitHub Copilot Chat** 
 - **GitHub Copilot Labs**
-- (Optional) Add a colour theme (search Extensions for `color theme`). This is personal preference, but there are many options out there and it can be fun to explore. My current faciourites are `Pop Dark` and `GitHub Coilot`. Note that a colour theme affects both the VS Code user interface, and syntax highlighting within the files you're editing.  You can change colour themes at any time, by clicking on the "cog" icon in the bottom left corner of the VS Code window, and then clicking on "Color Theme".
+- (Optional) Add a color theme (search Extensions for `color theme`). This is personal preference, but there are many options out there and it can be fun to explore. My current faciourites are `Pop Dark` and `GitHub Coilot`. Note that a color theme affects both the VS Code user interface, and syntax highlighting within the files you're editing.  You can change color themes at any time, by clicking on the "cog" icon in the bottom left corner of the VS Code window, and then clicking on "Color Theme".
 - (Optional) Add an icon theme (search Extensions for `icon theme`). This affects the little icons that appear beside files in the Explorer, and also the icons in the Activity Bar. I like `Helium` and `Pop!` themes. You can change icon themes at any time, by clicking on the "cog" icon in the bottom left corner of the VS Code window, and then clicking on "File Icon Theme".
 
 ---
