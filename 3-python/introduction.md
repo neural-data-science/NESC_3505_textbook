@@ -19,7 +19,7 @@ If you followed the instructions in the previous chapter, you will have set up V
 
 You can turn off Copilot by clicking on the Copilot icon (which looks kind of like a cute alien face) in the bottom left corner of the VS Code window, and then clicking on the "Turn off" button. If you're not sure which button this is, just slowly move your cursor over the bottom right icons until you see `Deactivate Copilot` You can turn it back on again later, when you want to, by clicking that same icon again.
 
-```{note}
+```{hint}
 After working through the lessons, either you can keep going with the course materials, or you may want to practice and reinforce the basics you've learned. If you want more practice with basic Python, try free sites like [Coding Bat](https://codingbat.com/python) or [HackerRank](https://www.hackerrank.com/domains/python).
 ```
 
