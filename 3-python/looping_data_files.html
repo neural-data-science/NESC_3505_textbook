@@ -371,7 +371,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_avg_reref.html">Averaging and Re-Referencing ERPs</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_viz.html">Grand Averages and Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_stats.html">Statistical Analysis of ERP Data</a></li>
+</ul>
+</li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">MRI Data</span></p>
 <ul class="nav bd-sidenav">
@@ -920,52 +924,52 @@ data/gapminder_gdp_asia.csv 331.0
   </thead>
   <tbody>
     <tr>
-      <th>2</th>
-      <td>s2</td>
-      <td>3</td>
-      <td>0.396831</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>s3</td>
-      <td>5</td>
-      <td>0.454075</td>
-    </tr>
-    <tr>
       <th>0</th>
       <td>s2</td>
       <td>1</td>
       <td>0.433094</td>
     </tr>
     <tr>
-      <th>9</th>
+      <th>3</th>
       <td>s3</td>
-      <td>10</td>
-      <td>0.704491</td>
+      <td>4</td>
+      <td>0.364524</td>
     </tr>
     <tr>
-      <th>1</th>
+      <th>8</th>
       <td>s1</td>
-      <td>2</td>
-      <td>0.389858</td>
+      <td>9</td>
+      <td>0.341722</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s3</td>
+      <td>3</td>
+      <td>0.384297</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>s3</td>
+      <td>1</td>
+      <td>0.322099</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>s3</td>
+      <td>6</td>
+      <td>0.494156</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>s1</td>
-      <td>4</td>
-      <td>0.269520</td>
-    </tr>
-    <tr>
-      <th>7</th>
       <td>s2</td>
-      <td>8</td>
-      <td>0.409580</td>
+      <td>4</td>
+      <td>0.417988</td>
     </tr>
     <tr>
-      <th>7</th>
-      <td>s3</td>
-      <td>8</td>
-      <td>0.506836</td>
+      <th>4</th>
+      <td>s2</td>
+      <td>5</td>
+      <td>0.371810</td>
     </tr>
   </tbody>
 </table>
@@ -977,32 +981,83 @@ data/gapminder_gdp_asia.csv 331.0
 <p>Recall that row labels in pands are called <em>indexes</em>. We can convert any column to an index using the <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code> method. For this data, an appropriate index is the participant ID, which is in the column <code class="docutils literal notranslate"><span class="pre">Participant</span></code>. Note that we need to assign the result of the <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code> operation back to <code class="docutils literal notranslate"><span class="pre">df</span></code> for the change to be stored:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Participant&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;participantID&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="nn">/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_86815/1103990505.py</span> in <span class="ni">?</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Participant&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="nn">~/miniforge3/envs/neural_data_science/lib/python3.11/site-packages/pandas/core/frame.py</span> in <span class="ni">?</span><span class="nt">(self, keys, drop, append, inplace, verify_integrity)</span>
-<span class="g g-Whitespace">   </span><span class="mi">5866</span>                     <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">5867</span>                         <span class="n">missing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">5868</span> 
-<span class="g g-Whitespace">   </span><span class="mi">5869</span>         <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">5870</span>             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;None of </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2"> are in the columns&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">5871</span> 
-<span class="g g-Whitespace">   </span><span class="mi">5872</span>         <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">5873</span>             <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="ne">KeyError</span>: &quot;None of [&#39;Participant&#39;] are in the columns&quot;
-</pre></div>
-</div>
-</div>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>trial</th>
+      <th>RT</th>
+    </tr>
+    <tr>
+      <th>participantID</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>s1</th>
+      <td>3</td>
+      <td>0.404175</td>
+    </tr>
+    <tr>
+      <th>s3</th>
+      <td>5</td>
+      <td>0.454075</td>
+    </tr>
+    <tr>
+      <th>s3</th>
+      <td>4</td>
+      <td>0.364524</td>
+    </tr>
+    <tr>
+      <th>s1</th>
+      <td>10</td>
+      <td>0.439583</td>
+    </tr>
+    <tr>
+      <th>s1</th>
+      <td>8</td>
+      <td>0.335198</td>
+    </tr>
+    <tr>
+      <th>s3</th>
+      <td>7</td>
+      <td>0.492787</td>
+    </tr>
+    <tr>
+      <th>s3</th>
+      <td>9</td>
+      <td>0.340722</td>
+    </tr>
+    <tr>
+      <th>s3</th>
+      <td>6</td>
+      <td>0.494156</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 </section>

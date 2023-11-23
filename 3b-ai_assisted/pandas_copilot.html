@@ -371,7 +371,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_avg_reref.html">Averaging and Re-Referencing ERPs</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_viz.html">Grand Averages and Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_stats.html">Statistical Analysis of ERP Data</a></li>
+</ul>
+</li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">MRI Data</span></p>
 <ul class="nav bd-sidenav">
@@ -715,9 +719,11 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="alert alert-info">
-In many cases, Copilot might not have enough information to correctly guess the name of a file you want to load. In such cases, you could include the name of the file, as well as its path, in your prompt.
-</div><p>Now we’re getting somewhere! Let’s view the first few lines of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to make sure it looks right.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In many cases, Copilot might not have enough information to correctly guess the name of a file you want to load. In such cases, you could include the name of the file, as well as its path, in your prompt.</p>
+</div>
+<p>Now we’re getting somewhere! Let’s view the first few lines of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to make sure it looks right.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show me the first few lines of the gapminder europe data</span>
@@ -1432,35 +1438,51 @@ Bulgaria                   2444.286648     3008.670727     4254.337839     5577.
   </thead>
   <tbody>
     <tr>
-      <th>Belgium</th>
-      <td>8343.105127</td>
-      <td>9714.960623</td>
-      <td>10991.206760</td>
-      <td>13149.041190</td>
-      <td>16672.143560</td>
-      <td>19117.974480</td>
-      <td>20979.84589</td>
-      <td>22525.56308</td>
-      <td>25575.570690</td>
-      <td>27561.196630</td>
-      <td>30485.883750</td>
-      <td>33692.605080</td>
-      <td>Northern Europe</td>
+      <th>Austria</th>
+      <td>6137.076492</td>
+      <td>8842.598030</td>
+      <td>10750.721110</td>
+      <td>12834.602400</td>
+      <td>16661.625600</td>
+      <td>19749.422300</td>
+      <td>21597.083620</td>
+      <td>23687.826070</td>
+      <td>27042.018680</td>
+      <td>29095.92066</td>
+      <td>32417.607690</td>
+      <td>36126.49270</td>
+      <td>Western Europe</td>
     </tr>
     <tr>
-      <th>Denmark</th>
-      <td>9692.385245</td>
-      <td>11099.659350</td>
-      <td>13583.313510</td>
-      <td>15937.211230</td>
-      <td>18866.207210</td>
-      <td>20422.901500</td>
-      <td>21688.04048</td>
-      <td>25116.17581</td>
-      <td>26406.739850</td>
-      <td>29804.345670</td>
-      <td>32166.500060</td>
-      <td>35278.418740</td>
+      <th>Bulgaria</th>
+      <td>2444.286648</td>
+      <td>3008.670727</td>
+      <td>4254.337839</td>
+      <td>5577.002800</td>
+      <td>6597.494398</td>
+      <td>7612.240438</td>
+      <td>8224.191647</td>
+      <td>8239.854824</td>
+      <td>6302.623438</td>
+      <td>5970.38876</td>
+      <td>7696.777725</td>
+      <td>10680.79282</td>
+      <td>Eastern Europe</td>
+    </tr>
+    <tr>
+      <th>Norway</th>
+      <td>10095.421720</td>
+      <td>11653.973040</td>
+      <td>13450.401510</td>
+      <td>16361.876470</td>
+      <td>18965.055510</td>
+      <td>23311.349390</td>
+      <td>26298.635310</td>
+      <td>31540.974800</td>
+      <td>33965.661150</td>
+      <td>41283.16433</td>
+      <td>44683.975250</td>
+      <td>49357.19017</td>
       <td>Northern Europe</td>
     </tr>
     <tr>
@@ -1471,45 +1493,29 @@ Bulgaria                   2444.286648     3008.670727     4254.337839     5577.
       <td>9326.644670</td>
       <td>10168.656110</td>
       <td>11674.837370</td>
-      <td>12545.99066</td>
-      <td>12986.47998</td>
+      <td>12545.990660</td>
+      <td>12986.479980</td>
       <td>10535.628550</td>
-      <td>11712.776800</td>
+      <td>11712.77680</td>
       <td>14843.935560</td>
-      <td>18008.944440</td>
+      <td>18008.94444</td>
       <td>Eastern Europe</td>
     </tr>
     <tr>
-      <th>Montenegro</th>
-      <td>2647.585601</td>
-      <td>3682.259903</td>
-      <td>4649.593785</td>
-      <td>5907.850937</td>
-      <td>7778.414017</td>
-      <td>9595.929905</td>
-      <td>11222.58762</td>
-      <td>11732.51017</td>
-      <td>7003.339037</td>
-      <td>6465.613349</td>
-      <td>6557.194282</td>
-      <td>9253.896111</td>
-      <td>Southern Europe</td>
-    </tr>
-    <tr>
-      <th>Switzerland</th>
-      <td>14734.232750</td>
-      <td>17909.489730</td>
-      <td>20431.092700</td>
-      <td>22966.144320</td>
-      <td>27195.113040</td>
-      <td>26982.290520</td>
-      <td>28397.71512</td>
-      <td>30281.70459</td>
-      <td>31871.530300</td>
-      <td>32135.323010</td>
-      <td>34480.957710</td>
-      <td>37506.419070</td>
-      <td>Western Europe</td>
+      <th>Ireland</th>
+      <td>5210.280328</td>
+      <td>5599.077872</td>
+      <td>6631.597314</td>
+      <td>7655.568963</td>
+      <td>9530.772896</td>
+      <td>11150.981130</td>
+      <td>12618.321410</td>
+      <td>13872.866520</td>
+      <td>17558.815550</td>
+      <td>24521.94713</td>
+      <td>34077.049390</td>
+      <td>40675.99635</td>
+      <td>Northern Europe</td>
     </tr>
   </tbody>
 </table>
@@ -1526,21 +1532,22 @@ Bulgaria                   2444.286648     3008.670727     4254.337839     5577.
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>country
-Montenegro                Southern Europe
-Bosnia and Herzegovina    Southern Europe
-Poland                     Eastern Europe
-Ireland                   Northern Europe
-Austria                    Western Europe
+Portugal    Southern Europe
+Sweden      Northern Europe
+Iceland     Northern Europe
+Bulgaria     Eastern Europe
+Belgium     Northern Europe
 Name: region, dtype: object
 </pre></div>
 </div>
 </div>
 </div>
-<div class="alert alert-info">
-<h2>AI + Human = Efficiency</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>If you look at the code that Copilot generated above, and compare it to what we used in the <a href=../3-python/pandas_dataframes.ipynb>pandas lesson</a> previous chapter, you’ll see that it’s quite similar in that both use the <code>gapminder_europe.loc</code> method to label countries according to region. However, the process of generating it required some trial and error, and some manual intervention. This isn’t actually different from what you would probably be doing – especially as a novice coder – if you were writing the code yourself. But, perhaps ironically, part of the code that we had to prompt Copilot to generate, was to fix errors in the code that it generated.</p>
 <p>At the same time, if you look back at the pandas lesson, the lists of countries in each region were defined manually — and in fact there was no explanation as to how those lists were created. Those lists were created manually by someone reviewing the list of country names in the DataFrame, and using their knowledge of geography (or maybe an internet search) to assign the countries to the labels. In contrast, Copilot generated those lists for us (based on the vast corpus of data it was trained on), which saved us a lot of time. The fact that we had to write additional code to clean up the lists is a small price to pay for that time savings. And indeed, cleaning data is a routine part of data science, and it’s good to be able to do it in code, rather than manually.</p>
-</div></section>
+</div>
+</section>
 </section>
 <section id="critically-evaluating-copilot-s-code">
 <h2>Critically Evaluating Copilot’s Code<a class="headerlink" href="#critically-evaluating-copilot-s-code" title="Permalink to this heading">#</a></h2>

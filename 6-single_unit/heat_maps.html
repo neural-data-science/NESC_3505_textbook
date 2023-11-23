@@ -371,7 +371,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_avg_reref.html">Averaging and Re-Referencing ERPs</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_viz.html">Grand Averages and Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_stats.html">Statistical Analysis of ERP Data</a></li>
+</ul>
+</li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">MRI Data</span></p>
 <ul class="nav bd-sidenav">
@@ -589,16 +593,16 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#draw-heat-map">Draw heat map</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format-the-heat-map">Format the heat map</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#label-the-heat-map">Label the heat map</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-colourbar">Add a colourbar</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-up-the-colourbar">Clean up the colourbar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-colorbar">Add a colorbar</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-up-the-colorbar">Clean up the colorbar</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#considerations-in-generating-heat-maps">Considerations in generating heat maps</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filling-in-the-blanks-interpolation">Filling in the blanks: Interpolation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#colour-map-choices">Colour Map Choices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#color-map-choices">color Map Choices</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#luminance">Luminance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#colourblindness">Colourblindness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#colorblindness">colorblindness</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perceptual-uniformity">Perceptual uniformity</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#violations-of-perceptual-uniformity">Violations of perceptual uniformity</a></li>
 </ul>
@@ -624,11 +628,11 @@ document.write(`
 <ul class="simple">
 <li><p>Visualize spike train data along two dimensions using heat maps</p></li>
 <li><p>Create a 2D NumPy array of histograms to generate this plot</p></li>
-<li><p>Format a heat map, including adding a colourbar</p></li>
+<li><p>Format a heat map, including adding a colorbar</p></li>
 <li><p>Understand the process of interpolation</p></li>
 <li><p>Understand advantages and disadvantages of different ways of interpolating</p></li>
-<li><p>Understand how colour choice can influence the interpretation of heat maps</p></li>
-<li><p>Make well-reasoned choices about colour map selection</p></li>
+<li><p>Understand how color choice can influence the interpretation of heat maps</p></li>
+<li><p>Make well-reasoned choices about color map selection</p></li>
 </ul>
 </section>
 <hr class="docutils" />
@@ -636,8 +640,8 @@ document.write(`
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
 <p>Heat maps are another way of plotting spike train data. An example is below:</p>
 <p><img alt="" src="../_images/heat_map.png" /></p>
-<p>Like a PSTH, the heat map has time on the <em>x</em> axis, and plots the probability of spikes at each time point. But we’re able to show all intensity levels in a single plot, by putting intensity on the <em>y</em> axis and using colour, rather than bar height, to represent the number of spikes. Heat maps are a more condensed, information-rich, and efficient version of the PSTHs: rather than needing 10 plots to show the histograms for all 10 levels of intensity, we do so in a single plot. Heat maps allow us to plot <em>three dimensions</em> rather than only two; we have the <em>x</em> and <em>y</em> axes, and then we can plot a third variable (dimension) using colour (or intensity of colour). Think of it the above plot rotated in a plane, so that if before, you were looking at the plot from the side, now you’re looking at it from above. More intense colours indicate a higher spike probability at that time point.</p>
-<p>We can use Matplotlib’s <a class="reference external" href="https://matplotlib.org/3.3.2/api/_as_gen/matplotlib.axes.Axes.imshow.html"><code class="docutils literal notranslate"><span class="pre">ax.imshow()</span></code></a> method (or <code class="docutils literal notranslate"><span class="pre">plt.imshow()</span></code> function) to generate a heat map. This function allows us to plot any 2-dimensional data set (like a 2D array) as an image, and apply colour to the values in the array. To demonstrate, first we’ll load the necessary packages:</p>
+<p>Like a PSTH, the heat map has time on the <em>x</em> axis, and plots the probability of spikes at each time point. But we’re able to show all intensity levels in a single plot, by putting intensity on the <em>y</em> axis and using color, rather than bar height, to represent the number of spikes. Heat maps are a more condensed, information-rich, and efficient version of the PSTHs: rather than needing 10 plots to show the histograms for all 10 levels of intensity, we do so in a single plot. Heat maps allow us to plot <em>three dimensions</em> rather than only two; we have the <em>x</em> and <em>y</em> axes, and then we can plot a third variable (dimension) using color (or intensity of color). Think of it the above plot rotated in a plane, so that if before, you were looking at the plot from the side, now you’re looking at it from above. More intense colors indicate a higher spike probability at that time point.</p>
+<p>We can use Matplotlib’s <a class="reference external" href="https://matplotlib.org/3.3.2/api/_as_gen/matplotlib.axes.Axes.imshow.html"><code class="docutils literal notranslate"><span class="pre">ax.imshow()</span></code></a> method (or <code class="docutils literal notranslate"><span class="pre">plt.imshow()</span></code> function) to generate a heat map. This function allows us to plot any 2-dimensional data set (like a 2D array) as an image, and apply color to the values in the array. To demonstrate, first we’ll load the necessary packages:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -788,8 +792,8 @@ Bins has 22 values
 <p>Below, the arguments we add are:</p>
 <ul class="simple">
 <li><p>the <code class="docutils literal notranslate"><span class="pre">origin</span></code> argument puts 0 on the <em>y</em> axis at the bottom, rather than the top, which makes sense in this case since the <em>y</em> axis typically goes from lowest to highest values bottom-to-top.</p></li>
-<li><p>the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> argument sets the colour map to ‘hot’. (For a list of Matplotlib colour maps, see <a class="reference external" href="https://matplotlib.org/tutorials/colors/colormaps.html">this page</a>)</p></li>
-<li><p>the <code class="docutils literal notranslate"><span class="pre">interpolation</span></code> argument changes that mathematical formula is used to determine the colour values at each point in the plot. The default <em>antialiased</em> method produces a blocky-looking output above because it’s computing the colour of each pixel in the plot based on the values in teh histogram, which are computed at 1 ms intervals. Using <em>bilinear</em> interpolation estimates the values on a finer time scale, making the plot appear more smooth and continuous.</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> argument sets the color map to ‘hot’. (For a list of Matplotlib color maps, see <a class="reference external" href="https://matplotlib.org/tutorials/colors/colormaps.html">this page</a>)</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">interpolation</span></code> argument changes that mathematical formula is used to determine the color values at each point in the plot. The default <em>antialiased</em> method produces a blocky-looking output above because it’s computing the color of each pixel in the plot based on the values in teh histogram, which are computed at 1 ms intervals. Using <em>bilinear</em> interpolation estimates the values on a finer time scale, making the plot appear more smooth and continuous.</p></li>
 </ul>
 <p>We’ll also set the range and spacing of the tick marks on the <em>x</em> and <em>y</em> axes similar to in the previous lesson</p>
 <div class="cell docutils container">
@@ -818,7 +822,7 @@ Bins has 22 values
 <section id="label-the-heat-map">
 <h2>Label the heat map<a class="headerlink" href="#label-the-heat-map" title="Permalink to this heading">#</a></h2>
 <p>Now we can add labels that help with interpretation, such as axis labels and a title.</p>
-<p>We’ll also use <code class="docutils literal notranslate"><span class="pre">ax.avline()</span></code> to draw lines on the plot for the stimulus on and off times, because this is critical information for interpreting the figure. This method plots a vertical line spanning the whole plot, at the point on the <em>x</em> axis you specify. Note that unlike the previous lessons, we don’t want to use shading to indicate the stimulus on period, because we’re using colour in this plot to represent spike rate.</p>
+<p>We’ll also use <code class="docutils literal notranslate"><span class="pre">ax.avline()</span></code> to draw lines on the plot for the stimulus on and off times, because this is critical information for interpreting the figure. This method plots a vertical line spanning the whole plot, at the point on the <em>x</em> axis you specify. Note that unlike the previous lessons, we don’t want to use shading to indicate the stimulus on period, because we’re using color in this plot to represent spike rate.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
@@ -850,11 +854,11 @@ Bins has 22 values
 </div>
 </div>
 </section>
-<section id="add-a-colourbar">
-<h2>Add a colourbar<a class="headerlink" href="#add-a-colourbar" title="Permalink to this heading">#</a></h2>
-<p>The heat map is looking great, but viewers will still not know what the colours mean! What is “red” versus “yellow” in terms of number of spikes?</p>
-<p>To convey this information, we need a colourbar, which is effectively a legend explaining what values different colours map to.</p>
-<p>In order to plot a colourbar, we need to do something new when we generate our plot with <code class="docutils literal notranslate"><span class="pre">.imshow()</span></code>: we need to assign the result of this command to a variable name (<code class="docutils literal notranslate"><span class="pre">im</span></code>). This variable then acts as a <strong>pointer</strong> to the plot, meaning we can use it to refer to the plot later. This is how the method we use to generate the colourbar will get the data from the image. We haven’t assigned the output of Matplotlib commands to variables before, because we’ve had no need to, but now we do.</p>
+<section id="add-a-colorbar">
+<h2>Add a colorbar<a class="headerlink" href="#add-a-colorbar" title="Permalink to this heading">#</a></h2>
+<p>The heat map is looking great, but viewers will still not know what the colors mean! What is “red” versus “yellow” in terms of number of spikes?</p>
+<p>To convey this information, we need a colorbar, which is effectively a legend explaining what values different colors map to.</p>
+<p>In order to plot a colorbar, we need to do something new when we generate our plot with <code class="docutils literal notranslate"><span class="pre">.imshow()</span></code>: we need to assign the result of this command to a variable name (<code class="docutils literal notranslate"><span class="pre">im</span></code>). This variable then acts as a <strong>pointer</strong> to the plot, meaning we can use it to refer to the plot later. This is how the method we use to generate the colorbar will get the data from the image. We haven’t assigned the output of Matplotlib commands to variables before, because we’ve had no need to, but now we do.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
@@ -878,7 +882,7 @@ Bins has 22 values
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Probability of spiking across intensity levels&#39;</span><span class="p">)</span>
 
-<span class="c1"># Create a colourbar using the im pointer</span>
+<span class="c1"># Create a colorbar using the im pointer</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -889,11 +893,11 @@ Bins has 22 values
 <img alt="../_images/ec419daf2bc859d68d00dda526c7d244bc3a3c646ac7143a0b1b40a6e3dabcd3.png" src="../_images/ec419daf2bc859d68d00dda526c7d244bc3a3c646ac7143a0b1b40a6e3dabcd3.png" />
 </div>
 </div>
-<section id="clean-up-the-colourbar">
-<h3>Clean up the colourbar<a class="headerlink" href="#clean-up-the-colourbar" title="Permalink to this heading">#</a></h3>
-<p>So now we have a colourbar, but it’s huge! Fortunately there’s a kwarg for that: <code class="docutils literal notranslate"><span class="pre">shrink</span></code>. We’ll also make the figure larger so that things are more visible.</p>
-<p>Also, we’re going to add a text label to explain what the numbers on the colourbar are. To do this, we need to create a pointer to the colourbar (which technically is a second subplot in the figure) and then use that pointer to set the label.</p>
-<p>If this seems convoluted, it is — at least, it reflects the power and complexity of Matplotlib. We can’t simply add a “colourbar” kwarg to <code class="docutils literal notranslate"><span class="pre">.imshow()</span></code> because the colourbar actually needs to be its own subplot, and it relies on data created when the plot is draw. Procedures like this are typically something you figure out by finding examples like this one, or other tutorials on the web.</p>
+<section id="clean-up-the-colorbar">
+<h3>Clean up the colorbar<a class="headerlink" href="#clean-up-the-colorbar" title="Permalink to this heading">#</a></h3>
+<p>So now we have a colorbar, but it’s huge! Fortunately there’s a kwarg for that: <code class="docutils literal notranslate"><span class="pre">shrink</span></code>. We’ll also make the figure larger so that things are more visible.</p>
+<p>Also, we’re going to add a text label to explain what the numbers on the colorbar are. To do this, we need to create a pointer to the colorbar (which technically is a second subplot in the figure) and then use that pointer to set the label.</p>
+<p>If this seems convoluted, it is — at least, it reflects the power and complexity of Matplotlib. We can’t simply add a “colorbar” kwarg to <code class="docutils literal notranslate"><span class="pre">.imshow()</span></code> because the colorbar actually needs to be its own subplot, and it relies on data created when the plot is draw. Procedures like this are typically something you figure out by finding examples like this one, or other tutorials on the web.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
@@ -917,7 +921,7 @@ Bins has 22 values
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Probability of spiking across intensity levels&#39;</span><span class="p">)</span>
 
-<span class="c1"># Create a colourbar using the im pointer. </span>
+<span class="c1"># Create a colorbar using the im pointer. </span>
 <span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.33</span><span class="p">)</span>
 <span class="n">cb</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Spike Probability&#39;</span><span class="p">)</span>
 
@@ -1000,9 +1004,9 @@ Bins has 22 values
 </div>
 </div>
 </section>
-<section id="colour-map-choices">
-<h3>Colour Map Choices<a class="headerlink" href="#colour-map-choices" title="Permalink to this heading">#</a></h3>
-<p>One final comment about the heat maps above: your choice of colour map (<code class="docutils literal notranslate"><span class="pre">cmap</span></code>) matters. One way to choose a colour map is based on one’s individual intuitions about aesthetics. For example, I personally think the one used above (<code class="docutils literal notranslate"><span class="pre">hot</span></code>) is quite attractive. However, it’s important to consider the neuroscience of how humans interpret colour. Even though the colour spectrum is continuous (wavelengths of electromagnetic radiation ranging from approximately 400–700 nm), we see it as distinct colours (classically, red, orange, yellow, green, blue, indigo, and violet). Although we can discriminate different hues within each of those colours, we nonetheless see colours categorically. In other words, two equally-different values at different parts of the colour range may not be perceived as the same magnitude of difference. For example in the bottom left (<code class="docutils literal notranslate"><span class="pre">cmap='jet'</span></code>) the green areas seem to ‘pop’ relative to the blue, and there is are patches of orange that really stand out.</p>
+<section id="color-map-choices">
+<h3>color Map Choices<a class="headerlink" href="#color-map-choices" title="Permalink to this heading">#</a></h3>
+<p>One final comment about the heat maps above: your choice of color map (<code class="docutils literal notranslate"><span class="pre">cmap</span></code>) matters. One way to choose a color map is based on one’s individual intuitions about aesthetics. For example, I personally think the one used above (<code class="docutils literal notranslate"><span class="pre">hot</span></code>) is quite attractive. However, it’s important to consider the neuroscience of how humans interpret color. Even though the color spectrum is continuous (wavelengths of electromagnetic radiation ranging from approximately 400–700 nm), we see it as distinct colors (classically, red, orange, yellow, green, blue, indigo, and violet). Although we can discriminate different hues within each of those colors, we nonetheless see colors categorically. In other words, two equally-different values at different parts of the color range may not be perceived as the same magnitude of difference. For example in the bottom left (<code class="docutils literal notranslate"><span class="pre">cmap='jet'</span></code>) the green areas seem to ‘pop’ relative to the blue, and there is are patches of orange that really stand out.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -1023,7 +1027,7 @@ Bins has 22 values
 <img alt="../_images/2eb8ceb68e55793b2e8838113b5dbd0cc9652f898279ec06d8118c27ba514a55.png" src="../_images/2eb8ceb68e55793b2e8838113b5dbd0cc9652f898279ec06d8118c27ba514a55.png" />
 </div>
 </div>
-<p>On the other hand, if we use a monochromatic (single-colour) map, the differences in numerical values are represented in a more continuous fashion, as the intensity (brightness) of the pixel, resulting in smoother, more continuous-looking gradients:</p>
+<p>On the other hand, if we use a monochromatic (single-color) map, the differences in numerical values are represented in a more continuous fashion, as the intensity (brightness) of the pixel, resulting in smoother, more continuous-looking gradients:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -1047,17 +1051,17 @@ Bins has 22 values
 </section>
 <section id="luminance">
 <h3>Luminance<a class="headerlink" href="#luminance" title="Permalink to this heading">#</a></h3>
-<p>Another issue with some colour maps are that they are not always <strong>isoluminent</strong>, meaning that the luminance (brightness) of some colours may be greater than others, again making some differences appear larger than others, even when those differences are of the same numerical size.</p>
+<p>Another issue with some color maps are that they are not always <strong>isoluminent</strong>, meaning that the luminance (brightness) of some colors may be greater than others, again making some differences appear larger than others, even when those differences are of the same numerical size.</p>
 </section>
-<section id="colourblindness">
-<h3>Colourblindness<a class="headerlink" href="#colourblindness" title="Permalink to this heading">#</a></h3>
-<p>A final issue, discussed earlier in this book, is that a non-negligible proportion of the population has some form of colourblindness.  Recall that the incidence of colourblindness is such that if 20 people view a graph you make, the odds are at least one of them will not see the colours in your plot as you do (unless of course you are colourblind yourself).</p>
+<section id="colorblindness">
+<h3>colorblindness<a class="headerlink" href="#colorblindness" title="Permalink to this heading">#</a></h3>
+<p>A final issue, discussed earlier in this book, is that a non-negligible proportion of the population has some form of colorblindness.  Recall that the incidence of colorblindness is such that if 20 people view a graph you make, the odds are at least one of them will not see the colors in your plot as you do (unless of course you are colorblind yourself).</p>
 </section>
 <section id="perceptual-uniformity">
 <h3>Perceptual uniformity<a class="headerlink" href="#perceptual-uniformity" title="Permalink to this heading">#</a></h3>
-<p>In other words, choosing the wrong colour map can mislead viewers in interpreting the data, and may also result in your plots being uninterpretable by some viewers. You should pick a colour map that is <strong>perceptually uniform</strong> (e.g., nearby values have similar-appearing colours across the range), and robust to colourblindness. An excellent choice is one of the <a class="reference external" href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">Viridis</a> family of colourmaps, which were explicitly designed to have these properties, and also be aesthetically appealing. The four colourmaps in the Viridis family is used below.</p>
+<p>In other words, choosing the wrong color map can mislead viewers in interpreting the data, and may also result in your plots being uninterpretable by some viewers. You should pick a color map that is <strong>perceptually uniform</strong> (e.g., nearby values have similar-appearing colors across the range), and robust to colorblindness. An excellent choice is one of the <a class="reference external" href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">Viridis</a> family of colormaps, which were explicitly designed to have these properties, and also be aesthetically appealing. The four colormaps in the Viridis family is used below.</p>
 <div class="alert alert-block alert-info">
-<p>There is a great app that simulates different forms of colourblindness on your computer, called <a href='https://colororacle.org'>Color Oracle</a> — it’s worth checking out!</p>
+<p>There is a great app that simulates different forms of colorblindness on your computer, called <a href='https://colororacle.org'>Color Oracle</a> — it’s worth checking out!</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1114,7 +1118,7 @@ Bins has 22 values
 </section>
 <section id="violations-of-perceptual-uniformity">
 <h3>Violations of perceptual uniformity<a class="headerlink" href="#violations-of-perceptual-uniformity" title="Permalink to this heading">#</a></h3>
-<p>Compare these plots to  ones above that use non-Viridis colourmaps (including the ones above, and some more examples below) and ask yourself how your perception and interpretation of the plots changes between them.</p>
+<p>Compare these plots to  ones above that use non-Viridis colormaps (including the ones above, and some more examples below) and ask yourself how your perception and interpretation of the plots changes between them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
@@ -1167,21 +1171,21 @@ Bins has 22 values
 <img alt="../_images/d7989163ba412c473c90166e9edef5cab0adc4797e12bb9cf869bcf621946b2b.png" src="../_images/d7989163ba412c473c90166e9edef5cab0adc4797e12bb9cf869bcf621946b2b.png" />
 </div>
 </div>
-<p>In all of these last four plots, the colour maps make continuous differences look highly <em>dis</em>continuous</p>
+<p>In all of these last four plots, the color maps make continuous differences look highly <em>dis</em>continuous</p>
 </section>
 </section>
 <hr class="docutils" />
 <section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Heat maps allow us to visualize the relationship between three continuous variables, using colour to represent one variable</p></li>
+<li><p>Heat maps allow us to visualize the relationship between three continuous variables, using color to represent one variable</p></li>
 <li><p>A heat map is effectively a 2D image, and can be represented by a 2D NumPy array</p></li>
 <li><p>We can save a pointer to a Matplotlib image (object) that we create, by assigning the result of generating the image to a variable name</p></li>
-<li><p>These pointers to plots can be used by some other Matplotlib commands, such as for creating colourbars</p></li>
+<li><p>These pointers to plots can be used by some other Matplotlib commands, such as for creating colorbars</p></li>
 <li><p>Interpolation is the process of determining how to fill in the missing values between data points, for plotting smooth, continuous plots such as heat maps</p></li>
 <li><p>Different interpolation methods trade off between being more literal representations of the measured data, to smoother-looking representations based on fitting mathematical functions to the data</p></li>
-<li><p>The choice of colour scales in heat maps and other images is even more important than for other types of plots, because non-linear changes in hue (colour) or intensity (luminance) can trick the human eye/brain into seeing continuous data as more discontinuous. Such distortions can interfere with correct interpretation of the data.</p></li>
-<li><p>It is best to use an isoluminant, perceptually uniform colour scale when plotting continuous data such as heat maps and other images.</p></li>
+<li><p>The choice of color scales in heat maps and other images is even more important than for other types of plots, because non-linear changes in hue (color) or intensity (luminance) can trick the human eye/brain into seeing continuous data as more discontinuous. Such distortions can interfere with correct interpretation of the data.</p></li>
+<li><p>It is best to use an isoluminant, perceptually uniform color scale when plotting continuous data such as heat maps and other images.</p></li>
 </ul>
 </section>
 </section>
@@ -1258,16 +1262,16 @@ Bins has 22 values
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#draw-heat-map">Draw heat map</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format-the-heat-map">Format the heat map</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#label-the-heat-map">Label the heat map</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-colourbar">Add a colourbar</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-up-the-colourbar">Clean up the colourbar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-colorbar">Add a colorbar</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-up-the-colorbar">Clean up the colorbar</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#considerations-in-generating-heat-maps">Considerations in generating heat maps</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filling-in-the-blanks-interpolation">Filling in the blanks: Interpolation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#colour-map-choices">Colour Map Choices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#color-map-choices">color Map Choices</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#luminance">Luminance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#colourblindness">Colourblindness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#colorblindness">colorblindness</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perceptual-uniformity">Perceptual uniformity</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#violations-of-perceptual-uniformity">Violations of perceptual uniformity</a></li>
 </ul>

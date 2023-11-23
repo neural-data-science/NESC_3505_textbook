@@ -371,7 +371,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_avg_reref.html">Averaging and Re-Referencing ERPs</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_viz.html">Grand Averages and Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_stats.html">Statistical Analysis of ERP Data</a></li>
+</ul>
+</li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">MRI Data</span></p>
 <ul class="current nav bd-sidenav">
@@ -648,7 +652,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_88729/238319346.py:1: DeprecationWarning: Starting with ImageIO v3 the behavior of this function will switch to that of iio.v3.imread. To keep the current behavior (and make this warning disappear) use `import imageio.v2 as imageio` or call `imageio.v2.imread` directly.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/9s/6fvdmxlx00z9sz6ftkrnh8dw0000gn/T/ipykernel_29091/238319346.py:1: DeprecationWarning: Starting with ImageIO v3 the behavior of this function will switch to that of iio.v3.imread. To keep the current behavior (and make this warning disappear) use `import imageio.v2 as imageio` or call `imageio.v2.imread` directly.
   brain_slice = iio.imread(&#39;data/DICOM/IM-0004-0096.dcm&#39;, &#39;DICOM&#39;)
 </pre></div>
 </div>
@@ -819,14 +823,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x16296e850&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x14c5cacd0&gt;
 </pre></div>
 </div>
 <img alt="../_images/8fcb0977bcef72e235587a4be86c1aa828ad5ef793b3c035d3bc7db12094ab57.png" src="../_images/8fcb0977bcef72e235587a4be86c1aa828ad5ef793b3c035d3bc7db12094ab57.png" />
 </div>
 </div>
 <p>We can see that this image was acquired in the <strong>sagittal</strong> plane, which is like looking at the person from the side.</p>
-<p>We can clean the image up by using a greyscale colour map, and removing the numerical axis labels:</p>
+<p>We can clean the image up by using a greyscale color map, and removing the numerical axis labels:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">brain_slice</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
@@ -892,7 +896,7 @@ document.write(`
 </section>
 <section id="visualize-one-slice-of-the-volume">
 <h2>Visualize one slice of the volume<a class="headerlink" href="#visualize-one-slice-of-the-volume" title="Permalink to this heading">#</a></h2>
-<p>We can plot a slice of the 3D volume using the same <code class="docutils literal notranslate"><span class="pre">plt.imshow()</span></code> command as before; the one difference is we need to specify which slice number to plot. Since slices are the first dimension of teh array, we only need to supply one index, even though it is a 3D array (the other dimensions are treated as if we specified <code class="docutils literal notranslate"><span class="pre">brain_vol[96,</span> <span class="pre">:,</span> <span class="pre">:]</span></code>). We pick a slice in the middle of the volume, because if we picked one near the edges (e.g., slice 0) we would likely see little or no interesting anatomy. THis time we use the <code class="docutils literal notranslate"><span class="pre">bone</span></code> colourmap, which is another monochrome palette but with a slight blueish hue:</p>
+<p>We can plot a slice of the 3D volume using the same <code class="docutils literal notranslate"><span class="pre">plt.imshow()</span></code> command as before; the one difference is we need to specify which slice number to plot. Since slices are the first dimension of teh array, we only need to supply one index, even though it is a 3D array (the other dimensions are treated as if we specified <code class="docutils literal notranslate"><span class="pre">brain_vol[96,</span> <span class="pre">:,</span> <span class="pre">:]</span></code>). We pick a slice in the middle of the volume, because if we picked one near the edges (e.g., slice 0) we would likely see little or no interesting anatomy. THis time we use the <code class="docutils literal notranslate"><span class="pre">bone</span></code> colormap, which is another monochrome palette but with a slight blueish hue:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">brain_vol</span><span class="p">[</span><span class="mi">96</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;bone&#39;</span><span class="p">)</span>
@@ -1054,7 +1058,7 @@ document.write(`
 </section>
 <section id="plotting-an-image-histogram">
 <h2>Plotting an image histogram<a class="headerlink" href="#plotting-an-image-histogram" title="Permalink to this heading">#</a></h2>
-<p>As we saw above, the image is stored as a NumPy array, in which each voxel in the image is represented as a number, which is mapped to an intensity value in the colourmap when plotting. Larger values appear as brighter (whiter), and lower values appear as darker.</p>
+<p>As we saw above, the image is stored as a NumPy array, in which each voxel in the image is represented as a number, which is mapped to an intensity value in the colormap when plotting. Larger values appear as brighter (whiter), and lower values appear as darker.</p>
 <p>Histograms of the anatomical images show the number of voxels of a given intensity value. These can be informative because the distribution of intensity values in an anatomical image is not uniform. Instead, as we can see above, there are many very dark voxels (outside of the head, and in some of the fluid-filled spaces inside the head), and then clusters of voxels that are darker grey (the grey matter, largely in the cerebral cortex that forms the outer layer of the brain), lighter grey (the white matter that comprises much of the inside of the brain), and also some very bright areas that are primarily due to areas of fat concentration.</p>
 <p>We can use ndimage’s <code class="docutils literal notranslate"><span class="pre">.histogram()</span></code> function to plot a histogram of our brain volume. We use this rather than the NumPy <code class="docutils literal notranslate"><span class="pre">histogram</span></code> function, because ndimage’s function is designed to work with 3D images. This function requires several arguments, including the minimum and maximum intensity values that define the range of the <em>x</em> axis of the histogram, and the number of bins:</p>
 <div class="cell docutils container">
@@ -1119,7 +1123,7 @@ document.write(`
 <h2>Image smoothing<a class="headerlink" href="#image-smoothing" title="Permalink to this heading">#</a></h2>
 <p>One preprocessing operation that can be useful in working with images <strong>smoothing</strong>. Smoothing is really spatial filtering, and it is commonly applied by averaging together the intensity values of nearby voxels. This averaging is done in a weighted fashion, based on distance between voxels. For example, for each voxel we could average together the intensity of that voxel, with half the intensity of the voxels adjacent to it on all sides, and perhaps 10% of intensities that were 2 voxels away from it. In fact, the most common <strong>smoothing kernel</strong> (the mathematical function used to perform this weighted averaging) is called a <em>Gaussian</em> kernel, which is shaped like a normal (bell) curve. In 2 dimensions, it looks like this:</p>
 <p><img alt="" src="../_images/gaussian_kernel_2D.jpg" /></p>
-<p>When applied to an image slice, a Gaussian smoothing kernel reduces noise, that is, the amount of voxel-to-voxel variation in intensities. So, adjacent voxels will have more similar intensity values after smoothing, making the image appear more blurred. The image below shows an example of the effects of smoothing. In this image, the intensity at each point in the image slice is shown by the height of the mesh at that location, as well as the colour.</p>
+<p>When applied to an image slice, a Gaussian smoothing kernel reduces noise, that is, the amount of voxel-to-voxel variation in intensities. So, adjacent voxels will have more similar intensity values after smoothing, making the image appear more blurred. The image below shows an example of the effects of smoothing. In this image, the intensity at each point in the image slice is shown by the height of the mesh at that location, as well as the color.</p>
 <p><img alt="" src="../_images/smoothed_vs_unsmoothed_mesh.jpg" /></p>
 <p>Below we will apply Gaussian smoothing to our MRI volume using ndimage’s <code class="docutils literal notranslate"><span class="pre">gaussian_filter()</span></code> function. The one argument we need to supply is <code class="docutils literal notranslate"><span class="pre">sigma</span></code>, which is the width of the smoothing kernel, expressed as units of standard deviation. A larger sigma value will result in a smoother (blurrier) image, because we average over a larger number of voxels.</p>
 <div class="cell docutils container">
