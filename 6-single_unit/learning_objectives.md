@@ -19,4 +19,4 @@ Once you've completed this lesson you should be able to:
 - generate 2D images from data
 
 ### Data Visualization
-- make informed decisions about accessible design in scientific visualization, including colour map choice and interpolation methods
+- make informed decisions about accessible design in scientific visualization, including color map choice and interpolation methods
