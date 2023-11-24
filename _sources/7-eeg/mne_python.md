@@ -41,7 +41,7 @@ Sometimes, if you only want to use one function in a submodule, you can import i
 
 Working with MNE, you will be working with Python *classes*. We've already worked extensively with classes, including NumPy's `Array` class, and pandas' `DataFrame`. However, it's worth reviewing and expanding on what you already know. The [Python documentation](https://docs.python.org/3/tutorial/classes.html) tells us that "Classes provide a means of bundling data and functionality together." A class is a type of **object**, which can in turn have **instances**. Putting this concretely in the MNE context, one important set of MNE classes are for storing data of different kinds. These include `mne.io.Raw`, `mne.Epochs`, and `mne.Evoked` (note the use of capital letters here, which indicates that these are classes). `mne.io.Raw` is a class specifically for raw data (EEG or other types of data as imported from a data file). When we import a data file, e.g., using the `mne.io.read_raw_brainvision()` function mentioned above, we assign it to a variable name, e.g.:
 
-    raw = mne.io.read_raw_brainvision('my_EEG_file.vhdr')
+    raw = mne.io.read_raw_brainvision('my_raw_EEG_file.vhdr')
 
 `raw` is thus an instance of the `mne.io.Raw` class (again pay attention to the fact that the *class* uses upper-case naming but the *instance* uses lower-case, which is a Python standard).
 
