@@ -726,6 +726,49 @@ document.write(`
     
 </table></div></div>
 </div>
+<p>Although some of the information is not available, this shows us a few important things about our data set, including that there are 16 EEG channels (each channel contains the data from one EEG electrode), that the sampling rate is 500 Hz (i.e., EEG data were sampled 500 times per second, so we have a data point every 2 ms), and that the data were filtered during data collection between 0.01–80 Hz (more on filtering below).</p>
+<p>The information provided above is actually a subset of the information stored in the <code class="docutils literal notranslate"><span class="pre">Raw</span></code> object’s <code class="docutils literal notranslate"><span class="pre">info</span></code>. We can use the <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> method to see all of the fields available in <code class="docutils literal notranslate"><span class="pre">info</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;acq_pars&#39;, &#39;acq_stim&#39;, &#39;ctf_head_t&#39;, &#39;description&#39;, &#39;dev_ctf_t&#39;, &#39;dig&#39;, &#39;experimenter&#39;, &#39;utc_offset&#39;, &#39;device_info&#39;, &#39;file_id&#39;, &#39;highpass&#39;, &#39;hpi_subsystem&#39;, &#39;kit_system_id&#39;, &#39;helium_info&#39;, &#39;line_freq&#39;, &#39;lowpass&#39;, &#39;meas_date&#39;, &#39;meas_id&#39;, &#39;proj_id&#39;, &#39;proj_name&#39;, &#39;subject_info&#39;, &#39;xplotter_layout&#39;, &#39;gantry_angle&#39;, &#39;bads&#39;, &#39;chs&#39;, &#39;comps&#39;, &#39;events&#39;, &#39;hpi_meas&#39;, &#39;hpi_results&#39;, &#39;projs&#39;, &#39;proc_history&#39;, &#39;custom_ref_applied&#39;, &#39;sfreq&#39;, &#39;dev_head_t&#39;, &#39;ch_names&#39;, &#39;nchan&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can access the values stored with any of these info attributes by putting it in square brackets, like this command to access the names of all of the channels (electrodes) in the data set:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Fp1&#39;,
+ &#39;F3&#39;,
+ &#39;F7&#39;,
+ &#39;C3&#39;,
+ &#39;P3&#39;,
+ &#39;TP9&#39;,
+ &#39;Fz&#39;,
+ &#39;Cz&#39;,
+ &#39;Fp2&#39;,
+ &#39;F4&#39;,
+ &#39;F8&#39;,
+ &#39;C4&#39;,
+ &#39;P4&#39;,
+ &#39;TP10&#39;,
+ &#39;Pz&#39;,
+ &#39;Oz&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">info</span></code> is a snapshot of a few pieces of information that researchers may want to know about a data file, but it’s far less than all the information stored in the MNE <code class="docutils literal notranslate"><span class="pre">Raw</span></code> object. To see the entire contents of the object, we can ask for it’s <code class="docutils literal notranslate"><span class="pre">__dict__</span></code> (note that there are two underscores below <code class="docutils literal notranslate"><span class="pre">dict</span></code> and two after). Recall that <code class="docutils literal notranslate"><span class="pre">Raw</span></code> is a Python class, and any instance of the <code class="docutils literal notranslate"><span class="pre">Raw</span></code> class (such as our <code class="docutils literal notranslate"><span class="pre">raw</span></code> data here) is a Python object. Any Python object has an atrribute <code class="docutils literal notranslate"><span class="pre">__dict__</span></code>, and this attribute contains a dictionary of all of the object’s attributes, with keys being the attribute names, and values being the information stored for that attribute.</p>
 </section>
 </section>
 </section>
