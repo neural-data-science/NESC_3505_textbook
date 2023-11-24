@@ -20,7 +20,7 @@ height: 75px
 A sine wave.
 ```
 
-Clearly, an EEG signal such as the one shown in the top figure is much more complicated than a simple sine wave! The amplitude (deflection on the *y* axis) varies over time, as does the frequency (the spacing between the peaks and troughs over time)  But, by combining a large number of sine waves of different frequencies, each with a specific amplitude, we can mathematically describe even a complex EEG waveform. The figure below shows a very simple example, composed of a limited set of since waves:
+Clearly, an EEG signal such as the one shown in the top figure is much more complicated than a simple sine wave! The amplitude (deflection on the *y* axis) varies over time, as does the frequency (the spacing between the peaks and troughs over time)  But, by combining a large number of sine waves of different frequencies, each with a specific amplitude, we can mathematically describe even a complex EEG waveform. The figure below shows a very simple example, composed of a limited set of sine waves:
 
 ```{figure} images/fourier_series_td.png
 ---
