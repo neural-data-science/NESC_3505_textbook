@@ -596,6 +596,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-data-using-mne-tools">Accessing data using MNE tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-raw-eeg-data">Visualizing raw EEG data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-eeg-data-with-matplotlib">Plot EEG data with Matplotlib</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-plot-of-continuous-eeg">Interactive Plot of Continuous EEG</a></li>
 </ul>
 </li>
 </ul>
@@ -1056,6 +1057,26 @@ document.write(`
 <section id="plot-eeg-data-with-matplotlib">
 <h3>Plot EEG data with Matplotlib<a class="headerlink" href="#plot-eeg-data-with-matplotlib" title="Permalink to this heading">#</a></h3>
 <p>Since we understand how to select a particular segment of data and return it as a NumPy array, it’s eay to pass the result of doing this to Matplotlib, and visualize the electrical potential of a specific electrode over a segment of time:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="mi">16</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="s1">&#39;Oz&#39;</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="n">start_time</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="n">end_time</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/13a4aaa5fa1b4946a32e2b63d04e5eaef31eb3d54308bff0c8d1dbe82c8b136d.png" src="../_images/13a4aaa5fa1b4946a32e2b63d04e5eaef31eb3d54308bff0c8d1dbe82c8b136d.png" />
+</div>
+</div>
+</section>
+<section id="interactive-plot-of-continuous-eeg">
+<h3>Interactive Plot of Continuous EEG<a class="headerlink" href="#interactive-plot-of-continuous-eeg" title="Permalink to this heading">#</a></h3>
+<p>We could add more code to the above cell to do things like label the axes, add a title to indicate what electrode the data came from, make the <em>x</em> axis actually represent units of time, etc.. However, the great value of using MNE is that the developers have created customized functions for doing most everything you could ever want with EEG, with a lot less typing that if you were working with raw NumPy arrays and Matplotlib.</p>
+<p>For example, MNE data classes like <code class="docutils literal notranslate"><span class="pre">Raw</span></code> have a <code class="docutils literal notranslate"><span class="pre">.plot</span></code> method that allows you to generate a nice-looking plot that automatically does all the hard work of formatting it appropriately. This function actually creates an interactive plot in a new window (which is why you won’t see output in this notebook file), which allows you to scroll through the entire continuous dataset (unfortunately this doesn’t work if you’re running Jupyter notebooks via a cloud service, but should work fine if you followed the instructions at the start of this course and are using VS Code).</p>
 </section>
 </section>
 </section>
@@ -1135,6 +1156,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-data-using-mne-tools">Accessing data using MNE tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-raw-eeg-data">Visualizing raw EEG data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-eeg-data-with-matplotlib">Plot EEG data with Matplotlib</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-plot-of-continuous-eeg">Interactive Plot of Continuous EEG</a></li>
 </ul>
 </li>
 </ul>
