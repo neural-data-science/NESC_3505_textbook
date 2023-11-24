@@ -15,7 +15,7 @@ An EEG system. The model is wearing a cap to which multiple electrodes are attac
 
 
 
-The image below shows a 10 s sample of continuous, raw EEG data recorded from a cognitive neuroscience experiment. Each horizontal trace is the data from one electrode (channel). The coloured vertical lines, which have labels at the top, represent specific events of experimental interest (e.g., stimulus onsets or participant responses). The large deflections, particularly evident in channels Fp1, F7, and Fp2, are artifacts (sources of noise) caused by eye blinks. EEG recordings reflect a combination of brain activity and non-neural noise. For example, eye movements, blinks and muscle contractions all create electrical potentials that can be picked up by EEG electrodes on the scalp. As we'll see in the following sections, removing artifacts is a key part of the EEG data processing pipeline.
+The image below shows a 10 s sample of continuous, raw EEG data recorded from a cognitive neuroscience experiment. Each horizontal trace is the data from one electrode (channel). The colored vertical lines, which have labels at the top, represent specific events of experimental interest (e.g., stimulus onsets or participant responses). The large deflections, particularly evident in channels Fp1, F7, and Fp2, are artifacts (sources of noise) caused by eye blinks. EEG recordings reflect a combination of brain activity and non-neural noise. For example, eye movements, blinks and muscle contractions all create electrical potentials that can be picked up by EEG electrodes on the scalp. As we'll see in the following sections, removing artifacts is a key part of the EEG data processing pipeline.
 
 
 ```{figure} images/eeg_raw_continuous.jpg
