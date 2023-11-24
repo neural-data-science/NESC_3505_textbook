@@ -8,13 +8,12 @@ Much of ERP research focuses on **components**. Components can be formally defin
 
 An example of an ERP component, the N170, is shown below. In terms of the definition above, the N170 typically peaks between 170-200 ms, is largest over inferior temporal-parietal scalp regions, has negative polarity, and is elicited when people view visual objects, such as printed words (as in this example), faces, or other objects. In the figure below, the top panel shows a scalp topographic map of the electrical potentials over the scalp averaged over the time period 165-215 ms after stimulus onset, with blue representing negative and red representing positive potentials. The N170 is evident as the blue areas over each hemisphere, with the white dots indicating the electrodes where it is largest. The bottom panels show the time course of the ERPs elicited by printed words, averaged over the electrodes indicated by the white dots in the top panel. The N170 is evident as the negative peak around 190 ms after stimulus onset. The shaded grey area in the bottom panels indicates the time over which the data were averaged to generate the scalp topographic map.
 
-```
-{figure} images/N170_component.png
+```{figure} images/N170_component.png
 ---
 width: 500px
 align: center
 ---
-An example ERP component, the N170. The top panel the distribution of electrical potentials over the scalp (viewd from above, with the nose at the top), averaged over the time period 165-215 ms after stimulus onset. The bottom panels show the time course of the ERP elicited by printed words, averaged over the electrodes indicated by the white dots in the top panel. The vertical line represents stimulus onset, and the shaded grey area indicates the time over which the data were averaged to generate the scalp topographic map. The data are from Galilee et al. (under review).
+An example ERP component, the N170. The top panel the distribution of electrical potentials over the scalp (viewed from above, with the nose at the top), averaged over the time period 165-215 ms after stimulus onset. The bottom panels show the time course of the ERP elicited by printed words, averaged over the electrodes indicated by the white dots in the top panel. The vertical line represents stimulus onset, and the shaded grey area indicates the time over which the data were averaged to generate the scalp topographic map. The data are from Galilee et al. (under review).
 ```
 
 
