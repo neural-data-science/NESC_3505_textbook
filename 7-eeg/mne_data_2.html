@@ -585,10 +585,14 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Visualizing Raw EEG using MNE</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptive-statistics-on-channels">Descriptive statistics on channels</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#set-montage">Set Montage</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#view-electrode-positions">View electrode positions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-plot-of-continuous-eeg">Interactive Plot of Continuous EEG</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#event-codes-markers-triggers">Event codes (Markers / Triggers)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
 
             </nav>
@@ -614,6 +618,39 @@ document.write(`
 
 <span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span><span class="s1">&#39;data/sub-001/sub-001.vhdr&#39;</span><span class="p">,</span> 
                                   <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="descriptive-statistics-on-channels">
+<h1>Descriptive statistics on channels<a class="headerlink" href="#descriptive-statistics-on-channels" title="Permalink to this heading">#</a></h1>
+<p>We saw preivously how to get metadata from the <code class="docutils literal notranslate"><span class="pre">raw</span></code> file using the <code class="docutils literal notranslate"><span class="pre">.info</span></code> property. Another useful way of peeking into a raw file’s data is to use the <code class="docutils literal notranslate"><span class="pre">.describe()</span></code> method to see the names of each channel, and the range of values in each channel.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;RawBrainVision | sub-001.eeg, 16 x 408640 (817.3 s), ~49.9 MB, data loaded&gt;
+ch  name  type  unit        min         Q1     median         Q3        max
+ 0  Fp1   EEG   µV      -285.40     -30.22      -1.43      27.83    1301.03
+ 1  F3    EEG   µV      -174.79     -17.23       9.22      27.46     253.16
+ 2  F7    EEG   µV      -218.86     -27.54       1.24      27.61     840.83
+ 3  C3    EEG   µV      -143.89     -11.69       2.93      14.49     125.35
+ 4  P3    EEG   µV      -222.93     -16.64       1.79      19.13      98.77
+ 5  TP9   EEG   µV      -521.95     -24.35      10.94      48.68     507.04
+ 6  Fz    EEG   µV       -63.42     -10.49      -0.49      12.11      96.25
+ 7  Cz    EEG   µV      -122.98     -16.84      -0.59      16.92      70.10
+ 8  Fp2   EEG   µV      -308.07     -34.05       0.94      32.26     455.79
+ 9  F4    EEG   µV       -88.54     -11.64       3.62      14.80     123.72
+10  F8    EEG   µV      -390.29     -19.68      -0.60      14.91     241.88
+11  C4    EEG   µV      -166.15     -21.28       1.28      19.47     104.65
+12  P4    EEG   µV      -375.89     -21.70       0.88      30.19     201.16
+13  TP10  EEG   µV      -236.19     -21.82       0.85      21.64     388.90
+14  Pz    EEG   µV      -165.69     -12.59       3.75      17.90      76.89
+15  Oz    EEG   µV      -229.21     -15.15       5.89      24.40     194.92
 </pre></div>
 </div>
 </div>
@@ -777,6 +814,116 @@ document.write(`
 </div>
 </div>
 </section>
+<section id="interactive-plot-of-continuous-eeg">
+<h2>Interactive Plot of Continuous EEG<a class="headerlink" href="#interactive-plot-of-continuous-eeg" title="Permalink to this heading">#</a></h2>
+<p>We could add more code to the above cell to do things like label the axes, add a title to indicate what electrode the data came from, make the <em>x</em> axis actually represent units of time, etc.. However, the great value of using MNE is that the developers have created customized functions for doing most everything you could ever want with EEG, with a lot less typing that if you were working with raw NumPy arrays and Matplotlib.</p>
+<p>For example, MNE data classes like <code class="docutils literal notranslate"><span class="pre">Raw</span></code> have a <code class="docutils literal notranslate"><span class="pre">.plot</span></code> method that allows you to generate a nice-looking plot that automatically does all the hard work of formatting it appropriately. This function actually creates an interactive plot in a new window (which is why you won’t see output in this notebook file), which allows you to scroll through the entire continuous dataset (unfortunately this doesn’t work if you’re running Jupyter notebooks via a cloud service, but should work fine if you followed the instructions at the start of this course and are using VS Code).</p>
+<p><img alt="" src="../_images/raw_mne_data.png" /></p>
+<p>The black area at the bottom shows the entire raw EEG recording, with a green vertical bar near the start indicating the position in the file that is currently plotted, and a drag bar to scroll through the data. The other colored vertical lines mark the times of event codes sent by the stimulus presentation program, which mark events of experimental interest.</p>
+</section>
+</section>
+<section id="event-codes-markers-triggers">
+<h1>Event codes (Markers / Triggers)<a class="headerlink" href="#event-codes-markers-triggers" title="Permalink to this heading">#</a></h1>
+<p>Event codes — often called <em>markers</em> or <em>triggers</em> are codes that are sent by the stimulus presentation program to mark the times of events of experimental interest. The event codes are stored in the <code class="docutils literal notranslate"><span class="pre">.vmrk</span></code> file in Brain Vision format. When we import the raw data into MNE, these are stored in an attribute called <code class="docutils literal notranslate"><span class="pre">._annotations</span></code>. Although we can access that directly (e.g., <code class="docutils literal notranslate"><span class="pre">raw._annotations</span></code>), again MNE provides tools that makes this easier and generate more interpretable output: the <code class="docutils literal notranslate"><span class="pre">events_from_annotations()</span></code> function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mne</span><span class="o">.</span><span class="n">events_from_annotations</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([[     0,      0,  99999],
+        [     0,      0,  10001],
+        [ 25550,      0,      5],
+        ...,
+        [397701,      0,      3],
+        [402068,      0,      7],
+        [402073,      0,      4]]),
+ {&#39;Comment/actiCAP Data On&#39;: 10001,
+  &#39;New Segment/&#39;: 99999,
+  &#39;Stimulus/S  1&#39;: 1,
+  &#39;Stimulus/S  2&#39;: 2,
+  &#39;Stimulus/S  3&#39;: 3,
+  &#39;Stimulus/S  4&#39;: 4,
+  &#39;Stimulus/S  5&#39;: 5,
+  &#39;Stimulus/S  7&#39;: 7,
+  &#39;Stimulus/S101&#39;: 101,
+  &#39;Stimulus/S102&#39;: 102,
+  &#39;Stimulus/S111&#39;: 111,
+  &#39;Stimulus/S112&#39;: 112,
+  &#39;Stimulus/S201&#39;: 201,
+  &#39;Stimulus/S202&#39;: 202,
+  &#39;Stimulus/S211&#39;: 211,
+  &#39;Stimulus/S212&#39;: 212})
+</pre></div>
+</div>
+</div>
+</div>
+<p>The result includes two outputs. The first is a NumPy array that has three columns, with one row for each event code in the data. The first column indicates the time of the event, and the last column stores the code associated with that event. These event codes are always represented as integers (since it is a NumPy array of integers).</p>
+<p>The second output is a dictionary mapping labels for each event code, to the numerical codes themselves. Usually these are not very informative in the raw data. In a later lesson, we will learn how to map the numerical codes to meaningful labels based on the experimental design. For now, it’s simply important to understand how the event codes are stored in the <code class="docutils literal notranslate"><span class="pre">Raw</span></code> data object.</p>
+<p>One important thing to know is that the event codes are stored in the same units as the data, so in this case, the event codes are in units of samples, not milliseconds. MNE knows this and operates accordingly, but if you want to know the time of an event in milliseconds, you need to convert it yourself based on the sampling rate. In this case, our sampling rate is 500 Hz, if we wanted to see the event timings in milliseconds we can divide the event time by the sampling rate, and multiplying by 1000. We can do this below by first assigning the two outputs of <code class="docutils literal notranslate"><span class="pre">mne.events_from_annotations()</span></code> to two variables, and then converting the values in the first column of the events `array`` to milliseconds:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">events</span><span class="p">,</span> <span class="n">event_dict</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">events_from_annotations</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+
+<span class="c1"># MNE expects the events array in terms of samples, so don&#39;t change it</span>
+<span class="c1"># Create a copy of the events array and convert the first column to ms</span>
+<span class="n">events_ms</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">events_ms</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">events_ms</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">500</span> <span class="o">*</span> <span class="mi">1000</span>
+<span class="n">events_ms</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[    0,     0, 99999],
+       [    0,     0, 10001],
+       [51100,     0,     5],
+       [51106,     0,     1],
+       [52198,     0,   201],
+       [52288,     0,     2],
+       [59164,     0,     3],
+       [66566,     0,     1],
+       [67562,     0,   211],
+       [69864,     0,     3]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Again, it’s nbetter to work with MNE objects using MNE’s own functions and methods, but it’s sometimes important to understand the <code class="docutils literal notranslate"><span class="pre">events</span></code> array. For example, there may be circumstances when you need to modify event codes. For example, we might want to separately average trials on which participants made correct and incorrect responses. In that case, we would need to change the event codes for stimuli followed by incorrect responses to something different than the event codes for correct responses.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;RawBrainVision | sub-001.eeg, 16 x 408640 (817.3 s), ~49.9 MB, data loaded&gt;
+ch  name  type  unit        min         Q1     median         Q3        max
+ 0  Fp1   EEG   µV      -285.40     -30.22      -1.43      27.83    1301.03
+ 1  F3    EEG   µV      -174.79     -17.23       9.22      27.46     253.16
+ 2  F7    EEG   µV      -218.86     -27.54       1.24      27.61     840.83
+ 3  C3    EEG   µV      -143.89     -11.69       2.93      14.49     125.35
+ 4  P3    EEG   µV      -222.93     -16.64       1.79      19.13      98.77
+ 5  TP9   EEG   µV      -521.95     -24.35      10.94      48.68     507.04
+ 6  Fz    EEG   µV       -63.42     -10.49      -0.49      12.11      96.25
+ 7  Cz    EEG   µV      -122.98     -16.84      -0.59      16.92      70.10
+ 8  Fp2   EEG   µV      -308.07     -34.05       0.94      32.26     455.79
+ 9  F4    EEG   µV       -88.54     -11.64       3.62      14.80     123.72
+10  F8    EEG   µV      -390.29     -19.68      -0.60      14.91     241.88
+11  C4    EEG   µV      -166.15     -21.28       1.28      19.47     104.65
+12  P4    EEG   µV      -375.89     -21.70       0.88      30.19     201.16
+13  TP10  EEG   µV      -236.19     -21.82       0.85      21.64     388.90
+14  Pz    EEG   µV      -165.69     -12.59       3.75      17.90      76.89
+15  Oz    EEG   µV      -229.21     -15.15       5.89      24.40     194.92
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+</section>
+<section id="summary">
+<h1>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h1>
+<p>MNE Provides a number of methods for <code class="docutils literal notranslate"><span class="pre">Raw</span></code> objects that allow us to access and visualize aspects of both the metadata — including channel locations — and the data itself. However, in practice these are useful things to be familiar with, and they can be used when you’re working with data from a system or format that you’re not familiar with to get a better idea of the structure of the data. But in routine usage, within the context of a specific experiment we can expect that all of the data have the same structure. In the next series of lessons we’ll walk through the steps that are routinely applied to any EEG data set, in order to prepare it for ERP analysis.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -843,10 +990,14 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Visualizing Raw EEG using MNE</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptive-statistics-on-channels">Descriptive statistics on channels</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#set-montage">Set Montage</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#view-electrode-positions">View electrode positions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-plot-of-continuous-eeg">Interactive Plot of Continuous EEG</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#event-codes-markers-triggers">Event codes (Markers / Triggers)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
 
   </nav></div>
