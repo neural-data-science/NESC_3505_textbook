@@ -70,3 +70,11 @@ whereas functions are "free-standing" and, if they take a data input, it's suppl
 The two examples just provided would both achieve the same goal; as is so often the case with Python, there are just many different ways of doing the same thing.
 
 MNE has an extensive and detailed [API](https://mne.tools/stable/python_reference.html) describing all of its classes, attributes, methods, and functions.
+
+---
+
+## Summary
+
+MNE-Python is an open-source Python package for working with EEG and MEG data. It is very well-documented, and has a large number of tutorials and examples of how to perform specific operations, as well as a complete [API](https://mne.tools/stable/python_reference.html). MNE is organized into submodules, and you will often need to specify the submodule when using a function from MNE. MNE classes are special, and understanding the properties of classes helps you understand how to work with data in MNE. Classes specify attributes that an instance of that class can have. Attributes are "states" of the instance — which in the case of an MNE data class are usually properties of that data. Classes can also specify methods, and indeed MNE classes do this. MNE also has functions that perform different tasks. As in the rest of Python, functions are run by specifying the function name, with arguments in parentheses.
+
+In the next lessons we'll see how to use MNE to import EEG data, learn in more detail how MNE data is structured, and how to visualize it.
