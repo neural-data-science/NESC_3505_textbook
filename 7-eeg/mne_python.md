@@ -3,6 +3,7 @@
 align: left
 width: 150px
 ```
+
 # MNE-Python
 
 [MNE-Python](https://mne.tools/) is an open-source Python package for working with EEG and MEG data. It was originally developed as a Python *port* (translation from one programming language to another) of a software package called MNE, that was written in the C language by MEG researcher Matti Hämäläinen. The letters "MNE" originally stood for *minimum norm estimation*, which is an algorithm for localizing the sources of MEG and EEG data. The original MNE software grew from an implementation of that algorithm to a much more full-fledged package capable of performing a wider range of processing and visualization tasks on MEG/EEG data — so now the name "MNE" is more of a brand, than a descriptor of the capabilities of the software. Although minimum norm estimation can still be performed using MNE-Python, it does far more even than the MNE-C package did.
