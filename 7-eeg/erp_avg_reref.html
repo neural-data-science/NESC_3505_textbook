@@ -586,7 +586,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-channels-in-eeg">Reference Channels in EEG</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-essential-technical-background">Some Essential Technical Background</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-electrical-potential-measurement">What is an Electrical Potential Measurement?</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-water-analogy">The Water Analogy</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#batteries-and-dipole-sources">Batteries and Dipole Sources</a></li>
@@ -638,13 +638,18 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="averaging-and-re-referencing-erps">
 <h1>Averaging and Re-Referencing ERPs<a class="headerlink" href="#averaging-and-re-referencing-erps" title="Permalink to this heading">#</a></h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This is one of the longer and denser sections of the chapter on EEG. Take your time with it, and work to understand it rather than glossing over details that may be challenging at first. Referencing in EEG is a complex topic, and it is important to understand it well in order to interpret ERP data correctly.</p>
+<p>While it’s recommended to download the associated lessons for each chapter in this textbook and work through them on your own, it may be particularly helpful for the material in this lesson. In particular, consider trying to adapt the code provided to explore how using different references (either single channels or averages of multiple channels) affects the visualization of the data.</p>
+</div>
 <p>Recall that ERPs are typically averaged across many trials within each condition, to improve the signal-to-noise ratio. Since averaging across trials is typically the end goal of an ERP experiment, MNE has a distinct class, <code class="docutils literal notranslate"><span class="pre">Evoked</span></code>, for ERP data where multiple trials have been averaged for each experimental condition or trial type.</p>
 <p>Another operation that is important to understand when viewing and interpreting averaged ERPs is <strong>(re-)referencing</strong>. Re-referencing is the process of changing the reference channel(s) of the EEG data. The reference channel(s) are the channels that all other channels are compared to. The reference channel(s) are subtracted from all other channels. After re-referencing, the reference channel(s) have a value of zero, while all other channels reflect the ERPs relative to the reference channel(s) — more precisely, they have had the original waveform from the reference channel(s) subtracted from them.</p>
 <p>There are a couple of reasons why one might want to re-reference EEG data. For one, it can remove electromagnetic noise that was recorded from the environment, to the extent that that noise is common to all channels. Another reason to re-reference the data is because this can change the shape and scalp distribution of the ERP waveforms, which can affect interpretation. Often this is an important step; for instance, most published studies of the N400 component use the average of TP9 and TP10 as the reference (<a class="reference external" href="https://dx.doi.org/10.1007/s11065-021-09513-4">Šoškić et al., 2022</a>), largely for historical reasons. Using the same reference as a large literature of other studies makes it easier to compare results across studies.</p>
 <p>Conversely, using different references can be a source of confusion and misinterpretation. For instance, in studies of face processing, two different components occurring around 170 ms were reported in the literature: the VPP (vertex positive potential, largest over the top of the head),and the the N170 (a negativity largest over temporal-parietal scalp sites). However, critical analysis of the literature revealed that these were actually the same component! However, since some studies used the mastoids as their reference, they did not observe an N170 since those are the very channels where the N170 is typically largest. Thus re-referencing the data to these channels had completely subtracted the N170 from the data (<a class="reference external" href="https://doi.org/10.1016/j.clinph.2005.07.005">Joyce &amp; Rossion, 2005</a>).</p>
 <p>For these reasons, understanding how (re-)referencing affects the visuzliation and, ultimately, interpretation of ERPs is critical. In this lesson, we will explore how to re-reference ERP data, and how this affects the visualization of the data. First we will dive a bit deeper into the topic of re-referencing, and then see its effects in action.</p>
-<section id="reference-channels-in-eeg">
-<h2>Reference Channels in EEG<a class="headerlink" href="#reference-channels-in-eeg" title="Permalink to this heading">#</a></h2>
+<section id="some-essential-technical-background">
+<h2>Some Essential Technical Background<a class="headerlink" href="#some-essential-technical-background" title="Permalink to this heading">#</a></h2>
 <p>One thing that can be hard to get your head around at first, when working with EEG data, is that the electrical potential values at each electrode are actually <em>relative</em> measurements. Specifically, The microVolt measurement at each electrode is the <em>difference</em> in electrical potential at that electrode, relative to a <strong>reference electrode</strong>. This is actually a fundamental property of electrical potential measurements — they are always a relative measure. To understand why, we need to understand electricity a bit more.</p>
 <section id="what-is-an-electrical-potential-measurement">
 <h3>What is an Electrical Potential Measurement?<a class="headerlink" href="#what-is-an-electrical-potential-measurement" title="Permalink to this heading">#</a></h3>
@@ -1276,7 +1281,7 @@ Mismatch (mastoid reference)
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-channels-in-eeg">Reference Channels in EEG</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-essential-technical-background">Some Essential Technical Background</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-electrical-potential-measurement">What is an Electrical Potential Measurement?</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-water-analogy">The Water Analogy</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#batteries-and-dipole-sources">Batteries and Dipole Sources</a></li>
