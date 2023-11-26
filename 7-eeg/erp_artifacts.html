@@ -671,9 +671,80 @@ document.write(`
 
 <span class="c1"># Read the Raw Data</span>
 <span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-raw.fif&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">raw</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><span class="s1">&#39;easycap-M1&#39;</span><span class="p">)</span>                                  
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Measurement date</th>
+        
+        <td>January 20, 2015  13:15:58 GMT</td>
+        
+    </tr>
+    <tr>
+        <th>Experimenter</th>
+        
+        <td>Unknown</td>
+        
+    </tr>
+        <th>Participant</th>
+        
+        <td>Unknown</td>
+        
+    </tr>
+    <tr>
+        <th>Digitized points</th>
+        
+        <td>19 points</td>
+        
+    </tr>
+    <tr>
+        <th>Good channels</th>
+        <td>16 EEG</td>
+    </tr>
+    <tr>
+        <th>Bad channels</th>
+        <td>None</td>
+    </tr>
+    <tr>
+        <th>EOG channels</th>
+        <td>Not available</td>
+    </tr>
+    <tr>
+        <th>ECG channels</th>
+        <td>Not available</td>
+    
+    <tr>
+        <th>Sampling frequency</th>
+        <td>500.00 Hz</td>
+    </tr>
+    
+    
+    <tr>
+        <th>Highpass</th>
+        <td>0.01 Hz</td>
+    </tr>
+    
+    
+    <tr>
+        <th>Lowpass</th>
+        <td>80.00 Hz</td>
+    </tr>
+    
+    
+    
+    <tr>
+        <th>Filenames</th>
+        <td>sub-001-raw.fif</td>
+    </tr>
+    
+    <tr>
+        <th>Duration</th>
+        <td>00:13:38 (HH:MM:SS)</td>
+    </tr>
+</table></div></div>
 </div>
 </section>
 <section id="filter-the-data-for-ica">
@@ -752,7 +823,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5443f967a9f4bb695f299d463564e1fbc3ce05500e13bd10d6e95504ff32889a.png" src="../_images/5443f967a9f4bb695f299d463564e1fbc3ce05500e13bd10d6e95504ff32889a.png" />
+<img alt="../_images/b819eaa4cafa2d4e0ff0b0edfcf5ae0b3841cbd0278b62b389e396498ce98596.png" src="../_images/b819eaa4cafa2d4e0ff0b0edfcf5ae0b3841cbd0278b62b389e396498ce98596.png" />
 </div>
 </div>
 </section>
@@ -829,7 +900,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/508d47f8277f9ea128566131393184473fc9d4ce69311dab04ca093e58430863.png" src="../_images/508d47f8277f9ea128566131393184473fc9d4ce69311dab04ca093e58430863.png" />
+<img alt="../_images/9c0ab2df9bd33199682145bbe856ec28c28ce4af798f0823d6d60bd5c3458d50.png" src="../_images/9c0ab2df9bd33199682145bbe856ec28c28ce4af798f0823d6d60bd5c3458d50.png" />
 </div>
 </div>
 </section>
@@ -843,8 +914,8 @@ document.write(`
 <li><p>The PSD (phase spectral density) of the IC. EOG (eye) artifacts will typically have a peak at the low frequency end of the spectrum (the left side of the <em>x</em> axis), and muscle artifact will tend to show increasing power at the high end of the frequency spectrum (the right side of the <em>x</em> axis).</p></li>
 </ul>
 <p>With this in mind, <code class="docutils literal notranslate"><span class="pre">ICA000</span></code> is very characteristic of a blink artifact. The scalp topography is weighted most heavily at the electrodes right above the eyes (where blinks are most strongly detected) and the raster plot shows horizontal “streaks” on relatively few trials. The third plot shows high variance on a few trials, and the PSD is largest at the low end of the spectrum.</p>
-<p><code class="docutils literal notranslate"><span class="pre">ICA001</span></code> shows similar properties, except that its scalp topography is maximal over the left and right anterior scalp locations, with opposite polarities (showing as blue vs. red). This is characteristic of horizontal eye movements.</p>
-<p>Some of the other ICs may also be attributable to noise rather than EEG activity — for example <code class="docutils literal notranslate"><span class="pre">ICA004</span></code> and <code class="docutils literal notranslate"><span class="pre">ICA006</span></code> show relatively high power above 20 Hz in their spectrograms. This is characteristic of muscle noise. However, since these are not clearly well-defined ocular artifacts, we will not remove them. It is better to be conservative in terms of not removing too many ICs, than risking removing true brain activity.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ICA002</span></code> shows similar properties, except that its scalp topography is maximal over the left and right anterior scalp locations, with opposite polarities (showing as blue vs. red). This is characteristic of horizontal eye movements.</p>
+<p>Some of the other ICs may also be attributable to noise rather than EEG activity — for example <code class="docutils literal notranslate"><span class="pre">ICA003</span></code> and <code class="docutils literal notranslate"><span class="pre">ICA006</span></code> show irregular patterns across trials in teh raster plots, which suggests they may be capturing artifacts stemming from random, unknown sources. However, we will not reject these ICs for now, because we don’t want to risk removing any brain activity. We will only reject ICs that are clearly ocular artifacts, and that we can be confident are not reflecting brain activity.</p>
 <p>Fortunately, as we’ll see below, we don’t necessarily need to make subjective judgment calls about which ICA components to reject (some researchers do reject ICs based on visual inspection, but this requires extensive training and experience, and is hard to reproduce). There are automated algorithms that attempt to do this objectively. However, it’s worth knowing what artifacts look like, so that you can check the results of any automated approach to ICA component selection/rejection against your understanding of how they should work. Indeed, as we will see below, these automated algorithms are not always perfect.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -853,18 +924,18 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/fb6dee25b8b885e78aca2fb218bd9e94b22463bb8bac6a54892ac5bc20d32bee.png" src="../_images/fb6dee25b8b885e78aca2fb218bd9e94b22463bb8bac6a54892ac5bc20d32bee.png" />
-<img alt="../_images/e13b8e74169925bb9ea1f0257dbb12f5c5470077d176ec9b67644765ab186d36.png" src="../_images/e13b8e74169925bb9ea1f0257dbb12f5c5470077d176ec9b67644765ab186d36.png" />
-<img alt="../_images/c92e4cc65debaa5407921026a58b41784d9e303b3fd470cc01bdd2193d98ef97.png" src="../_images/c92e4cc65debaa5407921026a58b41784d9e303b3fd470cc01bdd2193d98ef97.png" />
-<img alt="../_images/5f89f56f7c256abae69f1771ac49cc6a314fa482560599ebbb451122ed0698c5.png" src="../_images/5f89f56f7c256abae69f1771ac49cc6a314fa482560599ebbb451122ed0698c5.png" />
-<img alt="../_images/244bdfc7c1912a49297b1768dfe76a0b74cf5e42b8d1ce3f00d5c59184fc8695.png" src="../_images/244bdfc7c1912a49297b1768dfe76a0b74cf5e42b8d1ce3f00d5c59184fc8695.png" />
-<img alt="../_images/ec708de7cfd9b04162f55d2e6ff3d98f0decb9cf956c0ad2a8fe70223e927183.png" src="../_images/ec708de7cfd9b04162f55d2e6ff3d98f0decb9cf956c0ad2a8fe70223e927183.png" />
-<img alt="../_images/325c9d22faedae2b0c42c66a38fbaf7786bf4476d2f30f51b17f00563ac59dc6.png" src="../_images/325c9d22faedae2b0c42c66a38fbaf7786bf4476d2f30f51b17f00563ac59dc6.png" />
-<img alt="../_images/f30867cb5b4f41f2044ba5e7d18b4ca6d99d879731010d3ca5e2d3d022ac4db1.png" src="../_images/f30867cb5b4f41f2044ba5e7d18b4ca6d99d879731010d3ca5e2d3d022ac4db1.png" />
-<img alt="../_images/40f2208687c62ad2d7b7fdb1b623fc7551e32e3b664d074ed8cac7e0912ddb37.png" src="../_images/40f2208687c62ad2d7b7fdb1b623fc7551e32e3b664d074ed8cac7e0912ddb37.png" />
-<img alt="../_images/2a3a7074da15e94a136872549c66c6ab37f998e76fbd23006001722546c33686.png" src="../_images/2a3a7074da15e94a136872549c66c6ab37f998e76fbd23006001722546c33686.png" />
-<img alt="../_images/b929b39f04028af917166f1eda839cc9652ccb7faac1ee58e1dac16a961142b7.png" src="../_images/b929b39f04028af917166f1eda839cc9652ccb7faac1ee58e1dac16a961142b7.png" />
-<img alt="../_images/819ff317f05d59e81153c29e7679b476c26bd40f066fc2601f4e5bbb8c88daea.png" src="../_images/819ff317f05d59e81153c29e7679b476c26bd40f066fc2601f4e5bbb8c88daea.png" />
+<img alt="../_images/f5d6d5c4cb1212b450ee3c37251b045f4555712ee829aefb0af2abb765326741.png" src="../_images/f5d6d5c4cb1212b450ee3c37251b045f4555712ee829aefb0af2abb765326741.png" />
+<img alt="../_images/dd8a437efde647f97e55642e696af8b2bbc592496be0b66b5e6c480eaf8db2a7.png" src="../_images/dd8a437efde647f97e55642e696af8b2bbc592496be0b66b5e6c480eaf8db2a7.png" />
+<img alt="../_images/e8569d797eba92169f7b22c3ccd774aa2df3a399667e5b00ffc00910f870e7da.png" src="../_images/e8569d797eba92169f7b22c3ccd774aa2df3a399667e5b00ffc00910f870e7da.png" />
+<img alt="../_images/849466838b474e69cb835c34c5bb85f503cc94788d8fd7cc784077d3c74e18be.png" src="../_images/849466838b474e69cb835c34c5bb85f503cc94788d8fd7cc784077d3c74e18be.png" />
+<img alt="../_images/0866ab1023846b92a2bb09a05d38c7c1030f8d8e2541c5aeb46acbe38cd2ddec.png" src="../_images/0866ab1023846b92a2bb09a05d38c7c1030f8d8e2541c5aeb46acbe38cd2ddec.png" />
+<img alt="../_images/818aa31c411b6dacf3033edb85b77c94a5fb0c5a84d01abb892c8334f48ee4c1.png" src="../_images/818aa31c411b6dacf3033edb85b77c94a5fb0c5a84d01abb892c8334f48ee4c1.png" />
+<img alt="../_images/f7e248dae5523f0af3d653309a564d790ed83cf215554b1ffcba31fff240b0f0.png" src="../_images/f7e248dae5523f0af3d653309a564d790ed83cf215554b1ffcba31fff240b0f0.png" />
+<img alt="../_images/2808b7c4ec561c6f1447dd705a2fc7c630322ad9ceb8cad69bdd2059d3098d02.png" src="../_images/2808b7c4ec561c6f1447dd705a2fc7c630322ad9ceb8cad69bdd2059d3098d02.png" />
+<img alt="../_images/73d6c1772b30b582aaab8e5052a88d6b41e23b6d15b5b57b584c5013547bdf81.png" src="../_images/73d6c1772b30b582aaab8e5052a88d6b41e23b6d15b5b57b584c5013547bdf81.png" />
+<img alt="../_images/6100b8f4cdf7cba1612cc1d3e6bdca98417d43c124e9f43c47ac3dac4b066927.png" src="../_images/6100b8f4cdf7cba1612cc1d3e6bdca98417d43c124e9f43c47ac3dac4b066927.png" />
+<img alt="../_images/2c9b12978665cf346e958efa9d62fe78f13d0bbd4b325342b590cb28a343fa1d.png" src="../_images/2c9b12978665cf346e958efa9d62fe78f13d0bbd4b325342b590cb28a343fa1d.png" />
+<img alt="../_images/f340996505eebd7c41dd5f07ef8a070ae09aa6807e9ef3a0d837450a466b678e.png" src="../_images/f340996505eebd7c41dd5f07ef8a070ae09aa6807e9ef3a0d837450a466b678e.png" />
 </div>
 </div>
 </section>

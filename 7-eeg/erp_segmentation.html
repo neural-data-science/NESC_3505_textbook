@@ -636,9 +636,80 @@ document.write(`
 <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data/&#39;</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
 
 <span class="n">raw_filt</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-filt-raw.fif&#39;</span><span class="p">)</span>
+<span class="n">raw_filt</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><span class="s1">&#39;easycap-M1&#39;</span><span class="p">)</span>                                  
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
+    <tr>
+        <th>Measurement date</th>
+        
+        <td>January 20, 2015  13:15:58 GMT</td>
+        
+    </tr>
+    <tr>
+        <th>Experimenter</th>
+        
+        <td>Unknown</td>
+        
+    </tr>
+        <th>Participant</th>
+        
+        <td>Unknown</td>
+        
+    </tr>
+    <tr>
+        <th>Digitized points</th>
+        
+        <td>19 points</td>
+        
+    </tr>
+    <tr>
+        <th>Good channels</th>
+        <td>16 EEG</td>
+    </tr>
+    <tr>
+        <th>Bad channels</th>
+        <td>None</td>
+    </tr>
+    <tr>
+        <th>EOG channels</th>
+        <td>Not available</td>
+    </tr>
+    <tr>
+        <th>ECG channels</th>
+        <td>Not available</td>
+    
+    <tr>
+        <th>Sampling frequency</th>
+        <td>500.00 Hz</td>
+    </tr>
+    
+    
+    <tr>
+        <th>Highpass</th>
+        <td>0.10 Hz</td>
+    </tr>
+    
+    
+    <tr>
+        <th>Lowpass</th>
+        <td>30.00 Hz</td>
+    </tr>
+    
+    
+    
+    <tr>
+        <th>Filenames</th>
+        <td>sub-001-filt-raw.fif</td>
+    </tr>
+    
+    <tr>
+        <th>Duration</th>
+        <td>00:13:38 (HH:MM:SS)</td>
+    </tr>
+</table></div></div>
 </div>
 <section id="mne-s-events-structure">
 <h3>MNE’s events structure<a class="headerlink" href="#mne-s-events-structure" title="Permalink to this heading">#</a></h3>
@@ -682,8 +753,8 @@ document.write(`
 <section id="about-event-codes">
 <h3>About Event Codes<a class="headerlink" href="#about-event-codes" title="Permalink to this heading">#</a></h3>
 <p>Most EEG systems receive event codes from the stimulus computer using an electronic communications protocol called <strong>TTL</strong>, or transistor-to-transistor logic. It’s very simple and low-level, and is done via the parallel port of a computer (which is so low-level, computers almost never have these built in anymore). The reason this arcane system is still routinely used in EEG is that its timing is very precise, which means it is the best option to get millisecond-level synchronization between when the stimulus computer presents a stimulus, and when the event code is received by the EEG system. This level of precision is vital in EEG research because the effects of interest occur on a millisecond time scale. The impact of this system for us is that the event codes stored in an EEG data file are usually restricted to integers in the range of 1–255, because that is the (8 bit) resolution of the TTL protocol (i.e., this kind of connection can inherently only send this range of values). Some EEG recording software allows the experimenter to specify text labels for each numerical event code, based on what the numbers mean in that particular experiment. However, in most cases mapping between the numerical event codes and meaningful labels is something we do in preprocessing, as shown below.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<div class="admonition-lab-streaming-layer-lsl admonition">
+<p class="admonition-title">Lab Streaming Layer (LSL)</p>
 <p>A modern replacement for TTL signals is the <a class="reference external" href="https://labstreaminglayer.org/"><strong>Lab Streaming Layer</strong></a> (LSL), which is a software-based system for sending event codes and other data between computers. LSL involves one computer running an LSL server application, which other computers (or processes on the same computer) send data to via a network connection. LSL has a sophisticated way of synchronizing timing between multiple computers, which allows for good temporal precision. Besides not requiring computers that have parallel ports, LSL can aggregate data streams from a variety of sources, including stimulus presentation software, EEG and fNIRS systems, eye trackers, motion capture systems, and more. In the present data sets we use TTL codes, however MNE supports LSL and the processes demonstrated here are similar for LSL data.</p>
 </div>
 </section>
@@ -726,6 +797,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_brainvision</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;.vhdr&#39;</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">raw_filt</span>
+
 <span class="n">events_raw</span><span class="p">,</span> <span class="n">events_dict_raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">events_from_annotations</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
 <span class="n">events_dict_raw</span>
 </pre></div>
@@ -1149,7 +1222,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/286b4ebe07f67e4fc5f044371ad2c435e173558b3b2eca30d374def74f189ce1.png" src="../_images/286b4ebe07f67e4fc5f044371ad2c435e173558b3b2eca30d374def74f189ce1.png" />
+<img alt="../_images/9954c3909d1ea59df3f25a1c464520aa5a8f2b59a63790e05b773d27286f2f14.png" src="../_images/9954c3909d1ea59df3f25a1c464520aa5a8f2b59a63790e05b773d27286f2f14.png" />
 </div>
 </div>
 <p>The above <em>butterfly plot</em> shows all electrodes on a single axis. The color of the lines indicates where ont he head the channel was located, as shown in the inset head plot.</p>
@@ -1179,20 +1252,18 @@ The above plot shows strong evidence of ocular artifacts in the data: the amplit
 </div>
 <section id="visualize-average-erp-after-ica-artifact-removal">
 <h3>Visualize Average ERP After ICA Artifact Removal<a class="headerlink" href="#visualize-average-erp-after-ica-artifact-removal" title="Permalink to this heading">#</a></h3>
-<p>We create the same butterfly plot that we did above, prior to artifact removal, so that we can see if and how the data were cleaned up. Compared to the previous plot, we can see that artifacts have been successfully removed, and the data look more like typical ERP data:</p>
-<ul class="simple">
-<li><p>the large-amplitude deflections seen above, largest at frontal channels, are no longer present</p></li>
-<li><p>the amplitude scale (<em>y</em> axis) is in the range typical of ERPs</p></li>
-<li><p>a series of early peaks typical of sensory ERPs are present</p></li>
-</ul>
+<p>Let’s create a figure with two subplots to visualize the butterfly plots before and after ICA correction. THe differences between the two seem to start around 200 ms. In general, the artifact-corrected data shows less variance across channels. This is an effect of removing ocular artifacts — blinks and eye movememnts are very large at the frontal channels and comparatively small at posterior channels — meaning the variance, or overall difference between channels, is large. Removing those artifacts reduces the variance across channels.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs_postica</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> <span class="c1"># remember the semicolon prevents a duplicated plot</span>
+<span class="n">epochs_postica</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a535f89bbc5eecc05c4a706e57b18a801e9b46580cc247805c5a20e953a5c41c.png" src="../_images/a535f89bbc5eecc05c4a706e57b18a801e9b46580cc247805c5a20e953a5c41c.png" />
+<img alt="../_images/95289f3791203bf37cc680d001b55703aff04902e4c8d8b91c86ccbed2ec2e38.png" src="../_images/95289f3791203bf37cc680d001b55703aff04902e4c8d8b91c86ccbed2ec2e38.png" />
 </div>
 </div>
 </section>
@@ -1230,12 +1301,12 @@ The above plot shows strong evidence of ocular artifacts in the data: the amplit
 <div class="output text_html"><table class="table table-hover table-striped table-sm table-responsive small">
     <tr>
         <th>Number of events</th>
-        <td>490</td>
+        <td>423</td>
     </tr>
     <tr>
         <th>Events</th>
         
-        <td>CorResp: 130<br/>IncorResp: 0<br/>Match/A: 18<br/>Match/B: 18<br/>Match/C: 17<br/>Match/D: 16<br/>Mismatch/A: 18<br/>Mismatch/B: 17<br/>Mismatch/C: 15<br/>Mismatch/D: 18<br/>PicOnset: 133<br/>RespFeedback: 1<br/>RespPrompt: 89<br/>unused: 0</td>
+        <td>CorResp: 111<br/>IncorResp: 0<br/>Match/A: 16<br/>Match/B: 17<br/>Match/C: 15<br/>Match/D: 13<br/>Mismatch/A: 16<br/>Mismatch/B: 15<br/>Mismatch/C: 13<br/>Mismatch/D: 14<br/>PicOnset: 116<br/>RespFeedback: 1<br/>RespPrompt: 76<br/>unused: 0</td>
         
     </tr>
     <tr>
@@ -1260,7 +1331,7 @@ The above plot shows strong evidence of ocular artifacts in the data: the amplit
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4964fafe88d3fab53896b9bd3f32840c2af39219c02db7e58e0f15b912e9998e.png" src="../_images/4964fafe88d3fab53896b9bd3f32840c2af39219c02db7e58e0f15b912e9998e.png" />
+<img alt="../_images/76a9c491a0bb200364dc0842c9c1e61b1d7c37da71dfb1300e5effd01e94ee5a.png" src="../_images/76a9c491a0bb200364dc0842c9c1e61b1d7c37da71dfb1300e5effd01e94ee5a.png" />
 </div>
 </div>
 </section>
@@ -1269,7 +1340,7 @@ The above plot shows strong evidence of ocular artifacts in the data: the amplit
 <p>Let’s again plot the average ERPs across all Match and Mismatch trials, after AutoReject has been applied. We’ll create a figure with two subplots so we can compare the average before and after data cleaning with ICA + AutoReject:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 
 <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> <span class="c1"># remember the semicolon prevents a duplicated plot</span>
 <span class="n">epochs_clean</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
@@ -1277,7 +1348,7 @@ The above plot shows strong evidence of ocular artifacts in the data: the amplit
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/297cced48ad371a7bf9cb93f42c8e719e8a6920da8aec0ae68ded801ac48e8d6.png" src="../_images/297cced48ad371a7bf9cb93f42c8e719e8a6920da8aec0ae68ded801ac48e8d6.png" />
+<img alt="../_images/244d64eb9d8fdb763eead30c3349697ff46a70e4dc0d98fc0d1a9d3721419178.png" src="../_images/244d64eb9d8fdb763eead30c3349697ff46a70e4dc0d98fc0d1a9d3721419178.png" />
 </div>
 </div>
 <p>The data look very similar in the two panels, but there are some differences. In particular, the variability in amplitude across channels is larger prior to artifact removal. Notably, the anterior channels (shown in green/yellow hues) seem to cluster together, and are different in amplitude from other channels. This suggests that there were some ocular artifacts in the later portion of some of the epochs — since ocular artifacts are much larger over anterior than posterior channels. After cleaning, the differences between channels are decreased, providing evidence that the cleaning process had an effect.</p>
@@ -1296,7 +1367,7 @@ The above plot shows strong evidence of ocular artifacts in the data: the amplit
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b9a474ca306b6e58e1b515475c2e659c4c148f04034dc4aefad4494298fe34aa.png" src="../_images/b9a474ca306b6e58e1b515475c2e659c4c148f04034dc4aefad4494298fe34aa.png" />
+<img alt="../_images/21a81a1d5c8506917b6138ea5f1e965067b44b5ce7246b7dca8e1d42130b3b8f.png" src="../_images/21a81a1d5c8506917b6138ea5f1e965067b44b5ce7246b7dca8e1d42130b3b8f.png" />
 </div>
 </div>
 <p>We can plot the Mismatch trials separately from the Match trials, to see if there are any differences in the scalp topography of the ERPs between the two conditions:</p>
@@ -1307,7 +1378,7 @@ The above plot shows strong evidence of ocular artifacts in the data: the amplit
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e445423f5fc7fb2985a6acb1b97264727f47d5b8d5e9e4f11e66bb9a5f253f2b.png" src="../_images/e445423f5fc7fb2985a6acb1b97264727f47d5b8d5e9e4f11e66bb9a5f253f2b.png" />
+<img alt="../_images/06ff65cb31b26b90887481ba6eb663cfcb1afe2fed9d1f75513e5b479377240c.png" src="../_images/06ff65cb31b26b90887481ba6eb663cfcb1afe2fed9d1f75513e5b479377240c.png" />
 </div>
 </div>
 <p>There do seem to be differences, but be careful: look at the range of microVolt values in the colorbars for each plot. They are different. By default, MNE scales the range of the colorbar in topo plots to the range of values in each data object that is passed to it. This is useful bin visualizing the scalp distribution of effects in any particular condition, but it makes it impossible to compare between conditions. But to compare between two plots, we need to ensure that the colorbar ranges are the same for both. We can use the <code class="docutils literal notranslate"><span class="pre">vlim</span></code> kwarg to specify the range of values to use for the <em>y</em> axis and colorbar. Here we use the same range for both conditions, so that we can compare them. Since one plot’s range is ±10 µV, and the other is ±6 µV, we use ±8 as a compromise</p>
@@ -1332,11 +1403,11 @@ The above plot shows strong evidence of ocular artifacts in the data: the amplit
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Match
 </pre></div>
 </div>
-<img alt="../_images/f18ab932a6b94045b10245921287c0a4748ee9b5a4a619a7678fc2eb387d6a75.png" src="../_images/f18ab932a6b94045b10245921287c0a4748ee9b5a4a619a7678fc2eb387d6a75.png" />
+<img alt="../_images/6ba42329b6365d9d1888589759a77a8eeb152a9a4a320b2aa7d2544c4f2a572c.png" src="../_images/6ba42329b6365d9d1888589759a77a8eeb152a9a4a320b2aa7d2544c4f2a572c.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch
 </pre></div>
 </div>
-<img alt="../_images/b5aba3644d5eeaa7a7c48046dbf008ccbf1c0ecdc7c20df6f07a00733f2a1005.png" src="../_images/b5aba3644d5eeaa7a7c48046dbf008ccbf1c0ecdc7c20df6f07a00733f2a1005.png" />
+<img alt="../_images/6071439d8e3dfcd53427632ab1e63e185f928660edcf41b467759ef84c4a522f.png" src="../_images/6071439d8e3dfcd53427632ab1e63e185f928660edcf41b467759ef84c4a522f.png" />
 </div>
 </div>
 <p>The differences between conditions appear smaller now, however some differences are still visible. In the next lesson we’ll explore how to visualize differences between conditions in more detail.</p>
