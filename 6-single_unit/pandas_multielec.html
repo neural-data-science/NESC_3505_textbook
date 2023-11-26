@@ -752,18 +752,6 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">20</span> <span class="o">/</span> <span class="mi">2</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15585.15
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section id="electrodes">
 <h3>Electrodes<a class="headerlink" href="#electrodes" title="Permalink to this heading">#</a></h3>
@@ -785,8 +773,8 @@ Channel labels: [4.0, 7.0, 10.0, 22.0, 23.0, 32.0, 35.0, 42.0, 44.0, 45.0, 63.0,
 </div>
 </div>
 </div>
-<p>This is a bit weird — we’re told this is a 96 electrode array, but there are only 15 electrodes?!</p>
-<p>This is because the full data set is huge, with over 2 million rows. The amount of memory that this requires makes doing anything with the data quite slow. So we’ve provided data for a subset of channels for the purposes of this tutorial.</p>
+<p>This is a bit weird — we’re told this is a 96 electrode array, but there are only 20 electrodes?!</p>
+<p>This is because the full data set is huge, with over 2 million rows. The amount of memory that this requires makes doing anything with the data quite slow. So we’ve provided data from a subset of channels for the purposes of this tutorial.</p>
 </section>
 <section id="orientations">
 <h3>Orientations<a class="headerlink" href="#orientations" title="Permalink to this heading">#</a></h3>
@@ -805,14 +793,13 @@ Channel labels: [4.0, 7.0, 10.0, 22.0, 23.0, 32.0, 35.0, 42.0, 44.0, 45.0, 63.0,
 </div>
 </div>
 </div>
-<p>So most channels contain activity from one neuron, but channel 20 picked up 4 neurons, and 29 and 60 each picked up 2 neurons.</p>
 </section>
 </section>
 <hr class="docutils" />
 <section id="peri-stimulus-time-histograms-psth">
 <h2>Peri-Stimulus Time Histograms (PSTH)<a class="headerlink" href="#peri-stimulus-time-histograms-psth" title="Permalink to this heading">#</a></h2>
 <p>Since we have thousands of trials, we’re not going to plot rasters for this data set. Since PSTHs collapse across trials, this is a more convenient and compact way of representing spiking activity as a function of time.</p>
-<p>Let’s start by plotting the PSTH for one channel, #4:</p>
+<p>Let’s start by extracting the data for one channel, #4:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dat</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)]</span>
@@ -844,6 +831,7 @@ Channel labels: [4.0, 7.0, 10.0, 22.0, 23.0, 32.0, 35.0, 42.0, 44.0, 45.0, 63.0,
 </section>
 <section id="plot-the-psth">
 <h3>Plot the PSTH<a class="headerlink" href="#plot-the-psth" title="Permalink to this heading">#</a></h3>
+<p>Since the independent variable in this experiment was the orientation of the stimulus, we’ll plot PSTHs for each orientation separately.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1178,7 +1166,7 @@ Channel labels: [4.0, 7.0, 10.0, 22.0, 23.0, 32.0, 35.0, 42.0, 44.0, 45.0, 63.0,
 </table>
 </div></div></div>
 </div>
-<p>Then we can merge the labels and histograms with <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>. The first argumrnt to <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> is a list of the DataFrames you want to merge, and the <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> kwarg is used to specify that we want to merge by columns (add the two DataFrames side-by-side, instead of one on top of the other).</p>
+<p>Then we can merge the labels and histograms with <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>. The first argument to <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> is a list of the DataFrames you want to merge, and the <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> kwarg is used to specify that we want to merge by columns (add the two DataFrames side-by-side, instead of one on top of the other).</p>
 <p>Note that we don’t assign the output to a new variable, we just view the head, because we’re actually going to make the final version of this DataFrame a different way below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1697,13 +1685,15 @@ Channel labels: [4.0, 7.0, 10.0, 22.0, 23.0, 32.0, 35.0, 42.0, 44.0, 45.0, 63.0,
 <img alt="../_images/f5507dd7faccca73e0eeb098ec3afafc83bb240798bba2a58955b68781db4c65.png" src="../_images/f5507dd7faccca73e0eeb098ec3afafc83bb240798bba2a58955b68781db4c65.png" />
 </div>
 </div>
-<p>Note above the differences in total spike counts (<em>y</em> axis ranges) between sort codes. This is because the data are summed over channels; every channel as at least a sort code of 1 (i.e., contains data from one neuron/unit), but fewer channels were found to contain data from two or more units. So decreasing amounts of data contribute to the averages for sort codes 1-4.</p>
-<p>One thing you’ll note above is that there are some missing panels, including channels 21, 31, 34, 56, and 68. As noted above, these are the dead channels. The way the code above is written, we use the channel number as the index for the subplot position. Since there is no channel in the <code class="docutils literal notranslate"><span class="pre">channels</span></code> list for the dead channels, those subplot panels are simply left blank.</p>
-<p>Beyond that, it’s clear that different channels show very different response profiles. Some (e.g., 1, 2, 4, 5) show clear transient peaks in spiking activity soon after stimulus onset. Others do not. Some of the channels that show this initial peak return to baseline (low) levels of firing soon after, while others (e.g., 1, 20, 72) show a sustained plateau as long as the stimulus is on. Others (e.g., 3, 62) show no initial peak, but a steady rise in firing rate as the stimulus duration increases. As well, a few channels show orientation sensitivity, with clearly different responses between 0 (blue) and 90 (red) degree gratings (e.g., 29, 63, 75, 76, 91).</p>
+<p>Note above the differences in total spike counts (<em>y</em> axis ranges) between channels. In this case we haven’t normalized the spike counts, so each subplot is scaled to the range of values for that channel. Generally speaking, this is fine, because we are primarily interested in the shapes of the PSTHs over time. However, note that the channels that appear particularly noisy (e.g., channels 0, 5, 9, and 18) all have maximum <em>y</em> axis values of well under 20 spikes, whereas the scale on most other channels is in the hundreds or thousands. This suggests these channels are not really noisy, but have very low firing rates and likely do not reflect the activity of neurons.</p>
 </section>
 </section>
 <section id="interpreting-the-data">
 <h2>Interpreting the data<a class="headerlink" href="#interpreting-the-data" title="Permalink to this heading">#</a></h2>
+<p>If you examine the set of PSTHs above, you will see than a number of channels show very similar patterns, with a transient spike in firing rate immediately after stimulus onset, followed by a plateau. However, even among the neurons that show a strong initial response, there are different patterns. Some, like 1 and 12, show a return to baseline after the initial spike. This is a classic response pattern of neurons in primary visual cortex (V1). In contrast others, like 4 and 7, show a sustained level of firing as long as the stimulus is on, and then a decrease to baseline after it turns off. Another difference is between channels that show “transients” (brief oscillations) after the initial spike (e.g., 4, 8, 12, and particularly 16) and those that do not (e.g., 0, 11).</p>
+<p>A couple of channels (13, 17, 10, 15) show oscillations in firing rates over the entire duration of the stimulus. Across the entire array of 96 neurons, we could potentially identify different subtypes of neurons based on these different response patterns.</p>
+<p>Most relevant to the present experiment though, was the manipulation of stimulus orientation. We can see that only a few channels show a clear difference in firing rate between the two orientations. Most notably are 13, 17, 6, and 10, but 15 also shows an interesting pattern whereby the 0 deg orientation (blue) evokes an oscillation for the duration of the stimulus that the 90 deg stimulus does not.</p>
+<p>A number of different analysis approaches could be applied to the data at this point. For example, we could use a statistical test to determine whether the difference in firing rate between the two orientations is significant at each channel, and over what time interval(s). We could also use a clustering algorithm to identify subtypes of neurons based on their response patterns. We could also use a dimensionality reduction technique to identify the main dimensions of variation in the data. We will not pursue these analyses in detail, but in the next section we will look at one important step towards analyzing multi-channel data, which is identifying relationships between different channels in the array.</p>
 </section>
 </section>
 
