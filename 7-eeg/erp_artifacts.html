@@ -851,7 +851,7 @@ document.write(`
 <span class="n">ica</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">ICA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">ica_n_components</span><span class="p">,</span>
                             <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
                             <span class="p">)</span>
-<span class="n">ica</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs_ica</span><span class="p">)</span>
+<span class="n">ica</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs_ica</span><span class="p">[</span><span class="o">~</span><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span><span class="p">],</span> <span class="n">decim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -863,12 +863,12 @@ document.write(`
     </tr>
     <tr>
         <th>Fit</th>
-        <td>31 iterations on epochs (409317 samples)</td>
+        <td>17 iterations on epochs (125083 samples)</td>
     </tr>
     
     <tr>
         <th>ICA components</th>
-        <td>12</td>
+        <td>13</td>
     </tr>
     <tr>
         <th>Available PCA components</th>
@@ -891,8 +891,8 @@ document.write(`
 <section id="visualize-ica-components">
 <h2>Visualize ICA components<a class="headerlink" href="#visualize-ica-components" title="Permalink to this heading">#</a></h2>
 <p>Every IC (an independent component identified by ICA) is a signal that varies over time, that has a “weighting” at each channel - reflecting how strongly present that IC is in that channel. In other words, the time course of an IC is the same at all electrodes, but it is bigger at some, and smaller at others.</p>
-<p>We can visualize each component as a <strong>scalp topography map</strong>, showing where on the scalp the IC is largest. <em>Topo maps</em>, as they are often abbreviated, are a different way of visualizing EEG data than we’ve seen before. Whereas previously we’ve viewed EEG as electrical potential over time, topo maps show how the potentials are distributed <em>spatially</em>, at a specific point in time (or averaged over a period of time). The maps use the red-blue color map where red is positive, blue is negative, and white is zero. “Positive” and “negative” in ICA topo maps can reflect cases where a component has the same shape over time, but opposite (negative vs. positive) electrical polarity at different scalp locations. This can be seen, for example, in <code class="docutils literal notranslate"><span class="pre">ICA001</span></code> below, which reflects the opposite polarities induced by horizontal eye movements.</p>
-<p>Indeed, in the figure below we can see that a few ICs are likely ocular artifacts, because they weight most heavily around the front of the head (the top of each subplot, where the nose is drawn). In particular, <code class="docutils literal notranslate"><span class="pre">ICA000</span></code> is likely blink artifacts, and <code class="docutils literal notranslate"><span class="pre">ICA002</span></code> is likely horizontal eye movements.</p>
+<p>We can visualize each component as a <strong>scalp topography map</strong>, showing where on the scalp the IC is largest. <em>Topo maps</em>, as they are often abbreviated, are a different way of visualizing EEG data than we’ve seen before. Whereas previously we’ve viewed EEG as electrical potential over time, topo maps show how the potentials are distributed <em>spatially</em>, at a specific point in time (or averaged over a period of time). The maps use the red-blue color map where red is positive, blue is negative, and white is zero. “Positive” and “negative” in ICA topo maps can reflect cases where a component has the same shape over time, but opposite (negative vs. positive) electrical polarity at different scalp locations. This can be seen, for example, in <code class="docutils literal notranslate"><span class="pre">ICA002</span></code> below, which reflects the opposite polarities induced by horizontal eye movements.</p>
+<p>Indeed, in the figure below we can see that a few ICs are likely ocular artifacts, because they weight most heavily around the front of the head (the top of each subplot, where the nose is drawn). In particular, <code class="docutils literal notranslate"><span class="pre">ICA001</span></code> is likely blink artifacts, and <code class="docutils literal notranslate"><span class="pre">ICA002</span></code> is likely horizontal eye movements.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ica</span><span class="o">.</span><span class="n">plot_components</span><span class="p">();</span>
@@ -900,7 +900,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9c0ab2df9bd33199682145bbe856ec28c28ce4af798f0823d6d60bd5c3458d50.png" src="../_images/9c0ab2df9bd33199682145bbe856ec28c28ce4af798f0823d6d60bd5c3458d50.png" />
+<img alt="../_images/8b56a724a9caed5e95dc2f7ea5c31a1ba5388811f62c5447c9163ca5b6fcf6e2.png" src="../_images/8b56a724a9caed5e95dc2f7ea5c31a1ba5388811f62c5447c9163ca5b6fcf6e2.png" />
 </div>
 </div>
 </section>
@@ -924,18 +924,19 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f5d6d5c4cb1212b450ee3c37251b045f4555712ee829aefb0af2abb765326741.png" src="../_images/f5d6d5c4cb1212b450ee3c37251b045f4555712ee829aefb0af2abb765326741.png" />
-<img alt="../_images/dd8a437efde647f97e55642e696af8b2bbc592496be0b66b5e6c480eaf8db2a7.png" src="../_images/dd8a437efde647f97e55642e696af8b2bbc592496be0b66b5e6c480eaf8db2a7.png" />
-<img alt="../_images/e8569d797eba92169f7b22c3ccd774aa2df3a399667e5b00ffc00910f870e7da.png" src="../_images/e8569d797eba92169f7b22c3ccd774aa2df3a399667e5b00ffc00910f870e7da.png" />
-<img alt="../_images/849466838b474e69cb835c34c5bb85f503cc94788d8fd7cc784077d3c74e18be.png" src="../_images/849466838b474e69cb835c34c5bb85f503cc94788d8fd7cc784077d3c74e18be.png" />
-<img alt="../_images/0866ab1023846b92a2bb09a05d38c7c1030f8d8e2541c5aeb46acbe38cd2ddec.png" src="../_images/0866ab1023846b92a2bb09a05d38c7c1030f8d8e2541c5aeb46acbe38cd2ddec.png" />
-<img alt="../_images/818aa31c411b6dacf3033edb85b77c94a5fb0c5a84d01abb892c8334f48ee4c1.png" src="../_images/818aa31c411b6dacf3033edb85b77c94a5fb0c5a84d01abb892c8334f48ee4c1.png" />
-<img alt="../_images/f7e248dae5523f0af3d653309a564d790ed83cf215554b1ffcba31fff240b0f0.png" src="../_images/f7e248dae5523f0af3d653309a564d790ed83cf215554b1ffcba31fff240b0f0.png" />
-<img alt="../_images/2808b7c4ec561c6f1447dd705a2fc7c630322ad9ceb8cad69bdd2059d3098d02.png" src="../_images/2808b7c4ec561c6f1447dd705a2fc7c630322ad9ceb8cad69bdd2059d3098d02.png" />
-<img alt="../_images/73d6c1772b30b582aaab8e5052a88d6b41e23b6d15b5b57b584c5013547bdf81.png" src="../_images/73d6c1772b30b582aaab8e5052a88d6b41e23b6d15b5b57b584c5013547bdf81.png" />
-<img alt="../_images/6100b8f4cdf7cba1612cc1d3e6bdca98417d43c124e9f43c47ac3dac4b066927.png" src="../_images/6100b8f4cdf7cba1612cc1d3e6bdca98417d43c124e9f43c47ac3dac4b066927.png" />
-<img alt="../_images/2c9b12978665cf346e958efa9d62fe78f13d0bbd4b325342b590cb28a343fa1d.png" src="../_images/2c9b12978665cf346e958efa9d62fe78f13d0bbd4b325342b590cb28a343fa1d.png" />
-<img alt="../_images/f340996505eebd7c41dd5f07ef8a070ae09aa6807e9ef3a0d837450a466b678e.png" src="../_images/f340996505eebd7c41dd5f07ef8a070ae09aa6807e9ef3a0d837450a466b678e.png" />
+<img alt="../_images/f1eef9cf7d829be8d976e3e261773f8b3b213aa32f7c16650f819f318be72f20.png" src="../_images/f1eef9cf7d829be8d976e3e261773f8b3b213aa32f7c16650f819f318be72f20.png" />
+<img alt="../_images/abbfa8528892b0cd0bfc556181b85ab7abc393f43b1fdcd58b68b08dfebc6dcb.png" src="../_images/abbfa8528892b0cd0bfc556181b85ab7abc393f43b1fdcd58b68b08dfebc6dcb.png" />
+<img alt="../_images/d84fed28ec1960e578e88be9ad380626b1368209bb596fcfcfdc55770b0df452.png" src="../_images/d84fed28ec1960e578e88be9ad380626b1368209bb596fcfcfdc55770b0df452.png" />
+<img alt="../_images/69ca7a80a9ae2ed90f09665c5ca13913260f03465ad9a4218d4eedf740245cf3.png" src="../_images/69ca7a80a9ae2ed90f09665c5ca13913260f03465ad9a4218d4eedf740245cf3.png" />
+<img alt="../_images/158bdd1209c54eef174fa5d49dafe903a31df97a6c56fce2215172c773d38305.png" src="../_images/158bdd1209c54eef174fa5d49dafe903a31df97a6c56fce2215172c773d38305.png" />
+<img alt="../_images/37da3d087cfbc8d0caa778bdc778e04927a20c44f3794765b712ddd4395cb384.png" src="../_images/37da3d087cfbc8d0caa778bdc778e04927a20c44f3794765b712ddd4395cb384.png" />
+<img alt="../_images/4f916c6f9612a43d12793e2e762c622c985b36cbe2216cd81b13f0d03e14e7db.png" src="../_images/4f916c6f9612a43d12793e2e762c622c985b36cbe2216cd81b13f0d03e14e7db.png" />
+<img alt="../_images/f7b080445975e3180862ebbd5299fa7e57dff3b3ea74b29a2b3cd384c8049dcc.png" src="../_images/f7b080445975e3180862ebbd5299fa7e57dff3b3ea74b29a2b3cd384c8049dcc.png" />
+<img alt="../_images/d988518ca0e550cbd473bf734b9cf66bf8e0118e4bfc8e3ed95684b15f7388a2.png" src="../_images/d988518ca0e550cbd473bf734b9cf66bf8e0118e4bfc8e3ed95684b15f7388a2.png" />
+<img alt="../_images/b26f8141390fe49940d71faa20e6b2490695572a2e400cd981365779aff42d8d.png" src="../_images/b26f8141390fe49940d71faa20e6b2490695572a2e400cd981365779aff42d8d.png" />
+<img alt="../_images/7891388d70ed2e5ba90c4267742939321db1bb9c1505a87c8e2e281f0c0cd63d.png" src="../_images/7891388d70ed2e5ba90c4267742939321db1bb9c1505a87c8e2e281f0c0cd63d.png" />
+<img alt="../_images/7ed93bf134af688855f1df9b0c77d5883ee67ecdbfdeeb5475b97032a89654a9.png" src="../_images/7ed93bf134af688855f1df9b0c77d5883ee67ecdbfdeeb5475b97032a89654a9.png" />
+<img alt="../_images/3ec85e81117655125744339b9cf7bf39cc76b5fe696d792afd6b28ae265cf13b.png" src="../_images/3ec85e81117655125744339b9cf7bf39cc76b5fe696d792afd6b28ae265cf13b.png" />
 </div>
 </div>
 </section>
@@ -952,7 +953,7 @@ document.write(`
 <span class="n">num_excl</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">max_ic</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">z_thresh</span> <span class="o">=</span> <span class="mf">3.5</span>
-<span class="n">z_step</span> <span class="o">=</span> <span class="mf">.1</span>
+<span class="n">z_step</span> <span class="o">=</span> <span class="mf">.05</span>
 
 <span class="k">while</span> <span class="n">num_excl</span> <span class="o">&lt;</span> <span class="n">max_ic</span><span class="p">:</span>
     <span class="n">eog_indices</span><span class="p">,</span> <span class="n">eog_scores</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">find_bads_eog</span><span class="p">(</span><span class="n">epochs_ica</span><span class="p">,</span>
@@ -970,7 +971,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Final z threshold = 2.1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Final z threshold = 2.3
 </pre></div>
 </div>
 </div>
@@ -986,9 +987,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/248c098443daa7a43ad9088018c6037dc00e12f1a3186f408b14dda891ef725b.png" src="../_images/248c098443daa7a43ad9088018c6037dc00e12f1a3186f408b14dda891ef725b.png" />
+<img alt="../_images/9403269f8bc06fbb488ffa4345fc6139d7465a4efaefb5ee3c24d0e40df7c57c.png" src="../_images/9403269f8bc06fbb488ffa4345fc6139d7465a4efaefb5ee3c24d0e40df7c57c.png" />
 </div>
 </div>
+<p>In the above plot we can see that ICs <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code> had the highest correlation values, and were rejected. This is what we expected, based on the scalp topographies and other properties of these ICs that we saw above.</p>
 </section>
 </section>
 <section id="save-ica">
