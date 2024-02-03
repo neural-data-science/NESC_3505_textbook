@@ -10,11 +10,11 @@ From a data science perspective, MRI data is a type of **image data**. Images ar
 
 The values in the MRI image represent the intensity of the image at that location. In the case of sMRI, the values effectively represent the density of water in the brain at that location. If we plot these values as colors on a greyscale, we can see the structure of the brain. For example, here is a slice through the brain:
 
-```{figure} images/aarbw.jpg}
+```{figure} images/aarbw.jpg
 ---
+align: Center
 width: 300px
 name: aarbw
-align: Center
 alt: A sagittal slice through the brain of a human, through the midline of the head. THe cerebral cortex and corpus callosum are visible, as are the ventricles and cerebrospinal fluid around the brain. The outer surface of the head is also shown, including the nose and mouth.
 ---
 A *sagittal* slice (i.e., looking at the head from the side) through the brain of a human. This image was acquired with a T1-weighted sequence, which represents areas of high water density as dark, and areas of low water intensity as bright. These intensity values represented as colors on a greyscale. White matter appears brighter than grey matter, because it has a lower water density and more fat. The cerebral cortex is the outer layer of the brain, and is made up of grey matter; it appears darker as grey matter has less fatty myelin than white matter. The ventricles and are around the brain are filled with cerebrospinal fluid (CSF), which has a higher water concentration than the brain, and so appears black.
