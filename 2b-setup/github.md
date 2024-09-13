@@ -2,9 +2,9 @@
 
 The first thing you'll need to do is to create a GitHub account. **You must sign up with your university email address (i.e., ending in `@dal.ca`)**. This will ensure that you can get GitHub student benefits. It's also necessary because we will be using GitHub Classroom, which is a service that allows instructors to create repositories for individual classes, and distribute assignments as repositories. For academic credit (and integrity), we require you to use your university-issued email account. 
 
-```{note}
+:::{tip}
 If you are reading this book as a self-directed learner, and not part of the Dalhousie University course, you can still get a GitHub student account if you are a university or high school student. The instructions are basically the same as given here, other than the email address you use. You will need to provide proof of your student status, such as a student ID card or transcript.
-```
+:::
 
 ## Sign up for GitHub
 
