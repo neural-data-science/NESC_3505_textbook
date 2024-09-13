@@ -1,3 +1,8 @@
+```{figure} images/github_octocat.png
+---
+align: left
+width: 65px
+```
 # Get on GitHub
 
 The first thing you'll need to do is to create a GitHub account. **You must sign up with your university email address (i.e., ending in `@dal.ca`)**. This will ensure that you can get GitHub student benefits. It's also necessary because we will be using GitHub Classroom, which is a service that allows instructors to create repositories for individual classes, and distribute assignments as repositories. For academic credit (and integrity), we require you to use your university-issued email account. 
