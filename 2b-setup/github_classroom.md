@@ -5,7 +5,7 @@ If you are taking this course for credit at Dalhousie University, you need to fo
 If you are reading the textbook as an independent learner, you can still obtain all of the course materials for free, but the instructions are slightly different. See the [independent learner instructions](./github_materials.md) for more information. However, if you are a Dalhousie student, be sure to work from the GiHub classroom, because that is also where you will receive and submit assignments. Also, some of the materials may be updated specifically for the course, before they are updated in the textbook.
 
 ## Prerequisites
-Before you can do the steps here, you need to have already [created a GitHub account](./github.md), and installed both [GitHub Desktop](./github_desktop.md) and [VS Code](./vscode.md).
+Before you can do the steps here, you need to have already [created a GitHub account](./github.md).
 
 ## Find your GitHub Classroom
 To access the GitHub classroom for this course, find the link provided by your instructor on the course LMS (Brightspace). Click that link and follow the instructions to link your GitHub account to the classroom. As discussed before, it's required that your GitHub account shows your real name, so that your instructor can identify you. 
