@@ -1,4 +1,4 @@
-```{figure} images/github_octocat.png
+```{figure} ../2-nds/images/github_octocat.png
 ---
 align: left
 width: 65px
