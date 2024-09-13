@@ -9,9 +9,9 @@ There are a number of ways that you can install Python on your own computer. In 
 
 **Windows Users** can install Anaconda for "just me" or for all users on the computer. Either is fine, however if your user name has a space in it, you may get a warning about this. If you do, you should install Anaconda for all users. If you don't get a warning, you can install it for just you.
 
-```{note}
-Anaconda is the easiest way to get Python and all the libraries we need for this course. However, it is a large install --- the [system requirements](https://docs.anaconda.com/anaconda/install/) say you need 5 GB of space available on your hard drive. If you don't have this much space, you can install a smaller version of Anaconda called Miniconda, which is a minimal version of Anaconda that you can then add packages to as needed. The downside of installing Miniconda is that you will need to install key Python packages manually, using the command line. Instructions for doing this are provided [here](miniconda.md).
-```
+:::note}
+Anaconda is the easiest way to get Python and all the libraries we need for this course. However, it is a large install --- the [system requirements](https://docs.anaconda.com/anaconda/install/) say you need 5 GB of space available on your hard drive. If you don't have this much space, you can install a smaller version of Anaconda called Miniconda, which is a minimal version of Anaconda that you can then add packages to as needed. The downside of installing Miniconda is that you will need to install key Python packages manually, using the command line. Instructions for doing this are provided [here](2b-setup/miniconda).
+:::
 
 ## Running Anaconda
 Once you have installed Anaconda on your computer, you should find the application and launch it (if it didn't start already at the end of the install). On Windows, you can find it in the Start menu, and on Mac, you can find it in the Applications folder. On Linux, you can launch it from the command line by typing `anaconda-navigator`. 
