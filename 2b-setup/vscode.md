@@ -84,6 +84,15 @@ Now you can install the environment by typing the following command and pressing
 mamba env create -f neural_data_science.yml
 ```
 
+:::{error}
+If you're working on a Mac, you may encounter an error when trying to run the above command. If so, try running the following command first:
+```
+sudo conda init zsh
+```
+Enter your computer password when prompted. Then close and re-open the terminal window, and try running the `mamba env create -f neural_data_science.yml` command again.
+:::
+
+
 This will take a while (up to 10 minutes, perhaps longer depending on your computer and internet connection), as it downloads and installs all the packages you need. You will see a lot of output in the terminal window, as each package is downloaded and installed. You may see some warnings or errors, but as long as the process completes, you should be fine. If you see an error message that says something like "failed with initial frozen solve", you can ignore it. This is a known issue with the `mamba` package manager, and it doesn't affect the installation process.
 
 Once this process is complete, you should quit VS Code then re-open it. This ensures that it will see the new environment.
