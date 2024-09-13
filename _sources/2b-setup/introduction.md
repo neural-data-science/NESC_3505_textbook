@@ -10,6 +10,7 @@ For working through this textbook, we provide a cloud-based solution called **Gi
 
 :::{tip}
 If you want to use GitHub Codespaces, you can skip the rest of this chapter and go directly to the next chapter, [Introducing Python](../3-python/introduction).
+:::
 
 ## Installing and Running Python on Your Own Computer
 
