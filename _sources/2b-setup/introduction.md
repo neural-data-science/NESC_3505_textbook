@@ -2,11 +2,14 @@
 
 This is our first hands-on chapter, where you will set up the necessary accounts, and install the necessary software, to get up and running with the tools you will need in this course.
 
-There are some platforms, like [Google Collab](https://colab.research.google.com/] (which is free to use) and [CoCalc](https://cocalc.com/) (which is nominally free but allows paid upgrades for more computing resources), that allow you to run Python code in the cloud. These are great for learning, because you can basically just go to a website and start coding. However, they are not always ideal for doing real work. For example, if you're working with real neural (or other) data, you would need to upload it to the cloud of the service provider you're using. This could be a violation of the research ethics and/or privacy laws of your institution or location, or you might have large data files that make this challenging.
+There are some platforms, like [Google Collab](https://colab.research.google.com/) (which is free to use) and [CoCalc](https://cocalc.com/) (which is nominally free but allows paid upgrades for more computing resources), that allow you to run Python code in the cloud. These are great for learning, because you can basically just go to a website and start coding. However, they are not always ideal for doing real work. For example, if you're working with real neural (or other) data, you would need to upload it to the cloud of the service provider you're using. This could be a violation of the research ethics and/or privacy laws of your institution or location, or you might have large data files that make this challenging.
 
 ## GitHub Codespaces
 
 For working through this textbook, we provide a cloud-based solution called **GitHub Codespaces**. This is a service provided by GitHub that allows you to run a virtual machine in the cloud, and code in a web-based version of Visual Studio Code. This is a great way to get started, because you don't need to install anything on your own computer. And, because all the course materials are distributed via GitHub already, it's very easy to use these to work through the course materials. However, it can be slow, and you may run into limitations on the amount of data you can store or process. As well, Codespaces run as *containers*, which means they come pre-packages with a set of files inside them, but can't access files outside the codespace. This means it's not trivial to import new data, or use them outside of the course materials. (You can certainly do it, but teaching you how is beyond the scope of this textbook.)
+
+:::{tip}
+If you want to use GitHub Codespaces, you can skip the rest of this chapter and go directly to the next chapter, [Introducing Python](../3-python/introduction).
 
 ## Installing and Running Python on Your Own Computer
 
