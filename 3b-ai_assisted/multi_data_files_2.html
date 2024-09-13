@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Computing Mean Reaction Times and Confidence Intervals &#8212; Neural Data Science in Python</title>
   
@@ -15,47 +14,45 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-1SNTM6T50K"></script>
     <script>
                 window.dataLayer = window.dataLayer || [];
@@ -63,15 +60,19 @@
                 gtag('js', new Date());
                 gtag('config', 'G-1SNTM6T50K');
             </script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-1SNTM6T50K');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '3b-ai_assisted/multi_data_files_2';</script>
     <link rel="canonical" href="http://neuraldatascience.io/3b-ai_assisted/multi_data_files_2.html" />
-    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Formatting the Output in a Table" href="multi_data_files_3.html" />
@@ -85,27 +86,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -127,8 +124,13 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -152,6 +154,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../intro.html">
   
@@ -169,7 +173,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -184,7 +199,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../1-intro/why.html">Start with why</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1-intro/learning_objectives.html">Learning Objectives for this Course</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../syllabus.html">Syllabus</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/learning_approach.html">How to Approach this Course</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/learning_approach.html">How to Approach this Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/actually_write_code.html">Actually Write Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/mindset.html">Mindset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/flipped_classroom.html">Flipped Classroom</a></li>
@@ -192,16 +207,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/ai.html">Artificial Intelligence-Assisted Coding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/teamwork.html">Collaboration and Teamwork</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/pedagogy.html">Pedagogy</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/pedagogy.html">Pedagogy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/teaching_approach.html">Teaching Approach</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/authenticity.html">Authenticity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/21st_cen_skills.html">21st Century Skills</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/constructivism.html">Constructivism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/connectivism.html">Connectivism</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/open.html">Open Resources</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/open.html">Open Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/software.html">Free Software</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/free_licenses.html">Free and Open-Source Software Licenses</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/open_science.html">Open Science</a></li>
@@ -216,20 +231,20 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/oer_this_course.html">OERs in the Context of this Course</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/licenses.html">Licenses</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Data Science</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../2-nds/introduction.html">Getting Started with the Course</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2-nds/learning_objectives.html">Learning Objectives</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/what_is_nds.html">What is Data Science?</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/what_is_nds.html">What is Data Science?</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/data.html">What is Data?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/where.html">Where Does Neural Data Come From?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/data_science.html">Data Science</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/data_cleaning.html">Data Cleaning</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/tools_for_nds.html">Tools for Neural Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/tools_for_nds.html">Tools for Neural Data Science</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/spreadsheets.html">Spreadsheets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/spreadsheets_limits.html">Limitations of Spreadsheets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/reproducibility.html">Reproducibility</a></li>
@@ -238,8 +253,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/libs.html">Libraries and packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/why_python.html">Why Python for this Course?</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/coding.html">Coding Tools</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/coding.html">Coding Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/python.html">Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/terminal.html">The Terminal and Command Line</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/jupyter.html">Jupyter</a></li>
@@ -247,27 +262,28 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/vscode.html">Visual Studio Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/github.html">GitHub</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Set Up Your Computer for Data Science</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Some Assembly Required</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/learning_objectives.html">Learning Objectives</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/install_tools.html">Install Tools for Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github.html">Get on GitHub</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/install_tools.html">Install on Your Computer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/anaconda.html">Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/miniconda.html">Miniconda</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/vscode.html">VS Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github_classroom.html">GitHub Classroom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github_desktop.html">GitHub Desktop</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/first_repo.html">Your First GitHub Repository</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/first_repo.html">Your First GitHub Repository</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/clone.html">Clone a Repository from GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/github_repo.html">Exploring the GitHub Repository view</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/repo_in_vscode.html">Open the Repository in VS Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/edit_commit_push.html">Editing, Pushing, and Committing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/edit_readme.html">Edit the README File</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/new_markdown_file.html">Create a New Markdown File</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/getting_help.html">Getting Help on an Assignment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/submitting_assignments.html">Submitting Assignments</a></li>
 </ul>
@@ -275,13 +291,13 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../3-python/introduction.html">Introducing Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3-python/learning_objectives.html">Learning Objectives</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/preliminaries.html">Preliminaries</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../3-python/jupyter_vscode.html">Introduction to Jupyter Notebooks in VS Code</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/preliminaries.html">Preliminaries</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../3-python/jupyter_intro.html">Working with Jupyter Notebooks</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="../3-python/getting_help.html">Getting Help with Python</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/data_types.html">Data types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/data_types.html">Data types</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/variables_assignment.html">Variables and Assignment</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="../3-python/types_conversion.html">Data Types and Conversion</a></li>
@@ -290,20 +306,20 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../3-python/lists.html">Lists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/dictionaries.html">Dictionaries</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/flow_control.html">Flow Control</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/flow_control.html">Flow Control</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/for_loops.html"><code class="docutils literal notranslate"><span class="pre">for</span></code> Loops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/conditionals.html">Conditionals</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/working_w_data.html">Working with Data</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/working_w_data.html">Working with Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/pandas_dataframes.html">pandas DataFrames</a></li>
 
 
 <li class="toctree-l2"><a class="reference internal" href="../3-python/looping_data_files.html">Looping Over Data Files</a></li>
 
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">AI-Assisted Coding</span></p>
 <ul class="current nav bd-sidenav">
@@ -311,12 +327,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="ai_assisted.html">Introduction to GitHub Copilot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rt_data.html">Exercises – Reaction Time Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pandas_copilot.html">Data Files and pandas DataFrames</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="multi_data_files.html">Working With Multiple Data Files Using Copilot</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="multi_data_files.html">Working With Multiple Data Files Using Copilot</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="multi_data_files_1.html">Reading Data Files with pandas</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Computing Mean Reaction Times and Confidence Intervals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="multi_data_files_3.html">Formatting the Output in a Table</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualizing Data</span></p>
 <ul class="nav bd-sidenav">
@@ -341,44 +357,44 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../6-single_unit/introduction.html">Introduction to Single Unit Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../6-single_unit/learning_objectives.html">Learning Objectives</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/single_unit_intro.html">Single Unit Data and Spike Trains</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/single_unit_intro.html">Single Unit Data and Spike Trains</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/intro_spike_trains.html">Introduction to Spike Train Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/ten_intensities.html">Effects of Light Intensity on Spike Rate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/heat_maps.html">Heat Maps</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/intro_multielec_data.html">Introducing Multielectrode Data</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/intro_multielec_data.html">Introducing Multielectrode Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/pandas_multielec.html">Working with Multielectrode Data in pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/corr_spike_trains.html">Correlating spike trains</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">EEG Data</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../7-eeg/introduction.html">Introduction to EEG</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../7-eeg/learning_objectives.html">Learning Objectives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../7-eeg/about_eeg.html">What is EEG?</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/approaches.html">EEG in the Time and Frequency Domains</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/approaches.html">EEG in the Time and Frequency Domains</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/time_freq.html">Time and Frequency Domains</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erps.html">Event-Related Potentials (ERPs)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/components.html">ERP Components</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../7-eeg/mne_python.html">MNE-Python</a></li>
 
 
-<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_preprocessing.html">EEG-ERP Preprocessing</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_preprocessing.html">EEG-ERP Preprocessing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_filtering.html">Filtering EEG Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_artifacts.html">Artifacts in EEG Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_segmentation.html">Segmentation into ERP epochs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_avg_reref.html">Averaging and Re-Referencing ERPs</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_viz.html">Grand Averages and Visualization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_stats.html">Statistical Analysis of ERP Data</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">MRI Data</span></p>
 <ul class="nav bd-sidenav">
@@ -409,7 +425,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -418,14 +434,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -550,10 +566,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -561,14 +577,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -609,7 +625,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="computing-mean-reaction-times-and-confidence-intervals">
-<h1>Computing Mean Reaction Times and Confidence Intervals<a class="headerlink" href="#computing-mean-reaction-times-and-confidence-intervals" title="Permalink to this heading">#</a></h1>
+<h1>Computing Mean Reaction Times and Confidence Intervals<a class="headerlink" href="#computing-mean-reaction-times-and-confidence-intervals" title="Link to this heading">#</a></h1>
 <p>This continues the previous lesson, which got a bit long for one lesson. Recall that our task was to read three data files in the <code class="docutils literal notranslate"><span class="pre">data</span></code> directory, each RT data from a different participant, and combine them in a DataFrame named <code class="docutils literal notranslate"><span class="pre">df</span></code>. We did all that in the previous lesson, and got as far as calculating the mean RT for each participant. In this lesson, we’ll continue the task by calculating the mean RT across all participants, and calculating the 95% confidence intervals (CIs) for the mean RT for each participant and for the mean RT across all participants.</p>
 <p>Since this is a new notebook file, we need to import the libraries we will use, and import the data. To do this, we’ve copied and pasted the code from the previous lesson into the code cell below (a few lines were deleted for simplicity).</p>
 <div class="cell docutils container">
@@ -693,7 +709,7 @@ document.write(`
 </div></div></div>
 </div>
 <section id="compute-mean-rt-across-participants">
-<h2>Compute Mean RT Across Participants<a class="headerlink" href="#compute-mean-rt-across-participants" title="Permalink to this heading">#</a></h2>
+<h2>Compute Mean RT Across Participants<a class="headerlink" href="#compute-mean-rt-across-participants" title="Link to this heading">#</a></h2>
 <p>Our next task is to calculate the mean RT across subjects, so let’s write a prompt for that. We learned in the last lesson that we should be specific about variable names and capitalization, so let’s try the prompt:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate the mean RT across all participantID</span>
 </pre></div>
@@ -727,7 +743,7 @@ document.write(`
 <p>This worked.</p>
 </section>
 <section id="cis-for-each-participant">
-<h2>95% CIs for Each Participant<a class="headerlink" href="#cis-for-each-participant" title="Permalink to this heading">#</a></h2>
+<h2>95% CIs for Each Participant<a class="headerlink" href="#cis-for-each-participant" title="Link to this heading">#</a></h2>
 <p>Let’s move on to the next step, which is to calculate the 95% confidence intervals for the mean RT for each participant.</p>
 <p>If you are trying this yourself, our experience is that you may get a number of very different solutions from Copilot. We tried several, and all had errors! So, if you get a different error than the one we work through below, you can follow the same process with Copilot Chat to solve your particular problem.</p>
 <div class="cell docutils container">
@@ -749,13 +765,13 @@ dtype: float64
 </div>
 </section>
 <section id="pink-elephants">
-<h2>Pink Elephants<a class="headerlink" href="#pink-elephants" title="Permalink to this heading">#</a></h2>
+<h2>Pink Elephants<a class="headerlink" href="#pink-elephants" title="Link to this heading">#</a></h2>
 <p>This is a frightening example of a Copilot <strong>hallucination</strong>. The above code generates a table of numbers, one for each participantID.  You might think this is a plausible result. However, there are a couple of problems. Firstly, confidence intervals (CIs) are typically reported as a pair of values. The 95% CIs reflect the <em>range</em> within which it is 95% likely that the true mean lies, so we need an upper <em>and</em> lower limits of the CI. These are typically the same amount plus or minus the mean (e.g., if the mean is 2, the 95% CIs might be 1.5 and 2.5). So given a conceptual understanding of what CIs are, we recognize that we need to modify the code to generate the upper and lower values of the CIs.</p>
 <p>Secondly, if you look back at the mean RT for each participant, they were in the range of .339 – .449 (i.e., 339–449 ms). Again, confidence intervals reflect the range of possible true values for the mean, given the sample data. So for our confidence intervals to have values around 5 s seems implausible, given the mean RTs are &lt; 500 ms. We would expect the CIs to be perhaps 100-200 ms. So it seems like Copilot is calculating the CIs incorrectly.</p>
 <p>This highlights the critical importance of understanding not only what your code is doing, but what you are asking it to do. You should always check the output of your code to make sure it makes sense, and also make sure you understand what you are supposed to be doing with the code.</p>
 </section>
 <section id="copilot-chat-to-the-rescue">
-<h2>Copilot Chat to the Rescue<a class="headerlink" href="#copilot-chat-to-the-rescue" title="Permalink to this heading">#</a></h2>
+<h2>Copilot Chat to the Rescue<a class="headerlink" href="#copilot-chat-to-the-rescue" title="Link to this heading">#</a></h2>
 <p>Since Copilot Chat was helpful before, let’s try using it to help us figure out what is going on. If we click on the <code class="docutils literal notranslate"><span class="pre">Chat</span></code> icon in the Activity Bar, we can type in a question to Copilot. In this case, I asked Copilot the following:</p>
 <blockquote>
 <div><p>the highlighted code is supposed to compute the 95% confidence intervals of mean RT. However, the output values are incorrect. Can you please suggest code that correctly calculates the 95% confidence intervals, and provides both the upper and lower CIs in a table</p>
@@ -834,7 +850,7 @@ s3             0.515907  0.376111
 <p>Notice as well that the code that Copilot Chat generated is chunked into a series of steps, each of which has it’s own prompt (comment). This teaches us something about <strong>prompt engineering</strong>: when we are writing prompts, we should try to break down the task into a sequence of steps, each of which is relatively simple. This will make it easier for Copilot to generate code that does what we want. In contrast, the above prompt that we wrote, which didn’t generate the correct output, was a single step simply asking for 95% CIs. Sometimes we can get away with such simple prompts, but when they fail, we can try to break down the task into a sequence of steps, and then write prompts for each step. Of course, this would depend on your having a detailed enough understanding of confidence intervals to know how to break that task into smaller steps! So, Copilot Chat can be a useful interface in situations like this.</p>
 <p>Regardless, it’s still critical to cross-check the formula that Copilot is using against a textbook or trustable online resource.</p>
 <section id="cross-check-copilot-s-code-with-other-sources">
-<h3>Cross-Check Copilot’s Code with Other Sources<a class="headerlink" href="#cross-check-copilot-s-code-with-other-sources" title="Permalink to this heading">#</a></h3>
+<h3>Cross-Check Copilot’s Code with Other Sources<a class="headerlink" href="#cross-check-copilot-s-code-with-other-sources" title="Link to this heading">#</a></h3>
 <p>There’s an old saying, “once bitten, twice shy”. We’ve already seen that Copilot can generate code that is incorrect. So, it’s a good idea to check the code that Copilot generates against other sources. In this case, we can look up the formula for calculating the 95% CI for the mean, and compare it to the code that Copilot generated.</p>
 <p>If we do a Web search for “confidence interval formula”, we will find that the results across all of the top hits indicate that the formula for calculating the 95% CI for the mean is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ci_upper</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="p">(</span><span class="n">std</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
@@ -845,7 +861,7 @@ s3             0.515907  0.376111
 <p>However, Copilot’s code multiplied 1.96 by <code class="docutils literal notranslate"><span class="pre">sem_rt</span></code>, which is the <em>standard error</em> of the mean (if you didn’t know that, you could find out via a Web search or asking Copilot chat). But if you remember (or look up) the formula for standard error, it is the standard deviation of the data divided by the square root of the number of observations. So, Copilot’s code is correct, it’s just using a different formula than the one we found online. But at least now we can be confident that the code is doing what we want it to do.</p>
 </section>
 <section id="cis-across-all-participants">
-<h3>95% CIs across all participants<a class="headerlink" href="#cis-across-all-participants" title="Permalink to this heading">#</a></h3>
+<h3>95% CIs across all participants<a class="headerlink" href="#cis-across-all-participants" title="Link to this heading">#</a></h3>
 <p>Our next instruction is to compute 95% CIs across all participants. Given our troubles above, we may not have much confidence that it will work the first time. But, let’s start by copying the  phrasing that Copilot Chat used when describing its answer to the previous question, but adding in “across all participantID” to the prompt:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -944,7 +960,7 @@ RT  0.459111   0.39445
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1037,8 +1053,8 @@ By Aaron J Newman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

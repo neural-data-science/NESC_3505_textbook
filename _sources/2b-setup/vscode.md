@@ -62,3 +62,54 @@ This is perhaps your first coding experience in this course! Congratulations! Yo
 
 This is also your first opportunity to create a bug. Pay careful attention to the *syntax* of your edit. For example, if you accidentally delete the quote marks rather than putting `"/usr/bin/git"` inside them, you will get an error message when you try to save the file. If this happens, just put the quote marks back in, and try again.
 ```
+
+## Install the Python Packages You Need
+
+In a previous step, you will have installed either Anaconda or Miniconda. If you installed Anaconda, you will already have many of the packages you need, but you will need to install some extra ones for the EEG and MRI chapters later in the course. If you installed Miniconda, you will need to install all the packages you need.
+
+Whether you're using Anaconda or Miniconda, it's recommended that you follow the steps below to install the `neural_data_science` environment. This will ensure that you have all the packages you need for this course, and that they are all compatible with each other.
+
+### Download the `neural_data_science` environment file
+
+You can download the `neural_data_science` environment file from [this link](https://github.com/neural-data-science/python_environment/blob/main/neural_data_science.yml), by clicking on the icon with a down arrow (it says `download raw file` if you mouse over it). Save this file to your computer, unless you already did that when following the instructions for Miniconda.
+
+### Install the `neural_data_science` environment
+
+To install the `neural_data_science` environment, you need to open a terminal window. The easiest way to do this is within VS Code. First, open a new window in VS Code by clicking on the "File" menu at the top of the window, and then clicking on "New Window". Then, open the folder containing the environment file you downloaded by clicking on the "File" menu again, and then clicking on "Open Folder". Navigate to the location where you saved the file (probably your Downloads folder), and click on it (Downlodas, not the file name) to open the folder.
+
+Next open a terminal window in VS Code, by clicking on the "Terminal" menu at the top of the window, and then click on "New Terminal". Alternatively, you can hold the `Ctrl` key then press ````` (the "backtick" or "backwards" apostrophe key that is typically the top leftmost key on a US keyboard). This will open a terminal window at the bottom of the VS Code window. You should be "in" the folder where you saved the environment file, and you should see the file in the list of files in the folder. You can confirm this by typing `ls` and pressing `Enter`. You should see the file listed along with any other files in the folder.
+
+Now you can install the environment by typing the following command and pressing `Enter`:
+```
+mamba env create -f neural_data_science.yml
+```
+
+:::{error}
+If you're working on a Mac, you may encounter an error when trying to run the above command. If so, try running the following command first:
+```
+sudo conda init zsh
+```
+Enter your computer password when prompted. Then close and re-open the terminal window, and try running the `mamba env create -f neural_data_science.yml` command again.
+:::
+
+
+This will take a while (up to 10 minutes, perhaps longer depending on your computer and internet connection), as it downloads and installs all the packages you need. You will see a lot of output in the terminal window, as each package is downloaded and installed. You may see some warnings or errors, but as long as the process completes, you should be fine. If you see an error message that says something like "failed with initial frozen solve", you can ignore it. This is a known issue with the `mamba` package manager, and it doesn't affect the installation process.
+
+Once this process is complete, you should quit VS Code then re-open it. This ensures that it will see the new environment.
+
+You can check that the installation worked by creating a new file in VS Code. Select the "File" menu, then "New File". You will see a menu pop up in the top middle of the VS Code window. Select "Jupyter notebook". This will create a new file with the extension `.ipynb`, which is a Jupyter notebook file. In the first cell, type the following code:
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+import scipy
+import sklearn
+import mne
+
+print("All packages installed successfully!")
+```
+
+Then run the code by clicking on the "Run" button to the left of the area where you entered the text (it looks like a "play" button). This will prompt you to "choose a kernel source". This is VS Code wanting to know which Python environment you want to run the code in. Select `Python environments` then choose the `neural_data_science` environment. You should see the message "All packages installed successfully!" printed below the cell. If you see this message, you're all set!
+

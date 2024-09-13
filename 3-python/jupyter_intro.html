@@ -1,0 +1,996 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Working with Jupyter Notebooks &#8212; Neural Data Science in Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-1SNTM6T50K"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-1SNTM6T50K');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-1SNTM6T50K');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '3-python/jupyter_intro';</script>
+    <link rel="canonical" href="http://neuraldatascience.io/3-python/jupyter_intro.html" />
+    <link rel="icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Getting Help with Python" href="getting_help.html" />
+    <link rel="prev" title="Preliminaries" href="preliminaries.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/NESC3505_icon.png" class="logo__image only-light" alt="Neural Data Science in Python - Home"/>
+    <script>document.write(`<img src="../_static/NESC3505_icon.png" class="logo__image only-dark" alt="Neural Data Science in Python - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Neural Data Science in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">About This Course</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../1-intro/why.html">Start with why</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1-intro/learning_objectives.html">Learning Objectives for this Course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../syllabus.html">Syllabus</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/learning_approach.html">How to Approach this Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/actually_write_code.html">Actually Write Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/mindset.html">Mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/flipped_classroom.html">Flipped Classroom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/errors_debugging.html">Errors and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/ai.html">Artificial Intelligence-Assisted Coding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/teamwork.html">Collaboration and Teamwork</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/pedagogy.html">Pedagogy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/teaching_approach.html">Teaching Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/authenticity.html">Authenticity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/21st_cen_skills.html">21st Century Skills</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/constructivism.html">Constructivism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/connectivism.html">Connectivism</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/open.html">Open Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/software.html">Free Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/free_licenses.html">Free and Open-Source Software Licenses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/open_science.html">Open Science</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/peer_review.html">Peer Review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/for_profit.html">For-Profit Publishing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/impact_factors.html">Impact Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/novelty.html">Novelty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/open_publishing.html">Open Publishing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/preregistration.html">Preregistration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/open_methods.html">Open Methods and Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/oer.html">Open Educational Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/oer_this_course.html">OERs in the Context of this Course</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1-intro/licenses.html">Licenses</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../2-nds/introduction.html">Getting Started with the Course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2-nds/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/what_is_nds.html">What is Data Science?</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/data.html">What is Data?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/where.html">Where Does Neural Data Come From?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/data_science.html">Data Science</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/data_cleaning.html">Data Cleaning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/tools_for_nds.html">Tools for Neural Data Science</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/spreadsheets.html">Spreadsheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/spreadsheets_limits.html">Limitations of Spreadsheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/reproducibility.html">Reproducibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/sci_prog_lang.html">Scientific Programming Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/which_lang.html">Which language to use?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/libs.html">Libraries and packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/why_python.html">Why Python for this Course?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/coding.html">Coding Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/python.html">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/terminal.html">The Terminal and Command Line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/jupyter.html">Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/vscode.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2-nds/github.html">GitHub</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Set Up Your Computer for Data Science</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Some Assembly Required</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/install_tools.html">Install on Your Computer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/anaconda.html">Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/miniconda.html">Miniconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/vscode.html">VS Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github_desktop.html">GitHub Desktop</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/first_repo.html">Your First GitHub Repository</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/clone.html">Clone a Repository from GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github_repo.html">Exploring the GitHub Repository view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/repo_in_vscode.html">Open the Repository in VS Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/edit_commit_push.html">Editing, Pushing, and Committing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/edit_readme.html">Edit the README File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/new_markdown_file.html">Create a New Markdown File</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/getting_help.html">Getting Help on an Assignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/submitting_assignments.html">Submitting Assignments</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introducing Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="preliminaries.html">Preliminaries</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Working with Jupyter Notebooks</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="getting_help.html">Getting Help with Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="data_types.html">Data types</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="variables_assignment.html">Variables and Assignment</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="types_conversion.html">Data Types and Conversion</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="builtin.html">Python Built-Ins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lists.html">Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dictionaries.html">Dictionaries</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="flow_control.html">Flow Control</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="for_loops.html"><code class="docutils literal notranslate"><span class="pre">for</span></code> Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conditionals.html">Conditionals</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="working_w_data.html">Working with Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="pandas_dataframes.html">pandas DataFrames</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="looping_data_files.html">Looping Over Data Files</a></li>
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">AI-Assisted Coding</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/introduction.html">Introducing GitHub Copilot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/ai_assisted.html">Introduction to GitHub Copilot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/rt_data.html">Exercises – Reaction Time Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/pandas_copilot.html">Data Files and pandas DataFrames</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3b-ai_assisted/multi_data_files.html">Working With Multiple Data Files Using Copilot</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_1.html">Reading Data Files with pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_2.html">Computing Mean Reaction Times and Confidence Intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_3.html">Formatting the Output in a Table</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualizing Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/introduction.html">Introduction to Data Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/plotting.html">Introduction to Plotting with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/proc_vs_oo.html">Procedural versus Object-Oriented Plotting in Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/subplots.html">Subplots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/plotting_types.html">Thinking About Data for Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/seaborn.html">Data Science Plots with Seaborn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-viz/human_factors.html">Accessibility and Human Factors in Plotting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exploratory Data Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../5-eda/introduction.html">Introduction to EDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5-eda/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5-eda/repeated_measures.html">Working with Repeated Measures Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5-eda/data_cleaning.html">Data Cleaning - Dealing with Outliers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5-eda/ttests.html">Basic Statistics in Python: <em>t</em> tests with SciPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Single Unit Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../6-single_unit/introduction.html">Introduction to Single Unit Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6-single_unit/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/single_unit_intro.html">Single Unit Data and Spike Trains</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../6-single_unit/intro_spike_trains.html">Introduction to Spike Train Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../6-single_unit/ten_intensities.html">Effects of Light Intensity on Spike Rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../6-single_unit/heat_maps.html">Heat Maps</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/intro_multielec_data.html">Introducing Multielectrode Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../6-single_unit/pandas_multielec.html">Working with Multielectrode Data in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../6-single_unit/corr_spike_trains.html">Correlating spike trains</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">EEG Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../7-eeg/introduction.html">Introduction to EEG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-eeg/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-eeg/about_eeg.html">What is EEG?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/approaches.html">EEG in the Time and Frequency Domains</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/time_freq.html">Time and Frequency Domains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erps.html">Event-Related Potentials (ERPs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/components.html">ERP Components</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-eeg/mne_python.html">MNE-Python</a></li>
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_preprocessing.html">EEG-ERP Preprocessing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_filtering.html">Filtering EEG Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_artifacts.html">Artifacts in EEG Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_segmentation.html">Segmentation into ERP epochs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_avg_reref.html">Averaging and Re-Referencing ERPs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_viz.html">Grand Averages and Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_stats.html">Statistical Analysis of ERP Data</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MRI Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../8-mri/introduction.html">Introduction to MRI Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../8-mri/learning_objectives.html">Learning Objectives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../8-mri/read_viz.html">Reading and Visualizing Structural MRI Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../8-mri/nifti.html">Working with NIfTI images</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../9-machine_learning/introduction.html">Introduction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../zrefs.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/neural-data-science/NESC_3505_textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/neural-data-science/NESC_3505_textbook/issues/new?title=Issue%20on%20page%20%2F3-python/jupyter_intro.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/3-python/jupyter_intro.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Working with Jupyter Notebooks</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Working with Jupyter Notebooks</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks">Jupyter notebooks</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#run-your-first-code-cell">Run your First Code Cell</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-jupyter-notebook-toolbar">The Jupyter Notebook toolbar</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inserting-new-cells">Inserting New Cells</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deleting-cells">Deleting Cells</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-cells">Running Cells</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clearing-cell-outputs-vs-clearing-memory">Clearing Cell Outputs vs. Clearing Memory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#undo-operates-on-text-not-python"><code class="docutils literal notranslate"><span class="pre">Undo</span></code> Operates on Text, Not Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="working-with-jupyter-notebooks">
+<h1>Working with Jupyter Notebooks<a class="headerlink" href="#working-with-jupyter-notebooks" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/neural-data-science/Ch3_materials">Download all the Jupyter notebooks and other files you need to complete the lessons in this chapter (Chapter 3)</a></p></li>
+<li><p>Turn <strong>off</strong> the GitHub Copilot AI assistant so you can focus on learning Python using your HI (human intelligence). Click the <code class="docutils literal notranslate"><span class="pre">Deactivate</span> <span class="pre">Copilot</span></code> button in the bottom right of VS Code, if it is currently activated.</p></li>
+</ul>
+<hr class="docutils" />
+<section id="questions">
+<h2>Questions<a class="headerlink" href="#questions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>How do I work with and navigate Jupyter notebooks in Codespaces or VS Code?</p></li>
+</ul>
+</section>
+<section id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>be able to open a Jupyter notebook</p></li>
+<li><p>be able to navigate a Jupyter notebook</p></li>
+<li><p>be able to enter and run code in a Jupyter notebook</p></li>
+<li><p>be able to enter and format rich text in a Jupyter notebook, using Markdown</p></li>
+</ul>
+<hr class="docutils" />
+<div class="alert alert-warning">
+Although this section appears in the textbook, it assumes that you have cloned the repository containing the Chapter 3 Jupyter notebooks, and are working through the notebooks in VS Code. You will not be able to perform the tasks described here in the online textbook itself.
+</div></section>
+<section id="jupyter-notebooks">
+<h2>Jupyter notebooks<a class="headerlink" href="#jupyter-notebooks" title="Link to this heading">#</a></h2>
+<p>You are currently viewing a Jupyter notebook file. Jupyter notebooks are composed of <em>cells</em>. Cells can be of three types: code, Markdown, or raw. This cell you’re reading is Markdown, a simple language for formatting rich text. The cell below is a code cell, where you can write and run Python commands. Raw cells are “raw” text — they aren’t fancy-formatted Markdown, and they aren’t run-able as code. They also aren’t terribly useful.</p>
+<p>Cells have two modes: <strong>Edit</strong> and <strong>Command</strong>.  In Edit mode, you will see a flashing cursor, and you can type into the cell and edit it. In Command mode, manipulate it in certain ways (e.g., deleting a whole cell, or moving it). Only one cell is ever in Edit mode at any given time.</p>
+<p>This text you are currently reading is a Markdown cell. Assuming you are viewing it in VS Code, and click once on this text, the cell should become active in command mode, so you should see a some color cue that it is now selected (the specifics depend on the color theme you are using). If you double-click on this (or any other Markdown) cell, the text will change to a <em>fixed-width</em> font and you’ll see the Markdown formatting tags (like <code class="docutils literal notranslate"><span class="pre">#</span></code> for headings), and a flashing cursor will appear where you clicked. Try it! To return to command mode, press the Shift &amp; Enter keys on your keyboard simultaneously, or hit the Escape key. You can also just click on another cell, however in that case this cell will remain in Edit mode — i.e., with a fixed width font and the Markdown tags visible — until you press Shift &amp; Enter or Escape.</p>
+<p>So in summary:</p>
+<ul class="simple">
+<li><p>Single-clicking a cell will select it in Command mode</p></li>
+<li><p>Double-clicking a cell will put it in Edit mode</p></li>
+<li><p>Pressing the Shift &amp; Enter keys on your keyboard simultaneously will execute a cell. Execution will format a Markdown cell, or run the code in a code cell.</p></li>
+</ul>
+<div class="alert alert-info">
+Notebook files can get really long. You can see an outline of the file (a list of all the Markdown headings in your notebook) by clicking <code>Outline</code> button in the toolbar at the top of your Jupyter Notebook window. This will open the <code>Outline</code> viewer in the lower left corner of VS Code. The outline is only visible when your Activity Bar is in Explorer mode (i.e., when your files are listed in the top left region).
+</div></section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="run-your-first-code-cell">
+<h1>Run your First Code Cell<a class="headerlink" href="#run-your-first-code-cell" title="Link to this heading">#</a></h1>
+<p>Below is a code cell with some very simple Python code. You haven’t started learning Python yet, but as you can see, at its simplest Python can act like a calculator. Before you run this cell, though, you need to tell VS Code what language you want the notebook to run code cells in. Recall that Jupyter notebooks can run code in many different languages, including Python, R, and Julia.</p>
+<p>To tell VS Code that you want to run Python code, click on the words <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">Kernel</span></code> in the top right corner of the notebook. At this point, the options you see will depend on whether you’re running in a Codespace, VS Code, or something else. If you see <code class="docutils literal notranslate"><span class="pre">base</span></code> from the drop-down menu, choose that one. Otherwise, click on <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">environments</span></code> and select the Python environment you want to use. It may simply be called <code class="docutils literal notranslate"><span class="pre">Python</span></code> followed by a version number (like 3.12.1), or it may have a name like <code class="docutils literal notranslate"><span class="pre">neural_data_science</span></code>, if you installed Python on your own computer.</p>
+<p>Once you have selected your kernel, try executing the cell (running it) and see what happens.</p>
+<div class="alert alert-info">
+Whereas for Markdown cells the Escape key "executes" the cell and renders it formatted, pressing the Escape key will not execute a code cell. Shift-Enter works for both Markdown cells (formatting the cell) and code cells (running the code in the cell). The currently-selected code cell also has a "Run Cell" button in the toolbar (which plooks like a "Play" icon, or triangle pointing right) --- clicking this will also execute the cell.
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+<p>Take note of a couple of things here. Firstly, the output of a code cell appears in the notebook directly underneath the cell. The output is updated each time you run the cell. If you want to clear the output of a cell, you can click on the ellipsis (…) in the lower right corner of the cell (under the <code class="docutils literal notranslate"><span class="pre">[]</span></code>), and select <code class="docutils literal notranslate"><span class="pre">Clear</span> <span class="pre">Outputs</span></code> from the menu that appears.</p>
+<p>Secondly, after running the cell, the text to the left of the cell changed from <code class="docutils literal notranslate"><span class="pre">[]</span></code> to <code class="docutils literal notranslate"><span class="pre">[1]</span></code>. The number indicates that the cell was run, and the numbers increase sequentially as you run cells. So if you run the above cell again, the <code class="docutils literal notranslate"><span class="pre">[]</span></code> number will go up by one. Likewise, when you run the cell below, the number will be one larger than the number in the previously-executed cell.</p>
+<p>In general, it’s a good idea to run Jupyter notebook cells sequentially, from top to bottom. But sometimes, when you’re writing and debugging your code, you’ll run a cell many times before you get it right, and sometimes you’ll run a few cells and then go back and run them again. So the numbers are useful in keeping track of what you’ve done, in what order. If a process takes a while to run, then the cell will show <code class="docutils literal notranslate"><span class="pre">[*]</span></code> while the cell is running.</p>
+<p>Run the cell below and look at the output.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
+</pre></div>
+</div>
+</div>
+</div>
+<p>The cell contained three comments, or operations — one on each line — but you only see the output of the last line! This is how Jupyter operates: the output that appears below the cell only for the last commend that was run in the cell, that generated output. This is not normally what you want. Thus in Jupyter if you want to see the output of commands you run in a cell, you should embed the command inside a <code class="docutils literal notranslate"><span class="pre">print()</span></code> statement, as shown below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+4
+6
+</pre></div>
+</div>
+</div>
+</div>
+<p>Soon, you’ll learn about data <em>types</em>. For now, it’s worth noting that if you want to output text in Python, you need to put it inside quotation marks (Python doesn’t care if you use single or double quotes, as long as you start and finish with the same one). So, running the cell below produces an error (do it!):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">Hello</span> <span class="n">World</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">Hello</span> <span class="n">World</span><span class="p">)</span>
+          <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax. Perhaps you forgot a comma?
+</pre></div>
+</div>
+</div>
+</div>
+<p>The output above is a Python <strong>Error message</strong>. We won’t worry about the details of it now — we’ll get into understanding error messages later. For now, just note that the error message is telling us that there is a problem with the code we wrote.</p>
+<p>Putting the text we want to print inside quotation marks will fix the problem. Make that change in the cell above, so it reads <code class="docutils literal notranslate"><span class="pre">print(&quot;Hello</span> <span class="pre">World&quot;)</span></code>, and run the code again</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Even in code cells, you can add random comments that are not Python code </span>
+<span class="c1"># as long as you start each line with a hash mark, like these lines are.</span>
+
+<span class="c1"># These lines are called &quot;comments&quot; and it is good coding practice to use them.</span>
+
+<span class="c1"># Comments allow you to make notes about your code. When you&#39;re starting out, you may want to add comments so that the next time you look at your code, you remember what a particular line or section does. Or, you may want to leave a &quot;note to self&quot; if you want to come back and add things to a particular section later.</span>
+
+<span class="c1"># Note the above line extends off the right side of the window in VS Code. It&#39;s good programming style to put in line breaks</span>
+<span class="c1"># manually for your comments, so that they are more easily readable.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run this cell. We&#39;ll use it later.</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<section id="the-jupyter-notebook-toolbar">
+<h2>The Jupyter Notebook toolbar<a class="headerlink" href="#the-jupyter-notebook-toolbar" title="Link to this heading">#</a></h2>
+<p>VS Code has a very detailed user interface, with lots of buttons. When you open a Jupyter notebook, you’ll see even more! You’ll gradually get familiar with many of these functions, although some you may never use in this course. For now, we’ll go through the most important functions and concepts.</p>
+<section id="inserting-new-cells">
+<h3>Inserting New Cells<a class="headerlink" href="#inserting-new-cells" title="Link to this heading">#</a></h3>
+<p>At the top of this notebook window, you should see a toolbar with a bunch of buttons. The first two buttons are for inserting new cells: <code class="docutils literal notranslate"><span class="pre">Code</span></code> and <code class="docutils literal notranslate"><span class="pre">Markdown</span></code> cells, respectively. You can also create a new cell <em>above</em> the current one, when in Command mode, if you press the <code class="docutils literal notranslate"><span class="pre">a</span></code> key, or a new cell <em>below</em> the current one if you press <code class="docutils literal notranslate"><span class="pre">b</span></code>. Try inserting a new code cell below this one.</p>
+</section>
+<section id="deleting-cells">
+<h3>Deleting Cells<a class="headerlink" href="#deleting-cells" title="Link to this heading">#</a></h3>
+<p>You can delete a cell by clicking on the cell, and then clicking the <code class="docutils literal notranslate"><span class="pre">trash</span> <span class="pre">can</span></code> icon that appears over the top left corner of the cell. You can also delete a cell in Command mode by pressing the <code class="docutils literal notranslate"><span class="pre">d</span></code> key twice (i.e., press <code class="docutils literal notranslate"><span class="pre">d</span></code>, then <code class="docutils literal notranslate"><span class="pre">d</span></code> again). If you accidentally delete a cell, you can undo it by selecting <code class="docutils literal notranslate"><span class="pre">Undo</span></code> from the <code class="docutils literal notranslate"><span class="pre">Edit</span></code> menu. Try deleting the empty cell above this one, that you just created.</p>
+</section>
+<section id="running-cells">
+<h3>Running Cells<a class="headerlink" href="#running-cells" title="Link to this heading">#</a></h3>
+<p>We’ve already described how to run a cell. The <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">All</span></code> button in the toolbar will run all of the cells in the notebook, in order. This is useful if you want to re-run the entire notebook, for example if you’ve made changes to some of the cells and want to re-run everything to make sure it all works. But most of the time, you will be writing and testing code cell-by-cell, so you’ll want to run the cells individually, check their output, and then move on to the next cell.</p>
+<p>One handy feature in VS Code, though, is that if you right-click in the area to the right of a code cell, you’ll get a menu that includes the option, <code class="docutils literal notranslate"><span class="pre">Execute</span> <span class="pre">Above</span> <span class="pre">Cells</span></code>. This will run all the cells above that cell. This can be handy if you’ve made changes to a cell, and want to re-run that cell and all the cells above it.</p>
+<p>Try it out: right-click in the area to the right of the cell below, and select <code class="docutils literal notranslate"><span class="pre">Execute</span> <span class="pre">Above</span> <span class="pre">Cells</span></code>. Note that this will not produce output for the cell you clicked on, just for all the cells above it. This can be useful if you are trying to get a particular cell to work, which depends on the code that came before it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x =&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x = 1
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now go ahead and run the cell above, to print out the value of <code class="docutils literal notranslate"><span class="pre">x</span></code></p>
+</section>
+<section id="clearing-cell-outputs-vs-clearing-memory">
+<h3>Clearing Cell Outputs vs. Clearing Memory<a class="headerlink" href="#clearing-cell-outputs-vs-clearing-memory" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Clear</span> <span class="pre">All</span> <span class="pre">Outputs</span></code> button will clear <em>all</em> output from <em>every</em> cell in your notebook. This is handy if you want to start fresh at the top of the notebook, but be careful! You’ll need to run all the cells, in order, to get the output back. On its own this can cause some confusion, because clearing outputs doesn’t clear things from Python’s memory. Prove this to yourself by selecting <code class="docutils literal notranslate"><span class="pre">Clear</span> <span class="pre">All</span> <span class="pre">Outputs</span></code> and then running the cell below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x =&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x = 1
+</pre></div>
+</div>
+</div>
+</div>
+<p>The Python <strong>kernel</strong> is a live, running instance of Python that will interpret your Python commands and produce output. Each notebook you open will start a new Python kernel (sometimes, as with this one, you’ll need to select the kernel the first time you open the file). As long as the kernel is running, the things you do in Python will be stored in memory (RAM). This will make more sense as you start to use Python, but when you’re running Python, you generally don’t just run commands and get output. You also read data files into memory, and store the results of one command in memory for use in the next command. For example, a bit earlier in this notebook you were instructed to run a cell with the code <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">1</span></code>, so now your kernel has a variable <code class="docutils literal notranslate"><span class="pre">x</span></code> in memory, with the value <code class="docutils literal notranslate"><span class="pre">1</span></code>. CLearing cell outputs doesn’t affect what the kernel has in memory. If you want to clear the memory, you need to restart the kernel.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Restart</span></code> button will restart the Python kernel running in the notebook, and clear all variables from memory — but not the cell outputs.  This is useful if you’ve run a bunch of cells, and you want to start fresh. For example, if you’ve defined a bunch of variables, and you want to start over with new values for those variables, you can restart the kernel and then re-run the cells that define the variables.</p>
+<p>Long story short: if you want to clear the output from a single cell, click on ellipsis (<code class="docutils literal notranslate"><span class="pre">...</span></code>) in the upper right corner of the cell, and select <code class="docutils literal notranslate"><span class="pre">Clear</span> <span class="pre">Cell</span> <span class="pre">Outputs</span></code>. If you want to clear the output from all cells, you should probably also restart the kernel, to avoid any confusion or unexpected behaviors.</p>
+<p>Let’s try that now: click the <code class="docutils literal notranslate"><span class="pre">Restart</span></code> button, then run the cell below (which is the same as the one you ran above).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x =&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x = 1
+</pre></div>
+</div>
+</div>
+</div>
+<p>You get an error, because you restarted the kernel and thus the variable <code class="docutils literal notranslate"><span class="pre">x</span></code> is no longer defined. However, if you now click <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">All</span></code>, all the above cells will be run, including the one that defined <code class="docutils literal notranslate"><span class="pre">x</span></code> as having a value of <code class="docutils literal notranslate"><span class="pre">1</span></code>, and the code cell immediately above this one will generate correct output, and not an error.</p>
+</section>
+<section id="undo-operates-on-text-not-python">
+<h3><code class="docutils literal notranslate"><span class="pre">Undo</span></code> Operates on Text, Not Python<a class="headerlink" href="#undo-operates-on-text-not-python" title="Link to this heading">#</a></h3>
+<p>When you’re working in a Jupyter notebook, you’re typing in a text editor. The text editor is connected to a Python kernel, which is running in the background. When you type in a cell, you’re typing in the text editor. When you run a cell, the text editor sends the contents of the cell to the Python kernel, which runs the code. The kernel then sends the results of the code back to the text editor, which displays the results.</p>
+<p>When editing the cells of a Jupyter notebook, there is an <strong>undo</strong> function (in the <code class="docutils literal notranslate"><span class="pre">Edit</span></code> menu), which works similarly to other software you’ll have used, sequentially undoing things you’ve typed in cells.</p>
+<p><strong>Importantly</strong>, <em>the undo function does <em>not</em> undo the results of commands you’ve run in Python</em>. Continuing with our previous example, this means that if you ran the Python command <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">1</span></code>, then ran “undo”, Jupyter would delete your typing, <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">1</span></code>. However, in the kernel’s memory, <code class="docutils literal notranslate"><span class="pre">x</span></code> would still equal <code class="docutils literal notranslate"><span class="pre">1</span></code>. So you could run <code class="docutils literal notranslate"><span class="pre">print(x)</span></code> the output would be <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>You can edit and run code in Jupyter notebooks. Results will appear in the notebook</p></li>
+<li><p>Jupyter notebooks can contain a mixture of code, Markdown, and raw cells</p></li>
+<li><p>Markdown is useful for annotating your code with rich text</p></li>
+<li><p>Comments can be put in code cells as well; Python ignores anything on a line after a <code class="docutils literal notranslate"><span class="pre">#</span></code></p></li>
+<li><p>Each Jupyter notebook runs a kernel (e.g, Python) that maintains information in RAM as long as it is running</p></li>
+<li><p>Operations occur in the order that you run cells in a notebook - not necessarily the order the cells appear in the notebook. It’s good practice to run cells in the order they appear in the notebook, and restart the kernel if you need to make changes and re-run.</p></li>
+<li><p>Restarting the kernel will clear everything from RAM for that notebook</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Undo</span></code> modifies text (the code in a cell), but not what is in Python’s memory. You cannot undo changes to the kernel; you need to restart the kernel and start over if you want to erase all variables from memory.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./3-python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="preliminaries.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Preliminaries</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="getting_help.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Getting Help with Python</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Working with Jupyter Notebooks</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks">Jupyter notebooks</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#run-your-first-code-cell">Run your First Code Cell</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-jupyter-notebook-toolbar">The Jupyter Notebook toolbar</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inserting-new-cells">Inserting New Cells</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deleting-cells">Deleting Cells</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-cells">Running Cells</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clearing-cell-outputs-vs-clearing-memory">Clearing Cell Outputs vs. Clearing Memory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#undo-operates-on-text-not-python"><code class="docutils literal notranslate"><span class="pre">Undo</span></code> Operates on Text, Not Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Aaron J Newman
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-23. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

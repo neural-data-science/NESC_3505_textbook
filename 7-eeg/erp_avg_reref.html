@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Averaging and Re-Referencing ERPs &#8212; Neural Data Science in Python</title>
   
@@ -15,47 +14,45 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-1SNTM6T50K"></script>
     <script>
                 window.dataLayer = window.dataLayer || [];
@@ -63,17 +60,21 @@
                 gtag('js', new Date());
                 gtag('config', 'G-1SNTM6T50K');
             </script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-1SNTM6T50K');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '7-eeg/erp_avg_reref';</script>
     <link rel="canonical" href="http://neuraldatascience.io/7-eeg/erp_avg_reref.html" />
-    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Group Analysis of ERP Data" href="erp_group.html" />
@@ -87,27 +88,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -129,8 +126,13 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -154,6 +156,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../intro.html">
   
@@ -171,7 +175,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -186,7 +201,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../1-intro/why.html">Start with why</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1-intro/learning_objectives.html">Learning Objectives for this Course</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../syllabus.html">Syllabus</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/learning_approach.html">How to Approach this Course</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/learning_approach.html">How to Approach this Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/actually_write_code.html">Actually Write Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/mindset.html">Mindset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/flipped_classroom.html">Flipped Classroom</a></li>
@@ -194,16 +209,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/ai.html">Artificial Intelligence-Assisted Coding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/teamwork.html">Collaboration and Teamwork</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/pedagogy.html">Pedagogy</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/pedagogy.html">Pedagogy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/teaching_approach.html">Teaching Approach</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/authenticity.html">Authenticity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/21st_cen_skills.html">21st Century Skills</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/constructivism.html">Constructivism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/connectivism.html">Connectivism</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/open.html">Open Resources</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/open.html">Open Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/software.html">Free Software</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/free_licenses.html">Free and Open-Source Software Licenses</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/open_science.html">Open Science</a></li>
@@ -218,20 +233,20 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/oer_this_course.html">OERs in the Context of this Course</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/licenses.html">Licenses</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Data Science</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../2-nds/introduction.html">Getting Started with the Course</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2-nds/learning_objectives.html">Learning Objectives</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/what_is_nds.html">What is Data Science?</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/what_is_nds.html">What is Data Science?</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/data.html">What is Data?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/where.html">Where Does Neural Data Come From?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/data_science.html">Data Science</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/data_cleaning.html">Data Cleaning</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/tools_for_nds.html">Tools for Neural Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/tools_for_nds.html">Tools for Neural Data Science</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/spreadsheets.html">Spreadsheets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/spreadsheets_limits.html">Limitations of Spreadsheets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/reproducibility.html">Reproducibility</a></li>
@@ -240,8 +255,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/libs.html">Libraries and packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/why_python.html">Why Python for this Course?</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/coding.html">Coding Tools</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/coding.html">Coding Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/python.html">Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/terminal.html">The Terminal and Command Line</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/jupyter.html">Jupyter</a></li>
@@ -249,27 +264,28 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/vscode.html">Visual Studio Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/github.html">GitHub</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Set Up Your Computer for Data Science</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Some Assembly Required</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/learning_objectives.html">Learning Objectives</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/install_tools.html">Install Tools for Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github.html">Get on GitHub</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/install_tools.html">Install on Your Computer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/anaconda.html">Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/miniconda.html">Miniconda</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/vscode.html">VS Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github_classroom.html">GitHub Classroom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github_desktop.html">GitHub Desktop</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/first_repo.html">Your First GitHub Repository</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/first_repo.html">Your First GitHub Repository</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/clone.html">Clone a Repository from GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/github_repo.html">Exploring the GitHub Repository view</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/repo_in_vscode.html">Open the Repository in VS Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/edit_commit_push.html">Editing, Pushing, and Committing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/edit_readme.html">Edit the README File</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/new_markdown_file.html">Create a New Markdown File</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/getting_help.html">Getting Help on an Assignment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/submitting_assignments.html">Submitting Assignments</a></li>
 </ul>
@@ -277,13 +293,13 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../3-python/introduction.html">Introducing Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3-python/learning_objectives.html">Learning Objectives</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/preliminaries.html">Preliminaries</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../3-python/jupyter_vscode.html">Introduction to Jupyter Notebooks in VS Code</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/preliminaries.html">Preliminaries</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../3-python/jupyter_intro.html">Working with Jupyter Notebooks</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="../3-python/getting_help.html">Getting Help with Python</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/data_types.html">Data types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/data_types.html">Data types</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/variables_assignment.html">Variables and Assignment</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="../3-python/types_conversion.html">Data Types and Conversion</a></li>
@@ -292,20 +308,20 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../3-python/lists.html">Lists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/dictionaries.html">Dictionaries</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/flow_control.html">Flow Control</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/flow_control.html">Flow Control</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/for_loops.html"><code class="docutils literal notranslate"><span class="pre">for</span></code> Loops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/conditionals.html">Conditionals</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/working_w_data.html">Working with Data</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/working_w_data.html">Working with Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/pandas_dataframes.html">pandas DataFrames</a></li>
 
 
 <li class="toctree-l2"><a class="reference internal" href="../3-python/looping_data_files.html">Looping Over Data Files</a></li>
 
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">AI-Assisted Coding</span></p>
 <ul class="nav bd-sidenav">
@@ -313,12 +329,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/ai_assisted.html">Introduction to GitHub Copilot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/rt_data.html">Exercises – Reaction Time Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/pandas_copilot.html">Data Files and pandas DataFrames</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3b-ai_assisted/multi_data_files.html">Working With Multiple Data Files Using Copilot</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3b-ai_assisted/multi_data_files.html">Working With Multiple Data Files Using Copilot</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_1.html">Reading Data Files with pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_2.html">Computing Mean Reaction Times and Confidence Intervals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_3.html">Formatting the Output in a Table</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualizing Data</span></p>
 <ul class="nav bd-sidenav">
@@ -343,44 +359,44 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../6-single_unit/introduction.html">Introduction to Single Unit Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../6-single_unit/learning_objectives.html">Learning Objectives</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/single_unit_intro.html">Single Unit Data and Spike Trains</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/single_unit_intro.html">Single Unit Data and Spike Trains</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/intro_spike_trains.html">Introduction to Spike Train Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/ten_intensities.html">Effects of Light Intensity on Spike Rate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/heat_maps.html">Heat Maps</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/intro_multielec_data.html">Introducing Multielectrode Data</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/intro_multielec_data.html">Introducing Multielectrode Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/pandas_multielec.html">Working with Multielectrode Data in pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/corr_spike_trains.html">Correlating spike trains</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">EEG Data</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to EEG</a></li>
 <li class="toctree-l1"><a class="reference internal" href="learning_objectives.html">Learning Objectives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about_eeg.html">What is EEG?</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="approaches.html">EEG in the Time and Frequency Domains</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="approaches.html">EEG in the Time and Frequency Domains</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="time_freq.html">Time and Frequency Domains</a></li>
 <li class="toctree-l2"><a class="reference internal" href="erps.html">Event-Related Potentials (ERPs)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="components.html">ERP Components</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="mne_python.html">MNE-Python</a></li>
 
 
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="erp_preprocessing.html">EEG-ERP Preprocessing</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="erp_preprocessing.html">EEG-ERP Preprocessing</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="erp_filtering.html">Filtering EEG Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="erp_artifacts.html">Artifacts in EEG Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="erp_segmentation.html">Segmentation into ERP epochs</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Averaging and Re-Referencing ERPs</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="erp_group.html">Group Analysis of ERP Data</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="erp_group.html">Group Analysis of ERP Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="erp_group_viz.html">Grand Averages and Visualization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="erp_group_stats.html">Statistical Analysis of ERP Data</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">MRI Data</span></p>
 <ul class="nav bd-sidenav">
@@ -411,7 +427,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -420,14 +436,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -552,10 +568,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -563,14 +579,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -642,7 +658,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="averaging-and-re-referencing-erps">
-<h1>Averaging and Re-Referencing ERPs<a class="headerlink" href="#averaging-and-re-referencing-erps" title="Permalink to this heading">#</a></h1>
+<h1>Averaging and Re-Referencing ERPs<a class="headerlink" href="#averaging-and-re-referencing-erps" title="Link to this heading">#</a></h1>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>This is one of the longer and denser sections of the chapter on EEG. Take your time with it, and work to understand it rather than glossing over details that may be challenging at first. Referencing in EEG is a complex topic, and it is important to understand it well in order to interpret ERP data correctly.</p>
@@ -654,24 +670,24 @@ document.write(`
 <p>Conversely, using different references can be a source of confusion and misinterpretation. For instance, in studies of face processing, two different components occurring around 170 ms were reported in the literature: the VPP (vertex positive potential, largest over the top of the head),and the the N170 (a negativity largest over temporal-parietal scalp sites). However, critical analysis of the literature revealed that these were actually the same component! However, since some studies used the mastoids as their reference, they did not observe an N170 since those are the very channels where the N170 is typically largest. Thus re-referencing the data to these channels had completely subtracted the N170 from the data (<a class="reference external" href="https://doi.org/10.1016/j.clinph.2005.07.005">Joyce &amp; Rossion, 2005</a>).</p>
 <p>For these reasons, understanding how (re-)referencing affects the visuzliation and, ultimately, interpretation of ERPs is critical. In this lesson, we will explore how to re-reference ERP data, and how this affects the visualization of the data. First we will dive a bit deeper into the topic of re-referencing, and then see its effects in action.</p>
 <section id="some-essential-technical-background">
-<h2>Some Essential Technical Background<a class="headerlink" href="#some-essential-technical-background" title="Permalink to this heading">#</a></h2>
+<h2>Some Essential Technical Background<a class="headerlink" href="#some-essential-technical-background" title="Link to this heading">#</a></h2>
 <p>One thing that can be hard to get your head around at first, when working with EEG data, is that the electrical potential values at each electrode are actually <em>relative</em> measurements. Specifically, The microVolt measurement at each electrode is the <em>difference</em> in electrical potential at that electrode, relative to a <strong>reference electrode</strong>. This is actually a fundamental property of electrical potential measurements — they are always a relative measure. To understand why, we need to understand electricity a bit more.</p>
 <section id="what-is-an-electrical-potential-measurement">
-<h3>What is an Electrical Potential Measurement?<a class="headerlink" href="#what-is-an-electrical-potential-measurement" title="Permalink to this heading">#</a></h3>
+<h3>What is an Electrical Potential Measurement?<a class="headerlink" href="#what-is-an-electrical-potential-measurement" title="Link to this heading">#</a></h3>
 <p>Typically, when people think about electricity they think about the <em>flow</em> of electrical current through a conductor or device. For example, when you turn on a light switch, electrical current flows through the circuit (from a source, through wiring, to the light bulb, and then back into the building’ wiring), creating illumination. However, even when the light switch is off, the electrical circuit still has the <em>potential</em> for current to flow, based on the amount of energy available.</p>
 <section id="the-water-analogy">
-<h4>The Water Analogy<a class="headerlink" href="#the-water-analogy" title="Permalink to this heading">#</a></h4>
+<h4>The Water Analogy<a class="headerlink" href="#the-water-analogy" title="Link to this heading">#</a></h4>
 <p>A good analogy for understanding this concept this is water, because it is tangible and visible. If we place a bucket containing 10 L of water on a table, we have a <em>potential</em> for 10 L of water to move to some other location, such as the floor. If we connect a hose to an opening in the bucket, and run the hose down to the floor, we create a path through which the water can flow. Allowing the water to flow through the hose is equivalent to turning on the light switch in our earlier example — the flow of water is comparable to the electrical current flow. Note, however, that this example would not make sense if we held the bucket underwater in the ocean. If we did that, there would be no potential for water to flow out of the bucket, because it would be surrounded by water. In other words, when we say that a bucket on a table has potential for water to flow onto the floor, that’s only because, in <em>relative</em> terms, there is 10 L more water in the bucket than on the floor.</p>
 </section>
 <section id="batteries-and-dipole-sources">
-<h4>Batteries and Dipole Sources<a class="headerlink" href="#batteries-and-dipole-sources" title="Permalink to this heading">#</a></h4>
+<h4>Batteries and Dipole Sources<a class="headerlink" href="#batteries-and-dipole-sources" title="Link to this heading">#</a></h4>
 <p>Coming back to electricity, let’s consider a standard AA battery. This has an electrical potential of 1.5 V. If it is placed in, say, a flashlight, and the flashlight is turned on,  current flows through the bulb and creates light. However, even with the flashlight turned off, the battery has 1.5 V of electrical <strong>potential</strong>. The way we would measure this potential is by connecting a device called a Voltmeter to either end of the battery (the <em>terminals</em>, marked <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code>). This would measure a 1.5 V difference in electrical potential between the terminals of the battery.</p>
 <p>Recall from the beginning of this chapter that the neural origins of EEG can be thought of as electrical <em>dipoles</em> — that is, a pair of electrical charges, one positive and one negative, separated by a small distance. This is the same as the battery, which has a positive terminal and a negative terminal, separated by a small distance. The difference is that the battery is a <em>static</em> dipole, whereas the neural dipole is <em>dynamic</em> — it changes over time.</p>
 <p>Recall this figure from the start of the chapter, illustrating the dipole source of EEG:</p>
 <figure class="align-center" id="id1">
-<a class="reference internal image-reference" href="../_images/dipole_head_labels.svg"><img alt="The dipole is indicated by the arrow, whose point represents the positive pole of the dipole. The read shading indicates where positive electrical signals would propagate from this dipole, through the head and outward to the scalp. Electrodes placed on scalp areas over the blue shading would record positive potential. The decreasing color represents how the strength of the positive signal would drop with distance. It can be see that one area near the top of the head would show a stronger positive signal (darker color) than the rest of the &quot;positive&quot; area of the scalp. Likewise, the blue shading represents the propagation of the signal from the negative pole of the dipole. Electrodes placed on scalp areas over the blue shading would record negative potential." src="../_images/dipole_head_labels.svg" width="400px" /></a>
+<a class="reference internal image-reference" href="../_images/dipole_head_labels.svg"><img alt="The dipole is indicated by the arrow, whose point represents the positive pole of the dipole. The read shading indicates where positive electrical signals would propagate from this dipole, through the head and outward to the scalp. Electrodes placed on scalp areas over the blue shading would record positive potential. The decreasing color represents how the strength of the positive signal would drop with distance. It can be see that one area near the top of the head would show a stronger positive signal (darker color) than the rest of the &quot;positive&quot; area of the scalp. Likewise, the blue shading represents the propagation of the signal from the negative pole of the dipole. Electrodes placed on scalp areas over the blue shading would record negative potential." src="../_images/dipole_head_labels.svg" style="width: 400px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 18 </span><span class="caption-text">A model of a single electrical dipole located inside a head. The small arrows in the center of the colored area is the dipole source; red colors indicate propagation of positive charge, and blue indicates negative charge. The decreasing color represents how the strength of the positive signal would drop with distance. The dotted line helps illustrate the orientation of the dipole, while the dashed line perpendicular to it indicates the line of zero charge at the scalp.  Image adapted from <a class="reference external" href="https://commons.wikimedia.org/wiki/File:DipoleContourPoint.svg">Geek3</a>, CC BY-SA 4.0, via Wikimedia Commons.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">A model of a single electrical dipole located inside a head. The small arrows in the center of the colored area is the dipole source; red colors indicate propagation of positive charge, and blue indicates negative charge. The decreasing color represents how the strength of the positive signal would drop with distance. The dotted line helps illustrate the orientation of the dipole, while the dashed line perpendicular to it indicates the line of zero charge at the scalp.  Image adapted from <a class="reference external" href="https://commons.wikimedia.org/wiki/File:DipoleContourPoint.svg">Geek3</a>, CC BY-SA 4.0, via Wikimedia Commons.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The critical concept that we glossed over previously when describing dipoles, is that the figure above reflects the nature of the <em>source</em> of the EEG signal, but not the nature of the <em>measurement</em>. Since our measurements of EEG are always relative measurements between two points, the measurement we take at any scalp location depends on the mathematical difference. Consider the different scalp locations indicated by letters in the figure above. If our reference were located at <strong>C</strong>, then the measurement at <strong>A</strong> would be negative, because the effect of the dipole is zero at <strong>C</strong> and negative at <strong>A</strong>. Likewise, the measurement at <strong>B</strong> would be positive.</p>
@@ -680,7 +696,7 @@ document.write(`
 </section>
 </section>
 <section id="electrical-potentials-in-eeg">
-<h3>Electrical Potentials in EEG<a class="headerlink" href="#electrical-potentials-in-eeg" title="Permalink to this heading">#</a></h3>
+<h3>Electrical Potentials in EEG<a class="headerlink" href="#electrical-potentials-in-eeg" title="Link to this heading">#</a></h3>
 <p>Ideally, we would have a reference point that is electrically neutral — that is, it has no electrical potential itself. This would be termed <strong>reference-free</strong> recording. However, this is technically challenging. For one thing, we want our reference point to be on the body of the person we are recording from, because otherwise we would be recording the difference in electrical potential between some external location and the <em>entire</em> body of the person. Since our bodies are ~80% water, with high electrolyte content, we absorb a lot of electromagnetic radiation from our environment. Thus if we measured electrical potential at the scalp relative to something neutral like the Earth, the data would contain all of the electromagnetic noise picked up by the body, and mixed in there somewhere, a comparatively weak EEG signal. In order to record only electrical activity in the brain, we need a reference point that is on the body, and ideally on the head.</p>
 <p>It turns out that this reference location doesn’t actually need to be “neutral” in the sense of not detecting any neural activity. Since electrical potential is a relative measurement, any pair of reference and measurement electrodes on the head will generate a measurement of the electrical potential difference between those locations. If we use the same reference for all of our EEG electrodes (which we’ll call <strong>active</strong> channels), then the same reference values are subtracted from all of the active channels. As such the <em>relative</em> differences between electrical potential at different locations on the scalp are preserved. For example, imagine there is a positive ERP component that is largest at Cz (say, <span class="math notranslate nohighlight">\(10 µV\)</span>) and slightly smaller at Fz (say, <span class="math notranslate nohighlight">\(5 µV\)</span>). If the electrical potential at the reference channel is <span class="math notranslate nohighlight">\(2 µV\)</span>, then the electrical potential at Cz would be <span class="math notranslate nohighlight">\(8 µV\)</span> <span class="math notranslate nohighlight">\((10 - 2)\)</span> and at Fz would be <span class="math notranslate nohighlight">\(3 µV\)</span> <span class="math notranslate nohighlight">\((5 - 2)\)</span>. Thus the relative difference between Cz and Fz is preserved — i.e., <span class="math notranslate nohighlight">\(10–5 = 8–3 = 5 µV\)</span>.</p>
 <p>This is <em>not</em> to say that our choice of reference location doesn’t matter, however. Indeed, the choice of reference location will determine the size and polarity (positive/negative) of the voltage measured at each recording electrode. We will demonstrate this below.</p>
@@ -689,7 +705,7 @@ document.write(`
 </section>
 </section>
 <section id="load-the-cleaned-data">
-<h2>Load the Cleaned Data<a class="headerlink" href="#load-the-cleaned-data" title="Permalink to this heading">#</a></h2>
+<h2>Load the Cleaned Data<a class="headerlink" href="#load-the-cleaned-data" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
@@ -703,10 +719,64 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">mne</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>  <span class="c1"># reduce extraneous MNE output</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Participant ID code</span>
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">neural_data_science</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">mne</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">22</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;0.16.2&#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># have to import verbose first since it&#39;s needed by many things</span>
+<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span><span class="n">set_log_level</span><span class="p">,</span> <span class="n">set_log_file</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">set_config</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>                     <span class="n">get_config</span><span class="p">,</span> <span class="n">get_config_path</span><span class="p">,</span> <span class="n">set_cache_dir</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>                     <span class="n">set_memmap_min_size</span><span class="p">,</span> <span class="n">grand_average</span><span class="p">,</span> <span class="n">sys_info</span><span class="p">,</span> <span class="n">open_docs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="kn">from</span> <span class="nn">.io.pick</span> <span class="kn">import</span> <span class="p">(</span><span class="n">pick_types</span><span class="p">,</span> <span class="n">pick_channels</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span>                       <span class="n">pick_channels_regexp</span><span class="p">,</span> <span class="n">pick_channels_forward</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>                       <span class="n">pick_types_forward</span><span class="p">,</span> <span class="n">pick_channels_cov</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span>                       <span class="n">pick_channels_evoked</span><span class="p">,</span> <span class="n">pick_info</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="kn">from</span> <span class="nn">.io.base</span> <span class="kn">import</span> <span class="n">concatenate_raws</span>
+
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/lazy_loader/__init__.py:82,</span> in <span class="ni">attach.&lt;locals&gt;.__getattr__</span><span class="nt">(name)</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">attr_to_modules</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span>     <span class="n">submod_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">package_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">attr_to_modules</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">82</span>     <span class="n">submod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">submod_path</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span>     <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="c1"># If the attribute lives in a file (module) with the same</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="c1"># name as the attribute, ensure that the attribute and *not*</span>
+<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="c1"># the module is accessible on the package.</span>
+
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/importlib/__init__.py:90,</span> in <span class="ni">import_module</span><span class="nt">(name, package)</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span>             <span class="k">break</span>
+<span class="g g-Whitespace">     </span><span class="mi">89</span>         <span class="n">level</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="ne">---&gt; </span><span class="mi">90</span> <span class="k">return</span> <span class="n">_bootstrap</span><span class="o">.</span><span class="n">_gcd_import</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">level</span><span class="p">:],</span> <span class="n">package</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">neural_data_science</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">mne</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">_logging</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">20</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">decorator</span> <span class="kn">import</span> <span class="n">FunctionMaker</span>
+<span class="ne">---&gt; </span><span class="mi">20</span> <span class="kn">from</span> <span class="nn">.docs</span> <span class="kn">import</span> <span class="n">fill_doc</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;mne&quot;</span><span class="p">)</span>  <span class="c1"># one selection here used across mne-python</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="n">logger</span><span class="o">.</span><span class="n">propagate</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># don&#39;t propagate (in case of multiple imports)</span>
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">neural_data_science</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">mne</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">docs</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">17</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="kn">from</span> <span class="nn">decorator</span> <span class="kn">import</span> <span class="n">FunctionMaker</span>
+<span class="ne">---&gt; </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">..defaults</span> <span class="kn">import</span> <span class="n">HEAD_SIZE_DEFAULT</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">._bunch</span> <span class="kn">import</span> <span class="n">BunchConst</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="c1"># # # WARNING # # #</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># This list must also be updated in doc/_templates/autosummary/class.rst if it</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="c1"># is changed here!</span>
+
+<span class="ne">ImportError</span>: cannot import name &#39;HEAD_SIZE_DEFAULT&#39; from &#39;mne.defaults&#39; (/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/mne/defaults.py)
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="evoked-objects-averaged-erps">
-<h2>Evoked objects — Averaged ERPs<a class="headerlink" href="#evoked-objects-averaged-erps" title="Permalink to this heading">#</a></h2>
+<h2>Evoked objects — Averaged ERPs<a class="headerlink" href="#evoked-objects-averaged-erps" title="Link to this heading">#</a></h2>
 <p>Unlike <code class="docutils literal notranslate"><span class="pre">Epochs</span></code>, which by definition contain multiple trials and in which each trial has an associated condition label (event code), <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> data sets are averages across trials for a <em>single</em> condition. Thus we have to create a separate <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object for each condition in our experiment. For convenience, we can store these in a list, and we can created the list of Evoked objects using dictionary comprehension, so that each dictionary key is the condition name and its value is the Evoked object:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -719,15 +789,21 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Match&#39;: &lt;Evoked | &#39;0.26 × Match/A + 0.25 × Match/C + 0.28 × Match/B + 0.21 × Match/D&#39; (average, N=61), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~95 kB&gt;,
- &#39;Mismatch&#39;: &lt;Evoked | &#39;0.28 × Mismatch/A + 0.22 × Mismatch/C + 0.26 × Mismatch/B + 0.24 × Mismatch/D&#39; (average, N=58), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~95 kB&gt;}
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">evokeds</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="n">epochs</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">}</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">evokeds</span>    
+
+<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="plot-average-erp-for-each-condition">
-<h2>Plot average ERP for each condition<a class="headerlink" href="#plot-average-erp-for-each-condition" title="Permalink to this heading">#</a></h2>
+<h2>Plot average ERP for each condition<a class="headerlink" href="#plot-average-erp-for-each-condition" title="Link to this heading">#</a></h2>
 <p>We can use a method called <code class="docutils literal notranslate"><span class="pre">plot_joint()</span></code> to generate a combination of “butterfly” plots (waveforms of all electrodes overlaid) and topographic maps at specific time points that we specify. This is a nice way of relating scalp topographies and waveforms. MNE automatically selects the time for the topo plots in each figure based on the time point of the peak amplitude of the ERP at the electrode with the largest amplitude at that time point.</p>
 <p>For both the Match and Mismatch conditions, we see two early peaks around 150 and 230 ms that reflect early sensory processes.</p>
 <div class="cell docutils container">
@@ -738,13 +814,20 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7223738f50cfc642639820d318b3d51a98466ba8951ceb43e0978302edf6bc63.png" src="../_images/7223738f50cfc642639820d318b3d51a98466ba8951ceb43e0978302edf6bc63.png" />
-<img alt="../_images/0c7fd04a873c0bd9b591de342c0b075ee430aa7fb68b3994d567cbbaade9c321.png" src="../_images/0c7fd04a873c0bd9b591de342c0b075ee430aa7fb68b3994d567cbbaade9c321.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">evokeds</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">evokeds</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">plot_joint</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">c</span><span class="p">);</span>
+
+<span class="ne">NameError</span>: name &#39;evokeds&#39; is not defined
+</pre></div>
+</div>
 </div>
 </div>
 </section>
 <section id="examine-contrasts-between-conditions">
-<h2>Examine contrasts between conditions<a class="headerlink" href="#examine-contrasts-between-conditions" title="Permalink to this heading">#</a></h2>
+<h2>Examine contrasts between conditions<a class="headerlink" href="#examine-contrasts-between-conditions" title="Link to this heading">#</a></h2>
 <p>Viewing the ERPs for each experimental condition is a good first step, but ultimately any ERP experiment should be designed around <em>contrasts</em> between different conditions. In the present study, we are interested in the difference between match and mismatch items. We predicted an N400 component, which would be larger (more negative) for mismatch than match items. The N400 tends to be largest over the midline centre/posterior region of the scalp. So here we will plot the data at electrode Cz, which typically shows the N400 effect. We use the function <code class="docutils literal notranslate"><span class="pre">mne.viz.plot_compare_evokeds()</span></code>, which plots waveforms for each of a list of evoked items that you pass to it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -753,11 +836,18 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/db049550481a2542dd3e6a4c5c8ab246d90eb528a1c204ba4d82b7be570539c7.png" src="../_images/db049550481a2542dd3e6a4c5c8ab246d90eb528a1c204ba4d82b7be570539c7.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">(</span><span class="n">evokeds</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="s1">&#39;Cz&#39;</span><span class="p">);</span>
+
+<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
+</pre></div>
+</div>
 </div>
 </div>
 <section id="what-n400">
-<h3>What N400?<a class="headerlink" href="#what-n400" title="Permalink to this heading">#</a></h3>
+<h3>What N400?<a class="headerlink" href="#what-n400" title="Link to this heading">#</a></h3>
 <p>You may wonder where the N400 effect is, because there is no clear difference between Match and Mismatch in the above plot! This is because of how the data were referenced.</p>
 <p>In this data set, the reference location is not recorded in the data file. However, we know (since this data was collected in my lab, and we are always careful to document our procedures) that the reference electrode was located at the International 10-20 System position FCz, which is located along the midline of the scalp, halfway between electrodes Fz and Cz. We can visualize this location by plotting all of the channels in the montage like this:</p>
 <div class="cell docutils container">
@@ -768,7 +858,15 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e6ef67245c8975ef5715a45ea250208a0bdb1d82acd3dfd171a46594a4789885.png" src="../_images/e6ef67245c8975ef5715a45ea250208a0bdb1d82acd3dfd171a46594a4789885.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">std_montage</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">channels</span><span class="o">.</span><span class="n">make_standard_montage</span><span class="p">(</span><span class="s2">&quot;easycap-M1&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">std_montage</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+
+<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
+</pre></div>
+</div>
 </div>
 </div>
 <p>Note that these are not all channels in our data set — we’re just using this to visualize the location of FCz.</p>
@@ -798,7 +896,25 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3bae4849168c6315f4bb2e5fe702e937984d5f448d4333fd1aea8f0a763249db.png" src="../_images/3bae4849168c6315f4bb2e5fe702e937984d5f448d4333fd1aea8f0a763249db.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">11</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># plot each channel in a separate subplot</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">chan</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">channels</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">11</span>     <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">(</span><span class="n">evokeds</span><span class="p">,</span> 
+<span class="g g-Whitespace">     </span><span class="mi">12</span>                                 <span class="n">picks</span><span class="o">=</span><span class="n">chan</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>                                 <span class="n">ylim</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;eeg&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)},</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>                                 <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>                                 <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>                                 <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="n">idx</span><span class="p">],</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>                                 <span class="n">show</span><span class="o">=</span><span class="kc">False</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span>                                 <span class="p">);</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
+
+<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/8ef148135ab0aceb77638868074adc9016bcf20f36e5b68cd7fafb8e76963bb1.png" src="../_images/8ef148135ab0aceb77638868074adc9016bcf20f36e5b68cd7fafb8e76963bb1.png" />
 </div>
 </div>
 <p>The FCz reference location also explains why, in the scalp topography maps (re-plotted below), the area between electrodes Fz and Cz is white, or very close to it, at most time points. As indicated on the color bar below, white represents a value of zero. The values aren’t exactly zero/white in the plots below, because in generating these plots, MNE interpolates values in between the electrodes. In other words, we only have voltage measurements at each electrode (the dots in the plots), and the colors at every other location are determined by mathematical estimates of what the voltage values likely would have been, based on the values at the electrodes we do have. Since both Fz and Cz measure slightly different locations than the reference, they are not zero, and the estimated values between them may also not be zero due to noise.</p>
@@ -816,31 +932,35 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Match
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">times</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="k">for</span> <span class="n">condition</span> <span class="ow">in</span> <span class="n">evokeds</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="nb">print</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;epochs&#39; is not defined
 </pre></div>
 </div>
-<img alt="../_images/4b485262ebeb5db2267ef209a4d1afa32dbea45432508df53728a96c44747f1a.png" src="../_images/4b485262ebeb5db2267ef209a4d1afa32dbea45432508df53728a96c44747f1a.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch
-</pre></div>
-</div>
-<img alt="../_images/3df8faee4f9044cdbd9be9bb076307b0020762398af8b6f715763bd5a09f8bbf.png" src="../_images/3df8faee4f9044cdbd9be9bb076307b0020762398af8b6f715763bd5a09f8bbf.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="what-reference-should-i-use">
-<h2>What Reference Should I Use?<a class="headerlink" href="#what-reference-should-i-use" title="Permalink to this heading">#</a></h2>
+<h2>What Reference Should I Use?<a class="headerlink" href="#what-reference-should-i-use" title="Link to this heading">#</a></h2>
 <p>While the choice of reference during recording is somewhat arbitrary, the choice of what to use as a reference in preprocessing is, however, an important one. Since this choice will influence the amplitude values at each channel, it will influence where ERP effects are identified, their polarity, and possibly how large they are.</p>
 <p>A starting point for deciding on the re-referencing location is prior literature. In most areas of EEG/ERP research, there is an existing literature on the process and/or components of interest, and in many cases different research groups working on a topic will have converged on a common choice for reference location. Often this is a location that is relatively distant from the scalp location where the component(s) of interest are largest. For example in studies of face perception, the nose, or bridge of the nose, is often used because this is far from the area behind the ears where the N170 ERP component elicited by faces is largest. In contrast, in studies of language, the mastoid processes (the bony area right behind the ears) is used as the reference because this location is far from the top of the head, where the N400 and other components associated with language processing are largest. In this case, the potentials are averaged from the left and right mastoid locations, and then subtracted from every other electrode. This highlights another important consideration: since the brain is organized into two hemispheres, and many functions (such as language) tend to be lateralized to one hemisphere, it is good practice to choose a reference location that is either along the midline of the scalp (like the nose), or to average electrodes located over the left and right sides of the head.</p>
 </section>
 <section id="average-reference">
-<h2>Average reference<a class="headerlink" href="#average-reference" title="Permalink to this heading">#</a></h2>
+<h2>Average reference<a class="headerlink" href="#average-reference" title="Link to this heading">#</a></h2>
 <p>An alternative to selecting a specific electrode(s) to re-reference to, is to use the average reference. In this case, the average potential across <em>all</em> electrodes is subtracted from each individual electrode. In principle, this is the ideal choice of reference because if all of the electrical activity recorded is from the brain, then the average electrical potential around the entire head should be zero. This is true because each source of electrical activity in the brain is an electrical <em>dipole</em>, with positive and negative values radiating out from the source in opposite directions. So, if we placed electrodes around the entire head with equal spacing between them, we would record the positive and negative potentials from each dipole source in the brain, which would sum to zero. Thus, at each channel the potential would reflect the relative potential at that scalp location relative to zero. However, in practice the situation is less ideal. Because of the fact that the head is attached to the neck (which we normally view as a Good Thing), we cannot place electrodes evenly around the entire head. Indeed, in practice EEG caps cover only the top half of the head, and typically the actual electrode positions cover a bit less than that.</p>
 <p>However, even in such less-than-ideal situations the average reference can be a good choice, because then the electrical potential at each scalp location still reflects what is unique to that position on the head relative to all other positions (from which we have recordings). There are a few limitations of average reference to keep in mind though.</p>
 <p>For one, if the experiment is designed to elicit an ERP component that is known to be quite large and extensive over the head, the average reference may not be a good choice. For instance, some components such as the P3 and N400 tend to be largest over the top of the head, but extend outward across many more channels. So if the same component is present at all or most of the channels used, then an average reference will effectively subtract that component from the data.</p>
 <p>A related consideration is the number of electrodes used during recording, and their locations. Average reference will work best when more electrodes used, and when more of the surface area of the head is covered by these electrodes. More electrodes both allow for more extensive scalp coverage, and ensure that the average is not biased by a few electrodes that have large potentials — including electrodes that may contain noise. Noisy electrodes are an issue for average reference because if there is high noise in a single electrode it will effectively be introduced into every other electrode by the averaging procedure, when it is used as a reference. More extensive coverage will mean that there is less likelihood that a widely-distributed component is subtracted in the average (because there will be more electrodes that aren’t located over scalp regions where the component is present).</p>
 <section id="re-reference-our-data-to-the-average-reference">
-<h3>Re-Reference Our Data to the Average Reference<a class="headerlink" href="#re-reference-our-data-to-the-average-reference" title="Permalink to this heading">#</a></h3>
+<h3>Re-Reference Our Data to the Average Reference<a class="headerlink" href="#re-reference-our-data-to-the-average-reference" title="Link to this heading">#</a></h3>
 <p>MNE provides a <code class="docutils literal notranslate"><span class="pre">.set_eeg_reference()</span></code> method to re-reference the data. We use dictionary comprehension to iterate over each condition in <code class="docutils literal notranslate"><span class="pre">evoked</span></code>, and re-reference each one to the average reference.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -854,10 +974,22 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">evokeds_avgref</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="n">evokeds</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">set_eeg_reference</span><span class="p">(</span><span class="n">ref_channels</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">)</span> 
+<span class="nn">----&gt; 2                   for c</span> in <span class="ni">evokeds.keys</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                   <span class="p">}</span>
+
+<span class="ne">NameError</span>: name &#39;evokeds&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="view-topomaps-with-average-reference">
-<h3>View Topomaps with Average Reference<a class="headerlink" href="#view-topomaps-with-average-reference" title="Permalink to this heading">#</a></h3>
+<h3>View Topomaps with Average Reference<a class="headerlink" href="#view-topomaps-with-average-reference" title="Link to this heading">#</a></h3>
 <p>We’ll also re-plot the originally-reference data for easy comparison.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -873,30 +1005,22 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>----------------------------------
-Match (average reference)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">for</span> <span class="n">condition</span> <span class="ow">in</span> <span class="n">evokeds_avgref</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------------------------------&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="nb">print</span><span class="p">(</span><span class="n">condition</span> <span class="o">+</span> <span class="s1">&#39; (average reference)&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;evokeds_avgref&#39; is not defined
 </pre></div>
 </div>
-<img alt="../_images/195dba4738b97bb2c157418ba5425cec1088d27e63cc25db97984b844d956c1c.png" src="../_images/195dba4738b97bb2c157418ba5425cec1088d27e63cc25db97984b844d956c1c.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Match (original (FCz) reference)
-</pre></div>
-</div>
-<img alt="../_images/4b485262ebeb5db2267ef209a4d1afa32dbea45432508df53728a96c44747f1a.png" src="../_images/4b485262ebeb5db2267ef209a4d1afa32dbea45432508df53728a96c44747f1a.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>----------------------------------
-Mismatch (average reference)
-</pre></div>
-</div>
-<img alt="../_images/aa7f3b84da6a1bca27f03b62b307368d4e0459aa1a93145bc18f97f71de19079.png" src="../_images/aa7f3b84da6a1bca27f03b62b307368d4e0459aa1a93145bc18f97f71de19079.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch (original (FCz) reference)
-</pre></div>
-</div>
-<img alt="../_images/3df8faee4f9044cdbd9be9bb076307b0020762398af8b6f715763bd5a09f8bbf.png" src="../_images/3df8faee4f9044cdbd9be9bb076307b0020762398af8b6f715763bd5a09f8bbf.png" />
 </div>
 </div>
 <p>There are clear differences in the scalp topography between the original and averaged references. The patterns potentials across the scalp are similar — for instance, note the relatively strong positive potential over the posterior right scalp in the last time window, with a more negative potential over the anterior scalp. At the same time, the actual electrical potential values are quite different, in ways that could impact interpretation of the data. Note how the right anterior negativity appears stronger and more focal in the average reference, while the right posterior positivity appears stronger in the original reference.</p>
 </section>
 <section id="view-waveform-plots-at-midline-channels-with-average-reference">
-<h3>View Waveform Plots at Midline Channels with Average Reference<a class="headerlink" href="#view-waveform-plots-at-midline-channels-with-average-reference" title="Permalink to this heading">#</a></h3>
+<h3>View Waveform Plots at Midline Channels with Average Reference<a class="headerlink" href="#view-waveform-plots-at-midline-channels-with-average-reference" title="Link to this heading">#</a></h3>
 <p>Compared to the original reference, you can see now that the waveforms at Fz and Cz are no longer as flat. As well, a difference between the Match and Mismatch conditions is apparent particularly at Cz, starting at approximately 500 ms. This is consistent with the N400 effect that we predicted, although somewhat later in time that a typical N400.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -918,13 +1042,31 @@ Mismatch (average reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e123f178f744c0661af22df3b735f6d5c3f8316fca0df6879d9b7c6e9a3df3c7.png" src="../_images/e123f178f744c0661af22df3b735f6d5c3f8316fca0df6879d9b7c6e9a3df3c7.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># plot each channel in a separate subplot</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">chan</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">channels</span><span class="p">):</span>
+<span class="ne">----&gt; </span><span class="mi">6</span>     <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">(</span><span class="n">evokeds_avgref</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span>                                 <span class="n">picks</span><span class="o">=</span><span class="n">chan</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>                                 <span class="n">ylim</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;eeg&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)},</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>                                 <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>                                 <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>                                 <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="n">idx</span><span class="p">],</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>                                 <span class="n">show</span><span class="o">=</span><span class="kc">False</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>                                 <span class="p">);</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
+
+<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/8ef148135ab0aceb77638868074adc9016bcf20f36e5b68cd7fafb8e76963bb1.png" src="../_images/8ef148135ab0aceb77638868074adc9016bcf20f36e5b68cd7fafb8e76963bb1.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="re-reference-the-data-to-averaged-mastoids">
-<h2>Re-Reference the Data to Averaged Mastoids<a class="headerlink" href="#re-reference-the-data-to-averaged-mastoids" title="Permalink to this heading">#</a></h2>
+<h2>Re-Reference the Data to Averaged Mastoids<a class="headerlink" href="#re-reference-the-data-to-averaged-mastoids" title="Link to this heading">#</a></h2>
 <p>Now we will re-reference to the average of the mastoid electrodes (whose labels are TP9 and TP10 in the 10-20 system — refer back to the plot of channel locations to see these on the montage). Note that we need to pass a <em>list</em> of channel locations to the <code class="docutils literal notranslate"><span class="pre">ref_channels</span></code> kwarg since there is more than one value to pass.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -937,9 +1079,24 @@ Mismatch (average reference)
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">evokeds_mastoidref</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="n">evokeds</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">set_eeg_reference</span><span class="p">(</span><span class="n">ref_channels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TP9&#39;</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">2</span>                                                                           <span class="s1">&#39;TP10&#39;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                                                                           <span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                                                             <span class="p">)</span> 
+<span class="nn">----&gt; 5                       for c</span> in <span class="ni">evokeds.keys</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                       <span class="p">}</span>
+
+<span class="ne">NameError</span>: name &#39;evokeds&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <section id="view-topomaps-with-mastoid-reference">
-<h3>View Topomaps with Mastoid Reference<a class="headerlink" href="#view-topomaps-with-mastoid-reference" title="Permalink to this heading">#</a></h3>
+<h3>View Topomaps with Mastoid Reference<a class="headerlink" href="#view-topomaps-with-mastoid-reference" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">condition</span> <span class="ow">in</span> <span class="n">evokeds_mastoidref</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -957,38 +1114,22 @@ Mismatch (average reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>----------------------------------
-Match (mastoid reference)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">for</span> <span class="n">condition</span> <span class="ow">in</span> <span class="n">evokeds_mastoidref</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------------------------------&#39;</span><span class="p">)</span>    
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="nb">print</span><span class="p">(</span><span class="n">condition</span> <span class="o">+</span> <span class="s1">&#39; (mastoid reference)&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;evokeds_mastoidref&#39; is not defined
 </pre></div>
 </div>
-<img alt="../_images/aca5befcaf73ab8678e6c6db7767326debf0c386c3893a25434038892647c9e0.png" src="../_images/aca5befcaf73ab8678e6c6db7767326debf0c386c3893a25434038892647c9e0.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Match (average reference)
-</pre></div>
-</div>
-<img alt="../_images/195dba4738b97bb2c157418ba5425cec1088d27e63cc25db97984b844d956c1c.png" src="../_images/195dba4738b97bb2c157418ba5425cec1088d27e63cc25db97984b844d956c1c.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Match (original (FCz) reference)
-</pre></div>
-</div>
-<img alt="../_images/4b485262ebeb5db2267ef209a4d1afa32dbea45432508df53728a96c44747f1a.png" src="../_images/4b485262ebeb5db2267ef209a4d1afa32dbea45432508df53728a96c44747f1a.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>----------------------------------
-Mismatch (mastoid reference)
-</pre></div>
-</div>
-<img alt="../_images/11c4450fa8fb6848c8d6f3b97bc633ee33d79f29b1683438ea46fb6126627483.png" src="../_images/11c4450fa8fb6848c8d6f3b97bc633ee33d79f29b1683438ea46fb6126627483.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch (average reference)
-</pre></div>
-</div>
-<img alt="../_images/aa7f3b84da6a1bca27f03b62b307368d4e0459aa1a93145bc18f97f71de19079.png" src="../_images/aa7f3b84da6a1bca27f03b62b307368d4e0459aa1a93145bc18f97f71de19079.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch (original (FCz) reference)
-</pre></div>
-</div>
-<img alt="../_images/3df8faee4f9044cdbd9be9bb076307b0020762398af8b6f715763bd5a09f8bbf.png" src="../_images/3df8faee4f9044cdbd9be9bb076307b0020762398af8b6f715763bd5a09f8bbf.png" />
 </div>
 </div>
 <p>Again, the relative distribution of electrical potentials across the scalp is similar to the original and average-referenced data. However, now the white, “zero voltage” area overlaps the locations behind the ears, and the top/centre electrodes (extending to more frontal electrodes) are more negative than when other references were used. As a consequence of this, a much stronger-appearing negativity is now apparent for the Mismatch condition in later time windows, over the midline and anterior frontal regions, relative to prior references.</p>
 </section>
 <section id="view-waveform-plots-at-midline-channels-with-mastoid-reference">
-<h3>View Waveform Plots at Midline Channels with Mastoid Reference<a class="headerlink" href="#view-waveform-plots-at-midline-channels-with-mastoid-reference" title="Permalink to this heading">#</a></h3>
+<h3>View Waveform Plots at Midline Channels with Mastoid Reference<a class="headerlink" href="#view-waveform-plots-at-midline-channels-with-mastoid-reference" title="Link to this heading">#</a></h3>
 <p>Using the mastoid reference (which, again, is what is most commonly used in published N400 studies), we see an even larger N400 effect at Cz (as well as Fz and Pz now), with a larger negativity for mismatch than match items. The timing of this difference is the same as we saw with the average reference — because re-referencing does not change the timing of the ERP waveforms, but its magnitude is much larger.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1010,13 +1151,31 @@ Mismatch (mastoid reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9c6f07649139a8f5192662bd369483b9bb75c8090330750c1879b10a7053bdc2.png" src="../_images/9c6f07649139a8f5192662bd369483b9bb75c8090330750c1879b10a7053bdc2.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># plot each channel in a separate subplot</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">chan</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">channels</span><span class="p">):</span>
+<span class="ne">----&gt; </span><span class="mi">6</span>     <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">(</span><span class="n">evokeds_mastoidref</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span>                                 <span class="n">picks</span><span class="o">=</span><span class="n">chan</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>                                 <span class="n">ylim</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;eeg&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)},</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>                                 <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>                                 <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>                                 <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="n">idx</span><span class="p">],</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>                                 <span class="n">show</span><span class="o">=</span><span class="kc">False</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>                                 <span class="p">);</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
+
+<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/8ef148135ab0aceb77638868074adc9016bcf20f36e5b68cd7fafb8e76963bb1.png" src="../_images/8ef148135ab0aceb77638868074adc9016bcf20f36e5b68cd7fafb8e76963bb1.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="compare-mismatch-waveforms-between-references">
-<h2>Compare Mismatch Waveforms Between References<a class="headerlink" href="#compare-mismatch-waveforms-between-references" title="Permalink to this heading">#</a></h2>
+<h2>Compare Mismatch Waveforms Between References<a class="headerlink" href="#compare-mismatch-waveforms-between-references" title="Link to this heading">#</a></h2>
 <p>If we compare the waveforms for just the Mismatch condition between the different references, the impact of re-referencing becomes even more clear. Note especially how not only the amplitude, but even the <em>polarity</em> of the peaks around 150 and 230 ms changes with different references.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1046,13 +1205,35 @@ Mismatch (mastoid reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f2e384c6ac9e5f4c0c35f1f8bd0a362b21a6966c60473db601e9ceaca7c5d357.png" src="../_images/f2e384c6ac9e5f4c0c35f1f8bd0a362b21a6966c60473db601e9ceaca7c5d357.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">10</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># plot each channel in a separate subplot</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">chan</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">channels</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">10</span>     <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">({</span><span class="s1">&#39;FCz&#39;</span><span class="p">:</span><span class="n">evokeds</span><span class="p">[</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">],</span> 
+<span class="g g-Whitespace">     </span><span class="mi">11</span>                                   <span class="s1">&#39;Average&#39;</span><span class="p">:</span><span class="n">evokeds_avgref</span><span class="p">[</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>                                   <span class="s1">&#39;Mastoids&#39;</span><span class="p">:</span><span class="n">evokeds_mastoidref</span><span class="p">[</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>                                   <span class="p">},</span> 
+<span class="g g-Whitespace">     </span><span class="mi">14</span>                                 <span class="n">picks</span><span class="o">=</span><span class="n">chan</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>                                 <span class="n">ylim</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;eeg&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)},</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>                                 <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>                                 <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span>                                 <span class="n">linestyles</span><span class="o">=</span><span class="n">linestyle_dict</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>                                 <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="n">idx</span><span class="p">],</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>                                 <span class="n">show</span><span class="o">=</span><span class="kc">False</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>                                 <span class="p">);</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
+
+<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/8ef148135ab0aceb77638868074adc9016bcf20f36e5b68cd7fafb8e76963bb1.png" src="../_images/8ef148135ab0aceb77638868074adc9016bcf20f36e5b68cd7fafb8e76963bb1.png" />
 </div>
 </div>
 <p>Re-referencing can have even more dramatic — and significant to interpretation — effect on comparisons between conditions, as we will see below.</p>
 </section>
 <section id="create-difference-waves">
-<h2>Create difference waves<a class="headerlink" href="#create-difference-waves" title="Permalink to this heading">#</a></h2>
+<h2>Create difference waves<a class="headerlink" href="#create-difference-waves" title="Link to this heading">#</a></h2>
 <p>Since the focus of most ERP experiments is on contrasts between conditions, it is useful to visualize these differences as weaveforms and topo maps. Computing difference waves allows us to view the experimental effect in a quite intuitive way: zero voltage means no difference between conditions, and and deviation from the zero line in the waveform plot (or from white in the topopmaps) indicates an experimental effect.</p>
 <p>We create <strong>difference waves</strong> by subtracting the waveforms of between two conditions. Since the N400 manifests as a larger negativity for mismatch, it is conventional to compute this difference as Mismatch - Match (otherwise the difference between the two would appear as positive, rather than negative, voltage).</p>
 <p>MNE’s <code class="docutils literal notranslate"><span class="pre">combine_evoked()</span></code> function allows us to combine Evoked data sets in different ways. To compute a difference, we pass the weights of <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">-1]</span></code> to indicate we want to subtract the second Evoked data set listed (Match) from the first (Mismatch):</p>
@@ -1078,10 +1259,34 @@ Mismatch (mastoid reference)
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">evokeds_diff</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">combine_evoked</span><span class="p">([</span><span class="n">evokeds</span><span class="p">[</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">],</span> 
+<span class="g g-Whitespace">      </span><span class="mi">2</span>                                    <span class="n">evokeds</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                                    <span class="p">],</span> 
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                                   <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                                   <span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">evokeds_diff_avgref</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">combine_evoked</span><span class="p">([</span><span class="n">evokeds_avgref</span><span class="p">[</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">],</span> 
+<span class="g g-Whitespace">      </span><span class="mi">8</span>                                    <span class="n">evokeds</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>                                    <span class="p">],</span> 
+<span class="g g-Whitespace">     </span><span class="mi">10</span>                                   <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>                                   <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="n">evokeds_diff_mastoidref</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">combine_evoked</span><span class="p">([</span><span class="n">evokeds_mastoidref</span><span class="p">[</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">],</span> 
+<span class="g g-Whitespace">     </span><span class="mi">14</span>                                    <span class="n">evokeds</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>                                    <span class="p">],</span> 
+<span class="g g-Whitespace">     </span><span class="mi">16</span>                                   <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>                                   <span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="plot-difference-waves">
-<h2>Plot Difference Waves<a class="headerlink" href="#plot-difference-waves" title="Permalink to this heading">#</a></h2>
+<h2>Plot Difference Waves<a class="headerlink" href="#plot-difference-waves" title="Link to this heading">#</a></h2>
 <p>One advantage of difference waves is that they make it very clear when differences are occurring between conditions, and how large they are. When we compare waveforms for two conditions, the shape of the waveforms can sometimes make it hard to mentally compute the size of the difference - especially at time points when the waveforms’ amplitudes are changing. In a difference waveform plot, the zero line clearly indicates no difference between conditions, and so the magnitude of the difference — as well as its timing — is easy to see.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1107,13 +1312,35 @@ Mismatch (mastoid reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6954a8765cf671ca04fd23b5a08e1913f1ddbf1609bf090b3c68b323b9fc08fa.png" src="../_images/6954a8765cf671ca04fd23b5a08e1913f1ddbf1609bf090b3c68b323b9fc08fa.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># plot each channel in a separate subplot</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">chan</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">channels</span><span class="p">):</span>
+<span class="ne">----&gt; </span><span class="mi">6</span>     <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">({</span><span class="s1">&#39;FCz&#39;</span><span class="p">:</span><span class="n">evokeds_diff</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span>                                   <span class="s1">&#39;Average&#39;</span><span class="p">:</span><span class="n">evokeds_diff_avgref</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>                                   <span class="s1">&#39;Mastoids&#39;</span><span class="p">:</span><span class="n">evokeds_diff_mastoidref</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>                                   <span class="p">},</span> 
+<span class="g g-Whitespace">     </span><span class="mi">10</span>                                 <span class="n">picks</span><span class="o">=</span><span class="n">chan</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>                                 <span class="n">ylim</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;eeg&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)},</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>                                 <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>                                 <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>                                 <span class="n">linestyles</span><span class="o">=</span><span class="n">linestyle_dict</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>                                 <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="n">idx</span><span class="p">],</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>                                 <span class="n">show</span><span class="o">=</span><span class="kc">False</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>                                 <span class="p">);</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
+
+<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/8ef148135ab0aceb77638868074adc9016bcf20f36e5b68cd7fafb8e76963bb1.png" src="../_images/8ef148135ab0aceb77638868074adc9016bcf20f36e5b68cd7fafb8e76963bb1.png" />
 </div>
 </div>
 <p>We can see even more clearly than before that the mastoid reference produces a much larger N400 effect than the other references we have examined. This is because the average reference effectively subtracts the N400 from the data, since it is largest over the top of the head, which is where the majority of recording electrodes were located. The mastoid reference also results in larger differences for the early components at 150 and 230 ms, although this is not an expected effect, and is unlikely to be replicated across participants.</p>
 </section>
 <section id="topoplot-of-difference-waves">
-<h2>Topoplot of Difference Waves<a class="headerlink" href="#topoplot-of-difference-waves" title="Permalink to this heading">#</a></h2>
+<h2>Topoplot of Difference Waves<a class="headerlink" href="#topoplot-of-difference-waves" title="Link to this heading">#</a></h2>
 <p>And we can plot the scalp distribution of the differences as well, which nicely shows the scalp distribution of the N400, starting around 576 ms and peaking around 700 ms — corresponding to the negative peak in the waveform plot above. This timing is quite late for the N400, which is typically observed from approximately 300–500 ms. However, in this study the participant was being trained on a new language, and so these ERPs reflect their brain’s response to words that they had only recently learned. N400s are often delayed when people are processing a language they are less fluent in (e.g., <a class="reference external" href="https://dx.doi.org/:10.1162/jocn_a_00143">Newman et al., 2012</a>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1129,29 +1356,27 @@ Mismatch (mastoid reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch (original (FCz) reference)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="n">condition</span> <span class="o">+</span> <span class="s1">&#39; (original (FCz) reference)&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">evokeds_diff</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.050</span><span class="p">,</span> <span class="n">vlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">));</span>    
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="n">condition</span> <span class="o">+</span> <span class="s1">&#39; (average reference)&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;condition&#39; is not defined
 </pre></div>
 </div>
-<img alt="../_images/1dbc648eba082002f37afbb2af6f79966f1f8e87fbe8b907ff7e59c70e919446.png" src="../_images/1dbc648eba082002f37afbb2af6f79966f1f8e87fbe8b907ff7e59c70e919446.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch (average reference)
-</pre></div>
-</div>
-<img alt="../_images/6c158b588f893bc1a4953786649029d444dcb7d27a0e41ff48167322e1664bef.png" src="../_images/6c158b588f893bc1a4953786649029d444dcb7d27a0e41ff48167322e1664bef.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch (mastoid reference)
-</pre></div>
-</div>
-<img alt="../_images/128fcc56c6e7c531c1b83d29bbe02b49daa0722074a345089d98cf47944f231a.png" src="../_images/128fcc56c6e7c531c1b83d29bbe02b49daa0722074a345089d98cf47944f231a.png" />
 </div>
 </div>
 </section>
 <section id="my-head-is-blowing-up-are-erps-even-real">
-<h2>My Head is Blowing Up. Are ERPs Even Real?<a class="headerlink" href="#my-head-is-blowing-up-are-erps-even-real" title="Permalink to this heading">#</a></h2>
+<h2>My Head is Blowing Up. Are ERPs Even Real?<a class="headerlink" href="#my-head-is-blowing-up-are-erps-even-real" title="Link to this heading">#</a></h2>
 <p>If differences can be made larger or disappear entirely by changing the reference, can we trust any ERP results? The answer is a definitive “yes”. The original EEG recording is a measurement of the relative electrical potential at each channel relative to the reference. All that changes when we re-reference is what the potential at each channel is <em>relative</em> to. If we choose a reference location at which important experimental differences between conditions happen, we subtract those differences from the data, which means we are unable to see them. This happens because the re-referencing is applied to each trial (if we’re working with Epochs) or to the average of all trials within each condition (if we’re working with Evokeds). So if we set the amplitude at, say, channel Cz to zero for the Match condition and the Mismatch condition, then the difference between them is <span class="math notranslate nohighlight">\(0 – 0 = 0\)</span>.</p>
 <p>Importantly, re-referencing cannot create a difference between conditions that didn’t exist in the original data. If an individual showed no Mismatch – Match N400 effect, re-referencing could not make it appear like they did. All re-referencing can do is mask or unmask a true difference that exists in the data. However, it’s critical to have a priori predictions as to what ERP components you are looking for, and where on the scalp you expect their differences between conditions to be largest. It’s almost as important to have an understanding of where the differences between conditions are likely to be the smallest, and choose a reference location where you do not expect between-conditions ERP differences. The average reference is a relatively safe option in most cases, however with components that are broadly distributed over the top of the head using the average reference may attenuate, if not completely eliminate, experimental effects. This is because the majority of EEG electrodes are typically placed at scalp locations above the ears and eyebrows, although systems with larger numbers of channels (&gt; 64) typically have more electrodes over more inferior head locations.</p>
 </section>
 <hr class="docutils" />
 <section id="save-evokeds-to-file">
-<h2>Save Evokeds to File<a class="headerlink" href="#save-evokeds-to-file" title="Permalink to this heading">#</a></h2>
+<h2>Save Evokeds to File<a class="headerlink" href="#save-evokeds-to-file" title="Link to this heading">#</a></h2>
 <p>We can save Evoked objects to files using <code class="docutils literal notranslate"><span class="pre">mne.write_evokeds()</span></code>. We’ll only save the mastoid-referenced data, since that’s how we want to analyze the data.</p>
 <p>Note that this function does not accept a dictionary as input, only a single <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object, or a list of <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> objects. One potential source of error here is that, unlike dictionaries, lists don’t have labels for their entries. Thus if you save a list of Evoked objects, you will need to remember the order of the conditions in the list — and relying on memory is a good way to ensure errors in the future, especially if anyone else will be using your data. MNE does provides a way to label Evoked objects: the <code class="docutils literal notranslate"><span class="pre">.comment</span></code> property:</p>
 <div class="cell docutils container">
@@ -1161,7 +1386,12 @@ Mismatch (mastoid reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.26 × Match/A + 0.25 × Match/C + 0.28 × Match/B + 0.21 × Match/D&#39;
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">evokeds_mastoidref</span><span class="p">[</span><span class="s1">&#39;Match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">comment</span>
+
+<span class="ne">NameError</span>: name &#39;evokeds_mastoidref&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1178,14 +1408,20 @@ Mismatch (mastoid reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Match&#39;: &lt;Evoked | &#39;Match&#39; (average, N=61), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~95 kB&gt;,
- &#39;Mismatch&#39;: &lt;Evoked | &#39;Mismatch&#39; (average, N=58), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~95 kB&gt;}
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">for</span> <span class="n">condition</span> <span class="ow">in</span> <span class="n">evokeds_mastoidref</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">evokeds_mastoidref</span><span class="p">[</span><span class="n">condition</span><span class="p">]</span><span class="o">.</span><span class="n">comment</span> <span class="o">=</span> <span class="n">condition</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># view the results</span>
+
+<span class="ne">NameError</span>: name &#39;evokeds_mastoidref&#39; is not defined
 </pre></div>
 </div>
 </div>
 </div>
 <section id="write-evoked-objects-to-file">
-<h3>Write Evoked Objects to File<a class="headerlink" href="#write-evoked-objects-to-file" title="Permalink to this heading">#</a></h3>
+<h3>Write Evoked Objects to File<a class="headerlink" href="#write-evoked-objects-to-file" title="Link to this heading">#</a></h3>
 <p>Now that we have comments that will help clearly identify each <code class="docutils literal notranslate"><span class="pre">Evoked</span></code> object later, we can write these out to a file. In general, however, I prefer to save separate files for each condition (unless there are a large number of files). This is more transparent, both for future you and if others are working with your data, because rather than loading in a file with multiple Evoked objects and then looking at their comment properties to figure out which is which, this information is explicit in the file name.</p>
 <p>MNE imposes file naming conventions (rules), which specify that Evoked file names should always end in <code class="docutils literal notranslate"><span class="pre">-ave.fif</span></code>. It’s good practice to use the participant ID and condition name in the file name as well. The <code class="docutils literal notranslate"><span class="pre">write_evoked()</span></code> function requires the output file name as its first argument, and the Evoked data as the second argument.</p>
 <div class="cell docutils container">
@@ -1198,10 +1434,24 @@ Mismatch (mastoid reference)
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">for</span> <span class="n">condition</span> <span class="ow">in</span> <span class="n">evokeds_mastoidref</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">mne</span><span class="o">.</span><span class="n">write_evokeds</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">condition</span> <span class="o">+</span> <span class="s1">&#39;-ave.fif&#39;</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                     <span class="n">evokeds_mastoidref</span><span class="p">[</span><span class="n">condition</span><span class="p">],</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                     <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                     <span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;evokeds_mastoidref&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="save-difference-waves-to-file">
-<h3>Save Difference Waves to File<a class="headerlink" href="#save-difference-waves-to-file" title="Permalink to this heading">#</a></h3>
+<h3>Save Difference Waves to File<a class="headerlink" href="#save-difference-waves-to-file" title="Link to this heading">#</a></h3>
 <p>Although we have only one contrast of interest in this study, it’s still good practice to save every difference wave as a separate file, if you have more than one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1212,11 +1462,24 @@ Mismatch (mastoid reference)
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">21</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mne</span><span class="o">.</span><span class="n">write_evokeds</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;_Mismatch-Match-ave.fif&#39;</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">2</span>                     <span class="n">evokeds_diff_mastoidref</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                     <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                      <span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 </section>
 <section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
 <p>Averaging across trials is an important final step in preprocessing, because it helps remove noise and reveal the signal of interest. MNE provides useful tools for averaging and visualizing ERP data, in particular for comparing waveforms between conditions — which is the main goal of most ERP experiments. The <code class="docutils literal notranslate"><span class="pre">mne.combine_evoked()</span></code> function can be used to compute difference waveforms, which provide additional useful visualizations since they focus the viewer’s attention on the differences between conditions, rather than the morphology of the individual condition waveforms.</p>
 <p>Re-referencing is closely tied to averaging, because the choice of reference determines the amplitude of ERPs at each channel, and thus the distribution of potentials over the scalp. The choice of reference is also important for interpreting ERP effects, because it can change the amplitude and even polarity of the ERP at each channel. Thus it is important to choose a reference location that is not close to the scalp location where the component of interest is largest. It is best to review prior literature to which you expect to compare your ERP results, and use the same reference as previously-published studies to ensure your results are comparable. The average reference is often a good default choice, although it can attenuate or eliminate ERP effects that are largest over the top of the head.</p>
 <p>After each individual participant’s data has been preprocessed through a pipeline line this, the next step in analyzing an ERP experiment would be a group-level analysis. In a group-level analysis, the data from all participants would typically be averaged, and visualized using waveform plots and scalp topographic maps similar to the ones we’ve created here for one participant. This is what we will explore in the next lesson.</p>
@@ -1250,7 +1513,7 @@ Mismatch (mastoid reference)
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1374,8 +1637,8 @@ By Aaron J Newman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

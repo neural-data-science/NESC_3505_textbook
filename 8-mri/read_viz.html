@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Reading and Visualizing Structural MRI Data &#8212; Neural Data Science in Python</title>
   
@@ -15,47 +14,45 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-1SNTM6T50K"></script>
     <script>
                 window.dataLayer = window.dataLayer || [];
@@ -63,15 +60,19 @@
                 gtag('js', new Date());
                 gtag('config', 'G-1SNTM6T50K');
             </script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-1SNTM6T50K');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '8-mri/read_viz';</script>
     <link rel="canonical" href="http://neuraldatascience.io/8-mri/read_viz.html" />
-    <link rel="shortcut icon" href="../_static/NESC3505_favicon.png"/>
+    <link rel="icon" href="../_static/NESC3505_favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Working with NIfTI images" href="nifti.html" />
@@ -85,27 +86,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -127,8 +124,13 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -152,6 +154,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../intro.html">
   
@@ -169,7 +173,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -184,7 +199,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../1-intro/why.html">Start with why</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1-intro/learning_objectives.html">Learning Objectives for this Course</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../syllabus.html">Syllabus</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/learning_approach.html">How to Approach this Course</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/learning_approach.html">How to Approach this Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/actually_write_code.html">Actually Write Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/mindset.html">Mindset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/flipped_classroom.html">Flipped Classroom</a></li>
@@ -192,16 +207,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/ai.html">Artificial Intelligence-Assisted Coding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/teamwork.html">Collaboration and Teamwork</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/pedagogy.html">Pedagogy</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/pedagogy.html">Pedagogy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/teaching_approach.html">Teaching Approach</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/authenticity.html">Authenticity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/21st_cen_skills.html">21st Century Skills</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/constructivism.html">Constructivism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/connectivism.html">Connectivism</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/open.html">Open Resources</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/open.html">Open Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/software.html">Free Software</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/free_licenses.html">Free and Open-Source Software Licenses</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/open_science.html">Open Science</a></li>
@@ -216,20 +231,20 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/oer_this_course.html">OERs in the Context of this Course</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/licenses.html">Licenses</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Data Science</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../2-nds/introduction.html">Getting Started with the Course</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2-nds/learning_objectives.html">Learning Objectives</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/what_is_nds.html">What is Data Science?</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/what_is_nds.html">What is Data Science?</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/data.html">What is Data?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/where.html">Where Does Neural Data Come From?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/data_science.html">Data Science</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/data_cleaning.html">Data Cleaning</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/tools_for_nds.html">Tools for Neural Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/tools_for_nds.html">Tools for Neural Data Science</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/spreadsheets.html">Spreadsheets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/spreadsheets_limits.html">Limitations of Spreadsheets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/reproducibility.html">Reproducibility</a></li>
@@ -238,8 +253,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/libs.html">Libraries and packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/why_python.html">Why Python for this Course?</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/coding.html">Coding Tools</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2-nds/coding.html">Coding Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/python.html">Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/terminal.html">The Terminal and Command Line</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/jupyter.html">Jupyter</a></li>
@@ -247,27 +262,28 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/vscode.html">Visual Studio Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-nds/github.html">GitHub</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Set Up Your Computer for Data Science</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Some Assembly Required</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/learning_objectives.html">Learning Objectives</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/install_tools.html">Install Tools for Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github.html">Get on GitHub</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/install_tools.html">Install on Your Computer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/anaconda.html">Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/miniconda.html">Miniconda</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/vscode.html">VS Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github_classroom.html">GitHub Classroom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/github_desktop.html">GitHub Desktop</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/first_repo.html">Your First GitHub Repository</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/first_repo.html">Your First GitHub Repository</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2b-setup/clone.html">Clone a Repository from GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/github_repo.html">Exploring the GitHub Repository view</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/repo_in_vscode.html">Open the Repository in VS Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/edit_commit_push.html">Editing, Pushing, and Committing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/edit_readme.html">Edit the README File</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/new_markdown_file.html">Create a New Markdown File</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/getting_help.html">Getting Help on an Assignment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/submitting_assignments.html">Submitting Assignments</a></li>
 </ul>
@@ -275,13 +291,13 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../3-python/introduction.html">Introducing Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3-python/learning_objectives.html">Learning Objectives</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/preliminaries.html">Preliminaries</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../3-python/jupyter_vscode.html">Introduction to Jupyter Notebooks in VS Code</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/preliminaries.html">Preliminaries</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../3-python/jupyter_intro.html">Working with Jupyter Notebooks</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="../3-python/getting_help.html">Getting Help with Python</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/data_types.html">Data types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/data_types.html">Data types</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/variables_assignment.html">Variables and Assignment</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="../3-python/types_conversion.html">Data Types and Conversion</a></li>
@@ -290,20 +306,20 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../3-python/lists.html">Lists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/dictionaries.html">Dictionaries</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/flow_control.html">Flow Control</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/flow_control.html">Flow Control</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/for_loops.html"><code class="docutils literal notranslate"><span class="pre">for</span></code> Loops</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/conditionals.html">Conditionals</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/working_w_data.html">Working with Data</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3-python/working_w_data.html">Working with Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../3-python/pandas_dataframes.html">pandas DataFrames</a></li>
 
 
 <li class="toctree-l2"><a class="reference internal" href="../3-python/looping_data_files.html">Looping Over Data Files</a></li>
 
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">AI-Assisted Coding</span></p>
 <ul class="nav bd-sidenav">
@@ -311,12 +327,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/ai_assisted.html">Introduction to GitHub Copilot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/rt_data.html">Exercises – Reaction Time Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3b-ai_assisted/pandas_copilot.html">Data Files and pandas DataFrames</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../3b-ai_assisted/multi_data_files.html">Working With Multiple Data Files Using Copilot</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../3b-ai_assisted/multi_data_files.html">Working With Multiple Data Files Using Copilot</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_1.html">Reading Data Files with pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_2.html">Computing Mean Reaction Times and Confidence Intervals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../3b-ai_assisted/multi_data_files_3.html">Formatting the Output in a Table</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualizing Data</span></p>
 <ul class="nav bd-sidenav">
@@ -341,44 +357,44 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../6-single_unit/introduction.html">Introduction to Single Unit Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../6-single_unit/learning_objectives.html">Learning Objectives</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/single_unit_intro.html">Single Unit Data and Spike Trains</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/single_unit_intro.html">Single Unit Data and Spike Trains</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/intro_spike_trains.html">Introduction to Spike Train Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/ten_intensities.html">Effects of Light Intensity on Spike Rate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/heat_maps.html">Heat Maps</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/intro_multielec_data.html">Introducing Multielectrode Data</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../6-single_unit/intro_multielec_data.html">Introducing Multielectrode Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/pandas_multielec.html">Working with Multielectrode Data in pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../6-single_unit/corr_spike_trains.html">Correlating spike trains</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">EEG Data</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../7-eeg/introduction.html">Introduction to EEG</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../7-eeg/learning_objectives.html">Learning Objectives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../7-eeg/about_eeg.html">What is EEG?</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/approaches.html">EEG in the Time and Frequency Domains</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/approaches.html">EEG in the Time and Frequency Domains</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/time_freq.html">Time and Frequency Domains</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erps.html">Event-Related Potentials (ERPs)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/components.html">ERP Components</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../7-eeg/mne_python.html">MNE-Python</a></li>
 
 
-<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_preprocessing.html">EEG-ERP Preprocessing</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_preprocessing.html">EEG-ERP Preprocessing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_filtering.html">Filtering EEG Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_artifacts.html">Artifacts in EEG Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_segmentation.html">Segmentation into ERP epochs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_avg_reref.html">Averaging and Re-Referencing ERPs</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../7-eeg/erp_group.html">Group Analysis of ERP Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_viz.html">Grand Averages and Visualization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../7-eeg/erp_group_stats.html">Statistical Analysis of ERP Data</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">MRI Data</span></p>
 <ul class="current nav bd-sidenav">
@@ -409,7 +425,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -418,14 +434,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -550,10 +566,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -561,14 +577,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -623,11 +639,11 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="reading-and-visualizing-structural-mri-data">
-<h1>Reading and Visualizing Structural MRI Data<a class="headerlink" href="#reading-and-visualizing-structural-mri-data" title="Permalink to this heading">#</a></h1>
+<h1>Reading and Visualizing Structural MRI Data<a class="headerlink" href="#reading-and-visualizing-structural-mri-data" title="Link to this heading">#</a></h1>
 <p>In this lesson we will learn how to read structural MRI images of a brain into Python, visualize them as slices, and perform a couple of simple image processing operations on images.</p>
 <p>Structural MRI is a generic term for any MRI scan intended to image the structure of the body. These are sometimes called anatomical scans. This is in contrast to functional MRI, which are scans designed to measure some aspect of physiological function (typically neural activation). We will work with functional MRI data later in this chapter.</p>
 <section id="load-in-required-packages">
-<h2>Load in required packages<a class="headerlink" href="#load-in-required-packages" title="Permalink to this heading">#</a></h2>
+<h2>Load in required packages<a class="headerlink" href="#load-in-required-packages" title="Link to this heading">#</a></h2>
 <p>New to us are two packages for working with images:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pypi.org/project/imageio/">imageio</a> is a Python library that provides an easy interface to read and write a wide range of image data, including animated images, volumetric data, and scientific formats</p></li>
@@ -645,7 +661,7 @@ document.write(`
 </div>
 </section>
 <section id="read-a-dicom-image">
-<h2>Read a DICOM image<a class="headerlink" href="#read-a-dicom-image" title="Permalink to this heading">#</a></h2>
+<h2>Read a DICOM image<a class="headerlink" href="#read-a-dicom-image" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://www.dicomstandard.org/">DICOM</a> is the international standard for medical images and related information. It defines the formats for medical images that can be exchanged with the data and quality necessary for clinical use. DICOM stands for <em>Digital Imaging and Communications in Medicine</em> and is recognized by the International Organization for Standardization as the ISO 12052 standard. DICOM is the standard format for most medical imaging devices used in hospitals and clinical care settings, including MRI, PET, CT, Xray, and ultrasound. For this reason, it is common that raw MRI data comes off the scanner in DICOM format.</p>
 <p>The imageio package provides an <code class="docutils literal notranslate"><span class="pre">imread()</span></code> function that is capable of reading DICOM images. The first argument is the file name, and the second is the format. Below we read in a single slice from a structural MRI scan of a head, and show they type of the resulting object:</p>
 <div class="cell docutils container">
@@ -657,7 +673,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_15384/238319346.py:1: DeprecationWarning: Starting with ImageIO v3 the behavior of this function will switch to that of iio.v3.imread. To keep the current behavior (and make this warning disappear) use `import imageio.v2 as imageio` or call `imageio.v2.imread` directly.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_56827/238319346.py:1: DeprecationWarning: Starting with ImageIO v3 the behavior of this function will switch to that of iio.v3.imread. To keep the current behavior (and make this warning disappear) use `import imageio.v2 as imageio` or call `imageio.v2.imread` directly.
   brain_slice = iio.imread(&#39;data/DICOM/IM-0004-0096.dcm&#39;, &#39;DICOM&#39;)
 </pre></div>
 </div>
@@ -668,7 +684,7 @@ document.write(`
 </div>
 </section>
 <section id="view-metadata">
-<h2>View metadata<a class="headerlink" href="#view-metadata" title="Permalink to this heading">#</a></h2>
+<h2>View metadata<a class="headerlink" href="#view-metadata" title="Link to this heading">#</a></h2>
 <p>We can view the image meta-data which is stored in the <code class="docutils literal notranslate"><span class="pre">.meta</span></code> property of the imageio object. This contains lots of information, such as the date and location of the scan, the manufacturer of the scanner, the type of scanner (modality; i.e., that it is an MRI scan), and details of the person who was scanned. Since this scan was acquired for research purposes, the “patient” information does not contain personally-identifying information like the name or birth. date of the person who was scanned.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -727,7 +743,7 @@ document.write(`
 </div>
 </section>
 <section id="view-image-dimensions">
-<h2>View image dimensions<a class="headerlink" href="#view-image-dimensions" title="Permalink to this heading">#</a></h2>
+<h2>View image dimensions<a class="headerlink" href="#view-image-dimensions" title="Link to this heading">#</a></h2>
 <p>Because we loaded in a single image <em>slice</em>, our image is 2-dimensional, like a photograph. We can view its <em>x</em> and <em>y</em> dimensions with the <code class="docutils literal notranslate"><span class="pre">.shape</span></code> property. Although the image is stored as an object of type <code class="docutils literal notranslate"><span class="pre">imageio.core.util.Array</span></code>, the object is designed in a way that allows us to treat it in many ways like a simple NumPy array, so standard properties like <code class="docutils literal notranslate"><span class="pre">.shape</span></code> are available:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -756,7 +772,7 @@ document.write(`
 </div>
 </section>
 <section id="view-contents-of-image">
-<h2>View contents of image<a class="headerlink" href="#view-contents-of-image" title="Permalink to this heading">#</a></h2>
+<h2>View contents of image<a class="headerlink" href="#view-contents-of-image" title="Link to this heading">#</a></h2>
 <p>We can use NumPy indexing to view the data values of the first row of the image:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -819,7 +835,7 @@ document.write(`
 </div>
 </section>
 <section id="visualize-the-image">
-<h2>Visualize the image<a class="headerlink" href="#visualize-the-image" title="Permalink to this heading">#</a></h2>
+<h2>Visualize the image<a class="headerlink" href="#visualize-the-image" title="Link to this heading">#</a></h2>
 <p>Since the MRI data is a 2D NumPy array of integers, we can plot it using Matplotlib’s <code class="docutils literal notranslate"><span class="pre">plt.imshow()</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -835,10 +851,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x12017b850&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x1175554f0&gt;
 </pre></div>
 </div>
-<img alt="../_images/777e20ae290601440da0feb774a4162cdc9b29ae99934f4dd9bb8aad917aafad.png" src="../_images/777e20ae290601440da0feb774a4162cdc9b29ae99934f4dd9bb8aad917aafad.png" />
+<img alt="../_images/88186293064148cfb311069b7e2c129154ce177174efc5fbcdee3950d49e835d.png" src="../_images/88186293064148cfb311069b7e2c129154ce177174efc5fbcdee3950d49e835d.png" />
 </div>
 </div>
 <p>We can see that this image was acquired in the <strong>sagittal</strong> plane, which is like looking at the person from the side.</p>
@@ -852,12 +868,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/06c8238f3c3a5a5aeffc7fcd9a38b57329d41cc98ddd21c867878193013b0311.png" src="../_images/06c8238f3c3a5a5aeffc7fcd9a38b57329d41cc98ddd21c867878193013b0311.png" />
+<img alt="../_images/4404c37389834bc1ba6f52d357db65deb4e900e6f22421c98bf9c9d8e97f786a.png" src="../_images/4404c37389834bc1ba6f52d357db65deb4e900e6f22421c98bf9c9d8e97f786a.png" />
 </div>
 </div>
 </section>
 <section id="load-a-brain-volume">
-<h2>Load a brain volume<a class="headerlink" href="#load-a-brain-volume" title="Permalink to this heading">#</a></h2>
+<h2>Load a brain volume<a class="headerlink" href="#load-a-brain-volume" title="Link to this heading">#</a></h2>
 <p>Above re loaded a single slice through the head, but in fact this was from a scan that covered the entire head. As noted, each slice was 1 mm thick, and it took 184 slices to cover the entire head in the sagittal plane. Each slice is saved in a separate DICOM file. All of the DICOM images (slices) from this scan are stored in the <code class="docutils literal notranslate"><span class="pre">data/DICOM</span></code> folder. Above we used <code class="docutils literal notranslate"><span class="pre">iio.imread()</span></code> and specified a specific filename as the first argument, to load a single 2D slice/image. To load the entire 3D brain volume, we use imageio’s <code class="docutils literal notranslate"><span class="pre">volread()</span></code> function, and pass as the first argument the name of the folder, rather than a list of files:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -907,7 +923,7 @@ document.write(`
 </div>
 </section>
 <section id="visualize-one-slice-of-the-volume">
-<h2>Visualize one slice of the volume<a class="headerlink" href="#visualize-one-slice-of-the-volume" title="Permalink to this heading">#</a></h2>
+<h2>Visualize one slice of the volume<a class="headerlink" href="#visualize-one-slice-of-the-volume" title="Link to this heading">#</a></h2>
 <p>We can plot a slice of the 3D volume using the same <code class="docutils literal notranslate"><span class="pre">plt.imshow()</span></code> command as before; the one difference is we need to specify which slice number to plot. Since slices are the first dimension of the array, we only need to supply one index, even though it is a 3D array (the other dimensions are treated as if we specified <code class="docutils literal notranslate"><span class="pre">brain_vol[96,</span> <span class="pre">:,</span> <span class="pre">:]</span></code>). We pick a slice in the middle of the volume, because if we picked one near the edges (e.g., slice 0) we would likely see little or no interesting anatomy. THis time we use the <code class="docutils literal notranslate"><span class="pre">bone</span></code> colormap, which is another monochrome palette but with a slight blueish hue:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -918,12 +934,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/26c377e7ab4f6b32e8313edb0bb0dad91b0b1d2efaaca41e54211973747cd37b.png" src="../_images/26c377e7ab4f6b32e8313edb0bb0dad91b0b1d2efaaca41e54211973747cd37b.png" />
+<img alt="../_images/2cf7c5c16180b7fbf13705c6cb3043b185082264821cac7551e1dc5b39b3add7.png" src="../_images/2cf7c5c16180b7fbf13705c6cb3043b185082264821cac7551e1dc5b39b3add7.png" />
 </div>
 </div>
 </section>
 <section id="visualize-a-slice-through-different-planes">
-<h2>Visualize a slice through different planes<a class="headerlink" href="#visualize-a-slice-through-different-planes" title="Permalink to this heading">#</a></h2>
+<h2>Visualize a slice through different planes<a class="headerlink" href="#visualize-a-slice-through-different-planes" title="Link to this heading">#</a></h2>
 <p>Since the data are a 3D NumPy array, it is very easy to “reslice” the image and visualize the head from one of the other two orientations, axial and coronal. Below we pass <code class="docutils literal notranslate"><span class="pre">:</span></code> to select all sagittal slices, and <code class="docutils literal notranslate"><span class="pre">128</span></code> for the second dimension to get the slice midway through the volume, in the axial plane. Again, we omit the third dimension and so <code class="docutils literal notranslate"><span class="pre">:</span></code> is assumed:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -934,11 +950,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8044bde98969aef091bd418fa05e2dbae71e45c84972728dfe138ca4d2ec40ab.png" src="../_images/8044bde98969aef091bd418fa05e2dbae71e45c84972728dfe138ca4d2ec40ab.png" />
+<img alt="../_images/957ee60bcae096db0bc6860ae10df88a7027e331d04de5d7482400557f27e248.png" src="../_images/957ee60bcae096db0bc6860ae10df88a7027e331d04de5d7482400557f27e248.png" />
 </div>
 </div>
 <section id="rotate-the-image">
-<h3>Rotate the image<a class="headerlink" href="#rotate-the-image" title="Permalink to this heading">#</a></h3>
+<h3>Rotate the image<a class="headerlink" href="#rotate-the-image" title="Link to this heading">#</a></h3>
 <p>Typically in showing axial slices, we orient them so that the nose and eyes are at the top of the image. The <code class="docutils literal notranslate"><span class="pre">scipy.ndimage</span></code> package (which we imported with the alias <code class="docutils literal notranslate"><span class="pre">ndi</span></code> provides a tool to rotate images, and we can embed it inside our <code class="docutils literal notranslate"><span class="pre">.imshow()</span></code> command to apply a rotation. The first argument to <code class="docutils literal notranslate"><span class="pre">ndi.rotate()</span></code> is the image, and the second is the amount of rotation, in degrees. The rotation is counter-clockwise, so here we need to use 270 deg rotation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -949,12 +965,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2943966e2b38715fc361c64a71d0ed2ef4a6e8dfd52d41a2b5e685bf86075196.png" src="../_images/2943966e2b38715fc361c64a71d0ed2ef4a6e8dfd52d41a2b5e685bf86075196.png" />
+<img alt="../_images/09ee6b9690e721ea66235016fbf59431e959feb592de47aba1a23186fd5b158f.png" src="../_images/09ee6b9690e721ea66235016fbf59431e959feb592de47aba1a23186fd5b158f.png" />
 </div>
 </div>
 </section>
 <section id="coronal-plane">
-<h3>Coronal plane<a class="headerlink" href="#coronal-plane" title="Permalink to this heading">#</a></h3>
+<h3>Coronal plane<a class="headerlink" href="#coronal-plane" title="Link to this heading">#</a></h3>
 <p>Finally, we can do this in the coronal place as well; again rotation is necessary.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -965,13 +981,13 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/77747c08fae855295e1fb36a3e89b0529f0f713eed9783573444a2e0103c8937.png" src="../_images/77747c08fae855295e1fb36a3e89b0529f0f713eed9783573444a2e0103c8937.png" />
+<img alt="../_images/a0484a4aefcb77e934e791e9497b96364b67b60a1e5719fe3265f46669d75b5e.png" src="../_images/a0484a4aefcb77e934e791e9497b96364b67b60a1e5719fe3265f46669d75b5e.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="plotting-a-series-of-slices-through-a-volume">
-<h2>Plotting a series of slices through a volume<a class="headerlink" href="#plotting-a-series-of-slices-through-a-volume" title="Permalink to this heading">#</a></h2>
+<h2>Plotting a series of slices through a volume<a class="headerlink" href="#plotting-a-series-of-slices-through-a-volume" title="Link to this heading">#</a></h2>
 <p>We can use our skills with Matplotlib subplots to plot a series of slices through the brain, which is a more comprehensive way of visualizing the data. The biggest trick with this is deciding on the number of subplots (slices) we want, and then doing the necessary math to select the appropriate slices from the 3D volume such that the slices are evenly-spaced through the volume, and centered in the middle of the volume. For instance, below we will generate a 4 x 4 array of 16 subplots. Our number of slices — 184 — does not divide evenly by 16 (<code class="docutils literal notranslate"><span class="pre">184</span> <span class="pre">/</span> <span class="pre">16</span> <span class="pre">=</span> <span class="pre">11.5</span></code>). For this reason, we can’t simply run a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop over a range of slice numbers that starts at 0 and goes up to the number of slices, in steps of <code class="docutils literal notranslate"><span class="pre">n_slices</span> <span class="pre">/</span> <span class="pre">n_subplots</span></code>. Instead, we use floor division (<code class="docutils literal notranslate"><span class="pre">//</span></code>) to generate the integer result of dividing the number of slices by subplots (<code class="docutils literal notranslate"><span class="pre">11</span></code>) so that we get a step size that ensures we have 16 evenly-spaced slices through the volume. Then, we determine the number of slices that will be covered by 16 subplots, spaced 11 slices apart from each other (which will be &lt; 184). Finally, we compute a <code class="docutils literal notranslate"><span class="pre">start_stop</span></code> value which tells us which slice to start from (i.e., the first slice to plot), such that the set of slices we generate will be centered on the volume. This is determined by computing how many slices in the volume are <em>not</em> covered by our 16 subplots (i.e., the slices at either edge of the volume), and dividing this by 2, since half of those slices should be at one edge of the volume, at the other at the other end of the volume.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1001,12 +1017,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e0960de0b41f3dff71b7f200a183239bb8b2a50497f5326b1386ebfb12d3b385.png" src="../_images/e0960de0b41f3dff71b7f200a183239bb8b2a50497f5326b1386ebfb12d3b385.png" />
+<img alt="../_images/973e4a7e3142119ac84bfbccbff035d8acc6d8be749bf624897f633c77bf8b4d.png" src="../_images/973e4a7e3142119ac84bfbccbff035d8acc6d8be749bf624897f633c77bf8b4d.png" />
 </div>
 </div>
 </section>
 <section id="slice-through-a-different-axis">
-<h2>Slice through a different axis<a class="headerlink" href="#slice-through-a-different-axis" title="Permalink to this heading">#</a></h2>
+<h2>Slice through a different axis<a class="headerlink" href="#slice-through-a-different-axis" title="Link to this heading">#</a></h2>
 <p>We can use the same approach to plot the data through other image planes. The only things we need to change are:</p>
 <ul class="simple">
 <li><p>which dimension of the image to use to derive <code class="docutils literal notranslate"><span class="pre">n_slice</span></code></p></li>
@@ -1033,11 +1049,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/df735847b1015276891cb9231c2930f99b48bafa443d7b60cbab5e2ebe617db1.png" src="../_images/df735847b1015276891cb9231c2930f99b48bafa443d7b60cbab5e2ebe617db1.png" />
+<img alt="../_images/f4e69322226f5752a23eae1fc43042e73832c64c815f6ff7d218d09a394bf946.png" src="../_images/f4e69322226f5752a23eae1fc43042e73832c64c815f6ff7d218d09a394bf946.png" />
 </div>
 </div>
 <section id="id1">
-<h3>Coronal plane<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3>Coronal plane<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig_rows</span> <span class="o">=</span> <span class="mi">4</span>
@@ -1063,13 +1079,13 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/93ff0bebb45dc3c0ae767d944f0d32750094fd7120c7fdc19e9b820c4fe65f83.png" src="../_images/93ff0bebb45dc3c0ae767d944f0d32750094fd7120c7fdc19e9b820c4fe65f83.png" />
+<img alt="../_images/2dfee533cd6fdc6910df0fff8c2664015428370a10a4e1fe944f7da16d024cee.png" src="../_images/2dfee533cd6fdc6910df0fff8c2664015428370a10a4e1fe944f7da16d024cee.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="plotting-an-image-histogram">
-<h2>Plotting an image histogram<a class="headerlink" href="#plotting-an-image-histogram" title="Permalink to this heading">#</a></h2>
+<h2>Plotting an image histogram<a class="headerlink" href="#plotting-an-image-histogram" title="Link to this heading">#</a></h2>
 <p>As we saw above, the image is stored as a NumPy array, in which each voxel in the image is represented as a number, which is mapped to an intensity value in the colormap when plotting. Larger values appear as brighter (whiter), and lower values appear as darker.</p>
 <p>Histograms of the anatomical images show the number of voxels of a given intensity value. These can be informative because the distribution of intensity values in an anatomical image is not uniform. Instead, as we can see above, there are many very dark voxels (outside of the head, and in some of the fluid-filled spaces inside the head), and then clusters of voxels that are darker grey (the grey matter, largely in the cerebral cortex that forms the outer layer of the brain), lighter grey (the white matter that comprises much of the inside of the brain), and also some very bright areas that are primarily due to areas of fat concentration.</p>
 <p>We can use ndimage’s <code class="docutils literal notranslate"><span class="pre">.histogram()</span></code> function to plot a histogram of our brain volume. We use this rather than the NumPy <code class="docutils literal notranslate"><span class="pre">histogram</span></code> function, because ndimage’s function is designed to work with 3D images. This function requires several arguments, including the minimum and maximum intensity values that define the range of the <em>x</em> axis of the histogram, and the number of bins:</p>
@@ -1081,13 +1097,13 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/fc7d54efb6f426deda35758724cd96590958e3079e4b13a4526ea0622806f2c3.png" src="../_images/fc7d54efb6f426deda35758724cd96590958e3079e4b13a4526ea0622806f2c3.png" />
+<img alt="../_images/3e56b892b79914eadb4ac5e6c3bc8d1f6b23531c4065d3d52d8a900541a787e7.png" src="../_images/3e56b892b79914eadb4ac5e6c3bc8d1f6b23531c4065d3d52d8a900541a787e7.png" />
 </div>
 </div>
 <p>In the histogram above, there is a large peak close to zero which represents the fact that a large number of voxels in the image don’t contain the head at all, and therefore have values at or close to zero. We can see a peak just above 10 on the <em>x</em> axis (note that the numbers on the <em>x</em> axis are bin numbers, not intensity values), with a slight decrease and then a second small peak just before 20, followed by a flat area. The peaks just above 10 and just below 20 reflect the concentration of similar intensity values corresponding to grey and white matter respectively.</p>
 </section>
 <section id="mask-an-image">
-<h2>Mask an image<a class="headerlink" href="#mask-an-image" title="Permalink to this heading">#</a></h2>
+<h2>Mask an image<a class="headerlink" href="#mask-an-image" title="Link to this heading">#</a></h2>
 <p>We can use an image histogram like this to create a <strong>mask</strong> that isolates a particular range of intensity values in the image, while setting all other intensity values to zero. This can be useful in certain types of analysis, such as if we want to isolate only grey matter, or only white matter, from the rest of the brain. This is often used in studies that measure the volume of grey and/or white matter separately, as well as in functional MRI analyses where the interest is often only in activation in the cerebral cortex (grey matter).</p>
 <p>In the code below, we will attempt to isolate grey matter based on intensity values from the histogram above. Note that this is an overly-simplistic approach to separating grey and white matter in MRIs, compared to more sophisticated, automated, and accurate approaches that would be used in research or clinical care. However, it is an important step in those more sophisticated approaches.</p>
 <p>First, we manually define the range of intensity values that we consider grey matter. Based on the histogram above, we will choose a range from bins 10 – 15. Since the <em>x</em> axis of the histogram is bin numbers, not intensity values, we need to determine what intensities those bin numbers correspond to. Since we know the histogram divided the range from 0 to the maximum intensity value in the image, into 50 bins, we can divide the max intensity value by 50 to get the width of each bin, then multiply by the values we observed on the <em>x</em> axis:</p>
@@ -1104,6 +1120,14 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brain_mask1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">brain_vol</span> <span class="o">&gt;</span> <span class="n">gm_min</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">brain_mask2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">brain_vol</span> <span class="o">&lt;</span> <span class="n">gm_max</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_56827/1490087445.py:1: DeprecationWarning: __array_wrap__ must accept context and return_scalar arguments (positionally) in the future. (Deprecated NumPy 2.0)
+  brain_mask1 = np.where(brain_vol &gt; gm_min, 1, 0)
+/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_56827/1490087445.py:2: DeprecationWarning: __array_wrap__ must accept context and return_scalar arguments (positionally) in the future. (Deprecated NumPy 2.0)
+  brain_mask2 = np.where(brain_vol &lt; gm_max, 1, 0)
 </pre></div>
 </div>
 </div>
@@ -1127,12 +1151,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ed1bc3ef572617b7899a62e1ba830670aad4a42e992f23f181a54a04739b5887.png" src="../_images/ed1bc3ef572617b7899a62e1ba830670aad4a42e992f23f181a54a04739b5887.png" />
+<img alt="../_images/fe6193ff060fabd39988f189569ddb5a10e93498162db950bd8c84ed8905ac27.png" src="../_images/fe6193ff060fabd39988f189569ddb5a10e93498162db950bd8c84ed8905ac27.png" />
 </div>
 </div>
 </section>
 <section id="image-smoothing">
-<h2>Image smoothing<a class="headerlink" href="#image-smoothing" title="Permalink to this heading">#</a></h2>
+<h2>Image smoothing<a class="headerlink" href="#image-smoothing" title="Link to this heading">#</a></h2>
 <p>One preprocessing operation that can be useful in working with images <strong>smoothing</strong>. Smoothing is really spatial filtering, and it is commonly applied by averaging together the intensity values of nearby voxels. This averaging is done in a weighted fashion, based on distance between voxels. For example, for each voxel we could average together the intensity of that voxel, with half the intensity of the voxels adjacent to it on all sides, and perhaps 10% of intensities that were 2 voxels away from it. In fact, the most common <strong>smoothing kernel</strong> (the mathematical function used to perform this weighted averaging) is called a <em>Gaussian</em> kernel, which is shaped like a normal (bell) curve. In 2 dimensions, it looks like this:</p>
 <p><img alt="" src="../_images/gaussian_kernel_2D.jpg" /></p>
 <p>When applied to an image slice, a Gaussian smoothing kernel reduces noise, that is, the amount of voxel-to-voxel variation in intensities. So, adjacent voxels will have more similar intensity values after smoothing, making the image appear more blurred. The image below shows an example of the effects of smoothing. In this image, the intensity at each point in the image slice is shown by the height of the mesh at that location, as well as the color.</p>
@@ -1171,7 +1195,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/403fedbc6d05b650889a0fd91ff4f97d33d152fe0083473336671422acb76383.png" src="../_images/403fedbc6d05b650889a0fd91ff4f97d33d152fe0083473336671422acb76383.png" />
+<img alt="../_images/0c9155ca8e585ae0e8f1f6001d23c6e4eb377cf2e3bea1af489e38c757c4655b.png" src="../_images/0c9155ca8e585ae0e8f1f6001d23c6e4eb377cf2e3bea1af489e38c757c4655b.png" />
 </div>
 </div>
 <p>Below we increase <code class="docutils literal notranslate"><span class="pre">sigma</span></code> to 4, resulting in a more smoothed image:</p>
@@ -1202,12 +1226,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b86de3841af952e0ce1dc786d4072aee8bccab27cfdb0ccd4b3582af7184cfe0.png" src="../_images/b86de3841af952e0ce1dc786d4072aee8bccab27cfdb0ccd4b3582af7184cfe0.png" />
+<img alt="../_images/26de40bd771d97ecdc6dc112469849d496c6a56dcb74b493d0b2fb2c90f35c31.png" src="../_images/26de40bd771d97ecdc6dc112469849d496c6a56dcb74b493d0b2fb2c90f35c31.png" />
 </div>
 </div>
 </section>
 <section id="segmenting-smoothed-images">
-<h2>Segmenting smoothed images<a class="headerlink" href="#segmenting-smoothed-images" title="Permalink to this heading">#</a></h2>
+<h2>Segmenting smoothed images<a class="headerlink" href="#segmenting-smoothed-images" title="Link to this heading">#</a></h2>
 <p>One benefit of smoothing, and the corresponding reduction in noise in the image, is that it can make segmentation a bit cleaner, because adjacent voxels will have more similar values — so they are less extreme overall, and less variable from voxel to voxel. Below we plot the histogram of the smoothed image, and use it (as we did earlier) to determine cutoffs for grey matter and then segment the image. Note that the histogram is different, and more smoothing, due to the smoothing applied to the intensity values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1218,7 +1242,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/78c0c9f29db460b1ff10b75bf041d9842bc5c91fe15dccfb6dc87beb9bc9da65.png" src="../_images/78c0c9f29db460b1ff10b75bf041d9842bc5c91fe15dccfb6dc87beb9bc9da65.png" />
+<img alt="../_images/d2e1c0dbbdb86383ffa4b06314f6247f79ef66a899a757c8a32ec93523347226.png" src="../_images/d2e1c0dbbdb86383ffa4b06314f6247f79ef66a899a757c8a32ec93523347226.png" />
 </div>
 </div>
 <p>Based on the above histogram we select 16 – 25 as our range of bins for grey matter.</p>
@@ -1240,7 +1264,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3d15bc8d31d3d70616f91077b4784c786251850e0031c0bb8e25fd05d0d4c4fe.png" src="../_images/3d15bc8d31d3d70616f91077b4784c786251850e0031c0bb8e25fd05d0d4c4fe.png" />
+<img alt="../_images/71bcbe0542cfab9736dc32dbf2625bbff72716abe31b2bd413727f980760d4ea.png" src="../_images/71bcbe0542cfab9736dc32dbf2625bbff72716abe31b2bd413727f980760d4ea.png" />
 </div>
 </div>
 <p>We can see that this results in a ‘cleaner’ depiction of the grey matter, and in general the grey matter is separated by black (0) voxels from the skull.</p>
@@ -1274,7 +1298,7 @@ document.write(`
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1381,8 +1405,8 @@ By Aaron J Newman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
