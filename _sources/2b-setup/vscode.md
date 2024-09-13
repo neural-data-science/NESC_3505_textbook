@@ -21,7 +21,6 @@ Install each of these extensions, in this order:
 - **GitHub Classroom**
 - **GitHub Copilot**
 - **GitHub Copilot Chat** 
-- **GitHub Copilot Labs**
 - (Optional) Add a color theme (search Extensions for `color theme`). This is personal preference, but there are many options out there and it can be fun to explore. My current faciourites are `Pop Dark` and `GitHub Coilot`. Note that a color theme affects both the VS Code user interface, and syntax highlighting within the files you're editing.  You can change color themes at any time, by clicking on the "cog" icon in the bottom left corner of the VS Code window, and then clicking on "Color Theme".
 - (Optional) Add an icon theme (search Extensions for `icon theme`). This affects the little icons that appear beside files in the Explorer, and also the icons in the Activity Bar. I like `Helium` and `Pop!` themes. You can change icon themes at any time, by clicking on the "cog" icon in the bottom left corner of the VS Code window, and then clicking on "File Icon Theme".
 

@@ -18,7 +18,7 @@ To install Miniconda, you need to download the installer from the [Miniconda web
 
 ## Running Miniconda
 
-Miniconda isn't actually an app you can "run". It installs itself onto your computer, and sets its version of Python as the default for your computer. You would run Python from the command line in a terminal window (Terminal on a Mac; on Windows, you need to run the `miniconda prompt` app). But in practice, you won't be running Python from the command line; you'll be running it from within VS Code, which we'll install in the next section. VS Code will "see" the version of Python that Miniconda installed.
+Miniconda isn't actually an app you can "run". It installs itself onto your computer, and sets its version of Python as the default for your computer. You would run Python from the command line in a terminal window (`Terminal` on a Mac; on Windows, you need to run the `miniconda prompt` app). But in practice, you won't be running Python from the command line; you'll be running it from within VS Code, which we'll install in the next section. VS Code will "see" the version of Python that Miniconda installed.
 
 ## Getting the Packages You Need
 
