@@ -1,3 +1,3 @@
 # Syllabus
 
-The current syllabus can be viewed on [the official course website] (momentarily under construction, but will be available again very soon).
+The current syllabus can be viewed on [the official course website](https://neural-data-science.github.io/NESC_3505/syllabus).
