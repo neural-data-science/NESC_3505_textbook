@@ -2,7 +2,7 @@
 
 If you are taking this course for credit at Dalhousie University, you need to follow these instructions to join the course organization. 
 
-If you are reading the textbook as an independent learner, you can still obtain all of the course materials for free, but you can skip this step. If you're going to work in Codespaces (highly recommended), you can just follow the instructions in the next section to create a new repository from the course materials.
+If you are reading the textbook as an independent learner, you can still obtain all of the course materials for free, but you can skip this step. If you're going to work in Codespaces (highly recommended), you can jump ahead to the next chapter, [Introducing Python](../3-python/introduction).
 
 ## Prerequisites
 Before you can do the steps here, you need to have already [created a GitHub account](./github).
