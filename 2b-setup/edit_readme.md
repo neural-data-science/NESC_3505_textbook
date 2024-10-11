@@ -3,7 +3,7 @@ Once you have the README file open in the VS Code editor, add some text to it. S
 
 ## Preview Your Changes in Markdown
 
-VS Code has built-in support for Markdown. For example, you may have noticed the *syntax highlighting* in the README file: for example, the headings, bold text, links, etc. are all highlighted in different colours. This is because VS Code recognizes that the file is written in Markdown, and it knows how to highlight the different elements of Markdown. We will see that VS Code does this for Python as well, but for now we're just interested in Markdown.
+VS Code has built-in support for Markdown. For example, you may have noticed the *syntax highlighting* in the README file: for example, the headings, bold text, links, etc. are all highlighted in different colors. This is because VS Code recognizes that the file is written in Markdown, and it knows how to highlight the different elements of Markdown. We will see that VS Code does this for Python as well, but for now we're just interested in Markdown.
 
 While the syntax highlighting is nice, we are still viewing the "raw" markdown, not how it would appear when formatted. When you first viewed the README file on the GitHub website, you would have seen it formatted nicely --- rather than seeing `#` symbols, you would have seen a large heading. Rather than seeing the `**` symbols, you would have seen bold text. And so on.
 
