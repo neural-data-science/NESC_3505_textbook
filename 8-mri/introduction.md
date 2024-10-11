@@ -1,1 +1,23 @@
 # Introduction to MRI Data
+
+Magnetic Resonance Imaging, or MRI, is easily the most widely-used imaging modality in neuroscience. It is a non-invasive technique that uses a strong magnetic field, combined with additional magnetic fields and radio waves, to produce images of the brain. MRI is used to study brain anatomy, function, and connectivity. It is also used to study other parts of the body, such as the heart, muscles, and joints, and is widely used in clinical medicine due to the diagnostic information it can provide.
+
+In cognitive neuroscience, MRI is most widely used to study the function of the brain. This is called *functional* MRI (**fMRI**). fMRI is based on a particular way of taking MR images that is sensitive to the ratio of oxygenated and deoxygenated hemoglobin in the brain. This ratio is called the **blood oxygenation level dependent (BOLD) signal**. When brain areas become more active — and in particular when areas receive significant input (information to operate on) from other areas — the tiny blood vessels (capillaries) that feed these neurons dilate (expand), increasing the amount of oxygenated blood in the area. fMRI is sensitive to these changes, and so acts as an indirect measure of neural activity.
+
+Beyond fMRI, MRI is also used to study the structure of the brain. This is called *structural* MRI (**sMRI**). sMRI is based on a different way of taking MR images that is sensitive to the amount of water in the brain. Different tissues in the brain — in particular, grey matter (dense areas of neurons, including the cerebral cortex), white matter (long-range axons that connect different brain areas), and cerebrospinal fluid (CSF; the liquid that the brain floats in) — have different densities of water. sMRI is sensitive to these differences, and so acts as an indirect measure of the amount of these different tissues in the brain. sMRI can be used to measure the thickness of the cerebral cortex, the volume of different brain areas, and even quantify and compare the folding patterns of the cortex. Another type of structural measure is based on **diffusion MRI** (**dMRI**), which is sensitive to the amount and direction of water diffusion in the brain. dMRI can be used to measure the integrity of white matter tracts, and it can also be used to trace fiber tracts through the brain (MRI **tractography**).
+
+From a data science perspective, MRI data is a type of **image data**. Images are matrices whose positions represent spatial locations. The simplest MRI image is  a 2D array — a *slice* through the brain, typically a few millimeters thick. The slice is a 2D array (e.g., 64 $times$ 64 or 128 $times$ 128) of intensity values that represent the signal at different locations. Each value in the array represents a **voxel** (a pixel with volume). Voxels are typically 0.5 – 4 mm on a side. A stack of slices can be represented as a 3D array (a volume). fMRI images are actually 4D arrays, because they involve capturing a series of 3D brain volumes over time. 
+
+The values in the MRI image represent the intensity of the image at that location. In the case of sMRI, the values effectively represent the density of water in the brain at that location. If we plot these values as colors on a greyscale, we can see the structure of the brain. For example, here is a slice through the brain:
+
+```{figure} images/aarbw.jpg
+---
+align: Center
+width: 300px
+name: aarbw
+alt: A sagittal slice through the brain of a human, through the midline of the head. THe cerebral cortex and corpus callosum are visible, as are the ventricles and cerebrospinal fluid around the brain. The outer surface of the head is also shown, including the nose and mouth.
+---
+A *sagittal* slice (i.e., looking at the head from the side) through the brain of a human. This image was acquired with a T1-weighted sequence, which represents areas of high water density as dark, and areas of low water intensity as bright. These intensity values represented as colors on a greyscale. White matter appears brighter than grey matter, because it has a lower water density and more fat. The cerebral cortex is the outer layer of the brain, and is made up of grey matter; it appears darker as grey matter has less fatty myelin than white matter. The ventricles and are around the brain are filled with cerebrospinal fluid (CSF), which has a higher water concentration than the brain, and so appears black.
+```
+
+In the case of fMRI, the intensity values represent the BOLD signal. In this chapter we'l start by working with structural MRI data, and then move on to functional MRI data.

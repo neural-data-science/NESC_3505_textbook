@@ -19,7 +19,7 @@ If you followed the instructions in the previous chapter, you will have set up V
 
 You can turn off Copilot by clicking on the Copilot icon (which looks kind of like a cute alien face) in the bottom left corner of the VS Code window, and then clicking on the "Turn off" button. If you're not sure which button this is, just slowly move your cursor over the bottom right icons until you see `Deactivate Copilot` You can turn it back on again later, when you want to, by clicking that same icon again.
 
-```{note}
+```{hint}
 After working through the lessons, either you can keep going with the course materials, or you may want to practice and reinforce the basics you've learned. If you want more practice with basic Python, try free sites like [Coding Bat](https://codingbat.com/python) or [HackerRank](https://www.hackerrank.com/domains/python).
 ```
 
@@ -29,7 +29,7 @@ The lessons introducing Python are adapted from a workshop created by the [Softw
 
 The lessons use freely-available open source data from [Gapminder](https://www.gapminder.org), an independent Swedish foundation whose mission is to "fight devastating ignorance with a fact-based worldview everyone can understand." Gapminder is perhaps most famous for the TED talks given by its co-founder, the late Dr. Hans Rosling (the other founders were Ola Rosling and Anna Rosling Rönnlund). Dr. Rosling's TED talk, [*The best statistics you’ve ever seen*](https://www.ted.com/talks/hans_rosling_the_best_stats_you_ve_ever_seen?language=en), became one of the most watched TED talks ever (nearly 15m views as of Feb. 4, 2021). The Gapminder data we will be working with here are a subset of those used in Dr. Rosling's talk. Specifically, the data are gross domestic product (GDP) of countries from around the world, over a time period from 1952 – 2007.
 
-While we could introduce Python with virtually any data (including neuroscience data),  the Gapminder data are relatively easy to understand without deep technical knowledge of a domain (GDP is a measure of a country's wealth, and the data reflect how this change over time), the data files are open source and so support open sharing and transparency in science, and Dr. Rosling's talks provide a colourful and interesting introduction to the data. 
+While we could introduce Python with virtually any data (including neuroscience data),  the Gapminder data are relatively easy to understand without deep technical knowledge of a domain (GDP is a measure of a country's wealth, and the data reflect how this change over time), the data files are open source and so support open sharing and transparency in science, and Dr. Rosling's talks provide a colorful and interesting introduction to the data. 
 
  The original Software Carpentry workshop was created by [Christina Koch](https://software-carpentry.org/team/#koch_christina), [Milad Fatenejad](https://software-carpentry.org/team/#fatenejad_milad), [Tom Wright](https://software-carpentry.org/team/#wright_tom), [Paul Ivanov](https://software-carpentry.org/team/#ivanov_paul), [Greg Wilson](https://software-carpentry.org/team/#wilson_greg), and [Jens Nöckel](https://software-carpentry.org/team/#nockel_jens). The original workshop was created in 2014, and has been updated since then. 
  

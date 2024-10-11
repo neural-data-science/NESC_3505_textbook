@@ -8,7 +8,7 @@ While still viewing the main page on the Web for the `github-starter-course` rep
 
 On your computer, by default the repository will be saved in `Documents/github-classroom/neural-data-science-2023-24-username`. Normally you'll access these through VS Code, but it's helpful to know where they live on your computer (and also to know not to delete them!).
 
-```{note}
+```{caution}
 **Before you clone a repository, read this!** GitHub Classroom by default creates a `github-classroom` folder in your `Documents` folder to store cloned repositories. If your `Documents` folder is tied to a cloud storage service like Apple's iCloud or Microsoft's OneDrive, usind the `Documents` folder for GitHub repositories can create all kinds of problems. This is because those cloud services will often save space on your computer by removing the content of files from your computer, sotorign them in the could, and then downloading them when you need them. If you try to synchronize a local repository with GitHub and your cloud service has offloaded files to the cloud, then the content of those files will be lost. This is bad. So, if you are using a cloud storage service, you should create a new folder for your GitHub repositories that is not in your `Documents` folder. For example, you could create a folder called `GitHub` in your home directory (i.e., beside your `Documents` folder, not inside it), and use that instead.
 ```
 
