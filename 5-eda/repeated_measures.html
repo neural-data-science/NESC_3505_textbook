@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -81,6 +84,7 @@
     <link rel="prev" title="Learning Objectives" href="learning_objectives.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -96,19 +100,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -116,7 +109,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -124,8 +116,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -141,7 +133,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -171,21 +164,17 @@
     
     
     <img src="../_static/NESC3505_icon.png" class="logo__image only-light" alt="Neural Data Science in Python - Home"/>
-    <script>document.write(`<img src="../_static/NESC3505_icon.png" class="logo__image only-dark" alt="Neural Data Science in Python - Home"/>`);</script>
+    <img src="../_static/NESC3505_icon.png" class="logo__image only-dark pst-js-only" alt="Neural Data Science in Python - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -572,24 +561,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -723,84 +704,84 @@ document.write(`
   </thead>
   <tbody>
     <tr>
-      <th>329</th>
-      <td>s16</td>
-      <td>1</td>
-      <td>11</td>
-      <td>incongruent</td>
-      <td>0.609672</td>
-    </tr>
-    <tr>
-      <th>3895</th>
-      <td>s19</td>
-      <td>3</td>
-      <td>23</td>
+      <th>3782</th>
+      <td>s17</td>
+      <td>5</td>
+      <td>4</td>
       <td>neutral</td>
-      <td>0.784998</td>
+      <td>0.385609</td>
     </tr>
     <tr>
-      <th>4199</th>
-      <td>s15</td>
-      <td>3</td>
-      <td>7</td>
-      <td>neutral</td>
-      <td>0.553530</td>
-    </tr>
-    <tr>
-      <th>70</th>
+      <th>150</th>
       <td>s25</td>
-      <td>3</td>
-      <td>7</td>
-      <td>neutral</td>
-      <td>0.384912</td>
+      <td>5</td>
+      <td>23</td>
+      <td>incongruent</td>
+      <td>0.629272</td>
     </tr>
     <tr>
-      <th>3948</th>
+      <th>832</th>
+      <td>s8</td>
+      <td>2</td>
+      <td>2</td>
+      <td>neutral</td>
+      <td>0.445478</td>
+    </tr>
+    <tr>
+      <th>2201</th>
+      <td>s9</td>
+      <td>5</td>
+      <td>15</td>
+      <td>neutral</td>
+      <td>0.304624</td>
+    </tr>
+    <tr>
+      <th>3816</th>
       <td>s19</td>
+      <td>1</td>
+      <td>7</td>
+      <td>incongruent</td>
+      <td>0.831957</td>
+    </tr>
+    <tr>
+      <th>2517</th>
+      <td>s14</td>
       <td>5</td>
       <td>12</td>
       <td>neutral</td>
-      <td>0.476677</td>
+      <td>0.385171</td>
     </tr>
     <tr>
-      <th>3657</th>
-      <td>s17</td>
-      <td>1</td>
-      <td>7</td>
-      <td>incongruent</td>
-      <td>0.398224</td>
-    </tr>
-    <tr>
-      <th>185</th>
+      <th>167</th>
       <td>s18</td>
       <td>1</td>
-      <td>26</td>
-      <td>congruent</td>
-      <td>0.518414</td>
+      <td>8</td>
+      <td>neutral</td>
+      <td>0.446539</td>
     </tr>
     <tr>
-      <th>3726</th>
-      <td>s17</td>
+      <th>2905</th>
+      <td>s6</td>
+      <td>2</td>
+      <td>17</td>
+      <td>neutral</td>
+      <td>0.445016</td>
+    </tr>
+    <tr>
+      <th>2453</th>
+      <td>s14</td>
       <td>3</td>
       <td>12</td>
-      <td>congruent</td>
-      <td>0.518335</td>
-    </tr>
-    <tr>
-      <th>3044</th>
-      <td>s23</td>
-      <td>1</td>
-      <td>28</td>
       <td>neutral</td>
-      <td>0.529850</td>
+      <td>0.403656</td>
     </tr>
     <tr>
-      <th>60</th>
-      <td>s25</td>
+      <th>1473</th>
+      <td>s1</td>
       <td>2</td>
-      <td>29</td>
-      <td>congruent</td>
-      <td>0.497335</td>
+      <td>13</td>
+      <td>neutral</td>
+      <td>0.533154</td>
     </tr>
   </tbody>
 </table>
@@ -943,7 +924,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f9a48af6c6206f0e4b42d226d09fcdda81a426ce4d5a0db8df9f5717bb1703e1.png" src="../_images/f9a48af6c6206f0e4b42d226d09fcdda81a426ce4d5a0db8df9f5717bb1703e1.png" />
+<img alt="../_images/479e86522384594c25180d97ef7952b1f4c226ef5f28bc01e20111d33e59db66.png" src="../_images/479e86522384594c25180d97ef7952b1f4c226ef5f28bc01e20111d33e59db66.png" />
 </div>
 </div>
 <p>This is really less informative than the above plots, because there are so many data points! Mostly we just see big patches of the plots for each condition with lots of individual values.</p>
@@ -962,14 +943,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_59735/3023065820.py:1: UserWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_71200/3023065820.py:1: UserWarning: 
 
 The `join` parameter is deprecated and will be removed in v0.15.0. You can remove the line between points with `linestyle=&#39;none&#39;`.
 
   sns.catplot(kind=&#39;point&#39;, join=False,
 </pre></div>
 </div>
-<img alt="../_images/8ae3dca3fa4cf59bfc967755c7600388d69862dae3374acf81be150d8282bce8.png" src="../_images/8ae3dca3fa4cf59bfc967755c7600388d69862dae3374acf81be150d8282bce8.png" />
+<img alt="../_images/aa7f71e627b54da9794c05f8a5bcd7e196ba77f6ca82b4fc0164aa3566517262.png" src="../_images/aa7f71e627b54da9794c05f8a5bcd7e196ba77f6ca82b4fc0164aa3566517262.png" />
 </div>
 </div>
 <p>We can see that the CIs are quite far apart, suggesting that there are very large differences between RTs for each pair of conditions.</p>
@@ -1214,7 +1195,7 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6c9b94b4d04bb26d2c4a04485494fcd38984da297915e3902adbfce84380760d.png" src="../_images/6c9b94b4d04bb26d2c4a04485494fcd38984da297915e3902adbfce84380760d.png" />
+<img alt="../_images/9df93b90843d74c29f318adae47c38f1a7b8539f9fa8716788e19960915aabd2.png" src="../_images/9df93b90843d74c29f318adae47c38f1a7b8539f9fa8716788e19960915aabd2.png" />
 </div>
 </div>
 <p>This is not a lot more useful than the strip plot above, because Seaborn draws dots for each participant over those of previous participants. So we see lots of pink in the plot above, because that is the color used for the last participant plotted. This is addressed by using a swam plot (which will take a long time to execute if you try to run this, due to the large number of data points it’s trying to plot):</p>
@@ -1292,14 +1273,14 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_59735/3314286424.py:1: UserWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_71200/3314286424.py:1: UserWarning: 
 
 The `join` parameter is deprecated and will be removed in v0.15.0. You can remove the line between points with `linestyle=&#39;none&#39;`.
 
   sns.catplot(kind=&#39;point&#39;, join=False,
 </pre></div>
 </div>
-<img alt="../_images/46228d98ead125b7f23359544519db5f639408058751b9f35925d1dbe31e8ff7.png" src="../_images/46228d98ead125b7f23359544519db5f639408058751b9f35925d1dbe31e8ff7.png" />
+<img alt="../_images/360a48f8513858c7260810251a13713ee052d441a9dc9c3b88dd2947ada0a971.png" src="../_images/360a48f8513858c7260810251a13713ee052d441a9dc9c3b88dd2947ada0a971.png" />
 </div>
 </div>
 <p><strong>This is the most important figure in this lesson</strong>. Compared to the point plot with 95% CIs that we generated above for the aggregated data, the CIs in this plot are much larger than those we saw earlier, in the point plot for the un-aggregated data. In that previous plot, the width of the CIs was only about 0.005 s (5 ms). Here, with the CIs computed properly (as reflecting the variance across individuals), the width of the CIs is approximately 0.02 s (20 ms). While still small relative to the differences in the means, the CIs are nonetheless roughly 4x wider in the aggregated data.</p>
@@ -1552,7 +1533,7 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/35c99611eda87b59aab9a1be761c96f131f1887eeee2724c525cb96f05b493ed.png" src="../_images/35c99611eda87b59aab9a1be761c96f131f1887eeee2724c525cb96f05b493ed.png" />
+<img alt="../_images/9fe4c602c6b87f2df91e30371a161330003ae3f5588eda7ba97ee8e6e518d95a.png" src="../_images/9fe4c602c6b87f2df91e30371a161330003ae3f5588eda7ba97ee8e6e518d95a.png" />
 </div>
 </div>
 </section>
@@ -1585,7 +1566,7 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/18805657811e049c967aa45f95824cb74061bb237769c85a322a0b3a9f42f9db.png" src="../_images/18805657811e049c967aa45f95824cb74061bb237769c85a322a0b3a9f42f9db.png" />
+<img alt="../_images/cf211d6bc5bc23747d40417532ef4b4529c47319250298bf0ab6dd6ef6a79e0c.png" src="../_images/cf211d6bc5bc23747d40417532ef4b4529c47319250298bf0ab6dd6ef6a79e0c.png" />
 </div>
 </div>
 </section>
@@ -1604,14 +1585,14 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_59735/2787639227.py:1: UserWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_71200/2787639227.py:1: UserWarning: 
 
 The `join` parameter is deprecated and will be removed in v0.15.0. You can remove the line between points with `linestyle=&#39;none&#39;`.
 
   sns.catplot(kind=&#39;point&#39;, join=False,
 </pre></div>
 </div>
-<img alt="../_images/c1987e391ce5fe97fb94c462ef878d58f69d467bac4dd26a0c56f00709b1df9d.png" src="../_images/c1987e391ce5fe97fb94c462ef878d58f69d467bac4dd26a0c56f00709b1df9d.png" />
+<img alt="../_images/5f3f6737bb26e909207fede9ee4c2ef5f554a77dd17a57c4350452368ce152f0.png" src="../_images/5f3f6737bb26e909207fede9ee4c2ef5f554a77dd17a57c4350452368ce152f0.png" />
 </div>
 </div>
 </section>
@@ -1688,7 +1669,8 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1773,8 +1755,8 @@ By Aaron J Newman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

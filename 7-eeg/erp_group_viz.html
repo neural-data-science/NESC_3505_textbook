@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -79,6 +82,7 @@
     <link rel="prev" title="Group Analysis of ERP Data" href="erp_group.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -94,19 +98,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -114,7 +107,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -122,8 +114,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -139,7 +131,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -169,21 +162,17 @@
     
     
     <img src="../_static/NESC3505_icon.png" class="logo__image only-light" alt="Neural Data Science in Python - Home"/>
-    <script>document.write(`<img src="../_static/NESC3505_icon.png" class="logo__image only-dark" alt="Neural Data Science in Python - Home"/>`);</script>
+    <img src="../_static/NESC3505_icon.png" class="logo__image only-dark pst-js-only" alt="Neural Data Science in Python - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -570,24 +559,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -648,60 +629,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">mne</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>  <span class="c1"># reduce extraneous MNE output</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">File</span> <span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">neural_data_science</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">mne</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">22</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;0.16.2&#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># have to import verbose first since it&#39;s needed by many things</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span><span class="n">set_log_level</span><span class="p">,</span> <span class="n">set_log_file</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">set_config</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span>                     <span class="n">get_config</span><span class="p">,</span> <span class="n">get_config_path</span><span class="p">,</span> <span class="n">set_cache_dir</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>                     <span class="n">set_memmap_min_size</span><span class="p">,</span> <span class="n">grand_average</span><span class="p">,</span> <span class="n">sys_info</span><span class="p">,</span> <span class="n">open_docs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="kn">from</span> <span class="nn">.io.pick</span> <span class="kn">import</span> <span class="p">(</span><span class="n">pick_types</span><span class="p">,</span> <span class="n">pick_channels</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span>                       <span class="n">pick_channels_regexp</span><span class="p">,</span> <span class="n">pick_channels_forward</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span>                       <span class="n">pick_types_forward</span><span class="p">,</span> <span class="n">pick_channels_cov</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">28</span>                       <span class="n">pick_channels_evoked</span><span class="p">,</span> <span class="n">pick_info</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="kn">from</span> <span class="nn">.io.base</span> <span class="kn">import</span> <span class="n">concatenate_raws</span>
-
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/lazy_loader/__init__.py:82,</span> in <span class="ni">attach.&lt;locals&gt;.__getattr__</span><span class="nt">(name)</span>
-<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">attr_to_modules</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">81</span>     <span class="n">submod_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">package_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">attr_to_modules</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="ne">---&gt; </span><span class="mi">82</span>     <span class="n">submod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">submod_path</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">83</span>     <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="c1"># If the attribute lives in a file (module) with the same</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="c1"># name as the attribute, ensure that the attribute and *not*</span>
-<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="c1"># the module is accessible on the package.</span>
-
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/importlib/__init__.py:90,</span> in <span class="ni">import_module</span><span class="nt">(name, package)</span>
-<span class="g g-Whitespace">     </span><span class="mi">88</span>             <span class="k">break</span>
-<span class="g g-Whitespace">     </span><span class="mi">89</span>         <span class="n">level</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="ne">---&gt; </span><span class="mi">90</span> <span class="k">return</span> <span class="n">_bootstrap</span><span class="o">.</span><span class="n">_gcd_import</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">level</span><span class="p">:],</span> <span class="n">package</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
-
-<span class="n">File</span> <span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">neural_data_science</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">mne</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">_logging</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">20</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">decorator</span> <span class="kn">import</span> <span class="n">FunctionMaker</span>
-<span class="ne">---&gt; </span><span class="mi">20</span> <span class="kn">from</span> <span class="nn">.docs</span> <span class="kn">import</span> <span class="n">fill_doc</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;mne&quot;</span><span class="p">)</span>  <span class="c1"># one selection here used across mne-python</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="n">logger</span><span class="o">.</span><span class="n">propagate</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># don&#39;t propagate (in case of multiple imports)</span>
-
-<span class="n">File</span> <span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">neural_data_science</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">mne</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">docs</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">17</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="kn">from</span> <span class="nn">decorator</span> <span class="kn">import</span> <span class="n">FunctionMaker</span>
-<span class="ne">---&gt; </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">..defaults</span> <span class="kn">import</span> <span class="n">HEAD_SIZE_DEFAULT</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">._bunch</span> <span class="kn">import</span> <span class="n">BunchConst</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="c1"># # # WARNING # # #</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># This list must also be updated in doc/_templates/autosummary/class.rst if it</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="c1"># is changed here!</span>
-
-<span class="ne">ImportError</span>: cannot import name &#39;HEAD_SIZE_DEFAULT&#39; from &#39;mne.defaults&#39; (/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/mne/defaults.py)
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="define-parameters">
@@ -727,14 +654,32 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data/group_data/&#39;</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">data_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;sentence_n400_p*-ave.fif&#39;</span> <span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">data_files</span>
-
-<span class="ne">NameError</span>: name &#39;glob&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;data/group_data/sentence_n400_p22-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p14-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p04-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p05-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p15-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p23-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p17-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p07-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p21-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p20-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p06-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p16-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p13-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p03-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p25-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p24-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p02-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p12-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p26-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p09-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p19-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p10-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p01-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p11-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p18-ave.fif&#39;,
+ &#39;data/group_data/sentence_n400_p08-ave.fif&#39;]
 </pre></div>
 </div>
 </div>
@@ -758,15 +703,58 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">evokeds</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">conditions</span><span class="p">):</span>
-<span class="ne">----&gt; </span><span class="mi">4</span>     <span class="n">evokeds</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">mne</span><span class="o">.</span><span class="n">read_evokeds</span><span class="p">(</span><span class="n">d</span><span class="p">)[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><span class="s1">&#39;easycap-M1&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data_files</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">evokeds</span>
-
-<span class="ne">NameError</span>: name &#39;data_files&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Control&#39;: [&lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=35), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=41), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=33), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=34), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=32), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=31), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=10), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=35), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=27), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=34), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=41), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=41), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Control&#39; (average, N=29), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;],
+ &#39;Violation&#39;: [&lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=36), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=33), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=34), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=32), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=35), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=36), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=10), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=33), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=26), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=25), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=37), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=39), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=36), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=40), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=38), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+  &lt;Evoked | &#39;Violation&#39; (average, N=29), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;]}
 </pre></div>
 </div>
 </div>
@@ -798,24 +786,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">9</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">color_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Control&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;Violation&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">}</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">linestyle_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Control&#39;</span><span class="p">:</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;Violation&#39;</span><span class="p">:</span><span class="s1">&#39;--&#39;</span><span class="p">}</span>
-<span class="ne">----&gt; </span><span class="mi">9</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">(</span><span class="n">evokeds</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span>                              <span class="n">combine</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span>                              <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span>                              <span class="n">picks</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span>                              <span class="n">colors</span><span class="o">=</span><span class="n">color_dict</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>                              <span class="n">linestyles</span><span class="o">=</span><span class="n">linestyle_dict</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span>                              <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Violation vs. Control Waveforms&#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span>                             <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/523bae982da32a7d0da0152d875d033b98957e00c972954aa3dca293731baf5d.png" src="../_images/523bae982da32a7d0da0152d875d033b98957e00c972954aa3dca293731baf5d.png" />
 </div>
 </div>
 </section>
@@ -837,19 +808,32 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">diff_waves</span> <span class="o">=</span> <span class="p">[</span><span class="n">mne</span><span class="o">.</span><span class="n">combine_evoked</span><span class="p">([</span><span class="n">evokeds</span><span class="p">[</span><span class="s1">&#39;Violation&#39;</span><span class="p">][</span><span class="n">subj</span><span class="p">],</span> 
-<span class="g g-Whitespace">      </span><span class="mi">2</span>                                   <span class="n">evokeds</span><span class="p">[</span><span class="s1">&#39;Control&#39;</span><span class="p">][</span><span class="n">subj</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>                                  <span class="p">],</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                                  <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                                  <span class="p">)</span> 
-<span class="nn">----&gt; 6               for subj</span> in <span class="ni">range(len</span><span class="nt">(data_files))</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>               <span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">diff_waves</span>
-
-<span class="ne">NameError</span>: name &#39;data_files&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;Evoked | &#39;Violation - Control&#39; (average, N=20.0), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=17.74647887323944), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=18.986842105263158), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.0), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.9875), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=16.5), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=18.37837837837838), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.487179487179485), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=16.484848484848484), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.746835443037973), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=16.716417910447763), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=16.65671641791045), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=5.0), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=20.0), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=17.442857142857143), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=14.918032786885247), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=12.98076923076923), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=17.718309859154928), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.246753246753247), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=20.24691358024691), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.746835443037973), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.5), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=18.246575342465754), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.22077922077922), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=19.72151898734177), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;,
+ &lt;Evoked | &#39;Violation - Control&#39; (average, N=14.5), -0.19922 – 1 s, baseline off, 64 ch, ~387 kB&gt;]
 </pre></div>
 </div>
 </div>
@@ -875,20 +859,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">contrast</span> <span class="o">=</span> <span class="s1">&#39;Violation-Control&#39;</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_compare_evokeds</span><span class="p">({</span><span class="n">contrast</span><span class="p">:</span><span class="n">diff_waves</span><span class="p">},</span> <span class="n">combine</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>                             <span class="n">legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                             <span class="n">picks</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">show_sensors</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                             <span class="n">title</span><span class="o">=</span><span class="n">contrast</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>                             <span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/bb3e56d3e6e05b83f75bbc926d219e5aa5df7ac1818edf290393e41bf5c1398f.png" src="../_images/bb3e56d3e6e05b83f75bbc926d219e5aa5df7ac1818edf290393e41bf5c1398f.png" />
 </div>
 </div>
 <p>The nice thing about 95% CIs is that they provide an easy visual aid for interpreting the results. If the CI overlaps zero, then the difference between conditions is not statistically significant. If the CI does not overlap zero, then the difference can be considered statistically significant. In this case, the CI largely does not overlap zero between ~400–600 ms, so we can conclude that the difference between conditions is statistically significant in that time window.</p>
@@ -908,18 +879,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_evoked_topomap</span><span class="p">(</span><span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">),</span> 
-<span class="g g-Whitespace">      </span><span class="mi">2</span>                             <span class="n">times</span><span class="o">=</span><span class="mf">.500</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.200</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span>                             <span class="n">size</span><span class="o">=</span><span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                            <span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/f9a877d880ed26590a79321cd8733a5856a2ae7757fcd329d4dcb29bc681e05f.png" src="../_images/f9a877d880ed26590a79321cd8733a5856a2ae7757fcd329d4dcb29bc681e05f.png" />
 </div>
 </div>
 <p>We can add a few enhancements to the plot to make it more interpretable:</p>
@@ -940,19 +900,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_evoked_topomap</span><span class="p">(</span><span class="n">mne</span><span class="o">.</span><span class="n">grand_average</span><span class="p">(</span><span class="n">diff_waves</span><span class="p">),</span> 
-<span class="g g-Whitespace">      </span><span class="mi">2</span>                             <span class="n">times</span><span class="o">=</span><span class="mf">.500</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="mf">0.200</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span>                             <span class="n">show_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sensors</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                             <span class="n">contours</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                             <span class="n">size</span><span class="o">=</span><span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>                            <span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/2f2747ae7bb27a4cd9e629ba7fc0df44a2ecd4866e2173c50a269f218d3756f3.png" src="../_images/2f2747ae7bb27a4cd9e629ba7fc0df44a2ecd4866e2173c50a269f218d3756f3.png" />
 </div>
 </div>
 </section>
@@ -1017,7 +965,8 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1083,8 +1032,8 @@ By Aaron J Newman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

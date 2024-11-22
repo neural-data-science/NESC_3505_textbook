@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -79,6 +82,7 @@
     <link rel="prev" title="Exploring MNE’s data structure" href="mne_data_1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -94,19 +98,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -114,7 +107,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -122,8 +114,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -139,7 +131,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -169,21 +162,17 @@
     
     
     <img src="../_static/NESC3505_icon.png" class="logo__image only-light" alt="Neural Data Science in Python - Home"/>
-    <script>document.write(`<img src="../_static/NESC3505_icon.png" class="logo__image only-dark" alt="Neural Data Science in Python - Home"/>`);</script>
+    <img src="../_static/NESC3505_icon.png" class="logo__image only-dark pst-js-only" alt="Neural Data Science in Python - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -570,24 +559,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -648,60 +629,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">mne</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="n">File</span> <span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">neural_data_science</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">mne</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">22</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;0.16.2&#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># have to import verbose first since it&#39;s needed by many things</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span><span class="n">set_log_level</span><span class="p">,</span> <span class="n">set_log_file</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">set_config</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span>                     <span class="n">get_config</span><span class="p">,</span> <span class="n">get_config_path</span><span class="p">,</span> <span class="n">set_cache_dir</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>                     <span class="n">set_memmap_min_size</span><span class="p">,</span> <span class="n">grand_average</span><span class="p">,</span> <span class="n">sys_info</span><span class="p">,</span> <span class="n">open_docs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="kn">from</span> <span class="nn">.io.pick</span> <span class="kn">import</span> <span class="p">(</span><span class="n">pick_types</span><span class="p">,</span> <span class="n">pick_channels</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span>                       <span class="n">pick_channels_regexp</span><span class="p">,</span> <span class="n">pick_channels_forward</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span>                       <span class="n">pick_types_forward</span><span class="p">,</span> <span class="n">pick_channels_cov</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">28</span>                       <span class="n">pick_channels_evoked</span><span class="p">,</span> <span class="n">pick_info</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="kn">from</span> <span class="nn">.io.base</span> <span class="kn">import</span> <span class="n">concatenate_raws</span>
-
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/lazy_loader/__init__.py:82,</span> in <span class="ni">attach.&lt;locals&gt;.__getattr__</span><span class="nt">(name)</span>
-<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">attr_to_modules</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">81</span>     <span class="n">submod_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">package_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">attr_to_modules</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="ne">---&gt; </span><span class="mi">82</span>     <span class="n">submod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">submod_path</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">83</span>     <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="c1"># If the attribute lives in a file (module) with the same</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="c1"># name as the attribute, ensure that the attribute and *not*</span>
-<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="c1"># the module is accessible on the package.</span>
-
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/importlib/__init__.py:90,</span> in <span class="ni">import_module</span><span class="nt">(name, package)</span>
-<span class="g g-Whitespace">     </span><span class="mi">88</span>             <span class="k">break</span>
-<span class="g g-Whitespace">     </span><span class="mi">89</span>         <span class="n">level</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="ne">---&gt; </span><span class="mi">90</span> <span class="k">return</span> <span class="n">_bootstrap</span><span class="o">.</span><span class="n">_gcd_import</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">level</span><span class="p">:],</span> <span class="n">package</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
-
-<span class="n">File</span> <span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">neural_data_science</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">mne</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">_logging</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">20</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">decorator</span> <span class="kn">import</span> <span class="n">FunctionMaker</span>
-<span class="ne">---&gt; </span><span class="mi">20</span> <span class="kn">from</span> <span class="nn">.docs</span> <span class="kn">import</span> <span class="n">fill_doc</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;mne&quot;</span><span class="p">)</span>  <span class="c1"># one selection here used across mne-python</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="n">logger</span><span class="o">.</span><span class="n">propagate</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># don&#39;t propagate (in case of multiple imports)</span>
-
-<span class="n">File</span> <span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">neural_data_science</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">mne</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">docs</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">17</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="kn">from</span> <span class="nn">decorator</span> <span class="kn">import</span> <span class="n">FunctionMaker</span>
-<span class="ne">---&gt; </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">..defaults</span> <span class="kn">import</span> <span class="n">HEAD_SIZE_DEFAULT</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">._bunch</span> <span class="kn">import</span> <span class="n">BunchConst</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="c1"># # # WARNING # # #</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># This list must also be updated in doc/_templates/autosummary/class.rst if it</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="c1"># is changed here!</span>
-
-<span class="ne">ImportError</span>: cannot import name &#39;HEAD_SIZE_DEFAULT&#39; from &#39;mne.defaults&#39; (/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/mne/defaults.py)
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="descriptive-statistics-on-channels">
@@ -714,12 +641,24 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;RawBrainVision | sub-001.eeg, 16 x 408640 (817.3 s), ~49.9 MB, data loaded&gt;
+ch  name  type  unit        min         Q1     median         Q3        max
+ 0  Fp1   EEG   µV      -285.40     -30.22      -1.43      27.83    1301.03
+ 1  F3    EEG   µV      -174.79     -17.23       9.22      27.46     253.16
+ 2  F7    EEG   µV      -218.86     -27.54       1.24      27.61     840.83
+ 3  C3    EEG   µV      -143.89     -11.69       2.93      14.49     125.35
+ 4  P3    EEG   µV      -222.93     -16.64       1.79      19.13      98.77
+ 5  TP9   EEG   µV      -521.95     -24.35      10.94      48.68     507.04
+ 6  Fz    EEG   µV       -63.42     -10.49      -0.49      12.11      96.25
+ 7  Cz    EEG   µV      -122.98     -16.84      -0.59      16.92      70.10
+ 8  Fp2   EEG   µV      -308.07     -34.05       0.94      32.26     455.79
+ 9  F4    EEG   µV       -88.54     -11.64       3.62      14.80     123.72
+10  F8    EEG   µV      -390.29     -19.68      -0.60      14.91     241.88
+11  C4    EEG   µV      -166.15     -21.28       1.28      19.47     104.65
+12  P4    EEG   µV      -375.89     -21.70       0.88      30.19     201.16
+13  TP10  EEG   µV      -236.19     -21.82       0.85      21.64     388.90
+14  Pz    EEG   µV      -165.69     -12.59       3.75      17.90      76.89
+15  Oz    EEG   µV      -229.21     -15.15       5.89      24.40     194.92
 </pre></div>
 </div>
 </div>
@@ -735,15 +674,339 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><span class="s1">&#39;easycap-M1&#39;</span><span class="p">)</span>                                  
+<div class="output text_html"><script type="text/javascript">
+    const toggleVisibility = (className) => {
 
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
-</pre></div>
-</div>
-</div>
+  const elements = document.querySelectorAll(`.${className}`)
+
+  elements.forEach(element => {
+    if (element.classList.contains('repr-section-header')) {
+      // Don't collapse the section header row.
+       return
+    }
+    if (element.classList.contains('repr-element-collapsed')) {
+      // Force a reflow to ensure the display change takes effect before removing the class
+      element.classList.remove('repr-element-collapsed')
+      element.offsetHeight // This forces the browser to recalculate layout
+      element.classList.remove('repr-element-faded')
+    } else {
+      // Start transition to hide the element
+      element.classList.add('repr-element-faded')
+      element.addEventListener('transitionend', handler = (e) => {
+        if (e.propertyName === 'opacity' && getComputedStyle(element).opacity === '0.2') {
+          element.classList.add('repr-element-collapsed')
+          element.removeEventListener('transitionend', handler)
+        }
+      });
+    }
+  });
+
+  // Take care of button (adjust caret)
+  const button = document.querySelectorAll(`.repr-section-header.${className} > th.repr-section-toggle-col > button`)[0]
+  button.classList.toggle('collapsed')
+
+  // Take care of the tooltip of the section header row
+  const sectionHeaderRow = document.querySelectorAll(`tr.repr-section-header.${className}`)[0]
+  sectionHeaderRow.classList.toggle('collapsed')
+  sectionHeaderRow.title = sectionHeaderRow.title === 'Hide section' ? 'Show section' : 'Hide section'
+}
+</script>
+
+<style type="text/css">
+    table.repr.table.table-hover.table-striped.table-sm.table-responsive.small {
+  /* Don't make rows wider than they need to be. */
+  display: inline;
+}
+
+table > tbody > tr.repr-element > td {
+  /* Apply a tighter layout to the table cells. */
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  padding-right: 1rem;
+}
+
+table > tbody > tr > td.repr-section-toggle-col {
+  /* Remove background and border of the first cell in every row
+     (this row is only used for the collapse / uncollapse caret)
+
+     TODO: Need to find a good solution for VS Code that works in both
+           light and dark mode. */
+  border-color: transparent;
+  --bs-table-accent-bg: transparent;
+}
+
+tr.repr-section-header {
+  /* Remove stripes from section header rows */
+  background-color: transparent;
+  border-color: transparent;
+  --bs-table-striped-bg: transparent;
+  cursor: pointer;
+}
+
+tr.repr-section-header > th {
+  text-align: left !important;
+  vertical-align: middle;
+}
+
+.repr-element, tr.repr-element > td {
+  opacity: 1;
+  text-align: left !important;
+}
+
+.repr-element-faded {
+  transition: 0.3s ease;
+  opacity: 0.2;
+}
+
+.repr-element-collapsed {
+  display: none;
+}
+
+/* Collapse / uncollapse button and the caret it contains. */
+.repr-section-toggle-col button {
+  cursor: pointer;
+  width: 1rem;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+span.collapse-uncollapse-caret {
+  width: 1rem;
+  height: 1rem;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: contain;
+}
+
+/* The collapse / uncollapse carets were copied from the free Font Awesome collection and adjusted. */
+
+/* Default to black carets for light mode */
+.repr-section-toggle-col > button.collapsed > span.collapse-uncollapse-caret {
+  background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="black" d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/></svg>');
+}
+
+.repr-section-toggle-col
+  > button:not(.collapsed)
+  > span.collapse-uncollapse-caret {
+  background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="black" d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>');
+}
+
+/* Use white carets for dark mode */
+@media (prefers-color-scheme: dark) {
+  .repr-section-toggle-col > button.collapsed > span.collapse-uncollapse-caret {
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="white" d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/></svg>');
+  }
+
+  .repr-section-toggle-col
+    > button:not(.collapsed)
+    > span.collapse-uncollapse-caret {
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="white" d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>');
+  }
+}
+
+.channel-names-btn {
+  padding: 0;
+  border: none;
+  background: none;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  cursor: pointer;
+  color: #0d6efd;
+}
+
+.channel-names-btn:hover {
+  color: #0a58ca;
+}
+</style>
+
+
+
+<table class="repr table table-hover table-striped table-sm table-responsive small">
+    
+
+
+
+
+
+
+
+<tr class="repr-section-header general-fa6db9a7-5d77-473e-a908-c1d3d82a0276"  title="Hide section" 
+    onclick="toggleVisibility('general-fa6db9a7-5d77-473e-a908-c1d3d82a0276')">
+    <th class="repr-section-toggle-col">
+        <button>
+            
+            <span class="collapse-uncollapse-caret"></span>
+        </button>
+    </th>
+    <th colspan="2">
+        <strong>General</strong>
+    </th>
+</tr>
+
+<tr class="repr-element general-fa6db9a7-5d77-473e-a908-c1d3d82a0276 ">
+    <td class="repr-section-toggle-col"></td>
+    <td>Filename(s)</td>
+    <td>
+        
+        sub-001.eeg
+        
+        
+    </td>
+</tr>
+
+<tr class="repr-element general-fa6db9a7-5d77-473e-a908-c1d3d82a0276 ">
+    <td class="repr-section-toggle-col"></td>
+    <td>MNE object type</td>
+    <td>RawBrainVision</td>
+</tr>
+<tr class="repr-element general-fa6db9a7-5d77-473e-a908-c1d3d82a0276 ">
+    <td class="repr-section-toggle-col"></td>
+    <td>Measurement date</td>
+    
+    <td>2015-01-20 at 13:15:58 UTC</td>
+    
+</tr>
+<tr class="repr-element general-fa6db9a7-5d77-473e-a908-c1d3d82a0276 ">
+    <td class="repr-section-toggle-col"></td>
+    <td>Participant</td>
+    
+    <td>Unknown</td>
+    
+</tr>
+<tr class="repr-element general-fa6db9a7-5d77-473e-a908-c1d3d82a0276 ">
+    <td class="repr-section-toggle-col"></td>
+    <td>Experimenter</td>
+    
+    <td>Unknown</td>
+    
+</tr>
+    
+
+
+
+
+
+
+
+<tr class="repr-section-header acquisition-9252fe46-456a-480a-a2b8-9861e4b06522" 
+    title="Hide section"  onclick="toggleVisibility('acquisition-9252fe46-456a-480a-a2b8-9861e4b06522')">
+    <th class="repr-section-toggle-col">
+        <button>
+            
+            <span class="collapse-uncollapse-caret"></span>
+        </button>
+    </th>
+    <th colspan="2">
+        <strong>Acquisition</strong>
+    </th>
+</tr>
+
+<tr class="repr-element acquisition-9252fe46-456a-480a-a2b8-9861e4b06522 ">
+    <td class="repr-section-toggle-col"></td>
+    <td>Duration</td>
+    <td>00:13:38 (HH:MM:SS)</td>
+</tr>
+
+
+
+
+
+
+
+
+<tr class="repr-element acquisition-9252fe46-456a-480a-a2b8-9861e4b06522 ">
+    <td class="repr-section-toggle-col"></td>
+    <td>Sampling frequency</td>
+    <td>500.00 Hz</td>
+</tr>
+
+
+<tr class="repr-element acquisition-9252fe46-456a-480a-a2b8-9861e4b06522 ">
+    <td class="repr-section-toggle-col"></td>
+    <td>Time points</td>
+    <td>408,640</td>
+</tr>
+
+
+    
+
+
+
+
+
+
+
+<tr class="repr-section-header channels-374fd722-9bbb-4099-9e0e-3518eba967d3"  title="Hide section" 
+    onclick="toggleVisibility('channels-374fd722-9bbb-4099-9e0e-3518eba967d3')">
+    <th class="repr-section-toggle-col">
+        <button>
+            
+            <span class="collapse-uncollapse-caret"></span>
+        </button>
+    </th>
+    <th colspan="2">
+        <strong>Channels</strong>
+    </th>
+</tr>
+
+
+<tr class="repr-element channels-374fd722-9bbb-4099-9e0e-3518eba967d3 ">
+    <td class="repr-section-toggle-col"></td>
+    <td>EEG</td>
+    <td>
+        <button class="channel-names-btn" onclick="alert('Good EEG:\n\nFp1, F3, F7, C3, P3, TP9, Fz, Cz, Fp2, F4, F8, C4, P4, TP10, Pz, Oz')" title="(Click to open in popup)&#13;&#13;Fp1, F3, F7, C3, P3, TP9, Fz, Cz, Fp2, F4, F8, C4, P4, TP10, Pz, Oz">
+            16
+        </button>
+
+        
+    </td>
+</tr>
+
+
+<tr class="repr-element channels-374fd722-9bbb-4099-9e0e-3518eba967d3 ">
+    <td class="repr-section-toggle-col"></td>
+    <td>Head & sensor digitization</td>
+    
+    <td>19 points</td>
+    
+</tr>
+    
+
+
+
+
+
+
+
+<tr class="repr-section-header filters-ee0f8fad-88f0-4295-b04a-56623a2c38ee"  title="Hide section" 
+    onclick="toggleVisibility('filters-ee0f8fad-88f0-4295-b04a-56623a2c38ee')">
+    <th class="repr-section-toggle-col">
+        <button>
+            
+            <span class="collapse-uncollapse-caret"></span>
+        </button>
+    </th>
+    <th colspan="2">
+        <strong>Filters</strong>
+    </th>
+</tr>
+
+<tr class="repr-element filters-ee0f8fad-88f0-4295-b04a-56623a2c38ee ">
+    <td class="repr-section-toggle-col"></td>
+    <td>Highpass</td>
+    <td>0.01 Hz</td>
+</tr>
+
+
+<tr class="repr-element filters-ee0f8fad-88f0-4295-b04a-56623a2c38ee ">
+    <td class="repr-section-toggle-col"></td>
+    <td>Lowpass</td>
+    <td>80.00 Hz</td>
+</tr>
+
+
+</table></div></div>
 </div>
 <p>The coordinates for each location are stored in the <code class="docutils literal notranslate"><span class="pre">'dig'</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">info</span></code> object. The <code class="docutils literal notranslate"><span class="pre">dig</span></code> attribute is a list of objects of the MNE type <code class="docutils literal notranslate"><span class="pre">mne.io._digitization.DigPoint</span></code>. Each electrode location is stored as a set of (<em>x</em>, <em>y</em>, <em>z</em>) Cartesian coordinates, i.e., positions in a 3D grid, where <em>x</em> is the left-right dimension, <em>y</em> is posterior-anterior, and <em>z</em> is inferior-posterior. The (0, 0, 0) location is inside the head, located in a plane defined by the bridge of the nose (called the <strong>nasion</strong>) and the left and right ear canals. As shown in the figure below, <em>x</em> goes from left (negative) to right (positive), <em>y</em> goes from posterior to anterior, and <em>z</em> goes from inferior to superior. In general, you won’t need to work with this coordinate system directly, but it’s useful to know how the data are represented.</p>
 <div class="cell docutils container">
@@ -753,12 +1016,25 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;dig&#39;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;DigPoint |        LPA : (-86.1, -0.0, 0.0) mm     : head frame&gt;,
+ &lt;DigPoint |     Nasion : (0.0, 86.1, 0.0) mm       : head frame&gt;,
+ &lt;DigPoint |        RPA : (86.1, 0.0, 0.0) mm       : head frame&gt;,
+ &lt;DigPoint |     EEG #1 : (-29.3, 90.3, 36.8) mm    : head frame&gt;,
+ &lt;DigPoint |     EEG #2 : (29.3, 90.3, 36.8) mm     : head frame&gt;,
+ &lt;DigPoint |     EEG #3 : (-51.8, 63.9, 87.6) mm    : head frame&gt;,
+ &lt;DigPoint |     EEG #4 : (51.8, 63.9, 87.6) mm     : head frame&gt;,
+ &lt;DigPoint |     EEG #5 : (-68.3, -0.0, 106.1) mm   : head frame&gt;,
+ &lt;DigPoint |     EEG #6 : (68.3, 0.0, 106.1) mm     : head frame&gt;,
+ &lt;DigPoint |     EEG #7 : (-51.8, -63.9, 87.6) mm   : head frame&gt;,
+ &lt;DigPoint |     EEG #8 : (51.8, -63.9, 87.6) mm    : head frame&gt;,
+ &lt;DigPoint |    EEG #11 : (-76.8, 55.8, 36.8) mm    : head frame&gt;,
+ &lt;DigPoint |    EEG #12 : (76.8, 55.8, 36.8) mm     : head frame&gt;,
+ &lt;DigPoint |    EEG #17 : (0.0, 68.3, 106.1) mm     : head frame&gt;,
+ &lt;DigPoint |    EEG #18 : (0.0, 0.0, 135.1) mm      : head frame&gt;,
+ &lt;DigPoint |    EEG #19 : (0.0, -68.3, 106.1) mm    : head frame&gt;,
+ &lt;DigPoint |    EEG #60 : (-81.9, -26.6, 0.0) mm    : head frame&gt;,
+ &lt;DigPoint |    EEG #61 : (81.9, -26.6, 0.0) mm     : head frame&gt;,
+ &lt;DigPoint |    EEG #73 : (0.0, -94.9, 36.8) mm     : head frame&gt;]
 </pre></div>
 </div>
 </div>
@@ -771,12 +1047,22 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Fp1&#39;,
+ &#39;F3&#39;,
+ &#39;F7&#39;,
+ &#39;C3&#39;,
+ &#39;P3&#39;,
+ &#39;TP9&#39;,
+ &#39;Fz&#39;,
+ &#39;Cz&#39;,
+ &#39;Fp2&#39;,
+ &#39;F4&#39;,
+ &#39;F8&#39;,
+ &#39;C4&#39;,
+ &#39;P4&#39;,
+ &#39;TP10&#39;,
+ &#39;Pz&#39;,
+ &#39;Oz&#39;]
 </pre></div>
 </div>
 </div>
@@ -796,15 +1082,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">plot_sensors</span><span class="p">(</span><span class="n">show_names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/cca02fc191e9b46f9457e091425c2f46bb219817a84b9d0f5e8f2eb54a29221f.png" src="../_images/cca02fc191e9b46f9457e091425c2f46bb219817a84b9d0f5e8f2eb54a29221f.png" />
 </div>
 </div>
 </section>
@@ -826,12 +1104,29 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mne</span><span class="o">.</span><span class="n">events_from_annotations</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([[     0,      0,  99999],
+        [     0,      0,  10001],
+        [ 25550,      0,      5],
+        ...,
+        [397701,      0,      3],
+        [402068,      0,      7],
+        [402073,      0,      4]]),
+ {&#39;Comment/actiCAP Data On&#39;: 10001,
+  &#39;New Segment/&#39;: 99999,
+  &#39;Stimulus/S  1&#39;: 1,
+  &#39;Stimulus/S  2&#39;: 2,
+  &#39;Stimulus/S  3&#39;: 3,
+  &#39;Stimulus/S  4&#39;: 4,
+  &#39;Stimulus/S  5&#39;: 5,
+  &#39;Stimulus/S  7&#39;: 7,
+  &#39;Stimulus/S101&#39;: 101,
+  &#39;Stimulus/S102&#39;: 102,
+  &#39;Stimulus/S111&#39;: 111,
+  &#39;Stimulus/S112&#39;: 112,
+  &#39;Stimulus/S201&#39;: 201,
+  &#39;Stimulus/S202&#39;: 202,
+  &#39;Stimulus/S211&#39;: 211,
+  &#39;Stimulus/S212&#39;: 212})
 </pre></div>
 </div>
 </div>
@@ -852,15 +1147,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_dict</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">events_from_annotations</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># MNE expects the events array in terms of samples, so don&#39;t change it</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Create a copy of the events array and convert the first column to ms</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">events_ms</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;mne&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[    0,     0, 99999],
+       [    0,     0, 10001],
+       [51100,     0,     5],
+       [51106,     0,     1],
+       [52198,     0,   201],
+       [52288,     0,     2],
+       [59164,     0,     3],
+       [66566,     0,     1],
+       [67562,     0,   211],
+       [69864,     0,     3]])
 </pre></div>
 </div>
 </div>
@@ -873,12 +1169,24 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">raw</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;raw&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;RawBrainVision | sub-001.eeg, 16 x 408640 (817.3 s), ~49.9 MB, data loaded&gt;
+ch  name  type  unit        min         Q1     median         Q3        max
+ 0  Fp1   EEG   µV      -285.40     -30.22      -1.43      27.83    1301.03
+ 1  F3    EEG   µV      -174.79     -17.23       9.22      27.46     253.16
+ 2  F7    EEG   µV      -218.86     -27.54       1.24      27.61     840.83
+ 3  C3    EEG   µV      -143.89     -11.69       2.93      14.49     125.35
+ 4  P3    EEG   µV      -222.93     -16.64       1.79      19.13      98.77
+ 5  TP9   EEG   µV      -521.95     -24.35      10.94      48.68     507.04
+ 6  Fz    EEG   µV       -63.42     -10.49      -0.49      12.11      96.25
+ 7  Cz    EEG   µV      -122.98     -16.84      -0.59      16.92      70.10
+ 8  Fp2   EEG   µV      -308.07     -34.05       0.94      32.26     455.79
+ 9  F4    EEG   µV       -88.54     -11.64       3.62      14.80     123.72
+10  F8    EEG   µV      -390.29     -19.68      -0.60      14.91     241.88
+11  C4    EEG   µV      -166.15     -21.28       1.28      19.47     104.65
+12  P4    EEG   µV      -375.89     -21.70       0.88      30.19     201.16
+13  TP10  EEG   µV      -236.19     -21.82       0.85      21.64     388.90
+14  Pz    EEG   µV      -165.69     -12.59       3.75      17.90      76.89
+15  Oz    EEG   µV      -229.21     -15.15       5.89      24.40     194.92
 </pre></div>
 </div>
 </div>
@@ -945,7 +1253,8 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1012,8 +1321,8 @@ By Aaron J Newman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

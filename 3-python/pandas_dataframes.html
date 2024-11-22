@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -79,6 +82,7 @@
     <link rel="prev" title="Working with Data" href="working_w_data.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -94,19 +98,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -114,7 +107,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -122,8 +114,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -139,7 +131,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -169,21 +162,17 @@
     
     
     <img src="../_static/NESC3505_icon.png" class="logo__image only-light" alt="Neural Data Science in Python - Home"/>
-    <script>document.write(`<img src="../_static/NESC3505_icon.png" class="logo__image only-dark" alt="Neural Data Science in Python - Home"/>`);</script>
+    <img src="../_static/NESC3505_icon.png" class="logo__image only-dark pst-js-only" alt="Neural Data Science in Python - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -570,24 +559,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -1573,93 +1554,13 @@ document.write(`
       <td>20431.092700</td>
       <td>22966.144320</td>
       <td>27195.113040</td>
-      <td>26982.290520</td>
+      <td>26982.29052</td>
       <td>28397.715120</td>
       <td>30281.704590</td>
       <td>31871.530300</td>
       <td>32135.323010</td>
       <td>34480.957710</td>
-      <td>37506.419070</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>Norway</td>
-      <td>10095.421720</td>
-      <td>11653.973040</td>
-      <td>13450.401510</td>
-      <td>16361.876470</td>
-      <td>18965.055510</td>
-      <td>23311.349390</td>
-      <td>26298.635310</td>
-      <td>31540.974800</td>
-      <td>33965.661150</td>
-      <td>41283.164330</td>
-      <td>44683.975250</td>
-      <td>49357.190170</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>Greece</td>
-      <td>3530.690067</td>
-      <td>4916.299889</td>
-      <td>6017.190733</td>
-      <td>8513.097016</td>
-      <td>12724.829570</td>
-      <td>14195.524280</td>
-      <td>15268.420890</td>
-      <td>16120.528390</td>
-      <td>17541.496340</td>
-      <td>18747.698140</td>
-      <td>22514.254800</td>
-      <td>27538.411880</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>Spain</td>
-      <td>3834.034742</td>
-      <td>4564.802410</td>
-      <td>5693.843879</td>
-      <td>7993.512294</td>
-      <td>10638.751310</td>
-      <td>13236.921170</td>
-      <td>13926.169970</td>
-      <td>15764.983130</td>
-      <td>18603.064520</td>
-      <td>20445.298960</td>
-      <td>24835.471660</td>
-      <td>28821.063700</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>Hungary</td>
-      <td>5263.673816</td>
-      <td>6040.180011</td>
-      <td>7550.359877</td>
-      <td>9326.644670</td>
-      <td>10168.656110</td>
-      <td>11674.837370</td>
-      <td>12545.990660</td>
-      <td>12986.479980</td>
-      <td>10535.628550</td>
-      <td>11712.776800</td>
-      <td>14843.935560</td>
-      <td>18008.944440</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>Poland</td>
-      <td>4029.329699</td>
-      <td>4734.253019</td>
-      <td>5338.752143</td>
-      <td>6557.152776</td>
-      <td>8006.506993</td>
-      <td>9508.141454</td>
-      <td>8451.531004</td>
-      <td>9082.351172</td>
-      <td>7738.881247</td>
-      <td>10159.583680</td>
-      <td>12002.239080</td>
-      <td>15389.924680</td>
+      <td>37506.41907</td>
     </tr>
     <tr>
       <th>26</th>
@@ -1669,61 +1570,141 @@ document.write(`
       <td>12329.441920</td>
       <td>15258.296970</td>
       <td>17832.024640</td>
-      <td>18855.725210</td>
+      <td>18855.72521</td>
       <td>20667.381250</td>
       <td>23586.929270</td>
       <td>23880.016830</td>
       <td>25266.594990</td>
       <td>29341.630930</td>
-      <td>33859.748350</td>
+      <td>33859.74835</td>
     </tr>
     <tr>
-      <th>0</th>
-      <td>Albania</td>
-      <td>1601.056136</td>
-      <td>1942.284244</td>
-      <td>2312.888958</td>
-      <td>2760.196931</td>
-      <td>3313.422188</td>
-      <td>3533.003910</td>
-      <td>3630.880722</td>
-      <td>3738.932735</td>
-      <td>2497.437901</td>
-      <td>3193.054604</td>
-      <td>4604.211737</td>
-      <td>5937.029526</td>
+      <th>17</th>
+      <td>Netherlands</td>
+      <td>8941.571858</td>
+      <td>11276.193440</td>
+      <td>12790.849560</td>
+      <td>15363.251360</td>
+      <td>18794.745670</td>
+      <td>21209.05920</td>
+      <td>21399.460460</td>
+      <td>23651.323610</td>
+      <td>26790.949610</td>
+      <td>30246.130630</td>
+      <td>33724.757780</td>
+      <td>36797.93332</td>
     </tr>
     <tr>
-      <th>15</th>
-      <td>Italy</td>
-      <td>4931.404155</td>
-      <td>6248.656232</td>
-      <td>8243.582340</td>
-      <td>10022.401310</td>
-      <td>12269.273780</td>
-      <td>14255.984750</td>
-      <td>16537.483500</td>
-      <td>19207.234820</td>
-      <td>22013.644860</td>
-      <td>24675.024460</td>
-      <td>27968.098170</td>
-      <td>28569.719700</td>
+      <th>25</th>
+      <td>Spain</td>
+      <td>3834.034742</td>
+      <td>4564.802410</td>
+      <td>5693.843879</td>
+      <td>7993.512294</td>
+      <td>10638.751310</td>
+      <td>13236.92117</td>
+      <td>13926.169970</td>
+      <td>15764.983130</td>
+      <td>18603.064520</td>
+      <td>20445.298960</td>
+      <td>24835.471660</td>
+      <td>28821.06370</td>
     </tr>
     <tr>
-      <th>14</th>
-      <td>Ireland</td>
-      <td>5210.280328</td>
-      <td>5599.077872</td>
-      <td>6631.597314</td>
-      <td>7655.568963</td>
-      <td>9530.772896</td>
-      <td>11150.981130</td>
-      <td>12618.321410</td>
-      <td>13872.866520</td>
-      <td>17558.815550</td>
-      <td>24521.947130</td>
-      <td>34077.049390</td>
-      <td>40675.996350</td>
+      <th>24</th>
+      <td>Slovenia</td>
+      <td>4215.041741</td>
+      <td>5862.276629</td>
+      <td>7402.303395</td>
+      <td>9405.489397</td>
+      <td>12383.486200</td>
+      <td>15277.03017</td>
+      <td>17866.721750</td>
+      <td>18678.534920</td>
+      <td>14214.716810</td>
+      <td>17161.107350</td>
+      <td>20660.019360</td>
+      <td>25768.25759</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Croatia</td>
+      <td>3119.236520</td>
+      <td>4338.231617</td>
+      <td>5477.890018</td>
+      <td>6960.297861</td>
+      <td>9164.090127</td>
+      <td>11305.38517</td>
+      <td>13221.821840</td>
+      <td>13822.583940</td>
+      <td>8447.794873</td>
+      <td>9875.604515</td>
+      <td>11628.388950</td>
+      <td>14619.22272</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Greece</td>
+      <td>3530.690067</td>
+      <td>4916.299889</td>
+      <td>6017.190733</td>
+      <td>8513.097016</td>
+      <td>12724.829570</td>
+      <td>14195.52428</td>
+      <td>15268.420890</td>
+      <td>16120.528390</td>
+      <td>17541.496340</td>
+      <td>18747.698140</td>
+      <td>22514.254800</td>
+      <td>27538.41188</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Romania</td>
+      <td>3144.613186</td>
+      <td>3943.370225</td>
+      <td>4734.997586</td>
+      <td>6470.866545</td>
+      <td>8011.414402</td>
+      <td>9356.39724</td>
+      <td>9605.314053</td>
+      <td>9696.273295</td>
+      <td>6598.409903</td>
+      <td>7346.547557</td>
+      <td>7885.360081</td>
+      <td>10808.47561</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Iceland</td>
+      <td>7267.688428</td>
+      <td>9244.001412</td>
+      <td>10350.159060</td>
+      <td>13319.895680</td>
+      <td>15798.063620</td>
+      <td>19654.96247</td>
+      <td>23269.607500</td>
+      <td>26923.206280</td>
+      <td>25144.392010</td>
+      <td>28061.099660</td>
+      <td>31163.201960</td>
+      <td>36180.78919</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Hungary</td>
+      <td>5263.673816</td>
+      <td>6040.180011</td>
+      <td>7550.359877</td>
+      <td>9326.644670</td>
+      <td>10168.656110</td>
+      <td>11674.83737</td>
+      <td>12545.990660</td>
+      <td>12986.479980</td>
+      <td>10535.628550</td>
+      <td>11712.776800</td>
+      <td>14843.935560</td>
+      <td>18008.94444</td>
     </tr>
   </tbody>
 </table>
@@ -2013,7 +1994,7 @@ Name: gdpPercap_1992, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(8842.59803)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8842.59803
 </pre></div>
 </div>
 </div>
@@ -2048,7 +2029,7 @@ Name: gdpPercap_1992, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(6137.076492)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6137.076492
 </pre></div>
 </div>
 </div>
@@ -2746,7 +2727,7 @@ Name: Albania, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(16245.20900641667)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16245.20900641667
 </pre></div>
 </div>
 </div>
@@ -2759,7 +2740,7 @@ Name: Albania, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(26982.29052)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>26982.29052
 </pre></div>
 </div>
 </div>
@@ -3814,7 +3795,8 @@ row labels in the dataframe.</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -3912,8 +3894,8 @@ By Aaron J Newman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>
