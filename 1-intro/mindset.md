@@ -1,6 +1,6 @@
 # Mindset
 
-This requires a somewhat different mindset and learning approach from, probably, most or all courses you've taken in the past. Learning to code doesn't require a lot of memorization, but instead it requires a lot of hands-on *practice* — actually writing code (and making errors and debugging them, as discussed in the next section). Let me break down that previous sentence to emphasize two things:
+Learning to write code requires a somewhat different mindset and learning approach from, probably, most or all courses you've taken in the past. Learning to code doesn't require a lot of memorization, but instead it requires a lot of hands-on *practice* — actually writing code (and making errors and debugging them, as discussed in the next section). Let me break down that previous sentence to emphasize two things:
 
 1. You shouldn't be trying to *memorize* the content during the lessons. Instead, try to follow the logic of what's going on, and expect to use reference material from the lessons (slides and chapters in this book) when you're working on exercises and assignments.
 
