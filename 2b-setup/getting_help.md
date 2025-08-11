@@ -1,6 +1,8 @@
 # Getting Help on an Assignment 
 
-**Note**: *This section applies only to students following this textbook as part of a course. The authors of the book do not have the capcity to provide everyone who finds the book on the internet with individualized help.*
+:::{attention}
+This section applies only to students following this textbook as part of a course. The authors of the book do not have the capcity to provide everyone who finds the book on the internet with individualized help.
+:::
 
 The primary way that you will interact with the teaching team while working on an assignment is via a GitHub [**Pull Request**](https://docs.github.com/en/pull-requests). For each assignment, a pull request called  `Feedback` is automatically created for you by GitHub Classroom. This is how you should pose questions about the assignment to the teaching team. 
 
