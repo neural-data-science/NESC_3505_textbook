@@ -16,33 +16,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -82,7 +79,6 @@
     <link rel="prev" title="Exercises – Reaction Time Data" href="rt_data.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -98,8 +94,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -107,6 +114,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -114,8 +122,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -131,8 +139,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -162,17 +169,21 @@
     
     
     <img src="../_static/NESC3505_icon.png" class="logo__image only-light" alt="Neural Data Science in Python - Home"/>
-    <img src="../_static/NESC3505_icon.png" class="logo__image only-dark pst-js-only" alt="Neural Data Science in Python - Home"/>
+    <script>document.write(`<img src="../_static/NESC3505_icon.png" class="logo__image only-dark" alt="Neural Data Science in Python - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -190,6 +201,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../syllabus.html">Syllabus</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/learning_approach.html">How to Approach this Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/actually_write_code.html">Actually Write Code</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/mindset.html">Mindset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/flipped_classroom.html">Flipped Classroom</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/errors_debugging.html">Errors and Debugging</a></li>
@@ -255,7 +267,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Set Up Your Computer for Data Science</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Some Assembly Required</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Setting Up your Computer for Data Science</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/learning_objectives.html">Learning Objectives</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/first_steps.html">First Steps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/github.html">Get on GitHub</a></li>
@@ -559,16 +571,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -643,7 +663,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the pandas library as pd and then read the gapminder data file for Europe</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="n">gapminder_europe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;gapminder_gdp_europe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -653,32 +673,31 @@
 <span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># import the pandas library as pd and then read the gapminder data file for Europe</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">gapminder_europe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;gapminder_gdp_europe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/io/parsers/readers.py:1026,</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/io/parsers/readers.py:1026,</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1013</span> <span class="n">kwds_defaults</span> <span class="o">=</span> <span class="n">_refine_defaults_read</span><span class="p">(</span>
 <span class="g g-Whitespace">   </span><span class="mi">1014</span>     <span class="n">dialect</span><span class="p">,</span>
 <span class="g g-Whitespace">   </span><span class="mi">1015</span>     <span class="n">delimiter</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1022</span>     <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="mi">1022</span>     <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
 <span class="g g-Whitespace">   </span><span class="mi">1023</span> <span class="p">)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1024</span> <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
 <span class="ne">-&gt; </span><span class="mi">1026</span> <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/io/parsers/readers.py:620,</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/io/parsers/readers.py:620,</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
 <span class="g g-Whitespace">    </span><span class="mi">617</span> <span class="n">_validate_names</span><span class="p">(</span><span class="n">kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;names&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
 <span class="g g-Whitespace">    </span><span class="mi">619</span> <span class="c1"># Create the parser.</span>
 <span class="ne">--&gt; </span><span class="mi">620</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">622</span> <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
 <span class="g g-Whitespace">    </span><span class="mi">623</span>     <span class="k">return</span> <span class="n">parser</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/io/parsers/readers.py:1620,</span> in <span class="ni">TextFileReader.__init__</span><span class="nt">(self, f, engine, **kwds)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/io/parsers/readers.py:1620,</span> in <span class="ni">TextFileReader.__init__</span><span class="nt">(self, f, engine, **kwds)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1617</span>     <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span>
 <span class="g g-Whitespace">   </span><span class="mi">1619</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="ne">-&gt; </span><span class="mi">1620</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/io/parsers/readers.py:1880,</span> in <span class="ni">TextFileReader._make_engine</span><span class="nt">(self, f, engine)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/io/parsers/readers.py:1880,</span> in <span class="ni">TextFileReader._make_engine</span><span class="nt">(self, f, engine)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1878</span>     <span class="k">if</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mode</span><span class="p">:</span>
 <span class="g g-Whitespace">   </span><span class="mi">1879</span>         <span class="n">mode</span> <span class="o">+=</span> <span class="s2">&quot;b&quot;</span>
 <span class="ne">-&gt; </span><span class="mi">1880</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>
@@ -694,7 +713,7 @@
 <span class="g g-Whitespace">   </span><span class="mi">1890</span> <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 <span class="g g-Whitespace">   </span><span class="mi">1891</span> <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="o">.</span><span class="n">handle</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/io/common.py:873,</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/io/common.py:873,</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
 <span class="g g-Whitespace">    </span><span class="mi">868</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
 <span class="g g-Whitespace">    </span><span class="mi">869</span>     <span class="c1"># Check whether the filename is to be opened in binary mode.</span>
 <span class="g g-Whitespace">    </span><span class="mi">870</span>     <span class="c1"># Binary mode does not support &#39;encoding&#39; and &#39;newline&#39;.</span>
@@ -721,7 +740,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the pandas library as pd and then read the gapminder data file for Europe. </span>
 <span class="c1"># The file is in a subfolder called data</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="n">gapminder_europe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder_gdp_europe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -973,37 +992,37 @@ Bulgaria                   2444.286648     3008.670727     4254.337839     5577.
 <span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># apply the mean function to calculate the average gdp per capita for each region</span>
 <span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">gdp_per_capita</span> <span class="o">=</span> <span class="n">grouped</span><span class="p">[</span><span class="s1">&#39;gdpPercap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/frame.py:9183,</span> in <span class="ni">DataFrame.groupby</span><span class="nt">(self, by, axis, level, as_index, sort, group_keys, observed, dropna)</span>
-<span class="g g-Whitespace">   </span><span class="mi">9180</span> <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">by</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">9181</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You have to supply one of &#39;by&#39; and &#39;level&#39;&quot;</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">9183</span> <span class="k">return</span> <span class="n">DataFrameGroupBy</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">9184</span>     <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">9185</span>     <span class="n">keys</span><span class="o">=</span><span class="n">by</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">9186</span>     <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">9187</span>     <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">9188</span>     <span class="n">as_index</span><span class="o">=</span><span class="n">as_index</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">9189</span>     <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">9190</span>     <span class="n">group_keys</span><span class="o">=</span><span class="n">group_keys</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">9191</span>     <span class="n">observed</span><span class="o">=</span><span class="n">observed</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">9192</span>     <span class="n">dropna</span><span class="o">=</span><span class="n">dropna</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">9193</span> <span class="p">)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/frame.py:9190,</span> in <span class="ni">DataFrame.groupby</span><span class="nt">(self, by, axis, level, as_index, sort, group_keys, observed, dropna)</span>
+<span class="g g-Whitespace">   </span><span class="mi">9187</span> <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">by</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">9188</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You have to supply one of &#39;by&#39; and &#39;level&#39;&quot;</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">9190</span> <span class="k">return</span> <span class="n">DataFrameGroupBy</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">9191</span>     <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">9192</span>     <span class="n">keys</span><span class="o">=</span><span class="n">by</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">9193</span>     <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">9194</span>     <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">9195</span>     <span class="n">as_index</span><span class="o">=</span><span class="n">as_index</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">9196</span>     <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">9197</span>     <span class="n">group_keys</span><span class="o">=</span><span class="n">group_keys</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">9198</span>     <span class="n">observed</span><span class="o">=</span><span class="n">observed</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">9199</span>     <span class="n">dropna</span><span class="o">=</span><span class="n">dropna</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">9200</span> <span class="p">)</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:1329,</span> in <span class="ni">GroupBy.__init__</span><span class="nt">(self, obj, keys, axis, level, grouper, exclusions, selection, as_index, sort, group_keys, observed, dropna)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1326</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropna</span> <span class="o">=</span> <span class="n">dropna</span>
-<span class="g g-Whitespace">   </span><span class="mi">1328</span> <span class="k">if</span> <span class="n">grouper</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1329</span>     <span class="n">grouper</span><span class="p">,</span> <span class="n">exclusions</span><span class="p">,</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">get_grouper</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1330</span>         <span class="n">obj</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1331</span>         <span class="n">keys</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1332</span>         <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1333</span>         <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1334</span>         <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1335</span>         <span class="n">observed</span><span class="o">=</span><span class="kc">False</span> <span class="k">if</span> <span class="n">observed</span> <span class="ow">is</span> <span class="n">lib</span><span class="o">.</span><span class="n">no_default</span> <span class="k">else</span> <span class="n">observed</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1336</span>         <span class="n">dropna</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dropna</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1337</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1339</span> <span class="k">if</span> <span class="n">observed</span> <span class="ow">is</span> <span class="n">lib</span><span class="o">.</span><span class="n">no_default</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1340</span>     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">ping</span><span class="o">.</span><span class="n">_passed_categorical</span> <span class="k">for</span> <span class="n">ping</span> <span class="ow">in</span> <span class="n">grouper</span><span class="o">.</span><span class="n">groupings</span><span class="p">):</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/groupby/groupby.py:1330,</span> in <span class="ni">GroupBy.__init__</span><span class="nt">(self, obj, keys, axis, level, grouper, exclusions, selection, as_index, sort, group_keys, observed, dropna)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1327</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropna</span> <span class="o">=</span> <span class="n">dropna</span>
+<span class="g g-Whitespace">   </span><span class="mi">1329</span> <span class="k">if</span> <span class="n">grouper</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1330</span>     <span class="n">grouper</span><span class="p">,</span> <span class="n">exclusions</span><span class="p">,</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">get_grouper</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1331</span>         <span class="n">obj</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1332</span>         <span class="n">keys</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1333</span>         <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1334</span>         <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1335</span>         <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1336</span>         <span class="n">observed</span><span class="o">=</span><span class="kc">False</span> <span class="k">if</span> <span class="n">observed</span> <span class="ow">is</span> <span class="n">lib</span><span class="o">.</span><span class="n">no_default</span> <span class="k">else</span> <span class="n">observed</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1337</span>         <span class="n">dropna</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dropna</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1338</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1340</span> <span class="k">if</span> <span class="n">observed</span> <span class="ow">is</span> <span class="n">lib</span><span class="o">.</span><span class="n">no_default</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1341</span>     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">ping</span><span class="o">.</span><span class="n">_passed_categorical</span> <span class="k">for</span> <span class="n">ping</span> <span class="ow">in</span> <span class="n">grouper</span><span class="o">.</span><span class="n">groupings</span><span class="p">):</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/groupby/grouper.py:1043,</span> in <span class="ni">get_grouper</span><span class="nt">(obj, key, axis, level, sort, observed, validate, dropna)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/groupby/grouper.py:1043,</span> in <span class="ni">get_grouper</span><span class="nt">(obj, key, axis, level, sort, observed, validate, dropna)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1041</span>         <span class="n">in_axis</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">gpr</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">gpr</span><span class="p">,</span> <span class="kc">None</span>
 <span class="g g-Whitespace">   </span><span class="mi">1042</span>     <span class="k">else</span><span class="p">:</span>
 <span class="ne">-&gt; </span><span class="mi">1043</span>         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">gpr</span><span class="p">)</span>
@@ -1105,14 +1124,14 @@ Bulgaria                   2444.286648     3008.670727     4254.337839     5577.
 <span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="c1"># label the countries in Eastern Europe as &#39;Eastern Europe&#39;</span>
 <span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="n">gapminder_europe</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">eastern_europe</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Eastern Europe&#39;</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexing.py:907,</span> in <span class="ni">_LocationIndexer.__setitem__</span><span class="nt">(self, key, value)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexing.py:907,</span> in <span class="ni">_LocationIndexer.__setitem__</span><span class="nt">(self, key, value)</span>
 <span class="g g-Whitespace">    </span><span class="mi">905</span>     <span class="n">maybe_callable</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">apply_if_callable</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">906</span>     <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_deprecated_callable_usage</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">maybe_callable</span><span class="p">)</span>
 <span class="ne">--&gt; </span><span class="mi">907</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_setitem_indexer</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">908</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_valid_setitem_indexer</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">910</span> <span class="n">iloc</span> <span class="o">=</span> <span class="bp">self</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;iloc&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">iloc</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexing.py:774,</span> in <span class="ni">_LocationIndexer._get_setitem_indexer</span><span class="nt">(self, key)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexing.py:774,</span> in <span class="ni">_LocationIndexer._get_setitem_indexer</span><span class="nt">(self, key)</span>
 <span class="g g-Whitespace">    </span><span class="mi">771</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
 <span class="g g-Whitespace">    </span><span class="mi">772</span>     <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="n">IndexingError</span><span class="p">):</span>
 <span class="g g-Whitespace">    </span><span class="mi">773</span>         <span class="c1"># suppress &quot;Too many indexers&quot;</span>
@@ -1121,39 +1140,39 @@ Bulgaria                   2444.286648     3008.670727     4254.337839     5577.
 <span class="g g-Whitespace">    </span><span class="mi">777</span>     <span class="c1"># GH#45479 test_loc_setitem_range_key</span>
 <span class="g g-Whitespace">    </span><span class="mi">778</span>     <span class="n">key</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexing.py:989,</span> in <span class="ni">_LocationIndexer._convert_tuple</span><span class="nt">(self, key)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexing.py:989,</span> in <span class="ni">_LocationIndexer._convert_tuple</span><span class="nt">(self, key)</span>
 <span class="g g-Whitespace">    </span><span class="mi">985</span> <span class="nd">@final</span>
-<span class="g g-Whitespace">    </span><span class="mi">986</span> <span class="k">def</span> <span class="nf">_convert_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">986</span> <span class="k">def</span><span class="w"> </span><span class="nf">_convert_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="g g-Whitespace">    </span><span class="mi">987</span>     <span class="c1"># Note: we assume _tupleize_axis_indexer has been called, if necessary.</span>
 <span class="g g-Whitespace">    </span><span class="mi">988</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_validate_key_length</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="ne">--&gt; </span><span class="mi">989</span>     <span class="n">keyidx</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_convert_to_indexer</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span>
 <span class="g g-Whitespace">    </span><span class="mi">990</span>     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">keyidx</span><span class="p">)</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexing.py:1522,</span> in <span class="ni">_LocIndexer._convert_to_indexer</span><span class="nt">(self, key, axis)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexing.py:1522,</span> in <span class="ni">_LocIndexer._convert_to_indexer</span><span class="nt">(self, key, axis)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1520</span>         <span class="k">return</span> <span class="n">key</span>
 <span class="g g-Whitespace">   </span><span class="mi">1521</span>     <span class="k">else</span><span class="p">:</span>
 <span class="ne">-&gt; </span><span class="mi">1522</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_listlike_indexer</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
 <span class="g g-Whitespace">   </span><span class="mi">1523</span> <span class="k">else</span><span class="p">:</span>
 <span class="g g-Whitespace">   </span><span class="mi">1524</span>     <span class="k">try</span><span class="p">:</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexing.py:1558,</span> in <span class="ni">_LocIndexer._get_listlike_indexer</span><span class="nt">(self, key, axis)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexing.py:1558,</span> in <span class="ni">_LocIndexer._get_listlike_indexer</span><span class="nt">(self, key, axis)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1555</span> <span class="n">ax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_get_axis</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1556</span> <span class="n">axis_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_get_axis_name</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
 <span class="ne">-&gt; </span><span class="mi">1558</span> <span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">_get_indexer_strict</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1560</span> <span class="k">return</span> <span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexes/base.py:6200,</span> in <span class="ni">Index._get_indexer_strict</span><span class="nt">(self, key, axis_name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6197</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">6198</span>     <span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">new_indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reindex_non_unique</span><span class="p">(</span><span class="n">keyarr</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">6200</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_missing</span><span class="p">(</span><span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6202</span> <span class="n">keyarr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">indexer</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6203</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Index</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">6204</span>     <span class="c1"># GH 42790 - Preserve name from an Index</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexes/base.py:6212,</span> in <span class="ni">Index._get_indexer_strict</span><span class="nt">(self, key, axis_name)</span>
+<span class="g g-Whitespace">   </span><span class="mi">6209</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">6210</span>     <span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">new_indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reindex_non_unique</span><span class="p">(</span><span class="n">keyarr</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">6212</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_missing</span><span class="p">(</span><span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">6214</span> <span class="n">keyarr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">indexer</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">6215</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Index</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">6216</span>     <span class="c1"># GH 42790 - Preserve name from an Index</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexes/base.py:6252,</span> in <span class="ni">Index._raise_if_missing</span><span class="nt">(self, key, indexer, axis_name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6249</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;None of [</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">] are in the [</span><span class="si">{</span><span class="n">axis_name</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6251</span> <span class="n">not_found</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ensure_index</span><span class="p">(</span><span class="n">key</span><span class="p">)[</span><span class="n">missing_mask</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
-<span class="ne">-&gt; </span><span class="mi">6252</span> <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">not_found</span><span class="si">}</span><span class="s2"> not in index&quot;</span><span class="p">)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexes/base.py:6264,</span> in <span class="ni">Index._raise_if_missing</span><span class="nt">(self, key, indexer, axis_name)</span>
+<span class="g g-Whitespace">   </span><span class="mi">6261</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;None of [</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">] are in the [</span><span class="si">{</span><span class="n">axis_name</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">6263</span> <span class="n">not_found</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ensure_index</span><span class="p">(</span><span class="n">key</span><span class="p">)[</span><span class="n">missing_mask</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="ne">-&gt; </span><span class="mi">6264</span> <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">not_found</span><span class="si">}</span><span class="s2"> not in index&quot;</span><span class="p">)</span>
 
 <span class="ne">KeyError</span>: &quot;[&#39;Malta&#39;] not in index&quot;
 </pre></div>
@@ -1213,14 +1232,14 @@ Bulgaria                   2444.286648     3008.670727     4254.337839     5577.
 <span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="c1"># label the countries in Eastern Europe as &#39;Eastern Europe&#39;</span>
 <span class="ne">---&gt; </span><span class="mi">13</span> <span class="n">gapminder_europe</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">eastern_europe</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Eastern Europe&#39;</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexing.py:907,</span> in <span class="ni">_LocationIndexer.__setitem__</span><span class="nt">(self, key, value)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexing.py:907,</span> in <span class="ni">_LocationIndexer.__setitem__</span><span class="nt">(self, key, value)</span>
 <span class="g g-Whitespace">    </span><span class="mi">905</span>     <span class="n">maybe_callable</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">apply_if_callable</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">906</span>     <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_deprecated_callable_usage</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">maybe_callable</span><span class="p">)</span>
 <span class="ne">--&gt; </span><span class="mi">907</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_setitem_indexer</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">908</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_valid_setitem_indexer</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">910</span> <span class="n">iloc</span> <span class="o">=</span> <span class="bp">self</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;iloc&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">iloc</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexing.py:774,</span> in <span class="ni">_LocationIndexer._get_setitem_indexer</span><span class="nt">(self, key)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexing.py:774,</span> in <span class="ni">_LocationIndexer._get_setitem_indexer</span><span class="nt">(self, key)</span>
 <span class="g g-Whitespace">    </span><span class="mi">771</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
 <span class="g g-Whitespace">    </span><span class="mi">772</span>     <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="n">IndexingError</span><span class="p">):</span>
 <span class="g g-Whitespace">    </span><span class="mi">773</span>         <span class="c1"># suppress &quot;Too many indexers&quot;</span>
@@ -1229,39 +1248,39 @@ Bulgaria                   2444.286648     3008.670727     4254.337839     5577.
 <span class="g g-Whitespace">    </span><span class="mi">777</span>     <span class="c1"># GH#45479 test_loc_setitem_range_key</span>
 <span class="g g-Whitespace">    </span><span class="mi">778</span>     <span class="n">key</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexing.py:989,</span> in <span class="ni">_LocationIndexer._convert_tuple</span><span class="nt">(self, key)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexing.py:989,</span> in <span class="ni">_LocationIndexer._convert_tuple</span><span class="nt">(self, key)</span>
 <span class="g g-Whitespace">    </span><span class="mi">985</span> <span class="nd">@final</span>
-<span class="g g-Whitespace">    </span><span class="mi">986</span> <span class="k">def</span> <span class="nf">_convert_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">986</span> <span class="k">def</span><span class="w"> </span><span class="nf">_convert_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="g g-Whitespace">    </span><span class="mi">987</span>     <span class="c1"># Note: we assume _tupleize_axis_indexer has been called, if necessary.</span>
 <span class="g g-Whitespace">    </span><span class="mi">988</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_validate_key_length</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="ne">--&gt; </span><span class="mi">989</span>     <span class="n">keyidx</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_convert_to_indexer</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span>
 <span class="g g-Whitespace">    </span><span class="mi">990</span>     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">keyidx</span><span class="p">)</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexing.py:1522,</span> in <span class="ni">_LocIndexer._convert_to_indexer</span><span class="nt">(self, key, axis)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexing.py:1522,</span> in <span class="ni">_LocIndexer._convert_to_indexer</span><span class="nt">(self, key, axis)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1520</span>         <span class="k">return</span> <span class="n">key</span>
 <span class="g g-Whitespace">   </span><span class="mi">1521</span>     <span class="k">else</span><span class="p">:</span>
 <span class="ne">-&gt; </span><span class="mi">1522</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_listlike_indexer</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
 <span class="g g-Whitespace">   </span><span class="mi">1523</span> <span class="k">else</span><span class="p">:</span>
 <span class="g g-Whitespace">   </span><span class="mi">1524</span>     <span class="k">try</span><span class="p">:</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexing.py:1558,</span> in <span class="ni">_LocIndexer._get_listlike_indexer</span><span class="nt">(self, key, axis)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexing.py:1558,</span> in <span class="ni">_LocIndexer._get_listlike_indexer</span><span class="nt">(self, key, axis)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1555</span> <span class="n">ax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_get_axis</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1556</span> <span class="n">axis_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_get_axis_name</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
 <span class="ne">-&gt; </span><span class="mi">1558</span> <span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">_get_indexer_strict</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1560</span> <span class="k">return</span> <span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexes/base.py:6200,</span> in <span class="ni">Index._get_indexer_strict</span><span class="nt">(self, key, axis_name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6197</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">6198</span>     <span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">new_indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reindex_non_unique</span><span class="p">(</span><span class="n">keyarr</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">6200</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_missing</span><span class="p">(</span><span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6202</span> <span class="n">keyarr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">indexer</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6203</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Index</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">6204</span>     <span class="c1"># GH 42790 - Preserve name from an Index</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexes/base.py:6212,</span> in <span class="ni">Index._get_indexer_strict</span><span class="nt">(self, key, axis_name)</span>
+<span class="g g-Whitespace">   </span><span class="mi">6209</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">6210</span>     <span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">new_indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reindex_non_unique</span><span class="p">(</span><span class="n">keyarr</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">6212</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_missing</span><span class="p">(</span><span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">6214</span> <span class="n">keyarr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">indexer</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">6215</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Index</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">6216</span>     <span class="c1"># GH 42790 - Preserve name from an Index</span>
 
-<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/pandas/core/indexes/base.py:6252,</span> in <span class="ni">Index._raise_if_missing</span><span class="nt">(self, key, indexer, axis_name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6249</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;None of [</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">] are in the [</span><span class="si">{</span><span class="n">axis_name</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6251</span> <span class="n">not_found</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ensure_index</span><span class="p">(</span><span class="n">key</span><span class="p">)[</span><span class="n">missing_mask</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
-<span class="ne">-&gt; </span><span class="mi">6252</span> <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">not_found</span><span class="si">}</span><span class="s2"> not in index&quot;</span><span class="p">)</span>
+<span class="nn">File ~/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/pandas/core/indexes/base.py:6264,</span> in <span class="ni">Index._raise_if_missing</span><span class="nt">(self, key, indexer, axis_name)</span>
+<span class="g g-Whitespace">   </span><span class="mi">6261</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;None of [</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">] are in the [</span><span class="si">{</span><span class="n">axis_name</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">6263</span> <span class="n">not_found</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ensure_index</span><span class="p">(</span><span class="n">key</span><span class="p">)[</span><span class="n">missing_mask</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="ne">-&gt; </span><span class="mi">6264</span> <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">not_found</span><span class="si">}</span><span class="s2"> not in index&quot;</span><span class="p">)</span>
 
 <span class="ne">KeyError</span>: &quot;[&#39;Belarus&#39;] not in index&quot;
 </pre></div>
@@ -1430,83 +1449,83 @@ Bulgaria                   2444.286648     3008.670727     4254.337839     5577.
   </thead>
   <tbody>
     <tr>
-      <th>Netherlands</th>
-      <td>8941.571858</td>
-      <td>11276.193440</td>
-      <td>12790.849560</td>
-      <td>15363.251360</td>
-      <td>18794.745670</td>
-      <td>21209.05920</td>
-      <td>21399.46046</td>
-      <td>23651.32361</td>
-      <td>26790.949610</td>
-      <td>30246.13063</td>
-      <td>33724.75778</td>
-      <td>36797.93332</td>
+      <th>Sweden</th>
+      <td>8527.844662</td>
+      <td>9911.878226</td>
+      <td>12329.441920</td>
+      <td>15258.296970</td>
+      <td>17832.02464</td>
+      <td>18855.72521</td>
+      <td>20667.38125</td>
+      <td>23586.92927</td>
+      <td>23880.016830</td>
+      <td>25266.594990</td>
+      <td>29341.630930</td>
+      <td>33859.748350</td>
       <td>Northern Europe</td>
     </tr>
     <tr>
-      <th>Austria</th>
-      <td>6137.076492</td>
-      <td>8842.598030</td>
-      <td>10750.721110</td>
-      <td>12834.602400</td>
-      <td>16661.625600</td>
-      <td>19749.42230</td>
-      <td>21597.08362</td>
-      <td>23687.82607</td>
-      <td>27042.018680</td>
-      <td>29095.92066</td>
-      <td>32417.60769</td>
-      <td>36126.49270</td>
+      <th>Spain</th>
+      <td>3834.034742</td>
+      <td>4564.802410</td>
+      <td>5693.843879</td>
+      <td>7993.512294</td>
+      <td>10638.75131</td>
+      <td>13236.92117</td>
+      <td>13926.16997</td>
+      <td>15764.98313</td>
+      <td>18603.064520</td>
+      <td>20445.298960</td>
+      <td>24835.471660</td>
+      <td>28821.063700</td>
+      <td>Southern Europe</td>
+    </tr>
+    <tr>
+      <th>Serbia</th>
+      <td>3581.459448</td>
+      <td>4981.090891</td>
+      <td>6289.629157</td>
+      <td>7991.707066</td>
+      <td>10522.06749</td>
+      <td>12980.66956</td>
+      <td>15181.09270</td>
+      <td>15870.87851</td>
+      <td>9325.068238</td>
+      <td>7914.320304</td>
+      <td>7236.075251</td>
+      <td>9786.534714</td>
+      <td>Southern Europe</td>
+    </tr>
+    <tr>
+      <th>Switzerland</th>
+      <td>14734.232750</td>
+      <td>17909.489730</td>
+      <td>20431.092700</td>
+      <td>22966.144320</td>
+      <td>27195.11304</td>
+      <td>26982.29052</td>
+      <td>28397.71512</td>
+      <td>30281.70459</td>
+      <td>31871.530300</td>
+      <td>32135.323010</td>
+      <td>34480.957710</td>
+      <td>37506.419070</td>
       <td>Western Europe</td>
     </tr>
     <tr>
-      <th>Ireland</th>
-      <td>5210.280328</td>
-      <td>5599.077872</td>
-      <td>6631.597314</td>
-      <td>7655.568963</td>
-      <td>9530.772896</td>
-      <td>11150.98113</td>
-      <td>12618.32141</td>
-      <td>13872.86652</td>
-      <td>17558.815550</td>
-      <td>24521.94713</td>
-      <td>34077.04939</td>
-      <td>40675.99635</td>
-      <td>Northern Europe</td>
-    </tr>
-    <tr>
-      <th>Slovak Republic</th>
-      <td>5074.659104</td>
-      <td>6093.262980</td>
-      <td>7481.107598</td>
-      <td>8412.902397</td>
-      <td>9674.167626</td>
-      <td>10922.66404</td>
-      <td>11348.54585</td>
-      <td>12037.26758</td>
-      <td>9498.467723</td>
-      <td>12126.23065</td>
-      <td>13638.77837</td>
-      <td>18678.31435</td>
-      <td>Eastern Europe</td>
-    </tr>
-    <tr>
-      <th>Norway</th>
-      <td>10095.421720</td>
-      <td>11653.973040</td>
-      <td>13450.401510</td>
-      <td>16361.876470</td>
-      <td>18965.055510</td>
-      <td>23311.34939</td>
-      <td>26298.63531</td>
-      <td>31540.97480</td>
-      <td>33965.661150</td>
-      <td>41283.16433</td>
-      <td>44683.97525</td>
-      <td>49357.19017</td>
+      <th>United Kingdom</th>
+      <td>9979.508487</td>
+      <td>11283.177950</td>
+      <td>12477.177070</td>
+      <td>14142.850890</td>
+      <td>15895.11641</td>
+      <td>17428.74846</td>
+      <td>18232.42452</td>
+      <td>21664.78767</td>
+      <td>22705.092540</td>
+      <td>26074.531360</td>
+      <td>29478.999190</td>
+      <td>33203.261280</td>
       <td>Northern Europe</td>
     </tr>
   </tbody>
@@ -1524,11 +1543,11 @@ Bulgaria                   2444.286648     3008.670727     4254.337839     5577.
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>country
-Netherlands       Northern Europe
-Portugal          Southern Europe
-Finland           Northern Europe
-United Kingdom    Northern Europe
-Czech Republic     Eastern Europe
+Montenegro     Southern Europe
+Slovenia       Southern Europe
+Finland        Northern Europe
+Switzerland     Western Europe
+Turkey          Western Europe
 Name: region, dtype: object
 </pre></div>
 </div>
@@ -1636,8 +1655,7 @@ Name: region, dtype: object
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1706,8 +1724,8 @@ By Aaron J Newman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -16,33 +16,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -84,7 +81,6 @@
     <link rel="prev" title="EEG-ERP Preprocessing" href="erp_preprocessing.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -100,8 +96,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -109,6 +116,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -116,8 +124,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -133,8 +141,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -164,17 +171,21 @@
     
     
     <img src="../_static/NESC3505_icon.png" class="logo__image only-light" alt="Neural Data Science in Python - Home"/>
-    <img src="../_static/NESC3505_icon.png" class="logo__image only-dark pst-js-only" alt="Neural Data Science in Python - Home"/>
+    <script>document.write(`<img src="../_static/NESC3505_icon.png" class="logo__image only-dark" alt="Neural Data Science in Python - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -192,6 +203,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../syllabus.html">Syllabus</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/learning_approach.html">How to Approach this Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/actually_write_code.html">Actually Write Code</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/mindset.html">Mindset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/flipped_classroom.html">Flipped Classroom</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/errors_debugging.html">Errors and Debugging</a></li>
@@ -257,7 +269,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Set Up Your Computer for Data Science</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Some Assembly Required</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Setting Up your Computer for Data Science</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/learning_objectives.html">Learning Objectives</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/first_steps.html">First Steps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/github.html">Get on GitHub</a></li>
@@ -561,16 +573,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -632,7 +652,8 @@
 <p>For example, in the current data set the EEG was recorded with a sampling rate of 500 Hz, meaning we obtained a measurement from each electrode every 2 ms. This is a sufficient sampling rate to detect an EEG signal at 30 Hz, because over the course of each cycle of the 30 Hz oscillation (e.g., from one peak to the next), which would last 1/30th of a second, we would have 500/30  <span class="math notranslate nohighlight">\(\approx\)</span> 17 measurements of the waveform — so we should have enough samples to accurately reflect the shape of the oscillating sine wave.</p>
 <p>In contrast, imagine that during the recording, there was an electromagnetic (noise) signal present in the environment that oscillated at 1700 Hz. Thus in 1 second, the noise signal would have 1700 oscillations, but our EEG amplifier could not detect this, since it is only sampling 500 times per second. In fact, 3.4 oscillations of the noise waveform would occur between every sample acquired by the EEG amplifier. Since 1700 is not an even multiple of 500, each sample acquired by our EEG amplifier would also capture a different <em>phase</em> of the 1700 Hz oscillation — that is, sometimes its peak, sometimes its trough, and sometimes somewhere in between. When we “connect the dots” between these samples to draw our measured EEG signal, these measurements at different points in the oscillation will end up looking like a much lower-frequency oscillation. The figure below shows examples of aliasing. In each subplot, the true signal is the black dotted line - a sine wave. The red dots represent samples taken at different sampling rates that are significantly below the frequency of the signal. When we connect the dots between the red lines, we can see that the high-frequency signal is aliased as a low frequency waveform.</p>
 <figure class="align-center" id="id1">
-<a class="reference internal image-reference" href="../_images/aliasing.png"><img alt="../_images/aliasing.png" src="../_images/aliasing.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../_images/aliasing.png"><img alt="../_images/aliasing.png" src="../_images/aliasing.png" style="width: 800px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 14 </span><span class="caption-text">Examples of aliasing.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
@@ -645,7 +666,7 @@
 <p>The raw data file we want to load is <code class="docutils literal notranslate"><span class="pre">data/sub-001/sub-001.vhdr</span></code>. We will use variables to build this string rather than hard-coding it. This is makes our code more easy to re-use with other participants, or in a loop.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">mne</span>
 <span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>  <span class="c1"># reduce extraneous MNE output</span>
 
 <span class="c1"># Participant ID code</span>
@@ -666,154 +687,144 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><script type="text/javascript">
-    const toggleVisibility = (className) => {
+    // must be `var` (not `const`) because this can get embedded multiple times on a page
+var toggleVisibility = (className) => {
 
-  const elements = document.querySelectorAll(`.${className}`)
+    const elements = document.querySelectorAll(`.${className}`);
 
-  elements.forEach(element => {
-    if (element.classList.contains('repr-section-header')) {
-      // Don't collapse the section header row.
-       return
-    }
-    if (element.classList.contains('repr-element-collapsed')) {
-      // Force a reflow to ensure the display change takes effect before removing the class
-      element.classList.remove('repr-element-collapsed')
-      element.offsetHeight // This forces the browser to recalculate layout
-      element.classList.remove('repr-element-faded')
-    } else {
-      // Start transition to hide the element
-      element.classList.add('repr-element-faded')
-      element.addEventListener('transitionend', handler = (e) => {
-        if (e.propertyName === 'opacity' && getComputedStyle(element).opacity === '0.2') {
-          element.classList.add('repr-element-collapsed')
-          element.removeEventListener('transitionend', handler)
+    elements.forEach(element => {
+        if (element.classList.contains("mne-repr-section-header")) {
+            return  // Don't collapse the section header row
         }
-      });
-    }
-  });
+        element.classList.toggle("mne-repr-collapsed");
+    });
 
-  // Take care of button (adjust caret)
-  const button = document.querySelectorAll(`.repr-section-header.${className} > th.repr-section-toggle-col > button`)[0]
-  button.classList.toggle('collapsed')
+    // trigger caret to rotate
+    var sel = `.mne-repr-section-header.${className} > th.mne-repr-section-toggle > button`;
+    const button = document.querySelector(sel);
+    button.classList.toggle("collapsed");
 
-  // Take care of the tooltip of the section header row
-  const sectionHeaderRow = document.querySelectorAll(`tr.repr-section-header.${className}`)[0]
-  sectionHeaderRow.classList.toggle('collapsed')
-  sectionHeaderRow.title = sectionHeaderRow.title === 'Hide section' ? 'Show section' : 'Hide section'
+    // adjust tooltip
+    sel = `tr.mne-repr-section-header.${className}`;
+    const secHeadRow = document.querySelector(sel);
+    secHeadRow.classList.toggle("collapsed");
+    secHeadRow.title = secHeadRow.title === "Hide section" ? "Show section" : "Hide section";
 }
 </script>
 
 <style type="text/css">
-    table.repr.table.table-hover.table-striped.table-sm.table-responsive.small {
-  /* Don't make rows wider than they need to be. */
-  display: inline;
+    /*
+Styles in this section apply both to the sphinx-built website docs and to notebooks
+rendered in an IDE or in Jupyter. In our web docs, styles here are complemented by
+doc/_static/styles.css and other CSS files (e.g. from the sphinx theme, sphinx-gallery,
+or bootstrap). In IDEs/Jupyter, those style files are unavailable, so only the rules in
+this file apply (plus whatever default styling the IDE applies).
+*/
+.mne-repr-table {
+    display: inline;  /* prevent using full container width */
+}
+.mne-repr-table tr.mne-repr-section-header > th {
+    padding-top: 1rem;
+    text-align: left;
+    vertical-align: middle;
+}
+.mne-repr-section-toggle > button {
+    all: unset;
+    display: block;
+    height: 1rem;
+    width: 1rem;
+}
+.mne-repr-section-toggle > button > svg {
+    height: 60%;
 }
 
-table > tbody > tr.repr-element > td {
-  /* Apply a tighter layout to the table cells. */
-  padding-top: 0.1rem;
-  padding-bottom: 0.1rem;
-  padding-right: 1rem;
+/* transition (rotation) effects on the collapser button */
+.mne-repr-section-toggle > button.collapsed > svg {
+    transition: 0.1s ease-out;
+    transform: rotate(-90deg);
+}
+.mne-repr-section-toggle > button:not(.collapsed) > svg {
+    transition: 0.1s ease-out;
+    transform: rotate(0deg);
 }
 
-table > tbody > tr > td.repr-section-toggle-col {
-  /* Remove background and border of the first cell in every row
-     (this row is only used for the collapse / uncollapse caret)
-
-     TODO: Need to find a good solution for VS Code that works in both
-           light and dark mode. */
-  border-color: transparent;
-  --bs-table-accent-bg: transparent;
+/* hide collapsed table rows */
+.mne-repr-collapsed {
+    display: none;
 }
 
-tr.repr-section-header {
-  /* Remove stripes from section header rows */
-  background-color: transparent;
-  border-color: transparent;
-  --bs-table-striped-bg: transparent;
-  cursor: pointer;
-}
 
-tr.repr-section-header > th {
-  text-align: left !important;
-  vertical-align: middle;
-}
+@layer {
+    /*
+    Selectors in a `@layer` will always be lower-precedence than selectors outside the
+    layer. So even though e.g. `div.output_html` is present in the sphinx-rendered
+    website docs, the styles here won't take effect there as long as some other rule
+    somewhere in the page's CSS targets the same element.
 
-.repr-element, tr.repr-element > td {
-  opacity: 1;
-  text-align: left !important;
-}
+    In IDEs or Jupyter notebooks, though, the CSS files from the sphinx theme,
+    sphinx-gallery, and bootstrap are unavailable, so these styles will apply.
 
-.repr-element-faded {
-  transition: 0.3s ease;
-  opacity: 0.2;
-}
+    Notes:
 
-.repr-element-collapsed {
-  display: none;
-}
-
-/* Collapse / uncollapse button and the caret it contains. */
-.repr-section-toggle-col button {
-  cursor: pointer;
-  width: 1rem;
-  background-color: transparent;
-  border-color: transparent;
-}
-
-span.collapse-uncollapse-caret {
-  width: 1rem;
-  height: 1rem;
-  display: block;
-  background-repeat: no-repeat;
-  background-position: left;
-  background-size: contain;
-}
-
-/* The collapse / uncollapse carets were copied from the free Font Awesome collection and adjusted. */
-
-/* Default to black carets for light mode */
-.repr-section-toggle-col > button.collapsed > span.collapse-uncollapse-caret {
-  background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="black" d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/></svg>');
-}
-
-.repr-section-toggle-col
-  > button:not(.collapsed)
-  > span.collapse-uncollapse-caret {
-  background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="black" d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>');
-}
-
-/* Use white carets for dark mode */
-@media (prefers-color-scheme: dark) {
-  .repr-section-toggle-col > button.collapsed > span.collapse-uncollapse-caret {
-    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="white" d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/></svg>');
-  }
-
-  .repr-section-toggle-col
-    > button:not(.collapsed)
-    > span.collapse-uncollapse-caret {
-    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="white" d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>');
-  }
-}
-
-.channel-names-btn {
-  padding: 0;
-  border: none;
-  background: none;
-  text-decoration: underline;
-  text-decoration-style: dashed;
-  cursor: pointer;
-  color: #0d6efd;
-}
-
-.channel-names-btn:hover {
-  color: #0a58ca;
+    - the selector `.accordion-body` is for MNE Reports
+    - the selector `.output_html` is for VSCode's notebook interface
+    - the selector `.jp-RenderedHTML` is for Jupyter notebook
+    - variables starting with `--theme-` are VSCode-specific.
+    - variables starting with `--jp-` are Jupyter styles, *some of which* are also
+      available in VSCode. Here we try the `--theme-` variable first, then fall back to
+      the `--jp-` ones.
+    */
+    .mne-repr-table {
+        --mne-toggle-color: var(--theme-foreground, var(--jp-ui-font-color1));
+        --mne-button-bg-color: var(--theme-button-background, var(--jp-info-color0, var(--jp-content-link-color)));
+        --mne-button-fg-color: var(--theme-button-foreground, var(--jp-ui-inverse-font-color0, var(--jp-editor-background)));
+        --mne-button-hover-bg-color: var(--theme-button-hover-background, var(--jp-info-color1));
+        --mne-button-radius: var(--jp-border-radius, 0.25rem);
+    }
+    /* chevron position/alignment; in VSCode it looks ok without adjusting */
+    .accordion-body .mne-repr-section-toggle > button,
+    .jp-RenderedHTML .mne-repr-section-toggle > button {
+        padding: 0 0 45% 25% !important;
+    }
+    /* chevron color; MNE Report doesn't have light/dark mode */
+    div.output_html .mne-repr-section-toggle > button > svg > path,
+    .jp-RenderedHTML .mne-repr-section-toggle > button > svg > path {
+        fill: var(--mne-toggle-color);
+    }
+    .accordion-body .mne-ch-names-btn,
+    div.output_html .mne-ch-names-btn,
+    .jp-RenderedHTML .mne-ch-names-btn {
+        -webkit-border-radius: var(--mne-button-radius);
+        -moz-border-radius: var(--mne-button-radius);
+        border-radius: var(--mne-button-radius);
+        border: none;
+        background-image: none;
+        background-color: var(--mne-button-bg-color);
+        color: var(--mne-button-fg-color);
+        font-size: inherit;
+        min-width: 1.5rem;
+        padding: 0.25rem;
+        text-align: center;
+        text-decoration: none;
+    }
+    .accordion-body .mne-ch-names-btn:hover,
+    div.output_html .mne.ch-names-btn:hover,
+    .jp-RenderedHTML .mne-ch-names-btn:hover {
+        background-color: var(--mne-button-hover-bg-color);
+        text-decoration: underline;
+    }
+    .accordion-body .mne-ch-names-btn:focus-visible,
+    div.output_html .mne-ch-names-btn:focus-visible,
+    .jp-RenderedHTML .mne-ch-names-btn:focus-visible {
+        outline: 0.1875rem solid var(--mne-button-bg-color) !important;
+        outline-offset: 0.1875rem !important;
+    }
 }
 </style>
 
 
 
-<table class="repr table table-hover table-striped table-sm table-responsive small">
+<table class="table mne-repr-table">
     
 
 
@@ -822,12 +833,12 @@ span.collapse-uncollapse-caret {
 
 
 
-<tr class="repr-section-header general-d1ca7868-c0ca-4be7-8dcc-7c4f3999320d"  title="Hide section" 
-    onclick="toggleVisibility('general-d1ca7868-c0ca-4be7-8dcc-7c4f3999320d')">
-    <th class="repr-section-toggle-col">
-        <button>
-            
-            <span class="collapse-uncollapse-caret"></span>
+<tr class="mne-repr-section-header general-05650958-3516-4c3e-bee0-99a4f15ac10c"
+     title="Hide section" 
+    onclick="toggleVisibility('general-05650958-3516-4c3e-bee0-99a4f15ac10c')">
+    <th class="mne-repr-section-toggle">
+        <button >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
         </button>
     </th>
     <th colspan="2">
@@ -835,8 +846,9 @@ span.collapse-uncollapse-caret {
     </th>
 </tr>
 
-<tr class="repr-element general-d1ca7868-c0ca-4be7-8dcc-7c4f3999320d ">
-    <td class="repr-section-toggle-col"></td>
+
+<tr class="repr-element general-05650958-3516-4c3e-bee0-99a4f15ac10c ">
+    <td class="mne-repr-section-toggle"></td>
     <td>Filename(s)</td>
     <td>
         
@@ -846,27 +858,27 @@ span.collapse-uncollapse-caret {
     </td>
 </tr>
 
-<tr class="repr-element general-d1ca7868-c0ca-4be7-8dcc-7c4f3999320d ">
-    <td class="repr-section-toggle-col"></td>
+<tr class="repr-element general-05650958-3516-4c3e-bee0-99a4f15ac10c ">
+    <td class="mne-repr-section-toggle"></td>
     <td>MNE object type</td>
     <td>RawBrainVision</td>
 </tr>
-<tr class="repr-element general-d1ca7868-c0ca-4be7-8dcc-7c4f3999320d ">
-    <td class="repr-section-toggle-col"></td>
+<tr class="repr-element general-05650958-3516-4c3e-bee0-99a4f15ac10c ">
+    <td class="mne-repr-section-toggle"></td>
     <td>Measurement date</td>
     
     <td>2015-01-20 at 13:15:58 UTC</td>
     
 </tr>
-<tr class="repr-element general-d1ca7868-c0ca-4be7-8dcc-7c4f3999320d ">
-    <td class="repr-section-toggle-col"></td>
+<tr class="repr-element general-05650958-3516-4c3e-bee0-99a4f15ac10c ">
+    <td class="mne-repr-section-toggle"></td>
     <td>Participant</td>
     
     <td>Unknown</td>
     
 </tr>
-<tr class="repr-element general-d1ca7868-c0ca-4be7-8dcc-7c4f3999320d ">
-    <td class="repr-section-toggle-col"></td>
+<tr class="repr-element general-05650958-3516-4c3e-bee0-99a4f15ac10c ">
+    <td class="mne-repr-section-toggle"></td>
     <td>Experimenter</td>
     
     <td>Unknown</td>
@@ -880,12 +892,12 @@ span.collapse-uncollapse-caret {
 
 
 
-<tr class="repr-section-header acquisition-d74f6847-671f-4673-8db8-4adfd96d0982" 
-    title="Hide section"  onclick="toggleVisibility('acquisition-d74f6847-671f-4673-8db8-4adfd96d0982')">
-    <th class="repr-section-toggle-col">
-        <button>
-            
-            <span class="collapse-uncollapse-caret"></span>
+<tr class="mne-repr-section-header acquisition-23086ae4-4f88-4246-acf0-9359edae3d97"
+     title="Hide section" 
+    onclick="toggleVisibility('acquisition-23086ae4-4f88-4246-acf0-9359edae3d97')">
+    <th class="mne-repr-section-toggle">
+        <button >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
         </button>
     </th>
     <th colspan="2">
@@ -893,8 +905,9 @@ span.collapse-uncollapse-caret {
     </th>
 </tr>
 
-<tr class="repr-element acquisition-d74f6847-671f-4673-8db8-4adfd96d0982 ">
-    <td class="repr-section-toggle-col"></td>
+
+<tr class="repr-element acquisition-23086ae4-4f88-4246-acf0-9359edae3d97 ">
+    <td class="mne-repr-section-toggle"></td>
     <td>Duration</td>
     <td>00:13:38 (HH:MM:SS)</td>
 </tr>
@@ -906,15 +919,15 @@ span.collapse-uncollapse-caret {
 
 
 
-<tr class="repr-element acquisition-d74f6847-671f-4673-8db8-4adfd96d0982 ">
-    <td class="repr-section-toggle-col"></td>
+<tr class="repr-element acquisition-23086ae4-4f88-4246-acf0-9359edae3d97 ">
+    <td class="mne-repr-section-toggle"></td>
     <td>Sampling frequency</td>
     <td>500.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element acquisition-d74f6847-671f-4673-8db8-4adfd96d0982 ">
-    <td class="repr-section-toggle-col"></td>
+<tr class="repr-element acquisition-23086ae4-4f88-4246-acf0-9359edae3d97 ">
+    <td class="mne-repr-section-toggle"></td>
     <td>Time points</td>
     <td>408,640</td>
 </tr>
@@ -928,12 +941,12 @@ span.collapse-uncollapse-caret {
 
 
 
-<tr class="repr-section-header channels-2ff32bae-505d-4c5f-b831-c46334c719a2"  title="Hide section" 
-    onclick="toggleVisibility('channels-2ff32bae-505d-4c5f-b831-c46334c719a2')">
-    <th class="repr-section-toggle-col">
-        <button>
-            
-            <span class="collapse-uncollapse-caret"></span>
+<tr class="mne-repr-section-header channels-035d5e13-f7fa-4117-8b8e-70feda194c33"
+     title="Hide section" 
+    onclick="toggleVisibility('channels-035d5e13-f7fa-4117-8b8e-70feda194c33')">
+    <th class="mne-repr-section-toggle">
+        <button >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
         </button>
     </th>
     <th colspan="2">
@@ -942,11 +955,12 @@ span.collapse-uncollapse-caret {
 </tr>
 
 
-<tr class="repr-element channels-2ff32bae-505d-4c5f-b831-c46334c719a2 ">
-    <td class="repr-section-toggle-col"></td>
+    
+<tr class="repr-element channels-035d5e13-f7fa-4117-8b8e-70feda194c33 ">
+    <td class="mne-repr-section-toggle"></td>
     <td>EEG</td>
     <td>
-        <button class="channel-names-btn" onclick="alert('Good EEG:\n\nFp1, F3, F7, C3, P3, TP9, Fz, Cz, Fp2, F4, F8, C4, P4, TP10, Pz, Oz')" title="(Click to open in popup)&#13;&#13;Fp1, F3, F7, C3, P3, TP9, Fz, Cz, Fp2, F4, F8, C4, P4, TP10, Pz, Oz">
+        <button class="mne-ch-names-btn sd-sphinx-override sd-btn sd-btn-info sd-text-wrap sd-shadow-sm" onclick="alert('Good EEG:\n\nFp1, F3, F7, C3, P3, TP9, Fz, Cz, Fp2, F4, F8, C4, P4, TP10, Pz, Oz')" title="(Click to open in popup)&#13;&#13;Fp1, F3, F7, C3, P3, TP9, Fz, Cz, Fp2, F4, F8, C4, P4, TP10, Pz, Oz">
             16
         </button>
 
@@ -955,8 +969,8 @@ span.collapse-uncollapse-caret {
 </tr>
 
 
-<tr class="repr-element channels-2ff32bae-505d-4c5f-b831-c46334c719a2 ">
-    <td class="repr-section-toggle-col"></td>
+<tr class="repr-element channels-035d5e13-f7fa-4117-8b8e-70feda194c33 ">
+    <td class="mne-repr-section-toggle"></td>
     <td>Head & sensor digitization</td>
     
     <td>19 points</td>
@@ -970,12 +984,12 @@ span.collapse-uncollapse-caret {
 
 
 
-<tr class="repr-section-header filters-1cb8ec50-c622-4506-9708-4cbe4f9030cb"  title="Hide section" 
-    onclick="toggleVisibility('filters-1cb8ec50-c622-4506-9708-4cbe4f9030cb')">
-    <th class="repr-section-toggle-col">
-        <button>
-            
-            <span class="collapse-uncollapse-caret"></span>
+<tr class="mne-repr-section-header filters-abfeaaa5-354a-4679-8f95-15b911a036b5"
+     title="Hide section" 
+    onclick="toggleVisibility('filters-abfeaaa5-354a-4679-8f95-15b911a036b5')">
+    <th class="mne-repr-section-toggle">
+        <button >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
         </button>
     </th>
     <th colspan="2">
@@ -983,15 +997,16 @@ span.collapse-uncollapse-caret {
     </th>
 </tr>
 
-<tr class="repr-element filters-1cb8ec50-c622-4506-9708-4cbe4f9030cb ">
-    <td class="repr-section-toggle-col"></td>
+
+<tr class="repr-element filters-abfeaaa5-354a-4679-8f95-15b911a036b5 ">
+    <td class="mne-repr-section-toggle"></td>
     <td>Highpass</td>
     <td>0.01 Hz</td>
 </tr>
 
 
-<tr class="repr-element filters-1cb8ec50-c622-4506-9708-4cbe4f9030cb ">
-    <td class="repr-section-toggle-col"></td>
+<tr class="repr-element filters-abfeaaa5-354a-4679-8f95-15b911a036b5 ">
+    <td class="mne-repr-section-toggle"></td>
     <td>Lowpass</td>
     <td>80.00 Hz</td>
 </tr>
@@ -1025,11 +1040,11 @@ span.collapse-uncollapse-caret {
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/mne/viz/utils.py:158: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/mne/viz/utils.py:158: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
   (fig or plt).show(**kwargs)
 </pre></div>
 </div>
-<img alt="../_images/2b4d166f4d6b29ac220f13f43cd08b6dbf96fb7ed55fabd953b7927d298875ac.png" src="../_images/2b4d166f4d6b29ac220f13f43cd08b6dbf96fb7ed55fabd953b7927d298875ac.png" />
+<img alt="../_images/d29b631c40c3e635e3a25872769b500f8c5b79b75d93bac9c768f8b40fb844b2.png" src="../_images/d29b631c40c3e635e3a25872769b500f8c5b79b75d93bac9c768f8b40fb844b2.png" />
 </div>
 </div>
 <p>The PSD shows a clear spike at 60 Hz, which is the frequency of AC electrical service in Canada, where the data was recorded. This is the electromagnetic interference mentioned above. There is also a spike at 180 Hz, which is a <em>harmonic</em> of 60 Hz. A harmonic is a multiple of a frequency, so 180 Hz is the third harmonic of 60 Hz (60 x 3 = 180). We might expect a spike at the second harmonic, 120 Hz, as well, however it is not present here for unknown reasons.</p>
@@ -1063,11 +1078,11 @@ span.collapse-uncollapse-caret {
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/mne/viz/utils.py:158: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/mne/viz/utils.py:158: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
   (fig or plt).show(**kwargs)
 </pre></div>
 </div>
-<img alt="../_images/9181681898f8a5ecd5bdb6514bbe0d5af6b3e8046d8c21fc6c562b46386593e7.png" src="../_images/9181681898f8a5ecd5bdb6514bbe0d5af6b3e8046d8c21fc6c562b46386593e7.png" />
+<img alt="../_images/9880756cc3b2ed0102abb20d5511ab556fae974b146b77fb28b0e2b6a4b77aa0.png" src="../_images/9880756cc3b2ed0102abb20d5511ab556fae974b146b77fb28b0e2b6a4b77aa0.png" />
 </div>
 </div>
 <p>The effects of our low-pass filter are quite evident — in comparison to the pre-filtering PSD, there is a dramatic drop in power above our 30 Hz cutoff (note that the dashed line has moved to reflect our new low-pass cutoff). The spike at 60 Hz is gone (actually it’s still there, but very small), because the filtering virtually eliminated this noise from the data.</p>
@@ -1079,11 +1094,11 @@ span.collapse-uncollapse-caret {
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/mne/viz/utils.py:158: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/mne/viz/utils.py:158: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
   (fig or plt).show(**kwargs)
 </pre></div>
 </div>
-<img alt="../_images/cebf8b109a1f62256b3490f5915b0616544fd9298533f4a0164dfac868010c91.png" src="../_images/cebf8b109a1f62256b3490f5915b0616544fd9298533f4a0164dfac868010c91.png" />
+<img alt="../_images/81dbf017d7f720af9d6787c04ba698882b2aa603c42ad28a7c0bc4a5bd9d3e44.png" src="../_images/81dbf017d7f720af9d6787c04ba698882b2aa603c42ad28a7c0bc4a5bd9d3e44.png" />
 </div>
 </div>
 <p>Note that for both the high- and low-pass filters, the power does not drop of sharply right at the cutoff frequency we specified. Rather, there is a <strong>roll-off</strong> — a range of frequencies over which the power gradually decreases. The shape of the roll-off is a property of the filter that is determined by its parameters, and some roll-off is a necessary feature of any filter if aftifacts are to be avoided. Again, this is a deep topic that we won’t delve into here, but in general it is useful to remember the adage that <em>precision in the frequency domain is inversely related to precision in the time domain</em>. In other words, if we use a sharper frequency cutoff, we are likely to induce larger artifacts in the data, when we view the filtered data in the time domain.</p>
@@ -1128,12 +1143,22 @@ span.collapse-uncollapse-caret {
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[PosixPath(&#39;/Users/aaron/3505/NESC_3505_textbook/7-eeg/data/sub-001/sub-001-filt-raw.fif&#39;)]
+</pre></div>
+</div>
+</div>
 </div>
 <p>In the next lesson we will also need the unfiltered raw data, so we will also save it here as a .fif file (that way we don’t need to reload the raw file and set the montage the next time we need this data):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="n">p_id</span> <span class="o">+</span> <span class="s1">&#39;-raw.fif&#39;</span><span class="p">,</span> 
          <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[PosixPath(&#39;/Users/aaron/3505/NESC_3505_textbook/7-eeg/data/sub-001/sub-001-raw.fif&#39;)]
 </pre></div>
 </div>
 </div>
@@ -1196,8 +1221,7 @@ span.collapse-uncollapse-caret {
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1269,8 +1293,8 @@ By Aaron J Newman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

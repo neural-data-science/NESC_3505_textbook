@@ -16,33 +16,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -84,7 +81,6 @@
     <link rel="prev" title="Learning Objectives" href="learning_objectives.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -100,8 +96,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -109,6 +116,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -116,8 +124,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -133,8 +141,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -164,17 +171,21 @@
     
     
     <img src="../_static/NESC3505_icon.png" class="logo__image only-light" alt="Neural Data Science in Python - Home"/>
-    <img src="../_static/NESC3505_icon.png" class="logo__image only-dark pst-js-only" alt="Neural Data Science in Python - Home"/>
+    <script>document.write(`<img src="../_static/NESC3505_icon.png" class="logo__image only-dark" alt="Neural Data Science in Python - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -192,6 +203,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../syllabus.html">Syllabus</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/learning_approach.html">How to Approach this Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/actually_write_code.html">Actually Write Code</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/mindset.html">Mindset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/flipped_classroom.html">Flipped Classroom</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/errors_debugging.html">Errors and Debugging</a></li>
@@ -257,7 +269,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Set Up Your Computer for Data Science</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Some Assembly Required</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Setting Up your Computer for Data Science</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/learning_objectives.html">Learning Objectives</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/first_steps.html">First Steps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/github.html">Get on GitHub</a></li>
@@ -561,16 +573,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -666,9 +686,9 @@
 <p>First we’ll import the packages we’ll need, read in the data, and view a sample of 10 rows of the DataFrame:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/flanker_rt_data.csv&#39;</span><span class="p">)</span>
 
@@ -704,84 +724,84 @@
   </thead>
   <tbody>
     <tr>
-      <th>3782</th>
-      <td>s17</td>
-      <td>5</td>
-      <td>4</td>
-      <td>neutral</td>
-      <td>0.385609</td>
-    </tr>
-    <tr>
-      <th>150</th>
-      <td>s25</td>
-      <td>5</td>
-      <td>23</td>
-      <td>incongruent</td>
-      <td>0.629272</td>
-    </tr>
-    <tr>
-      <th>832</th>
-      <td>s8</td>
-      <td>2</td>
-      <td>2</td>
-      <td>neutral</td>
-      <td>0.445478</td>
-    </tr>
-    <tr>
-      <th>2201</th>
-      <td>s9</td>
-      <td>5</td>
-      <td>15</td>
-      <td>neutral</td>
-      <td>0.304624</td>
-    </tr>
-    <tr>
-      <th>3816</th>
-      <td>s19</td>
-      <td>1</td>
-      <td>7</td>
-      <td>incongruent</td>
-      <td>0.831957</td>
-    </tr>
-    <tr>
-      <th>2517</th>
+      <th>2423</th>
       <td>s14</td>
-      <td>5</td>
-      <td>12</td>
-      <td>neutral</td>
-      <td>0.385171</td>
+      <td>2</td>
+      <td>14</td>
+      <td>incongruent</td>
+      <td>0.434013</td>
     </tr>
     <tr>
-      <th>167</th>
-      <td>s18</td>
+      <th>2611</th>
+      <td>s4</td>
+      <td>3</td>
+      <td>10</td>
+      <td>neutral</td>
+      <td>0.401684</td>
+    </tr>
+    <tr>
+      <th>4129</th>
+      <td>s15</td>
       <td>1</td>
-      <td>8</td>
+      <td>1</td>
       <td>neutral</td>
-      <td>0.446539</td>
+      <td>0.812361</td>
     </tr>
     <tr>
-      <th>2905</th>
-      <td>s6</td>
+      <th>1244</th>
+      <td>s21</td>
+      <td>5</td>
+      <td>5</td>
+      <td>incongruent</td>
+      <td>0.454655</td>
+    </tr>
+    <tr>
+      <th>1777</th>
+      <td>s7</td>
+      <td>1</td>
+      <td>31</td>
+      <td>neutral</td>
+      <td>0.545571</td>
+    </tr>
+    <tr>
+      <th>3699</th>
+      <td>s17</td>
       <td>2</td>
       <td>17</td>
       <td>neutral</td>
-      <td>0.445016</td>
+      <td>0.418206</td>
     </tr>
     <tr>
-      <th>2453</th>
-      <td>s14</td>
-      <td>3</td>
-      <td>12</td>
-      <td>neutral</td>
-      <td>0.403656</td>
-    </tr>
-    <tr>
-      <th>1473</th>
-      <td>s1</td>
+      <th>4004</th>
+      <td>s5</td>
       <td>2</td>
-      <td>13</td>
+      <td>4</td>
+      <td>congruent</td>
+      <td>0.442038</td>
+    </tr>
+    <tr>
+      <th>520</th>
+      <td>s22</td>
+      <td>2</td>
+      <td>9</td>
       <td>neutral</td>
-      <td>0.533154</td>
+      <td>0.370009</td>
+    </tr>
+    <tr>
+      <th>3523</th>
+      <td>s20</td>
+      <td>1</td>
+      <td>32</td>
+      <td>neutral</td>
+      <td>0.470031</td>
+    </tr>
+    <tr>
+      <th>482</th>
+      <td>s22</td>
+      <td>1</td>
+      <td>3</td>
+      <td>neutral</td>
+      <td>0.409729</td>
     </tr>
   </tbody>
 </table>
@@ -887,7 +907,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6c139565388500929824d4a3f37e58ddd3a53970752070ed503743bc9b666482.png" src="../_images/6c139565388500929824d4a3f37e58ddd3a53970752070ed503743bc9b666482.png" />
+<img alt="../_images/b26f730d8107a3603010de789cd018e3bdd56e3609baa2584ae02a441a25b03a.png" src="../_images/b26f730d8107a3603010de789cd018e3bdd56e3609baa2584ae02a441a25b03a.png" />
 </div>
 </div>
 <p>The data show the skew that is expected of RT data — there are fundamental human performance limits on how fast a person can response (short RTs), but the upper limit of RTs is theoretically unlimited. In the present experiment, participants actually only had a 1 s window in which to respond, so the RTs are all less than 1. Nevertheless, the data are skewed because there is a wider range of RTs above the median than below.</p>
@@ -906,7 +926,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/affe5ff69302403f08eb623c06ae18920e56d7b6d3f54c2a9cb2b672f27284c1.png" src="../_images/affe5ff69302403f08eb623c06ae18920e56d7b6d3f54c2a9cb2b672f27284c1.png" />
+<img alt="../_images/fb5051984b9a7a0f6c5779433506cc9e8e7033aef1a624f2ffe9a7c834408110.png" src="../_images/fb5051984b9a7a0f6c5779433506cc9e8e7033aef1a624f2ffe9a7c834408110.png" />
 </div>
 </div>
 <p>The skewed nature of the data are again evident, but we can see that not only are the median values for the three conditions different, but the bulk of values in each distribution of RTs also appear to be rather different. That is, the “humps” in the middle of each distribution are relatively non-overlapping, although neutral and incongruent are fairly similar.</p>
@@ -924,7 +944,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/479e86522384594c25180d97ef7952b1f4c226ef5f28bc01e20111d33e59db66.png" src="../_images/479e86522384594c25180d97ef7952b1f4c226ef5f28bc01e20111d33e59db66.png" />
+<img alt="../_images/1596499c0e3485b892f59528bc0e8a1436edf4d26af50c4245e397bbb3b19cea.png" src="../_images/1596499c0e3485b892f59528bc0e8a1436edf4d26af50c4245e397bbb3b19cea.png" />
 </div>
 </div>
 <p>This is really less informative than the above plots, because there are so many data points! Mostly we just see big patches of the plots for each condition with lots of individual values.</p>
@@ -943,14 +963,14 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_71200/3023065820.py:1: UserWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_48310/3023065820.py:1: UserWarning: 
 
 The `join` parameter is deprecated and will be removed in v0.15.0. You can remove the line between points with `linestyle=&#39;none&#39;`.
 
   sns.catplot(kind=&#39;point&#39;, join=False,
 </pre></div>
 </div>
-<img alt="../_images/aa7f71e627b54da9794c05f8a5bcd7e196ba77f6ca82b4fc0164aa3566517262.png" src="../_images/aa7f71e627b54da9794c05f8a5bcd7e196ba77f6ca82b4fc0164aa3566517262.png" />
+<img alt="../_images/1fe7d91d5e12914582a6f485ee6b6c47646fec31a5fd05975bc1ff0e809a4b2c.png" src="../_images/1fe7d91d5e12914582a6f485ee6b6c47646fec31a5fd05975bc1ff0e809a4b2c.png" />
 </div>
 </div>
 <p>We can see that the CIs are quite far apart, suggesting that there are very large differences between RTs for each pair of conditions.</p>
@@ -1162,7 +1182,7 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/07cf0c4b14fb4c85becfa564548f34b4c77b37cd89c9cf5816a5c8fbdde61d51.png" src="../_images/07cf0c4b14fb4c85becfa564548f34b4c77b37cd89c9cf5816a5c8fbdde61d51.png" />
+<img alt="../_images/968af812623ef6c6ff2946aa76882a325cfc8b7dce91850d35a1a5f92e7b0718.png" src="../_images/968af812623ef6c6ff2946aa76882a325cfc8b7dce91850d35a1a5f92e7b0718.png" />
 </div>
 </div>
 <p>Another way to visualize so many different box plots is with Seaborn’s <code class="docutils literal notranslate"><span class="pre">col</span></code> and <code class="docutils literal notranslate"><span class="pre">col_wrap</span></code> kwargs. On its own, <code class="docutils literal notranslate"><span class="pre">col=</span></code> will plot whatever variable you give it in separate columns — in our case, participants (rather than as different locations on the <em>x</em> axis, as shown above). Adding the <code class="docutils literal notranslate"><span class="pre">col_wrap</span></code> kwarg is necessary when the number of categories passed to <code class="docutils literal notranslate"><span class="pre">col</span></code> is large, as in our 27 participants. This kwag tells Seaborn how many columns to put on one row before wrapping around to a new row.</p>
@@ -1180,7 +1200,7 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e4dd344e5464ab2e09808211ee74d9449b9331dd23aa966bf4694e9dbbecf6c7.png" src="../_images/e4dd344e5464ab2e09808211ee74d9449b9331dd23aa966bf4694e9dbbecf6c7.png" />
+<img alt="../_images/fb568860a9a15cdadd540c19e597a012648f0ec8bdd538b1411726f182ff2c3d.png" src="../_images/fb568860a9a15cdadd540c19e597a012648f0ec8bdd538b1411726f182ff2c3d.png" />
 </div>
 </div>
 <p>This plot shows us that, indeed, there is variability among participants in both the median RTs and the variance (as indicated by the length of the whiskers, and the number and range of outlier points). Encouragingly, however, each individual seems to show the expected effect, of longer RTs for incongruent than congruent flakers. It also shows us that those anomalously fast RTs we saw above are contributed only by a couple of participants, again leading us to think that these are not believable data points.</p>
@@ -1195,7 +1215,7 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9df93b90843d74c29f318adae47c38f1a7b8539f9fa8716788e19960915aabd2.png" src="../_images/9df93b90843d74c29f318adae47c38f1a7b8539f9fa8716788e19960915aabd2.png" />
+<img alt="../_images/4c11e54e8a829260cc24949e68c76ad4f7f6561d2b48b505fc49e767739980c7.png" src="../_images/4c11e54e8a829260cc24949e68c76ad4f7f6561d2b48b505fc49e767739980c7.png" />
 </div>
 </div>
 <p>This is not a lot more useful than the strip plot above, because Seaborn draws dots for each participant over those of previous participants. So we see lots of pink in the plot above, because that is the color used for the last participant plotted. This is addressed by using a swam plot (which will take a long time to execute if you try to run this, due to the large number of data points it’s trying to plot):</p>
@@ -1209,51 +1229,51 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/seaborn/categorical.py:3399: UserWarning: 55.9% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/seaborn/categorical.py:3399: UserWarning: 55.9% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
   warnings.warn(msg, UserWarning)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/seaborn/categorical.py:3399: UserWarning: 73.5% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/seaborn/categorical.py:3399: UserWarning: 73.5% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
   warnings.warn(msg, UserWarning)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/seaborn/categorical.py:3399: UserWarning: 50.8% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/seaborn/categorical.py:3399: UserWarning: 50.8% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
   warnings.warn(msg, UserWarning)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/seaborn/categorical.py:3399: UserWarning: 72.8% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/seaborn/categorical.py:3399: UserWarning: 72.8% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
   warnings.warn(msg, UserWarning)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/seaborn/categorical.py:3399: UserWarning: 83.8% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/seaborn/categorical.py:3399: UserWarning: 83.8% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
   warnings.warn(msg, UserWarning)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/seaborn/categorical.py:3399: UserWarning: 69.3% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/seaborn/categorical.py:3399: UserWarning: 69.3% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
   warnings.warn(msg, UserWarning)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/seaborn/categorical.py:3399: UserWarning: 69.1% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/seaborn/categorical.py:3399: UserWarning: 69.1% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
   warnings.warn(msg, UserWarning)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/seaborn/categorical.py:3399: UserWarning: 81.6% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/seaborn/categorical.py:3399: UserWarning: 81.6% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
   warnings.warn(msg, UserWarning)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/seaborn/categorical.py:3399: UserWarning: 65.3% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/seaborn/categorical.py:3399: UserWarning: 65.3% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
   warnings.warn(msg, UserWarning)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/seaborn/categorical.py:3399: UserWarning: 73.0% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/seaborn/categorical.py:3399: UserWarning: 73.0% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
   warnings.warn(msg, UserWarning)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.12/site-packages/seaborn/categorical.py:3399: UserWarning: 69.5% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/aaron/miniforge3/envs/neural_data_science/lib/python3.13/site-packages/seaborn/categorical.py:3399: UserWarning: 69.5% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
   warnings.warn(msg, UserWarning)
 </pre></div>
 </div>
-<img alt="../_images/a3dbd687855d371ee00165e4a0be2ad1ccc8a998fa87222e8a66bb52c67e2d96.png" src="../_images/a3dbd687855d371ee00165e4a0be2ad1ccc8a998fa87222e8a66bb52c67e2d96.png" />
+<img alt="../_images/b4266122a6a1f32b7665c27d8bdbde9c81145950ad34c2f90c21f907b637f275.png" src="../_images/b4266122a6a1f32b7665c27d8bdbde9c81145950ad34c2f90c21f907b637f275.png" />
 </div>
 </div>
 <p>However, in this case there are so many data points that only a relatively small percentage of them are actually drawn (hence the warning messages above). It’s hard to get a sense of the distributions of values for individual participants.</p>
@@ -1273,14 +1293,14 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_71200/3314286424.py:1: UserWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_48310/3314286424.py:1: UserWarning: 
 
 The `join` parameter is deprecated and will be removed in v0.15.0. You can remove the line between points with `linestyle=&#39;none&#39;`.
 
   sns.catplot(kind=&#39;point&#39;, join=False,
 </pre></div>
 </div>
-<img alt="../_images/360a48f8513858c7260810251a13713ee052d441a9dc9c3b88dd2947ada0a971.png" src="../_images/360a48f8513858c7260810251a13713ee052d441a9dc9c3b88dd2947ada0a971.png" />
+<img alt="../_images/e9783f371f0b6b7f51600ceb03fa1e6b281d2a3f121374790441c9fc28816de5.png" src="../_images/e9783f371f0b6b7f51600ceb03fa1e6b281d2a3f121374790441c9fc28816de5.png" />
 </div>
 </div>
 <p><strong>This is the most important figure in this lesson</strong>. Compared to the point plot with 95% CIs that we generated above for the aggregated data, the CIs in this plot are much larger than those we saw earlier, in the point plot for the un-aggregated data. In that previous plot, the width of the CIs was only about 0.005 s (5 ms). Here, with the CIs computed properly (as reflecting the variance across individuals), the width of the CIs is approximately 0.02 s (20 ms). While still small relative to the differences in the means, the CIs are nonetheless roughly 4x wider in the aggregated data.</p>
@@ -1499,7 +1519,7 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2b0b68eb8c8dadab9e3a3a661f1ec13427bfad2ff237b3a6da5a2935069a552c.png" src="../_images/2b0b68eb8c8dadab9e3a3a661f1ec13427bfad2ff237b3a6da5a2935069a552c.png" />
+<img alt="../_images/b6d07d31da5b7c3855a3d29337eed23615b387e6c976d779e6e8ae4dbffc80a3.png" src="../_images/b6d07d31da5b7c3855a3d29337eed23615b387e6c976d779e6e8ae4dbffc80a3.png" />
 </div>
 </div>
 <p>Another, somewhat confusing, thing is that the order of the conditions on the <em>x</em> axis is reversed: whereas before the order was congruent- neutral - incongruent, now neutral is last. This is a consequence of the <code class="docutils literal notranslate"><span class="pre">.reset_index()</span></code> method, which led to the conditions being re-ordered alphabetically. This highlights that its always good to pay close attention to your plot labels!</p>
@@ -1515,7 +1535,7 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0721cee04878257e7be36f08bf42781419901f1bc0a39033d772f8c97b729920.png" src="../_images/0721cee04878257e7be36f08bf42781419901f1bc0a39033d772f8c97b729920.png" />
+<img alt="../_images/5f498ba4b1d31fed633d0976aa8d7344cc66ee135ee13c75cce531cb62bd5c93.png" src="../_images/5f498ba4b1d31fed633d0976aa8d7344cc66ee135ee13c75cce531cb62bd5c93.png" />
 </div>
 </div>
 <p>If you compare this to the box plot based on every data point that we generated earlier, you’ll see that the range covered by the whiskers and the box are both smaller. This is consistent with the reduced range in the data that we observed in the tables of descriptive statistics. Likewise, the boxes (which represent the IQR) are now non-overlapping, whereas before they overlapped.</p>
@@ -1533,7 +1553,7 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9fe4c602c6b87f2df91e30371a161330003ae3f5588eda7ba97ee8e6e518d95a.png" src="../_images/9fe4c602c6b87f2df91e30371a161330003ae3f5588eda7ba97ee8e6e518d95a.png" />
+<img alt="../_images/d5af43403eae76a5ade49174a8b042d52822a697f64a2c4d0e9096f50f03e3ae.png" src="../_images/d5af43403eae76a5ade49174a8b042d52822a697f64a2c4d0e9096f50f03e3ae.png" />
 </div>
 </div>
 </section>
@@ -1551,7 +1571,7 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/41ee91e3696123962398b4e38b860ae48fba98ca3b762eb8b27d296f35930949.png" src="../_images/41ee91e3696123962398b4e38b860ae48fba98ca3b762eb8b27d296f35930949.png" />
+<img alt="../_images/7c39d0ef56e22a9cf56b9f5048a81822599debdaa2b7b68e1318d5374c5aec2f.png" src="../_images/7c39d0ef56e22a9cf56b9f5048a81822599debdaa2b7b68e1318d5374c5aec2f.png" />
 </div>
 </div>
 <p>You may recall that point plots typically show means and 95% CIs, but the plot above lacks CIs. This is because in the <code class="docutils literal notranslate"><span class="pre">df_avg</span></code> DataFrame, there is only one value for each participant in each condition (because we averaged across trials). If we wanted to see CIs for each individual, we could use the un-aggregated data (<code class="docutils literal notranslate"><span class="pre">df</span></code>).</p>
@@ -1566,7 +1586,7 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cf211d6bc5bc23747d40417532ef4b4529c47319250298bf0ab6dd6ef6a79e0c.png" src="../_images/cf211d6bc5bc23747d40417532ef4b4529c47319250298bf0ab6dd6ef6a79e0c.png" />
+<img alt="../_images/018c8f69fcb12623fb40d9a1e9c6d91e80768ebb5f153dce8dc9313246a90b50.png" src="../_images/018c8f69fcb12623fb40d9a1e9c6d91e80768ebb5f153dce8dc9313246a90b50.png" />
 </div>
 </div>
 </section>
@@ -1585,14 +1605,14 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_71200/2787639227.py:1: UserWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_48310/2787639227.py:1: UserWarning: 
 
 The `join` parameter is deprecated and will be removed in v0.15.0. You can remove the line between points with `linestyle=&#39;none&#39;`.
 
   sns.catplot(kind=&#39;point&#39;, join=False,
 </pre></div>
 </div>
-<img alt="../_images/5f3f6737bb26e909207fede9ee4c2ef5f554a77dd17a57c4350452368ce152f0.png" src="../_images/5f3f6737bb26e909207fede9ee4c2ef5f554a77dd17a57c4350452368ce152f0.png" />
+<img alt="../_images/86ee73fc344f3e2070a41c30c42bf5ef91f4f641f765ef312356f8bf5adb3bb0.png" src="../_images/86ee73fc344f3e2070a41c30c42bf5ef91f4f641f765ef312356f8bf5adb3bb0.png" />
 </div>
 </div>
 </section>
@@ -1669,8 +1689,7 @@ The `join` parameter is deprecated and will be removed in v0.15.0. You can remov
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1755,8 +1774,8 @@ By Aaron J Newman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

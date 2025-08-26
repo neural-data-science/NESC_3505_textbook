@@ -16,33 +16,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -84,7 +81,6 @@
     <link rel="prev" title="Segmentation into ERP epochs" href="erp_segmentation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -100,8 +96,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -109,6 +116,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -116,8 +124,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -133,8 +141,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -164,17 +171,21 @@
     
     
     <img src="../_static/NESC3505_icon.png" class="logo__image only-light" alt="Neural Data Science in Python - Home"/>
-    <img src="../_static/NESC3505_icon.png" class="logo__image only-dark pst-js-only" alt="Neural Data Science in Python - Home"/>
+    <script>document.write(`<img src="../_static/NESC3505_icon.png" class="logo__image only-dark" alt="Neural Data Science in Python - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -192,6 +203,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../syllabus.html">Syllabus</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/learning_approach.html">How to Approach this Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/actually_write_code.html">Actually Write Code</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/mindset.html">Mindset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/flipped_classroom.html">Flipped Classroom</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/errors_debugging.html">Errors and Debugging</a></li>
@@ -257,7 +269,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Set Up Your Computer for Data Science</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Some Assembly Required</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Setting Up your Computer for Data Science</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/learning_objectives.html">Learning Objectives</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/first_steps.html">First Steps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/github.html">Get on GitHub</a></li>
@@ -561,16 +573,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -672,7 +692,8 @@
 <p>Recall from the beginning of this chapter that the neural origins of EEG can be thought of as electrical <em>dipoles</em> — that is, a pair of electrical charges, one positive and one negative, separated by a small distance. This is the same as the battery, which has a positive terminal and a negative terminal, separated by a small distance. The difference is that the battery is a <em>static</em> dipole, whereas the neural dipole is <em>dynamic</em> — it changes over time.</p>
 <p>Recall this figure from the start of the chapter, illustrating the dipole source of EEG:</p>
 <figure class="align-center" id="id1">
-<a class="reference internal image-reference" href="../_images/dipole_head_labels.svg"><img alt="The dipole is indicated by the arrow, whose point represents the positive pole of the dipole. The read shading indicates where positive electrical signals would propagate from this dipole, through the head and outward to the scalp. Electrodes placed on scalp areas over the blue shading would record positive potential. The decreasing color represents how the strength of the positive signal would drop with distance. It can be see that one area near the top of the head would show a stronger positive signal (darker color) than the rest of the &quot;positive&quot; area of the scalp. Likewise, the blue shading represents the propagation of the signal from the negative pole of the dipole. Electrodes placed on scalp areas over the blue shading would record negative potential." src="../_images/dipole_head_labels.svg" style="width: 400px;" /></a>
+<a class="reference internal image-reference" href="../_images/dipole_head_labels.svg"><img alt="The dipole is indicated by the arrow, whose point represents the positive pole of the dipole. The read shading indicates where positive electrical signals would propagate from this dipole, through the head and outward to the scalp. Electrodes placed on scalp areas over the blue shading would record positive potential. The decreasing color represents how the strength of the positive signal would drop with distance. It can be see that one area near the top of the head would show a stronger positive signal (darker color) than the rest of the &quot;positive&quot; area of the scalp. Likewise, the blue shading represents the propagation of the signal from the negative pole of the dipole. Electrodes placed on scalp areas over the blue shading would record negative potential." src="../_images/dipole_head_labels.svg" style="width: 400px;" />
+</a>
 <figcaption>
 <p><span class="caption-number">Fig. 18 </span><span class="caption-text">A model of a single electrical dipole located inside a head. The small arrows in the center of the colored area is the dipole source; red colors indicate propagation of positive charge, and blue indicates negative charge. The decreasing color represents how the strength of the positive signal would drop with distance. The dotted line helps illustrate the orientation of the dipole, while the dashed line perpendicular to it indicates the line of zero charge at the scalp.  Image adapted from <a class="reference external" href="https://commons.wikimedia.org/wiki/File:DipoleContourPoint.svg">Geek3</a>, CC BY-SA 4.0, via Wikimedia Commons.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
@@ -695,7 +716,7 @@
 <h2>Load the Cleaned Data<a class="headerlink" href="#load-the-cleaned-data" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">mne</span>
 <span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>  <span class="c1"># reduce extraneous MNE output</span>
 
 <span class="c1"># Participant ID code</span>
@@ -722,8 +743,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Match&#39;: &lt;Evoked | &#39;0.25 × Match/A + 0.25 × Match/C + 0.25 × Match/B + 0.25 × Match/D&#39; (average, N=72), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~94 kB&gt;,
- &#39;Mismatch&#39;: &lt;Evoked | &#39;0.25 × Mismatch/A + 0.24 × Mismatch/C + 0.25 × Mismatch/B + 0.25 × Mismatch/D&#39; (average, N=71), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~94 kB&gt;}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Match&#39;: &lt;Evoked | &#39;0.25 × Match/A + 0.25 × Match/C + 0.25 × Match/B + 0.25 × Match/D&#39; (average, N=72), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~94 KiB&gt;,
+ &#39;Mismatch&#39;: &lt;Evoked | &#39;0.25 × Mismatch/A + 0.24 × Mismatch/C + 0.25 × Mismatch/B + 0.25 × Mismatch/D&#39; (average, N=71), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~94 KiB&gt;}
 </pre></div>
 </div>
 </div>
@@ -741,8 +762,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6516b0d0ff6315a287818521d2b38646dc72ef46655dd1e32122c47894222d7c.png" src="../_images/6516b0d0ff6315a287818521d2b38646dc72ef46655dd1e32122c47894222d7c.png" />
-<img alt="../_images/50a0936c98e25115a801dd7d9c71f6b74c249d37001cb2bb837fef71aab71c9d.png" src="../_images/50a0936c98e25115a801dd7d9c71f6b74c249d37001cb2bb837fef71aab71c9d.png" />
+<img alt="../_images/e6617c4ace259a3eafd6778c08b3124ce47923f64d9b8b05fab48beb1eef068a.png" src="../_images/e6617c4ace259a3eafd6778c08b3124ce47923f64d9b8b05fab48beb1eef068a.png" />
+<img alt="../_images/b791dd2c612f9cf58a35da42d9086fb07716c4ffcd4681ee1524430d0be24a55.png" src="../_images/b791dd2c612f9cf58a35da42d9086fb07716c4ffcd4681ee1524430d0be24a55.png" />
 </div>
 </div>
 </section>
@@ -756,7 +777,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/78090a6eec9c4732d141a2d62af9365583b64e99b74c5925543ea3e869fa986c.png" src="../_images/78090a6eec9c4732d141a2d62af9365583b64e99b74c5925543ea3e869fa986c.png" />
+<img alt="../_images/fd5518b81ff18452e25ca92ac451046f1b2a5b43de468b87d330e071a383b725.png" src="../_images/fd5518b81ff18452e25ca92ac451046f1b2a5b43de468b87d330e071a383b725.png" />
 </div>
 </div>
 <section id="what-n400">
@@ -771,14 +792,14 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d00bca41286ca41af48b35f0eeb6f3ee0e2c983e9fb82f059f10934f7d726c8c.png" src="../_images/d00bca41286ca41af48b35f0eeb6f3ee0e2c983e9fb82f059f10934f7d726c8c.png" />
+<img alt="../_images/7b41513032766c6492b286ae748618407ad2cc6e05ea65998e361215e46f024d.png" src="../_images/7b41513032766c6492b286ae748618407ad2cc6e05ea65998e361215e46f024d.png" />
 </div>
 </div>
 <p>Note that these are not all channels in our data set — we’re just using this to visualize the location of FCz.</p>
 <p>The fact that the reference electrode was positioned between Fz and Cz means that we would expect the EEG at those two channels to be quite flat, since they are measuring nearly the same electrical activity. If we plot each of the midline channels, we can see that this is indeed the case. Note that since we want to compare the plots between channels, we use the kwarg <code class="docutils literal notranslate"><span class="pre">ylim</span></code> to set the y-axis limits to be the same for each plot; otherwise MNE auto-scales the amplitudes differently for each channel. We also pass kwargs to specify the locations of the legend and sensor location plot, so that they don’t overlap with the ERP plots as they did in the earlier waveform plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="c1"># define the channels we want plots for</span>
 <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Fz&#39;</span><span class="p">,</span> <span class="s1">&#39;Cz&#39;</span><span class="p">,</span> <span class="s1">&#39;Pz&#39;</span><span class="p">,</span> <span class="s1">&#39;Oz&#39;</span><span class="p">]</span>
@@ -801,13 +822,13 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2fd6ed6f498cef861bc047cf43b7c6ee77be9192e8c980d1126fca56da8de254.png" src="../_images/2fd6ed6f498cef861bc047cf43b7c6ee77be9192e8c980d1126fca56da8de254.png" />
+<img alt="../_images/641828fb73c84fcbc32001ba190b62bed5e1ad6dbf074666117b691ee2120db7.png" src="../_images/641828fb73c84fcbc32001ba190b62bed5e1ad6dbf074666117b691ee2120db7.png" />
 </div>
 </div>
 <p>The FCz reference location also explains why, in the scalp topography maps (re-plotted below), the area between electrodes Fz and Cz is white, or very close to it, at most time points. As indicated on the color bar below, white represents a value of zero. The values aren’t exactly zero/white in the plots below, because in generating these plots, MNE interpolates values in between the electrodes. In other words, we only have voltage measurements at each electrode (the dots in the plots), and the colors at every other location are determined by mathematical estimates of what the voltage values likely would have been, based on the values at the electrodes we do have. Since both Fz and Cz measure slightly different locations than the reference, they are not zero, and the estimated values between them may also not be zero due to noise.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Specify times to plot at, as [min],[max],[stepsize]</span>
 <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">times</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">)</span>
@@ -822,11 +843,11 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Match
 </pre></div>
 </div>
-<img alt="../_images/b02487bb1da680b56c39e50bd3d4d08974187bd36ece24c7815995b642ebd518.png" src="../_images/b02487bb1da680b56c39e50bd3d4d08974187bd36ece24c7815995b642ebd518.png" />
+<img alt="../_images/90ad5310ea42d1e41969ea5e86ccbf131952e67176da41431b700d77a92a6e8e.png" src="../_images/90ad5310ea42d1e41969ea5e86ccbf131952e67176da41431b700d77a92a6e8e.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch
 </pre></div>
 </div>
-<img alt="../_images/1071c5f1f5f9b6aaf4d65fbae63d9072a961bc5c25f1e8fd7bdc9b4c135e398f.png" src="../_images/1071c5f1f5f9b6aaf4d65fbae63d9072a961bc5c25f1e8fd7bdc9b4c135e398f.png" />
+<img alt="../_images/727255a77c35cd7ca56ccb7c50bd99929ade877690e567d78f846c70be747524.png" src="../_images/727255a77c35cd7ca56ccb7c50bd99929ade877690e567d78f846c70be747524.png" />
 </div>
 </div>
 </section>
@@ -880,20 +901,20 @@
 Match (average reference)
 </pre></div>
 </div>
-<img alt="../_images/8668c718d80028e5ae5645857fdf13a9d88be9a49cc047b3e70ac91e1ab35d19.png" src="../_images/8668c718d80028e5ae5645857fdf13a9d88be9a49cc047b3e70ac91e1ab35d19.png" />
+<img alt="../_images/e753fb7bb3ba94d1b0285419c33488da86d8b63446f97513fab0705a847b5090.png" src="../_images/e753fb7bb3ba94d1b0285419c33488da86d8b63446f97513fab0705a847b5090.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Match (original (FCz) reference)
 </pre></div>
 </div>
-<img alt="../_images/b02487bb1da680b56c39e50bd3d4d08974187bd36ece24c7815995b642ebd518.png" src="../_images/b02487bb1da680b56c39e50bd3d4d08974187bd36ece24c7815995b642ebd518.png" />
+<img alt="../_images/90ad5310ea42d1e41969ea5e86ccbf131952e67176da41431b700d77a92a6e8e.png" src="../_images/90ad5310ea42d1e41969ea5e86ccbf131952e67176da41431b700d77a92a6e8e.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>----------------------------------
 Mismatch (average reference)
 </pre></div>
 </div>
-<img alt="../_images/ec21167773ad8afbbb94a821d032d2a55f4ffabe3b87b826426834556c9d32d6.png" src="../_images/ec21167773ad8afbbb94a821d032d2a55f4ffabe3b87b826426834556c9d32d6.png" />
+<img alt="../_images/a8f27cd5b9b36f79e6575bdf97738c83ac4f4afb2a30ce33ab1839c9c370d2ab.png" src="../_images/a8f27cd5b9b36f79e6575bdf97738c83ac4f4afb2a30ce33ab1839c9c370d2ab.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch (original (FCz) reference)
 </pre></div>
 </div>
-<img alt="../_images/1071c5f1f5f9b6aaf4d65fbae63d9072a961bc5c25f1e8fd7bdc9b4c135e398f.png" src="../_images/1071c5f1f5f9b6aaf4d65fbae63d9072a961bc5c25f1e8fd7bdc9b4c135e398f.png" />
+<img alt="../_images/727255a77c35cd7ca56ccb7c50bd99929ade877690e567d78f846c70be747524.png" src="../_images/727255a77c35cd7ca56ccb7c50bd99929ade877690e567d78f846c70be747524.png" />
 </div>
 </div>
 <p>There are clear differences in the scalp topography between the original and averaged references. The patterns potentials across the scalp are similar — for instance, note the relatively strong positive potential over the posterior right scalp in the last time window, with a more negative potential over the anterior scalp. At the same time, the actual electrical potential values are quite different, in ways that could impact interpretation of the data. Note how the right anterior negativity appears stronger and more focal in the average reference, while the right posterior positivity appears stronger in the original reference.</p>
@@ -921,7 +942,7 @@ Mismatch (average reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/37bef6eb9747e18c2f7d8a5e687436fda9188ed4d998bedfb1495a605e61b216.png" src="../_images/37bef6eb9747e18c2f7d8a5e687436fda9188ed4d998bedfb1495a605e61b216.png" />
+<img alt="../_images/43b652bbeb6f5c0acf90a85c1aa73c338cbf72351d8de58e3b8310badba86df0.png" src="../_images/43b652bbeb6f5c0acf90a85c1aa73c338cbf72351d8de58e3b8310badba86df0.png" />
 </div>
 </div>
 </section>
@@ -964,28 +985,28 @@ Mismatch (average reference)
 Match (mastoid reference)
 </pre></div>
 </div>
-<img alt="../_images/94155101dc9930ad712d83409a8f2e7adfb6c1587ead18f001195ed9fa2155fa.png" src="../_images/94155101dc9930ad712d83409a8f2e7adfb6c1587ead18f001195ed9fa2155fa.png" />
+<img alt="../_images/05ceccc2fe4c28359ae6ed039b78ba4abc1ee625d0661f7317743eae4a1c8f0d.png" src="../_images/05ceccc2fe4c28359ae6ed039b78ba4abc1ee625d0661f7317743eae4a1c8f0d.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Match (average reference)
 </pre></div>
 </div>
-<img alt="../_images/8668c718d80028e5ae5645857fdf13a9d88be9a49cc047b3e70ac91e1ab35d19.png" src="../_images/8668c718d80028e5ae5645857fdf13a9d88be9a49cc047b3e70ac91e1ab35d19.png" />
+<img alt="../_images/e753fb7bb3ba94d1b0285419c33488da86d8b63446f97513fab0705a847b5090.png" src="../_images/e753fb7bb3ba94d1b0285419c33488da86d8b63446f97513fab0705a847b5090.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Match (original (FCz) reference)
 </pre></div>
 </div>
-<img alt="../_images/b02487bb1da680b56c39e50bd3d4d08974187bd36ece24c7815995b642ebd518.png" src="../_images/b02487bb1da680b56c39e50bd3d4d08974187bd36ece24c7815995b642ebd518.png" />
+<img alt="../_images/90ad5310ea42d1e41969ea5e86ccbf131952e67176da41431b700d77a92a6e8e.png" src="../_images/90ad5310ea42d1e41969ea5e86ccbf131952e67176da41431b700d77a92a6e8e.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>----------------------------------
 Mismatch (mastoid reference)
 </pre></div>
 </div>
-<img alt="../_images/fff246736004fa3d4bd6f9514322dc8c1f5d718676ab4449de79fa892cc3cd4e.png" src="../_images/fff246736004fa3d4bd6f9514322dc8c1f5d718676ab4449de79fa892cc3cd4e.png" />
+<img alt="../_images/5980aeb224147c6426b8ae2dfaf1480df27dd31de9cb3b1a45db74d6a9345ef1.png" src="../_images/5980aeb224147c6426b8ae2dfaf1480df27dd31de9cb3b1a45db74d6a9345ef1.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch (average reference)
 </pre></div>
 </div>
-<img alt="../_images/ec21167773ad8afbbb94a821d032d2a55f4ffabe3b87b826426834556c9d32d6.png" src="../_images/ec21167773ad8afbbb94a821d032d2a55f4ffabe3b87b826426834556c9d32d6.png" />
+<img alt="../_images/a8f27cd5b9b36f79e6575bdf97738c83ac4f4afb2a30ce33ab1839c9c370d2ab.png" src="../_images/a8f27cd5b9b36f79e6575bdf97738c83ac4f4afb2a30ce33ab1839c9c370d2ab.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch (original (FCz) reference)
 </pre></div>
 </div>
-<img alt="../_images/1071c5f1f5f9b6aaf4d65fbae63d9072a961bc5c25f1e8fd7bdc9b4c135e398f.png" src="../_images/1071c5f1f5f9b6aaf4d65fbae63d9072a961bc5c25f1e8fd7bdc9b4c135e398f.png" />
+<img alt="../_images/727255a77c35cd7ca56ccb7c50bd99929ade877690e567d78f846c70be747524.png" src="../_images/727255a77c35cd7ca56ccb7c50bd99929ade877690e567d78f846c70be747524.png" />
 </div>
 </div>
 <p>Again, the relative distribution of electrical potentials across the scalp is similar to the original and average-referenced data. However, now the white, “zero voltage” area overlaps the locations behind the ears, and the top/centre electrodes (extending to more frontal electrodes) are more negative than when other references were used. As a consequence of this, a much stronger-appearing negativity is now apparent for the Mismatch condition in later time windows, over the midline and anterior frontal regions, relative to prior references.</p>
@@ -1013,7 +1034,7 @@ Mismatch (mastoid reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/44c01228ee95b54d84cb2504cf690a410110ee72b4f37f8ca42e42fad0778ceb.png" src="../_images/44c01228ee95b54d84cb2504cf690a410110ee72b4f37f8ca42e42fad0778ceb.png" />
+<img alt="../_images/0070df49531a84c653a34c96f5d6c94cb4f0a3bc667d734bfd751e22aa4107cb.png" src="../_images/0070df49531a84c653a34c96f5d6c94cb4f0a3bc667d734bfd751e22aa4107cb.png" />
 </div>
 </div>
 </section>
@@ -1049,7 +1070,7 @@ Mismatch (mastoid reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/fb09c6aba498b754edd8d2c662f2316241d3b29caa39a68156aefd17d5d693be.png" src="../_images/fb09c6aba498b754edd8d2c662f2316241d3b29caa39a68156aefd17d5d693be.png" />
+<img alt="../_images/f676ed95e4c9e29f2201663ac90b3c82def86275e8bb479cd1b1937e075feea3.png" src="../_images/f676ed95e4c9e29f2201663ac90b3c82def86275e8bb479cd1b1937e075feea3.png" />
 </div>
 </div>
 <p>Re-referencing can have even more dramatic — and significant to interpretation — effect on comparisons between conditions, as we will see below.</p>
@@ -1110,7 +1131,7 @@ Mismatch (mastoid reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9890865f8b4fbeb0f07d3c1cce464160042aa07888c0abf97d94e4d1be312e26.png" src="../_images/9890865f8b4fbeb0f07d3c1cce464160042aa07888c0abf97d94e4d1be312e26.png" />
+<img alt="../_images/49725a61f4744584e45768651ae0ce6f628ecd40ffd33e0f090a16903671e700.png" src="../_images/49725a61f4744584e45768651ae0ce6f628ecd40ffd33e0f090a16903671e700.png" />
 </div>
 </div>
 <p>We can see even more clearly than before that the mastoid reference produces a much larger N400 effect than the other references we have examined. This is because the average reference effectively subtracts the N400 from the data, since it is largest over the top of the head, which is where the majority of recording electrodes were located. The mastoid reference also results in larger differences for the early components at 150 and 230 ms, although this is not an expected effect, and is unlikely to be replicated across participants.</p>
@@ -1135,15 +1156,15 @@ Mismatch (mastoid reference)
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch (original (FCz) reference)
 </pre></div>
 </div>
-<img alt="../_images/ec8ba3bbe86652bc0ed9f8b2c825c2b14bc8a209e1c8fecca924b736d1481eb9.png" src="../_images/ec8ba3bbe86652bc0ed9f8b2c825c2b14bc8a209e1c8fecca924b736d1481eb9.png" />
+<img alt="../_images/bca969568d22bfb96ec385b51412628c84af4c081f536049f4117eb244f2f7f6.png" src="../_images/bca969568d22bfb96ec385b51412628c84af4c081f536049f4117eb244f2f7f6.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch (average reference)
 </pre></div>
 </div>
-<img alt="../_images/70eaa11df74b4d1125d307366f413c52488a32ffcf856f5fd948847ed7ee40ad.png" src="../_images/70eaa11df74b4d1125d307366f413c52488a32ffcf856f5fd948847ed7ee40ad.png" />
+<img alt="../_images/9324014aaf2b1a9fc832c236e40709fedd1ac2401bf9a88c8a150a3e104ac1c7.png" src="../_images/9324014aaf2b1a9fc832c236e40709fedd1ac2401bf9a88c8a150a3e104ac1c7.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mismatch (mastoid reference)
 </pre></div>
 </div>
-<img alt="../_images/33f15b40cdd7bfa269ebf35b04877c4e96134fb296f82a1c570e9d5d9df21d5e.png" src="../_images/33f15b40cdd7bfa269ebf35b04877c4e96134fb296f82a1c570e9d5d9df21d5e.png" />
+<img alt="../_images/bd8cb2d964c9016a873123563342b3d9ef94af5999a7a6c2106711849ee5d2db.png" src="../_images/bd8cb2d964c9016a873123563342b3d9ef94af5999a7a6c2106711849ee5d2db.png" />
 </div>
 </div>
 </section>
@@ -1181,8 +1202,8 @@ Mismatch (mastoid reference)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Match&#39;: &lt;Evoked | &#39;Match&#39; (average, N=72), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~94 kB&gt;,
- &#39;Mismatch&#39;: &lt;Evoked | &#39;Mismatch&#39; (average, N=71), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~94 kB&gt;}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Match&#39;: &lt;Evoked | &#39;Match&#39; (average, N=72), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~94 KiB&gt;,
+ &#39;Mismatch&#39;: &lt;Evoked | &#39;Mismatch&#39; (average, N=71), -0.1 – 1 s, baseline -0.1 – 0 s, 16 ch, ~94 KiB&gt;}
 </pre></div>
 </div>
 </div>
@@ -1281,8 +1302,7 @@ Mismatch (mastoid reference)
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1378,8 +1398,8 @@ By Aaron J Newman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

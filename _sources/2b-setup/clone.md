@@ -6,7 +6,7 @@ This page is provided as a reference, primarily for people who are not using Git
 
 Although you can clone a GitHub repository from within VS Code, it's a lot easier to do it using GitHub Desktop. If you don't already have GitHub Desktop installed, you can download it from [desktop.github.com](https://desktop.github.com/). Once you have it installed, open it up and log in to your GitHub account.
 
-```{note}
+```{warning}
 **Before you clone a repository, read this!** GitHub Desktop by default creates a folder in your `Documents` folder to store cloned repositories. If your `Documents` folder is tied to a cloud storage service like Apple's iCloud or Microsoft's OneDrive, using the `Documents` folder for GitHub repositories can create all kinds of problems. This is because those cloud services will often save space on your computer by removing the content of files from your computer, storing them in the cloud, and then downloading them when you need them. If you try to synchronize a local repository with GitHub and your cloud service has offloaded files to the cloud, then the content of those files will be lost. This is bad. So, if you are using a cloud storage service, you should create a new folder for your GitHub repositories that is not in your `Documents` folder. For example, you could create a folder called `GitHub` in your home directory (i.e., beside your `Documents` folder, not inside it), and use that instead.
 ```
 
