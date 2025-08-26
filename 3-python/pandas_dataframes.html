@@ -16,33 +16,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -82,7 +79,6 @@
     <link rel="prev" title="Working with Data" href="working_w_data.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -98,8 +94,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -107,6 +114,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -114,8 +122,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -131,8 +139,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -162,17 +169,21 @@
     
     
     <img src="../_static/NESC3505_icon.png" class="logo__image only-light" alt="Neural Data Science in Python - Home"/>
-    <img src="../_static/NESC3505_icon.png" class="logo__image only-dark pst-js-only" alt="Neural Data Science in Python - Home"/>
+    <script>document.write(`<img src="../_static/NESC3505_icon.png" class="logo__image only-dark" alt="Neural Data Science in Python - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -190,6 +201,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../syllabus.html">Syllabus</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../1-intro/learning_approach.html">How to Approach this Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/actually_write_code.html">Actually Write Code</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/mindset.html">Mindset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/flipped_classroom.html">Flipped Classroom</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../1-intro/errors_debugging.html">Errors and Debugging</a></li>
@@ -255,7 +267,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Set Up Your Computer for Data Science</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Some Assembly Required</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2b-setup/introduction.html">Setting Up your Computer for Data Science</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2b-setup/learning_objectives.html">Learning Objectives</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../2b-setup/first_steps.html">First Steps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../2b-setup/github.html">Get on GitHub</a></li>
@@ -559,16 +571,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -685,7 +705,7 @@
 <p>pandas is an example of a Python library. A <strong>library</strong> is a collection of files (called <em>modules</em>) that contains functions for use by other programs. Libraries provide ways of extending Python’s functionality in different ways. They may also contain data values (e.g., numerical constants), entire sample data sets, and other things. A library’s contents are supposed to be related, although there’s no actual way to enforce that.</p>
 <p>The Python <a class="reference external" href="https://docs.python.org/3/library/">standard library</a> is an extensive suite of modules that comes with Python itself. Everything we’ve done so far in this workshop has been part of the standard library. Many additional libraries are available; CoCalc has a large number of extra libraries already installed.</p>
 <p>To use a library in a particular Jupyter notebook or other Python program, we must import it using the <code class="docutils literal notranslate"><span class="pre">import</span></code> statement, like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
 </pre></div>
 </div>
 <p>Once a library is imported, we can use functions and methods from it. But, for functions we have to tell Python that the function can be found in a particular library we imported. For example, pandas has a function to import data from CSV (comma-separated value) files, called <code class="docutils literal notranslate"><span class="pre">read_csv</span></code>. To run this command, we would need to type:</p>
@@ -693,7 +713,7 @@
 </pre></div>
 </div>
 <p>Since some package names are long, and adding the name to every function can result in a lot of typing, Python also allows us to assign an <em>alias</em> — a shorter name — to a library when we import it. For example, the convention for pandas is to give it the alias <code class="docutils literal notranslate"><span class="pre">pd</span></code> like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 </pre></div>
 </div>
 <p>Then to read a CSV file we could use:</p>
@@ -703,7 +723,7 @@
 <p>In the cell below, import pandas with the alias pd:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 </pre></div>
 </div>
 </div>
@@ -1547,20 +1567,36 @@
   </thead>
   <tbody>
     <tr>
-      <th>27</th>
-      <td>Switzerland</td>
-      <td>14734.232750</td>
-      <td>17909.489730</td>
-      <td>20431.092700</td>
-      <td>22966.144320</td>
-      <td>27195.113040</td>
-      <td>26982.29052</td>
-      <td>28397.715120</td>
-      <td>30281.704590</td>
-      <td>31871.530300</td>
-      <td>32135.323010</td>
-      <td>34480.957710</td>
-      <td>37506.41907</td>
+      <th>9</th>
+      <td>France</td>
+      <td>7029.809327</td>
+      <td>8662.834898</td>
+      <td>10560.485530</td>
+      <td>12999.917660</td>
+      <td>16107.191710</td>
+      <td>18292.635140</td>
+      <td>20293.897460</td>
+      <td>22066.442140</td>
+      <td>24703.796150</td>
+      <td>25889.784870</td>
+      <td>28926.032340</td>
+      <td>30470.016700</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Ireland</td>
+      <td>5210.280328</td>
+      <td>5599.077872</td>
+      <td>6631.597314</td>
+      <td>7655.568963</td>
+      <td>9530.772896</td>
+      <td>11150.981130</td>
+      <td>12618.321410</td>
+      <td>13872.866520</td>
+      <td>17558.815550</td>
+      <td>24521.947130</td>
+      <td>34077.049390</td>
+      <td>40675.996350</td>
     </tr>
     <tr>
       <th>26</th>
@@ -1570,93 +1606,77 @@
       <td>12329.441920</td>
       <td>15258.296970</td>
       <td>17832.024640</td>
-      <td>18855.72521</td>
+      <td>18855.725210</td>
       <td>20667.381250</td>
       <td>23586.929270</td>
       <td>23880.016830</td>
       <td>25266.594990</td>
       <td>29341.630930</td>
-      <td>33859.74835</td>
+      <td>33859.748350</td>
     </tr>
     <tr>
-      <th>17</th>
-      <td>Netherlands</td>
-      <td>8941.571858</td>
-      <td>11276.193440</td>
-      <td>12790.849560</td>
-      <td>15363.251360</td>
-      <td>18794.745670</td>
-      <td>21209.05920</td>
-      <td>21399.460460</td>
-      <td>23651.323610</td>
-      <td>26790.949610</td>
-      <td>30246.130630</td>
-      <td>33724.757780</td>
-      <td>36797.93332</td>
+      <th>19</th>
+      <td>Poland</td>
+      <td>4029.329699</td>
+      <td>4734.253019</td>
+      <td>5338.752143</td>
+      <td>6557.152776</td>
+      <td>8006.506993</td>
+      <td>9508.141454</td>
+      <td>8451.531004</td>
+      <td>9082.351172</td>
+      <td>7738.881247</td>
+      <td>10159.583680</td>
+      <td>12002.239080</td>
+      <td>15389.924680</td>
     </tr>
     <tr>
-      <th>25</th>
-      <td>Spain</td>
-      <td>3834.034742</td>
-      <td>4564.802410</td>
-      <td>5693.843879</td>
-      <td>7993.512294</td>
-      <td>10638.751310</td>
-      <td>13236.92117</td>
-      <td>13926.169970</td>
-      <td>15764.983130</td>
-      <td>18603.064520</td>
-      <td>20445.298960</td>
-      <td>24835.471660</td>
-      <td>28821.06370</td>
+      <th>28</th>
+      <td>Turkey</td>
+      <td>1969.100980</td>
+      <td>2218.754257</td>
+      <td>2322.869908</td>
+      <td>2826.356387</td>
+      <td>3450.696380</td>
+      <td>4269.122326</td>
+      <td>4241.356344</td>
+      <td>5089.043686</td>
+      <td>5678.348271</td>
+      <td>6601.429915</td>
+      <td>6508.085718</td>
+      <td>8458.276384</td>
     </tr>
     <tr>
-      <th>24</th>
-      <td>Slovenia</td>
-      <td>4215.041741</td>
-      <td>5862.276629</td>
-      <td>7402.303395</td>
-      <td>9405.489397</td>
-      <td>12383.486200</td>
-      <td>15277.03017</td>
-      <td>17866.721750</td>
-      <td>18678.534920</td>
-      <td>14214.716810</td>
-      <td>17161.107350</td>
-      <td>20660.019360</td>
-      <td>25768.25759</td>
+      <th>29</th>
+      <td>United Kingdom</td>
+      <td>9979.508487</td>
+      <td>11283.177950</td>
+      <td>12477.177070</td>
+      <td>14142.850890</td>
+      <td>15895.116410</td>
+      <td>17428.748460</td>
+      <td>18232.424520</td>
+      <td>21664.787670</td>
+      <td>22705.092540</td>
+      <td>26074.531360</td>
+      <td>29478.999190</td>
+      <td>33203.261280</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>Croatia</td>
-      <td>3119.236520</td>
-      <td>4338.231617</td>
-      <td>5477.890018</td>
-      <td>6960.297861</td>
-      <td>9164.090127</td>
-      <td>11305.38517</td>
-      <td>13221.821840</td>
-      <td>13822.583940</td>
-      <td>8447.794873</td>
-      <td>9875.604515</td>
-      <td>11628.388950</td>
-      <td>14619.22272</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>Greece</td>
-      <td>3530.690067</td>
-      <td>4916.299889</td>
-      <td>6017.190733</td>
-      <td>8513.097016</td>
-      <td>12724.829570</td>
-      <td>14195.52428</td>
-      <td>15268.420890</td>
-      <td>16120.528390</td>
-      <td>17541.496340</td>
-      <td>18747.698140</td>
-      <td>22514.254800</td>
-      <td>27538.41188</td>
+      <th>4</th>
+      <td>Bulgaria</td>
+      <td>2444.286648</td>
+      <td>3008.670727</td>
+      <td>4254.337839</td>
+      <td>5577.002800</td>
+      <td>6597.494398</td>
+      <td>7612.240438</td>
+      <td>8224.191647</td>
+      <td>8239.854824</td>
+      <td>6302.623438</td>
+      <td>5970.388760</td>
+      <td>7696.777725</td>
+      <td>10680.792820</td>
     </tr>
     <tr>
       <th>21</th>
@@ -1666,29 +1686,13 @@
       <td>4734.997586</td>
       <td>6470.866545</td>
       <td>8011.414402</td>
-      <td>9356.39724</td>
+      <td>9356.397240</td>
       <td>9605.314053</td>
       <td>9696.273295</td>
       <td>6598.409903</td>
       <td>7346.547557</td>
       <td>7885.360081</td>
-      <td>10808.47561</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>Iceland</td>
-      <td>7267.688428</td>
-      <td>9244.001412</td>
-      <td>10350.159060</td>
-      <td>13319.895680</td>
-      <td>15798.063620</td>
-      <td>19654.96247</td>
-      <td>23269.607500</td>
-      <td>26923.206280</td>
-      <td>25144.392010</td>
-      <td>28061.099660</td>
-      <td>31163.201960</td>
-      <td>36180.78919</td>
+      <td>10808.475610</td>
     </tr>
     <tr>
       <th>12</th>
@@ -1698,13 +1702,29 @@
       <td>7550.359877</td>
       <td>9326.644670</td>
       <td>10168.656110</td>
-      <td>11674.83737</td>
+      <td>11674.837370</td>
       <td>12545.990660</td>
       <td>12986.479980</td>
       <td>10535.628550</td>
       <td>11712.776800</td>
       <td>14843.935560</td>
-      <td>18008.94444</td>
+      <td>18008.944440</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Montenegro</td>
+      <td>2647.585601</td>
+      <td>3682.259903</td>
+      <td>4649.593785</td>
+      <td>5907.850937</td>
+      <td>7778.414017</td>
+      <td>9595.929905</td>
+      <td>11222.587620</td>
+      <td>11732.510170</td>
+      <td>7003.339037</td>
+      <td>6465.613349</td>
+      <td>6557.194282</td>
+      <td>9253.896111</td>
     </tr>
   </tbody>
 </table>
@@ -1994,7 +2014,7 @@ Name: gdpPercap_1992, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8842.59803
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(8842.59803)
 </pre></div>
 </div>
 </div>
@@ -2029,7 +2049,7 @@ Name: gdpPercap_1992, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6137.076492
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(6137.076492)
 </pre></div>
 </div>
 </div>
@@ -2727,7 +2747,7 @@ Name: Albania, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16245.20900641667
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(16245.20900641667)
 </pre></div>
 </div>
 </div>
@@ -2740,7 +2760,7 @@ Name: Albania, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>26982.29052
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(26982.29052)
 </pre></div>
 </div>
 </div>
@@ -3795,8 +3815,7 @@ row labels in the dataframe.</p>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -3894,8 +3913,8 @@ By Aaron J Newman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
