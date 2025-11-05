@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -652,6 +652,8 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">nibabel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nib</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">nibabel.nicom</span><span class="w"> </span><span class="kn">import</span> <span class="n">dicomreaders</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nil</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">plotting</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">image</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">scipy.ndimage</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ndi</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -661,7 +663,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_98231/1111237747.py:3: UserWarning: The DICOM readers are highly experimental, unstable, and only work for Siemens time-series at the moment
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nq/chbqhzjx5hb6hfjx708rh2_40000gn/T/ipykernel_95468/4248759852.py:3: UserWarning: The DICOM readers are highly experimental, unstable, and only work for Siemens time-series at the moment
 Please use with caution.  We would be grateful for your help in improving them
   from nibabel.nicom import dicomreaders
 </pre></div>
@@ -677,8 +679,7 @@ Please use with caution.  We would be grateful for your help in improving them
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;.DS_Store&#39;,
- &#39;4_sag_3d_t1_spgr.nii.gz&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;4_sag_3d_t1_spgr.nii.gz&#39;,
  &#39;anatomical_aug13_001.hdr&#39;,
  &#39;Anat001.20040930.145131.5.T1_GRE_3D_AXIAL.0099.dcm&#39;,
  &#39;brain_scan.nii.gz&#39;,
@@ -729,8 +730,7 @@ Please use with caution.  We would be grateful for your help in improving them
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 184 DICOM files
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;.DS_Store&#39;,
- &#39;4_sag_3d_t1_spgr.nii.gz&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;4_sag_3d_t1_spgr.nii.gz&#39;,
  &#39;anatomical_aug13_001.hdr&#39;,
  &#39;Anat001.20040930.145131.5.T1_GRE_3D_AXIAL.0099.dcm&#39;,
  &#39;brain_scan.nii.gz&#39;,
@@ -773,11 +773,11 @@ Please use with caution.  We would be grateful for your help in improving them
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;nibabel.nifti1.Nifti1Header&#39;&gt; object, endian=&#39;&lt;&#39;
 sizeof_hdr      : 348
-data_type       : np.bytes_(b&#39;&#39;)
-db_name         : np.bytes_(b&#39;&#39;)
+data_type       : b&#39;&#39;
+db_name         : b&#39;&#39;
 extents         : 0
 session_error   : 0
-regular         : np.bytes_(b&#39;&#39;)
+regular         : b&#39;&#39;
 dim_info        : 0
 dim             : [  3 184 256 256   1   1   1   1]
 intent_p1       : 0.0
@@ -800,8 +800,8 @@ slice_duration  : 0.0
 toffset         : 0.0
 glmax           : 0
 glmin           : 0
-descrip         : np.bytes_(b&#39;&#39;)
-aux_file        : np.bytes_(b&#39;&#39;)
+descrip         : b&#39;&#39;
+aux_file        : b&#39;&#39;
 qform_code      : unknown
 sform_code      : aligned
 quatern_b       : 0.0
@@ -813,8 +813,8 @@ qoffset_z       : 0.0
 srow_x          : [1. 0. 0. 0.]
 srow_y          : [0. 1. 0. 0.]
 srow_z          : [0. 0. 1. 0.]
-intent_name     : np.bytes_(b&#39;&#39;)
-magic           : np.bytes_(b&#39;n+1&#39;)
+intent_name     : b&#39;&#39;
+magic           : b&#39;n+1&#39;
 </pre></div>
 </div>
 </div>
@@ -862,7 +862,7 @@ magic           : np.bytes_(b&#39;n+1&#39;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ea0f3c37ecbbac12a95fae20b7b993046f806ecd543fe7907a9f7e7d47bf3f68.png" src="../_images/ea0f3c37ecbbac12a95fae20b7b993046f806ecd543fe7907a9f7e7d47bf3f68.png" />
+<img alt="../_images/318eda7835a49e928480ddbbcd7f12066706f6c1fd2313d06f30df7249df9ebd.png" src="../_images/318eda7835a49e928480ddbbcd7f12066706f6c1fd2313d06f30df7249df9ebd.png" />
 </div>
 </div>
 <p>Note that our image is rotated, so use can use <code class="docutils literal notranslate"><span class="pre">ndi.rotate</span></code> to fix this:</p>
@@ -875,7 +875,7 @@ magic           : np.bytes_(b&#39;n+1&#39;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/759c9f192ea81c1e372b4d7abd7c81f12104893018c932c9e386d68195940871.png" src="../_images/759c9f192ea81c1e372b4d7abd7c81f12104893018c932c9e386d68195940871.png" />
+<img alt="../_images/682f570f8df057ab59188edac1abd4f1ea2b12ec3eaec2e5f8a9cb64689942d8.png" src="../_images/682f570f8df057ab59188edac1abd4f1ea2b12ec3eaec2e5f8a9cb64689942d8.png" />
 </div>
 </div>
 </section>
@@ -903,7 +903,7 @@ magic           : np.bytes_(b&#39;n+1&#39;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/58ed7adc24eef5836049568e7acf72f006b23e117cffd0520e0f1f396b714bf8.png" src="../_images/58ed7adc24eef5836049568e7acf72f006b23e117cffd0520e0f1f396b714bf8.png" />
+<img alt="../_images/c8cecf288806102027e141ce761fe11fe1d6be0c87d5e04a4f87c31fd4fb8407.png" src="../_images/c8cecf288806102027e141ce761fe11fe1d6be0c87d5e04a4f87c31fd4fb8407.png" />
 </div>
 </div>
 </section>
@@ -912,31 +912,27 @@ magic           : np.bytes_(b&#39;n+1&#39;)
 <p>While SciPy’s ndimage module was designed for working with a wide variety of image types, NiLearn was designed to work with neuroimaging data specifically. As such, it’s tools are a bit easier to use and more purpose-built for tasks that neuroimaging data scientists might want to perform. For example, we can plot the NiBabel NIfTI image object directly without first having to extract the data, using the <code class="docutils literal notranslate"><span class="pre">plot_img()</span></code> function from NiLearn’s <code class="docutils literal notranslate"><span class="pre">plotting</span></code> module:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">plotting</span>
-
-<span class="n">plotting</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">brain_vol</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plotting</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">brain_vol</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a61fa4c30f72b6e267dcf3229dcd14ada6143f625583a943a729dd637bb6e0d8.png" src="../_images/a61fa4c30f72b6e267dcf3229dcd14ada6143f625583a943a729dd637bb6e0d8.png" />
+<img alt="../_images/295c56cf1dc3731f5c495d83cb9e27f345bf25cb460a3bd88d1510f5e762f4e2.png" src="../_images/295c56cf1dc3731f5c495d83cb9e27f345bf25cb460a3bd88d1510f5e762f4e2.png" />
 </div>
 </div>
 <p>One nice thing that we see is that since NiLearn is neuroimaging-aware, it explicitly adds labels to our plot showing us clearly which the left and right hemispheres are.</p>
 <p>NiLearn’s plotting library uses Matplotlib, so we can use familiar tricks to do things like adjust the image size and colormap:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">plotting</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
 <span class="n">plotting</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">brain_vol</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/35b1959849da23712ec0044d2e01ce6f5c0de507de5d7092654d9d9b5f8ee183.png" src="../_images/35b1959849da23712ec0044d2e01ce6f5c0de507de5d7092654d9d9b5f8ee183.png" />
+<img alt="../_images/29f668efef703a2ec46b94b55202b60c2b22a85dd850f1238e4058c888eff96a.png" src="../_images/29f668efef703a2ec46b94b55202b60c2b22a85dd850f1238e4058c888eff96a.png" />
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">plot_img()</span></code> function also provides a variety of ways to display the brain, with much less code than we had to use when working with raw NumPy arrays and Matplotlib functions:</p>
@@ -948,7 +944,7 @@ magic           : np.bytes_(b&#39;n+1&#39;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3ae51c667ac13f0a9cd662c57402e18278c15360709d9a177ea1e0fde4e71fc3.png" src="../_images/3ae51c667ac13f0a9cd662c57402e18278c15360709d9a177ea1e0fde4e71fc3.png" />
+<img alt="../_images/cd2c77d3b1eaeed39e2eb61b004eccd46c237d6b6a3d427a6977ce06f16a7c45.png" src="../_images/cd2c77d3b1eaeed39e2eb61b004eccd46c237d6b6a3d427a6977ce06f16a7c45.png" />
 </div>
 </div>
 <p>We can use the <code class="docutils literal notranslate"><span class="pre">cut_coords</span></code> kwarg to specify there to centre the crosshairs and “cuts” through the image that we visualize. In this image, the coordinates are relative to the *isocenter of the MRI scanner — the centre of the magnetic field inside the scanner. The position of a person’s head relative to this isocenter will vary from individual to individual, and scan to scan, due to variations in head size and the optimizations used by the MRI technician and scanner. But we can use the coordinates printed in the above image (which defaulted to the centre of the image volume) and some trial-and-error to get a different view through the brain:</p>
@@ -960,7 +956,7 @@ magic           : np.bytes_(b&#39;n+1&#39;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5c17717313a6f4e60919eff292d8199575204d8046546a7aec0f4591e161d926.png" src="../_images/5c17717313a6f4e60919eff292d8199575204d8046546a7aec0f4591e161d926.png" />
+<img alt="../_images/449f6574348458a4cd7d848513ff25b7814754f61abae2384ef3f8c75a1fb0ae.png" src="../_images/449f6574348458a4cd7d848513ff25b7814754f61abae2384ef3f8c75a1fb0ae.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">plot_img()</span></code> also has a few other ways to see multiple slices at once:</p>
@@ -972,7 +968,7 @@ magic           : np.bytes_(b&#39;n+1&#39;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d0122a73ff8ad834bbe8ede8df82e9c526c1870670d66c911e71d57595fc009f.png" src="../_images/d0122a73ff8ad834bbe8ede8df82e9c526c1870670d66c911e71d57595fc009f.png" />
+<img alt="../_images/895142160a56ed7049a69cf2d8945ab0902b31e9fde7a2d1148a8c383925df93.png" src="../_images/895142160a56ed7049a69cf2d8945ab0902b31e9fde7a2d1148a8c383925df93.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -983,7 +979,7 @@ magic           : np.bytes_(b&#39;n+1&#39;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/08a47114d7a83830779b6fd6e72068a7621d40ba63bf3dddc3492c57e2dcadda.png" src="../_images/08a47114d7a83830779b6fd6e72068a7621d40ba63bf3dddc3492c57e2dcadda.png" />
+<img alt="../_images/d659ce54d201e2199e4cb65e00dc2fe01cfd6cac99a7c626435487111a8d1748.png" src="../_images/d659ce54d201e2199e4cb65e00dc2fe01cfd6cac99a7c626435487111a8d1748.png" />
 </div>
 </div>
 </section>
@@ -992,9 +988,7 @@ magic           : np.bytes_(b&#39;n+1&#39;)
 <p>NiLearn has its own function for applying Gaussian spatial smoothing to images as well. The only real difference from scipy.ndimage’s <code class="docutils literal notranslate"><span class="pre">gaussian_filter()</span></code> function is that instead of specifying the smoothing kernel in standard deviations, we specify it in units of <strong>full width half-maximum (FWHM)</strong>. This is the standard way that most neuroimaging analysis packages specify smoothing kernel size, so it is preferable to SciPy’s approach. As the term implies, FWHM is the width of the smoothing kernel, in millimetres, at the point in the kernel where it is half of its maximum height. Thus a larger FWHM value applies more smoothing.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">image</span>
-
-<span class="n">fwhm</span> <span class="o">=</span> <span class="mi">4</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fwhm</span> <span class="o">=</span> <span class="mi">4</span>
 
 <span class="n">brain_vol_smth</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">smooth_img</span><span class="p">(</span><span class="n">brain_vol</span><span class="p">,</span> <span class="n">fwhm</span><span class="p">)</span>
 <span class="n">plotting</span><span class="o">.</span><span class="n">plot_img</span><span class="p">(</span><span class="n">brain_vol_smth</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">cut_coords</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
@@ -1003,7 +997,7 @@ magic           : np.bytes_(b&#39;n+1&#39;)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5791d48cce398db2c86234bb4d867920a2e33591ac9a32d14bec7d85100e1275.png" src="../_images/5791d48cce398db2c86234bb4d867920a2e33591ac9a32d14bec7d85100e1275.png" />
+<img alt="../_images/e1e1833e7c4922f6a7a0b2344d54af5c1a8697beac1312531789f2a5693bf9b8.png" src="../_images/e1e1833e7c4922f6a7a0b2344d54af5c1a8697beac1312531789f2a5693bf9b8.png" />
 </div>
 </div>
 </section>
