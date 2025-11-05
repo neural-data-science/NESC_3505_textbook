@@ -2,7 +2,7 @@
 
 export PYDEVD_DISABLE_FILE_VALIDATION=1
 
-jupyter-book clean .
+# jupyter-book clean .
 
 jupyter-book build .
 
