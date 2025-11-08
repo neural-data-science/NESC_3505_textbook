@@ -1,9 +1,6 @@
 # Ways to improve this book/course
 
-- need to provide more structure and instruction at the outset
-- ultimately, move away from datacamp.
-- Teach python in a more "direct" way for *this class*. DataCamp teaches too many ways to do something, and too few opportunities to do it. Teach one way of doing the things that need to be done to complete assignments.
-- most specifically, clearly they need more instruction and guidance on thinking about data, drawing conclusions, and showing data in a way that facilitates drawing conclusions.
+
 
 ## Videos
 Students don't just want the textbook, they want video walkthroughs of the textbook
@@ -13,7 +10,7 @@ Apparently Jen & Leanne have created a phenomenon. This was asked for by student
 
 
 ## Visualization
-- definitely need to write a chapter on data visualization. Don't get lost in the weeds of the grammar of graphics before you start, Aaron!!!
+
 - Matplotlib - don't start with 2 ways of doing things (procedural and OO). Introduce OO and then have a "bonus" section explaining the differences, once OO is deeply ingrained.
 - **subplots** - explain in more detail, and move description of this from being buried in *intro_spike_trains*.
     - update all other chapters/sections to use OO approach to Matplotlib
@@ -31,12 +28,5 @@ Apparently Jen & Leanne have created a phenomenon. This was asked for by student
 - a clear style guide (chapter) that talks about how to report data - how to write a Results section
 
 ## Syllabus/Evaluation
-- be explicit that low peer evals will negatively impact project grades. Specifically, team member(s) whose average evaluation from their peers is more than one point (out of 5) lower than the average of the others will have their project grade reduced proportional to their peers' evaluation. E.g., if your team's project received a grade of 80%, but your average score from your peers was 1.3 (out of 5) whereas others' were 4 or greater, your project grade will be reduced as (1.3/5) * 80% = 20.8%.
 
-- fix rubrics
 
-## Demos
-- make individual demos themed - more constraints/less options
-- e.g., first one a review of a YouTube video or blog post
-    - second could be a specific function
-- Create a Guide/tips 'n tricks for demos. E.g., USE A MEANINGFUL TITLE, use headers in written docs, etc.
