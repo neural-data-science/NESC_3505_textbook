@@ -53,13 +53,15 @@ jobs:
         run: |
           pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          # Install jupyter-book (latest 2.x) explicitly; pin if stability needed
+          # Install jupyter-book (latest 2.x) for myst-based site builds
           pip install jupyter-book
+      - name: Show Jupyter Book version
+        run: jupyter-book --version
       - name: (Optional) Clean previous builds
         if: inputs.clean == 'true'
         run: jupyter-book clean .
-      - name: Build book (HTML)
-        run: jupyter-book build .
+      - name: Build book (HTML site with MyST)
+        run: myst build --html
       - name: List build output (debug)
         run: |
           ls -R _build/html | head -50 || echo "No html output found"
