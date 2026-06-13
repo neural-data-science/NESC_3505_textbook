@@ -48,7 +48,7 @@ In VS Code, click on the "cog" icon in the bottom left, and choose "Settings". C
     "git.path": ""
 }
 ```
-Se the path by putting `/usr/bin/git` between the quotation marks, so that it looks like this:
+Set the path by putting `/usr/bin/git` between the quotation marks, so that it looks like this:
 ```json
 {
     "git.path": "/usr/bin/git"
